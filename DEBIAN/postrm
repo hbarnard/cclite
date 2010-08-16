@@ -1,0 +1,41 @@
+#!/usr/bin/perl
+#
+# post remove script for cclite
+#
+
+# summary of how this script can be called:
+#        * <prerm> `remove'
+#        * <old-prerm> `upgrade' <new-version>
+#        * <new-prerm> `failed-upgrade' <old-version>
+#        * <conflictor's-prerm> `remove' `in-favour' <package> <new-version>
+#        * <deconfigured's-prerm> `deconfigure' `in-favour'
+#          <package-being-installed> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+
+$| = 1;
+
+my $web_root     = '/var/www/cclite';
+my $data_root	 = '/var/cclite' ;
+my $cclite_root  = '$web_root/cclite';
+my $package_root = '/usr/share/cclite' ;
+
+my $operation = $ARGV[0];
+
+if ( $operation =~ /remove/ ) {
+   `rm -rf /var/cclite` if (-e $data_root) ; 	# this may not be empty at package remove time
+   `rm -rf /var/www/cclite` if (-e $web_root) ; # this may not be empty at package remove time
+   `rm -rf $package_root` if (-e $package_root) ; # this may contain config files at package remove time
+   # `deluser --remove-all-files cclite` ;
+   `cp /etc/hosts.saved-by-cclite /etc/hosts` ;
+   `/etc/init.d/apache2 restart` ;
+} else {
+    print "post remove called with unknown argument \`$operation\'";
+    exit 1;
+}
+
+exit 0;
+
+

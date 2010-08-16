@@ -1,0 +1,76 @@
+# experimental REST style rewrite for Cclite
+RewriteEngine on
+
+# /pay/ddawg/chelsea/23/luckets
+# deals with manual restful transactions
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=csv  [R]
+
+
+# /pay/ddawg/chelsea/23/luckets
+# changed mode to csv for the moment: 12/8/2009
+# deals with php cookiejar transactions can't be sure of order
+RewriteCond   %{HTTP_COOKIE}	token=(\w+).*userLogin=(\S+)\b   
+RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%2&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%1&mode=csv  [R]
+
+
+# /credit/ddawg/dalston/23/duckets
+# credit part of restful transaction
+#RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+#RewriteRule   credit/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=credit&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2  [R]
+
+# /debit/ddawg/dalston/23/duckets
+# debit part of restful transaction
+#RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+#RewriteRule   debit/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=debit&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2  [R]
+
+# /demurrage/ddawg/dalston/23/duckets
+# demurrage from ddawg to system account, probably don't need this as rest
+#RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+#RewriteRule   demurrage/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=demurrage&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2  [R]
+
+
+# show user transactions with a limit on display
+# /recent/transactions/nnn
+# changed mode to csv for the moment: 12/8/2009 changed also to recent, need limited list only, no buttons etc., new function
+# actually the csv mode is detected in Cclite.pm for the moment
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   recent/transactions/(\d+)	     /cgi-bin/cclite.cgi?action=showtrans&&limit=$1&token=%2&mode=csv  [R]
+
+
+# show user transactions, default limit
+# /recent/transactions
+# changed mode to csv for the moment: 12/8/2009 changed also to recent, need limited list only, no buttons etc., new function
+# actually the csv mode is detected in Cclite.pm for the moment
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   recent/transactions	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=csv  [R]
+
+
+# show logged on user trade summary
+# changed mode to csv for the moment: 12/8/2009
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   summary		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=csv [R]
+
+# /logon/ddawg/dalston
+# note this is pretty insecure should probably be done only under https, the merchant key is supplied as a cookie
+# not on the command line
+RewriteCond   %{HTTP_COOKIE}	merchant_key_hash=(\S+)\b   
+RewriteRule logon/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=logon&subaction=om_users&registry=$2&userLogin=$1&logontype=api  
+
+# direct/adduser/dalston/test1/email@dddd/
+# this is to add an active stub user, for use with drupal.elgg etc, doesn't require login
+# adds Auto_created into description
+RewriteRule direct/adduser/(\S+)/(\S+)/(\S+)\b    /cgi-bin/cclite.cgi?action=adduser&subaction=om_users&registry=$1&nuserLogin=$2&userEmail=$3&logontype=api&userStatus=active&userPin=1234&userDescription=Auto_created [R]
+
+# direct/modifyuser/dalston/test1/email/
+# this is to modify an active stub user, for use with drupal.elgg etc
+RewriteCond   %{HTTP_COOKIE}	merchant_key_hash=(\S+)\b 
+RewriteRule direct/modifyuser/(\S+)/(\S+)/(\S+)\b    /cgi-bin/cclite.cgi?action=modifyuser&subaction=om_users&registry=$1&userLogin=$2&userEmail=$3&logontype=api [R]
+
+# /logoff
+# note this is pretty insecure should probably be done only under https
+#RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule logoff    /cgi-bin/cclite.cgi?action=logoff  [R]
+
+
+															  

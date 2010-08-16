@@ -1,0 +1,310 @@
+/* andreas02 - an open source xhtml/css website layout by Andreas Viklund (http://andreasviklund.com). Made for OSWD.org, free to use as-is for any purpose as long as the proper credits are given for the original design work. For design assistance and support, contact me through my website or through http://oswd.org/email.phtml?user=Andreas
+
+Version: 1.0
+(July 27, 2005)
+
+Screen layout: */
+
+body {
+padding: 0;
+margin: 0;
+font: 76% tahoma, verdana, sans-serif;
+//background: #e0ffe0;
+background: #dddddd;
+color: #303030;
+}
+
+a {
+text-decoration: none;
+color: #286ea0;
+}
+
+a:hover {
+text-decoration: underline;
+}
+
+#toptabs {
+margin: 10px auto -13px auto;
+font-size: 0.8em;
+width: 760px;
+}
+
+#toptabs p {
+text-align: right;
+color: #808080;
+}
+
+.toptab {
+padding: 3px 5px 3px 5px;
+margin: 0 0 0 4px;
+text-decoration: none;
+background: #f0f0f0 url(/images/corner2.gif) top right no-repeat;
+color: #808080;
+border-bottom: 1px solid #e0e0e0;
+}
+
+.toptab:hover {
+background: #fafafa url(/images/corner2.gif) top right no-repeat;
+border-bottom: 1px solid #eaeaea;
+color: #505050;
+text-decoration: none;
+}
+
+.activetoptab {
+padding: 3px 5px 3px 5px;
+margin: 0 0 0 4px;
+color: #505050;
+text-decoration: none;
+background: #ffffff url(/images/corner2.gif) top right no-repeat;
+border-bottom: 1px solid #ffffff;
+}
+
+.activetoptab:hover {
+text-decoration: none;
+}
+
+
+.toptabstrikethrough {
+padding: 3px 5px 3px 5px;
+margin: 0 0 0 4px;
+text-decoration: line-through ;
+background: #f0f0f0 url(/images/corner2.gif) top right no-repeat;
+color: #808080;
+border-bottom: 1px solid #e0e0e0;
+}
+
+
+
+#container {
+margin: 0 auto 15px auto;
+width: 840px;
+padding: 5px 20px 20px 20px;
+background: #ffffff;
+}
+
+#logo {
+margin: 15px 0 0 0;
+}
+
+#logo h1 a {
+color: #303030;
+}
+
+#logo h1 a:hover {
+text-decoration: none;
+}
+
+#navitabs {
+clear: both;
+}
+
+.navitab {
+padding: 4px 8px 4px 8px;
+margin: 0 0 4px 0;
+text-decoration: none;
+letter-spacing: 1px;
+background: #e0e0e0 url(/images/corner.gif) top right no-repeat;
+border-bottom: 1px solid #ffffff;
+border-left: 1px solid #ffffff;
+}
+
+.navitab:hover {
+text-decoration: none;
+background: #d0d0d0 url(/images/corner.gif) top right no-repeat;
+}
+
+.activenavitab {
+padding: 4px 8px 5px 8px;
+color: #ffffff;
+margin: 0 0 5px 0;
+text-decoration: none;
+background: #505050 url(/images/corner.gif) top right no-repeat;
+}
+
+.activenavitab:hover {
+text-decoration: none;
+}
+
+#desc {
+height: 200px;
+color: #ffffff;
+padding: 0;
+background: #505050 url(/images/front.jpg) top left no-repeat;
+clear: both;
+margin: 5px 0 0 0;
+}
+
+#desc p {
+width: 290px;
+font-size: 1em;
+line-height: 1.3em;
+padding: 0 0 0 15px;
+}
+
+#desc h2 {
+padding: 15px 15px 0 15px;
+color: #ffffff;
+}
+
+#desc a {
+color: #ffffff;
+text-decoration: underline;
+}
+
+#main {
+width: 590px;
+float: left;
+padding: 0 15px 0 0;
+border-right: 1px solid #d0d0d0;
+}
+
+.block {
+background: #f0f0f0;
+padding: 15px;
+}
+
+#sidebar {
+width:140px;
+float:right;
+}
+
+#sidebar p {
+//font-size: 0.9em;
+font-size: xx-small;
+line-height: 1.3em;
+margin: 0 0 12px 0;
+}
+
+#sidebar p.small {
+font-size: 0.6em;
+line-height: 1.3em;
+margin: 0 0 12px 0;
+}
+
+
+
+.sidelink {
+text-align: left;
+display: block;
+width: 120px;
+background: #f0f0f0 url(/images/corner.gif) top right no-repeat;
+padding: 3px 4px 3px 8px;
+margin: 5px 10px 5px 0;
+}
+
+.sidelink:hover {
+background: #e0e0e0 url(/images/corner.gif) top right no-repeat;
+text-decoration: none;
+}
+
+#footer {
+clear: both;
+background: #fafafa;
+color: #808080;
+font-size: 0.9em;
+padding: 8px 0 8px 0;
+border-top: 1px solid #d0d0d0;
+border-bottom: 1px solid #d0d0d0;
+text-align: center;
+}
+
+#footer a {
+color: #808080;
+}
+
+h1 {
+margin: 0 0 20px 0;
+font-size: 2.1em;
+font-weight: normal;
+}
+
+h2 {
+margin: 0 0 20px 0;
+font-size: 1.6em;
+font-weight: normal;
+}
+
+h3 {
+margin: 20px 0 10px 0;
+font-size: 1.4em;
+font-weight: normal;
+}
+
+p {
+margin: 0 0 15px 0;
+line-height: 1.5em;
+text-align: left;
+}
+
+.right {
+text-align: right;
+}
+
+a img {
+border: 0;
+}
+
+.photo {
+padding: 5px;
+display: block;
+margin: 0 auto 15px auto;
+background-color: #f0f0f0;
+}
+
+.hide {
+display: none;
+}
+
+ .showtransresulthtml, 
+ .templatelogonhtml, 
+ .templatetradeshtml,
+ .templatesplittradehtml,  
+ .showbalvolresulthtml, 
+ .showyellowdirresulthtml, 
+ .showcurrenciesresulthtml, 
+ .showmyyellowresulthtml, 
+ .templateservicechghtml,
+ .templateyellowpageshtml,
+ .templatecurrencyhtml,
+ .templatecategoryhtml,
+ .showpartnersresulthtml 
+{
+padding: 4px 8px 4px 8px;
+margin: 0 0 4px 0;
+text-decoration: none;
+letter-spacing: 1px;
+background: #e0e0e0 url(/images/corner.gif) top right no-repeat;
+border-bottom: 1px solid #ffffff;
+border-left: 1px solid #ffffff;
+}
+
+/* experimental rules for highlights */
+ #showtransresulthtml .showtransresulthtml,
+ #templatelogonhtml .templatelogonhtml,
+ #templatecategoryhtml .templatecategoryhtml,
+ #showbalvolresulthtml .showbalvolresulthtml,
+ #showyellowdirresulthtml .showyellowdirresulthtml,
+ #templatetradeshtml .templatetradeshtml,
+ #templatesplittradehtml .templatesplittradehtml,  
+ #showmyyellowresulthtml .showmyyellowresulthtml,
+ #templateyellowpageshtml .templateyellowpageshtml,
+ #templatecurrencyhtml .templatecurrencyhtml,
+ #templateservicechghtml .templateservicechghtml,
+ #showcurrenciesresulthtml .showcurrenciesresulthtml,
+ #showpartnersresulthtml .showpartnersresulthtml
+{
+padding: 4px 8px 5px 8px;
+color: #ffffff;
+margin: 0 0 5px 0;
+text-decoration: none;
+background: #505050 url(/images/corner.gif) top right no-repeat;
+}
+
+
+/* errors turn up in red */
+
+.errors {
+color: #ff0000;
+}
+
+

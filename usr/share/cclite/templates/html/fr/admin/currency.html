@@ -1,0 +1,47 @@
+      <form class="pme-form" action="om_currencies.php" method="post"
+ onsubmit="return phpMyEdit_form_control(this);"><input name="sfn[0]"
+ value="0" type="hidden"><input name="sfn[1]" value="1" type="hidden"><input
+ name="qfn" value="" type="hidden"> <input name="rec" value="0"
+ type="hidden"><input name="fm" value="0" type="hidden"><input name="fl"
+ value="0" type="hidden">
+        <table class="pme-main" summary="om_currencies">
+          <tbody>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Name</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="name" size="30" maxlength="30" value="" type="text"></td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Description</td>
+              <td class="pme-value-0"> <input class="pme-input-0"
+ name="description" size="30" maxlength="30" value="" type="text"></td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Status</td>
+              <td class="pme-value-1">
+              <select class="pme-input-1" name="status">
+              <option value="active" selected="selected">active</option>
+              <option value="suspended">suspended</option>
+              <option value="predelete">predelete</option>
+              </select>
+              </td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Mail</td>
+              <td class="pme-value-0"> <input class="pme-input-0"
+ name="mail" size="30" maxlength="30" value="" type="text"></td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Save" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
+ onclick="form.submit();" type="button"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

@@ -1,0 +1,45 @@
+NameVirtualHost cclite.private.server
+<VirtualHost *:80>
+	ServerAdmin webmaster@localhost
+	ServerName cclite.private.server
+	DocumentRoot /var/www/cclite/public_html
+
+       <Directory />
+         Order allow,deny
+         Allow from all
+       </Directory> 
+
+      Alias /javascript /var/www/cclite/public_html/javascript
+       <Directory /var/www/cclite/public_html/javascript>
+         Order allow,deny
+         Allow from all
+       </Directory> 
+
+      Alias /styles /var/www/cclite/public_html/styles
+         <Directory /var/www/cclite/public_html/styles>
+         Order allow,deny
+         Allow from all
+        </Directory> 
+
+	ScriptAlias /cgi-bin/ /usr/share/cclite/cgi-bin/
+	<Directory "/usr/share/lib/cgi-bin">
+		AllowOverride None
+		Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
+		Order allow,deny
+		Allow from all
+	</Directory>
+
+	ErrorLog /var/cclite/log/apache2-error.log
+        CustomLog /var/cclite/log/apache2-access.log combined
+	LogLevel warn
+	ServerSignature Off
+
+    Alias /doc /usr/share/cclite/doc
+    <Directory /usr/share/cclite/doc>
+        Options Indexes MultiViews FollowSymLinks
+        AllowOverride None
+        Order deny,allow
+        Deny from all
+    </Directory>
+
+</VirtualHost>

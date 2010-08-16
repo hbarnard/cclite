@@ -1,0 +1,73 @@
+New Features:
+1. openid + openid management
+2. encrypted email payment and balance
+3. encrypted jabber payment [difficulty with getting automatic encrypted session]
+4. new user page
+5. tidy up of various templates
+6. more features in SMS interface including SMS receipt
+============================================================================================
+1. openid login added, via ccopenid.cgi controller
+2. add/modify/delete openid record in new openid table
+3. partial untested code for smartphone widgets added
+4. public key id field added to user record
+5. sms receipt on/off added to user record
+6. show balance and volume reworked and simplified
+7. user display record reworked can be seen by any logged on user
+8. array retrieval for database rows removed or minimised throughout
+9. ccsuggest.cgi tidied now uses multlingual messages
+10. new user email and new user mobile tested by ccsuggest
+11. readjabber.cf configuration file added for jabber
+12. readmailgpg.cf configuration file added for gpg encrypted email
+13. readsms.cf added and modified for Cardboardfish gateway
+14. SMS gateway modules tidied up into subdirectory
+15. Ccsms::Carboardfish.pm now provides SMS receipts etc. most complete SMS module
+16. Old style Perl4 & calls eliminated where found
+17. Signature of get_where changed to retrieve all fields or only selected fields
+18. use Cwd added to Ccconfiguration, should-be more cross platform, we'll see
+19. Cccrypto.pm added takes care of gpg, Mime encoding and Jabber payment [first version]
+20. yellow pages sql moved into Cclitedb.pm
+21. table id handling made into function in Cclitedb.pm
+22. userSmsreceipt update routine aded for user
+23. Comments turned into FIXME: where appropriate, can now grep for areas of improvement
+24. get_suggest_sql added to Cclitedb.pm part of Sql migration from other modules
+25. get_user_display_data added to Cclitedb.pm part of Sql migration from other modules
+26. get_where now controls a fields list, no editing arrays at point of retrieval
+27. get_where_multiple now controls a fields list, no editing arrays at point of retrieval
+28. get_where now returns a hash not an array, numerous modifications cascaded on this change
+29. _sqlinsert kludged to deal with om_openid
+30. sql_give_volumes added, part of sql migration into Cclitedb.pm
+31. add_openid added to Cclite.pm
+32. get_news corrected, was throwing errors into log
+33. find_records simplified in Cclite.pm, no arrays, no array editing
+34. Sql removed from show_user and new version coded [note some html still in there, ugh]
+35. find_item and other dead code removed from Cclite.pm
+36. split_transaction tidied was throwing error on invalid registry, for example
+37. get_many_items tidier and uses arrays, but could be better...
+38. windows_notifybymail removed, everything should use Net::POP and Net::SMTP now
+39. show_balance_and_volume refactored/reworked sql moved, old one retained for moment
+40. mail_get_balance added to Ccmailgateway.pm
+41. Cccopenid.pm add, contains all of openid processing
+42. Ccrss.pm tidied and now uses hash not array items to make rss
+43. use digest modules changed to 'require' in Ccsecure.pm may help users of SHA1, still problem though
+44. multiple spaces allowed in allowed ip lists, this was too strict
+45. no grumbling if Windows, insecure by design
+46. *Ccsmsgateway.pm still in distribution but will be removed next time
+47. modern style $hash_ref->{'key'} syntax beginning to be used throughout, no more $$hash_ref{key}, error prone
+48. Ccu.pm uses Cwd [in core] and path search for literals simplified
+49. edit_column_display and functiondoc removed from Ccu.pm
+50. make_html_row_contents added to Ccu.pm, everything html should gradually go into Ccu.pm
+51. User street validation relaxed in Cccvalidate.pm
+52. q-tip library added in javascript for balloon help but not turned on
+53. autosuggest/validate added for userEmail and userMobile in cclite.js
+54. code added in cclite.js to siwtch on/off userSmsreceipt checkbox
+55. styles add cc.ss for checkinstall.cgi
+56: FIXME: added throughout to make it possible to grep improvements and weaknesses
+57. registry javascript validation now works, registries also validated against existing registries
+58. New version of File::Path used for batch directory creation, should be more OS neutral...
+
+
+
+ 
+
+
+

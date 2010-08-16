@@ -1,0 +1,164 @@
+Issues:
+
+02/05/2005
+06/08/2005
+26/05/2006
+27/06/2007
+12/12/2009
+
+
+1.  Duplicated getdateandtime() in Cclitedb, scope problem
+2.  Need rational set of return codes
+3.  Needs to die if more than one candidate deletion record returned on 'remote' side
+4.  Put empty separate module for hooks: done Cchooks.pm but needs fleshing out
+5.  
+6.  Give feed back for account modification
+7.  
+8.  Web services, architecture level problem
+9.  
+10. 
+11. 
+12. 
+13. Need process for awaiting cross system transactions (same as email, probably
+15. Registry is open or closed (can't automatically partner closed)
+    Registry is type: transaction_charge, equal_time etc. like trades with like
+16. Currency is open or closed (closed won't appear on pick lists)
+17. Need to add checks for easy passwords/pins in validate_xxx
+18. Check that partner registry exists and is not duplicated
+19. 
+20. Now authenticated change logic in soap calls : Done: user 'transport' password 'test'
+21. Now authenticated, create interregistry user to transport calls (transport,test at present)
+22. 
+23. 
+24. 
+25. collect_items needs to be general and only collect 'active' items. hacked in for SIC
+26. 
+27. 
+28. 
+29. Go through new database and current forms and check for mismatch, new fields
+30. majorclass and type changed to varchar in yellow pages, dbi::mysql bug make enum retrieval hard
+    remove parastic call in yellow pages directory!
+31.
+32. In the registry record, geographic coverage description is problematic
+    currently, there's space for a list of postcodes: explained in manual
+33. Category add somewhat broken at present, revisit hierarchy db code
+34. 
+35. Changing email when modifying user details, check for uniqueness inadequate in Ccvalidate.pm
+36. 
+37. Ccrss.pm creating the rss contains kludged file name derived from Unix 'pwd' command, won't work on windows and insecure
+38. 
+39. SMS payment failure is not correctly dealt with. How to deal without sending more SMS messages?
+40. User name should be a single string, no spaces, validate and reject other cases
+41. Server error when creating user and registry mistyped..should give error message
+42. Display template shouldn't call exit if using mod_perl: take it out?
+43. 
+44. 
+45.
+46. Need to add token value to transaction hash, means it's blessed by the server
+====================================================
+7/2007
+1. when not multiregistry can still create registry partner
+2. need to do semantic checks (server hello) on partner creation
+3. need to do more try/catch for remote transaction (typo in proxy, uri not caught cleanly)
+4. remote transaction accept is two stage/local transaction one stage
+5. sysaccount and manager shouldn't be shown as users during search
+6. need to do a parasitic logoff before new account creation (just in case)
+7. activation if another user is logged on (this is a perverse case though)
+8. home registry should be first in pick list for multiregistry (ergnomy)
+9. create currency should flip back to currency list
+10. add category creation still needs improvement
+11. need better message for no ads in directory
+12. update and delete messages need general improvement
+13. flip to admin menu needs to be one-shot not two shot
+14. empty table rows in directory display when small directory
+15. directory page ad should flip back to directory
+16. modify user needs better feedback
+17. need an intertrading summary somewhere: whole system balances????
+18. no creation date for registry partners
+19. need a 'promote' to manager transaction for users
+20. need only show fields in transaction listing where they are 'foreign'
+21. modify advert is done with 'update' this needs upgrading
+22. 
+23. maxreport for balances and volumes should be configurable in cclite.cf, hard coded to 6
+24. date problems in yellow pages
+25. manager and sysaccount should have current date as creation date
+26. confirm trade needs to use hash not trade stamp
+27. confirm split needs to be automagical, not two step
+28. add a little table to identify transaction colour coding: orange=split, silver=declined etc.
+29. rationalise the filtered fields in modify_trade, some are need for 'where' operations,
+do in a different way?
+30. cclite.cgi should detect no setup for simplicity
+31. 
+32. need better diagnosis + eval for soap failures when multiregistry switched off and
+soap attempts made...
+
+
+12/2009
+
+1.Add contact us transaction 
+3.For partial logoff, cookies preserved, don't 500 and clear cclite cookies before logon/highlander problem
+5.Remember to test sha1 databases...cpanel and elsewhere...
+8.Send balance back gives all currencies in SMS (maybe not...)
+10.Make sure dates in tables get update upon update...userPinchanged etc.
+12.Add smsemulation tests...turn off read permission in tarball
+16.Document the change registry and currency at the top of Ccsmsgateway.pm
+20.Make sure 0.7.0 is everywhere...put in guess configuration?
+24.New way of doing lib path put in release notes
+26.Make sure batch scripts are tokened and authorised, otherwise they exit, now they are on the web...
+27.remove extra var directory (cpanel style) from repository and from trunk...make sure gone
+28.check cclite.cf not included into packages...
+31.New way of doing configuration put in release notes
+34.Tidy up/upgrade notify_by_mail, from configuration instead of messy parameters
+35.SHA1 or SHA2 by registry? By install rather than automagic...
+38.Loan accounts storage of value, capital formation (not done)
+39.Nonce REST transaction (not done)
+42.Check whether package 0 ccinstall.cgi guess for home is correct?
+43.New user role of issuer, new registry type Community
+44.New Manual with Use Case chapter
+45.Check Use Case chapter with  ML TG
+48.Finish rough elgg and drupal modules (not done)
+49.Add yellow pages + match stream as passthrough (not done)
+50.OS commerce update (not done)
+51.Correct SHA1 SHA2 thing, force via configuration probably...
+52.Solve problem of cookie name, servername etc. etc. use configuration file, test in checkinstall (server_name against server_path)
+53.Possibly change/extend get_server_details (done another way)
+55.How to easily reload yellow page categories
+60.Add longitude and latitude to registry (not done)
+64.Change style for cancel button when cancelling a transaction as manager
+65.put .htaccess into graph directory storage?  + out or just document?
+67.Check cookies when running batch script, can logoff in a tab and the scripts are still running
+68.install still falsely reports configuration update when cclite.cf not writeable!!!!!cpanel test
+69.Warn about smtp assumptions in notify by mail
+72.cpanel manual registry create leaves batch subdirectories not created
+73.check on validation for cpanel style registries ccliekh_xxxxxxx etc.
+75.make comments in manual etc. about mkdir for windows
+77.Make sure that rdf link now points in the valid direction (sort of, for all yellow pages)
+80.tooltips on install items
+
+2.Make user/yellow page display clearer/nicer this is showuser transaction
+4.When releasing have a look at Debian control file etc. update version number, for example...
+6.Test new method for redirecting logon
+8.test for create rule
+9.test for create category, blank category works, apparently
+15.Make update_config2 display values for cut and paste too...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+

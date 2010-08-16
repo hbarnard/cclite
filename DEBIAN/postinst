@@ -1,0 +1,89 @@
+#!/usr/bin/perl
+# postinst script for cclite
+#
+
+# copies the hosts file and then attempts to write an entry
+# for 127.0.0.1 cclite.private.serve
+#      127.0.0.1 <short_name> cclite.private.server
+# now checks so that it wont be done multiple times
+
+sub write_server_entry {
+
+    open( HOSTS,   "/etc/hosts" );
+    open( HOSTNEW, ">/etc/hosts.cclite" );
+    my $short_name;
+    my $changed = 0;
+    while (<HOSTS>) {
+        if ( /^127\.0\.0\.1\s+(\S.*)/xm && $_ !~ /cclite\.private\.server/ ) {
+            s/(.*)/$1 cclite.private.server/xm;
+            print HOSTNEW "# modified by cclite install from $1\n";
+            print HOSTNEW $_;
+            $changed = 1;
+        }
+        else {
+            print HOSTNEW $_;
+        }
+
+    }
+
+    close HOSTS;
+    close HOSTNEW;
+
+    if ($changed) {
+        `mv /etc/hosts /etc/hosts.saved-by-cclite`;
+        `mv /etc/hosts.cclite /etc/hosts`;
+
+    }
+    return $changed;
+
+}
+
+use strict;
+
+# see: dh_installdeb(1)
+# unbuffer output as policy manual
+my $operation = $ARGV[0];
+$| = 1;
+my $web_root    = '/var/www';
+my $cclite_root = "$web_root/cclite";
+
+if ( $operation =~ /configure/ ) {
+
+    # copy current hosts file and
+    # write cclite.private.server into the hosts file...
+
+    write_server_entry();
+
+    # make configuration file writable by apache
+    `chown -R www-data /usr/share/cclite/config/`;
+    `chmod -R u+w /usr/share/cclite/config/`;
+
+    # make var/cclite owned by apache, gammu must be in this group therefore
+    `chown -R www-data /var/cclite/`;
+    `chmod -R u+w /var/cclite/`;
+
+    # make the output web root directory writable by apache + group
+    `chown -R www-data /var/www/cclite/`;
+    `chmod -R u+w /var/www/cclite/`;
+    
+    # log file permissions for log4perl
+    `chown   www-data /var/cclite/log/cclite.log` ;
+    `chmod -R  u+w /var/cclite/log/` ;
+    
+    # enable mod_rewrite and cclite server the apache2 way...then
+    # bounce apache to pick up 000-default config file
+    `a2enmod rewrite`;
+    `a2ensite cclite.private.server`;
+
+    # `/etc/init.d/apache2 reload` ;
+    `/etc/init.d/apache2 restart`;
+
+    #FIXME: Doesn't deal with upgrades and reconfigs at present
+}
+else {
+    print "postinst called with unknown argument \`$operation\'";
+    exit 1;
+}
+
+exit 0;
+

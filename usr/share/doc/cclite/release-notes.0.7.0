@@ -1,0 +1,27 @@
+Release notes for Cclite 0.7.0
+
+
+Major changes:
+
+1. Jquery and jquery based javascript replaces previous javascript, give a better 'future' too
+2. Web control panel + integration for most of the batch scripts, this makes things easier for commodity hosting
+3. Manual updated in detail, return to A4 format
+4. Simpler install, often, only the Mysql database user and password needs changing
+5. Testing done with Selenium on Ubunutu, Fedora virtual host and Cpanel (krystal.co.uk)
+6. SMS gateway tidied up and tested
+7. Explanatory tooltips in many places
+8. Database install should both work from application and manually (via phpadmin)
+9. About 60 bugfixes (but there shouldn't be 60 bugs, should there...)
+10. Batch directories and mail, per registry not per install (gradually getting towards 'better' multiregistry)
+11. CARP added in many places to give more web-based explanation on error
+12. cpanel specific build added to give a specific tarball.
+13. Current template changed to improve readibility at top
+14. Ccconfiguration used for configuration, instead of duplicated configuration function
+15. lib path hardcoded as relative in all top level scripts
+16. Use Net::SMTP and Net::POP3 instead of Mail::Sendmail so that there's client/server for mail transactions etc.
+
+
+
+
+
+

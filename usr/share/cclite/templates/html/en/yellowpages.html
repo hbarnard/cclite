@@ -1,0 +1,100 @@
+
+<table>
+<tbody class="stripy">
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+<input name="action" value="addyellow" type="hidden">
+
+
+<tr>
+<td class="pme-key-0">From User</td>
+<td class="pme-value-0">
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text"></td>
+</tr>
+<tr>
+<td class="pme-key-1">Type</td>
+<td class="pme-value-1">
+              <select class="required" name="type">
+              <option value="offered" selected="selected">Offer</option>
+              <option value="wanted">Wanted</option>
+              <option value="other">Other</option>
+              </select>
+</td>
+</tr>
+<tr>
+<td class="pme-key-1">Major Class</td>
+<td class="pme-value-1">
+              <select class="required" name="majorclass">
+              <option value="service" selected="selected">Service</option>
+              <option value="goods">Goods</option>
+              <option value="other">Other</option>
+              </select>
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Classification</td>
+<td class="pme-value-1">
+$$fieldsref{selectclassification}</td>
+</tr>
+<tr>
+<td class="pme-key-0">Subject</td>
+<td class="pme-value-0">
+<input class="required" name="subject" size="30" maxlength="30" value="" type="text"></td>
+</tr>
+<tr>
+<td class="pme-key-1">Description</td>
+<td class="pme-value-1">
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}</textarea>
+</td>
+</tr>
+<tr>
+<td class="pme-key-0">Price</td>
+<td class="pme-value-0">
+<input class="required" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+</tr>
+<tr class="pme-row-1">
+<td class="pme-key-1">Currency</td>
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Per unit (services only)</td>
+<td class="pme-value-1">
+              <select class="pme-input-1" name="unit">
+              <option value="" ></option>
+              <option value="hour" >per hour</option>
+              <option value="day" >per day</option>
+              <option value="week" >per week</option>
+              <option value="month" >per month</option>
+              </select>
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Complete payment in LETS currency?</td>
+<td class="pme-value-1">
+              <select class="pme-input-1" name="truelets">
+              <option value="yes" >Yes</option>
+              <option value="no">No</option>
+              </select>
+</td>
+</tr>
+
+<table class="pme-navigation">
+<tr class="pme-navigation">
+<td class="pme-buttons">
+<input class="pme-save"
+ name="saveadd" value="Make Page" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+</tr>
+</form>
+ </table>
+</tbody>
+</table>
+

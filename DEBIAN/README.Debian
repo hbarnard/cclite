@@ -1,0 +1,9 @@
+cclite for Debian
+-----------------
+
+This is the debian package corresponding to version 0.8.0 of cclite.
+It has been reskinned and various bugs removed, so it's now
+at version 0.8.0. A lot of upgrading, please read the manual and ask
+questions: http://groups.google.com/group/cclite/
+
+ -- Hugh Barnard <hugh.barnard@gmail.com>  Fri, 25 Jul 2010 14:50:36 +0000

@@ -1,0 +1,4 @@
+# not used in this version
+# see variables in readmail.pl
+#
+mailpath=/var/spool/mail

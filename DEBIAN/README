@@ -1,0 +1,21 @@
+The Debian Package cclite
+----------------------------
+
+Comments regarding the Package
+
+ -- Hugh Barnard <hugh.barnard@gmail.com>  Sun, 25 Jul 2010 14:50:36 +0000
+
+This is the fourth version of the cclite package for Debian/Ubuntu based Linux systems
+
+It also includes some tidying up and reskinning for the interface and some minor bug
+fixes.
+
+It changes the way mail is sent from Sendmail to Mail::SendMail which is socket based
+This will suit the new desktop style system.
+
+The domain is defaulted to cclite.private.server in the hosts file.
+
+When the package is installed on an Ubuntu desktop there should be an explanatory page
+at http://cclite.private.server/cclite/
+
+

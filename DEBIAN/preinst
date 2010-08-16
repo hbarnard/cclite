@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+#
+# preinst script for cclite experimental debian package
+
+
+use strict;
+
+# see: dh_installdeb(1)
+# unbuffer output as policy manual
+
+$| = 1;
+my $web_root     = '/var/www';
+my $cclite_root  = '$web_root/cclite';
+
+
+my $operation = $ARGV[0];
+
+# summary of how this script can be called:
+#        * <new-preinst> `install'
+#        * <new-preinst> `install' <old-version>
+#        * <new-preinst> `upgrade' <old-version>
+#        * <old-preinst> `abort-upgrade' <new-version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+if ( $operation =~ /install|upgrade/ ) {
+
+    # make the directories
+    `mkdir -p $web_root`    if ( !( -e $web_root ) );
+}
+else {
+    print "preinst called with unknown argument \`$operation\'";
+    exit 1;
+}
+
+exit 0;
+

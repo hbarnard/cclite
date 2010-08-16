@@ -1,0 +1,63 @@
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+        <span class="errors">$$fieldsref{errors}</span>
+        <input name="subaction" value="om_partners" type="hidden">
+        <input name="action" value="addpartner" type="hidden">
+        <table class="pme-main" summary="om_partners">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Registry Name</td>
+              <td class="pme-value-1">
+              <input class="required" name="dname" size="50"  value="$$fieldsref{dname}" type="text">
+            </td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Uri&nbsp; (for proxy registries)<br>
+              </td>
+              <td class="pme-value-1">
+              <input class="pme-input-1" name="uri" size="50"  value="$$fieldsref{uri}" type="text"></td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Proxy (for proxy registries)<br>
+              </td>
+              <td class="pme-value-0">
+              <input class="pme-input-0" name="proxy" size="50" value="$$fieldsref{proxy}" type="text"></td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Admin Email</td>
+              <td class="pme-value-1">
+              <input class="required email" name="email" size="50" value="$$fieldsref{email}" type="text"></td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Type</td>
+              <td class="pme-value-0">
+              <select class="required" name="type">
+               <option value="" selected="selected"></option>
+               <option value="local">local</option>
+               <option value="proxy">proxy</option>
+              </select>
+              </td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Status</td>
+              <td class="pme-value-1">
+              <select class="required" name="status">
+              <option value="active" selected="selected">active</option>
+              <option value="suspend">suspend</option>
+              <option value="down">down</option>
+              </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Go" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
+ type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

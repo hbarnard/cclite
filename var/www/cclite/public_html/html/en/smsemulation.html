@@ -1,0 +1,28 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta content="text/html; charset=ISO-8859-1" http-equiv="content-type">
+<title>totnes sms emulator interface</title>
+<style>
+body {font-family: sans-serif; font-size:12px}
+</style>
+</head>
+<body>
+<br/><br/>
+<h3>Emulator for Testing SMS Interface</h3>
+
+<b>Please ensure that readsms.cf is set up correctly for the interface that you are using Cardboardfish, Aql or Gammu</b><br/><br>
+
+<table >
+<form method="post" action="http://cclite.private.trunk/cgi-bin/protected/ccsmsgate.cgi" name="sms emulation">
+<tr><td> Message</td><td><input size="80" name="message"></td></tr>
+<tr><td>Sender Mobile Number (in format: 446666777777)</td><td><input name="originator"></td></tr>
+<tr><td>Id</td><td><input name="id"></td></tr>
+<tr><td>Status</td/><td><input name="status"></td></tr>
+<tr><td><input name="Go" value="go" type="submit"><td></td></td></tr>
+</form>
+</table>
+<br/>
+<a href="/log/cclite.log">Look at log file</a>
+</body>
+</html>
