@@ -1,7 +1,7 @@
 
 =head1 NAME
 
-Ccsmsgateway.pm
+Cardboardfish.pm
 
 =head1 SYNOPSIS
 
@@ -66,7 +66,7 @@ Cchooks.pm
  
 =cut
 
-package Ccsmsgateway;
+package Ccsms::Cardboardfish ;
 
 use strict;
 
@@ -108,7 +108,7 @@ our %messages = readmessages("en");
 #============== change the configuration to your registry and currency for sms
 
 my %sms_configuration =
-  readconfiguration('/home/hbarnard/trunk/usr/share/cclite/config/readsms.cf');
+  readconfiguration('../../config/readsms.cf');
 
 # this is a little unnecessary, but can stay for a while
 our $registry     = $sms_configuration{'registry'};
@@ -163,7 +163,7 @@ sub gateway_sms_transaction {
     ### $x = join( "|", %$fieldsref );
 
     my ( $error, $fromuserref ) =
-      get_where( 'local', $registry, 'om_users', 'userMobile',
+      get_where( 'local', $registry, 'om_users','*', 'userMobile',
         $$fieldsref{'originator'},
         $token, $offset, $limit );
 
@@ -271,7 +271,7 @@ sub _gateway_sms_pin_change {
 
     my $message = $messages{'smspinchanged'};
     my ( $error, $fromuserref ) =
-      get_where( 'local', $registry, 'om_users', 'userMobile',
+      get_where( 'local', $registry, 'om_users','*', 'userMobile',
         $$fieldsref{'originator'},
         $token, $offset, $limit );
 
@@ -302,7 +302,7 @@ sub _gateway_sms_pay {
     %fields = %$fieldsref;
 
     my ( $error, $fromuserref ) =
-      get_where( $class, $registry, 'om_users', 'userMobile',
+      get_where( $class, $registry, 'om_users','*', 'userMobile',
         $fields{'originator'}, $token, $offset, $limit );
 
     # begin parse on whitespace
@@ -332,14 +332,14 @@ sub _gateway_sms_pay {
     # contains only figures so it's a mobile number
     if ( $$transaction_description_ref{'touserormobile'} =~ /^\d+\z/ ) {
         ( $error1, $touserref ) =
-          get_where( $class, $registry, 'om_users', 'userMobile',
+          get_where( $class, $registry, 'om_users','*', 'userMobile',
             $$transaction_description_ref{'touserormobile'},
             $token, $offset, $limit );
     } else {
 
         # else it's a userLogin ...
         ( $error1, $touserref ) =
-          get_where( $class, $registry, 'om_users', 'userLogin',
+          get_where( $class, $registry, 'om_users','*', 'userLogin',
             $$transaction_description_ref{'touserormobile'},
             $token, $offset, $limit );
     }
@@ -468,7 +468,7 @@ sub _gateway_sms_send_balance {
     my ( $offset, $limit, $balance_ref, $volume_ref );
 
     my ( $error, $fromuserref ) =
-      get_where( 'local', $registry, 'om_users', 'userMobile',
+      get_where( 'local', $registry, 'om_users','*', 'userMobile',
         $$fieldsref{'originator'},
         $token, $offset, $limit );
 
@@ -490,6 +490,15 @@ sub _gateway_sms_send_balance {
     my ($mail_error) =
       _send_sms_mail_message( 'local', $registry, $balance_message,
         $fromuserref );
+
+
+    # send SMS balance, only if turned on for the user...new 16.08.2010
+    if ( $fromuserref->{'userSmsreceipt'} ) {
+        _send_cardboardfish_sms_receipt( $class, $registry, $balance_message,
+            $fromuserref, $touserref, $transaction_ref );
+    }
+
+
 
     return;
 }
@@ -623,7 +632,7 @@ sub _check_pin {
     my $hashed_pin = text_to_hash($pin);
 
     my ( $error, $fromuserref ) =
-      get_where( 'local', $registry, 'om_users', 'userMobile',
+      get_where( 'local', $registry, 'om_users','*', 'userMobile',
         $$fieldsref{'originator'},
         $token, $offset, $limit );
 
@@ -788,7 +797,7 @@ $transaction_ref->{'tradeAmount'} $transaction_ref->{'tradeCurrency'} has been c
 EOT
 
     my $urlstring = <<EOT;
-http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$$touserref{'userMobile'}&SA=$$fromuserref{'userMobile'}&M=$message&ST=1&DC=0
+http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$$touserref{'userMobile'}&SA=$$fromuserref{'userMobile'}&M=$message&ST=1&DC=0&DR=0
 
 EOT
 
