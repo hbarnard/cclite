@@ -1,0 +1,27 @@
+This is the Debian format version of Cclite 0.8.0 as a working repository
+
+The tarballs and debian packages are on Sourceforge at: http://sourceforge.net/projects/cclite/
+
+Cclite is a Perl package for local exchange trading systems (LETS), banking and other alternative money systems. Multi-registry, multi-currency, web services based (SOAP) and REST transactions and templated to give multi-lingual capabilities:
+
+    * Lightweight perl implementation of cc registry
+    * Can do networked multi-registries
+    * Registries can be multi-currency
+    * Can use a set of web services based (SOAP) transactions
+    * Some REST features available using .htaccess
+    * Capable of interworking with non Cclite software (via web services and REST)
+    * Roughly follows Richard Kay's specification
+    * Registry is MySQL (schema based on Mose's work with tiki-wiki)
+    * Multilingual ready via HTML templating Simple::Template
+    * Support for payment via SMS, Encrypted email and Jabber
+    * Simple services directory
+    * Experimental rss feeds for trade items, offered, wanted, matched search
+    * Works on Ubuntu Heron, Fedora (at least)
+    * Apt-get install for Ubuntu, may work on commodity hosting
+    * Web based configuration and checker
+
+    * There's a bug tracker within the sourceforge project
+
+    * If you want help with cclite join the google group:
+      http://groups.google.co.uk/group/cclite?hl=en
+
