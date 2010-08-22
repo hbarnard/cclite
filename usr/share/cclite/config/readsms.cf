@@ -1,0 +1,28 @@
+# extra configuration for readsms_from_gammu
+# sleep for 2 minutes between passes
+smssleep=120
+# use local interface, don't use soap
+smslocal=1
+# configuration for Carboardfish interface
+registry=yourregistry
+currency=yourcurrency
+sms_user=youruser
+sms_password=yourpassword
+# type can be car, aql, gam, doesn't work at present
+type=car
+#---------------------------------------------------
+# Carboardfish protocol specific
+sms_SA=cclite
+# 0 for a flashed message, 1 for normal
+sms_DC=1
+# delivery receipt, should be 0
+sms_DR=0
+#--------------------------------------------------
+#sponsor message
+sms_sponsor_message=--sponsored by XXXXXX
+
+
+
+
+
+

@@ -2715,10 +2715,12 @@ Some html remains for the moment...
 
 sub show_balance_and_volume {
 
+
     my ( $class, $db, $user, $mode, $token ) = @_;
 
-    my $months_back =
-      4;    #FIXME how many previous months to display, configurable later
+    #FIXME how many previous months to display, configurable later
+    my $months_back = 4;
+    
     my %month_hash;    # contains lines by month only the last x are printed
     my ( $month_titles, $row_style );
     my $month_counter = 0;
@@ -2733,11 +2735,17 @@ sub show_balance_and_volume {
     foreach my $key ( keys %$balance_hash_ref ) {
         $total_balance{ $balance_hash_ref->{$key}->{'currency'} } +=
           $balance_hash_ref->{$key}->{'sum'};
+
+        ###$log->debug("currency: $key = $balance_hash_ref->{$key}->{'currency'} ") ;
+        ###$log->debug("sum: $key = $balance_hash_ref->{$key}->{'sum'} ") ;
+        ###$log->debug("total: $balance_hash_ref->{$key}->{'currency'}  = $total_balance{ $balance_hash_ref->{$key}->{'currency'} } ") ;
+
         if ( ( $mode eq 'html' || !length($mode) )
             && $month_counter <= $months_back )
         {
         }
     }
+
 
     foreach my $key ( sort { $b cmp $a } keys %$volume_hash_ref ) {
         if ( ( $mode eq 'html' || !length($mode) )
@@ -2784,9 +2792,28 @@ EOT
         return ( 0, '', $registry_error, "$volume_table $html_totals<hr/>",
             $template, '' );
     } elsif ( $mode eq 'values' ) {
-        return ( $balance_hash_ref, $volume_hash_ref );
+
+        return ( \%total_balance, \%total_count );
     }
 
+}
+
+
+sub _debug_hash_contents {
+
+    my ($fields_ref) = @_;
+    my $x;
+
+    foreach my $hash_key ( keys %$fields_ref ) {
+        $x .= "$hash_key: $fields_ref->{$hash_key}\n";
+
+    }
+    my ( $package, $filename, $line ) = caller;
+    $log->debug("pack:$package file:$filename line:$line");
+
+    $log->debug("fields: $x");
+
+    return;
 }
 
 1;

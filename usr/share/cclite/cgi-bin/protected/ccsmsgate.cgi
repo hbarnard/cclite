@@ -51,7 +51,9 @@ Hugh Barnard
 
 =cut
 
-use lib '../lib';
+
+
+use lib '../../lib';
 use strict;
 use locale;
 use HTML::SimpleTemplate;    # templating for HTML
@@ -65,17 +67,20 @@ use Ccsecure;                # security and hashing
 use Cclitedb;                # this probably should be delegated
 use Ccconfiguration;         # new way of doing configuration
 
-# condition use depending on $type, $type is set witin begin
-use if $sms_configuration{'type'} eq 'aql', Ccsms::Aql;
-use if $sms_configuration{'type'} eq 'car', Ccsms::Carboardfish;
-use if $sms_configuration{'type'} eq 'gam', Ccsms::Gammu;
+# please de-comment to suit interface, only Cardboardfish has been heavily
+# tested recently as of August 2010
 
-our $sms_configuration;
+use Ccsms::Cardboardfish ;
+my $type = 'car' ;
 
-BEGIN {
-    %sms_configuration = readconfiguration(
-        '/home/hbarnard/trunk/usr/share/cclite/config/readsms.cf');
-}
+#use Ccsms::Aql;
+#my $type = 'aql' ;
+
+#use Ccsms::Gammu;
+#my $type = 'gam' ;
+# end of interface choices
+
+
 
 #--------------------------------------------------------------
 
@@ -83,6 +88,7 @@ $ENV{IFS} = " ";    # modest security
 
 our %configuration    = readconfiguration();
 our $configurationref = \%configuration;
+our %sms_configuration = readconfiguration('../../config/readsms.cf');
 
 Log::Log4perl->init( $configuration{'loggerconfig'} );
 our $log = Log::Log4perl->get_logger("ccsmscgi");
@@ -93,24 +99,25 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
 
+# reference to possible multiple message hashes from cardboardfish
+my @message_hash_refs ;
+
 #  this should use the version modules, but that makes life more
 # complex for intermediate users
 
 $fields{version} = "0.8.0";
 
-# $log->debug("incoming message is: $fields{'INCOMING'}") ;
+$log->debug("incoming message is: $fields{'INCOMING'}") ;
 
-# parse incoming fields the cardboardfish way...
+# parse incoming fields the cardboardfish way...may give multiple messages
 my ( $status, $originator, $destination, $dcs, $datetime, $udh, $message );
 if ( $type eq 'car' ) {
-    ( $status, $originator, $destination, $dcs, $datetime, $udh, $message ) =
+    ( @message_hash_refs ) =
       convert_cardboardfish( $fields{'INCOMING'} );
 }
 
-$fields{'status'}     = $status;
-$fields{'originator'} = $originator;
-$fields{'datetime'}   = $datetime;
-$fields{'message'}    = $message;
+$log->debug("debugger is alive") ;
+
 
 #  this is part of conversion to transaction engine use. web mode, which
 #  is the default will deliver html etc. engine mode will deliver data
@@ -142,10 +149,38 @@ $fields{systemMailReplyAddress} = $configuration{systemmailreplyaddress};
 #
 $token = $registry_private_value =
   $configuration{registrypublickey};    # for the moment, calculated later
+
+if ( $type eq 'car' ) {
+
+
+# possible multiple messages loop to process
+
+foreach my $message_hash_ref (@message_hash_refs) {
+
+$fields{'status'}     = $message_hash_ref->{'status'};
+$fields{'originator'} = $message_hash_ref->{'originator'};
+$fields{'datetime'}   = $message_hash_ref->{'datetime'};
+$fields{'message'}    = $message_hash_ref->{'message'};
+
 my $fieldsref = \%fields;
 
 gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token )
-  ;                                     # mobile number + raw string
+  ;
+
+}
+
+
+} else {
+
+# Aql and gammu single messages...
+my $fieldsref = \%fields;
+
+gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token )
+  ;
+
+}
+
+                                     # mobile number + raw string
 
 # this is mainly to make Selenium etc. work...
 print "Content-type: text/html\n\nrunning\n";

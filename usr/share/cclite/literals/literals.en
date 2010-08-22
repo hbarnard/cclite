@@ -248,6 +248,9 @@ openidnotfound=open id not found in registry
 blankregistry=blank registry
 #
 userinfofor=User information for
+#
+smsdebitfor=sms debit for
+smserror=sms error has occurred
 
 
 
