@@ -168,20 +168,34 @@ sub gateway_sms_transaction {
 
     my ( $class, $configurationref, $fields_ref, $token ) = @_;
 
-    my ( $offset, $limit );
+    my ( $offset, $limit, $pin, $transaction_type );
+
+   $log->debug("entering gateway_sms_transaction originator is : $fields_ref->{'originator'}") ;
+
+    # no originator, so no lookup or no message...reject
+
+    if ( ! length( $fields_ref->{'originator'} ) ) {
+        $log->warn(
+"$fields_ref->{'message'} from $fields_ref->{'originator'} $messages{'smsoriginblank'}"
+        );
+        return;
+    }
+
+    # numbers are stored in database as 447855667524 for example
+    $fields_ref->{'originator'} =
+      format_for_standard_mobile( $fields_ref->{'originator'} );
+
+
+    $log->debug(
+"start of $transaction_type originator translated: $fields_ref->{'originator'}"
+    );
+
 
     my ( $error, $from_user_ref ) =
       get_where( 'local', $registry, 'om_users', '*', 'userMobile',
         $fields_ref->{'originator'},
         $token, $offset, $limit );
 
-    # no originator, so no lookup or no message...reject
-    if ( !length( $fields_ref->{'originator'} ) ) {
-        $log->warn(
-"$fields_ref->{'message'} from $fields_ref->{'originator'} $messages{'smsoriginblank'}"
-        );
-        return;
-    }
 
     # no originator, so no lookup or no message...reject
     if ( !length( $fields_ref->{'message'} ) ) {
@@ -199,8 +213,7 @@ sub gateway_sms_transaction {
     # initial parse to get transaction type
     my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
 
-    my $pin;
-    my $transaction_type;
+
 
     # if it hasn't got a pin, not worth carrying on, tell user
     if ( $input =~ m/^p?(\d+)\s+(\w+)/ ) {
@@ -220,13 +233,6 @@ sub gateway_sms_transaction {
 
     $log->debug("start of $transaction_type transaction: $input");
 
-    # numbers are stored in database as 447855667524 for example
-    $fields_ref->{'originator'} =
-      format_for_standard_mobile( $fields_ref->{'originator'} );
-
-    $log->debug(
-"start of $transaction_type originator translated: $fields_ref->{'originator'}"
-    );
 
     # can be ok, locked, waiting, fail
     my $pin_status = _check_pin( $pin, $transaction_type, $fields_ref, $token );
@@ -441,13 +447,13 @@ sub _gateway_sms_pay {
 
     if ( !length($error3) ) {
         $message = <<EOT;
-    SMS $messages{'transactionaccepted'} $messages{'to'} $transaction{tradeDestination} $messages{'forvalue'} $transaction{tradeAmount} $transaction{tradeCurrency}
+SMS $messages{'transactionaccepted'} $messages{'to'} $transaction{tradeDestination} $messages{'forvalue'} $transaction{tradeAmount} $transaction{tradeCurrency}
 EOT
 
     }
     else {
 
-        my $message = <<EOT;
+         $message = <<EOT;
 $error3    SMS $messages{'transactionrejected'} $messages{'to'} $transaction{tradeDestination} $messages{'forvalue'} $transaction{tradeAmount} $transaction{tradeCurrency}
 EOT
 
@@ -839,16 +845,24 @@ sub _send_cardboardfish_sms_receipt {
     
     my $urlstring ;
 
+    #FIXME: not read properly from the configuration file...
+    $sms_configuration{'sms_DR'} ||= 0 ;
+
+#FIXME: note that ST=5 for alphanumeric sender probably needs to be 'cclite' for all originating SMSes that needs to be linked to help-desk
+
+
     if ($type eq 'credit') {
     $urlstring = <<EOT;
-http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$to_user_ref->{'userMobile'}&SA=$from_user_ref->{'userMobile'}&M=$message&ST=1&DC=$sms_configuration{'sms_DC'}&DR=$sms_configuration{'sms_DR'}
+http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$to_user_ref->{'userMobile'}&SA=$sms_configuration{'sms_SA'}&M=$message&ST=5&DC=$sms_configuration{'sms_DC'}
 
 EOT
 
     } elsif ($type = 'balance') {
 
+
+
     $urlstring = <<EOT;
-http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$from_user_ref->{'userMobile'}&SA=$sms_configuration{'sms_SA'}=$message&ST=1&DC=$sms_configuration{'sms_DC'}&DR=$sms_configuration{'sms_DR'}
+http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$from_user_ref->{'userMobile'}&SA=$sms_configuration{'sms_SA'}&M=$message&ST=5&DC=$sms_configuration{'sms_DC'}
 
 EOT
 
@@ -862,7 +876,8 @@ EOT
     # use LWP to send an SMS message via the cardborardfish gateway...
     my ($http_response) = __outbound_cardboardfish_http_sms($urlstring);
 
-    $log->debug("url is $urlstring return code is $http_response->code");
+    my $ret = $http_response->code() ;
+    $log->debug("url is $urlstring return code is $ret");
 
     if ($http_response->code == 200 ) {  
     _charge_one_sms_unit( $class, $registry, $type, $from_user_ref,
