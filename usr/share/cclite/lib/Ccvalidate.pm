@@ -385,12 +385,12 @@ sub _validate_address {
     my @status;
 
     # Street starts with alpha, has two components
-    if ( $$fieldsref{userStreet} !~ /[a-zA-z](\w+)(\W+)(\w+)/ ) {
+    if ( $$fieldsref{userStreet} !~ /[\'a-zA-z](\w+)(\W+)(\w+)/ ) {
         push @status, $$messagesref{badstreet};
     }
 
     # Town starts with alpha, is alphanumeric
-    if ( $$fieldsref{userTown} !~ /^[a-zA-z](\w+)$/ ) {
+    if ( $$fieldsref{userTown} !~ /^[\'a-zA-z](\w+)$/ ) {
         push @status, $$messagesref{badtown};
     }
 
