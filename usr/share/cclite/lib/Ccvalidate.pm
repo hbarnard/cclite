@@ -181,7 +181,11 @@ sub validate_user {
 
     # mobile phone numbers must be unique
     $$fieldsref{userMobile} =
-      format_for_standard_mobile( $$fieldsref{userMobile} );
+      format_for_standard_mobile( $$fieldsref{userMobile}  );
+
+   # only do these, if there is a mobile number:  3045485 27/9/2010
+
+   if ( length( $$fieldsref{'userMobile'}) ) {
 
     my ( $error, $fromuserref ) =
       get_where( $class, $db, 'om_users', '*', 'userMobile',
@@ -197,6 +201,8 @@ sub validate_user {
         if ( $$fromuserref{'userId'} != $$fieldsref{'userId'} ) {
             push @status, $$messagesref{mobphoneexists};
         }
+    }
+
     }
 
     # do address validation in private function
