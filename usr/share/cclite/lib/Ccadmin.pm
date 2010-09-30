@@ -49,7 +49,12 @@ use Ccvalidate;
 use Ccu;
 
 # should be a core module both *nix and Windows
-use File::Path qw(make_path remove_tree);
+# given the problems with this and, from the microsoft doc:
+
+# When you enable command extensions (that is, the default), you can use a single mkdir command to create intermediate directories in a specified 
+# path. For more information about enabling and disabling command extensions, see cmd in Related Topics. 
+
+# use File::Path qw(make_path remove_tree);
 
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
@@ -936,7 +941,7 @@ sub apply_service_charge {
 For the moment, just get a list of all the assumptions
 about batch files. Next iteration get statuses, exists, readable etc.
 
-Now with make_path should work for most OSes 12/2009
+# Now with make_path should work for most OSes 12/2009: backed out 10/2010
 
 =cut
 
@@ -972,18 +977,21 @@ sub get_set_batch_files {
     $file{smsdir} = "$configuration{smspath}/$registry";
     $file{smsout} = "$configuration{smsout}/$registry";
 
+    #FIXME: due to backed out file path, this is reintroduced, move to top of module
+    # may have to deal with Windows backslash below too..
+    my ( $os, $distribution, $package_type ) = get_os_and_distribution();
+
     my $err_list;
 
     if ( $operation eq 'set' ) {
         eval {
             foreach my $key ( sort keys %file )
             {
-
-#FIXME: This is probably problenatic for Windows, but mkpath too...3/2010
-#FIXME: This is probably problenatic for Windows, needs latest version File::Path...8/2010
-# `mkdir -p $file{$key}`;
-
-                make_path( $file{$key}, { error => \$err_list, } );
+              if ($os ne 'windows') {
+               `mkdir -p $file{$key}`;
+              } else {
+               `mkdir $file{$key}`;
+              }
             }
         };
         if ($@) {
