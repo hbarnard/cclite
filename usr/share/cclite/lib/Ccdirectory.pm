@@ -127,9 +127,18 @@ EOT
 
     $html = "<table>$html</table>";
 
-    #FIXME: result template used if result not supplied, should always be...
-    my $template = $fieldsref->{'resulttemplate'} || "result.html";
-    return ( "", "", "", $html, $template, $record_ref );
+
+
+    # part of the 'new deal' html returned as default but lots of other possibilities
+    if ($fieldsref->{'mode'} eq 'html' || ! length($fieldsref->{'mode'}) ) {
+      #FIXME: result template used if result not supplied, should always be...
+       my $template = $fieldsref->{'resulttemplate'} || "result.html";
+      return ( "", "", "", $html, $template, $record_ref );
+    } elsif ($fieldsref->{'mode'} eq 'print') {
+
+    }
+
+
 }
 
 =head3 show_yellow_dir1
@@ -141,10 +150,12 @@ only nested once, otherwise needs re-writing to be recursive
 Shows all lower level description in a big craiglist like table, will make a big
 page when there lots of ads. 
 
-Also this is a lot simpler that the first one with its expanding and contracting
+Also this is a lot simpler than the first one with its expanding and contracting
 display etc. 06/2007
 
 sql etc. moved to Cclitedb in 05/2010
+
+FIXME: Of course this is still very html-bound...
 
 =cut
 
@@ -207,6 +218,8 @@ EOT
 
     }
 
+
+
     # pad and row-terminate the end of the table, if necessary
     my $endtable =
       "<td></td>" x ( ( $max_depth - $width_count ) * $item_count );
@@ -214,7 +227,11 @@ EOT
 
     $html = "<table><tbody class=\"stripy\">$html</tbody></table>";
 
+   if ($fieldsref->{'mode'} eq 'html' || ! length($fieldsref->{'mode'})) {
     return ( 0, '', '', $html, "result.html", '', '', $token );
+   } elsif ($fieldsref->{'mode'} eq 'print' ) {
+     return ( 0, '', '', $html, "result.html", '', '', $token );
+   }
 }
 
 1;

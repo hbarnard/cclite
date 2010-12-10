@@ -19,13 +19,13 @@
 # onto the status web page
 
 print STDOUT "Content-type: text/html\n\n";
-my $data = join( '', <DATA> );
-eval $data;
-if ($@) {
-    print $@;
-    exit 1;
-}
-__END__
+#my $data = join( '', <DATA> );
+#eval $data;
+#if ($@) {
+#    print $@;
+#    exit 1;
+#}
+#__END__
 
 
 =head3 comments
@@ -40,7 +40,7 @@ use lib "../../../lib";
 use strict;    # all this code is strict
 use locale;
 
-#use Log::Log4perl;
+use Log::Log4perl;
 #Log::Log4perl->init( $configuration{'loggerconfig'} );
 #our $log = Log::Log4perl->get_logger("cclite");
 
@@ -50,41 +50,46 @@ use Ccdirectory;             # yellow pages directory etc.
 use Ccsecure;                # security and hashing
 use Cclitedb;                # this probably should be delegated
 use Ccconfiguration ;
+use Ccu ;
+use Cccookie ;
 
 my  %configuration = readconfiguration();
 
-my %fields    = cgiparse();
+$configuration{'dbuser'} = 'root' ;
+$configuration{'dbpassword'} = 'bryana1' ;
+
+my %fields    = cgiparse()  ;
+
+   $fields{'mode'} = 'print' ;
+   
 
 # for cron, replace these with hardcoded registry name
 
 my $cookieref = get_cookie();
-my $registry  = $$cookieref{registry} ;
+my $registry  = $$cookieref{registry} || 'dalston' ;
 my $language  = $$cookieref{language} || 'en' ;
 
-my $token ;
+my ($token,$offset,$limit) ;
 
 # write the printed document out by directory and language...
-my $document = odfDocument(file => "$configuration{printpath}/$registry/$language/directory.odt");
+#my $document = odfDocument(file => "$configuration{printpath}/$registry/$language/directory.odt");
 
-my $sqlstring = 'SELECT description,type FROM om_yellowpages o LIMIT 0,1000' ;
+my $document = odfDocument(file => "/home/hbarnard/cclite-support-files/testing/directory.odt");
 
-my ( $registry_error, $array_ref ) =
-      sqlraw_return_array( 'local', 'dalston', $sqlstring, undef, $token );
 
-foreach my $row (@$array_ref)  {
-        
-        my $text = "$$row[0]\n$$row[1]" ;
-        print "$text<br/>" ;
+my ( $refresh,  $metarefresh, $error,   $html, $pages, $pagename, $fieldsref,   $cookies, $token ) 
+               = show_yellow_dir1 ( 'local', $registry, '', \%fields, $token, $offset, $limit ) ;
+  
         $document->appendParagraph
                         (
-                        text    => $text,
+                        text    => $html,
                         style   => 'Text body'
                         );
  ##       $document->appendTable("My Table", 6, 4);
  ##     $document->cellValue("My Table", 2, 1, "New value");
         
 
-}
+
 
 $document->save;
 exit 0;
