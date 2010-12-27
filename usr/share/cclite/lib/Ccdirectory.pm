@@ -218,8 +218,6 @@ EOT
 
     }
 
-
-
     # pad and row-terminate the end of the table, if necessary
     my $endtable =
       "<td></td>" x ( ( $max_depth - $width_count ) * $item_count );
@@ -233,6 +231,12 @@ EOT
      return ( 0, '', '', $html, "result.html", '', '', $token );
    }
 }
+
+
+
+
+
+
 
 1;
 

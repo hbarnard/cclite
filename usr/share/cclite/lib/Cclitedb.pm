@@ -73,6 +73,7 @@ our $log = Log::Log4perl->get_logger("Cclitedb");
   get_where_multiple
   get_transaction_totals
   get_yellowpages_directory_data
+  get_yellowpages_directory_print
   get_user_display_data
   get_table_columns
   registry_connect
@@ -684,6 +685,87 @@ EOT
     return ( $new_items_hash_ref, $yellowdirectory_hash_ref );
 
 }
+
+
+=head3 get_yellowpages_directory_print
+
+This is the version for print format, a work in progress
+as of December 2010
+
+
+=cut
+
+sub get_yellowpages_directory_print {
+
+    my ( $class, $db, $token ) = @_;
+
+
+    my $sqlstring = <<EOT;
+
+SELECT concat(y.parent,y.category,y.type,y.id) as sortal,
+y.category, y.type,y.parent,
+u.userId,u.userEmail,u.userMobile,u.userTelephone, y.subject, 
+y.price, y.unit, y.tradeCurrency, y.description
+FROM om_yellowpages y, om_users u
+WHERE
+y.fromuserid = u.userLogin
+EOT
+
+    my ( $registryerror, $yellowdirectory_hash_ref ) =
+      sqlraw( $class, $db, $sqlstring, 'sortal', $token );
+
+
+    my $sqlstring = <<EOT;
+
+SELECT concat(y.parent,y.category,y.type,y.id) as sortal,c.description
+FROM om_yellowpages y, om_categories c
+WHERE
+y.parent = c.parent AND y.category = c.category
+EOT
+
+
+    my ( $registryerror, $category_hash_ref ) =
+      sqlraw( $class, $db, $sqlstring, 'sortal', $token );
+
+    return ( $yellowdirectory_hash_ref,$category_hash_ref );
+
+}
+
+
+
+=head3 get_statement_print
+
+This is the version for print format, a work in progress
+as of December 2010
+
+
+=cut
+
+sub get_statement_print {
+
+    my ( $class, $db, $token ) = @_;
+
+
+    my $sqlstring = <<EOT;
+
+SELECT 
+FROM om_trades y, om_users u
+WHERE
+y.fromuserid = u.userLogin
+
+EOT
+
+    my ( $registryerror, $trade_hash_ref ) =
+      sqlraw( $class, $db, $sqlstring, 'sortal', $token );
+
+    return ( $trade_hash_ref );
+
+}
+
+
+
+
+
 
 =head3 get_where
 
