@@ -18,28 +18,9 @@
 # these batch scripts are kept as eval, if they fail they print their problems
 # onto the status web page
 
-print STDOUT "Content-type: text/html\n\n";
+sub print_statements {
 
-#my $data = join( '', <DATA> );
-#eval $data;
-#if ($@) {
-#    print $@;
-#    exit 1;
-#}
-#__END__
-
-
-=head3 print_yellow_dir
-
-
-Main routine for printing the directory...
-
-=cut
-
-
-sub print_yellow_dir {
-
-    my ( $class, $db, $document, $title, $table_lines, $column_headers_hash_ref,
+    my ( $class, $db, $user, $document, $title, $table_lines, $column_headers_hash_ref,
         $token )
       = @_;
 
@@ -48,57 +29,63 @@ sub print_yellow_dir {
     my $table_row_counter = 1;
     my $table_counter     = 1;
 
-    my ( $yellowdirectory_hash_ref, $category_hash_ref ) =
-      get_yellowpages_directory_print( $class, $db, $token );
-
+    my ($error, $count, $trade_hash_ref) = get_trades ( $class, $db, $user, 'active', $token, '', '' ) ;
+    # tradeId,tradeStatus,tradeDate,tradeSource,tradeDestination,tradeMirror,tradeCurrency,tradeType,tradeAmount
     # how many records in total in the yellow pages
-    my $total_lines = scalar keys %$yellowdirectory_hash_ref;
+    my $total_lines = scalar keys %$trade_hash_ref;
     my $table_count = $total_lines / $table_lines;
     $total_lines % $table_lines ? $table_count++ : $table_count;
 
+    # print "total lines are $total_lines\n" ;
+
     # write out empty table pages + page break paragraph, ready to fill
     for ( $x = 1 ; $x <= $table_count ; $x++ ) {
-        my $table = $document->appendTable( "t$x", ( $table_lines + 1 ), 6 );
-        paragraph( $document, $title, 1 );
+        my $table = $document->appendTable( "t$user$x", ( $table_lines + 1 ), 10);
+     #   paragraph( $document, $title, 1 );
 
-        $document->cellValue( "t$x", 0, 0,
-            $column_headers_hash_ref->{'Category'} );
-        $document->cellValue( "t$x", 0, 1,
-            $column_headers_hash_ref->{'Mobile'} );
-        $document->cellValue( "t$x", 0, 2,
-            $column_headers_hash_ref->{'Fixed'} );
-        $document->cellValue( "t$x", 0, 3,
-            $column_headers_hash_ref->{'Subject'} );
-        $document->cellValue( "t$x", 0, 4,
-            $column_headers_hash_ref->{'Description'} );
-        $document->cellValue( "t$x", 0, 5,
-            $column_headers_hash_ref->{'Price'} );
+        $document->cellValue( "t$user$x", 0, 0,
+            $column_headers_hash_ref->{'tradeId'} );
+        $document->cellValue( "t$user$x", 0, 1,
+            $column_headers_hash_ref->{'tradeStatus'} );
+        $document->cellValue( "t$user$x", 0, 2,
+            $column_headers_hash_ref->{'tradeDate'} );
+        $document->cellValue( "t$user$x", 0, 3,
+            $column_headers_hash_ref->{'tradeSource'} );
+        $document->cellValue( "t$user$x", 0, 4,
+            $column_headers_hash_ref->{'tradeDestination'} );
+        $document->cellValue( "t$user$x", 0, 5,
+            $column_headers_hash_ref->{'tradeMirror'} );
+ $document->cellValue( "t$user$x", 0, 6,
+            $column_headers_hash_ref->{'tradeCurrency'} );
+ $document->cellValue( "t$user$x", 0, 7,
+            $column_headers_hash_ref->{'tradeType'} );
+ $document->cellValue( "t$user$x", 0, 8,
+            $column_headers_hash_ref->{'tradeAmount'} );
+ 
     }
 
-    foreach my $key ( sort keys %$yellowdirectory_hash_ref ) {
+    foreach my $key ( sort keys %$trade_hash_ref) {
 
-        my $current_table = 't' . $table_counter;
+        my $current_table = "t$user$table_counter" ;
 
-        # change this, to change expressed price...uses / to remain multilingual
-        my $price_expression =
-"$yellowdirectory_hash_ref->{$key}->{'price'} $yellowdirectory_hash_ref->{$key}->{'tradeCurrency'} \/  $yellowdirectory_hash_ref->{$key}->{'unit'}";
-
-        # category, name of category + wanted/offered
-        my $category =
-"$category_hash_ref->{$key}->{'description'}\:$yellowdirectory_hash_ref->{$key}->{'type'}";
-
-        $document->cellValue( $current_table, $item_counter, 0, $category );
-
+        $document->cellValue( $current_table, $item_counter, 0,
+            $trade_hash_ref->{$key}->{'tradeId'} );
         $document->cellValue( $current_table, $item_counter, 1,
-            $yellowdirectory_hash_ref->{$key}->{'userMobile'} );
+            $trade_hash_ref->{$key}->{'tradeStatus'} );
         $document->cellValue( $current_table, $item_counter, 2,
-            $yellowdirectory_hash_ref->{$key}->{'userTelephone'} );
+            $trade_hash_ref->{$key}->{'tradeDate'} );
         $document->cellValue( $current_table, $item_counter, 3,
-            $yellowdirectory_hash_ref->{$key}->{'subject'} );
+            $trade_hash_ref->{$key}->{'tradeSource'} );
         $document->cellValue( $current_table, $item_counter, 4,
-            $yellowdirectory_hash_ref->{$key}->{'description'} );
+            $trade_hash_ref->{$key}->{'tradeDestination'} );
         $document->cellValue( $current_table, $item_counter, 5,
-            $price_expression );
+            $trade_hash_ref->{$key}->{'tradeMirror'} );
+        $document->cellValue( $current_table, $item_counter, 6,
+            $trade_hash_ref->{$key}->{'tradeCurrency'} );
+        $document->cellValue( $current_table, $item_counter, 7,
+            $trade_hash_ref->{$key}->{'tradeType'} );
+        $document->cellValue( $current_table, $item_counter, 8,
+            $trade_hash_ref->{$key}->{'tradeAmount'} );
 
         # testing only
         ### $document->cellValue( $current_table, $item_counter, 5,
@@ -149,14 +136,12 @@ sub paragraph {
 
 =head3 comments
 
-This is the first cut printed directory for yellowpages, part of an attempt to provide some low tech
-add-ons to cclite, in the tradition of transition-style technology.
 
 
 =cut
 
 use lib "../../../lib";
-use strict;    # all this code is strict
+use strict;    
 use locale;
 
 use Log::Log4perl;
@@ -168,6 +153,7 @@ use OpenOffice::OODoc;
 use Ccdirectory;    # yellow pages directory etc.
 use Ccsecure;       # security and hashing
 use Cclitedb;       # this probably should be delegated
+use Cclite;         # for gettrades, at least
 use Ccconfiguration;
 use Ccu;
 use Cccookie;
@@ -184,19 +170,26 @@ my $language  = $$cookieref{language} || 'en';
 my $table_lines = 40;
 
 # where to create the open-office output
-my $output_file = "/home/hbarnard/cclite-support-files/testing/directory.odt";
+my $output_file = "/home/hbarnard/cclite-support-files/testing/statements.odt";
 
 # title of each page
-my $title = "Yellow Pages";
+my $title = "Statement";
 
 # headings for table columns
 my $column_headers_hash_ref;
-$column_headers_hash_ref->{'Category'}    = 'Category';
-$column_headers_hash_ref->{'Mobile'}      = 'Mobile';
-$column_headers_hash_ref->{'Fixed'}       = 'Fixed';
-$column_headers_hash_ref->{'Subject'}     = 'Subject';
-$column_headers_hash_ref->{'Description'} = 'Description';
-$column_headers_hash_ref->{'Price'}       = 'Price';
+
+# change these, where necessary, column headers
+            $column_headers_hash_ref->{'tradeId'} = 'Id';
+            $column_headers_hash_ref->{'tradeStatus'} = 'Status';
+            $column_headers_hash_ref->{'tradeDate'} = 'Date';
+            $column_headers_hash_ref->{'tradeSource'} = 'From';
+            $column_headers_hash_ref->{'tradeDestination'} = 'To';
+            $column_headers_hash_ref->{'tradeMirror'} = 'Registry';
+            $column_headers_hash_ref->{'tradeCurrency'} = 'Currency';
+            $column_headers_hash_ref->{'tradeType'} = 'Type';
+            $column_headers_hash_ref->{'tradeAmount'} = 'Quantity';
+
+
 
 my ( $token, $offset, $limit );
 
@@ -207,9 +200,23 @@ my $document = odfDocument(
     create => 'text'
 );
 style($document);
-paragraph( $document, $title, 0 );
-print_yellow_dir( 'local', $registry, $document, $title, $table_lines,
+
+my ($registry_error,$user_hash_ref) = get_where_multiple (
+        'local', $registry,    'om_users',  '*','userLogin',
+        '*',  '', 0, 9999999 );
+
+
+foreach my $key ( sort keys %$user_hash_ref) {
+
+print "$user_hash_ref->{$key}->{'userLogin'} \n" ;
+
+paragraph( $document, "$title for $user_hash_ref->{$key}->{'userLogin'}", 0 );
+
+
+print_statements( 'local', $registry, $user_hash_ref->{$key}->{'userLogin'}, $document, $title, $table_lines,
     $column_headers_hash_ref, $token );
+}
+
 
 $document->save;
 exit 0;
