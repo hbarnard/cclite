@@ -21,14 +21,14 @@ Read the curl documentation for php...!
 /* logon and store the logon cookies */
 
 /* configuration variables */
-$domain = "yourdomain.com" ;
+$domain = "cclite.cclite.k-hosting.co.uk/" ;
 $cookiefile = "/tmp/cclitecookies" ;
-$user = "youruser" ;
-$registry = "yourregistry" ;
-$password = "passwordofyouruser" ;
-$currency = "lucket" ;
-$amount = "youramount" ;
-$payto = "usertobepaid" ;
+$user = "test2" ;
+$registry = "ccliekh_dalston" ;
+$password = "password" ;
+$currency = "dally" ;
+$amount = "2" ;
+$payto = "test1" ;
 
 $ch = curl_init();
 //$fp = fopen("example.html", "w");

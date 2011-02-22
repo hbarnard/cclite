@@ -52,23 +52,31 @@ cclite.cgi
 # To get to word or pdf, load into Open Office tidy up
 # and re-output
 
-use lib "../../lib";
+use lib "../../../lib";
 
-use Ccu;
-use Cccookie;
-use Cclitedb;
-use Ccconfiguration;
+
+use strict;    
+use locale;
+
+use Log::Log4perl;
+
+#Log::Log4perl->init( $configuration{'loggerconfig'} );
+#our $log = Log::Log4perl->get_logger("cclite");
 
 use OpenOffice::OODoc;
-use OpenOffice::OODoc::Text;
-use OpenOffice::OODoc::XPath;
+use Ccdirectory;    # yellow pages directory etc.
+use Ccsecure;       # security and hashing
+use Cclitedb;       # this probably should be delegated
+use Ccconfiguration;
+use Ccu;
+use Cccookie;
 
 my %configuration;
 %configuration = readconfiguration();
 
-my $doc = ooText(
-    file            => 'blank.sxw',
-    paragraph_style => 'Coucou',
+my $doc = odfDocument(
+    file   => 'directory.odt',
+    create => 'text'
 );
 
 my %fields = cgiparse();
@@ -130,11 +138,7 @@ my $first_pass = 1;
 
 # experimental style creation and use
 
-my $style_doc = ooStyles( file => "blank.sxw", member => STYLES );
-
-###print "style_doc is $style_doc" ;
-
-$style_doc->createStyle(
+my $style_doc->createStyle(
     "Colour",
     family     => 'text',
     parent     => 'Default',
@@ -149,7 +153,8 @@ $style_doc->createStyle(
     }
 );
 
-###$doc->setStyle($doc->getParagraph(3), "P3");
+my $token ;
+
 $doc->cloneContent($style_doc);
 
 # set up table and first column
@@ -218,18 +223,18 @@ foreach $sqlstring (@sqlstrings) {
 
 }    # end foreach sqlstatement
 
-$doc->save("directory.sxw");
+$doc->save("directory.odt");
 ###$style_doc->save("directory.sxw");
 
 # now download the file
 
 print <<EOT;
  Content-Type: application/vnd.sun.xml.writer
- Content-Disposition: filename="directory.sxw"
+ Content-Disposition: filename="directory.odt"
 
 EOT
 
-open( DIR, "directory.sxw" );
+open( DIR, "directory.odt" );
 while (<DIR>) {
     print $_;
 }

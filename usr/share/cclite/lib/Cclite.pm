@@ -60,8 +60,7 @@ use Ccu;
 # used for new style notify, set net_smtp to zero and comment, if not needed
 use Net::SMTP;
 
-# older non-preferred way of doing mail
-use Mail::Sendmail qw(sendmail %mailcfg);
+
 
 # notify by mail is exported now, to allow sms/email notifies
 
@@ -504,7 +503,8 @@ sub _compare_password_or_api_key {
     my $compare_password = 0;
     my $compare_api_key  = 0;
 
-    if ( $$fieldsref{logontype} eq 'form' ) {
+
+    if ( $fieldsref->{'logontype'} eq 'form' ) {
 
         $compare_password = compare_password(
             $fieldsref->{'userHash'},
@@ -516,7 +516,7 @@ sub _compare_password_or_api_key {
 
     # password failed and it comes from the api key hash
     # first cut drupal and elgg etc. connections 08/2009
-    if ( $$fieldsref{logontype} eq 'api' ) {
+    if ( $fieldsref->{'logontype'} eq 'api' ) {
 
         $compare_api_key = compare_api_key(
             $fieldsref->{'registry'},
@@ -1436,19 +1436,22 @@ sub transaction {
     push @local_status, "db7: $error" if length($error);
     if ( length( $local_status[0] ) || length( $remote_status[0] ) ) {
         push @local_status, $messages{transactionrejected};
-    } else {
+    } elsif ($transaction_ref->{'mode'} ne 'json') {
         push @local_status,
 "$messages{transactionaccepted}<br/>Ref:&nbsp;$transaction{tradeHash}";
-    }
+    } elsif ($transaction_ref->{'mode'} eq 'json') {
+        push @local_status,
+"\"message\":\"$messages{transactionaccepted}\", \"reference\":\"$transaction{tradeHash}\"" ;
+    }    
 
     # default separator is for html
     my $separator = "<br/>\n";
-    $separator = ',' if ( $transaction{mode} eq 'csv' );
+    $separator = ',' if ( $transaction{mode} eq 'csv' || $transaction{mode} eq 'json' );
 
     my $output_message =
       join( $separator, @local_status, @translated_remote_status );
 
-    if ( $transaction_ref->{'mode'} ne 'engine' ) {
+    if ( $transaction_ref->{'mode'} ne 'engine'  &&  $transaction_ref->{'mode'} ne 'json' ) {
 
         return (
             "1", "$$transaction_ref{home}?action=showtransnotify_by_mail",
@@ -1457,11 +1460,12 @@ sub transaction {
 
             "result.html", ""
         );
-
+        
+    } elsif  ( $transaction_ref->{'mode'} eq 'json' )   {
+        $log->debug("\{$output_message\}") ;        
+        return "\{$output_message\}" ;
     } else {
-
         return $transaction_ref;
-
     }
 
 }
@@ -1880,6 +1884,13 @@ sub get_many_items {
 
     # unhappily the id field used in each table is inconsistent
     my $id = get_id_name($table);
+
+   # only refresh is [mis]used to carry json payload if json is being returned 2/2011
+    if ($fieldsref->{'mode'} eq 'json') {
+    my ($json)  = deliver_remote_data($db,$table,$registry_error,$hash_ref,$token)  ;
+    return $json ;
+}
+        
 
     foreach my $key ( keys( %{$hash_ref} ) ) {
 
@@ -2335,8 +2346,7 @@ sub notify_by_mail {
     my %configuration = readconfiguration();
     my ( $message, $from, $subject );
 
-    # cite an additional mailserver if necessary, localhost is default
-    $mailcfg{smtp} = [qw(localhost $smtp)] if ( length($smtp) );
+ 
 
     if ( $notificationtype == 1 ) {
 
@@ -2484,7 +2494,12 @@ EOT
                 Subject => $subject,
                 Message => $message,
             );
+        # older non-preferred way of doing mail
+        # cite an additional mailserver if necessary, localhost is default
+            my  %mailcfg ;            
+            $mailcfg{'smtp'} = [qw(localhost $smtp)] if ( length($smtp) );
 
+            eval {require "Mail::Sendmail qw(sendmail %mailcfg)"} ;
             sendmail(%mail) or die $Mail::Sendmail::error;
 
         };
@@ -2794,9 +2809,20 @@ EOT
     } elsif ( $mode eq 'values' ) {
 
         return ( \%total_balance, \%total_count );
-    }
+    } elsif ($mode eq 'json') {
+    # only refresh is [mis]used to carry json payload if json is being returned 2/2011
+      my $json  = deliver_remote_data($db, 'om_transactions',$registry_error,$balance_hash_ref,$token)  ;
+      my $json1    .= deliver_remote_data($db, 'om_transactions',$registry_error,$volume_hash_ref,$token)  ;
+      return "$json|$json1" ; # delivers two structures though....
+}
+        
+
+        
+   # }    
 
 }
+
+
 
 
 sub _debug_hash_contents {

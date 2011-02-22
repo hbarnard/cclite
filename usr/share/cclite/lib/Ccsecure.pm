@@ -239,15 +239,18 @@ sub calculate_api_hash {
     my ( $db, $token ) = @_;
     my @calculated_hashes;
     my ( $registry_error, $hash_ref ) =
-      Cclitedb::get_where( 'local', $db, 'om_registry', '*', 'name', $db, '',
+      Cclitedb::get_where( 'local', $db, 'om_registry', '*', 'id', 1, '',
         '', '' );
 
  # space separated list of IP addresses, relaxed in 5/2010 to multiple spaces...
     my @allowed_ip_addresses = split( /\s+/, $hash_ref->{'allow_ip_list'} );
 
+ ###$log->debug("in get ip address: $registry_error $hash_ref\n") ;
+
     foreach my $ip_address (@allowed_ip_addresses) {
         my $merchant_key_hash =
           _get_digest( 0, ( $$hash_ref{'merchant_key'} . $ip_address ) );
+      ###    $log->debug("in get ip hash:$merchant_key_hash\n") ;
         push @calculated_hashes, $merchant_key_hash;
     }
 
@@ -276,7 +279,7 @@ sub compare_api_key {
 
 # not pretty because if any of them match, it returns...bad scale and doesn't ensure that the 'right' one...
     foreach my $hash (@calculated_hashes) {
-###        $log->debug(
+    ###    $log->debug(
 ###"comparing hashes: calculated_hash:$hash, merchant:$merchant_key_hash\n\n"
 ###        );
 

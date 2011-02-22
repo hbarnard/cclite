@@ -30,6 +30,12 @@ RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transact
 #RewriteRule   demurrage/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=demurrage&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2  [R]
 
 
+# show user transactions, default limit, json returned
+# /recent/transactions.json
+# changed mode to json. returns only a json structure
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   recent/transactions(\.json)	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=json  [R]
+
 # show user transactions with a limit on display
 # /recent/transactions/nnn
 # changed mode to csv for the moment: 12/8/2009 changed also to recent, need limited list only, no buttons etc., new function
@@ -46,10 +52,18 @@ RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b
 RewriteRule   recent/transactions	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=csv  [R]
 
 
+
+# show logged on user trade summary, returns json...
+# changed mode to csv for the moment: 12/8/2009
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   summary\.json		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=json [R]
+
+
 # show logged on user trade summary
 # changed mode to csv for the moment: 12/8/2009
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
 RewriteRule   summary		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=csv [R]
+
 
 # /logon/ddawg/dalston
 # note this is pretty insecure should probably be done only under https, the merchant key is supplied as a cookie

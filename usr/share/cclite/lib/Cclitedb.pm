@@ -751,7 +751,7 @@ sub get_statement_print {
 SELECT 
 FROM om_trades y, om_users u
 WHERE
-y.fromuserid = u.userLogin
+y.trade = u.userLogin
 
 EOT
 
@@ -783,6 +783,8 @@ sub get_where {
     my $get =
       _sqlgetwhere( $name, $table, $fieldslist, $fieldname, $token, $offset,
         $limit );
+        
+    ###$log->debug("get is $get\n") ;
 
     if ( !length($db) ) {
         my ( $package, $filename, $line ) = caller;
@@ -1188,6 +1190,7 @@ EOT
         }
 
     }
+   ### print "where is $sqlgetwhere\n" ;
     return $sqlgetwhere;
 }
 

@@ -41,6 +41,7 @@ my $VERSION = 1.00;
   readmessages
   debug_soap
   debug_hash_contents
+  deliver_remote_data
   display_template
   make_page_links
   make_html_row_contents
@@ -126,6 +127,19 @@ sub display_template {
         $refresh,  $metarefresh, $error,   $html, $pages,
         $pagename, $fieldsref,   $cookies, $token
     ) = @_;
+
+   
+   # only refresh is [mis]used to carry json payload if json is being returned 2/2011
+   # prints the cookies, if any, the json and exits..
+   if ($fieldsref->{'mode'} eq 'json') {
+           print <<EOT;
+Content-type: application/json
+$cookies
+$refresh
+EOT
+
+     return ;
+   }
 
     if ($refresh) {
         $metarefresh = <<EOT;
@@ -725,6 +739,112 @@ EOT
 
 }
 
+
+=head3 deliver_remote_data
+
+Since, Cclite.pm 'assumes' in most cases that it is dealing
+with the traditional html front end, this is an experimental
+palliative to deliver self describing hashes and messages
+to remote gateways such as Drupal, Elgg, Joomla and Tiki-Wiki 
+
+It's not a particularly elegant solution but [hopefully] it's
+a pragmatic one that preserves some consistency of access and
+delivery and doesn't break a lot of fairly useful things in the legacy part...
+
+It does need to distinguish between multdimensional and flat
+
+For example, transactions:
+
+{"registry":"ccliekh_dalston","table": "om_trades", "message":"OK",
+"data": [
+{"id": "95",
+ "tradeSource":"test2",
+"tradeDestination":"test1",
+"tradeType":"debit",
+"tradeDate":"2011-02-20",
+"tradeId":"95",
+"tradeMirror":"ccliekh_dalston",
+"tradeStatus":"waiting",
+"tradeCurrency":"dally",
+"tradeAmount":"23"
+},
+
+{"id": "97",
+ "tradeSource":"test2",
+"tradeDestination":"test1",
+"tradeType":"debit",
+"tradeDate":"2011-02-20",
+"tradeId":"97",
+"tradeMirror":"ccliekh_dalston",
+"tradeStatus":"waiting",
+"tradeCurrency":"dally",
+"tradeAmount":"23"
+}]
+
+} 
+
+
+=cut
+
+
+
+sub deliver_remote_data {
+
+my ($db,$table,$message,$hash_ref,$token) = @_ ;    
+
+   $message ||= 'OK' ;    # used for status messages to remote, $registry_error...
+my $count = 0 ;         # row counter...
+
+my $json ;  #data delivered to the remote
+
+my $is_multi_dimensional = 0;
+
+# find whether it's multidimensional or 'flat'
+for my $value (values %$hash_ref) {
+    if ('HASH' eq ref $value) {
+        $is_multi_dimensional = 1;
+        last;
+    }
+}
+
+# pack up as simple json...
+if ($is_multi_dimensional) {
+
+
+        
+for my $id ( keys %$hash_ref ) {
+    $json .= "\n{\"id\": \"$id\",\n ";
+    for my $field_name ( keys %{ $hash_ref->{$id} } ) {
+         $json .= "\"$field_name\":\"$hash_ref->{$id}->{$field_name}\",\n";
+    }
+    $json =~ s/\,$//; # snip off the last comma in the record, ugly but simple...
+    $json .= "},\n";
+}
+ $json =~ s/\,$//; # snip off the last comma in the record, ugly but simple...
+} else {
+for my $id ( keys %$hash_ref ) {
+    $json .= "\n{\"id\": \"$id\",\n ";
+    $json =~ s/\,$//; # snip off the last comma in the record, ugly but simple...
+    $json .= "},\n";
+}    
+    
+    
+}    
+
+  $json =<<EOT;
+  {\"registry"\:\"$db\",\"table\": \"$table\", \"message":\"$message\",\n\"data\": [$json]} 
+EOT
+
+  
+  ###$log->debug("json is: $json") ;
+
+
+ ###return ( 0, "", $error, $html, $template, "" );
+ return $json ;
+
+}
+
+
 =head3 _timestamp
 
 mysql compatible timestamp
@@ -773,6 +893,9 @@ sub pretty_caller {
     $log->debug("p:$package l:$line f:$subroutine");
     print "p:$package l:$line f:$subroutine";
 }
+
+
+
 
 1;
 

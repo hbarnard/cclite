@@ -70,6 +70,10 @@ Hugh Barnard
 =cut
 
 BEGIN {
+ 
+    my $base_module_dir = (-d '/home/ccliekh/perl' ? '/home/ccliekh/perl' : ( getpwuid($>) )[7] . '/perl/');
+    unshift @INC, map { $base_module_dir . $_ } @INC;
+
     use CGI::Carp qw(fatalsToBrowser set_message);
     set_message(
 "Please use the <a title=\"cclite google group\" href=\"http://groups.google.co.uk/group/cclite\">Cclite Google Group</a> for help, if necessary"
@@ -137,18 +141,18 @@ $fields{client_ip} = $ENV{REMOTE_ADDR};
 
 # moved from template because other routines need it
 if (   $fields{action} ne "logoff"
-    && length( $$cookieref{userLogin} )
-    && $$cookieref{userLevel} ne "admin" )
+    && length( $cookieref->{'userLogin'} )
+    && $cookieref->{'userLevel'} ne "admin" )
 {
 
-    $fields{userLogin} = $$cookieref{userLogin};
+    $fields{userLogin} = $cookieref->{'userLogin'};
 }
 
 #
 #---------------------------------------------------------------------------
 # change the language default here
 #
-my $language = $$cookieref{language}
+my $language = $cookieref->{'language'}
   || $fields{language}
   || $configuration{language};    # default is english in logon
 
@@ -157,7 +161,7 @@ my $language = $$cookieref{language}
 my $pagename = $fields{name};
 my $action   = $fields{action} || $configuration{defaultaction};
 my $table    = $fields{subaction};
-my $db       = $fields{registry} || $$cookieref{registry};
+my $db       = $fields{registry} || $cookieref->{'registry'};
 my $offset   = $fields{offset};
 
 # now take these from configuration because of unreliable $ENV{SERVER_NAME} 11/2009
@@ -249,7 +253,7 @@ $token = $registry_private_value =
 #  check database and provide logon via this method
 #  this will only do a single nominated registry though
 #
-if ( length( $ENV{REMOTE_USER} ) && !length( $$cookieref{token} ) ) {
+if ( length( $ENV{REMOTE_USER} ) && !length( $cookieref->{'token'} ) ) {
     $fields{logontype} = 'remote';
     (
         (
@@ -271,7 +275,7 @@ my %allowed_actions =
   qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes);
 
 if (
-       ( !length( $$cookieref{token} ) )
+       ( !length( $cookieref->{'token'} ) )
     && ( !exists $allowed_actions{$action} )
 
     && ( $ENV{QUERY_STRING} ne "action=template&name=newuser.html" )
@@ -284,13 +288,13 @@ if (
 {
 
     # grumble about installer and security problems etc.
-    $$fieldsref{errors} = install_grumble( $configuration{templates} );
+    $fieldsref->{'errors'} = install_grumble( $configuration{templates} );
     display_template( 0, "", "", "", $pages, "logon.html", $fieldsref, $cookies,
         $token );
     exit 0;
 
 } elsif (
-    ( length( $$cookieref{userLogin} ) && length( $$cookieref{token} ) )
+    ( length( $cookieref->{'userLogin'} ) && length( $cookieref->{'token'} ) )
 
     ||
 
@@ -309,8 +313,8 @@ if (
       calculate_token( $registry_private_value, $fieldsref, $cookieref,
         $ENV{REMOTE_ADDR} );
 
-    if ( length( $$cookieref{token} )
-        && ( $compare_token ne $$cookieref{token} ) )
+    if ( length( $cookieref->{'token'} )
+        && ( $compare_token ne $cookieref->{'token'} ) )
     {
         my $fieldsref = \%fields;
         $log->warn(
@@ -338,7 +342,7 @@ if (
 
         # pin is not confirmed or locked etc. etc.
         #FIXME: should also decrement pin tries as well
-        if ( $$userref{userPinStatus} ne 'active' ) {
+        if ( $userref->{'userPinStatus'} ne 'active' ) {
             $action = 'logoff';
         }
     }
@@ -445,7 +449,7 @@ my $fieldsref = \%fields;
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     get_many_items(
         'local', $db, 'om_yellowpages', $fieldsref, 'fromuserid',
-        $$cookieref{userLogin}, 'html', $token, $offset, $limit
+        $cookieref->{'userLogin'}, 'html', $token, $offset, $limit
     )
   );
 
@@ -460,14 +464,14 @@ my $fieldsref = \%fields;
     )
   );
 
-# this is 0.4.0 code and will be removed soon, replaced by showyellowdir1
+#FIXME: this is 0.4.0 code and will be removed soon, replaced by showyellowdir1
 
 ( $action eq "showyellowdir" )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     show_yellow_dir(
         'local', $db, 'om_yellowpages', $fieldsref, 'fromuserid',
-        $$cookieref{userLogin}, 'html', $token, $offset, $limit
+        $cookieref->{'userLogin'}, 'html', $token, $offset, $limit
     )
   );
 
@@ -560,19 +564,19 @@ my $fieldsref = \%fields;
 
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume1(
-        'local', $db, $table, $fieldsref, "", $$cookieref{userLogin}, 'html',
+        'local', $db, $table, $fieldsref, "", $cookieref->{'userLogin'}, $fieldsref->{'mode'},
         $token, $offset, $limit
     )
   );
 
-# show balance and volume
+# show balance and volume, changed to non-hardcoded mode 2/2011
 ( $action eq "showbalvol" )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
 
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume(
-        'local', $db, $$cookieref{userLogin}, 'html', $token
+        'local', $db, $cookieref->{'userLogin'}, $fieldsref->{'mode'}, $token
     )
   );
 

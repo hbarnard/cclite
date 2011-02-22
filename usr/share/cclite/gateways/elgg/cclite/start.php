@@ -3,7 +3,7 @@
 	/**
 	 * Elgg cclite plugin
 	 * 
-	 * @package Elggcclite
+	 * @package Elgg-cclite
 	 * @license http://www.gnu.org/licenses/old-licenses/gpl-2.0.html GNU Public License version 2
 	 * @author Hugh Barnard
 	 * @copyright Hugh Barnard
@@ -48,7 +48,10 @@
 				
 			// Register a page handler, so we can have nice URLs
 				register_page_handler('cclite','cclite_page_handler');
-				
+			
+ 
+
+	
 			// Register a URL handler for cclite posts
 				register_entity_url_handler('cclite_url','object','cclite');
 				
@@ -171,8 +174,8 @@
 			// ensure "admin" is a friend for all users ... if you want
 			// any other user just use it below
 		//	if ( ($username != "admin") && ($admin = get_user_by_username ("admin")) ) {
-		          $block_content = cclite_contents('adduser',$username) ;
-		          system_message ( "trying to create cclite user $block_content");
+		//          $block_content = cclite_contents('adduser',$username) ;
+		//         system_message ( "trying to create cclite user $block_content");
 			
 
 		//	}

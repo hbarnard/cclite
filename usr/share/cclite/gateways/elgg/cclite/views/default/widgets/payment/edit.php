@@ -10,13 +10,22 @@
 	 * @link http://www.hughbarnard.org/
 	 */
 
+
+$form_body = "<p>Payment Form</p>";
+
+$form_body .= elgg_echo('to user');
+$form_body .= elgg_view('input/text', array('internalname' => 'touser', 'value' => ''));
+$form_body .= elgg_echo('currency');
+$form_body .= elgg_view('input/text', array('internalname' => 'currency', 'value' => ''));
+$form_body .= elgg_echo('quantity');
+$form_body .= elgg_view('input/text', array('internalname' => 'quantity', 'value' => ''));
+$form_body .= elgg_echo('description');
+$form_body .= elgg_view('input/text', array('internalname' => 'description', 'value' => ''));
+$form_body .= elgg_view('input/submit', array('internalname' => 'submit', 'value' => 'Pay'));
+$form_body .= elgg_view('input/securitytoken');  
+
+echo elgg_view('input/form', array('body' => $form_body, 'action' => "{$CONFIG->url}mod/cclite/actions/pay.php"));
+
+
 ?>
-	<p>
-		<?php echo elgg_echo("User"); ?>
-		<br/><input type="text" name="params[cclite_username]" value="<?php echo htmlentities($vars['entity']->cclite_username); ?>" />	
-		<?php echo elgg_echo("cclite:quantity"); ?>
-		<input type="text" name="params[cclite_quantity]" value="<?php echo htmlentities($vars['entity']->cclite_quantity); ?>" />
-                <br/><?php echo elgg_echo("cclite:currency"); ?>
-		<input type="text" name="params[cclite_currency]" value="<?php echo htmlentities($vars['entity']->cclite_currency); ?>" />	
-	
-	</p>
+
