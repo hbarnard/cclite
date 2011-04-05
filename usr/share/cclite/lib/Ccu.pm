@@ -128,7 +128,18 @@ sub display_template {
         $pagename, $fieldsref,   $cookies, $token
     ) = @_;
 
-   
+
+   #FIXME: hack to deal with cpanel database names....
+   if ($0 !~ /ccinstall/ ) { 
+   my %configuration ;
+   %configuration = Ccconfiguration::readconfiguration() ;
+
+    foreach my $key (%$fieldsref) {
+       if ($key =~ /registry/) {
+          $fieldsref->{$key} =~ s/$configuration{'cpanelprefix'}_// ;           
+       }    
+    }
+   }
    # only refresh is [mis]used to carry json payload if json is being returned 2/2011
    # prints the cookies, if any, the json and exits..
    if ($fieldsref->{'mode'} eq 'json') {
@@ -163,55 +174,55 @@ EOT
     my ( $date, $time ) = getdateandtime( time() );
 
     # if not logging off, now transferred to cclite
-    if ( $$fieldsref{action} ne "logoff" ) {
+    if ( $fieldsref->{action} ne "logoff" ) {
 
-        $$fieldsref{language} = $$cookieref{language}
-          if ( length( $$cookieref{language} ) );
+        $fieldsref->{language} = $cookieref->{language}
+          if ( length( $cookieref->{language} ) );
 
-        $$fieldsref{registry} = $$cookieref{registry}
-          if ( length( $$cookieref{registry} ) );
+        $fieldsref->{registry} = $cookieref->{registry}
+          if ( length( $cookieref->{registry} ) );
 
-        $$fieldsref{date} = $date;
+        $fieldsref->{date} = $date;
     }
 
     # display logon if not logged on, otherwise display the trades form
     # needs modification to allow/disallow certain actions
     if ( length($pagename) ) {
-        $$fieldsref{pagename} = $pagename;
+        $fieldsref->{pagename} = $pagename;
 
         # simple gatekeeper against cash trades if not admin
         # FIXME: a little ugly really....
-        if (   $$fieldsref{pagename} eq "admintrades.html"
-            && $$cookieref{userLevel} ne 'admin' )
+        if (   $fieldsref->{pagename} eq "admintrades.html"
+            && $cookieref->{userLevel} ne 'admin' )
         {
-            $$fieldsref{pagename} = "trades.html";
-        } elsif ( $$fieldsref{pagename} eq "trades.html"
-            && $$cookieref{userLevel} eq 'admin' )
+            $fieldsref->{pagename} = "trades.html";
+        } elsif ( $fieldsref->{pagename} eq "trades.html"
+            && $cookieref->{userLevel} eq 'admin' )
         {
-            $$fieldsref{pagename} = "admintrades.html";
+            $fieldsref->{pagename} = "admintrades.html";
         }
 
-    } elsif ( !length( $$cookieref{userLogin} ) ) {
-        $$fieldsref{pagename} = "logon.html";
+    } elsif ( !length( $cookieref->{userLogin} ) ) {
+        $fieldsref->{pagename} = "logon.html";
     } else {
 
         # new cash functions etc. for admins (tellers) only
-        if ( $$cookieref{userLevel} eq 'admin' ) {
-            $$fieldsref{pagename} = "admintrades.html";
+        if ( $cookieref->{userLevel} eq 'admin' ) {
+            $fieldsref->{pagename} = "admintrades.html";
         } else {
-            $$fieldsref{pagename} = "trades.html";
+            $fieldsref->{pagename} = "trades.html";
         }
 
     }
 
     my %messages;
 
-    if ( length( $$cookieref{token} ) ) {
+    if ( length( $cookieref->{token} ) ) {
 
-        my $login = $$cookieref{userLogin} || $$fieldsref{userLogin};
-        %messages               = readmessages( $$cookieref{language} );
-        $$fieldsref{youare}     = "$messages{youare} $login";
-        $$fieldsref{atregistry} = "$messages{at} $$fieldsref{registry}";
+        my $login = $cookieref->{userLogin} || $fieldsref->{userLogin};
+        %messages               = readmessages( $cookieref->{language} );
+        $fieldsref->{youare}     = "$messages{youare} $login";
+        $fieldsref->{atregistry} = "$messages{at} $fieldsref->{registry}";
     }
 
     # collect currencies and partners, if a trade operation
@@ -221,43 +232,43 @@ EOT
 
     my $blank_option = "<option value=\"\"></option>";
 
-    if ( $pagename !~ /logon/ && length( $$cookieref{registry} ) ) {
+    if ( $pagename !~ /logon/ && length( $cookieref->{registry} ) ) {
         my $option_string =
-          Cclite::collect_items( 'local', $$fieldsref{registry},
+          Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_currencies', $fieldsref, 'name', 'select', $token );
 
         # this is the primary currency or the 'only' one
 
-        $$fieldsref{selectcurrency} = <<EOT ;
+        $fieldsref->{selectcurrency} = <<EOT ;
 <select class="required" name="tradeCurrency">$blank_option$option_string</select>\n    
 EOT
 
         # this is the secondary currency in a split transaction operation
 
-        $$fieldsref{sselectcurrency} = <<EOT ;
+        $fieldsref->{sselectcurrency} = <<EOT ;
 <select class="required" name="stradeCurrency">$blank_option$option_string</select>\n    
 EOT
 
         # collect partners for registry operations, if multiregistry
         # add local registry to option string!
         # otherwise just present local registry as readonly field
-        if ( $$fieldsref{multiregistry} eq "yes"
-            && length( $$cookieref{registry} ) )
+        if ( $fieldsref->{multiregistry} eq "yes"
+            && length( $cookieref->{registry} ) )
         {
             $option_string =
-              Cclite::collect_items( 'local', $$fieldsref{registry},
+              Cclite::collect_items( 'local', $fieldsref->{registry},
                 'om_partners', $fieldsref, 'name', 'select', $token );
             $option_string .=
-"<option value=\"$$fieldsref{registry}\">\u$$fieldsref{registry}</option>";
-            $$fieldsref{selectpartners} = <<EOT ;
+"<option value=\"$fieldsref->{registry}\">\u$fieldsref->{registry}</option>";
+            $fieldsref->{selectpartners} = <<EOT ;
 <select class="required" name="toregistry">$blank_option$option_string</select>    
 EOT
 
         } else {
 
-            $$fieldsref{selectpartners} = <<EOT ;
+            $fieldsref->{selectpartners} = <<EOT ;
 <input class="grey"
- name="toregistry" class="required" readonly="readonly" size="30" maxlength="255" value="$$fieldsref{registry}" type="text">   
+ name="toregistry" class="required" readonly="readonly" size="30" maxlength="255" value="$fieldsref->{registry}" type="text">   
 EOT
 
         }
@@ -268,26 +279,26 @@ EOT
     # rather than the SIC codes. should become 'pluggable' eventually.
     # the codes now have a tree structure, category and parent (category).
 
-    if ( $pagename =~ /yellowpages/ && length( $$cookieref{registry} ) ) {
+    if ( $pagename =~ /yellowpages/ && length( $cookieref->{registry} ) ) {
 
         # collect categories for yellow pages
         my $option_string =
-          Cclite::collect_items( 'local', $$fieldsref{registry},
+          Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_categories', $fieldsref, 'description', 'select', $token );
-        $$fieldsref{selectclassification} = <<EOT ;
+        $fieldsref->{selectclassification} = <<EOT ;
  <select type="required" name="classification">$blank_option$option_string</select>\n    
 EOT
 
     }
 
-    if ( $pagename =~ /category/ && length( $$cookieref{registry} ) ) {
+    if ( $pagename =~ /category/ && length( $cookieref->{registry} ) ) {
 
         # collect major, if a category operation
         #
         my $option_string =
-          Cclite::collect_items( 'local', $$fieldsref{registry},
+          Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_categories', $fieldsref, 'parent', 'select', $token );
-        $$fieldsref{selectparent} = <<EOT ;
+        $fieldsref->{selectparent} = <<EOT ;
  <select class="required" name="parent">$blank_option$option_string</select>\n    
 EOT
 
@@ -295,15 +306,15 @@ EOT
 
     # get the latest news field from the registry for front page display
 
-    $$fieldsref{latest_news} =
+    $fieldsref->{latest_news} =
       Cclite::get_news( 'local', $fieldsref->{'registry'}, $token )
-      if ( length( $$cookieref{registry} ) );
+      if ( length( $cookieref->{registry} ) );
 
     # format it for user level users, admin needs to edit it
-    $$fieldsref{latest_news} =
-      "<span class=\"news\">$$fieldsref{latest_news}<\/span>"
-      if ( $$cookieref{userLevel} ne "admin"
-        && length( $$fieldsref{latest_news} ) );
+    $fieldsref->{latest_news} =
+      "<span class=\"news\">$fieldsref->{latest_news}<\/span>"
+      if ( $cookieref->{userLevel} ne "admin"
+        && length( $fieldsref->{latest_news} ) );
 
     print <<EOT;
 Content-type: text/html
@@ -314,14 +325,14 @@ EOT
 # added logic 8/2009 to return untemplated html, for 'foreign' systems
 # this is the beginning of 'return for various representations, rss, json, csv etc.
 
-    if ( !length( $$fieldsref{mode} ) || $$fieldsref{mode} eq 'html' ) {
-        if ( !length( $$fieldsref{templatename} ) ) {
+    if ( !length( $fieldsref->{mode} ) || $fieldsref->{mode} eq 'html' ) {
+        if ( !length( $fieldsref->{templatename} ) ) {
             $pages->Display( "index.html", $fieldsref );
         } else {
-            $pages->Display( $$fieldsref{templatename}, $fieldsref );
+            $pages->Display( $fieldsref->{templatename}, $fieldsref );
         }
     } else {
-        print $$fieldsref{html};
+        print $fieldsref->{html};
     }
 
     exit 0;

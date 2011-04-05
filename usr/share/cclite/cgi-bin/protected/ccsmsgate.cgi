@@ -180,8 +180,8 @@ gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token )
 
 }
 
-                                     # mobile number + raw string
 
+# mobile number + raw string
 # this is mainly to make Selenium etc. work...
 print "Content-type: text/html\n\nrunning\n";
 

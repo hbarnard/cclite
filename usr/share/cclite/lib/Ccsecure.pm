@@ -189,17 +189,17 @@ sub calculate_token {
         #FIXME: time gives a little volatility but improve EGD perhaps?
         my $nonce = join( '', $sec, $min, $hour );
         $nonce = _get_digest( $url_type, $nonce );
-        $token = _get_digest( $url_type, $$fieldsref{'userLogin'},
+        $token = _get_digest( $url_type, $fieldsref->{'userLogin'},
             $nonce, $remote_address );
         return ( $token, $nonce );
     } else {
-        $token = _get_digest( $url_type, $$cookieref{'userLogin'},
-            $$cookieref{'token1'}, $remote_address );
+        $token = _get_digest( $url_type, $cookieref->{'userLogin'},
+            $cookieref->{'token1'}, $remote_address );
 
         return ( $token, undef );
     }
 ###    $log->error(
-###"in token calc, fatal problem: $registry_private_value, u:$$fieldsref{'userLogin'}, ip:$remote_address"
+###"in token calc, fatal problem: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
 ###    );
 }
 
@@ -249,7 +249,7 @@ sub calculate_api_hash {
 
     foreach my $ip_address (@allowed_ip_addresses) {
         my $merchant_key_hash =
-          _get_digest( 0, ( $$hash_ref{'merchant_key'} . $ip_address ) );
+          _get_digest( 0, ( $hash_ref->{'merchant_key'} . $ip_address ) );
       ###    $log->debug("in get ip hash:$merchant_key_hash\n") ;
         push @calculated_hashes, $merchant_key_hash;
     }
@@ -440,7 +440,7 @@ Should also check token to provide some assurance that session is not hijacked
 sub is_admin {
     my $is_admin  = 0;
     my $cookieref = get_cookie();
-    $is_admin = 1 if ( $$cookieref{userLevel} eq "admin" );
+    $is_admin = 1 if ( $cookieref->{userLevel} eq "admin" );
     return $is_admin;
 }
 

@@ -960,7 +960,7 @@ table describe. Used to prepare other operations
 
 sub get_table_columns {
     my ( $table, $dbh ) = @_;
-    my ( $sth, @columns, @row );
+    my ( $sth, @columns, @row );    
     my $show = "describe $table;";
     $sth = $dbh->prepare($show);
     my $rv = $sth->execute();
@@ -1048,6 +1048,13 @@ sub _registry_connect {
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 
+
+    #FIXME: hack for database prefix in cpanel, registry creation connect
+    # has blank database so no prefix should be added... 
+    if (length($configuration{'cpanelprefix'}) && length($db)) {
+     $db = $configuration{'cpanelprefix'}. '_' . $db  ;
+    }
+
     #open connection to MySql database
     my $dbh = DBI->connect( "dbi:mysql:$db", $dbuser, $dbpassword );
     my $error = $DBI::errstr;
@@ -1069,8 +1076,13 @@ sub registry_connect {
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 
+
     my ( $db, $token ) = @_;
 
+    #FIXME: hack for database prefix in cpanel 
+    $db = $configuration{'cpanelprefix'}. '_' . $db if (length($configuration{'cpanelprefix'})) ;
+
+    
     #open connection to MySql database
     my $dbh = DBI->connect( "dbi:mysql:$db", $dbuser, $dbpassword );
     my $error = $DBI::errstr;

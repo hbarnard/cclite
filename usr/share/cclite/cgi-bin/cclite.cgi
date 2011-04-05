@@ -170,6 +170,7 @@ $fields{domain} = $configuration{domain};
 
 # old style hash set type = 0
 my $url_type = 0;
+
 $fields{userHash} = hash_password( $url_type, $fields{userPassword} );
 
 #

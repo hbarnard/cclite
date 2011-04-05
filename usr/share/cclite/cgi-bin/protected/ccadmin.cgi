@@ -164,14 +164,14 @@ $fields{home} = $user_home if ( $fields{action} eq "logoff" );
 my $cookieref = get_cookie();
 
 my $language = $fields{language}
-  || $$cookieref{language}
+  || $cookieref->{language}
   || "en";    # default is english
 
 my $pagename = $fields{name} || "front.html";    # default is the index page
 
 my $action = $fields{action};
 my $table  = $fields{subaction};
-my $db     = $$cookieref{registry} || $fields{registry};
+my $db     = $cookieref->{registry} || $fields{registry};
 
 # A template object referencing a particular directory
 my $pages = new HTML::SimpleTemplate("../../templates/html/$language/admin");
@@ -182,10 +182,10 @@ my $user_pages = new HTML::SimpleTemplate("../../templates/html/$language");
 # need to be abstracted away from both ccadmin.cgi and cclite.cgi, duplicated
 
 # need to be an admin, need to be logged on, back to logon
-if ( length( $$cookieref{userLevel} ) && ( $$cookieref{userLevel} ne 'admin' ) )
+if ( length( $cookieref->{userLevel} ) && ( $cookieref->{userLevel} ne 'admin' ) )
 {
 
-###    $log->debug("l:$$cookieref{userLevel}  t:$$cookieref{token}");
+###    $log->debug("l:$cookieref->{userLevel}  t:$cookieref->{token}");
     $fields{menustyle} = "grey";
     $fieldsref = \%fields;
     my $pages = $user_pages;
@@ -203,7 +203,7 @@ if ( length( $$cookieref{userLevel} ) && ( $$cookieref{userLevel} ne 'admin' ) )
 $fields{errors} = install_grumble( $configuration{librarypath} );
 
 # just to give upper case display for admin menu
-$fields{registrytitle} = "\u$$fieldsref{name}";
+$fields{registrytitle} = "\u$fieldsref->{name}";
 
 $fieldsref = \%fields;
 
@@ -212,11 +212,11 @@ my ( $errors, $report_ref, $file_ref ) =
   get_set_batch_files( 'get', $configref, $fieldsref, $cookieref );
 
 foreach my $key ( sort keys %$report_ref ) {
-    $$fieldsref{displaybatchfiles} .= $$report_ref{$key};
+    $fieldsref->{displaybatchfiles} .= $report_ref->{$key};
 }
 
 # there is a token but it's been modified or spoofed
-if ( length( $$cookieref{userLogin} ) && length( $$cookieref{token} ) ) {
+if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
 
     # calculate token to compare with cookie version
     my $compare_token;
@@ -224,14 +224,14 @@ if ( length( $$cookieref{userLogin} ) && length( $$cookieref{token} ) ) {
       calculate_token( $registry_private_value, $fieldsref, $cookieref,
         $ENV{REMOTE_ADDR} );
 
-    if ( length( $$cookieref{token} )
-        && ( $compare_token ne $$cookieref{token} ) )
+    if ( length( $cookieref->{token} )
+        && ( $compare_token ne $cookieref->{token} ) )
     {
         $fieldsref = \%fields;
 ###        $log->warn(
-###"corrupt token or spoofing attempt from login:$$cookieref{userLogin} token:$$cookieref{token} token1:$$cookieref{token1} at:$ENV{REMOTE_ADDR}"
+###"corrupt token or spoofing attempt from login:$cookieref->{userLogin} token:$cookieref->{token} token1:$cookieref->{token1} at:$ENV{REMOTE_ADDR}"
 ###        );
-        ###$log->debug("action is $action: $compare_token\n  ne \n$$cookieref{token} \ntoken1:$$cookieref{token1}");
+        ###$log->debug("action is $action: $compare_token\n  ne \n$cookieref->{token} \ntoken1:$cookieref->{token1}");
 
         # attempt to exit cleanly
         $action = 'logoff';

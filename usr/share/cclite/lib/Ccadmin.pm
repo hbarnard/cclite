@@ -200,7 +200,7 @@ sub update_config1 {
     my ( $new, $configuration, $home, $domain, $hash_type, $dir ) = @_;
     my %fields;
     my $title;
-
+   
     # guess values, if new install otherwise read existing
     if ($new) {
         my $configuration_ref =
@@ -234,9 +234,13 @@ sub update_config1 {
         $fields{updatemessage} .= "<br/>$messages{sha1warning}";
     }
 
- # for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )
-    return ( 0, '', '/cgi-bin/protected/ccinstall.cgi',
+   # for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )
+ 
+    return ( 0, '', '',
         \%fields, "installvalues.html", "" );
+ 
+   ### return ( 0, '', '/cgi-bin/protected/ccinstall.cgi',
+   ###     \%fields, "installvalues.html", "" );
 }
 
 =head3 update_configuration2
@@ -394,11 +398,11 @@ sub add_currency {
                                # check whether currency exists already
                                # currencies are always lower case
                                # currencies are always canonical lower case
-    $$fieldsref{name} =
-      lc( $$fieldsref{cname} );    # hack to deal with name collision
+    $fieldsref->{name} =
+      lc( $fieldsref->{cname} );    # hack to deal with name collision
 
     my ( $status, $currencyref ) =
-      get_where( $class, $db, "om_currencies", '*', "name", $$fieldsref{name},
+      get_where( $class, $db, "om_currencies", '*', "name", $fieldsref->{name},
         $token, $offset, $limit );
     if ( length( $$currencyref{name} ) ) {
         push @status, $messages{currencyrejected};
@@ -410,15 +414,15 @@ sub add_currency {
     @status = ( @status, @validate );
 
     if ( scalar(@status) ) {
-        $$fieldsref{errors} = join( "<br/>", @status );
-        return ( "1", $$fieldsref{home}, "", $messages{currencyrejected},
+        $fieldsref->{errors} = join( "<br/>", @status );
+        return ( "1", $fieldsref->{home}, "", $messages{currencyrejected},
             "currency.html", "" );
     }
-    $$fieldsref{code} = uc( $$fieldsref{code} );    # codes always uc
+    $fieldsref->{code} = uc( $fieldsref->{code} );    # codes always uc
     add_database_record( $class, $db, $table, $fieldsref, $token );
 
     # if not a success, force the major status to cause of failure
-    return ( "1", $$fieldsref{home}, "", $messages{currencycreated},
+    return ( "1", $fieldsref->{home}, "", $messages{currencycreated},
         "result.html", "" );
 }
 
@@ -437,21 +441,21 @@ sub add_category {
     my @status;
     $class = "Ccadmin";
     my ( $status, $categoryref ) =
-      get_where( $class, $db, "om_categories", '*', "name", $$fieldsref{name},
+      get_where( $class, $db, "om_categories", '*', "name", $fieldsref->{name},
         $token, $offset, $limit );
     ###print "in create category" ;
     if ( length( $$categoryref{name} ) ) {
-        return ( "1", $$fieldsref{home}, "", $messages{categorynameexists},
+        return ( "1", $fieldsref->{home}, "", $messages{categorynameexists},
             "result.html", "" );
     }
 
     #FIXME: hack to make sure that there's a category number, needs fixing
-    $$fieldsref{category} = '1099';
+    $fieldsref->{category} = '1099';
 
     add_database_record( $class, $db, $table, $fieldsref, $token );
 
     # if not a success, force the major status to cause of failure
-    return ( "1", $$fieldsref{home}, "", $messages{categorycreated},
+    return ( "1", $fieldsref->{home}, "", $messages{categorycreated},
         "result.html", "" );
 }
 
@@ -475,7 +479,7 @@ sub do_modify_currency {
     $class = "Ccadmin";
     my ( $metarefresh, $home, $error, $html, $page, $fieldsref ) =
       update_database_record( $class, $db, $table, 1, $fieldsref,
-        $$fieldsref{language}, $token );
+        $fieldsref->{language}, $token );
     return ( $metarefresh, $home, $error, $html, $page, $fieldsref );
 
 }
@@ -520,8 +524,14 @@ sub add_registry {
     # --followed by dbh->do 3/2005
 
     my ( $class, $db, $table, $configref, $cookieref, $fieldsref, $token ) = @_;
-    my $structure;
-    my @status;
+    
+    
+    if ( length($configref->{'cpanelprefix'}) ) {
+        $fieldsref->{'newregistry'}  =  $configref->{'cpanelprefix'} . '_'  . $fieldsref->{'newregistry'} ;       
+    } 
+    
+    my ($structure, @status);
+    
     my @vstatus =
       validate_registry( $class, $db, $fieldsref, $messagesref, $token, undef,
         undef );    # validate registry fields
@@ -569,28 +579,29 @@ EOT
     @status = ( @vstatus, @status );
     if ( scalar(@status) ) {
 
-        $$fieldsref{errors} =
+        $fieldsref->{errors} =
           join( "</div><div class=\"failedcheck\">", @status );
-        $$fieldsref{errors} =
-          "<div class=\"failedcheck\">$$fieldsref{errors}</div>";
+        $fieldsref->{errors} =
+          "<div class=\"failedcheck\">$fieldsref->{errors}</div>";
 
-        return ( "0", '', "$$fieldsref{errors} ", "", "registry.html", "" );
+        return ( "0", '', "$fieldsref->{errors} ", "", "registry.html", "" );
     }
 
     # eval block for this 7/2010
     eval {
         if ( length($dbh) )
         {
-            $dbh->do("create database if not exists $$fieldsref{newregistry}");
+            $dbh->do("create database if not exists $fieldsref->{newregistry}");
             $dbh->disconnect();
         }
     };
     die "ccinstall: $@" if length($@);
-
-    # connect to db
+  
+    # connect to db, let Cclitedb, take over prefix handling now...
+    $fieldsref->{'newregistry'}  =~  s/$configref->{'cpanelprefix'}_// ; 
 
     my ( $registryerror, $dbh ) =
-      Cclitedb::_registry_connect( $$fieldsref{newregistry}, $token );
+      Cclitedb::_registry_connect( $fieldsref->{newregistry}, $token );
 
     # sql creation is now versioned according to the software version
     # and hash type which decides the hashes for the initial passwords
@@ -629,17 +640,25 @@ EOT
     # 'empty' om_registry table...hence stuckage...
     # useid is 1 for using the id field..
 
-    $$fieldsref{name} = $$fieldsref{newregistry};    # for the moment
+    $fieldsref->{name} = $fieldsref->{newregistry};    # for the moment
 
     # like the highlander, there can only be one (the first record), we hope...
-    # watch out for auto-increment when dumping db structures tooo
-    $$fieldsref{id} = 1;
+    # watch out for auto-increment when dumping db structures too
+    $fieldsref->{id} = 1;
 
-    update_database_record( $class, $$fieldsref{newregistry},
+     my (
+        $package,   $filename, $line,       $subroutine, $hasargs,
+        $wantarray, $evaltext, $is_require, $hints,      $bitmask
+    ) = caller(1);
+
+    ###print "p:$package l:$line f:$subroutine  $fieldsref->{newregistry} " ;
+
+
+    update_database_record( $class, $fieldsref->{newregistry},
         'om_registry', 1, $fieldsref, 'en', $token );
 
     # previous 0.6.0 code keep for a while...
-    ### add_database_record( $class, $$fieldsref{newregistry},
+    ### add_database_record( $class, $fieldsref->{newregistry},
     ###    'om_registry', $fieldsref, $token );
 
     # set up directories for all batch processes
@@ -648,7 +667,7 @@ EOT
     my $display_files = join( "<br/>\n", %$file_ref );
 
     my $message = <<EOT;
-    \u$$fieldsref{newregistry} $messages{registrycreated} <br/>
+    \u$fieldsref->{newregistry} $messages{registrycreated} <br/>
     <a href="/cgi-bin/cclite.cgi">$messages{nowlogonandcreate}</a>
 EOT
 
@@ -676,7 +695,7 @@ sub show_registries {
     my ( $class, $db, $table, $fieldsref, $mode, $token ) = @_;
     my $structure;
     my @registries;
-    my $return_url     = $$fieldsref{home};    # that is ccinstall.cgi
+    my $return_url     = $fieldsref->{home};    # that is ccinstall.cgi
     my $registry_count = 0;
 
     #FIXME: what's wrong with this message?
@@ -754,24 +773,24 @@ sub add_partner {
     my $class = "Cclitedb";
     my @status;
     my $hash       = "";                 # for the moment, needs sha1 afterwards
-    my $return_url = $$fieldsref{home};
+    my $return_url = $fieldsref->{home};
     @status =
       validate_partner( $class, $db, $fieldsref, $messagesref, $token, "", "" );
 
     # test for duplicate registry name
     my ( $status, $partnerref ) =
-      get_where( $class, $db, "om_partners", '*', "name", $$fieldsref{dname},
+      get_where( $class, $db, "om_partners", '*', "name", $fieldsref->{dname},
         $token, $offset, $limit );
     push @status, $$messagesref{partnerexists} if ( length($partnerref) );
     if ( scalar(@status) ) {
-        $$fieldsref{errors} = join( "<br/>", @status );
+        $fieldsref->{errors} = join( "<br/>", @status );
         return ( "0", '', "", $html, "partners.html", "" );
     }
     my ( $date, $time ) = getdateandtime();
-    $$fieldsref{date} = $date;
+    $fieldsref->{date} = $date;
 
     # dname in form to avoid name collision
-    $$fieldsref{name} = $$fieldsref{dname};
+    $fieldsref->{name} = $fieldsref->{dname};
 
     #
     # add to the  database
@@ -837,8 +856,8 @@ sub apply_service_charge {
         undef, undef );
 
     if ( scalar(@status) ) {
-        $$fieldsref{errors} = join( "<br/>", @status );
-        return ( "0", $$fieldsref{home}, undef, $html, "servicechg.html",
+        $fieldsref->{errors} = join( "<br/>", @status );
+        return ( "0", $fieldsref->{home}, undef, $html, "servicechg.html",
             $fieldsref, undef );
     }
 
@@ -852,8 +871,8 @@ sub apply_service_charge {
     # no sysaccount found or database problem
 
     if ( !length( $$userref{userId} ) || length($status) ) {
-        $$fieldsref{errors} = "$messages{nosysaccount}  or $status";
-        return ( "0", $$fieldsref{home}, undef, "", "servicechg.html",
+        $fieldsref->{errors} = "$messages{nosysaccount}  or $status";
+        return ( "0", $fieldsref->{home}, undef, "", "servicechg.html",
             $fieldsref, undef );
     }
 
@@ -872,20 +891,20 @@ sub apply_service_charge {
     $transaction{toregistry} = $db;
 
     #tradeAmount : 23
-    $transaction{tradeAmount} = $$fieldsref{value};
+    $transaction{tradeAmount} = $fieldsref->{value};
 
     #tradeCurrency : ducket
-    $transaction{tradeCurrency} = $$fieldsref{tradeCurrency};
+    $transaction{tradeCurrency} = $fieldsref->{tradeCurrency};
 
     #tradeDate : this is date of reception and processing, in fact
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
     $transaction{tradeDate} = $date;
 
     #tradeTitle : added by this routine
-    $transaction{tradeTitle} = $$fieldsref{title};
+    $transaction{tradeTitle} = $fieldsref->{title};
 
     #tradeDescription
-    $transaction{tradeDescription} = $$fieldsref{description};
+    $transaction{tradeDescription} = $fieldsref->{description};
 
     #tradeDestination : ddawg
     $transaction{tradeDestination} = $sysaccount;
@@ -928,9 +947,9 @@ sub apply_service_charge {
     }
 
     $html =
-"$$messagesref{servicechargeapplied} $$fieldsref{value} $$fieldsref{tradeCurrency} : $db";
+"$$messagesref{servicechargeapplied} $fieldsref->{value} $fieldsref->{tradeCurrency} : $db";
 
-    return ( "1", $$fieldsref{home}, undef, $html, "result.html" );
+    return ( "1", $fieldsref->{home}, undef, $html, "result.html" );
 
     # now condense system account records into one record if required
 
@@ -952,7 +971,7 @@ sub get_set_batch_files {
     my $error;
 
 # FIXME: this is not quite right, get should use cookies, set newregistry, probably
-    my $registry = $$cookieref{registry} || $$fieldsref{newregistry};
+    my $registry = $$cookieref{registry} || $fieldsref->{newregistry};
 
     my $language = $$cookieref{language} || $$configref{language} || 'en';
 

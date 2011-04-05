@@ -139,7 +139,7 @@ sub add_openid {
     $fieldsref->{'userId'} = $cookieref->{'userId'};
 
     add_database_record( $class, $db, $table, $fieldsref, $token );
-    return ( "1", $$fieldsref{home}, "", "open id added", "result.html", "" );
+    return ( "1", $fieldsref->{home}, "", "open id added", "result.html", "" );
 
 }
 
@@ -163,75 +163,75 @@ sub add_user {
 
     my @status;
     my $hash       = "";                 # for the moment, needs sha1 afterwards
-    my $return_url = $$fieldsref{home};
+    my $return_url = $fieldsref->{home};
 
     # need nuserLogin field to make the autosuggest work in ccsuggest.cgi
     # but must put correct field into the database
 
     # lower case only screen names, as of 11/2008
-    $$fieldsref{nuserLogin} =~ s/\s+$//;
-    $$fieldsref{userLogin} = lc( $$fieldsref{nuserLogin} );
+    $fieldsref->{nuserLogin} =~ s/\s+$//;
+    $fieldsref->{userLogin} = lc( $fieldsref->{nuserLogin} );
 
     # api user creation gives non-validated stub records
-    if ( $$fieldsref{logontype} ne 'api' ) {
+    if ( $fieldsref->{logontype} ne 'api' ) {
         @status =
           validate_user( $class, $db, $fieldsref, $messagesref, $token, "",
             "" );
         if ( $status[0] == -1 ) {
             shift @status;
-            $$fieldsref{errors} = join( "<br/>", @status );
+            $fieldsref->{errors} = join( "<br/>", @status );
             return ( "0", "", "", $html, "newuser.html", "" );
         }
     }
 
     # new users are set to initial status defined in cclite.cgi
-    $$fieldsref{userStatus} = $$fieldsref{initialUserStatus};
+    $fieldsref->{userStatus} = $fieldsref->{initialUserStatus};
 
 #FIXME: boolean userSmsreceipt update, probably unnecessary but test, if removed
-    length( $$fieldsref{'userSmsreceipt'} )
-      ? ( $$fieldsref{'userSmsreceipt'} = 1 )
-      : ( $$fieldsref{'userSmsreceipt'} = 0 );
-    ###$log->debug("sms receipt is $$fieldsref{'userSmsreceipt'}") ;
+    length( $fieldsref->{'userSmsreceipt'} )
+      ? ( $fieldsref->{'userSmsreceipt'} = 1 )
+      : ( $fieldsref->{'userSmsreceipt'} = 0 );
+    ###$log->debug("sms receipt is $fieldsref->{'userSmsreceipt'}") ;
 
     # FIXME: These should not be hardcoded, 3 tries, not test yet + active
-    $$fieldsref{userPasswordTries}  = 3;
-    $$fieldsref{userPasswordStatus} = 'active';
+    $fieldsref->{userPasswordTries}  = 3;
+    $fieldsref->{userPasswordStatus} = 'active';
 
     #
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
-    $$fieldsref{userJoindate} = $date;
+    $fieldsref->{userJoindate} = $date;
 
     #
-    $$fieldsref{userLevel}    = 'user';
-    $$fieldsref{userPassword} = $$fieldsref{userHash};
+    $fieldsref->{userLevel}    = 'user';
+    $fieldsref->{userPassword} = $fieldsref->{userHash};
 
 # mobile pin number is stored as hashed, status waiting, phone number reformatted
 # pin status is always waiting until a confirm sms, 3 tries then locked
 # FIXME: Most of these should not be hardcoded
-    $$fieldsref{userPin}       = text_to_hash( $$fieldsref{userPin} );
-    $$fieldsref{userPinStatus} = 'waiting';
-    $$fieldsref{userPinTries}  = 3;
+    $fieldsref->{userPin}       = text_to_hash( $fieldsref->{userPin} );
+    $fieldsref->{userPinStatus} = 'waiting';
+    $fieldsref->{userPinTries}  = 3;
 
     #FIXME: don't assume that all mobiles are UK based, drop  this..
-    $$fieldsref{userMobile} =
-      format_for_standard_mobile( $$fieldsref{userMobile} );
+    $fieldsref->{userMobile} =
+      format_for_standard_mobile( $fieldsref->{userMobile} );
 
     # add the user to the registry database
     my ( $rc, $rv, $record_id ) =
       add_database_record( $class, $db, $table, $fieldsref, $token );
 
     #
-    delete $$fieldsref{saveadd};
-    delete $$fieldsref{userPassword};
+    delete $fieldsref->{saveadd};
+    delete $fieldsref->{userPassword};
 
     #
-    $$fieldsref{action}     = "confirmuser";
-    $$fieldsref{userStatus} = "active";
-    $$fieldsref{Send}       = "$messages{confirm} $$fieldsref{userName}";
+    $fieldsref->{action}     = "confirmuser";
+    $fieldsref->{userStatus} = "active";
+    $fieldsref->{Send}       = "$messages{confirm} $fieldsref->{userName}";
 
 # make a hyperlink: many people will receive text-only email, therefore no buttons
     my $urlstring = <<EOT;
-$return_url?registry=$$fieldsref{registry}&subaction=om_users&userLogin=$$fieldsref{userLogin}&userStatus=active&action=confirmuser
+$return_url?registry=$fieldsref->{registry}&subaction=om_users&userLogin=$fieldsref->{userLogin}&userStatus=active&action=confirmuser
 EOT
 
     # type 1 notification for new user
@@ -239,16 +239,16 @@ EOT
     # won't send email if user is intially active as default, saves an email!
     my $mail_return;
 
-    if ( $$fieldsref{initialUserStatus} ne 'active' ) {
+    if ( $fieldsref->{initialUserStatus} ne 'active' ) {
         $mail_return = notify_by_mail(
             $class,
             $db,
-            $$fieldsref{userName},
-            $$fieldsref{userEmail},
-            $$fieldsref{systemMailAddress},
-            $$fieldsref{systemMailReplyAddress},
-            $$fieldsref{userLogin},
-            $$fieldsref{smtp},
+            $fieldsref->{userName},
+            $fieldsref->{userEmail},
+            $fieldsref->{systemMailAddress},
+            $fieldsref->{systemMailReplyAddress},
+            $fieldsref->{userLogin},
+            $fieldsref->{smtp},
             $urlstring,
             undef,
             1,
@@ -267,9 +267,9 @@ EOT
 sub confirm_user {
     my ( $class, $db, $table, $fieldsref, $token ) = @_;
     update_database_record( $class, $db, $table, 2, $fieldsref,
-        $$fieldsref{language}, $token );
-    return ( "1", $$fieldsref{home}, "",
-        "$$fieldsref{userLogin} $messages{isnowactive}",
+        $fieldsref->{language}, $token );
+    return ( "1", $fieldsref->{home}, "",
+        "$fieldsref->{userLogin} $messages{isnowactive}",
         "result.html", $fieldsref, "" );
 }
 
@@ -306,33 +306,34 @@ sub logon_user {
     my $cookieref = get_cookie();
 
     # user delivered via REST, same as form....
-    if ( $$fieldsref{logontype} eq 'form' || $$fieldsref{logontype} eq 'api' ) {
+    if ( $fieldsref->{logontype} eq 'form' || $fieldsref->{logontype} eq 'api' ) {
         ( $status, $userref ) =
-          get_where( $class, $$fieldsref{registry}, "om_users", '*',
-            "userLogin", $$fieldsref{userLogin}, $registry_private_value,
+          get_where( $class, $fieldsref->{registry}, "om_users", '*',
+            "userLogin", $fieldsref->{userLogin}, $registry_private_value,
             $offset, $limit );
+
 
 # test and branch to deal with bad db user and non-existent database, used  to 500
         if ( length($status) ) {
 ###            $log->warn(
-###"logon database problem: s:$status u:$$fieldsref{userLogin} r:$$fieldsref{registry}"
+###"logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}"
 ###            );
             $html =
-"$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry}: $status <a href=\"$$fieldsref{home}\">$messages{tryagain}</a>";
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
             return ( "0", '', $error, $html, "result.html", $fieldsref,
                 $cookieheader );
         }
-    } elsif ( $$fieldsref{logontype} eq 'remote' ) {
+    } elsif ( $fieldsref->{logontype} eq 'remote' ) {
         ( $status, $userref ) =
-          get_where( $class, $$fieldsref{registry}, "om_users", '*',
+          get_where( $class, $fieldsref->{registry}, "om_users", '*',
             "userLogin", $ENV{REMOTE_USER}, $registry_private_value, $offset,
             $limit );
     }
 
     # cash, liquidity and sysaccount may not logon
-    if ( $$userref{userLevel} eq 'sysaccount' ) {
+    if ( $userref->{userLevel} eq 'sysaccount' ) {
         $html =
-"$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry}: $status <a href=\"$$fieldsref{home}\"> $messages{notallowedsysaccount}";
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\"> $messages{notallowedsysaccount}";
 
         return ( "0", '', $error, $html, "result.html", $fieldsref,
             $cookieheader );
@@ -341,12 +342,12 @@ sub logon_user {
 
     # login failed here...need some industrial processing to deal with this
     # no user found
-    if ( !length( $$userref{userId} ) ) {
+    if ( !length( $userref->{userId} ) ) {
         $log->warn(
-"$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry} : user not found"
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found"
         );
         $html =
-"$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry}: $status <a href=\"$$fieldsref{home}\">$messages{tryagain}</a>";
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
         return ( "0", '', $error, $html, "result.html", $fieldsref,
             $cookieheader );
 
@@ -361,32 +362,32 @@ sub logon_user {
 
     {
         $log->warn(
-"$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry} : password failed"
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : password failed"
         );
 
 #FIXME: The locking mechanism is in place but nothing for resetting and testing, bigger job...
-        $$userref{userPasswordTries}--;
-        if ( $$userref{'userPasswordTries'} <= 1 ) {
-            $$userref{'userPasswordStatus'} = 'locked';
-            $$userref{userPasswordTries} = 0;
+        $userref->{userPasswordTries}--;
+        if ( $userref->{'userPasswordTries'} <= 1 ) {
+            $userref->{'userPasswordStatus'} = 'locked';
+            $userref->{userPasswordTries} = 0;
         }
 
         undef
-          $$userref{userPassword}; # remove this otherwise it's rehashed and re-updated
+          $userref->{userPassword}; # remove this otherwise it's rehashed and re-updated
         my ( $a, $b, $c, $d ) =
           update_database_record( 'local', $db, "om_users", 2, $userref,
-            $$userref{language}, $cookie{token} );
+            $userref->{language}, $cookie{token} );
 
         $html =
-"$messages{passwordfailedfor} $$fieldsref{userLogin} $messages{at} $db <a href=\"$$fieldsref{home}\">$messages{tryagain}</a>";
+"$messages{passwordfailedfor} $fieldsref->{userLogin} $messages{at} $db <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
 
         return ( "0", '', $error, $html, "result.html", $fieldsref,
             $cookieheader );
 
         # user not active
-    } elsif ( $$userref{userStatus} ne 'active' ) {
+    } elsif ( $userref->{userStatus} ne 'active' ) {
         $html =
-"$$fieldsref{userLogin} $messages{at} $db $messages{isnotactive} <a href=\"$$fieldsref{home}\">$messages{tryagain}</a>";
+"$fieldsref->{userLogin} $messages{at} $db $messages{isnotactive} <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
         return ( "0", '', $error, $html, "result.html", $fieldsref,
             $cookieheader );
     } else {
@@ -395,7 +396,7 @@ sub logon_user {
         my $path = "/";
 
         #my $nonce;
-        my $domain = $$fieldsref{domain};
+        my $domain = $fieldsref->{domain};
 
         my $ip_address = $ENV{REMOTE_ADDR};
 
@@ -405,15 +406,15 @@ sub logon_user {
             $fieldsref, undef, $ip_address );
 
         # make cookie fields from the user table
-        $cookie{userLogin} = $$userref{userLogin};
+        $cookie{userLogin} = $userref->{userLogin};
         $cookie{userId} =
-          $$userref{userId};    # not used yet, to replace userLogin
-        $cookie{language} = $$userref{userLang};
+          $userref->{userId};    # not used yet, to replace userLogin
+        $cookie{language} = $userref->{userLang};
 
   # avoid cumulation of registry cookie values, this is a browser problem though
-        $cookie{registry} = $$cookieref{registry} || $$fieldsref{registry};
+        $cookie{registry} = $$cookieref{registry} || $fieldsref->{registry};
 
-        $cookie{userLevel} = $$userref{userLevel};
+        $cookie{userLevel} = $userref->{userLevel};
 
         # make a cookie header, valid for session
         $cookieheader =
@@ -422,18 +423,18 @@ sub logon_user {
         # calculate date and time stamp for om_users table
         # get date and timestamp
         my ( $date, $time ) = &Ccu::getdateandtime( time() );
-        $$userref{userLastLogin} = "$date$time";
+        $userref->{userLastLogin} = "$date$time";
         undef
-          $$userref{userPassword}; # remove this otherwise it's rehashed and re-update
+          $userref->{userPassword}; # remove this otherwise it's rehashed and re-update
                                    # mode 2 is where userLogin = value ;
             # use userref to update record, should strip all other fields...
             # throw away return codes for the present
         my ( $a, $b, $c, $d ) =
           update_database_record( 'local', $db, "om_users", 2, $userref,
-            $$userref{language}, $cookie{token} );
+            $userref->{language}, $cookie{token} );
 
         print $cookieheader ;
-        print "Location:$$fieldsref{home}\n\n";
+        print "Location:$fieldsref->{home}\n\n";
         ### print "Location:$ENV{SCRIPT_PATH}\n\n";
         exit 0;
 
@@ -458,34 +459,34 @@ sub do_login {
         $ENV{REMOTE_ADDR} );
 
     # make cookie fields from the user table
-    $cookie{userLogin} = $$userref{userLogin};
-    $cookie{userId}   = $$userref{userId};  # not used yet, to replace userLogin
-    $cookie{language} = $$userref{userLang};
+    $cookie{userLogin} = $userref->{userLogin};
+    $cookie{userId}   = $userref->{userId};  # not used yet, to replace userLogin
+    $cookie{language} = $userref->{userLang};
 
   # avoid cumulation of registry cookie values, this is a browser problem though
-    $cookie{registry} = $registry || $$fieldsref{registry};
+    $cookie{registry} = $registry || $fieldsref->{registry};
 
-    $cookie{userLevel} = $$userref{userLevel};
+    $cookie{userLevel} = $userref->{userLevel};
 
     # make a cookie header, valid for session
     my $cookieheader =
-      return_cookie_header( "-1", $$fieldsref{domain}, '/', "", %cookie );
+      return_cookie_header( "-1", $fieldsref->{domain}, '/', "", %cookie );
 
     # calculate date and time stamp for om_users table
     # get date and timestamp
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
-    $$userref{userLastLogin} = "$date$time";
+    $userref->{userLastLogin} = "$date$time";
     undef
-      $$userref{userPassword}; # remove this otherwise it's rehashed and re-update
+      $userref->{userPassword}; # remove this otherwise it's rehashed and re-update
                                # mode 2 is where userLogin = value ;
         # use userref to update record, should strip all other fields...
         # throw away return codes for the present
     my ( $a, $b, $c, $d ) =
       update_database_record( 'local', $cookie{registry}, "om_users", 2,
-        $userref, $$userref{language}, $cookie{token} );
+        $userref, $userref->{language}, $cookie{token} );
 
     print $cookieheader ;
-    print "Location:$$fieldsref{home}\n\n";
+    print "Location:$fieldsref->{home}\n\n";
     exit 0;
 
 }
@@ -509,7 +510,7 @@ sub _compare_password_or_api_key {
         $compare_password = compare_password(
             $fieldsref->{'userHash'},
             $fieldsref->{'userPassword'},
-            $$userref{userPassword}
+            $userref->{userPassword}
         );
 
     }
@@ -545,9 +546,9 @@ sub logoff_user {
 
     my $goodbye = "$messages{goodbye} $cookieref->{userLogin}";
 
-    $$fieldsref{youare} = "";
-    $$fieldsref{at}     = "";
-    $$fieldsref{action} = "";
+    $fieldsref->{youare} = "";
+    $fieldsref->{at}     = "";
+    $fieldsref->{action} = "";
 
     foreach my $key ( keys %$cookieref ) {
         $cookieref->{$key} = undef;
@@ -654,7 +655,7 @@ sub find_records {
             $$cookieref{userLevel} eq "admin"
             || ( ( $table eq "om_yellowpages" )
                 && ( $hash_ref->{$key}->{'fromuserid'} eq
-                    $$fieldsref{userLogin} ) )
+                    $fieldsref->{userLogin} ) )
           )
         {
 
@@ -735,7 +736,7 @@ EOT
 
         $header .= <<EOT;
       <tr>
-         <td class="pme-key-1" colspan="$colspan">$messages{found} $count $messages{recordswith} "$$fieldsref{string}" $messages{in} $table_title</td>
+         <td class="pme-key-1" colspan="$colspan">$messages{found} $count $messages{recordswith} "$fieldsref->{string}" $messages{in} $table_title</td>
          <td class="pme-key-1"></td>
      </tr>
 EOT
@@ -879,11 +880,11 @@ sub change_language {
     my $cookieref = get_cookie();
     my %cookie    = %$cookieref;
     my $path      = "";
-    $cookie{language} = $$fieldsref{language};
+    $cookie{language} = $fieldsref->{language};
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
     my $cookies = return_cookie_header( "-1", $domain, $path, "", %cookie );
-    return ( "1", $$fieldsref{home}, "", $messages{languagechanged},
+    return ( "1", $fieldsref->{home}, "", $messages{languagechanged},
         $pages, "result.html", $fieldsref, $cookies );
 }
 
@@ -902,7 +903,7 @@ sub modify_user {
     my ( $refresh, $error, $html );
     my @status;
     my $hash       = "";
-    my $return_url = $$fieldsref{home};
+    my $return_url = $fieldsref->{home};
 
     @status =
       validate_user( $class, $db, $fieldsref, $messagesref, $token, "", "" );
@@ -917,7 +918,7 @@ sub modify_user {
     }
 
     # mobile pin number is stored as hashed
-    $$fieldsref{userPin} = text_to_hash( $$fieldsref{userPin} );
+    $fieldsref->{userPin} = text_to_hash( $fieldsref->{userPin} );
 
     my (
         $refresh,  $metarefresh, $error,   $html, $pages,
@@ -1010,12 +1011,12 @@ sub check_user_and_add_trade {
     push @errors, "rdb1: $status" if length($status);
 
     # destination user doesn't exist
-    if ( !length( $$userref{userLogin} ) ) {
+    if ( !length( $userref->{userLogin} ) ) {
         push @errors, 'nonexist';
     }
 
     # destination user does exist but inactive
-    if ( $$userref{userStatus} ne "active" ) {
+    if ( $userref->{userStatus} ne "active" ) {
         push @errors, 'userinactive';
     }
 
@@ -1324,12 +1325,12 @@ sub transaction {
         push @local_status, "db4: $status" if length($status);
 
         # destination user doesn't exist
-        if ( !length( $$userref{userLogin} ) ) {
+        if ( !length( $userref->{userLogin} ) ) {
             push @local_status, $messages{nonexist};
         }
 
         # destination user does exist but inactive
-        if ( $$userref{userStatus} ne "active" ) {
+        if ( $userref->{userStatus} ne "active" ) {
             push @local_status, $messages{userinactive};
         }
 
@@ -1866,7 +1867,7 @@ sub get_many_items {
     my ( $registry_error, $hash_ref );
     if ( $table eq "om_trades" ) {
         ( $registry_error, $total_count, $hash_ref ) =
-          get_trades( 'local', $db, $$fieldsref{userLogin}, $trade_type, $token,
+          get_trades( 'local', $db, $fieldsref->{userLogin}, $trade_type, $token,
             $offset, $limit );
 
     } else {
@@ -1920,7 +1921,7 @@ sub get_many_items {
                 (
                     ( $table eq "om_yellowpages" )
                     && ( $hash_ref->{$key}->{'fromuserid'} eq
-                        $$fieldsref{userLogin} )
+                        $fieldsref->{userLogin} )
                 )
                 || ( ( $table ne "om_trades" ) && is_admin() )
                 || ( ( $table eq "om_openid" ) )
@@ -1946,7 +1947,7 @@ sub get_many_items {
                 # if the record is a trade, then the delete operation becomes
                 # 'modify the status to cancel'
 
-                $$fieldsref{tradeStatus} = "cancelled";
+                $fieldsref->{tradeStatus} = "cancelled";
                 $delete_button =
                   makebutton( $messages{modify}, '', "template", $db, $table,
                     $hash_ref->{$key}, $fieldsref, $token );
@@ -1983,7 +1984,7 @@ sub get_many_items {
           if ( $table eq 'om_currencies' );
 
         # experimental: show decimal places for trades
-        if ( $$fieldsref{usedecimals} eq "yes" ) {
+        if ( $fieldsref->{usedecimals} eq "yes" ) {
             $hash_ref->{$key}->{'tradeAmount'} =~ s/(\d{2})$/.$1/
               if ( $table eq 'om_trades' );
             if ( $table eq 'om_trades'
@@ -2000,7 +2001,7 @@ sub get_many_items {
 
         my $buttons;
 
-        if ( $$fieldsref{mode} ne 'csv' ) {
+        if ( $fieldsref->{mode} ne 'csv' ) {
             if ( $table eq "om_trades" ) {
                 $buttons = <<EOT;
           <td class="pme-key-1">$display_button</td>
@@ -2029,7 +2030,7 @@ EOT
     }    # end of loop for records
 
     my $template = "result.html"
-      if ( !length( $$fieldsref{resulttemplate} ) );
+      if ( !length( $fieldsref->{resulttemplate} ) );
 
     # only do all the formatting, if there are some results returned
     my $col_titles;
@@ -2045,7 +2046,7 @@ EOT
     my $header;
 
     # if there's more than one page and not csv show paging
-    if ( length($paging_html) && $$fieldsref{mode} ne 'csv' ) {
+    if ( length($paging_html) && $fieldsref->{mode} ne 'csv' ) {
         $header .= <<EOT;
    <tr>
          <td class="pme-key-title" colspan="$thisspan">$messages{pages} $paging_html</td>
@@ -2066,7 +2067,7 @@ EOT
         if ( $table ne "om_trades" ) {
             unshift @columns,
               ( $messages{display}, $messages{modify}, $messages{delete} );
-        } elsif ( $$fieldsref{mode} ne 'csv' ) {
+        } elsif ( $fieldsref->{mode} ne 'csv' ) {
             unshift @columns,
               ( $messages{display}, $messages{ok}, $messages{no} );
         }    # end of unshift column titles
@@ -2301,7 +2302,7 @@ sub collect_items {
                 }
             } elsif ( $mode eq "checkbox" ) {
                 $name = "$item$x";
-                $checked = "checked" if ( defined $$fieldsref{$name} );
+                $checked = "checked" if ( defined $fieldsref->{$name} );
                 $option_string .=
 "<input type=\"checkbox\" name=\"$name\" $checked value=\"$item\">\u$item &nbsp;";
                 undef $checked;
@@ -2530,53 +2531,53 @@ sub forgotten_password {
     # get the user record from the database, depending on login type
     my ( $status, $userref );
     ( $status, $userref ) = get_where(
-        $class,      $$fieldsref{registry},
+        $class,      $fieldsref->{registry},
         "om_users",  '*',
-        "userEmail", $$fieldsref{userEmail},
+        "userEmail", $fieldsref->{userEmail},
         $token,      $offset,
         $limit
     );
 
     # no user found for this email
     # FIXME: Fixed bug in return signature, add tests into test suite...
-    if ( !length( $$userref{userId} ) ) {
+    if ( !length( $userref->{userId} ) ) {
         $html =
-"email not found $$fieldsref{userEmail} at $$fieldsref{registry}: $status";
-        return ( "1", $$fieldsref{home}, $error, $html, "result.html",
+"email not found $fieldsref->{userEmail} at $fieldsref->{registry}: $status";
+        return ( "1", $fieldsref->{home}, $error, $html, "result.html",
             $cookieheader );
-    } elsif ( $$userref{userStatus} ne 'active' ) {
-        $html = "user $$fieldsref{userLogin} at $db is not active";
-        return ( "1", $$fieldsref{home}, $error, $html, "result.html",
+    } elsif ( $userref->{userStatus} ne 'active' ) {
+        $html = "user $fieldsref->{userLogin} at $db is not active";
+        return ( "1", $fieldsref->{home}, $error, $html, "result.html",
             $cookieheader );
     } else {
         my $password = random_password();    # get a random password
 
-        $$userref{userPassword} = $password; # don't hash it done at update time
+        $userref->{userPassword} = $password; # don't hash it done at update time
 
 #FIXME: mild kludge to make om_user specific update processing work in Cclitedb/Ccvalidate
-        $$userref{action}  = 'update';
-        $$userref{userPin} = '';
+        $userref->{action}  = 'update';
+        $userref->{userPin} = '';
 
         my $passwordstring = <<EOT;
- $messages{heresyourpassword} $$fieldsref{registry}, $messages{pleasechangeit}\n\n
+ $messages{heresyourpassword} $fieldsref->{registry}, $messages{pleasechangeit}\n\n
   $password
 EOT
 
         my ( $a, $b, $c, $d ) =
-          update_database_record( 'local', $$fieldsref{registry}, "om_users", 2,
-            $userref, $$userref{language}, $token );
+          update_database_record( 'local', $fieldsref->{registry}, "om_users", 2,
+            $userref, $userref->{language}, $token );
 
         # ....and mail it
 
         my $mail_return = notify_by_mail(
             $class,
             $db,
-            $$userref{userName},
-            $$userref{userEmail},
-            $$fieldsref{systemMailAddress},
-            $$fieldsref{systemMailReplyAddress},
-            $$userref{userLogin},
-            $$fieldsref{smtp},
+            $userref->{userName},
+            $userref->{userEmail},
+            $fieldsref->{systemMailAddress},
+            $fieldsref->{systemMailReplyAddress},
+            $userref->{userLogin},
+            $fieldsref->{smtp},
             $passwordstring,
             undef,
             2,
@@ -2585,7 +2586,7 @@ EOT
 
         $html = $messages{passwordsent};
         ###return;
-        return ( 1, $$fieldsref{home}, $error, $html, "result.html",
+        return ( 1, $fieldsref->{home}, $error, $html, "result.html",
             $cookieheader );
     }
 }
@@ -2618,7 +2619,7 @@ sub show_balance_and_volume1 {
 
     # hack for large limit clause...
     my ( $registry_error, $total_count, $hash_ref ) =
-      get_trades( 'local', $db, $$fieldsref{userLogin}, $type, $token, 0,
+      get_trades( 'local', $db, $fieldsref->{userLogin}, $type, $token, 0,
         99999999 );
 
     my %balances;    #  hash of balances keyed on currency
@@ -2657,7 +2658,7 @@ sub show_balance_and_volume1 {
     # reverse sort, most recent entries first 2005 before 2004 etc.
 
     # maxreport can be passed in to give a 'little' sidebar display
-    my $maxreport = $$fieldsref{maxreport} || 6;
+    my $maxreport = $fieldsref->{maxreport} || 6;
 
     my %counts;    # count history for each currency
 
@@ -2711,7 +2712,7 @@ EOT
     # default behaviour is to return html
     if ( $mode eq 'html' || !length($mode) ) {
         my $template = "result.html"
-          if ( !length( $$fieldsref{resulttemplate} ) );
+          if ( !length( $fieldsref->{resulttemplate} ) );
         return ( 0, '', $error, $html, $template, '' );
     } elsif ( $mode eq 'values' ) {
         return ( \%balances, \%volumes );
