@@ -147,6 +147,10 @@ $fields{servicechargelimit} = $configuration{servicechargelimit};
 # number of records per page in lists ex-db tables, change at will
 my $limit = $fields{limit} || $configuration{linesperpage};
 
+# Switches on/off decimals, sent to index page
+$fields{usedecimals} = $configuration{usedecimals};
+
+
 # now take these from configuration because of unreliable $ENV{SERVER_NAME} 11/2009
 #FIXME: But creates problem with certain admin actions...modify currency etc...
 $fields{home}   = $configuration{home};
@@ -163,7 +167,8 @@ $fields{home} = $user_home if ( $fields{action} eq "logoff" );
 
 my $cookieref = get_cookie();
 
-my $language = $fields{language}
+my $language =
+     $fields{language}
   || $cookieref->{language}
   || "en";    # default is english
 
@@ -182,7 +187,8 @@ my $user_pages = new HTML::SimpleTemplate("../../templates/html/$language");
 # need to be abstracted away from both ccadmin.cgi and cclite.cgi, duplicated
 
 # need to be an admin, need to be logged on, back to logon
-if ( length( $cookieref->{userLevel} ) && ( $cookieref->{userLevel} ne 'admin' ) )
+if ( length( $cookieref->{userLevel} )
+    && ( $cookieref->{userLevel} ne 'admin' ) )
 {
 
 ###    $log->debug("l:$cookieref->{userLevel}  t:$cookieref->{token}");

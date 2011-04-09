@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Ccvalidate.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -72,6 +74,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -96,7 +101,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -233,8 +237,7 @@ This keeps the display stuff seperate from the client side processing</p>
 </pre><p></p>
 <h3><a name="validate_user">validate_user</a></h3>
 <p>Validate the fields in user before creation
-A work in progress!
-</p>
+A work in progress!</p>
 <pre>
 
 =cut</pre>
@@ -279,20 +282,26 @@ A work in progress!
     <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} =
       <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="c"># only do these, if there is a mobile number:  3045485 27/9/2010</span>
 
-    <span class="c"># not unique, another record contains this number</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;adduser&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">mobphoneexists</span>}<span class="sc">;</span>
-    <span class="s">}</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;userMobile&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
-    <span class="c"># not unique another record, not yours, contains this number</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;update&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userId&#39;</span>} != <span class="i">$$fieldsref</span>{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
+          <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
+            <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="c"># not unique, another record contains this number</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;adduser&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">mobphoneexists</span>}<span class="sc">;</span>
         <span class="s">}</span>
+
+        <span class="c"># not unique another record, not yours, contains this number</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;update&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userId&#39;</span>} != <span class="i">$$fieldsref</span>{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+                <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">mobphoneexists</span>}<span class="sc">;</span>
+            <span class="s">}</span>
+        <span class="s">}</span>
+
     <span class="s">}</span>
 
     <span class="c"># do address validation in private function</span>
@@ -474,12 +483,12 @@ full addresses not kept currently</p>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
 
     <span class="c"># Street starts with alpha, has two components</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userStreet</span>} !~ <span class="q">/[a-zA-z](\w+)(\W+)(\w+)/</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userStreet</span>} !~ <span class="q">/[\&#39;a-zA-z](\w+)(\W+)(\w+)/</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badstreet</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># Town starts with alpha, is alphanumeric</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userTown</span>} !~ <span class="q">/^[a-zA-z](\w+)$/</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userTown</span>} !~ <span class="q">/^[\&#39;a-zA-z](\w+)$/</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badtown</span>}<span class="sc">;</span>
     <span class="s">}</span>
 

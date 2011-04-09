@@ -52,7 +52,7 @@ $$fieldsref{description}</textarea>
 <tr class="pme-row-0">
 <td class="pme-key-0">Price</td>
 <td class="pme-value-0">
-<input class="required" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+<input class="required" name="price" id="price" onChange="validatedecimals(this,this.value);"  size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
 </tr>
 <tr class="pme-row-1">
 <td class="pme-key-1">Currency</td>

@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Cclitedb.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -68,6 +70,8 @@ pre { color: #000000;
 			<li><a href="#get_suggest_sql">get_suggest_sql</a></li>
 			<li><a href="#get_user_display_data">get_user_display_data</a></li>
 			<li><a href="#get_yellowpages_directory_data">get_yellowpages_directory_data</a></li>
+			<li><a href="#get_yellowpages_directory_print">get_yellowpages_directory_print</a></li>
+			<li><a href="#get_statement_print">get_statement_print</a></li>
 			<li><a href="#get_where">get_where</a></li>
 			<li><a href="#get_where_multiple">get_where_multiple</a></li>
 			<li><a href="#sqlfind">sqlfind</a></li>
@@ -94,6 +98,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -113,6 +120,8 @@ pre { color: #000000;
 <li><a href="#get_suggest_sql-">get_suggest_sql</a></li>
 <li><a href="#get_user_display_data-">get_user_display_data</a></li>
 <li><a href="#get_yellowpages_directory_data-">get_yellowpages_directory_data</a></li>
+<li><a href="#get_yellowpages_directory_print-">get_yellowpages_directory_print</a></li>
+<li><a href="#get_statement_print-">get_statement_print</a></li>
 <li><a href="#get_where-">get_where</a></li>
 <li><a href="#get_where_multiple-">get_where_multiple</a></li>
 <li><a href="#sqlfind-">sqlfind</a></li>
@@ -142,7 +151,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -222,6 +230,7 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
   <span class="q">get_where_multiple</span>
   <span class="q">get_transaction_totals</span>
   <span class="q">get_yellowpages_directory_data</span>
+  <span class="q">get_yellowpages_directory_print</span>
   <span class="q">get_user_display_data</span>
   <span class="q">get_table_columns</span>
   <span class="q">registry_connect</span>
@@ -801,6 +810,69 @@ less fragile with respect to database changes...</p>
 <span class="s">}</span>
 
 </pre><p></p>
+<h3><a name="get_yellowpages_directory_print">get_yellowpages_directory_print</a></h3>
+<p>This is the version for print format, a work in progress
+as of December 2010</p>
+<pre>
+<a name="get_yellowpages_directory_print-"></a><span class="k">sub </span><span class="m">get_yellowpages_directory_print</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+
+<span class="hh">SELECT concat(y.parent,y.category,y.type,y.id) as sortal,</span>
+<span class="hh">y.category, y.type,y.parent,</span>
+<span class="hh">u.userId,u.userEmail,u.userMobile,u.userTelephone, y.subject, </span>
+<span class="hh">y.price, y.unit, y.tradeCurrency, y.description</span>
+<span class="hh">FROM om_yellowpages y, om_users u</span>
+<span class="hh">WHERE</span>
+<span class="hh">y.fromuserid = u.userLogin</span>
+<span class="h">EOT</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span> =
+      <span class="i">sqlraw</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sqlstring</span><span class="cm">,</span> <span class="q">&#39;sortal&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+
+<span class="hh">SELECT concat(y.parent,y.category,y.type,y.id) as sortal,c.description</span>
+<span class="hh">FROM om_yellowpages y, om_categories c</span>
+<span class="hh">WHERE</span>
+<span class="hh">y.parent = c.parent AND y.category = c.category</span>
+<span class="h">EOT</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$category_hash_ref</span> <span class="s">)</span> =
+      <span class="i">sqlraw</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sqlstring</span><span class="cm">,</span> <span class="q">&#39;sortal&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$yellowdirectory_hash_ref</span><span class="cm">,</span> <span class="i">$category_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="get_statement_print">get_statement_print</a></h3>
+<p>This is the version for print format, a work in progress
+as of December 2010</p>
+<pre>
+<a name="get_statement_print-"></a><span class="k">sub </span><span class="m">get_statement_print</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+
+<span class="hh">SELECT </span>
+<span class="hh">FROM om_trades y, om_users u</span>
+<span class="hh">WHERE</span>
+<span class="hh">y.trade = u.userLogin</span>
+
+<span class="h">EOT</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$trade_hash_ref</span> <span class="s">)</span> =
+      <span class="i">sqlraw</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sqlstring</span><span class="cm">,</span> <span class="q">&#39;sortal&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="s">(</span><span class="i">$trade_hash_ref</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+</pre><p></p>
 <h3><a name="get_where">get_where</a></h3>
 <p>FIXME: This is throwing errors into the apache log
 get a record via a single = field condition
@@ -814,6 +886,8 @@ should return one record only</p>
     <span class="k">my</span> <span class="i">$get</span> =
       <span class="i">_sqlgetwhere</span><span class="s">(</span> <span class="i">$name</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldslist</span><span class="cm">,</span> <span class="i">$fieldname</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span>
         <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c">###$log-&gt;debug(&quot;get is $get\n&quot;) ;</span>
 
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
@@ -1058,6 +1132,12 @@ probably refactor this as a mode of get_table_columns?</p>
     <span class="k">our</span> <span class="i">$dbuser</span>     = <span class="i">$configuration</span>{<span class="w">dbuser</span>}<span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbpassword</span> = <span class="i">$configuration</span>{<span class="w">dbpassword</span>}<span class="sc">;</span>
 
+    <span class="c">#FIXME: hack for database prefix in cpanel, registry creation connect</span>
+    <span class="c"># has blank database so no prefix should be added...</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;cpanelprefix&#39;</span>} <span class="s">)</span> &amp;&amp; <span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$db</span> = <span class="i">$configuration</span>{<span class="q">&#39;cpanelprefix&#39;</span>} . <span class="q">&#39;_&#39;</span> . <span class="i">$db</span><span class="sc">;</span>
+    <span class="s">}</span>
+
     <span class="c">#open connection to MySql database</span>
     <span class="k">my</span> <span class="i">$dbh</span> = <span class="w">DBI</span><span class="w">-&gt;connect</span><span class="s">(</span> <span class="q">&quot;dbi:mysql:$db&quot;</span><span class="cm">,</span> <span class="i">$dbuser</span><span class="cm">,</span> <span class="i">$dbpassword</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$error</span> = <span class="i">$DBI::errstr</span><span class="sc">;</span>
@@ -1077,6 +1157,10 @@ probably refactor this as a mode of get_table_columns?</p>
     <span class="k">our</span> <span class="i">$dbpassword</span> = <span class="i">$configuration</span>{<span class="w">dbpassword</span>}<span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: hack for database prefix in cpanel</span>
+    <span class="i">$db</span> = <span class="i">$configuration</span>{<span class="q">&#39;cpanelprefix&#39;</span>} . <span class="q">&#39;_&#39;</span> . <span class="i">$db</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;cpanelprefix&#39;</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c">#open connection to MySql database</span>
     <span class="k">my</span> <span class="i">$dbh</span> = <span class="w">DBI</span><span class="w">-&gt;connect</span><span class="s">(</span> <span class="q">&quot;dbi:mysql:$db&quot;</span><span class="cm">,</span> <span class="i">$dbuser</span><span class="cm">,</span> <span class="i">$dbpassword</span> <span class="s">)</span><span class="sc">;</span>
@@ -1191,6 +1275,7 @@ As of 06/2007 now needs tidying up</p>
         <span class="s">}</span>
 
     <span class="s">}</span>
+    <span class="c">### print &quot;where is $sqlgetwhere\n&quot; ;</span>
     <span class="k">return</span> <span class="i">$sqlgetwhere</span><span class="sc">;</span>
 <span class="s">}</span>
 

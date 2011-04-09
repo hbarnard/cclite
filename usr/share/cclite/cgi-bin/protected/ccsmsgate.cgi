@@ -51,8 +51,6 @@ Hugh Barnard
 
 =cut
 
-
-
 use lib '../../lib';
 use strict;
 use locale;
@@ -70,8 +68,8 @@ use Ccconfiguration;         # new way of doing configuration
 # please de-comment to suit interface, only Cardboardfish has been heavily
 # tested recently as of August 2010
 
-use Ccsms::Cardboardfish ;
-my $type = 'car' ;
+use Ccsms::Cardboardfish;
+my $type = 'car';
 
 #use Ccsms::Aql;
 #my $type = 'aql' ;
@@ -80,14 +78,12 @@ my $type = 'car' ;
 #my $type = 'gam' ;
 # end of interface choices
 
-
-
 #--------------------------------------------------------------
 
 $ENV{IFS} = " ";    # modest security
 
-our %configuration    = readconfiguration();
-our $configurationref = \%configuration;
+our %configuration     = readconfiguration();
+our $configurationref  = \%configuration;
 our %sms_configuration = readconfiguration('../../config/readsms.cf');
 
 Log::Log4perl->init( $configuration{'loggerconfig'} );
@@ -100,24 +96,22 @@ my $cookieref = get_cookie();
 my %fields    = cgiparse();
 
 # reference to possible multiple message hashes from cardboardfish
-my @message_hash_refs ;
+my @message_hash_refs;
 
 #  this should use the version modules, but that makes life more
 # complex for intermediate users
 
 $fields{version} = "0.8.0";
 
-$log->debug("incoming message is: $fields{'INCOMING'}") ;
+$log->debug("incoming message is: $fields{'INCOMING'}");
 
 # parse incoming fields the cardboardfish way...may give multiple messages
 my ( $status, $originator, $destination, $dcs, $datetime, $udh, $message );
 if ( $type eq 'car' ) {
-    ( @message_hash_refs ) =
-      convert_cardboardfish( $fields{'INCOMING'} );
+    (@message_hash_refs) = convert_cardboardfish( $fields{'INCOMING'} );
 }
 
-$log->debug("debugger is alive") ;
-
+$log->debug("debugger is alive");
 
 #  this is part of conversion to transaction engine use. web mode, which
 #  is the default will deliver html etc. engine mode will deliver data
@@ -152,34 +146,30 @@ $token = $registry_private_value =
 
 if ( $type eq 'car' ) {
 
+    # possible multiple messages loop to process
 
-# possible multiple messages loop to process
+    foreach my $message_hash_ref (@message_hash_refs) {
 
-foreach my $message_hash_ref (@message_hash_refs) {
+        $fields{'status'}     = $message_hash_ref->{'status'};
+        $fields{'originator'} = $message_hash_ref->{'originator'};
+        $fields{'datetime'}   = $message_hash_ref->{'datetime'};
+        $fields{'message'}    = $message_hash_ref->{'message'};
 
-$fields{'status'}     = $message_hash_ref->{'status'};
-$fields{'originator'} = $message_hash_ref->{'originator'};
-$fields{'datetime'}   = $message_hash_ref->{'datetime'};
-$fields{'message'}    = $message_hash_ref->{'message'};
+        my $fieldsref = \%fields;
 
-my $fieldsref = \%fields;
+        gateway_sms_transaction( 'local', $configurationref, $fieldsref,
+            $token );
 
-gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token )
-  ;
-
-}
-
+    }
 
 } else {
 
-# Aql and gammu single messages...
-my $fieldsref = \%fields;
+    # Aql and gammu single messages...
+    my $fieldsref = \%fields;
 
-gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token )
-  ;
+    gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
 
 }
-
 
 # mobile number + raw string
 # this is mainly to make Selenium etc. work...

@@ -768,8 +768,8 @@ sub receiveFromServer ($) {
     #
     while ( $socket && ( $reply = <$socket> ) ) {
         return $self->setError($reply) if $reply =~ /^5/;
-        print $reply if $self->{'debugmode'};
-        last if $reply =~ /^\d+ /;
+        print $reply                   if $self->{'debugmode'};
+        last                           if $reply =~ /^\d+ /;
     }
 
     return 0;

@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>ccsmsgate.cgi</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -51,9 +53,11 @@ pre { color: #000000;
 	<li><a href="#author">AUTHOR</a></li>
 	<li><a href="#copyright">COPYRIGHT</a></li>
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 
-<hr />
 <p></p>
 <hr />
 <h1><a name="name">NAME</a></h1>
@@ -112,7 +116,7 @@ ccsmsgate.cgi</pre>
 <span class="c">#---------------------------------------------------------------------------</span>
 
 </pre><pre>
-<span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../lib&#39;</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../../lib&#39;</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">HTML::SimpleTemplate</span><span class="sc">;</span>    <span class="c"># templating for HTML</span>
@@ -126,24 +130,26 @@ ccsmsgate.cgi</pre>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>                <span class="c"># this probably should be delegated</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>         <span class="c"># new way of doing configuration</span>
 
-<span class="c"># condition use depending on $type, $type is set witin begin</span>
-<span class="k">use</span> <span class="k">if</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;aql&#39;</span><span class="cm">,</span> <span class="w">Ccsms::Aql</span><span class="sc">;</span>
-<span class="k">use</span> <span class="k">if</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;car&#39;</span><span class="cm">,</span> <span class="w">Ccsms::Carboardfish</span><span class="sc">;</span>
-<span class="k">use</span> <span class="k">if</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;gam&#39;</span><span class="cm">,</span> <span class="w">Ccsms::Gammu</span><span class="sc">;</span>
+<span class="c"># please de-comment to suit interface, only Cardboardfish has been heavily</span>
+<span class="c"># tested recently as of August 2010</span>
 
-<span class="k">our</span> <span class="i">$sms_configuration</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccsms::Cardboardfish</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$type</span> = <span class="q">&#39;car&#39;</span><span class="sc">;</span>
 
-<span class="k">BEGIN</span> <span class="s">{</span>
-    <span class="i">%sms_configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span>
-        <span class="q">&#39;/home/hbarnard/trunk/usr/share/cclite/config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
-<span class="s">}</span>
+<span class="c">#use Ccsms::Aql;</span>
+<span class="c">#my $type = &#39;aql&#39; ;</span>
+
+<span class="c">#use Ccsms::Gammu;</span>
+<span class="c">#my $type = &#39;gam&#39; ;</span>
+<span class="c"># end of interface choices</span>
 
 <span class="c">#--------------------------------------------------------------</span>
 
 <span class="i">$ENV</span>{<span class="w">IFS</span>} = <span class="q">&quot; &quot;</span><span class="sc">;</span>    <span class="c"># modest security</span>
 
-<span class="k">our</span> <span class="i">%configuration</span>    = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$configurationref</span> = \<span class="i">%configuration</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">%configuration</span>     = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">$configurationref</span>  = \<span class="i">%configuration</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">%sms_configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;../../config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccsmscgi&quot;</span><span class="s">)</span><span class="sc">;</span>
@@ -154,24 +160,23 @@ ccsmsgate.cgi</pre>
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">%fields</span>    = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
+<span class="c"># reference to possible multiple message hashes from cardboardfish</span>
+<span class="k">my</span> <span class="i">@message_hash_refs</span><span class="sc">;</span>
+
 <span class="c">#  this should use the version modules, but that makes life more</span>
 <span class="c"># complex for intermediate users</span>
 
 <span class="i">$fields</span>{<span class="w">version</span>} = <span class="q">&quot;0.8.0&quot;</span><span class="sc">;</span>
 
-<span class="c"># $log-&gt;debug(&quot;incoming message is: $fields{&#39;INCOMING&#39;}&quot;) ;</span>
+<span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;incoming message is: $fields{&#39;INCOMING&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># parse incoming fields the cardboardfish way...</span>
+<span class="c"># parse incoming fields the cardboardfish way...may give multiple messages</span>
 <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$originator</span><span class="cm">,</span> <span class="i">$destination</span><span class="cm">,</span> <span class="i">$dcs</span><span class="cm">,</span> <span class="i">$datetime</span><span class="cm">,</span> <span class="i">$udh</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;car&#39;</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$originator</span><span class="cm">,</span> <span class="i">$destination</span><span class="cm">,</span> <span class="i">$dcs</span><span class="cm">,</span> <span class="i">$datetime</span><span class="cm">,</span> <span class="i">$udh</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span> =
-      <span class="i">convert_cardboardfish</span><span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;INCOMING&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span><span class="i">@message_hash_refs</span><span class="s">)</span> = <span class="i">convert_cardboardfish</span><span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;INCOMING&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
-<span class="i">$fields</span>{<span class="q">&#39;status&#39;</span>}     = <span class="i">$status</span><span class="sc">;</span>
-<span class="i">$fields</span>{<span class="q">&#39;originator&#39;</span>} = <span class="i">$originator</span><span class="sc">;</span>
-<span class="i">$fields</span>{<span class="q">&#39;datetime&#39;</span>}   = <span class="i">$datetime</span><span class="sc">;</span>
-<span class="i">$fields</span>{<span class="q">&#39;message&#39;</span>}    = <span class="i">$message</span><span class="sc">;</span>
+<span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;debugger is alive&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#  this is part of conversion to transaction engine use. web mode, which</span>
 <span class="c">#  is the default will deliver html etc. engine mode will deliver data</span>
@@ -203,11 +208,35 @@ ccsmsgate.cgi</pre>
 <span class="c">#</span>
 <span class="i">$token</span> = <span class="i">$registry_private_value</span> =
   <span class="i">$configuration</span>{<span class="w">registrypublickey</span>}<span class="sc">;</span>    <span class="c"># for the moment, calculated later</span>
-<span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 
-<span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
-  <span class="sc">;</span>                                     <span class="c"># mobile number + raw string</span>
+<span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;car&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
+    <span class="c"># possible multiple messages loop to process</span>
+
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$message_hash_ref</span> <span class="s">(</span><span class="i">@message_hash_refs</span><span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">$fields</span>{<span class="q">&#39;status&#39;</span>}     = <span class="i">$message_hash_ref</span>-&gt;{<span class="q">&#39;status&#39;</span>}<span class="sc">;</span>
+        <span class="i">$fields</span>{<span class="q">&#39;originator&#39;</span>} = <span class="i">$message_hash_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>}<span class="sc">;</span>
+        <span class="i">$fields</span>{<span class="q">&#39;datetime&#39;</span>}   = <span class="i">$message_hash_ref</span>-&gt;{<span class="q">&#39;datetime&#39;</span>}<span class="sc">;</span>
+        <span class="i">$fields</span>{<span class="q">&#39;message&#39;</span>}    = <span class="i">$message_hash_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>}<span class="sc">;</span>
+
+        <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
+
+        <span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+            <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="s">}</span>
+
+<span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+
+    <span class="c"># Aql and gammu single messages...</span>
+    <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
+
+    <span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+<span class="c"># mobile number + raw string</span>
 <span class="c"># this is mainly to make Selenium etc. work...</span>
 <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\nrunning\n&quot;</span><span class="sc">;</span>
 

@@ -50,6 +50,10 @@ my $VERSION = 1.00;
 our $log      = Log::Log4perl->get_logger("Ccdirectory");
 our %messages = readmessages("en");
 
+# used in several places now, moved up here 4/2011
+our %configuration = Ccconfiguration::readconfiguration();
+
+
 =head3 add_yellow
 
 add a yellow page, promoted from raw add_database_record to
@@ -62,8 +66,11 @@ category and keywords work out
 sub add_yellow {
     my ( $class, $db, $table, $fieldsref, $token ) = @_;
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
-    $$fieldsref{date}   = $date;
-    $$fieldsref{status} = 'active';
+    $fieldsref->{date}   = $date;
+    $fieldsref->{status} = 'active';
+    
+    # decimals used, values stored in 'pence'
+    $fieldsref->{price} = 100 * $fieldsref->{price} if ($configuration{usedecimals} eq 'yes') ;
 
     # parse the option field
     (
@@ -76,7 +83,7 @@ sub add_yellow {
     #
     my ( $refresh, $error, $html, $cookies ) =
       add_database_record( $class, $db, $table, $fieldsref, $token );
-    return ( 1, $$fieldsref{home}, $error, $messages{directorypageadded},
+    return ( 1, $fieldsref->{home}, $error, $messages{directorypageadded},
         "result.html", "" );
 }
 
@@ -101,11 +108,12 @@ sub show_yellow {
     # DATE_FORMAT('2003-10-03',GET_FORMAT(DATE,'EUR'));
 
     my $sqlstring = <<EOT;
-  SELECT DISTINCT u.userEmail, u.userStatus,  y.id, date_format(y.date,get_format(date,'eur')) as dt, y.subject, y.type, y.keywords, y.unit, y.tradeCurrency, y.price, y.truelets,
+  SELECT DISTINCT u.userEmail, u.userStatus,  y.id, date_format(y.date,get_format(date,'eur')) as dt, y.subject, 
+                  y.type, y.keywords, y.unit, y.tradeCurrency, y.price, y.truelets,
                   y.description, u.userMobile, u.userTelephone, y.fromuserid
   FROM om_yellowpages y, om_users u
   WHERE (
-  y.fromuserid = u.userLogin AND y.id = '$$fieldsref{id}')
+  y.fromuserid = u.userLogin AND y.id = '$fieldsref->{id}')
 EOT
 
     ###$log->debug("sqlstring is $sqlstring") ;
@@ -116,6 +124,8 @@ EOT
     my $record_ref;
     foreach my $hash_key ( keys %$hash_ref ) {
 
+        # decimal display, if configured
+        $hash_ref->{$hash_key}->{'price'} = sprintf "%.2f", ($hash_ref->{$hash_key}->{'price'} / 100) if ($configuration{usedecimals} eq 'yes') ;
         # my $parent = "$hash_ref->{$hash_key}->{parent}" ;
         $record_ref = $hash_ref->{$hash_key};
     }
@@ -127,17 +137,15 @@ EOT
 
     $html = "<table>$html</table>";
 
+# part of the 'new deal' html returned as default but lots of other possibilities
+    if ( $fieldsref->{'mode'} eq 'html' || !length( $fieldsref->{'mode'} ) ) {
 
-
-    # part of the 'new deal' html returned as default but lots of other possibilities
-    if ($fieldsref->{'mode'} eq 'html' || ! length($fieldsref->{'mode'}) ) {
-      #FIXME: result template used if result not supplied, should always be...
-       my $template = $fieldsref->{'resulttemplate'} || "result.html";
-      return ( "", "", "", $html, $template, $record_ref );
-    } elsif ($fieldsref->{'mode'} eq 'print') {
+        #FIXME: result template used if result not supplied, should always be...
+        my $template = $fieldsref->{'resulttemplate'} || "result.html";
+        return ( "", "", "", $html, $template, $record_ref );
+    } elsif ( $fieldsref->{'mode'} eq 'print' ) {
 
     }
-
 
 }
 
@@ -166,7 +174,7 @@ sub show_yellow_dir1 {
     my $interval    = 1;        # one week for displaying items as new...
     my $html        = "<tr>";
     my $width_count = 1;
-    my $max_depth = $$fieldsref{maxdepth}
+    my $max_depth = $fieldsref->{maxdepth}
       || 3;                     # four cells wide as default if not specified
     my $item_count;
 
@@ -225,18 +233,12 @@ EOT
 
     $html = "<table><tbody class=\"stripy\">$html</tbody></table>";
 
-   if ($fieldsref->{'mode'} eq 'html' || ! length($fieldsref->{'mode'})) {
-    return ( 0, '', '', $html, "result.html", '', '', $token );
-   } elsif ($fieldsref->{'mode'} eq 'print' ) {
-     return ( 0, '', '', $html, "result.html", '', '', $token );
-   }
+    if ( $fieldsref->{'mode'} eq 'html' || !length( $fieldsref->{'mode'} ) ) {
+        return ( 0, '', '', $html, "result.html", '', '', $token );
+    } elsif ( $fieldsref->{'mode'} eq 'print' ) {
+        return ( 0, '', '', $html, "result.html", '', '', $token );
+    }
 }
-
-
-
-
-
-
 
 1;
 

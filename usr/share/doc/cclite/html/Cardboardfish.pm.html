@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Cardboardfish.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -66,16 +68,21 @@ pre { color: #000000;
 			<li><a href="#_send_sms_mail_message">_send_sms_mail_message</a></li>
 			<li><a href="#convert_cardboardfish">convert_cardboardfish</a></li>
 			<li><a href="#_send_cardboardfish_sms_receipt">_send_cardboardfish_sms_receipt</a></li>
+			<li><a href="#__outbound_cardboardfish_http_sms">__outbound_cardboardfish_http_sms</a></li>
+			<li><a href="#_charge_one_sms_unit">_charge_one_sms_unit</a></li>
 		</ul>
 
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
 <ul>
-<li><a href="#package-Ccsmsgateway-">package Ccsmsgateway</a>
+<li><a href="#package-Ccsms::Cardboardfish-">package Ccsms::Cardboardfish</a>
 <ul>
 <li><a href="#debug_hash_contents-">debug_hash_contents</a></li>
 <li><a href="#gateway_sms_transaction-">gateway_sms_transaction</a></li>
@@ -88,6 +95,7 @@ pre { color: #000000;
 <li><a href="#convert_cardboardfish-">convert_cardboardfish</a></li>
 <li><a href="#_send_cardboardfish_sms_receipt-">_send_cardboardfish_sms_receipt</a></li>
 <li><a href="#__outbound_cardboardfish_http_sms-">__outbound_cardboardfish_http_sms</a></li>
+<li><a href="#_charge_one_sms_unit-">_charge_one_sms_unit</a></li>
 <li><a href="#_ascii_to_hex-">_ascii_to_hex</a></li>
 <li><a href="#_hex_to_ascii-">_hex_to_ascii</a></li>
 </ul>
@@ -96,11 +104,10 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
-<p>Ccsmsgateway.pm</p>
+<p>Cardboardfish.pm</p>
 <p>
 </p>
 <hr />
@@ -155,13 +162,12 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 </p>
 <hr />
 <h1><a name="copyright">COPYRIGHT</a></h1>
-<p>(c) Hugh Barnard 2005 - 2008 GPL Licenced
-</p>
+<p>(c) Hugh Barnard 2005 - 2008 GPL Licenced</p>
 <pre>
 
-=cut</pre>
+=cut    my %configuration = readconfiguration();</pre>
 <pre>
-<a name="package-Ccsmsgateway-"></a><span class="k">package </span><span class="i">Ccsmsgateway</span><span class="sc">;</span>
+<a name="package-Ccsms::Cardboardfish-"></a><span class="k">package </span><span class="i">Ccsms::Cardboardfish</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 
@@ -193,25 +199,34 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 <h3><a name="messagehash">messagehash</a></h3>
 <p>this is the provisional solution to the multilingual message fragments
 later, it will go somewhere neater
-to change these, just substitute a translated hash
-</p>
+to change these, just substitute a translated hash</p>
 <pre>
 
 =cut</pre>
 <pre>
-<span class="c"># application specific globals</span>
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
-
 <span class="c">#============== change the configuration to your registry and currency for sms</span>
 
-<span class="k">my</span> <span class="i">%sms_configuration</span> =
-  <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;/home/hbarnard/trunk/usr/share/cclite/config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
+<span class="c"># application specific globals</span>
+<span class="k">our</span> <span class="i">$language</span> = <span class="q">&#39;en&#39;</span><span class="sc">;</span>
+
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="k">my</span> <span class="i">%sms_configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;../../config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># this is a little unnecessary, but can stay for a while</span>
 <span class="k">our</span> <span class="i">$registry</span>     = <span class="i">$sms_configuration</span>{<span class="q">&#39;registry&#39;</span>}<span class="sc">;</span>
 <span class="k">our</span> <span class="i">$currency</span>     = <span class="i">$sms_configuration</span>{<span class="q">&#39;currency&#39;</span>}<span class="sc">;</span>
 <span class="k">our</span> <span class="i">$sms_user</span>     = <span class="i">$sms_configuration</span>{<span class="q">&#39;sms_user&#39;</span>}<span class="sc">;</span>
 <span class="k">our</span> <span class="i">$sms_password</span> = <span class="i">$sms_configuration</span>{<span class="q">&#39;sms_password&#39;</span>}<span class="sc">;</span>
+
+<span class="c"># this is the literal for source address SA in Cardboardfish protocol</span>
+<span class="k">our</span> <span class="i">$sms_SA</span>              = <span class="i">$sms_configuration</span>{<span class="q">&#39;sms_SA&#39;</span>}<span class="sc">;</span>
+<span class="k">our</span> <span class="i">$sms_sponsor_message</span> = <span class="i">$sms_configuration</span>{<span class="q">&#39;sms_sponsor_message&#39;</span>}<span class="sc">;</span>
+
+<span class="c"># FIXME: need this because the transaction return needs it</span>
+<span class="k">my</span> <span class="i">$pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;$configuration{&#39;templates&#39;}/$language&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#=============================================================</span>
 
@@ -223,11 +238,11 @@ to change these, just substitute a translated hash
 <pre>
 <a name="debug_hash_contents-"></a><span class="k">sub </span><span class="m">debug_hash_contents</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$fields_ref</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$x</span><span class="sc">;</span>
 
-    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$hash_key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$fieldsref</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$x</span> .= <span class="q">&quot;$hash_key: $fieldsref-&gt;{$hash_key}\n&quot;</span><span class="sc">;</span>
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$hash_key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$fields_ref</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$x</span> .= <span class="q">&quot;$hash_key: $fields_ref-&gt;{$hash_key}\n&quot;</span><span class="sc">;</span>
 
     <span class="s">}</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
@@ -246,53 +261,51 @@ then dispatches to the appropriate internal function</p>
 <pre>
 <a name="gateway_sms_transaction-"></a><span class="k">sub </span><span class="m">gateway_sms_transaction</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c">###$log-&gt;debug(&quot;orig is $$fieldsref{&#39;originator&#39;}&quot;);</span>
-
-    <span class="c">### my $x;</span>
-    <span class="c">### $x = join( &quot;|&quot;, %$fieldsref );</span>
-
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
-        <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
-
-<span class="c">###    # log and exit if there&#39;s a problem with the received messaged</span>
-<span class="c">###    if ( defined( $$fieldsref{&#39;status&#39;} ) &amp;&amp; $$fieldsref{&#39;status&#39;} &gt; 0 ) {</span>
-<span class="c">###        $log-&gt;warn(</span>
-<span class="c">###&quot;$$fieldsref{&#39;message&#39;} from $$fieldsref{&#39;originator&#39;} rejected with status $$fieldsref{&#39;status&#39;}&quot;</span>
-<span class="c">###        );</span>
-<span class="c">###        return;</span>
-<span class="c">###    }</span>
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
+<span class="q">&quot;entering gateway_sms_transaction originator is : $fields_ref-&gt;{&#39;originator&#39;}&quot;</span>
+    <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># no originator, so no lookup or no message...reject</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
-<span class="q">&quot;$$fieldsref{&#39;message&#39;} from $$fieldsref{&#39;originator&#39;} $messages{&#39;smsoriginblank&#39;}&quot;</span>
+<span class="q">&quot;$fields_ref-&gt;{&#39;message&#39;} from $fields_ref-&gt;{&#39;originator&#39;} $messages{&#39;smsoriginblank&#39;}&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
+    <span class="c"># numbers are stored in database as 447855667524 for example</span>
+    <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} =
+      <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
+<span class="q">&quot;start of $transaction_type originator translated: $fields_ref-&gt;{&#39;originator&#39;}&quot;</span>
+    <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
+      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
+        <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="c"># no originator, so no lookup or no message...reject</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;message&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;$$fieldsref{&#39;originator&#39;} $messages{&#39;smsmessageblank&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;$fields_ref-&gt;{&#39;originator&#39;} $messages{&#39;smsmessageblank&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># no one with this number , so no lookup or no message...reject</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;$$fieldsref{&#39;originator&#39;} $messages{&#39;smsnumbernotfound&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
+            <span class="q">&quot;$fields_ref-&gt;{&#39;originator&#39;} $messages{&#39;smsnumbernotfound&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># initial parse to get transaction type</span>
-    <span class="k">my</span> <span class="i">$input</span> = <span class="k">lc</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># canonical is lower case</span>
-
-    <span class="k">my</span> <span class="i">$pin</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$transaction_type</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$input</span> = <span class="k">lc</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># canonical is lower case</span>
 
     <span class="c"># if it hasn&#39;t got a pin, not worth carrying on, tell user</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$input</span> =~ <span class="q">m/^p?(\d+)\s+(\w+)/</span> <span class="s">)</span> <span class="s">{</span>
@@ -300,27 +313,19 @@ then dispatches to the appropriate internal function</p>
         <span class="i">$transaction_type</span> = <span class="i">$2</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
-            <span class="q">&quot;from: $$fieldsref{&#39;originator&#39;} $input -malformed transaction&quot;</span><span class="s">)</span><span class="sc">;</span>
+            <span class="q">&quot;from: $fields_ref-&gt;{&#39;originator&#39;} $input -malformed transaction&quot;</span><span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> = <span class="i">_send_sms_mail_message</span><span class="s">(</span>
             <span class="q">&#39;local&#39;</span><span class="cm">,</span>
             <span class="i">$registry</span><span class="cm">,</span>
-<span class="q">&quot;from: $$fieldsref{&#39;originator&#39;} $input $messages{smsnopindetected}&quot;</span><span class="cm">,</span>
-            <span class="i">$fromuserref</span>
+<span class="q">&quot;from: $fields_ref-&gt;{&#39;originator&#39;} $input $messages{smsnopindetected}&quot;</span><span class="cm">,</span>
+            <span class="i">$from_user_ref</span>
         <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;start of $transaction_type transaction: $input&quot;</span><span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># numbers are stored in database as 447855667524 for example</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} =
-      <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
-<span class="q">&quot;start of $transaction_type originator translated: $fieldsref-&gt;{&#39;originator&#39;}&quot;</span>
-    <span class="s">)</span><span class="sc">;</span>
-
     <span class="c"># can be ok, locked, waiting, fail</span>
-    <span class="k">my</span> <span class="i">$pin_status</span> = <span class="i">_check_pin</span><span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$pin_status</span> = <span class="i">_check_pin</span><span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
         <span class="q">&quot;pin:$pin pinstatus:$pin_status transaction type is $transaction_type&quot;</span><span class="s">)</span><span class="sc">;</span>
@@ -331,17 +336,18 @@ then dispatches to the appropriate internal function</p>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;confirm&#39;</span> <span class="s">)</span> <span class="s">{</span>    <span class="c">#  p123456 confirm</span>
         <span class="k">return</span> <span class="i">$pin_status</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;change&#39;</span> <span class="s">)</span> <span class="s">{</span>    <span class="c"># change pin</span>
-        <span class="i">_gateway_sms_pin_change</span><span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">_gateway_sms_pin_change</span><span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># allow pay or send as keyword to line up with email style...</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;pay&#39;</span> || <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;send&#39;</span> <span class="s">)</span>
     <span class="s">{</span>                                              <span class="c"># payment transaction</span>
-        <span class="i">_gateway_sms_pay</span><span class="s">(</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">_gateway_sms_pay</span><span class="s">(</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">_gateway_sms_send_balance</span><span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">_gateway_sms_send_balance</span><span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
-            <span class="q">&quot;from: $$fieldsref{&#39;originator&#39;} $input -unrecognised transaction&quot;</span><span class="s">)</span><span class="sc">;</span>
+            <span class="q">&quot;from: $fields_ref-&gt;{&#39;originator&#39;} $input -unrecognised transaction&quot;</span>
+        <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&#39;unrecognisable transaction&#39;</span><span class="sc">;</span>
 
         <span class="c"># this is a &#39;bad&#39; transaction of some kind...</span>
@@ -356,28 +362,28 @@ Change pin, same rules (three tries) about pin locking
 =cut</a></h3>
 <pre>
 <a name="_gateway_sms_pin_change-"></a><span class="k">sub </span><span class="m">_gateway_sms_pin_change</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$input</span> = <span class="k">lc</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># canonical is lower case</span>
+    <span class="k">my</span> <span class="i">$input</span> = <span class="k">lc</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># canonical is lower case</span>
     <span class="i">$input</span> =~ <span class="q">m/^p?(\d+)\s+change\s+p?(\d+)\s*$/</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$new_pin</span>    = <span class="i">$2</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$hashed_pin</span> = <span class="i">text_to_hash</span><span class="s">(</span><span class="i">$new_pin</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$message</span> = <span class="i">$messages</span>{<span class="q">&#39;smspinchanged&#39;</span>}<span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
+      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="i">$$fromuserref</span>{<span class="q">&#39;userPin&#39;</span>}      = <span class="i">$hashed_pin</span><span class="sc">;</span>
-    <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} = <span class="n">3</span><span class="sc">;</span>
+    <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPin&#39;</span>}      = <span class="i">$hashed_pin</span><span class="sc">;</span>
+    <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} = <span class="n">3</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$dummy</span><span class="cm">,</span> <span class="i">$home_ref</span><span class="cm">,</span> <span class="i">$dummy1</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$template</span><span class="cm">,</span> <span class="i">$dummy2</span> <span class="s">)</span> =
-      <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fromuserref</span><span class="cm">,</span>
+      <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
         <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> =
-      <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -388,12 +394,12 @@ Change pin, same rules (three tries) about pin locking
 using the gateway messaging gateway, may need modification for other gateways</p>
 <pre>
 <a name="_gateway_sms_pay-"></a><span class="k">sub </span><span class="m">_gateway_sms_pay</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">%fields</span><span class="cm">,</span> <span class="i">%transaction</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">%fields</span> = <span class="i">%$fieldsref</span><span class="sc">;</span>
+    <span class="i">%fields</span> = <span class="i">%$fields_ref</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
+      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
         <span class="i">$fields</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># begin parse on whitespace</span>
@@ -405,51 +411,51 @@ using the gateway messaging gateway, may need modification for other gateways</p
     <span class="c"># sms pay message didn&#39;t parse, not worth proceeding</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$parse_type</span> == <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
-<span class="q">&quot;pay attempt from $fields{&#39;originator&#39;} to $$transaction_description_ref{&#39;tomobilenumber&#39;} : $messages{&#39;smsinvalidsyntax&#39;}&quot;</span><span class="sc">;</span>
+<span class="q">&quot;pay attempt from $fields{&#39;originator&#39;} to $transaction_description_ref-&gt;{&#39;tomobilenumber&#39;} : $messages{&#39;smsinvalidsyntax&#39;}&quot;</span><span class="sc">;</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="i">$message</span><span class="s">)</span><span class="sc">;</span>
-        <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> =
-          <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> = <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+            <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># numbers are stored as 447855667524 for example</span>
-    <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;tomobilenumber&#39;</span>} =
+    <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;tomobilenumber&#39;</span>} =
       <span class="i">format_for_standard_mobile</span><span class="s">(</span>
-        <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;tomobilenumber&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$touserref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;tomobilenumber&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$to_user_ref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c">###$log-&gt;debug(&quot;parse type is $parse_type&quot;);</span>
 
     <span class="c"># contains only figures so it&#39;s a mobile number</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;touserormobile&#39;</span>} =~ <span class="q">/^\d+\z/</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$touserref</span> <span class="s">)</span> =
-          <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
-            <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;touserormobile&#39;</span>}<span class="cm">,</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;touserormobile&#39;</span>} =~ <span class="q">/^\d+\z/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$to_user_ref</span> <span class="s">)</span> =
+          <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
+            <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;touserormobile&#39;</span>}<span class="cm">,</span>
             <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
         <span class="c"># else it&#39;s a userLogin ...</span>
-        <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$touserref</span> <span class="s">)</span> =
-          <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span>
-            <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;touserormobile&#39;</span>}<span class="cm">,</span>
+        <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$to_user_ref</span> <span class="s">)</span> =
+          <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span>
+            <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;touserormobile&#39;</span>}<span class="cm">,</span>
             <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
 <span class="c">###    $log-&gt;debug(</span>
-<span class="c">###&quot; $$transaction_description_ref{&#39;tomobilenumber&#39;} pin status is $$touserref{&#39;userPinStatus&#39;}&quot;</span>
+<span class="c">###&quot; $transaction_description_ref-&gt;{&#39;tomobilenumber&#39;} pin status is $to_user_ref-&gt;{&#39;userPinStatus&#39;}&quot;</span>
 <span class="c">###    );</span>
 
     <span class="c"># one of the above lookups fails, reject the whole transaction</span>
-    <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnoorigin&#39;</span>}      <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnodestination&#39;</span>} <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$touserref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnoorigin&#39;</span>}      <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$from_user_ref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnodestination&#39;</span>} <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$to_user_ref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># recipient didn&#39;t confirm pin yet, transaction invalid</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$touserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} <span class="s">)</span>
-        &amp;&amp; <span class="i">$$touserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} <span class="s">)</span>
+        &amp;&amp; <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">smsunconfirmedpin</span>}<span class="sc">;</span>
         <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
-<span class="q">&quot;pin status:$$touserref{&#39;userPinStatus&#39;} user id:$$touserref{&#39;userId&#39;} examine no confirmation bug&quot;</span>
+<span class="q">&quot;pin status:$to_user_ref-&gt;{&#39;userPinStatus&#39;} user id:$to_user_ref-&gt;{&#39;userId&#39;} examine no confirmation bug&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
@@ -457,9 +463,9 @@ using the gateway messaging gateway, may need modification for other gateways</p
     <span class="k">my</span> <span class="i">$errors</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;:&#39;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span><span class="i">@status</span><span class="s">)</span> &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;$errors $input&quot;</span><span class="cm">,</span>
-            <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
-<span class="q">&quot;pay attempt from $fields{&#39;originator&#39;} to $$transaction_description_ref{&#39;tomobilenumber&#39;} : $errors&quot;</span>
+<span class="q">&quot;pay attempt from $fields{&#39;originator&#39;} to $transaction_description_ref-&gt;{&#39;tomobilenumber&#39;} : $errors&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -478,10 +484,10 @@ using the gateway messaging gateway, may need modification for other gateways</p
     <span class="i">$transaction</span>{<span class="w">toregistry</span>} = <span class="i">$registry</span><span class="sc">;</span>
 
     <span class="c">#tradeAmount : 23</span>
-    <span class="i">$transaction</span>{<span class="w">tradeAmount</span>} = <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;quantity&#39;</span>}<span class="sc">;</span>
+    <span class="i">$transaction</span>{<span class="w">tradeAmount</span>} = <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;quantity&#39;</span>}<span class="sc">;</span>
 
 <span class="c">#FIXME: tradeCurrency : if mentioned in sms overrides default: may not be a good idea?</span>
-    <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} = <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;currency&#39;</span>}
+    <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} = <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;currency&#39;</span>}
       || <span class="i">$currency</span><span class="sc">;</span>
 
     <span class="c">#tradeDate : this is date of reception and processing, in fact</span>
@@ -490,22 +496,22 @@ using the gateway messaging gateway, may need modification for other gateways</p
 
     <span class="c">#tradeTitle : added by this routine: now improved 12/2008</span>
     <span class="i">$transaction</span>{<span class="w">tradeTitle</span>} =
-<span class="q">&quot;$messages{&#39;smstransactiontitle&#39;} $$fromuserref{&#39;userLogin&#39;} -&gt; $$touserref{&#39;userLogin&#39;}&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$messages{&#39;smstransactiontitle&#39;} $from_user_ref-&gt;{&#39;userLogin&#39;} -&gt; $to_user_ref-&gt;{&#39;userLogin&#39;}&quot;</span><span class="sc">;</span>
 
     <span class="c">#tradeDescription</span>
     <span class="i">$transaction</span>{<span class="w">tradeDescription</span>} =
-      <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;description&#39;</span>}<span class="sc">;</span>
+      <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;description&#39;</span>}<span class="sc">;</span>
 
     <span class="c">#tradeDestination : ddawg</span>
-    <span class="i">$transaction</span>{<span class="w">tradeDestination</span>} = <span class="i">$$touserref</span>{<span class="w">userLogin</span>}<span class="sc">;</span>
+    <span class="i">$transaction</span>{<span class="w">tradeDestination</span>} = <span class="i">$to_user_ref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
 
     <span class="c">#tradeSource : manager</span>
-    <span class="i">$transaction</span>{<span class="w">tradeSource</span>} = <span class="i">$$fromuserref</span>{<span class="w">userLogin</span>}<span class="sc">;</span>
+    <span class="i">$transaction</span>{<span class="w">tradeSource</span>} = <span class="i">$from_user_ref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
 
     <span class="c"># tradestatus from configured initial status</span>
     <span class="i">$transaction</span>{<span class="w">tradeStatus</span>} = <span class="i">$fields</span>{<span class="w">initialPaymentStatus</span>}<span class="sc">;</span>
 
-    <span class="c">#FIXME: tradeItem not really identifiable from sms message</span>
+<span class="c">#FIXME: tradeItem not really identifiable from sms message/possible tax problem too!</span>
     <span class="i">$transaction</span>{<span class="w">tradeItem</span>} = <span class="q">&#39;other&#39;</span><span class="sc">;</span>
 
  <span class="c">#FIXME: mode for this is csv, this is part of a general format upgrade later...</span>
@@ -524,23 +530,25 @@ using the gateway messaging gateway, may need modification for other gateways</p
 
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$error3</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">    SMS $messages{&#39;transactionaccepted&#39;} $messages{&#39;to&#39;} $transaction{tradeDestination} $messages{&#39;forvalue&#39;} $transaction{tradeAmount} $transaction{tradeCurrency}</span>
+<span class="hh">SMS $messages{&#39;transactionaccepted&#39;} $messages{&#39;to&#39;} $transaction{tradeDestination} $messages{&#39;forvalue&#39;} $transaction{tradeAmount} $transaction{tradeCurrency}</span>
 <span class="h">EOT</span>
 
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-        <span class="k">my</span> <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+        <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">$error3    SMS $messages{&#39;transactionrejected&#39;} $messages{&#39;to&#39;} $transaction{tradeDestination} $messages{&#39;forvalue&#39;} $transaction{tradeAmount} $transaction{tradeCurrency}</span>
 <span class="h">EOT</span>
 
     <span class="s">}</span>
 
-    <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># send SMS receipt, only if turned on for the user...</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$touserref</span>{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span> <span class="s">{</span>
-        <span class="i">_send_cardboardfish_sms_receipt</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
-            <span class="i">$fromuserref</span><span class="cm">,</span> <span class="i">$touserref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
+   <span class="c"># send SMS receipt, only if turned on for the user...</span>
+   <span class="c">#FIXME: doesn&#39;t deal with SMS for failed transactions, does it to be defined!</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} &amp;&amp; <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$error3</span><span class="s">)</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">_send_cardboardfish_sms_receipt</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;credit&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+            <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span><span class="sc">;</span>
@@ -553,32 +561,51 @@ To be done...</p>
 <pre>
 <a name="_gateway_sms_send_balance-"></a><span class="k">sub </span><span class="m">_gateway_sms_send_balance</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;in send balance&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$balance_ref</span><span class="cm">,</span> <span class="i">$volume_ref</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
+      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">%fields</span> = <span class="s">(</span> <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%fields</span> = <span class="s">(</span> <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$fields_ref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 
-    <span class="c"># html to return html, values to return raw balances and volumes</span>
-    <span class="c"># for each currency</span>
+<span class="c"># html to return html, values to return raw balances and volumes for each currency</span>
+
     <span class="s">(</span> <span class="i">$balance_ref</span><span class="cm">,</span> <span class="i">$volume_ref</span> <span class="s">)</span> =
-      <span class="i">show_balance_and_volume</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span>
-        <span class="i">$$fromuserref</span>{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
-        <span class="q">&#39;values&#39;</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="i">show_balance_and_volume</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span>
+        <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="q">&#39;values&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c">###debug_hash_contents($balance_ref) ;</span>
+    <span class="c">###debug_hash_contents($volume_ref) ;</span>
 
     <span class="c"># current balance for this particular currency</span>
-    <span class="k">my</span> <span class="i">$balance</span> = <span class="i">$$balance_ref</span>{<span class="i">$currency</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$balance</span> = <span class="i">$balance_ref</span>-&gt;{<span class="i">$currency</span>}<span class="sc">;</span>
     <span class="k">my</span> <span class="i">$balance_message</span> =
-<span class="q">&quot;$messages{smsthebalancefor} $fromuserref-&gt;{userLogin} $messages{at} $registry $messages{is} $balance $currency&quot;</span>
+<span class="q">&quot;$messages{smsthebalancefor} $from_user_ref-&gt;{userLogin} $messages{at} $registry $messages{is} $balance $currency&quot;</span>
       . <span class="q">&quot;s&quot;</span><span class="sc">;</span>
+
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;balance message: $balance_message&quot;</span><span class="s">)</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> =
       <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$balance_message</span><span class="cm">,</span>
-        <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;mail error: $mail_error&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="c"># send SMS balance, only if turned on for the user...new 16.08.2010</span>
+    <span class="c"># blank transaction ref, need to make 1 unit sms currency transaction</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">%transaction</span><span class="cm">,</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$to_user_ref</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+        <span class="i">_send_cardboardfish_sms_receipt</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;balance&#39;</span><span class="cm">,</span>
+            <span class="i">$balance_message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span> \<span class="i">%transaction</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
 
     <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -697,80 +724,81 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
 <pre>
 <a name="_check_pin-"></a><span class="k">sub </span><span class="m">_check_pin</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$mail_error</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$pin_status</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$message</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$hashed_pin</span> = <span class="i">text_to_hash</span><span class="s">(</span><span class="i">$pin</span><span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
+      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># already locked</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">eq</span> <span class="q">&#39;locked&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">eq</span> <span class="q">&#39;locked&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$message</span> = <span class="i">$messages</span>{<span class="q">&#39;smslocked&#39;</span>}<span class="sc">;</span>
-        <span class="i">$mail_error</span> =
-          <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$mail_error</span> = <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+            <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># ok, maybe need to reset pin tries though</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">ne</span> <span class="q">&#39;confirm&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPin&#39;</span>} <span class="k">eq</span> <span class="i">$hashed_pin</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPin&#39;</span>} <span class="k">eq</span> <span class="i">$hashed_pin</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;ok&#39;</span><span class="sc">;</span>
-<span class="c">###	    $log-&gt;debug(&quot;in pin checking ok for user: $$fromuserref{&#39;userId&#39;} $$fromuserref{&#39;userLogin&#39;}&quot;) ;</span>
+<span class="c">###	    $log-&gt;debug(&quot;in pin checking ok for user: $from_user_ref-&gt;{&#39;userId&#39;} $from_user_ref-&gt;{&#39;userLogin&#39;}&quot;) ;</span>
 
             <span class="k">return</span> <span class="i">$pin_status</span>
-              <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} == <span class="n">3</span> <span class="s">)</span><span class="sc">;</span> <span class="c"># this is the main case</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} = <span class="n">3</span><span class="sc">;</span>    <span class="c"># reset to three otherwise</span>
+              <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} == <span class="n">3</span> <span class="s">)</span>
+              <span class="sc">;</span>    <span class="c"># this is the main case</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} = <span class="n">3</span><span class="sc">;</span>    <span class="c"># reset to three otherwise</span>
 
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} &gt; <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} &gt; <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;fail&#39;</span><span class="sc">;</span>
             <span class="i">$message</span>    = <span class="i">$messages</span>{<span class="q">&#39;smspinfail&#39;</span>}<span class="sc">;</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>}--<span class="sc">;</span>      <span class="c"># used one pin attempt</span>
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
-<span class="c">###	    $log-&gt;debug(&quot;in pin checking,locked for user: $$fromuserref{&#39;userId&#39;} $$fromuserref{&#39;userLogin&#39;}&quot;) ;</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>}--<span class="sc">;</span>      <span class="c"># used one pin attempt</span>
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
+<span class="c">###	    $log-&gt;debug(&quot;in pin checking,locked for user: $from_user_ref-&gt;{&#39;userId&#39;} $from_user_ref-&gt;{&#39;userLogin&#39;}&quot;) ;</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
             <span class="i">$message</span>    = <span class="q">&quot;$registry: $messages{&#39;smslocked&#39;}&quot;</span><span class="sc">;</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>}  = <span class="n">0</span><span class="sc">;</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>}  = <span class="n">0</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="c"># waiting and confirm</span>
-    <span class="k">if</span> <span class="s">(</span>   <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">ne</span> <span class="q">&#39;locked&#39;</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span>   <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">ne</span> <span class="q">&#39;locked&#39;</span> <span class="s">)</span>
         &amp;&amp; <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;confirm&#39;</span> <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
 
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPin&#39;</span>} <span class="k">eq</span> <span class="i">$hashed_pin</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPin&#39;</span>} <span class="k">eq</span> <span class="i">$hashed_pin</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;ok&#39;</span><span class="sc">;</span>
             <span class="i">$message</span>    = <span class="i">$messages</span>{<span class="w">smspinactive</span>}<span class="sc">;</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} = <span class="n">3</span><span class="sc">;</span>    <span class="c"># reset or set pin tries to 3</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} &gt; <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} = <span class="n">3</span><span class="sc">;</span>  <span class="c"># reset or set pin tries to 3</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} &gt; <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;fail&#39;</span><span class="sc">;</span>
             <span class="i">$message</span>    = <span class="i">$messages</span>{<span class="q">&#39;smspinfail&#39;</span>}<span class="sc">;</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>}--<span class="sc">;</span>      <span class="c"># used one pin attempt</span>
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$pin_status</span>                    = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>}  = <span class="n">0</span><span class="sc">;</span>
-            <span class="i">$message</span>                       = <span class="i">$messages</span>{<span class="q">&#39;smslocked&#39;</span>}<span class="sc">;</span>
-            <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>}--<span class="sc">;</span>    <span class="c"># used one pin attempt</span>
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$pin_status</span>                       = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>}  = <span class="n">0</span><span class="sc">;</span>
+            <span class="i">$message</span>                          = <span class="i">$messages</span>{<span class="q">&#39;smslocked&#39;</span>}<span class="sc">;</span>
+            <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="c"># anything getting to here, needs to update the user record</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$dummy</span><span class="cm">,</span> <span class="i">$home_ref</span><span class="cm">,</span> <span class="i">$dummy1</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$template</span><span class="cm">,</span> <span class="i">$dummy2</span> <span class="s">)</span> =
-      <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fromuserref</span><span class="cm">,</span>
+      <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
         <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$message</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$mail_error</span> =
-          <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$mail_error</span> = <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+            <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">$pin_status</span><span class="sc">;</span>
@@ -786,19 +814,17 @@ it separates 'business' between registries 11/2009</p>
 <pre>
 <a name="_send_sms_mail_message-"></a><span class="k">sub </span><span class="m">_send_sms_mail_message</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$mail_error</span><span class="cm">,</span> <span class="i">$urlstring</span><span class="cm">,</span> <span class="i">$hash</span><span class="cm">,</span> <span class="i">$smtp</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$mail_error</span> = <span class="i">notify_by_mail</span><span class="s">(</span>
         <span class="i">$class</span><span class="cm">,</span>
         <span class="i">$registry</span><span class="cm">,</span>
-        <span class="i">$$fromuserref</span>{<span class="q">&#39;userName&#39;</span>}<span class="cm">,</span>
-        <span class="i">$$fromuserref</span>{<span class="q">&#39;userEmail&#39;</span>}<span class="cm">,</span>
+        <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userName&#39;</span>}<span class="cm">,</span>
+        <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userEmail&#39;</span>}<span class="cm">,</span>
         <span class="i">$configuration</span>{<span class="q">&#39;systemmailaddress&#39;</span>}<span class="cm">,</span>
         <span class="i">$configuration</span>{<span class="q">&#39;systemmailreplyaddress&#39;</span>}<span class="cm">,</span>
-        <span class="i">$$fromuserref</span>{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
         <span class="i">$smtp</span><span class="cm">,</span>
         <span class="i">$urlstring</span><span class="cm">,</span>
         <span class="i">$message</span><span class="cm">,</span>
@@ -812,66 +838,163 @@ it separates 'business' between registries 11/2009</p>
 
 </pre><p></p>
 <h3><a name="convert_cardboardfish">convert_cardboardfish</a></h3>
-<p>Convert incoming fields as per cardboardfish specification</p>
+<p>Convert incoming fields as per cardboardfish specification
+Now deals with multiple messages parts and more stable data formats...</p>
 <p># cardboardfish plugin for this message format
-# -1:[SOURCE]:DESTINATION:DCS::DATETIME:[UDH]:[MESSAGE]</p>
+# -1:[SOURCE]:DESTINATION:DCS::DATETIME:[UDH]:[MESSAGE]
+#  1#-1:447779159452:447624804344:1::1274627205::53656E6420352020746F20746573743220666F72206261726B696E67</p>
 <pre>
 <a name="convert_cardboardfish-"></a><span class="k">sub </span><span class="m">convert_cardboardfish</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span><span class="i">$input</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$originator</span><span class="cm">,</span> <span class="i">$destination</span><span class="cm">,</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$dcs</span><span class="cm">,</span> <span class="i">$datetime</span><span class="cm">,</span> <span class="i">$udh</span><span class="cm">,</span>
-        <span class="i">$message</span> <span class="s">)</span>
-      = <span class="k">split</span><span class="s">(</span> <span class="q">/:/</span><span class="cm">,</span> <span class="i">$input</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$message</span> = <span class="i">_hex_to_ascii</span><span class="s">(</span><span class="i">$message</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="c">#1#-1:447779159452:447624804344:1::1274627205::53656E6420352020746F20746573743220666F72206261726B696E67</span>
+    <span class="c">#$log-&gt;debug(&quot;input  is $input&quot;);</span>
 
-    <span class="k">my</span> <span class="i">$x</span> = <span class="k">join</span><span class="s">(</span>
-        <span class="q">&#39;|&#39;</span><span class="cm">,</span>
+    <span class="i">$input</span> =~ <span class="q">/^(\d+)/</span><span class="sc">;</span>    <span class="c"># this is the count for messages</span>
+    <span class="k">my</span> <span class="i">$count</span> = <span class="i">$1</span><span class="sc">;</span>
+    <span class="i">$input</span> =~ <span class="q">s/^(\d+)//</span><span class="sc">;</span>    <span class="c"># remove the count</span>
+
+    <span class="k">my</span> <span class="i">@raw_messages</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/\#/</span><span class="cm">,</span> <span class="i">$input</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">@message_hash_refs</span><span class="sc">;</span>
+
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$raw_message</span> <span class="s">(</span><span class="i">@raw_messages</span><span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;raw messageis $raw_message&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+        <span class="k">my</span> <span class="i">%message_hash</span><span class="sc">;</span>
+
         <span class="s">(</span>
-            <span class="q">&quot;s:$status&quot;</span><span class="cm">,</span>      <span class="q">&quot;o:$originator&quot;</span><span class="cm">,</span>
-            <span class="q">&quot;d:$destination&quot;</span><span class="cm">,</span> <span class="q">&quot;a:$a&quot;</span><span class="cm">,</span>
-            <span class="q">&quot;dc:$dcs&quot;</span><span class="cm">,</span>        <span class="q">&quot;dt:$datetime&quot;</span><span class="cm">,</span>
-            <span class="q">&quot;u:$udh&quot;</span><span class="cm">,</span>         <span class="q">&quot;m:$message&quot;</span>
-        <span class="s">)</span>
-    <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;x is $x&quot;</span><span class="s">)</span><span class="sc">;</span>
+            <span class="i">$message_hash</span>{<span class="q">&#39;status&#39;</span>}<span class="cm">,</span>      <span class="i">$message_hash</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
+            <span class="i">$message_hash</span>{<span class="q">&#39;destination&#39;</span>}<span class="cm">,</span> <span class="i">$message_hash</span>{<span class="q">&#39;dcs&#39;</span>}<span class="cm">,</span>
+            <span class="i">$message_hash</span>{<span class="q">&#39;notused&#39;</span>}<span class="cm">,</span>     <span class="i">$message_hash</span>{<span class="q">&#39;datetime&#39;</span>}<span class="cm">,</span>
+            <span class="i">$message_hash</span>{<span class="q">&#39;udh&#39;</span>}<span class="cm">,</span>         <span class="i">$message_hash</span>{<span class="q">&#39;message&#39;</span>}
+        <span class="s">)</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/:/</span><span class="cm">,</span> <span class="i">$raw_message</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">return</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$originator</span><span class="cm">,</span> <span class="i">$destination</span><span class="cm">,</span> <span class="i">$dcs</span><span class="cm">,</span> <span class="i">$datetime</span><span class="cm">,</span> <span class="i">$udh</span><span class="cm">,</span>
-        <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$message_hash</span>{<span class="q">&#39;message&#39;</span>} = <span class="i">_hex_to_ascii</span><span class="s">(</span> <span class="i">$message_hash</span>{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+
+        <span class="c"># push a reference to this onto a list to be returned</span>
+        <span class="k">push</span> <span class="i">@message_hash_refs</span><span class="cm">,</span> \<span class="i">%message_hash</span><span class="sc">;</span>
+
+    <span class="s">}</span>    <span class="c"># endof foreach</span>
+
+    <span class="k">return</span> <span class="s">(</span><span class="i">@message_hash_refs</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
 </pre><p></p>
 <h3><a name="_send_cardboardfish_sms_receipt">_send_cardboardfish_sms_receipt</a></h3>
 <p>This is specific to cardboardfish and is therefore marked as such
-
-</p>
-
+Sends an sms message to confirm payment and send back balances</p>
 <pre>
 <a name="_send_cardboardfish_sms_receipt-"></a><span class="k">sub </span><span class="m">_send_cardboardfish_sms_receipt</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span><span class="cm">,</span> <span class="i">$touserref</span><span class="cm">,</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span>
         <span class="i">$transaction_ref</span> <span class="s">)</span>
       = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$sms_error</span><span class="cm">,</span> <span class="i">$urlstring</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="c">#FIXME: add on sponsor message, if present, need rotating etc. etc.</span>
+    <span class="i">$message</span> .= <span class="q">&quot; $sms_configuration{&#39;sms_sponsor_message&#39;}&quot;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;sms_sponsor_message&#39;</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="i">debug_hash_contents</span><span class="s">(</span><span class="i">$transaction_ref</span><span class="s">)</span><span class="sc">;</span>
+<span class="c">#FIXME: note that SA source address is cclite for balance, maybe same for credit?</span>
 
-    <span class="k">my</span> <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">$transaction_ref-&gt;{&#39;tradeAmount&#39;} $transaction_ref-&gt;{&#39;tradeCurrency&#39;} has been credited by $transaction_ref-&gt;{&#39;tradeSource&#39;}</span>
+    <span class="k">my</span> <span class="i">$urlstring</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: not read properly from the configuration file...</span>
+    <span class="i">$sms_configuration</span>{<span class="q">&#39;sms_DR&#39;</span>} ||= <span class="n">0</span><span class="sc">;</span>
+
+<span class="c">#FIXME: note that ST=5 for alphanumeric sender probably needs to be &#39;cclite&#39; for all originating SMSes that needs to be linked to help-desk</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;credit&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$urlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&amp;UN=$sms_user&amp;P=$sms_password&amp;DA=$to_user_ref-&gt;{&#39;userMobile&#39;}&amp;SA=$sms_configuration{&#39;sms_SA&#39;}&amp;M=$message&amp;ST=5&amp;DC=$sms_configuration{&#39;sms_DC&#39;}</span>
+
 <span class="h">EOT</span>
 
-    <span class="k">my</span> <span class="i">$urlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&amp;UN=$sms_user&amp;P=$sms_password&amp;DA=$$touserref{&#39;userMobile&#39;}&amp;SA=$$fromuserref{&#39;userMobile&#39;}&amp;M=$message&amp;ST=1&amp;DC=0</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> = <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">$urlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&amp;UN=$sms_user&amp;P=$sms_password&amp;DA=$from_user_ref-&gt;{&#39;userMobile&#39;}&amp;SA=$sms_configuration{&#39;sms_SA&#39;}&amp;M=$message&amp;ST=5&amp;DC=$sms_configuration{&#39;sms_DC&#39;}</span>
 
 <span class="h">EOT</span>
 
-    <span class="c"># use Curl to send an SMS message via the cardborardfish gateway...</span>
-    <span class="k">my</span> <span class="s">(</span><span class="i">$http_response_code</span><span class="s">)</span> = <span class="i">__outbound_cardboardfish_http_sms</span><span class="s">(</span><span class="i">$urlstring</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;unknown or unimplemented sms type: $type&quot;</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="q">&quot;$messages{smserror} $type&quot;</span><span class="sc">;</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;url is $urlstring ret is $http_response_code&quot;</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="c"># use LWP to send an SMS message via the cardborardfish gateway...</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$http_response</span><span class="s">)</span> = <span class="i">__outbound_cardboardfish_http_sms</span><span class="s">(</span><span class="i">$urlstring</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$ret</span> = <span class="i">$http_response</span><span class="i">-&gt;code</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;url is $urlstring return code is $ret&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$http_response</span><span class="i">-&gt;code</span> == <span class="n">200</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">_charge_one_sms_unit</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
+            <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;$messages{smserror} $http_response-&gt;code&quot;</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="q">&quot;$messages{smserror} $http_response-&gt;code&quot;</span><span class="sc">;</span>
+    <span class="s">}</span>
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="__outbound_cardboardfish_http_sms">__outbound_cardboardfish_http_sms</a></h3>
+<p>Send the SMS message via a web transaction at carboardfish</p>
+<pre>
+<a name="__outbound_cardboardfish_http_sms-"></a><span class="k">sub </span><span class="m">__outbound_cardboardfish_http_sms</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span><span class="i">$sms_url</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$ua</span> = <span class="w">LWP::UserAgent</span><span class="w">-&gt;new</span><span class="sc">;</span>
+    <span class="i">$ua</span><span class="i">-&gt;agent</span><span class="s">(</span><span class="q">&quot;cclite\/$configuration{&#39;version&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">$ua</span><span class="i">-&gt;timeout</span><span class="s">(</span><span class="n">10</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$response</span> = <span class="i">$ua</span><span class="i">-&gt;get</span><span class="s">(</span><span class="i">$sms_url</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span><span class="i">$response</span><span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="_charge_one_sms_unit">_charge_one_sms_unit</a></h3>
+<p>Transfer an SMS unit from the transaction originator to sysaccount
+to account for the sent SMS</p>
+<p>$type is 'credit' or 'balance' at present. In the case of balance
+need to build up a few transaction fields to charge it..always charged
+to originator and monies put into sysaccount...</p>
+
+<pre>
+<a name="_charge_one_sms_unit-"></a><span class="k">sub </span><span class="m">_charge_one_sms_unit</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;in send balance&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="c"># for balances, extra fields to fill in are filled anyway by a credit</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="c">#subaction : om_trades</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;subaction&#39;</span>} = <span class="q">&#39;om_trades&#39;</span><span class="sc">;</span>
+
+        <span class="c">#toregistry : dalston</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;fromregistry&#39;</span>} = <span class="i">$registry</span><span class="sc">;</span>
+
+        <span class="c">#toregistry : dalston</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;toregistry&#39;</span>} = <span class="i">$registry</span><span class="sc">;</span>
+
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeDescription&#39;</span>} =
+          <span class="q">&quot;$messages{&#39;smsdebitfor&#39;} $type&quot;</span><span class="sc">;</span>
+
+        <span class="c">#tradeSource : manager</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeSource&#39;</span>} = <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="sc">;</span>
+
+    <span class="s">}</span>
+
+<span class="c">#FIXME: tradeItem not really identifiable from sms message/possible tax problem too!</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeItem&#39;</span>} = <span class="q">&#39;other&#39;</span><span class="sc">;</span>
+
+ <span class="c">#FIXME: mode for this is csv, this is part of a general format upgrade later...</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} = <span class="q">&#39;csv&#39;</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: tradestatus is always accepted for sms-debit</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeStatus&#39;</span>} = <span class="q">&#39;accepted&#39;</span><span class="sc">;</span>
 
     <span class="c"># if HTTP 200, sent OK charge receipt to one unit of sms currency...</span>
     <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeAmount&#39;</span>}   = <span class="q">&#39;1&#39;</span><span class="sc">;</span>
@@ -883,28 +1006,24 @@ it separates 'business' between registries 11/2009</p>
 
     <span class="c">#tradeTitle : sms debit for sms receipt</span>
     <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeTitle&#39;</span>} =
-      <span class="q">&quot;$messages{&#39;smstransactiontitle&#39;} sms-debit&quot;</span><span class="sc">;</span>
+      <span class="q">&quot;$messages{&#39;smsdebitfor&#39;} $messages{&#39;smstransactiontitle&#39;}&quot;</span><span class="sc">;</span>
 
     <span class="c">#tradeDestination : sysadmin is credited in sms currency</span>
     <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeDestination&#39;</span>} = <span class="q">&#39;sysaccount&#39;</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: this should be passed into this subsystem, really...</span>
+    <span class="k">my</span> <span class="i">$token</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$trans_error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
       <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;sms&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;fromregistry&#39;</span>}<span class="cm">,</span>
         <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;url is $urlstring error is $trans_error&quot;</span><span class="s">)</span><span class="sc">;</span>
+    <span class="c">###$log-&gt;debug(&quot;in send balance: $trans_error&quot;);</span>
+    <span class="c">###debug_hash_contents($transaction_ref);</span>
 
-    <span class="k">return</span> <span class="i">$sms_error</span><span class="sc">;</span>
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;transaction error is $trans_error&quot;</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="s">}</span>
-
-<a name="__outbound_cardboardfish_http_sms-"></a><span class="k">sub </span><span class="m">__outbound_cardboardfish_http_sms</span> <span class="s">{</span>
-
-    <span class="k">my</span> <span class="s">(</span><span class="i">$sms_url</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$ua</span> = <span class="w">LWP::UserAgent</span><span class="w">-&gt;new</span><span class="sc">;</span>
-    <span class="i">$ua</span><span class="i">-&gt;timeout</span><span class="s">(</span><span class="n">10</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$response</span> = <span class="i">$ua</span><span class="i">-&gt;get</span><span class="s">(</span><span class="i">$sms_url</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span><span class="i">$response</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <a name="_ascii_to_hex-"></a><span class="k">sub </span><span class="m">_ascii_to_hex ($)</span> <span class="s">{</span>

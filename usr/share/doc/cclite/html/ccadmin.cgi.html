@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>ccadmin.cgi</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -61,9 +63,11 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 
-<hr />
 <pre>#!/usr/bin/perl
 <span class="k">my</span> <span class="i">$test</span> = <span class="n">0</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$test</span><span class="s">)</span> <span class="s">{</span>
@@ -134,8 +138,7 @@ pre { color: #000000;
 </p>
 <hr />
 <h1><a name="copyright">COPYRIGHT</a></h1>
-<p>(c) Hugh Barnard 2005 GPL Licenced
-</p>
+<p>(c) Hugh Barnard 2005 GPL Licenced</p>
 <pre>
 
 =cut</pre>
@@ -236,15 +239,16 @@ to change these, just substitute a translated hash</p>
 
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="k">my</span> <span class="i">$language</span> = <span class="i">$fields</span>{<span class="w">language</span>}
-  || <span class="i">$$cookieref</span>{<span class="w">language</span>}
+<span class="k">my</span> <span class="i">$language</span> =
+     <span class="i">$fields</span>{<span class="w">language</span>}
+  || <span class="i">$cookieref</span>-&gt;{<span class="w">language</span>}
   || <span class="q">&quot;en&quot;</span><span class="sc">;</span>    <span class="c"># default is english</span>
 
 <span class="k">my</span> <span class="i">$pagename</span> = <span class="i">$fields</span>{<span class="w">name</span>} || <span class="q">&quot;front.html&quot;</span><span class="sc">;</span>    <span class="c"># default is the index page</span>
 
 <span class="k">my</span> <span class="i">$action</span> = <span class="i">$fields</span>{<span class="w">action</span>}<span class="sc">;</span>
 <span class="k">my</span> <span class="i">$table</span>  = <span class="i">$fields</span>{<span class="w">subaction</span>}<span class="sc">;</span>
-<span class="k">my</span> <span class="i">$db</span>     = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$fields</span>{<span class="w">registry</span>}<span class="sc">;</span>
+<span class="k">my</span> <span class="i">$db</span>     = <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} || <span class="i">$fields</span>{<span class="w">registry</span>}<span class="sc">;</span>
 
 <span class="c"># A template object referencing a particular directory</span>
 <span class="k">my</span> <span class="i">$pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;../../templates/html/$language/admin&quot;</span><span class="s">)</span><span class="sc">;</span>
@@ -255,10 +259,11 @@ to change these, just substitute a translated hash</p>
 <span class="c"># need to be abstracted away from both ccadmin.cgi and cclite.cgi, duplicated</span>
 
 <span class="c"># need to be an admin, need to be logged on, back to logon</span>
-<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="s">)</span> &amp;&amp; <span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span> <span class="s">)</span>
+<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="s">)</span>
+    &amp;&amp; <span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span> <span class="s">)</span>
 <span class="s">{</span>
 
-<span class="c">###    $log-&gt;debug(&quot;l:$$cookieref{userLevel}  t:$$cookieref{token}&quot;);</span>
+<span class="c">###    $log-&gt;debug(&quot;l:$cookieref-&gt;{userLevel}  t:$cookieref-&gt;{token}&quot;);</span>
     <span class="i">$fields</span>{<span class="w">menustyle</span>} = <span class="q">&quot;grey&quot;</span><span class="sc">;</span>
     <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$pages</span> = <span class="i">$user_pages</span><span class="sc">;</span>
@@ -276,7 +281,7 @@ to change these, just substitute a translated hash</p>
 <span class="i">$fields</span>{<span class="w">errors</span>} = <span class="i">install_grumble</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="w">librarypath</span>} <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># just to give upper case display for admin menu</span>
-<span class="i">$fields</span>{<span class="w">registrytitle</span>} = <span class="q">&quot;\u$$fieldsref{name}&quot;</span><span class="sc">;</span>
+<span class="i">$fields</span>{<span class="w">registrytitle</span>} = <span class="q">&quot;\u$fieldsref-&gt;{name}&quot;</span><span class="sc">;</span>
 
 <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 
@@ -285,11 +290,11 @@ to change these, just substitute a translated hash</p>
   <span class="i">get_set_batch_files</span><span class="s">(</span> <span class="q">&#39;get&#39;</span><span class="cm">,</span> <span class="i">$configref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%$report_ref</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="i">$$fieldsref</span>{<span class="w">displaybatchfiles</span>} .= <span class="i">$$report_ref</span>{<span class="i">$key</span>}<span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">displaybatchfiles</span>} .= <span class="i">$report_ref</span>-&gt;{<span class="i">$key</span>}<span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="c"># there is a token but it&#39;s been modified or spoofed</span>
-<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLogin</span>} <span class="s">)</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
     <span class="c"># calculate token to compare with cookie version</span>
     <span class="k">my</span> <span class="i">$compare_token</span><span class="sc">;</span>
@@ -297,14 +302,14 @@ to change these, just substitute a translated hash</p>
       <span class="i">calculate_token</span><span class="s">(</span> <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span>
         <span class="i">$ENV</span>{<span class="w">REMOTE_ADDR</span>} <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span>
-        &amp;&amp; <span class="s">(</span> <span class="i">$compare_token</span> <span class="k">ne</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">token</span>} <span class="s">)</span>
+        &amp;&amp; <span class="s">(</span> <span class="i">$compare_token</span> <span class="k">ne</span> <span class="i">$cookieref</span>-&gt;{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 <span class="c">###        $log-&gt;warn(</span>
-<span class="c">###&quot;corrupt token or spoofing attempt from login:$$cookieref{userLogin} token:$$cookieref{token} token1:$$cookieref{token1} at:$ENV{REMOTE_ADDR}&quot;</span>
+<span class="c">###&quot;corrupt token or spoofing attempt from login:$cookieref-&gt;{userLogin} token:$cookieref-&gt;{token} token1:$cookieref-&gt;{token1} at:$ENV{REMOTE_ADDR}&quot;</span>
 <span class="c">###        );</span>
-        <span class="c">###$log-&gt;debug(&quot;action is $action: $compare_token\n  ne \n$$cookieref{token} \ntoken1:$$cookieref{token1}&quot;);</span>
+        <span class="c">###$log-&gt;debug(&quot;action is $action: $compare_token\n  ne \n$cookieref-&gt;{token} \ntoken1:$cookieref-&gt;{token1}&quot;);</span>
 
         <span class="c"># attempt to exit cleanly</span>
         <span class="i">$action</span> = <span class="q">&#39;logoff&#39;</span><span class="sc">;</span>

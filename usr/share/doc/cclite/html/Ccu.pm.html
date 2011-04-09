@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Ccu.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -68,6 +70,7 @@ pre { color: #000000;
 			<li><a href="#check_paths">check_paths</a></li>
 			<li><a href="#make_html_row_contents">make_html_row_contents</a></li>
 			<li><a href="#make_html_transaction_totals">make_html_transaction_totals</a></li>
+			<li><a href="#deliver_remote_data">deliver_remote_data</a></li>
 			<li><a href="#_timestamp">_timestamp</a></li>
 			<li><a href="#debug_hash_contents">debug_hash_contents</a></li>
 		</ul>
@@ -75,6 +78,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -95,6 +101,7 @@ pre { color: #000000;
 <li><a href="#check_paths-">check_paths</a></li>
 <li><a href="#make_html_row_contents-">make_html_row_contents</a></li>
 <li><a href="#make_html_transaction_totals-">make_html_transaction_totals</a></li>
+<li><a href="#deliver_remote_data-">deliver_remote_data</a></li>
 <li><a href="#sql_timestamp-">sql_timestamp</a></li>
 <li><a href="#debug_hash_contents-">debug_hash_contents</a></li>
 <li><a href="#pretty_caller-">pretty_caller</a></li>
@@ -104,7 +111,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -149,6 +155,7 @@ read in and localise web forms etc.</p>
   <span class="q">readmessages</span>
   <span class="q">debug_soap</span>
   <span class="q">debug_hash_contents</span>
+  <span class="q">deliver_remote_data</span>
   <span class="q">display_template</span>
   <span class="q">make_page_links</span>
   <span class="q">make_html_row_contents</span>
@@ -229,6 +236,30 @@ note that the $html variable is badly named, it should be 'message' or something
         <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>   <span class="i">$cookies</span><span class="cm">,</span> <span class="i">$token</span>
     <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
+    <span class="c">#FIXME: hack to deal with cpanel database names....</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">%configuration</span><span class="sc">;</span>
+        <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
+        <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span><span class="i">%$fieldsref</span><span class="s">)</span> <span class="s">{</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> =~ <span class="q">/registry/</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$fieldsref</span>-&gt;{<span class="i">$key</span>} =~ <span class="q">s/$configuration{&#39;cpanelprefix&#39;}_//</span><span class="sc">;</span>
+            <span class="s">}</span>
+        <span class="s">}</span>
+    <span class="s">}</span>
+
+<span class="c"># only refresh is [mis]used to carry json payload if json is being returned 2/2011</span>
+<span class="c"># prints the cookies, if any, the json and exits..</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">print</span> <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">Content-type: application/json</span>
+<span class="hh">$cookies</span>
+<span class="hh">$refresh</span>
+<span class="h">EOT</span>
+
+        <span class="k">return</span><span class="sc">;</span>
+    <span class="s">}</span>
+
     <span class="k">if</span> <span class="s">(</span><span class="i">$refresh</span><span class="s">)</span> <span class="s">{</span>
         <span class="i">$metarefresh</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">&lt;meta http-equiv=&quot;refresh&quot; content=&quot;2;URL=$metarefresh&quot;&gt;</span>
@@ -251,55 +282,55 @@ note that the $html variable is badly named, it should be 'message' or something
     <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># if not logging off, now transferred to cclite</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">action</span>} <span class="k">ne</span> <span class="q">&quot;logoff&quot;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">action</span>} <span class="k">ne</span> <span class="q">&quot;logoff&quot;</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="i">$$fieldsref</span>{<span class="w">language</span>} = <span class="i">$$cookieref</span>{<span class="w">language</span>}
-          <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">language</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">language</span>} = <span class="i">$cookieref</span>-&gt;{<span class="w">language</span>}
+          <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">language</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="i">$$fieldsref</span>{<span class="w">registry</span>} = <span class="i">$$cookieref</span>{<span class="w">registry</span>}
-          <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>} = <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>}
+          <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="i">$$fieldsref</span>{<span class="w">date</span>} = <span class="i">$date</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">date</span>} = <span class="i">$date</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># display logon if not logged on, otherwise display the trades form</span>
     <span class="c"># needs modification to allow/disallow certain actions</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$pagename</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} = <span class="i">$pagename</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} = <span class="i">$pagename</span><span class="sc">;</span>
 
         <span class="c"># simple gatekeeper against cash trades if not admin</span>
         <span class="c"># FIXME: a little ugly really....</span>
-        <span class="k">if</span> <span class="s">(</span>   <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} <span class="k">eq</span> <span class="q">&quot;admintrades.html&quot;</span>
-            &amp;&amp; <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span>
+        <span class="k">if</span> <span class="s">(</span>   <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} <span class="k">eq</span> <span class="q">&quot;admintrades.html&quot;</span>
+            &amp;&amp; <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span>
         <span class="s">{</span>
-            <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} = <span class="q">&quot;trades.html&quot;</span><span class="sc">;</span>
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} <span class="k">eq</span> <span class="q">&quot;trades.html&quot;</span>
-            &amp;&amp; <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} = <span class="q">&quot;trades.html&quot;</span><span class="sc">;</span>
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} <span class="k">eq</span> <span class="q">&quot;trades.html&quot;</span>
+            &amp;&amp; <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span>
         <span class="s">{</span>
-            <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} = <span class="q">&quot;admintrades.html&quot;</span><span class="sc">;</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} = <span class="q">&quot;admintrades.html&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
 
-    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} = <span class="q">&quot;logon.html&quot;</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} = <span class="q">&quot;logon.html&quot;</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
         <span class="c"># new cash functions etc. for admins (tellers) only</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} = <span class="q">&quot;admintrades.html&quot;</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} = <span class="q">&quot;admintrades.html&quot;</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-            <span class="i">$$fieldsref</span>{<span class="w">pagename</span>} = <span class="q">&quot;trades.html&quot;</span><span class="sc">;</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">pagename</span>} = <span class="q">&quot;trades.html&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
 
     <span class="s">}</span>
 
     <span class="k">my</span> <span class="i">%messages</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="k">my</span> <span class="i">$login</span> = <span class="i">$$cookieref</span>{<span class="w">userLogin</span>} || <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>}<span class="sc">;</span>
-        <span class="i">%messages</span>               = <span class="i">readmessages</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">language</span>} <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$$fieldsref</span>{<span class="w">youare</span>}     = <span class="q">&quot;$messages{youare} $login&quot;</span><span class="sc">;</span>
-        <span class="i">$$fieldsref</span>{<span class="w">atregistry</span>} = <span class="q">&quot;$messages{at} $$fieldsref{registry}&quot;</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$login</span> = <span class="i">$cookieref</span>-&gt;{<span class="w">userLogin</span>} || <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
+        <span class="i">%messages</span>                = <span class="i">readmessages</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">language</span>} <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">youare</span>}     = <span class="q">&quot;$messages{youare} $login&quot;</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">atregistry</span>} = <span class="q">&quot;$messages{at} $fieldsref-&gt;{registry}&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># collect currencies and partners, if a trade operation</span>
@@ -309,43 +340,43 @@ note that the $html variable is badly named, it should be 'message' or something
 
     <span class="k">my</span> <span class="i">$blank_option</span> = <span class="q">&quot;&lt;option value=\&quot;\&quot;&gt;&lt;/option&gt;&quot;</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> !~ <span class="q">/logon/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> !~ <span class="q">/logon/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$option_string</span> =
-          <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span>
+          <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
             <span class="q">&#39;om_currencies&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># this is the primary currency or the &#39;only&#39; one</span>
 
-        <span class="i">$$fieldsref</span>{<span class="w">selectcurrency</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">selectcurrency</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh">&lt;select class=&quot;required&quot; name=&quot;tradeCurrency&quot;&gt;$blank_option$option_string&lt;/select&gt;\n    </span>
 <span class="h">EOT</span>
 
         <span class="c"># this is the secondary currency in a split transaction operation</span>
 
-        <span class="i">$$fieldsref</span>{<span class="w">sselectcurrency</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">sselectcurrency</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh">&lt;select class=&quot;required&quot; name=&quot;stradeCurrency&quot;&gt;$blank_option$option_string&lt;/select&gt;\n    </span>
 <span class="h">EOT</span>
 
         <span class="c"># collect partners for registry operations, if multiregistry</span>
         <span class="c"># add local registry to option string!</span>
         <span class="c"># otherwise just present local registry as readonly field</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">multiregistry</span>} <span class="k">eq</span> <span class="q">&quot;yes&quot;</span>
-            &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">multiregistry</span>} <span class="k">eq</span> <span class="q">&quot;yes&quot;</span>
+            &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span>
         <span class="s">{</span>
             <span class="i">$option_string</span> =
-              <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span>
+              <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
                 <span class="q">&#39;om_partners&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
             <span class="i">$option_string</span> .=
-<span class="q">&quot;&lt;option value=\&quot;$$fieldsref{registry}\&quot;&gt;\u$$fieldsref{registry}&lt;/option&gt;&quot;</span><span class="sc">;</span>
-            <span class="i">$$fieldsref</span>{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+<span class="q">&quot;&lt;option value=\&quot;$fieldsref-&gt;{registry}\&quot;&gt;\u$fieldsref-&gt;{registry}&lt;/option&gt;&quot;</span><span class="sc">;</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh">&lt;select class=&quot;required&quot; name=&quot;toregistry&quot;&gt;$blank_option$option_string&lt;/select&gt;    </span>
 <span class="h">EOT</span>
 
         <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-            <span class="i">$$fieldsref</span>{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh">&lt;input class=&quot;grey&quot;</span>
-<span class="hh"> name=&quot;toregistry&quot; class=&quot;required&quot; readonly=&quot;readonly&quot; size=&quot;30&quot; maxlength=&quot;255&quot; value=&quot;$$fieldsref{registry}&quot; type=&quot;text&quot;&gt;   </span>
+<span class="hh"> name=&quot;toregistry&quot; class=&quot;required&quot; readonly=&quot;readonly&quot; size=&quot;30&quot; maxlength=&quot;255&quot; value=&quot;$fieldsref-&gt;{registry}&quot; type=&quot;text&quot;&gt;   </span>
 <span class="h">EOT</span>
 
         <span class="s">}</span>
@@ -356,26 +387,26 @@ note that the $html variable is badly named, it should be 'message' or something
     <span class="c"># rather than the SIC codes. should become &#39;pluggable&#39; eventually.</span>
     <span class="c"># the codes now have a tree structure, category and parent (category).</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/yellowpages/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/yellowpages/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="c"># collect categories for yellow pages</span>
         <span class="k">my</span> <span class="i">$option_string</span> =
-          <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span>
+          <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
             <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;description&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$$fieldsref</span>{<span class="w">selectclassification</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">selectclassification</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh"> &lt;select type=&quot;required&quot; name=&quot;classification&quot;&gt;$blank_option$option_string&lt;/select&gt;\n    </span>
 <span class="h">EOT</span>
 
     <span class="s">}</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/category/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/category/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="c"># collect major, if a category operation</span>
         <span class="c">#</span>
         <span class="k">my</span> <span class="i">$option_string</span> =
-          <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span>
+          <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
             <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;parent&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$$fieldsref</span>{<span class="w">selectparent</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">selectparent</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh"> &lt;select class=&quot;required&quot; name=&quot;parent&quot;&gt;$blank_option$option_string&lt;/select&gt;\n    </span>
 <span class="h">EOT</span>
 
@@ -383,15 +414,15 @@ note that the $html variable is badly named, it should be 'message' or something
 
     <span class="c"># get the latest news field from the registry for front page display</span>
 
-    <span class="i">$$fieldsref</span>{<span class="w">latest_news</span>} =
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} =
       <span class="i">Cclite::get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># format it for user level users, admin needs to edit it</span>
-    <span class="i">$$fieldsref</span>{<span class="w">latest_news</span>} =
-      <span class="q">&quot;&lt;span class=\&quot;news\&quot;&gt;$$fieldsref{latest_news}&lt;\/span&gt;&quot;</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&quot;admin&quot;</span>
-        &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">latest_news</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} =
+      <span class="q">&quot;&lt;span class=\&quot;news\&quot;&gt;$fieldsref-&gt;{latest_news}&lt;\/span&gt;&quot;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&quot;admin&quot;</span>
+        &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">print</span> <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">Content-type: text/html</span>
@@ -402,14 +433,14 @@ note that the $html variable is badly named, it should be 'message' or something
 <span class="c"># added logic 8/2009 to return untemplated html, for &#39;foreign&#39; systems</span>
 <span class="c"># this is the beginning of &#39;return for various representations, rss, json, csv etc.</span>
 
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">mode</span>} <span class="s">)</span> || <span class="i">$$fieldsref</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;html&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">templatename</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">mode</span>} <span class="s">)</span> || <span class="i">$fieldsref</span>-&gt;{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;html&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">templatename</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$pages</span><span class="i">-&gt;Display</span><span class="s">(</span> <span class="q">&quot;index.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-            <span class="i">$pages</span><span class="i">-&gt;Display</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">templatename</span>}<span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$pages</span><span class="i">-&gt;Display</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">templatename</span>}<span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="k">print</span> <span class="i">$$fieldsref</span>{<span class="w">html</span>}<span class="sc">;</span>
+        <span class="k">print</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">html</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
@@ -788,6 +819,98 @@ part</p>
     <span class="i">$template</span> ||= <span class="q">&quot;result.html&quot;</span><span class="sc">;</span>
 
     <span class="k">return</span> <span class="s">(</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$template</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="deliver_remote_data">deliver_remote_data</a></h3>
+<p>Since, Cclite.pm 'assumes' in most cases that it is dealing
+with the traditional html front end, this is an experimental
+palliative to deliver self describing hashes and messages
+to remote gateways such as Drupal, Elgg, Joomla and Tiki-Wiki</p>
+<p>It's not a particularly elegant solution but [hopefully] it's
+a pragmatic one that preserves some consistency of access and
+delivery and doesn't break a lot of fairly useful things in the legacy part...</p>
+<p>It does need to distinguish between multdimensional and flat</p>
+<p>For example, transactions:</p>
+<p>{&quot;registry&quot;:&quot;ccliekh_dalston&quot;,&quot;table&quot;: &quot;om_trades&quot;, &quot;message&quot;:&quot;OK&quot;,
+&quot;data&quot;: [
+{&quot;id&quot;: &quot;95&quot;,
+ &quot;tradeSource&quot;:&quot;test2&quot;,
+&quot;tradeDestination&quot;:&quot;test1&quot;,
+&quot;tradeType&quot;:&quot;debit&quot;,
+&quot;tradeDate&quot;:&quot;2011-02-20&quot;,
+&quot;tradeId&quot;:&quot;95&quot;,
+&quot;tradeMirror&quot;:&quot;ccliekh_dalston&quot;,
+&quot;tradeStatus&quot;:&quot;waiting&quot;,
+&quot;tradeCurrency&quot;:&quot;dally&quot;,
+&quot;tradeAmount&quot;:&quot;23&quot;
+},</p>
+<p>{&quot;id&quot;: &quot;97&quot;,
+ &quot;tradeSource&quot;:&quot;test2&quot;,
+&quot;tradeDestination&quot;:&quot;test1&quot;,
+&quot;tradeType&quot;:&quot;debit&quot;,
+&quot;tradeDate&quot;:&quot;2011-02-20&quot;,
+&quot;tradeId&quot;:&quot;97&quot;,
+&quot;tradeMirror&quot;:&quot;ccliekh_dalston&quot;,
+&quot;tradeStatus&quot;:&quot;waiting&quot;,
+&quot;tradeCurrency&quot;:&quot;dally&quot;,
+&quot;tradeAmount&quot;:&quot;23&quot;
+}]</p>
+<p>}</p>
+<pre>
+<a name="deliver_remote_data-"></a><span class="k">sub </span><span class="m">deliver_remote_data</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="i">$message</span> ||= <span class="q">&#39;OK&#39;</span><span class="sc">;</span>  <span class="c"># used for status messages to remote, $registry_error...</span>
+    <span class="k">my</span> <span class="i">$count</span> = <span class="n">0</span><span class="sc">;</span>      <span class="c"># row counter...</span>
+
+    <span class="k">my</span> <span class="i">$json</span><span class="sc">;</span>           <span class="c">#data delivered to the remote</span>
+
+    <span class="k">my</span> <span class="i">$is_multi_dimensional</span> = <span class="n">0</span><span class="sc">;</span>
+
+    <span class="c"># find whether it&#39;s multidimensional or &#39;flat&#39;</span>
+    <span class="k">for</span> <span class="k">my</span> <span class="i">$value</span> <span class="s">(</span> <span class="k">values</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="q">&#39;HASH&#39;</span> <span class="k">eq</span> <span class="k">ref</span> <span class="i">$value</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$is_multi_dimensional</span> = <span class="n">1</span><span class="sc">;</span>
+            <span class="k">last</span><span class="sc">;</span>
+        <span class="s">}</span>
+    <span class="s">}</span>
+
+    <span class="c"># pack up as simple json...</span>
+    <span class="k">if</span> <span class="s">(</span><span class="i">$is_multi_dimensional</span><span class="s">)</span> <span class="s">{</span>
+
+        <span class="k">for</span> <span class="k">my</span> <span class="i">$id</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$json</span> .= <span class="q">&quot;\n{\&quot;id\&quot;: \&quot;$id\&quot;,\n &quot;</span><span class="sc">;</span>
+            <span class="k">for</span> <span class="k">my</span> <span class="i">$field_name</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%</span>{ <span class="i">$hash_ref</span>-&gt;{<span class="i">$id</span>} } <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$json</span> .=
+                  <span class="q">&quot;\&quot;$field_name\&quot;:\&quot;$hash_ref-&gt;{$id}-&gt;{$field_name}\&quot;,\n&quot;</span><span class="sc">;</span>
+            <span class="s">}</span>
+            <span class="i">$json</span> =~ <span class="q">s/\,$//</span>
+              <span class="sc">;</span>    <span class="c"># snip off the last comma in the record, ugly but simple...</span>
+            <span class="i">$json</span> .= <span class="q">&quot;},\n&quot;</span><span class="sc">;</span>
+        <span class="s">}</span>
+        <span class="i">$json</span> =~
+          <span class="q">s/\,$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">for</span> <span class="k">my</span> <span class="i">$id</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$json</span> .= <span class="q">&quot;\n{\&quot;id\&quot;: \&quot;$id\&quot;,\n &quot;</span><span class="sc">;</span>
+            <span class="i">$json</span> =~ <span class="q">s/\,$//</span>
+              <span class="sc">;</span>      <span class="c"># snip off the last comma in the record, ugly but simple...</span>
+            <span class="i">$json</span> .= <span class="q">&quot;},\n&quot;</span><span class="sc">;</span>
+        <span class="s">}</span>
+
+    <span class="s">}</span>
+
+    <span class="i">$json</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">  {\&quot;registry&quot;\:\&quot;$db\&quot;,\&quot;table\&quot;: \&quot;$table\&quot;, \&quot;message&quot;:\&quot;$message\&quot;,\n\&quot;data\&quot;: [$json]} </span>
+<span class="h">EOT</span>
+
+    <span class="c">###$log-&gt;debug(&quot;json is: $json&quot;) ;</span>
+
+    <span class="c">###return ( 0, &quot;&quot;, $error, $html, $template, &quot;&quot; );</span>
+    <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
 
 <span class="s">}</span>
 

@@ -206,7 +206,7 @@ $svg->circle(
 #last
 $svg->text(
     x => $xpos + ( $counter - 1 ) * $step + $smallfontsize / 2,
-    y             => $tysize / 1.6,
+    y => $tysize / 1.6,
     'font-size'   => $bigfontsize . 'px',
     'font-family' => 'Trebuchet MS',
     'fill'        => $color

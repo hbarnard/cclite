@@ -102,11 +102,10 @@ to change these, just substitute a translated hash
  
 =cut
 
-
 #============== change the configuration to your registry and currency for sms
 
 # application specific globals
-our $language = 'en' ;
+our $language = 'en';
 
 our %messages = readmessages($language);
 
@@ -121,10 +120,8 @@ our $sms_user     = $sms_configuration{'sms_user'};
 our $sms_password = $sms_configuration{'sms_password'};
 
 # this is the literal for source address SA in Cardboardfish protocol
-our $sms_SA = $sms_configuration{'sms_SA'};
-our $sms_sponsor_message =  $sms_configuration{'sms_sponsor_message'};
-
-
+our $sms_SA              = $sms_configuration{'sms_SA'};
+our $sms_sponsor_message = $sms_configuration{'sms_sponsor_message'};
 
 # FIXME: need this because the transaction return needs it
 my $pages = new HTML::SimpleTemplate("$configuration{'templates'}/$language");
@@ -170,11 +167,13 @@ sub gateway_sms_transaction {
 
     my ( $offset, $limit, $pin, $transaction_type );
 
-   $log->debug("entering gateway_sms_transaction originator is : $fields_ref->{'originator'}") ;
+    $log->debug(
+"entering gateway_sms_transaction originator is : $fields_ref->{'originator'}"
+    );
 
     # no originator, so no lookup or no message...reject
 
-    if ( ! length( $fields_ref->{'originator'} ) ) {
+    if ( !length( $fields_ref->{'originator'} ) ) {
         $log->warn(
 "$fields_ref->{'message'} from $fields_ref->{'originator'} $messages{'smsoriginblank'}"
         );
@@ -185,17 +184,14 @@ sub gateway_sms_transaction {
     $fields_ref->{'originator'} =
       format_for_standard_mobile( $fields_ref->{'originator'} );
 
-
     $log->debug(
 "start of $transaction_type originator translated: $fields_ref->{'originator'}"
     );
-
 
     my ( $error, $from_user_ref ) =
       get_where( 'local', $registry, 'om_users', '*', 'userMobile',
         $fields_ref->{'originator'},
         $token, $offset, $limit );
-
 
     # no originator, so no lookup or no message...reject
     if ( !length( $fields_ref->{'message'} ) ) {
@@ -213,14 +209,11 @@ sub gateway_sms_transaction {
     # initial parse to get transaction type
     my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
 
-
-
     # if it hasn't got a pin, not worth carrying on, tell user
     if ( $input =~ m/^p?(\d+)\s+(\w+)/ ) {
         $pin              = $1;
         $transaction_type = $2;
-    }
-    else {
+    } else {
         $log->warn(
             "from: $fields_ref->{'originator'} $input -malformed transaction");
         my ($mail_error) = _send_sms_mail_message(
@@ -233,7 +226,6 @@ sub gateway_sms_transaction {
 
     $log->debug("start of $transaction_type transaction: $input");
 
-
     # can be ok, locked, waiting, fail
     my $pin_status = _check_pin( $pin, $transaction_type, $fields_ref, $token );
 
@@ -245,20 +237,16 @@ sub gateway_sms_transaction {
     # activation is done in _check_pin, these are the allowed operations
     if ( $transaction_type eq 'confirm' ) {    #  p123456 confirm
         return $pin_status;
-    }
-    elsif ( $transaction_type eq 'change' ) {    # change pin
+    } elsif ( $transaction_type eq 'change' ) {    # change pin
         _gateway_sms_pin_change( $fields_ref, $token );
 
         # allow pay or send as keyword to line up with email style...
-    }
-    elsif ( $transaction_type eq 'pay' || $transaction_type eq 'send' )
-    {                                            # payment transaction
+    } elsif ( $transaction_type eq 'pay' || $transaction_type eq 'send' )
+    {                                              # payment transaction
         _gateway_sms_pay( $configurationref, $fields_ref, $token );
-    }
-    elsif ( $transaction_type eq 'balance' ) {
+    } elsif ( $transaction_type eq 'balance' ) {
         _gateway_sms_send_balance( $fields_ref, $token );
-    }
-    else {
+    } else {
         $log->warn(
             "from: $fields_ref->{'originator'} $input -unrecognised transaction"
         );
@@ -348,8 +336,7 @@ sub _gateway_sms_pay {
           get_where( $class, $registry, 'om_users', '*', 'userMobile',
             $transaction_description_ref->{'touserormobile'},
             $token, $offset, $limit );
-    }
-    else {
+    } else {
 
         # else it's a userLogin ...
         ( $error1, $to_user_ref ) =
@@ -450,10 +437,9 @@ sub _gateway_sms_pay {
 SMS $messages{'transactionaccepted'} $messages{'to'} $transaction{tradeDestination} $messages{'forvalue'} $transaction{tradeAmount} $transaction{tradeCurrency}
 EOT
 
-    }
-    else {
+    } else {
 
-         $message = <<EOT;
+        $message = <<EOT;
 $error3    SMS $messages{'transactionrejected'} $messages{'to'} $transaction{tradeDestination} $messages{'forvalue'} $transaction{tradeAmount} $transaction{tradeCurrency}
 EOT
 
@@ -494,10 +480,12 @@ sub _gateway_sms_send_balance {
     my %fields = ( 'userLogin', $from_user_ref->{'userLogin'} );
     my $fields_ref = \%fields;
 
-    # html to return html, values to return raw balances and volumes for each currency
+# html to return html, values to return raw balances and volumes for each currency
 
     ( $balance_ref, $volume_ref ) =
-      show_balance_and_volume( 'local', $registry,  $from_user_ref->{'userLogin'},'values', $token );
+      show_balance_and_volume( 'local', $registry,
+        $from_user_ref->{'userLogin'},
+        'values', $token );
 
     ###debug_hash_contents($balance_ref) ;
     ###debug_hash_contents($volume_ref) ;
@@ -583,24 +571,21 @@ sub _sms_message_parse {
           $currency;    # taken from top of package
         $transaction_description{'touserormobile'} = $2;
 
-    }
-    elsif ( $parse_type == 2 ) {
+    } elsif ( $parse_type == 2 ) {
 
         $transaction_description{'quantity'} = $1;
         $transaction_description{'currency'} =
           $2;           # FIXME: dangerous, override with $currency?
         $transaction_description{'touserormobile'} = $3;
 
-    }
-    elsif ( $parse_type == 3 ) {
+    } elsif ( $parse_type == 3 ) {
 
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'currency'}       = $currency;
         $transaction_description{'touserormobile'} = $2;
         $transaction_description{'description'}    = $3;
 
-    }
-    elsif ( $parse_type == 4 ) {
+    } elsif ( $parse_type == 4 ) {
 
         $transaction_description{'quantity'} = $1;
         $transaction_description{'currency'} =
@@ -608,8 +593,7 @@ sub _sms_message_parse {
         $transaction_description{'touserormobile'} = $3;
         $transaction_description{'description'}    = $4;
 
-    }
-    elsif ( $parse_type == 5 ) {
+    } elsif ( $parse_type == 5 ) {
 
         $transaction_description{'quantity'} = $1;
         $transaction_description{'currency'} =
@@ -619,8 +603,7 @@ sub _sms_message_parse {
           $4;    # this is the registry unused at present
         $transaction_description{'description'} = $5;
 
-    }
-    else {
+    } else {
 
         $log->warn("unparsed pay transaction is:$save_input  $input");
 
@@ -686,13 +669,11 @@ sub _check_pin {
               ;    # this is the main case
             $from_user_ref->{'userPinTries'} = 3;    # reset to three otherwise
 
-        }
-        elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
+        } elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
             $pin_status = 'fail';
             $message    = $messages{'smspinfail'};
             $from_user_ref->{'userPinTries'}--;      # used one pin attempt
-        }
-        elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
+        } elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
 ###	    $log->debug("in pin checking,locked for user: $from_user_ref->{'userId'} $from_user_ref->{'userLogin'}") ;
             $pin_status = 'locked';
             $message    = "$registry: $messages{'smslocked'}";
@@ -711,13 +692,11 @@ sub _check_pin {
             $message    = $messages{smspinactive};
             $from_user_ref->{'userPinTries'} = 3;  # reset or set pin tries to 3
             $from_user_ref->{'userPinStatus'} = 'active';
-        }
-        elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
+        } elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
             $pin_status = 'fail';
             $message    = $messages{'smspinfail'};
             $from_user_ref->{'userPinTries'}--;    # used one pin attempt
-        }
-        elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
+        } elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
             $pin_status                       = 'locked';
             $from_user_ref->{'userPinTries'}  = 0;
             $message                          = $messages{'smslocked'};
@@ -789,38 +768,34 @@ sub convert_cardboardfish {
 
     #$log->debug("input  is $input");
 
-    $input =~ /^(\d+)/ ;  # this is the count for messages 
-    my $count = $1 ;
-    $input =~ s/^(\d+)// ; # remove the count
+    $input =~ /^(\d+)/;    # this is the count for messages
+    my $count = $1;
+    $input =~ s/^(\d+)//;    # remove the count
 
-    my @raw_messages = split(/\#/, $input) ; 
-    my @message_hash_refs ;
+    my @raw_messages = split( /\#/, $input );
+    my @message_hash_refs;
 
     foreach my $raw_message (@raw_messages) {
 
-     $log->debug("raw messageis $raw_message");
+        $log->debug("raw messageis $raw_message");
 
-     my %message_hash ;
+        my %message_hash;
 
-      ( $message_hash{'status'}, 
-        $message_hash{'originator'}, 
-        $message_hash{'destination'}, 
-        $message_hash{'dcs'}, 
-        $message_hash{'notused'}, 
-        $message_hash{'datetime'}, 
-        $message_hash{'udh'},
-        $message_hash{'message'} 
-       )
-      = split( /:/, $raw_message );
+        (
+            $message_hash{'status'},      $message_hash{'originator'},
+            $message_hash{'destination'}, $message_hash{'dcs'},
+            $message_hash{'notused'},     $message_hash{'datetime'},
+            $message_hash{'udh'},         $message_hash{'message'}
+        ) = split( /:/, $raw_message );
 
-    $message_hash{'message'} = _hex_to_ascii($message_hash{'message'});
-     
-     # push a reference to this onto a list to be returned 
-     push @message_hash_refs, \%message_hash ;
-    
-    } # endof foreach
+        $message_hash{'message'} = _hex_to_ascii( $message_hash{'message'} );
 
-    return ( @message_hash_refs );
+        # push a reference to this onto a list to be returned
+        push @message_hash_refs, \%message_hash;
+
+    }    # endof foreach
+
+    return (@message_hash_refs);
 
 }
 
@@ -836,55 +811,51 @@ sub _send_cardboardfish_sms_receipt {
     my ( $class, $registry, $type, $message, $from_user_ref, $to_user_ref,
         $transaction_ref )
       = @_;
-    
 
-   #FIXME: add on sponsor message, if present, need rotating etc. etc.
-   $message .= " $sms_configuration{'sms_sponsor_message'}" if ( length($sms_configuration{'sms_sponsor_message'}) ) ;
+    #FIXME: add on sponsor message, if present, need rotating etc. etc.
+    $message .= " $sms_configuration{'sms_sponsor_message'}"
+      if ( length( $sms_configuration{'sms_sponsor_message'} ) );
 
-    #FIXME: note that SA source address is cclite for balance, maybe same for credit?
-    
-    my $urlstring ;
+#FIXME: note that SA source address is cclite for balance, maybe same for credit?
+
+    my $urlstring;
 
     #FIXME: not read properly from the configuration file...
-    $sms_configuration{'sms_DR'} ||= 0 ;
+    $sms_configuration{'sms_DR'} ||= 0;
 
 #FIXME: note that ST=5 for alphanumeric sender probably needs to be 'cclite' for all originating SMSes that needs to be linked to help-desk
 
-
-    if ($type eq 'credit') {
-    $urlstring = <<EOT;
+    if ( $type eq 'credit' ) {
+        $urlstring = <<EOT;
 http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$to_user_ref->{'userMobile'}&SA=$sms_configuration{'sms_SA'}&M=$message&ST=5&DC=$sms_configuration{'sms_DC'}
 
 EOT
 
-    } elsif ($type = 'balance') {
+    } elsif ( $type = 'balance' ) {
 
-
-
-    $urlstring = <<EOT;
+        $urlstring = <<EOT;
 http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$from_user_ref->{'userMobile'}&SA=$sms_configuration{'sms_SA'}&M=$message&ST=5&DC=$sms_configuration{'sms_DC'}
 
 EOT
 
-   } else {
-     $log->warn("unknown or unimplemented sms type: $type");
-     return "$messages{smserror} $type" ;
+    } else {
+        $log->warn("unknown or unimplemented sms type: $type");
+        return "$messages{smserror} $type";
 
-   }
-
+    }
 
     # use LWP to send an SMS message via the cardborardfish gateway...
     my ($http_response) = __outbound_cardboardfish_http_sms($urlstring);
 
-    my $ret = $http_response->code() ;
+    my $ret = $http_response->code();
     $log->debug("url is $urlstring return code is $ret");
 
-    if ($http_response->code == 200 ) {  
-    _charge_one_sms_unit( $class, $registry, $type, $from_user_ref,
-        $transaction_ref );
+    if ( $http_response->code == 200 ) {
+        _charge_one_sms_unit( $class, $registry, $type, $from_user_ref,
+            $transaction_ref );
     } else {
-     $log->warn("$messages{smserror} $http_response->code");
-     return "$messages{smserror} $http_response->code" ;
+        $log->warn("$messages{smserror} $http_response->code");
+        return "$messages{smserror} $http_response->code";
     }
 }
 
@@ -898,7 +869,7 @@ sub __outbound_cardboardfish_http_sms {
 
     my ($sms_url) = @_;
     my $ua = LWP::UserAgent->new;
-    $ua->agent("cclite\/$configuration{'version'}") ;
+    $ua->agent("cclite\/$configuration{'version'}");
     $ua->timeout(10);
     my $response = $ua->get($sms_url);
     return ($response);
@@ -933,17 +904,18 @@ sub _charge_one_sms_unit {
         #toregistry : dalston
         $transaction_ref->{'toregistry'} = $registry;
 
-        $transaction_ref->{'tradeDescription'} = "$messages{'smsdebitfor'} $type";
+        $transaction_ref->{'tradeDescription'} =
+          "$messages{'smsdebitfor'} $type";
 
         #tradeSource : manager
         $transaction_ref->{'tradeSource'} = $from_user_ref->{'userLogin'};
 
     }
 
-    #FIXME: tradeItem not really identifiable from sms message/possible tax problem too!
+#FIXME: tradeItem not really identifiable from sms message/possible tax problem too!
     $transaction_ref->{'tradeItem'} = 'other';
 
-    #FIXME: mode for this is csv, this is part of a general format upgrade later...
+ #FIXME: mode for this is csv, this is part of a general format upgrade later...
     $transaction_ref->{'mode'} = 'csv';
 
     #FIXME: tradestatus is always accepted for sms-debit
@@ -975,8 +947,8 @@ sub _charge_one_sms_unit {
     ###debug_hash_contents($transaction_ref);
 
     $log->debug("transaction error is $trans_error");
-    
-    return ;
+
+    return;
 }
 
 sub _ascii_to_hex ($) {

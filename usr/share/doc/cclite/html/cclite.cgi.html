@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>cclite.cgi</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -51,9 +53,11 @@ pre { color: #000000;
 	<li><a href="#author">AUTHOR</a></li>
 	<li><a href="#copyright">COPYRIGHT</a></li>
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 
-<hr />
 <p></p>
 <hr />
 <h1><a name="name">NAME</a></h1>
@@ -83,7 +87,7 @@ cclite.cgi</pre>
  - maximum use of static html for lightweight running
  - Taint flag should be on in final version, anyway</pre>
 <p>---------------------------------------------------------------------------
- THE cclite SOFTWARE IS PROVIDED TO YOU ``AS IS,'' AND WE MAKE NO EXPRESS
+ THE cclite SOFTWARE IS PROVIDED TO YOU &quot;AS IS,&quot; AND WE MAKE NO EXPRESS
  OR IMPLIED WARRANTIES WHATSOEVER WITH RESPECT TO ITS FUNCTIONALITY,
  OPERABILITY, OR USE, INCLUDING, WITHOUT LIMITATION,
  ANY IMPLIED WARRANTIES OF MERCHANTABILITY,
@@ -127,6 +131,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 </pre><pre>
 <span class="k">BEGIN</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="i">$base_module_dir</span> = <span class="s">(</span>
+        <span class="k">-d</span> <span class="q">&#39;/home/ccliekh/perl&#39;</span>
+        ? <span class="q">&#39;/home/ccliekh/perl&#39;</span>
+        <span class="co">:</span> <span class="s">(</span> <span class="k">getpwuid</span><span class="s">(</span><span class="i">$&gt;</span><span class="s">)</span> <span class="s">)</span>[<span class="n">7</span>] . <span class="q">&#39;/perl/&#39;</span>
+    <span class="s">)</span><span class="sc">;</span>
+    <span class="k">unshift</span> <span class="i">@INC</span><span class="cm">,</span> <span class="k">map</span> <span class="s">{</span> <span class="i">$base_module_dir</span> . <span class="i">$_</span> <span class="s">}</span> <span class="i">@INC</span><span class="sc">;</span>
+
     <span class="k">use</span> <span class="w">CGI::Carp</span> <span class="q">qw(fatalsToBrowser set_message)</span><span class="sc">;</span>
     <span class="i">set_message</span><span class="s">(</span>
 <span class="q">&quot;Please use the &lt;a title=\&quot;cclite google group\&quot; href=\&quot;http://groups.google.co.uk/group/cclite\&quot;&gt;Cclite Google Group&lt;/a&gt; for help, if necessary&quot;</span>
@@ -194,18 +206,19 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="c"># moved from template because other routines need it</span>
 <span class="k">if</span> <span class="s">(</span>   <span class="i">$fields</span>{<span class="w">action</span>} <span class="k">ne</span> <span class="q">&quot;logoff&quot;</span>
-    &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLogin</span>} <span class="s">)</span>
-    &amp;&amp; <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&quot;admin&quot;</span> <span class="s">)</span>
+    &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span>
+    &amp;&amp; <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLevel&#39;</span>} <span class="k">ne</span> <span class="q">&quot;admin&quot;</span> <span class="s">)</span>
 <span class="s">{</span>
 
-    <span class="i">$fields</span>{<span class="w">userLogin</span>} = <span class="i">$$cookieref</span>{<span class="w">userLogin</span>}<span class="sc">;</span>
+    <span class="i">$fields</span>{<span class="w">userLogin</span>} = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="c">#</span>
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c"># change the language default here</span>
 <span class="c">#</span>
-<span class="k">my</span> <span class="i">$language</span> = <span class="i">$$cookieref</span>{<span class="w">language</span>}
+<span class="k">my</span> <span class="i">$language</span> =
+     <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
   || <span class="i">$fields</span>{<span class="w">language</span>}
   || <span class="i">$configuration</span>{<span class="w">language</span>}<span class="sc">;</span>    <span class="c"># default is english in logon</span>
 
@@ -214,7 +227,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="k">my</span> <span class="i">$pagename</span> = <span class="i">$fields</span>{<span class="w">name</span>}<span class="sc">;</span>
 <span class="k">my</span> <span class="i">$action</span>   = <span class="i">$fields</span>{<span class="w">action</span>} || <span class="i">$configuration</span>{<span class="w">defaultaction</span>}<span class="sc">;</span>
 <span class="k">my</span> <span class="i">$table</span>    = <span class="i">$fields</span>{<span class="w">subaction</span>}<span class="sc">;</span>
-<span class="k">my</span> <span class="i">$db</span>       = <span class="i">$fields</span>{<span class="w">registry</span>} || <span class="i">$$cookieref</span>{<span class="w">registry</span>}<span class="sc">;</span>
+<span class="k">my</span> <span class="i">$db</span>       = <span class="i">$fields</span>{<span class="w">registry</span>} || <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>}<span class="sc">;</span>
 <span class="k">my</span> <span class="i">$offset</span>   = <span class="i">$fields</span>{<span class="w">offset</span>}<span class="sc">;</span>
 
 <span class="c"># now take these from configuration because of unreliable $ENV{SERVER_NAME} 11/2009</span>
@@ -223,6 +236,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="c"># old style hash set type = 0</span>
 <span class="k">my</span> <span class="i">$url_type</span> = <span class="n">0</span><span class="sc">;</span>
+
 <span class="i">$fields</span>{<span class="w">userHash</span>} = <span class="i">hash_password</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="w">userPassword</span>} <span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#</span>
@@ -306,7 +320,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c">#  check database and provide logon via this method</span>
 <span class="c">#  this will only do a single nominated registry though</span>
 <span class="c">#</span>
-<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$ENV</span>{<span class="w">REMOTE_USER</span>} <span class="s">)</span> &amp;&amp; !<span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$ENV</span>{<span class="w">REMOTE_USER</span>} <span class="s">)</span> &amp;&amp; !<span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
     <span class="i">$fields</span>{<span class="w">logontype</span>} = <span class="q">&#39;remote&#39;</span><span class="sc">;</span>
     <span class="s">(</span>
         <span class="s">(</span>
@@ -328,7 +342,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="q">qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes)</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span>
-       <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span>
+       <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
     &amp;&amp; <span class="s">(</span> !<span class="k">exists</span> <span class="i">$allowed_actions</span>{<span class="i">$action</span>} <span class="s">)</span>
 
     &amp;&amp; <span class="s">(</span> <span class="i">$ENV</span>{<span class="w">QUERY_STRING</span>} <span class="k">ne</span> <span class="q">&quot;action=template&amp;name=newuser.html&quot;</span> <span class="s">)</span>
@@ -341,13 +355,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="s">{</span>
 
     <span class="c"># grumble about installer and security problems etc.</span>
-    <span class="i">$$fieldsref</span>{<span class="w">errors</span>} = <span class="i">install_grumble</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="w">templates</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;errors&#39;</span>} = <span class="i">install_grumble</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="w">templates</span>} <span class="s">)</span><span class="sc">;</span>
     <span class="i">display_template</span><span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="q">&quot;logon.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span><span class="cm">,</span>
         <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 
 <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span>
-    <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLogin</span>} <span class="s">)</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span>
+    <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
 
     ||
 
@@ -366,8 +380,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
       <span class="i">calculate_token</span><span class="s">(</span> <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span>
         <span class="i">$ENV</span>{<span class="w">REMOTE_ADDR</span>} <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span>
-        &amp;&amp; <span class="s">(</span> <span class="i">$compare_token</span> <span class="k">ne</span> <span class="i">$$cookieref</span>{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span>
+        &amp;&amp; <span class="s">(</span> <span class="i">$compare_token</span> <span class="k">ne</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
@@ -395,7 +409,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
         <span class="c"># pin is not confirmed or locked etc. etc.</span>
         <span class="c">#FIXME: should also decrement pin tries as well</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userPinStatus</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$action</span> = <span class="q">&#39;logoff&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
@@ -502,7 +516,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">get_many_items</span><span class="s">(</span>
         <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_yellowpages&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;fromuserid&#39;</span><span class="cm">,</span>
-        <span class="i">$$cookieref</span>{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="q">&#39;html&#39;</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
+        <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="q">&#39;html&#39;</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
@@ -517,14 +532,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># this is 0.4.0 code and will be removed soon, replaced by showyellowdir1</span>
+<span class="c">#FIXME: this is 0.4.0 code and will be removed soon, replaced by showyellowdir1</span>
 
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showyellowdir&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">show_yellow_dir</span><span class="s">(</span>
         <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_yellowpages&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;fromuserid&#39;</span><span class="cm">,</span>
-        <span class="i">$$cookieref</span>{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="q">&#39;html&#39;</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
+        <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="q">&#39;html&#39;</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
@@ -617,19 +633,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
     <span class="c"># html to return html, values to return raw balances and volumes</span>
     <span class="i">show_balance_and_volume1</span><span class="s">(</span>
-        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$$cookieref</span>{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="q">&#39;html&#39;</span><span class="cm">,</span>
-        <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
+        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># show balance and volume</span>
+<span class="c"># show balance and volume, changed to non-hardcoded mode 2/2011</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showbalvol&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
 
     <span class="c"># html to return html, values to return raw balances and volumes</span>
     <span class="i">show_balance_and_volume</span><span class="s">(</span>
-        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$$cookieref</span>{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="q">&#39;html&#39;</span><span class="cm">,</span> <span class="i">$token</span>
+        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>}<span class="cm">,</span> <span class="i">$token</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 

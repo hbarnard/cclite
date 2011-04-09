@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>read_from_jabber.pl</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -60,6 +62,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -78,7 +83,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <pre>#!/usr/bin/perl
 
 </pre><p></p>
@@ -244,7 +248,7 @@ receipts at present...</p>
 
     <span class="s">}</span>
 
-</pre><dl><dt><strong><a name="item_message_fields">message_fields</a></strong></dt>
+</pre><dl><dt><strong><a name="message_fields" class="item">message_fields</a></strong></dt>
 
 <dd>
 <p>message fields for refereence...</p>
@@ -403,16 +407,16 @@ receipts at present...</p>
     <span class="k">exit</span><span class="s">(</span><span class="n">0</span><span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
-</pre></dd><dt><strong><a name="item_signed_presence_not_working">signed_presence_not_working</a></strong></dt>
+</pre></dd><dt><strong><a name="signed_presence_not_working" class="item">signed_presence_not_working</a></strong></dt>
 
 <dd>
 <p>#my $gpg = new GnuPG( 'trace' =&gt; $trace );</p>
 <p>#FIXME: Signed prssence to be sorted out, something in the Perl libraries
 # input but not put into the presence XML stanza</p>
 <p>$gpg-&gt;sign(
-    plaintext  =&gt; ``/tmp/online.txt'',
+    plaintext  =&gt; &quot;/tmp/online.txt&quot;,
     passphrase =&gt; $passphrase,
-    output     =&gt; ``/tmp/sign.txt'',
+    output     =&gt; &quot;/tmp/sign.txt&quot;,
     'armor'    =&gt; 1
 );</p>
 </dd>

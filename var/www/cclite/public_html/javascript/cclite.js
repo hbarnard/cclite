@@ -3,6 +3,31 @@ function stripe() {
      striper('tbody','stripy', 'tr', 'odd,even') ;
 }
 
+/* decimal tradeamounts etc. if decimals are switched on  */
+
+function validatedecimals (id,amount) {
+
+ 
+// see whether we are using decimal point
+var usedecimals = $('div#usedecimals').text() ;
+
+if (usedecimals == 'no' && amount == parseInt(amount) ) {
+  $(id).css('background-color', 'lightgreen');  
+//  alert('value is parseint ' + amount) ; 
+} else if (usedecimals == 'yes' && amount == parseFloat(amount) ) {
+  $(id).css('background-color', 'lightgreen'); 
+//  alert('value is parsefloat ' + amount) ;
+} else {
+  $(id).css('background-color', '#F08080');
+  $(id).focus(); 
+//  alert('else ' + amount + ' ' + usedecimals ) ;
+}
+
+return ;
+
+}
+
+
 /* controlling statistics, mail transactions and csv file transactions
   for the system, the intervals must be set here for the moment
 */
@@ -210,6 +235,7 @@ function poptastic(url)
 
  $(document).ready(function(){
 
+
   $("#form").validate();
   // balloon help via qtip plugin, turned off at present
   //  $('input').qtip({ style: { name: 'cream', tip: true } }) ;
@@ -347,6 +373,7 @@ var path = document.location.pathname;
 //alert (path);
 //var path = document.location.pathname;
 
+if ( $('#upload_button').length ) {
 // batch file uploader
 new AjaxUpload('#upload_button', {
   // Location of the server-side upload script
@@ -404,6 +431,8 @@ new AjaxUpload('#upload_button', {
         },
 });
 
+
+} ;
 // end of bath file uploader
 
 

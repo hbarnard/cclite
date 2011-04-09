@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Ccsecure.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -72,6 +74,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -99,7 +104,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -276,17 +280,21 @@ to the network and changed frequently (we hope).</p>
         <span class="c">#FIXME: time gives a little volatility but improve EGD perhaps?</span>
         <span class="k">my</span> <span class="i">$nonce</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$sec</span><span class="cm">,</span> <span class="i">$min</span><span class="cm">,</span> <span class="i">$hour</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">$nonce</span> = <span class="i">_get_digest</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">$nonce</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$token</span> = <span class="i">_get_digest</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="i">$token</span> = <span class="i">_get_digest</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
             <span class="i">$nonce</span><span class="cm">,</span> <span class="i">$remote_address</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="s">(</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$nonce</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="i">$token</span> = <span class="i">_get_digest</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">$$cookieref</span>{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
-            <span class="i">$$cookieref</span>{<span class="q">&#39;token1&#39;</span>}<span class="cm">,</span> <span class="i">$remote_address</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$token</span> = <span class="i">_get_digest</span><span class="s">(</span>
+            <span class="i">$url_type</span><span class="cm">,</span>
+            <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+            <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token1&#39;</span>}<span class="cm">,</span>
+            <span class="i">$remote_address</span>
+        <span class="s">)</span><span class="sc">;</span>
 
         <span class="k">return</span> <span class="s">(</span> <span class="i">$token</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 <span class="c">###    $log-&gt;error(</span>
-<span class="c">###&quot;in token calc, fatal problem: $registry_private_value, u:$$fieldsref{&#39;userLogin&#39;}, ip:$remote_address&quot;</span>
+<span class="c">###&quot;in token calc, fatal problem: $registry_private_value, u:$fieldsref-&gt;{&#39;userLogin&#39;}, ip:$remote_address&quot;</span>
 <span class="c">###    );</span>
 <span class="s">}</span>
 
@@ -320,15 +328,18 @@ however, it does permit one cclite installation to serve several passthroughs</p
     <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">@calculated_hashes</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> =
-      <span class="i">Cclitedb::get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span>
-        <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="i">Cclitedb::get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;id&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span>
+        <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
  <span class="c"># space separated list of IP addresses, relaxed in 5/2010 to multiple spaces...</span>
     <span class="k">my</span> <span class="i">@allowed_ip_addresses</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/\s+/</span><span class="cm">,</span> <span class="i">$hash_ref</span>-&gt;{<span class="q">&#39;allow_ip_list&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
+    <span class="c">###$log-&gt;debug(&quot;in get ip address: $registry_error $hash_ref\n&quot;) ;</span>
+
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$ip_address</span> <span class="s">(</span><span class="i">@allowed_ip_addresses</span><span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$merchant_key_hash</span> =
-          <span class="i">_get_digest</span><span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="s">(</span> <span class="i">$$hash_ref</span>{<span class="q">&#39;merchant_key&#39;</span>} . <span class="i">$ip_address</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+          <span class="i">_get_digest</span><span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="s">(</span> <span class="i">$hash_ref</span>-&gt;{<span class="q">&#39;merchant_key&#39;</span>} . <span class="i">$ip_address</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="c">###    $log-&gt;debug(&quot;in get ip hash:$merchant_key_hash\n&quot;) ;</span>
         <span class="k">push</span> <span class="i">@calculated_hashes</span><span class="cm">,</span> <span class="i">$merchant_key_hash</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -354,7 +365,7 @@ however, it does permit a single cclite installation to serve several passthroug
 
 <span class="c"># not pretty because if any of them match, it returns...bad scale and doesn&#39;t ensure that the &#39;right&#39; one...</span>
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$hash</span> <span class="s">(</span><span class="i">@calculated_hashes</span><span class="s">)</span> <span class="s">{</span>
-<span class="c">###        $log-&gt;debug(</span>
+        <span class="c">###    $log-&gt;debug(</span>
 <span class="c">###&quot;comparing hashes: calculated_hash:$hash, merchant:$merchant_key_hash\n\n&quot;</span>
 <span class="c">###        );</span>
 
@@ -500,7 +511,7 @@ Should be replaced by something more secure and subtle.</p>
 <a name="is_admin-"></a><span class="k">sub </span><span class="m">is_admin</span> <span class="s">{</span>
     <span class="k">my</span> <span class="i">$is_admin</span>  = <span class="n">0</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$is_admin</span> = <span class="n">1</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&quot;admin&quot;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$is_admin</span> = <span class="n">1</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&quot;admin&quot;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">return</span> <span class="i">$is_admin</span><span class="sc">;</span>
 <span class="s">}</span>
 

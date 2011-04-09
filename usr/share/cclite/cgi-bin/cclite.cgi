@@ -70,8 +70,12 @@ Hugh Barnard
 =cut
 
 BEGIN {
- 
-    my $base_module_dir = (-d '/home/ccliekh/perl' ? '/home/ccliekh/perl' : ( getpwuid($>) )[7] . '/perl/');
+
+    my $base_module_dir = (
+        -d '/home/ccliekh/perl'
+        ? '/home/ccliekh/perl'
+        : ( getpwuid($>) )[7] . '/perl/'
+    );
     unshift @INC, map { $base_module_dir . $_ } @INC;
 
     use CGI::Carp qw(fatalsToBrowser set_message);
@@ -152,7 +156,8 @@ if (   $fields{action} ne "logoff"
 #---------------------------------------------------------------------------
 # change the language default here
 #
-my $language = $cookieref->{'language'}
+my $language =
+     $cookieref->{'language'}
   || $fields{language}
   || $configuration{language};    # default is english in logon
 
@@ -235,6 +240,11 @@ my $pages = new HTML::SimpleTemplate("$configuration{templates}/$language");
 #
 $token = $registry_private_value =
   $configuration{publickeyid};    # for the moment, calculated later
+
+#--------------------------------------------------------------------
+# Switches on/off decimals, sent to index page
+$fields{usedecimals} = $configuration{usedecimals};
+
 
 #---------------------------------------------------------------------
 # elementary controller based on the action field
@@ -450,7 +460,8 @@ my $fieldsref = \%fields;
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     get_many_items(
         'local', $db, 'om_yellowpages', $fieldsref, 'fromuserid',
-        $cookieref->{'userLogin'}, 'html', $token, $offset, $limit
+        $cookieref->{'userLogin'},
+        'html', $token, $offset, $limit
     )
   );
 
@@ -472,7 +483,8 @@ my $fieldsref = \%fields;
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     show_yellow_dir(
         'local', $db, 'om_yellowpages', $fieldsref, 'fromuserid',
-        $cookieref->{'userLogin'}, 'html', $token, $offset, $limit
+        $cookieref->{'userLogin'},
+        'html', $token, $offset, $limit
     )
   );
 
@@ -565,8 +577,8 @@ my $fieldsref = \%fields;
 
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume1(
-        'local', $db, $table, $fieldsref, "", $cookieref->{'userLogin'}, $fieldsref->{'mode'},
-        $token, $offset, $limit
+        'local', $db, $table, $fieldsref, "", $cookieref->{'userLogin'},
+        $fieldsref->{'mode'}, $token, $offset, $limit
     )
   );
 
@@ -577,7 +589,8 @@ my $fieldsref = \%fields;
 
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume(
-        'local', $db, $cookieref->{'userLogin'}, $fieldsref->{'mode'}, $token
+        'local', $db, $cookieref->{'userLogin'},
+        $fieldsref->{'mode'}, $token
     )
   );
 

@@ -60,8 +60,6 @@ use Ccu;
 # used for new style notify, set net_smtp to zero and comment, if not needed
 use Net::SMTP;
 
-
-
 # notify by mail is exported now, to allow sms/email notifies
 
 my $VERSION = 1.00;
@@ -111,6 +109,9 @@ to change these, just substitute a translated hash
 our %messages    = readmessages("en");
 our $messagesref = \%messages;
 our $log         = Log::Log4perl->get_logger("Cclite");
+
+# used in several places now, moved up here 4/2011
+our %configuration = readconfiguration() if ($0 !~ /ccinstall/) ;
 
 =head3 get_basic_credentials
 
@@ -306,12 +307,13 @@ sub logon_user {
     my $cookieref = get_cookie();
 
     # user delivered via REST, same as form....
-    if ( $fieldsref->{logontype} eq 'form' || $fieldsref->{logontype} eq 'api' ) {
-        ( $status, $userref ) =
-          get_where( $class, $fieldsref->{registry}, "om_users", '*',
-            "userLogin", $fieldsref->{userLogin}, $registry_private_value,
-            $offset, $limit );
-
+    if ( $fieldsref->{logontype} eq 'form' || $fieldsref->{logontype} eq 'api' )
+    {
+        ( $status, $userref ) = get_where(
+            $class, $fieldsref->{registry},
+            "om_users", '*', "userLogin", $fieldsref->{userLogin},
+            $registry_private_value, $offset, $limit
+        );
 
 # test and branch to deal with bad db user and non-existent database, used  to 500
         if ( length($status) ) {
@@ -324,10 +326,9 @@ sub logon_user {
                 $cookieheader );
         }
     } elsif ( $fieldsref->{logontype} eq 'remote' ) {
-        ( $status, $userref ) =
-          get_where( $class, $fieldsref->{registry}, "om_users", '*',
-            "userLogin", $ENV{REMOTE_USER}, $registry_private_value, $offset,
-            $limit );
+        ( $status, $userref ) = get_where( $class, $fieldsref->{registry},
+            "om_users", '*', "userLogin", $ENV{REMOTE_USER},
+            $registry_private_value, $offset, $limit );
     }
 
     # cash, liquidity and sysaccount may not logon
@@ -372,8 +373,8 @@ sub logon_user {
             $userref->{userPasswordTries} = 0;
         }
 
-        undef
-          $userref->{userPassword}; # remove this otherwise it's rehashed and re-updated
+        undef $userref
+          ->{userPassword}; # remove this otherwise it's rehashed and re-updated
         my ( $a, $b, $c, $d ) =
           update_database_record( 'local', $db, "om_users", 2, $userref,
             $userref->{language}, $cookie{token} );
@@ -424,9 +425,9 @@ sub logon_user {
         # get date and timestamp
         my ( $date, $time ) = &Ccu::getdateandtime( time() );
         $userref->{userLastLogin} = "$date$time";
-        undef
-          $userref->{userPassword}; # remove this otherwise it's rehashed and re-update
-                                   # mode 2 is where userLogin = value ;
+        undef $userref
+          ->{userPassword};  # remove this otherwise it's rehashed and re-update
+                             # mode 2 is where userLogin = value ;
             # use userref to update record, should strip all other fields...
             # throw away return codes for the present
         my ( $a, $b, $c, $d ) =
@@ -460,7 +461,7 @@ sub do_login {
 
     # make cookie fields from the user table
     $cookie{userLogin} = $userref->{userLogin};
-    $cookie{userId}   = $userref->{userId};  # not used yet, to replace userLogin
+    $cookie{userId} = $userref->{userId};   # not used yet, to replace userLogin
     $cookie{language} = $userref->{userLang};
 
   # avoid cumulation of registry cookie values, this is a browser problem though
@@ -476,9 +477,9 @@ sub do_login {
     # get date and timestamp
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
     $userref->{userLastLogin} = "$date$time";
-    undef
-      $userref->{userPassword}; # remove this otherwise it's rehashed and re-update
-                               # mode 2 is where userLogin = value ;
+    undef $userref
+      ->{userPassword};    # remove this otherwise it's rehashed and re-update
+                           # mode 2 is where userLogin = value ;
         # use userref to update record, should strip all other fields...
         # throw away return codes for the present
     my ( $a, $b, $c, $d ) =
@@ -503,7 +504,6 @@ sub _compare_password_or_api_key {
     my $passed           = 0;
     my $compare_password = 0;
     my $compare_api_key  = 0;
-
 
     if ( $fieldsref->{'logontype'} eq 'form' ) {
 
@@ -612,7 +612,8 @@ sub find_records {
     my $allow_changes = 0;    # used only to avoid repeating a complex test
 
     # these come from Ajax search boxes
-    $fieldsref->{'string'} = $fieldsref->{'string1'}
+    $fieldsref->{'string'} =
+         $fieldsref->{'string1'}
       || $fieldsref->{'string2'}
       || $fieldsref->{'string3'};
 
@@ -653,9 +654,11 @@ sub find_records {
 
         if (
             $$cookieref{userLevel} eq "admin"
-            || ( ( $table eq "om_yellowpages" )
+            || (
+                ( $table eq "om_yellowpages" )
                 && ( $hash_ref->{$key}->{'fromuserid'} eq
-                    $fieldsref->{userLogin} ) )
+                    $fieldsref->{userLogin} )
+            )
           )
         {
 
@@ -1181,6 +1184,9 @@ sub transaction {
 
     my ( $refresh, $metarefresh, $error, $html, $pagename, $cookies );
 
+    # multiply by 100 to put into 'pence', if decimal
+    $transaction{tradeAmount} = 100 * $transaction{tradeAmount} if ($configuration{usedecimals} eq 'yes') ;
+
 #----------------------------------------------------------------------------------
 # validate transaction, do everything we can to make sure it's valid
 # can't do a transaction with the same person as sender and receiver
@@ -1437,22 +1443,25 @@ sub transaction {
     push @local_status, "db7: $error" if length($error);
     if ( length( $local_status[0] ) || length( $remote_status[0] ) ) {
         push @local_status, $messages{transactionrejected};
-    } elsif ($transaction_ref->{'mode'} ne 'json') {
+    } elsif ( $transaction_ref->{'mode'} ne 'json' ) {
         push @local_status,
 "$messages{transactionaccepted}<br/>Ref:&nbsp;$transaction{tradeHash}";
-    } elsif ($transaction_ref->{'mode'} eq 'json') {
+    } elsif ( $transaction_ref->{'mode'} eq 'json' ) {
         push @local_status,
-"\"message\":\"$messages{transactionaccepted}\", \"reference\":\"$transaction{tradeHash}\"" ;
-    }    
+"\"message\":\"$messages{transactionaccepted}\", \"reference\":\"$transaction{tradeHash}\"";
+    }
 
     # default separator is for html
     my $separator = "<br/>\n";
-    $separator = ',' if ( $transaction{mode} eq 'csv' || $transaction{mode} eq 'json' );
+    $separator = ','
+      if ( $transaction{mode} eq 'csv' || $transaction{mode} eq 'json' );
 
     my $output_message =
       join( $separator, @local_status, @translated_remote_status );
 
-    if ( $transaction_ref->{'mode'} ne 'engine'  &&  $transaction_ref->{'mode'} ne 'json' ) {
+    if (   $transaction_ref->{'mode'} ne 'engine'
+        && $transaction_ref->{'mode'} ne 'json' )
+    {
 
         return (
             "1", "$$transaction_ref{home}?action=showtransnotify_by_mail",
@@ -1461,10 +1470,10 @@ sub transaction {
 
             "result.html", ""
         );
-        
-    } elsif  ( $transaction_ref->{'mode'} eq 'json' )   {
-        $log->debug("\{$output_message\}") ;        
-        return "\{$output_message\}" ;
+
+    } elsif ( $transaction_ref->{'mode'} eq 'json' ) {
+        $log->debug("\{$output_message\}");
+        return "\{$output_message\}";
     } else {
         return $transaction_ref;
     }
@@ -1867,8 +1876,8 @@ sub get_many_items {
     my ( $registry_error, $hash_ref );
     if ( $table eq "om_trades" ) {
         ( $registry_error, $total_count, $hash_ref ) =
-          get_trades( 'local', $db, $fieldsref->{userLogin}, $trade_type, $token,
-            $offset, $limit );
+          get_trades( 'local', $db, $fieldsref->{userLogin},
+            $trade_type, $token, $offset, $limit );
 
     } else {
         ( $registry_error, $hash_ref ) = get_where_multiple(
@@ -1886,14 +1895,15 @@ sub get_many_items {
     # unhappily the id field used in each table is inconsistent
     my $id = get_id_name($table);
 
-   # only refresh is [mis]used to carry json payload if json is being returned 2/2011
-    if ($fieldsref->{'mode'} eq 'json') {
-    my ($json)  = deliver_remote_data($db,$table,$registry_error,$hash_ref,$token)  ;
-    return $json ;
-}
-        
+# only refresh is [mis]used to carry json payload if json is being returned 2/2011
+    if ( $fieldsref->{'mode'} eq 'json' ) {
+        my ($json) =
+          deliver_remote_data( $db, $table, $registry_error, $hash_ref,
+            $token );
+        return $json;
+    }
 
-    foreach my $key ( keys( %{$hash_ref} ) ) {
+    foreach my $key (sort {$b <=> $a} keys( %{$hash_ref} ) ) {
 
         my $modify_button  = "&nbsp;";
         my $delete_button  = "&nbsp;";
@@ -1984,16 +1994,10 @@ sub get_many_items {
           if ( $table eq 'om_currencies' );
 
         # experimental: show decimal places for trades
-        if ( $fieldsref->{usedecimals} eq "yes" ) {
-            $hash_ref->{$key}->{'tradeAmount'} =~ s/(\d{2})$/.$1/
-              if ( $table eq 'om_trades' );
-            if ( $table eq 'om_trades'
-                && length( $hash_ref->{$key}->{'tradeAmount'} ) == 3 )
-            {
-                $hash_ref->{$key}->{'tradeAmount'} =
-                  '0' . $hash_ref->{$key}->{'tradeAmount'};
-            }
-        }
+        if ( $configuration{usedecimals} eq 'yes' && $table eq 'om_trades')
+         {
+            $hash_ref->{$key}->{'tradeAmount'} =  sprintf "%.2f", ($hash_ref->{$key}->{'tradeAmount'} / 100);  
+         }                                     
 
  # trades have somehwat different buttons to the others
  # everything now has three, but passthrough Drupal or Elgg display doesn't have
@@ -2178,7 +2182,7 @@ EOT
 # sqlfind either records belonging to this account, or all, if an admin is asking
 
     my ( $error, $trade_hash_ref ) =
-      sqlfind( $class, $db, 'om_trades', '', ' ', $sqlstring, 'tradeStamp desc',
+      sqlfind( $class, $db, 'om_trades', '', ' ', $sqlstring, 'tradeId desc',
         $token, $offset, $limit );
 
     return $error, $count, $trade_hash_ref;
@@ -2344,10 +2348,8 @@ sub notify_by_mail {
     ###$email = quotemeta($email) ;
 
     # new style configuration read
-    my %configuration = readconfiguration();
-    my ( $message, $from, $subject );
 
- 
+    my ( $message, $from, $subject );
 
     if ( $notificationtype == 1 ) {
 
@@ -2495,12 +2497,13 @@ EOT
                 Subject => $subject,
                 Message => $message,
             );
-        # older non-preferred way of doing mail
-        # cite an additional mailserver if necessary, localhost is default
-            my  %mailcfg ;            
+
+            # older non-preferred way of doing mail
+            # cite an additional mailserver if necessary, localhost is default
+            my %mailcfg;
             $mailcfg{'smtp'} = [qw(localhost $smtp)] if ( length($smtp) );
 
-            eval {require "Mail::Sendmail qw(sendmail %mailcfg)"} ;
+            eval { require "Mail::Sendmail qw(sendmail %mailcfg)" };
             sendmail(%mail) or die $Mail::Sendmail::error;
 
         };
@@ -2552,7 +2555,8 @@ sub forgotten_password {
     } else {
         my $password = random_password();    # get a random password
 
-        $userref->{userPassword} = $password; # don't hash it done at update time
+        $userref->{userPassword} =
+          $password;                         # don't hash it done at update time
 
 #FIXME: mild kludge to make om_user specific update processing work in Cclitedb/Ccvalidate
         $userref->{action}  = 'update';
@@ -2564,8 +2568,8 @@ sub forgotten_password {
 EOT
 
         my ( $a, $b, $c, $d ) =
-          update_database_record( 'local', $fieldsref->{registry}, "om_users", 2,
-            $userref, $userref->{language}, $token );
+          update_database_record( 'local', $fieldsref->{registry},
+            "om_users", 2, $userref, $userref->{language}, $token );
 
         # ....and mail it
 
@@ -2731,12 +2735,11 @@ Some html remains for the moment...
 
 sub show_balance_and_volume {
 
-
     my ( $class, $db, $user, $mode, $token ) = @_;
 
     #FIXME how many previous months to display, configurable later
     my $months_back = 4;
-    
+
     my %month_hash;    # contains lines by month only the last x are printed
     my ( $month_titles, $row_style );
     my $month_counter = 0;
@@ -2749,6 +2752,10 @@ sub show_balance_and_volume {
       get_transaction_totals( $class, $db, $user, $months_back, $token );
 
     foreach my $key ( keys %$balance_hash_ref ) {
+        
+        #FIXME: does this work properly?
+        $balance_hash_ref->{$key}->{'sum'} = sprintf "%.2f", ($balance_hash_ref->{$key}->{'sum'} / 100) if ($configuration{usedecimals} eq 'yes') ;
+        
         $total_balance{ $balance_hash_ref->{$key}->{'currency'} } +=
           $balance_hash_ref->{$key}->{'sum'};
 
@@ -2761,7 +2768,6 @@ sub show_balance_and_volume {
         {
         }
     }
-
 
     foreach my $key ( sort { $b cmp $a } keys %$volume_hash_ref ) {
         if ( ( $mode eq 'html' || !length($mode) )
@@ -2810,21 +2816,20 @@ EOT
     } elsif ( $mode eq 'values' ) {
 
         return ( \%total_balance, \%total_count );
-    } elsif ($mode eq 'json') {
-    # only refresh is [mis]used to carry json payload if json is being returned 2/2011
-      my $json  = deliver_remote_data($db, 'om_transactions',$registry_error,$balance_hash_ref,$token)  ;
-      my $json1    .= deliver_remote_data($db, 'om_transactions',$registry_error,$volume_hash_ref,$token)  ;
-      return "$json|$json1" ; # delivers two structures though....
+    } elsif ( $mode eq 'json' ) {
+
+# only refresh is [mis]used to carry json payload if json is being returned 2/2011
+        my $json = deliver_remote_data( $db, 'om_transactions', $registry_error,
+            $balance_hash_ref, $token );
+        my $json1 .=
+          deliver_remote_data( $db, 'om_transactions', $registry_error,
+            $volume_hash_ref, $token );
+        return "$json|$json1";    # delivers two structures though....
+    }
+
+    # }
+
 }
-        
-
-        
-   # }    
-
-}
-
-
-
 
 sub _debug_hash_contents {
 

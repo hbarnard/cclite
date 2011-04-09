@@ -54,8 +54,7 @@ cclite.cgi
 
 use lib "../../../lib";
 
-
-use strict;    
+use strict;
 use locale;
 
 use Log::Log4perl;
@@ -153,7 +152,7 @@ my $style_doc->createStyle(
     }
 );
 
-my $token ;
+my $token;
 
 $doc->cloneContent($style_doc);
 

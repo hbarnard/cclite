@@ -480,6 +480,13 @@ text-decoration:none;
 padding:3px;
 }
 
+
+input#tradeAmount {
+background-color:#e0e0e0;
+}
+
+
+
 textarea {
 overflow:auto;
 color:#004d9c;
@@ -623,3 +630,13 @@ em { font-weight: bold; padding-right: 1em; vertical-align: top; }
 	padding: 10px;
 	overflow: auto;	
 	}	
+
+/* experimental text align for decimal point */
+
+.dp { text-align: "." } 
+
+/* to hide the switch for decimal points */
+
+.hidden {
+visibility:hidden;
+}

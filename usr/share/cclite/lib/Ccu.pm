@@ -128,29 +128,29 @@ sub display_template {
         $pagename, $fieldsref,   $cookies, $token
     ) = @_;
 
+    #FIXME: hack to deal with cpanel database names....
+    if ( $0 !~ /ccinstall/ ) {
+        my %configuration;
+        %configuration = Ccconfiguration::readconfiguration();
 
-   #FIXME: hack to deal with cpanel database names....
-   if ($0 !~ /ccinstall/ ) { 
-   my %configuration ;
-   %configuration = Ccconfiguration::readconfiguration() ;
-
-    foreach my $key (%$fieldsref) {
-       if ($key =~ /registry/) {
-          $fieldsref->{$key} =~ s/$configuration{'cpanelprefix'}_// ;           
-       }    
+        foreach my $key (%$fieldsref) {
+            if ( $key =~ /registry/ ) {
+                $fieldsref->{$key} =~ s/$configuration{'cpanelprefix'}_//;
+            }
+        }
     }
-   }
-   # only refresh is [mis]used to carry json payload if json is being returned 2/2011
-   # prints the cookies, if any, the json and exits..
-   if ($fieldsref->{'mode'} eq 'json') {
-           print <<EOT;
+
+# only refresh is [mis]used to carry json payload if json is being returned 2/2011
+# prints the cookies, if any, the json and exits..
+    if ( $fieldsref->{'mode'} eq 'json' ) {
+        print <<EOT;
 Content-type: application/json
 $cookies
 $refresh
 EOT
 
-     return ;
-   }
+        return;
+    }
 
     if ($refresh) {
         $metarefresh = <<EOT;
@@ -220,7 +220,7 @@ EOT
     if ( length( $cookieref->{token} ) ) {
 
         my $login = $cookieref->{userLogin} || $fieldsref->{userLogin};
-        %messages               = readmessages( $cookieref->{language} );
+        %messages                = readmessages( $cookieref->{language} );
         $fieldsref->{youare}     = "$messages{youare} $login";
         $fieldsref->{atregistry} = "$messages{at} $fieldsref->{registry}";
     }
@@ -232,13 +232,25 @@ EOT
 
     my $blank_option = "<option value=\"\"></option>";
 
-    if ( $pagename !~ /logon/ && length( $cookieref->{registry} ) ) {
+    # not done for install, blocked 'new' installer 6/4/2011
+    if ( $pagename !~ /logon/ && length( $cookieref->{registry} && $0 !~ /ccinstall/ ) ) {
         my $option_string =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_currencies', $fieldsref, 'name', 'select', $token );
 
-        # this is the primary currency or the 'only' one
+     # get the latest news field from the registry for front page display
+     $fieldsref->{latest_news} =
+       Cclite::get_news( 'local', $fieldsref->{'registry'}, $token )
+       if ( length( $cookieref->{registry} ) );
 
+
+     # format it for user level users, admin needs to edit it
+     $fieldsref->{latest_news} =
+       "<span class=\"news\">$fieldsref->{latest_news}<\/span>"
+       if ( $cookieref->{userLevel} ne "admin"
+         && length( $fieldsref->{latest_news} ) );
+
+        # this is the primary currency or the 'only' one
         $fieldsref->{selectcurrency} = <<EOT ;
 <select class="required" name="tradeCurrency">$blank_option$option_string</select>\n    
 EOT
@@ -304,17 +316,7 @@ EOT
 
     }
 
-    # get the latest news field from the registry for front page display
 
-    $fieldsref->{latest_news} =
-      Cclite::get_news( 'local', $fieldsref->{'registry'}, $token )
-      if ( length( $cookieref->{registry} ) );
-
-    # format it for user level users, admin needs to edit it
-    $fieldsref->{latest_news} =
-      "<span class=\"news\">$fieldsref->{latest_news}<\/span>"
-      if ( $cookieref->{userLevel} ne "admin"
-        && length( $fieldsref->{latest_news} ) );
 
     print <<EOT;
 Content-type: text/html
@@ -750,7 +752,6 @@ EOT
 
 }
 
-
 =head3 deliver_remote_data
 
 Since, Cclite.pm 'assumes' in most cases that it is dealing
@@ -797,64 +798,60 @@ For example, transactions:
 
 =cut
 
-
-
 sub deliver_remote_data {
 
-my ($db,$table,$message,$hash_ref,$token) = @_ ;    
+    my ( $db, $table, $message, $hash_ref, $token ) = @_;
 
-   $message ||= 'OK' ;    # used for status messages to remote, $registry_error...
-my $count = 0 ;         # row counter...
+    $message ||= 'OK';  # used for status messages to remote, $registry_error...
+    my $count = 0;      # row counter...
 
-my $json ;  #data delivered to the remote
+    my $json;           #data delivered to the remote
 
-my $is_multi_dimensional = 0;
+    my $is_multi_dimensional = 0;
 
-# find whether it's multidimensional or 'flat'
-for my $value (values %$hash_ref) {
-    if ('HASH' eq ref $value) {
-        $is_multi_dimensional = 1;
-        last;
+    # find whether it's multidimensional or 'flat'
+    for my $value ( values %$hash_ref ) {
+        if ( 'HASH' eq ref $value ) {
+            $is_multi_dimensional = 1;
+            last;
+        }
     }
-}
 
-# pack up as simple json...
-if ($is_multi_dimensional) {
+    # pack up as simple json...
+    if ($is_multi_dimensional) {
 
+        for my $id ( keys %$hash_ref ) {
+            $json .= "\n{\"id\": \"$id\",\n ";
+            for my $field_name ( keys %{ $hash_ref->{$id} } ) {
+                $json .=
+                  "\"$field_name\":\"$hash_ref->{$id}->{$field_name}\",\n";
+            }
+            $json =~ s/\,$//
+              ;    # snip off the last comma in the record, ugly but simple...
+            $json .= "},\n";
+        }
+        $json =~
+          s/\,$//;   # snip off the last comma in the record, ugly but simple...
+    } else {
+        for my $id ( keys %$hash_ref ) {
+            $json .= "\n{\"id\": \"$id\",\n ";
+            $json =~ s/\,$//
+              ;      # snip off the last comma in the record, ugly but simple...
+            $json .= "},\n";
+        }
 
-        
-for my $id ( keys %$hash_ref ) {
-    $json .= "\n{\"id\": \"$id\",\n ";
-    for my $field_name ( keys %{ $hash_ref->{$id} } ) {
-         $json .= "\"$field_name\":\"$hash_ref->{$id}->{$field_name}\",\n";
     }
-    $json =~ s/\,$//; # snip off the last comma in the record, ugly but simple...
-    $json .= "},\n";
-}
- $json =~ s/\,$//; # snip off the last comma in the record, ugly but simple...
-} else {
-for my $id ( keys %$hash_ref ) {
-    $json .= "\n{\"id\": \"$id\",\n ";
-    $json =~ s/\,$//; # snip off the last comma in the record, ugly but simple...
-    $json .= "},\n";
-}    
-    
-    
-}    
 
-  $json =<<EOT;
+    $json = <<EOT;
   {\"registry"\:\"$db\",\"table\": \"$table\", \"message":\"$message\",\n\"data\": [$json]} 
 EOT
 
-  
-  ###$log->debug("json is: $json") ;
+    ###$log->debug("json is: $json") ;
 
-
- ###return ( 0, "", $error, $html, $template, "" );
- return $json ;
+    ###return ( 0, "", $error, $html, $template, "" );
+    return $json;
 
 }
-
 
 =head3 _timestamp
 
@@ -902,11 +899,8 @@ sub pretty_caller {
     ) = caller($i);
 
     $log->debug("p:$package l:$line f:$subroutine");
-    print "p:$package l:$line f:$subroutine";
+    ###print "p:$package l:$line f:$subroutine";
 }
-
-
-
 
 1;
 

@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>SendMail.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -56,6 +58,9 @@ pre { color: #000000;
 	<li><a href="#version">VERSION</a></li>
 	<li><a href="#see_also">SEE ALSO</a></li>
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -105,7 +110,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p></p>
 <hr />
 <h1><a name="name">NAME</a></h1>
@@ -214,38 +218,38 @@ testSendMail.pl, you can simply a testing on it.</p>
 </p>
 <hr />
 <h1><a name="changes">CHANGES</a></h1>
-<p>1.00-&gt;1.01 Recipients with email address contains a ``-'' in the hostname,
+<p>1.00-&gt;1.01 Recipients with email address contains a &quot;-&quot; in the hostname,
 will be able to receive the email now.</p>
 <p>1.01-&gt;1.02 Module now not only expecting one line reply from the server, it
 can receive multiple lines until the server waiting for next command.</p>
-<p>1.02-&gt;1.03 Repeat declaration of ``$currEmail'' will give an error in NT
+<p>1.02-&gt;1.03 Repeat declaration of &quot;$currEmail&quot; will give an error in NT
 system.</p>
-<p>1.03-&gt;1.04 Email addresses are enclosed in &lt; and &gt; after ``MAIL FROM'' and
-``RCPT TO'' commands.(RFC821) For Microsoft Exchange 4, email addresses
+<p>1.03-&gt;1.04 Email addresses are enclosed in &lt; and &gt; after &quot;MAIL FROM&quot; and
+&quot;RCPT TO&quot; commands.(<a href="http://www.ietf.org/rfc/rfc821.txt" class="rfc">RFC821</a>) For Microsoft Exchange 4, email addresses
 not enclosed in &lt; and &gt; will get an error from the system.</p>
 <p>1.04-&gt;1.05 <code>getEmailAddress()</code> subroutine should accept email address
-in just <a href="mailto:``<user@domain.com>">``<user@domain.com></a>'' format.</p>
-<p>1.05-&gt;2.00b Simple MIME supported. attach(), <code>Attach()</code> and <code>Inline()</code> 
+in just <a href="mailto:"<user@domain.com>">"<user@domain.com></a>&quot; format.</p>
+<p>1.05-&gt;2.00b Simple MIME supported. <code>attach()</code>, <code>Attach()</code> and <code>Inline()</code> 
 subroutines added.</p>
 <p>2.00b-&gt;2.00 <code>Attach()</code> and <code>Inline()</code> supports for filehandle which is
 easier for users who are using CGI.pm. Prototypes are added. And we
-send ``\r\n'' to the SMTP server instead of only ``\n''.</p>
-<p>2.00-&gt;2.01 After sending the maildata, supposed to be ``\r\n'' instead
-of just ``\n''.</p>
+send &quot;\r\n&quot; to the SMTP server instead of only &quot;\n&quot;.</p>
+<p>2.00-&gt;2.01 After sending the maildata, supposed to be &quot;\r\n&quot; instead
+of just &quot;\n&quot;.</p>
 <p>2.01-&gt;2.02 Calling <code>eof()</code> to check the opened socket, else it will
 cause an error in ActivePerl5.6.</p>
-<p>2.02-&gt;2.03 Change all EOL to ``\r\n'', instead of just ``\n''.</p>
+<p>2.02-&gt;2.03 Change all EOL to &quot;\r\n&quot;, instead of just &quot;\n&quot;.</p>
 <p>2.03-&gt;2.04 Only Base64 encoding is being used, no more using Quoted
 Print. And <code>import()</code> has been taken out for Sys::Hostname as it has
-been deprecated. Giving more hints in ``no host'' error message.</p>
-<p>2.04-&gt;2.05 clearTo(), <code>clearCc()</code> and <code>clearBcc()</code> are added to allow
+been deprecated. Giving more hints in &quot;no host&quot; error message.</p>
+<p>2.04-&gt;2.05 <code>clearTo()</code>, <code>clearCc()</code> and <code>clearBcc()</code> are added to allow
 clearing the recipient email addresses without reset the whole email
 information, eg. body, subject and etc. Simple SMTP AUTH is supported.</p>
 <p>2.05-&gt;2.06 Some values were not initialized.</p>
-<p>2.06-&gt;2.07 The <code>clearXXX()</code> functions, eg. clearTo(), did not work well
+<p>2.06-&gt;2.07 The <code>clearXXX()</code> functions, eg. <code>clearTo()</code>, did not work well
 when sending multiple emails. The list was not cleared properly. For
 example, the To: field would be left with a 
-<a href="mailto:``ARRAY@localhost.domain.com">``ARRAY@localhost.domain.com</a> (82477472),'' in it. <code>clearAttach()</code> is added.
+<a href="mailto:"ARRAY@localhost.domain.com">"ARRAY@localhost.domain.com</a> (82477472),&quot; in it. <code>clearAttach()</code> is added.
 And EHLO is used first to support SMTP AUTH, because some of the MTA is
 looking for EHLO first.</p>
 <p>2.07-&gt;2.08 Bare LF error occurred when no attachment.</p>
@@ -1057,8 +1061,8 @@ modify it under the same terms as Perl itself.</p>
     <span class="c">#</span>
     <span class="k">while</span> <span class="s">(</span> <span class="i">$socket</span> &amp;&amp; <span class="s">(</span> <span class="i">$reply</span> = <span class="q">&lt;$socket&gt;</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">return</span> <span class="i">$self</span><span class="i">-&gt;setError</span><span class="s">(</span><span class="i">$reply</span><span class="s">)</span> <span class="k">if</span> <span class="i">$reply</span> =~ <span class="q">/^5/</span><span class="sc">;</span>
-        <span class="k">print</span> <span class="i">$reply</span> <span class="k">if</span> <span class="i">$self</span>-&gt;{<span class="q">&#39;debugmode&#39;</span>}<span class="sc">;</span>
-        <span class="k">last</span> <span class="k">if</span> <span class="i">$reply</span> =~ <span class="q">/^\d+ /</span><span class="sc">;</span>
+        <span class="k">print</span> <span class="i">$reply</span>                   <span class="k">if</span> <span class="i">$self</span>-&gt;{<span class="q">&#39;debugmode&#39;</span>}<span class="sc">;</span>
+        <span class="k">last</span>                           <span class="k">if</span> <span class="i">$reply</span> =~ <span class="q">/^\d+ /</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="n">0</span><span class="sc">;</span>

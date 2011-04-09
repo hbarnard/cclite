@@ -181,27 +181,27 @@ sub validate_user {
 
     # mobile phone numbers must be unique
     $$fieldsref{userMobile} =
-      format_for_standard_mobile( $$fieldsref{userMobile}  );
+      format_for_standard_mobile( $$fieldsref{userMobile} );
 
-   # only do these, if there is a mobile number:  3045485 27/9/2010
+    # only do these, if there is a mobile number:  3045485 27/9/2010
 
-   if ( length( $$fieldsref{'userMobile'}) ) {
+    if ( length( $$fieldsref{'userMobile'} ) ) {
 
-    my ( $error, $fromuserref ) =
-      get_where( $class, $db, 'om_users', '*', 'userMobile',
-        $$fieldsref{userMobile}, $token, $offset, $limit );
+        my ( $error, $fromuserref ) =
+          get_where( $class, $db, 'om_users', '*', 'userMobile',
+            $$fieldsref{userMobile}, $token, $offset, $limit );
 
-    # not unique, another record contains this number
-    if ( length($fromuserref) && $action eq 'adduser' ) {
-        push @status, $$messagesref{mobphoneexists};
-    }
-
-    # not unique another record, not yours, contains this number
-    if ( length($fromuserref) && $action eq 'update' ) {
-        if ( $$fromuserref{'userId'} != $$fieldsref{'userId'} ) {
+        # not unique, another record contains this number
+        if ( length($fromuserref) && $action eq 'adduser' ) {
             push @status, $$messagesref{mobphoneexists};
         }
-    }
+
+        # not unique another record, not yours, contains this number
+        if ( length($fromuserref) && $action eq 'update' ) {
+            if ( $$fromuserref{'userId'} != $$fieldsref{'userId'} ) {
+                push @status, $$messagesref{mobphoneexists};
+            }
+        }
 
     }
 

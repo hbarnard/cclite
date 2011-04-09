@@ -686,7 +686,6 @@ EOT
 
 }
 
-
 =head3 get_yellowpages_directory_print
 
 This is the version for print format, a work in progress
@@ -698,7 +697,6 @@ as of December 2010
 sub get_yellowpages_directory_print {
 
     my ( $class, $db, $token ) = @_;
-
 
     my $sqlstring = <<EOT;
 
@@ -714,7 +712,6 @@ EOT
     my ( $registryerror, $yellowdirectory_hash_ref ) =
       sqlraw( $class, $db, $sqlstring, 'sortal', $token );
 
-
     my $sqlstring = <<EOT;
 
 SELECT concat(y.parent,y.category,y.type,y.id) as sortal,c.description
@@ -723,15 +720,12 @@ WHERE
 y.parent = c.parent AND y.category = c.category
 EOT
 
-
     my ( $registryerror, $category_hash_ref ) =
       sqlraw( $class, $db, $sqlstring, 'sortal', $token );
 
-    return ( $yellowdirectory_hash_ref,$category_hash_ref );
+    return ( $yellowdirectory_hash_ref, $category_hash_ref );
 
 }
-
-
 
 =head3 get_statement_print
 
@@ -745,7 +739,6 @@ sub get_statement_print {
 
     my ( $class, $db, $token ) = @_;
 
-
     my $sqlstring = <<EOT;
 
 SELECT 
@@ -758,14 +751,9 @@ EOT
     my ( $registryerror, $trade_hash_ref ) =
       sqlraw( $class, $db, $sqlstring, 'sortal', $token );
 
-    return ( $trade_hash_ref );
+    return ($trade_hash_ref);
 
 }
-
-
-
-
-
 
 =head3 get_where
 
@@ -783,7 +771,7 @@ sub get_where {
     my $get =
       _sqlgetwhere( $name, $table, $fieldslist, $fieldname, $token, $offset,
         $limit );
-        
+
     ###$log->debug("get is $get\n") ;
 
     if ( !length($db) ) {
@@ -960,7 +948,7 @@ table describe. Used to prepare other operations
 
 sub get_table_columns {
     my ( $table, $dbh ) = @_;
-    my ( $sth, @columns, @row );    
+    my ( $sth, @columns, @row );
     my $show = "describe $table;";
     $sth = $dbh->prepare($show);
     my $rv = $sth->execute();
@@ -1048,11 +1036,10 @@ sub _registry_connect {
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 
-
     #FIXME: hack for database prefix in cpanel, registry creation connect
-    # has blank database so no prefix should be added... 
-    if (length($configuration{'cpanelprefix'}) && length($db)) {
-     $db = $configuration{'cpanelprefix'}. '_' . $db  ;
+    # has blank database so no prefix should be added...
+    if ( length( $configuration{'cpanelprefix'} ) && length($db) ) {
+        $db = $configuration{'cpanelprefix'} . '_' . $db;
     }
 
     #open connection to MySql database
@@ -1076,13 +1063,12 @@ sub registry_connect {
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 
-
     my ( $db, $token ) = @_;
 
-    #FIXME: hack for database prefix in cpanel 
-    $db = $configuration{'cpanelprefix'}. '_' . $db if (length($configuration{'cpanelprefix'})) ;
+    #FIXME: hack for database prefix in cpanel
+    $db = $configuration{'cpanelprefix'} . '_' . $db
+      if ( length( $configuration{'cpanelprefix'} ) );
 
-    
     #open connection to MySql database
     my $dbh = DBI->connect( "dbi:mysql:$db", $dbuser, $dbpassword );
     my $error = $DBI::errstr;
@@ -1202,7 +1188,7 @@ EOT
         }
 
     }
-   ### print "where is $sqlgetwhere\n" ;
+    ### print "where is $sqlgetwhere\n" ;
     return $sqlgetwhere;
 }
 

@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>ccdirectory.cgi</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -52,9 +54,11 @@ pre { color: #000000;
 	<li><a href="#see_also">SEE ALSO</a></li>
 	<li><a href="#copyright">COPYRIGHT</a></li>
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 
-<hr />
 <p></p>
 <hr />
 <h1><a name="name">NAME</a></h1>
@@ -85,8 +89,7 @@ rather incomplete.</p>
 </p>
 <hr />
 <h1><a name="copyright">COPYRIGHT</a></h1>
-<p>(c) Hugh Barnard 2005 GPL Licenced
-</p>
+<p>(c) Hugh Barnard 2005 GPL Licenced</p>
 <pre>
 
 =cut</pre>
@@ -116,23 +119,30 @@ rather incomplete.</p>
 <span class="c"># To get to word or pdf, load into Open Office tidy up</span>
 <span class="c"># and re-output</span>
 
-<span class="k">use</span> <span class="w">lib</span> <span class="q">&quot;../../lib&quot;</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">lib</span> <span class="q">&quot;../../../lib&quot;</span><span class="sc">;</span>
 
-<span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
+
+<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
+
+<span class="c">#Log::Log4perl-&gt;init( $configuration{&#39;loggerconfig&#39;} );</span>
+<span class="c">#our $log = Log::Log4perl-&gt;get_logger(&quot;cclite&quot;);</span>
 
 <span class="k">use</span> <span class="w">OpenOffice::OODoc</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">OpenOffice::OODoc::Text</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">OpenOffice::OODoc::XPath</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccdirectory</span><span class="sc">;</span>    <span class="c"># yellow pages directory etc.</span>
+<span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>       <span class="c"># security and hashing</span>
+<span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>       <span class="c"># this probably should be delegated</span>
+<span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">%configuration</span><span class="sc">;</span>
 <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="k">my</span> <span class="i">$doc</span> = <span class="i">ooText</span><span class="s">(</span>
-    <span class="w">file</span>            <span class="cm">=&gt;</span> <span class="q">&#39;blank.sxw&#39;</span><span class="cm">,</span>
-    <span class="w">paragraph_style</span> <span class="cm">=&gt;</span> <span class="q">&#39;Coucou&#39;</span><span class="cm">,</span>
+<span class="k">my</span> <span class="i">$doc</span> = <span class="i">odfDocument</span><span class="s">(</span>
+    <span class="w">file</span>   <span class="cm">=&gt;</span> <span class="q">&#39;directory.odt&#39;</span><span class="cm">,</span>
+    <span class="w">create</span> <span class="cm">=&gt;</span> <span class="q">&#39;text&#39;</span>
 <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -194,11 +204,7 @@ rather incomplete.</p>
 
 <span class="c"># experimental style creation and use</span>
 
-<span class="k">my</span> <span class="i">$style_doc</span> = <span class="i">ooStyles</span><span class="s">(</span> <span class="w">file</span> <span class="cm">=&gt;</span> <span class="q">&quot;blank.sxw&quot;</span><span class="cm">,</span> <span class="w">member</span> <span class="cm">=&gt;</span> <span class="w">STYLES</span> <span class="s">)</span><span class="sc">;</span>
-
-<span class="c">###print &quot;style_doc is $style_doc&quot; ;</span>
-
-<span class="i">$style_doc</span><span class="i">-&gt;createStyle</span><span class="s">(</span>
+<span class="k">my</span> <span class="i">$style_doc</span><span class="i">-&gt;createStyle</span><span class="s">(</span>
     <span class="q">&quot;Colour&quot;</span><span class="cm">,</span>
     <span class="w">family</span>     <span class="cm">=&gt;</span> <span class="q">&#39;text&#39;</span><span class="cm">,</span>
     <span class="w">parent</span>     <span class="cm">=&gt;</span> <span class="q">&#39;Default&#39;</span><span class="cm">,</span>
@@ -213,7 +219,8 @@ rather incomplete.</p>
     <span class="s">}</span>
 <span class="s">)</span><span class="sc">;</span>
 
-<span class="c">###$doc-&gt;setStyle($doc-&gt;getParagraph(3), &quot;P3&quot;);</span>
+<span class="k">my</span> <span class="i">$token</span><span class="sc">;</span>
+
 <span class="i">$doc</span><span class="i">-&gt;cloneContent</span><span class="s">(</span><span class="i">$style_doc</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># set up table and first column</span>
@@ -282,18 +289,18 @@ rather incomplete.</p>
 
 <span class="s">}</span>    <span class="c"># end foreach sqlstatement</span>
 
-<span class="i">$doc</span><span class="i">-&gt;save</span><span class="s">(</span><span class="q">&quot;directory.sxw&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="i">$doc</span><span class="i">-&gt;save</span><span class="s">(</span><span class="q">&quot;directory.odt&quot;</span><span class="s">)</span><span class="sc">;</span>
 <span class="c">###$style_doc-&gt;save(&quot;directory.sxw&quot;);</span>
 
 <span class="c"># now download the file</span>
 
 <span class="k">print</span> <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh"> Content-Type: application/vnd.sun.xml.writer</span>
-<span class="hh"> Content-Disposition: filename=&quot;directory.sxw&quot;</span>
+<span class="hh"> Content-Disposition: filename=&quot;directory.odt&quot;</span>
 
 <span class="h">EOT</span>
 
-<span class="k">open</span><span class="s">(</span> <span class="w">DIR</span><span class="cm">,</span> <span class="q">&quot;directory.sxw&quot;</span> <span class="s">)</span><span class="sc">;</span>
+<span class="k">open</span><span class="s">(</span> <span class="w">DIR</span><span class="cm">,</span> <span class="q">&quot;directory.odt&quot;</span> <span class="s">)</span><span class="sc">;</span>
 <span class="k">while</span> <span class="s">(</span><span class="q">&lt;DIR&gt;</span><span class="s">)</span> <span class="s">{</span>
     <span class="k">print</span> <span class="i">$_</span><span class="sc">;</span>
 <span class="s">}</span>

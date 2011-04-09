@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Ccadmin.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -75,6 +77,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -101,7 +106,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -139,8 +143,7 @@ Ccu.pm</p>
 </p>
 <hr />
 <h1><a name="copyright">COPYRIGHT</a></h1>
-<p>(c) Hugh Barnard 2005 GPL Licenced
-</p>
+<p>(c) Hugh Barnard 2005 GPL Licenced</p>
 <pre>
 
 =cut</pre>
@@ -157,7 +160,12 @@ Ccu.pm</p>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 
 <span class="c"># should be a core module both *nix and Windows</span>
-<span class="k">use</span> <span class="w">File::Path</span> <span class="q">qw(make_path remove_tree)</span><span class="sc">;</span>
+<span class="c"># given the problems with this and, from the microsoft doc:</span>
+
+<span class="c"># When you enable command extensions (that is, the default), you can use a single mkdir command to create intermediate directories in a specified</span>
+<span class="c"># path. For more information about enabling and disabling command extensions, see cmd in Related Topics.</span>
+
+<span class="c"># use File::Path qw(make_path remove_tree);</span>
 
 <span class="k">my</span> <span class="i">$VERSION</span> = <span class="n">1.00</span><span class="sc">;</span>
 <span class="i">@ISA</span> = <span class="q">qw(Exporter)</span><span class="sc">;</span>
@@ -290,8 +298,7 @@ for a new installation, the current software version is 'guessed' here...</p>
 </pre><p></p>
 <h3><a name="update_configuration">update_configuration</a></h3>
 <p>First part of configuration update, guess values and display
-All the html has been moved into installvalues.html now, as of 11/2008
-</p>
+All the html has been moved into installvalues.html now, as of 11/2008</p>
 <pre>
 
 =cut</pre>
@@ -335,8 +342,11 @@ All the html has been moved into installvalues.html now, as of 11/2008
     <span class="s">}</span>
 
  <span class="c"># for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;/cgi-bin/protected/ccinstall.cgi&#39;</span><span class="cm">,</span>
-        \<span class="i">%fields</span><span class="cm">,</span> <span class="q">&quot;installvalues.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="q">&quot;installvalues.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c">### return ( 0, &#39;&#39;, &#39;/cgi-bin/protected/ccinstall.cgi&#39;,</span>
+    <span class="c">###     \%fields, &quot;installvalues.html&quot;, &quot;&quot; );</span>
 <span class="s">}</span>
 
 </pre><p></p>
@@ -422,7 +432,7 @@ All the html has been moved into installvalues.html now, as of 11/2008
 
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-</pre><dl><dt><strong><a name="item_remove_for_present">remove_for_present</a></strong></dt>
+</pre><dl><dt><strong><a name="remove_for_present" class="item">remove_for_present</a></strong></dt>
 
 <dd>
 <pre>
@@ -493,11 +503,11 @@ currencies, no strange names etc.</p>
                                <span class="c"># check whether currency exists already</span>
                                <span class="c"># currencies are always lower case</span>
                                <span class="c"># currencies are always canonical lower case</span>
-    <span class="i">$$fieldsref</span>{<span class="w">name</span>} =
-      <span class="k">lc</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">cname</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># hack to deal with name collision</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">name</span>} =
+      <span class="k">lc</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">cname</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># hack to deal with name collision</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$currencyref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_currencies&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;name&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">name</span>}<span class="cm">,</span>
+      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_currencies&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;name&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">name</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$currencyref</span>{<span class="w">name</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">currencyrejected</span>}<span class="sc">;</span>
@@ -509,15 +519,15 @@ currencies, no strange names etc.</p>
     <span class="i">@status</span> = <span class="s">(</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">@validate</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span><span class="i">@status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$$fieldsref</span>{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">currencyrejected</span>}<span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">currencyrejected</span>}<span class="cm">,</span>
             <span class="q">&quot;currency.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
-    <span class="i">$$fieldsref</span>{<span class="w">code</span>} = <span class="k">uc</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">code</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># codes always uc</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">code</span>} = <span class="k">uc</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">code</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># codes always uc</span>
     <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># if not a success, force the major status to cause of failure</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">currencycreated</span>}<span class="cm">,</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">currencycreated</span>}<span class="cm">,</span>
         <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -533,21 +543,21 @@ This is new and flakey at present</p>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
     <span class="i">$class</span> = <span class="q">&quot;Ccadmin&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$categoryref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_categories&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;name&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">name</span>}<span class="cm">,</span>
+      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_categories&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;name&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">name</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="c">###print &quot;in create category&quot; ;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$categoryref</span>{<span class="w">name</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">categorynameexists</span>}<span class="cm">,</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">categorynameexists</span>}<span class="cm">,</span>
             <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c">#FIXME: hack to make sure that there&#39;s a category number, needs fixing</span>
-    <span class="i">$$fieldsref</span>{<span class="w">category</span>} = <span class="q">&#39;1099&#39;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">category</span>} = <span class="q">&#39;1099&#39;</span><span class="sc">;</span>
 
     <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># if not a success, force the major status to cause of failure</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">categorycreated</span>}<span class="cm">,</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">categorycreated</span>}<span class="cm">,</span>
         <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -567,7 +577,7 @@ currencies, no strange names etc.</p>
     <span class="i">$class</span> = <span class="q">&quot;Ccadmin&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
       <span class="i">update_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">return</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
@@ -605,8 +615,14 @@ one for local, one for remote..messier but more efficient?</p>
     <span class="c"># --followed by dbh-&gt;do 3/2005</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$configref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$structure</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$configref</span>-&gt;{<span class="q">&#39;cpanelprefix&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;newregistry&#39;</span>} =
+          <span class="i">$configref</span>-&gt;{<span class="q">&#39;cpanelprefix&#39;</span>} . <span class="q">&#39;_&#39;</span> . <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;newregistry&#39;</span>}<span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$structure</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="i">@vstatus</span> =
       <span class="i">validate_registry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span>
         <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># validate registry fields</span>
@@ -654,28 +670,29 @@ one for local, one for remote..messier but more efficient?</p>
     <span class="i">@status</span> = <span class="s">(</span> <span class="i">@vstatus</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span><span class="i">@status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="i">$$fieldsref</span>{<span class="w">errors</span>} =
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">errors</span>} =
           <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;/div&gt;&lt;div class=\&quot;failedcheck\&quot;&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$$fieldsref</span>{<span class="w">errors</span>} =
-          <span class="q">&quot;&lt;div class=\&quot;failedcheck\&quot;&gt;$$fieldsref{errors}&lt;/div&gt;&quot;</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">errors</span>} =
+          <span class="q">&quot;&lt;div class=\&quot;failedcheck\&quot;&gt;$fieldsref-&gt;{errors}&lt;/div&gt;&quot;</span><span class="sc">;</span>
 
-        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&quot;$$fieldsref{errors} &quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;registry.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&quot;$fieldsref-&gt;{errors} &quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;registry.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># eval block for this 7/2010</span>
     <span class="k">eval</span> <span class="s">{</span>
         <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span>
         <span class="s">{</span>
-            <span class="i">$dbh</span><span class="i">-&gt;do</span><span class="s">(</span><span class="q">&quot;create database if not exists $$fieldsref{newregistry}&quot;</span><span class="s">)</span><span class="sc">;</span>
+            <span class="i">$dbh</span><span class="i">-&gt;do</span><span class="s">(</span><span class="q">&quot;create database if not exists $fieldsref-&gt;{newregistry}&quot;</span><span class="s">)</span><span class="sc">;</span>
             <span class="i">$dbh</span><span class="i">-&gt;disconnect</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span><span class="sc">;</span>
     <span class="k">die</span> <span class="q">&quot;ccinstall: $@&quot;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$@</span><span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># connect to db</span>
+    <span class="c"># connect to db, let Cclitedb, take over prefix handling now...</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;newregistry&#39;</span>} =~ <span class="q">s/$configref-&gt;{&#39;cpanelprefix&#39;}_//</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> =
-      <span class="i">Cclitedb::_registry_connect</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">newregistry</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="i">Cclitedb::_registry_connect</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">newregistry</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># sql creation is now versioned according to the software version</span>
     <span class="c"># and hash type which decides the hashes for the initial passwords</span>
@@ -714,17 +731,24 @@ one for local, one for remote..messier but more efficient?</p>
     <span class="c"># &#39;empty&#39; om_registry table...hence stuckage...</span>
     <span class="c"># useid is 1 for using the id field..</span>
 
-    <span class="i">$$fieldsref</span>{<span class="w">name</span>} = <span class="i">$$fieldsref</span>{<span class="w">newregistry</span>}<span class="sc">;</span>    <span class="c"># for the moment</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">name</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">newregistry</span>}<span class="sc">;</span>    <span class="c"># for the moment</span>
 
     <span class="c"># like the highlander, there can only be one (the first record), we hope...</span>
-    <span class="c"># watch out for auto-increment when dumping db structures tooo</span>
-    <span class="i">$$fieldsref</span>{<span class="w">id</span>} = <span class="n">1</span><span class="sc">;</span>
+    <span class="c"># watch out for auto-increment when dumping db structures too</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">id</span>} = <span class="n">1</span><span class="sc">;</span>
 
-    <span class="i">update_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">newregistry</span>}<span class="cm">,</span>
+    <span class="k">my</span> <span class="s">(</span>
+        <span class="i">$package</span><span class="cm">,</span>   <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span><span class="cm">,</span>       <span class="i">$subroutine</span><span class="cm">,</span> <span class="i">$hasargs</span><span class="cm">,</span>
+        <span class="i">$wantarray</span><span class="cm">,</span> <span class="i">$evaltext</span><span class="cm">,</span> <span class="i">$is_require</span><span class="cm">,</span> <span class="i">$hints</span><span class="cm">,</span>      <span class="i">$bitmask</span>
+    <span class="s">)</span> = <span class="k">caller</span><span class="s">(</span><span class="n">1</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="c">###print &quot;p:$package l:$line f:$subroutine  $fieldsref-&gt;{newregistry} &quot; ;</span>
+
+    <span class="i">update_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">newregistry</span>}<span class="cm">,</span>
         <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;en&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># previous 0.6.0 code keep for a while...</span>
-    <span class="c">### add_database_record( $class, $$fieldsref{newregistry},</span>
+    <span class="c">### add_database_record( $class, $fieldsref-&gt;{newregistry},</span>
     <span class="c">###    &#39;om_registry&#39;, $fieldsref, $token );</span>
 
     <span class="c"># set up directories for all batch processes</span>
@@ -733,7 +757,7 @@ one for local, one for remote..messier but more efficient?</p>
     <span class="k">my</span> <span class="i">$display_files</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="cm">,</span> <span class="i">%$file_ref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">    \u$$fieldsref{newregistry} $messages{registrycreated} &lt;br/&gt;</span>
+<span class="hh">    \u$fieldsref-&gt;{newregistry} $messages{registrycreated} &lt;br/&gt;</span>
 <span class="hh">    &lt;a href=&quot;/cgi-bin/cclite.cgi&quot;&gt;$messages{nowlogonandcreate}&lt;/a&gt;</span>
 <span class="h">EOT</span>
 
@@ -758,7 +782,7 @@ This is a heavy and somewhat clumsy operation.</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$mode</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$structure</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">@registries</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$return_url</span>     = <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="sc">;</span>    <span class="c"># that is ccinstall.cgi</span>
+    <span class="k">my</span> <span class="i">$return_url</span>     = <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="sc">;</span>    <span class="c"># that is ccinstall.cgi</span>
     <span class="k">my</span> <span class="i">$registry_count</span> = <span class="n">0</span><span class="sc">;</span>
 
     <span class="c">#FIXME: what&#39;s wrong with this message?</span>
@@ -833,24 +857,24 @@ $class added to some routines for cclite web services access</p>
     <span class="k">my</span> <span class="i">$class</span> = <span class="q">&quot;Cclitedb&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$hash</span>       = <span class="q">&quot;&quot;</span><span class="sc">;</span>                 <span class="c"># for the moment, needs sha1 afterwards</span>
-    <span class="k">my</span> <span class="i">$return_url</span> = <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$return_url</span> = <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="sc">;</span>
     <span class="i">@status</span> =
       <span class="i">validate_partner</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># test for duplicate registry name</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$partnerref</span> <span class="s">)</span> =
-      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_partners&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;name&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">dname</span>}<span class="cm">,</span>
+      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_partners&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;name&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">dname</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">partnerexists</span>} <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$partnerref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span><span class="i">@status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$$fieldsref</span>{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;partners.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">getdateandtime</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">date</span>} = <span class="i">$date</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">date</span>} = <span class="i">$date</span><span class="sc">;</span>
 
     <span class="c"># dname in form to avoid name collision</span>
-    <span class="i">$$fieldsref</span>{<span class="w">name</span>} = <span class="i">$$fieldsref</span>{<span class="w">dname</span>}<span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">name</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">dname</span>}<span class="sc">;</span>
 
     <span class="c">#</span>
     <span class="c"># add to the  database</span>
@@ -907,8 +931,8 @@ in the sysaccount at present</p>
         <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span><span class="i">@status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$$fieldsref</span>{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;servicechg.html&quot;</span><span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;servicechg.html&quot;</span><span class="cm">,</span>
             <span class="i">$fieldsref</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -922,8 +946,8 @@ in the sysaccount at present</p>
     <span class="c"># no sysaccount found or database problem</span>
 
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userId</span>} <span class="s">)</span> || <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$$fieldsref</span>{<span class="w">errors</span>} = <span class="q">&quot;$messages{nosysaccount}  or $status&quot;</span><span class="sc">;</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;servicechg.html&quot;</span><span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">errors</span>} = <span class="q">&quot;$messages{nosysaccount}  or $status&quot;</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;servicechg.html&quot;</span><span class="cm">,</span>
             <span class="i">$fieldsref</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -942,20 +966,20 @@ in the sysaccount at present</p>
     <span class="i">$transaction</span>{<span class="w">toregistry</span>} = <span class="i">$db</span><span class="sc">;</span>
 
     <span class="c">#tradeAmount : 23</span>
-    <span class="i">$transaction</span>{<span class="w">tradeAmount</span>} = <span class="i">$$fieldsref</span>{<span class="w">value</span>}<span class="sc">;</span>
+    <span class="i">$transaction</span>{<span class="w">tradeAmount</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">value</span>}<span class="sc">;</span>
 
     <span class="c">#tradeCurrency : ducket</span>
-    <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} = <span class="i">$$fieldsref</span>{<span class="w">tradeCurrency</span>}<span class="sc">;</span>
+    <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">tradeCurrency</span>}<span class="sc">;</span>
 
     <span class="c">#tradeDate : this is date of reception and processing, in fact</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">&amp;Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
     <span class="i">$transaction</span>{<span class="w">tradeDate</span>} = <span class="i">$date</span><span class="sc">;</span>
 
     <span class="c">#tradeTitle : added by this routine</span>
-    <span class="i">$transaction</span>{<span class="w">tradeTitle</span>} = <span class="i">$$fieldsref</span>{<span class="w">title</span>}<span class="sc">;</span>
+    <span class="i">$transaction</span>{<span class="w">tradeTitle</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">title</span>}<span class="sc">;</span>
 
     <span class="c">#tradeDescription</span>
-    <span class="i">$transaction</span>{<span class="w">tradeDescription</span>} = <span class="i">$$fieldsref</span>{<span class="w">description</span>}<span class="sc">;</span>
+    <span class="i">$transaction</span>{<span class="w">tradeDescription</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">description</span>}<span class="sc">;</span>
 
     <span class="c">#tradeDestination : ddawg</span>
     <span class="i">$transaction</span>{<span class="w">tradeDestination</span>} = <span class="i">$sysaccount</span><span class="sc">;</span>
@@ -998,9 +1022,9 @@ in the sysaccount at present</p>
     <span class="s">}</span>
 
     <span class="i">$html</span> =
-<span class="q">&quot;$$messagesref{servicechargeapplied} $$fieldsref{value} $$fieldsref{tradeCurrency} : $db&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$$messagesref{servicechargeapplied} $fieldsref-&gt;{value} $fieldsref-&gt;{tradeCurrency} : $db&quot;</span><span class="sc">;</span>
 
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># now condense system account records into one record if required</span>
 
@@ -1010,9 +1034,7 @@ in the sysaccount at present</p>
 <h3><a name="get_set_batch_files">get_set_batch_files</a></h3>
 <p>For the moment, just get a list of all the assumptions
 about batch files. Next iteration get statuses, exists, readable etc.</p>
-<p>Now with make_path should work for most OSes 12/2009
-
-</p>
+<p># Now with make_path should work for most OSes 12/2009: backed out 10/2010</p>
 
 <pre>
 <a name="get_set_batch_files-"></a><span class="k">sub </span><span class="m">get_set_batch_files</span> <span class="s">{</span>
@@ -1022,7 +1044,7 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
     <span class="k">my</span> <span class="i">$error</span><span class="sc">;</span>
 
 <span class="c"># FIXME: this is not quite right, get should use cookies, set newregistry, probably</span>
-    <span class="k">my</span> <span class="i">$registry</span> = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$$fieldsref</span>{<span class="w">newregistry</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$registry</span> = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$fieldsref</span>-&gt;{<span class="w">newregistry</span>}<span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$language</span> = <span class="i">$$cookieref</span>{<span class="w">language</span>} || <span class="i">$$configref</span>{<span class="w">language</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
 
@@ -1047,18 +1069,21 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
     <span class="i">$file</span>{<span class="w">smsdir</span>} = <span class="q">&quot;$configuration{smspath}/$registry&quot;</span><span class="sc">;</span>
     <span class="i">$file</span>{<span class="w">smsout</span>} = <span class="q">&quot;$configuration{smsout}/$registry&quot;</span><span class="sc">;</span>
 
+<span class="c">#FIXME: due to backed out file path, this is reintroduced, move to top of module</span>
+<span class="c"># may have to deal with Windows backslash below too..</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="i">$err_list</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$operation</span> <span class="k">eq</span> <span class="q">&#39;set&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">eval</span> <span class="s">{</span>
             <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%file</span> <span class="s">)</span>
             <span class="s">{</span>
-
-<span class="c">#FIXME: This is probably problenatic for Windows, but mkpath too...3/2010</span>
-<span class="c">#FIXME: This is probably problenatic for Windows, needs latest version File::Path...8/2010</span>
-<span class="c"># `mkdir -p $file{$key}`;</span>
-
-                <span class="i">make_path</span><span class="s">(</span> <span class="i">$file</span>{<span class="i">$key</span>}<span class="cm">,</span> <span class="s">{</span> <span class="w">error</span> <span class="cm">=&gt;</span> \<span class="i">$err_list</span><span class="cm">,</span> <span class="s">}</span> <span class="s">)</span><span class="sc">;</span>
+                <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
+                    <span class="q">`mkdir -p $file{$key}`</span><span class="sc">;</span>
+                <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+                    <span class="q">`mkdir $file{$key}`</span><span class="sc">;</span>
+                <span class="s">}</span>
             <span class="s">}</span>
         <span class="s">}</span><span class="sc">;</span>
         <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>

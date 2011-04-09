@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Gammu.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -68,6 +70,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -87,7 +92,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -146,8 +150,7 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 </p>
 <hr />
 <h1><a name="copyright">COPYRIGHT</a></h1>
-<p>(c) Hugh Barnard 2005 - 2008 GPL Licenced
-</p>
+<p>(c) Hugh Barnard 2005 - 2008 GPL Licenced</p>
 <pre>
 
 =cut</pre>
@@ -180,8 +183,7 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 <h3><a name="messagehash">messagehash</a></h3>
 <p>this is the provisional solution to the multilingual message fragments
 later, it will go somewhere neater
-to change these, just substitute a translated hash
-</p>
+to change these, just substitute a translated hash</p>
 <pre>
 
 =cut</pre>
@@ -731,9 +733,7 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
 with notification type 4</p>
 <p>Within notify_by_mail, if net_smtp is switched on, the registry account rather
 than the cclite.cf account is used for the mailout, this is preferred because
-it separates 'business' between registries 11/2009
-
-</p>
+it separates 'business' between registries 11/2009</p>
 
 <pre>
 <a name="_send_sms_mail_message-"></a><span class="k">sub </span><span class="m">_send_sms_mail_message</span> <span class="s">{</span>

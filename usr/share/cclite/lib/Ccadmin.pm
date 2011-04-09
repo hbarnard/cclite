@@ -51,8 +51,8 @@ use Ccu;
 # should be a core module both *nix and Windows
 # given the problems with this and, from the microsoft doc:
 
-# When you enable command extensions (that is, the default), you can use a single mkdir command to create intermediate directories in a specified 
-# path. For more information about enabling and disabling command extensions, see cmd in Related Topics. 
+# When you enable command extensions (that is, the default), you can use a single mkdir command to create intermediate directories in a specified
+# path. For more information about enabling and disabling command extensions, see cmd in Related Topics.
 
 # use File::Path qw(make_path remove_tree);
 
@@ -200,7 +200,7 @@ sub update_config1 {
     my ( $new, $configuration, $home, $domain, $hash_type, $dir ) = @_;
     my %fields;
     my $title;
-   
+
     # guess values, if new install otherwise read existing
     if ($new) {
         my $configuration_ref =
@@ -234,13 +234,12 @@ sub update_config1 {
         $fields{updatemessage} .= "<br/>$messages{sha1warning}";
     }
 
-   # for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )
- 
-    return ( 0, '', '',
-        \%fields, "installvalues.html", "" );
- 
-   ### return ( 0, '', '/cgi-bin/protected/ccinstall.cgi',
-   ###     \%fields, "installvalues.html", "" );
+ # for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )
+
+    return ( 0, '', '', \%fields, "installvalues.html", "" );
+
+    ### return ( 0, '', '/cgi-bin/protected/ccinstall.cgi',
+    ###     \%fields, "installvalues.html", "" );
 }
 
 =head3 update_configuration2
@@ -524,14 +523,14 @@ sub add_registry {
     # --followed by dbh->do 3/2005
 
     my ( $class, $db, $table, $configref, $cookieref, $fieldsref, $token ) = @_;
-    
-    
-    if ( length($configref->{'cpanelprefix'}) ) {
-        $fieldsref->{'newregistry'}  =  $configref->{'cpanelprefix'} . '_'  . $fieldsref->{'newregistry'} ;       
-    } 
-    
-    my ($structure, @status);
-    
+
+    if ( length( $configref->{'cpanelprefix'} ) ) {
+        $fieldsref->{'newregistry'} =
+          $configref->{'cpanelprefix'} . '_' . $fieldsref->{'newregistry'};
+    }
+
+    my ( $structure, @status );
+
     my @vstatus =
       validate_registry( $class, $db, $fieldsref, $messagesref, $token, undef,
         undef );    # validate registry fields
@@ -596,9 +595,9 @@ EOT
         }
     };
     die "ccinstall: $@" if length($@);
-  
+
     # connect to db, let Cclitedb, take over prefix handling now...
-    $fieldsref->{'newregistry'}  =~  s/$configref->{'cpanelprefix'}_// ; 
+    $fieldsref->{'newregistry'} =~ s/$configref->{'cpanelprefix'}_//;
 
     my ( $registryerror, $dbh ) =
       Cclitedb::_registry_connect( $fieldsref->{newregistry}, $token );
@@ -646,13 +645,12 @@ EOT
     # watch out for auto-increment when dumping db structures too
     $fieldsref->{id} = 1;
 
-     my (
+    my (
         $package,   $filename, $line,       $subroutine, $hasargs,
         $wantarray, $evaltext, $is_require, $hints,      $bitmask
     ) = caller(1);
 
     ###print "p:$package l:$line f:$subroutine  $fieldsref->{newregistry} " ;
-
 
     update_database_record( $class, $fieldsref->{newregistry},
         'om_registry', 1, $fieldsref, 'en', $token );
@@ -890,14 +888,14 @@ sub apply_service_charge {
     #toregistry : chelsea
     $transaction{toregistry} = $db;
 
-    #tradeAmount : 23
+    #tradeAmount : 23, note conversion to 'pennies' done in the transaction itself, if using decimals...
     $transaction{tradeAmount} = $fieldsref->{value};
 
     #tradeCurrency : ducket
     $transaction{tradeCurrency} = $fieldsref->{tradeCurrency};
 
     #tradeDate : this is date of reception and processing, in fact
-    my ( $date, $time ) = &Ccu::getdateandtime( time() );
+    my ( $date, $time ) = Ccu::getdateandtime( time() );
     $transaction{tradeDate} = $date;
 
     #tradeTitle : added by this routine
@@ -996,8 +994,8 @@ sub get_set_batch_files {
     $file{smsdir} = "$configuration{smspath}/$registry";
     $file{smsout} = "$configuration{smsout}/$registry";
 
-    #FIXME: due to backed out file path, this is reintroduced, move to top of module
-    # may have to deal with Windows backslash below too..
+#FIXME: due to backed out file path, this is reintroduced, move to top of module
+# may have to deal with Windows backslash below too..
     my ( $os, $distribution, $package_type ) = get_os_and_distribution();
 
     my $err_list;
@@ -1006,11 +1004,11 @@ sub get_set_batch_files {
         eval {
             foreach my $key ( sort keys %file )
             {
-              if ($os ne 'windows') {
-               `mkdir -p $file{$key}`;
-              } else {
-               `mkdir $file{$key}`;
-              }
+                if ( $os ne 'windows' ) {
+                    `mkdir -p $file{$key}`;
+                } else {
+                    `mkdir $file{$key}`;
+                }
             }
         };
         if ($@) {

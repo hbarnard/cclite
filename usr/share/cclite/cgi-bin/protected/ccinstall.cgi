@@ -590,8 +590,6 @@ if ($@) {
     exit 0;
 }
 
-
-
 use Cccookie;              # use the cookie module
 use Ccu;                   # use the utilities module
 use Ccvalidate;            # use the validation and javascript routines

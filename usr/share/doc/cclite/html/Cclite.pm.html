@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Cclite.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -91,6 +93,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -128,13 +133,13 @@ pre { color: #000000;
 <li><a href="#notify_by_mail-">notify_by_mail</a></li>
 <li><a href="#forgotten_password-">forgotten_password</a></li>
 <li><a href="#show_balance_and_volume-">show_balance_and_volume</a></li>
+<li><a href="#_debug_hash_contents-">_debug_hash_contents</a></li>
 </ul>
 </li>
 <li><a href="#EOF-">EOF</a></li>
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -194,9 +199,6 @@ There are extra actions for remote registry checks already</p>
 <span class="c"># used for new style notify, set net_smtp to zero and comment, if not needed</span>
 <span class="k">use</span> <span class="w">Net::SMTP</span><span class="sc">;</span>
 
-<span class="c"># older non-preferred way of doing mail</span>
-<span class="k">use</span> <span class="w">Mail::Sendmail</span> <span class="q">qw(sendmail %mailcfg)</span><span class="sc">;</span>
-
 <span class="c"># notify by mail is exported now, to allow sms/email notifies</span>
 
 <span class="k">my</span> <span class="i">$VERSION</span> = <span class="n">1.00</span><span class="sc">;</span>
@@ -239,8 +241,7 @@ There are extra actions for remote registry checks already</p>
 <h3><a name="messagehash">messagehash</a></h3>
 <p>this is the provisional solution to the multilingual message fragments
 later, it will go somewhere neater
-to change these, just substitute a translated hash
-</p>
+to change these, just substitute a translated hash</p>
 <pre>
 
 =cut</pre>
@@ -271,7 +272,7 @@ with a password of 'test'</p>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="sc">;</span>
 
     <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;open id added&quot;</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;open id added&quot;</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
@@ -291,75 +292,75 @@ here, in this case, validation is skipped. August 2009</p>
 
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$hash</span>       = <span class="q">&quot;&quot;</span><span class="sc">;</span>                 <span class="c"># for the moment, needs sha1 afterwards</span>
-    <span class="k">my</span> <span class="i">$return_url</span> = <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$return_url</span> = <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="sc">;</span>
 
     <span class="c"># need nuserLogin field to make the autosuggest work in ccsuggest.cgi</span>
     <span class="c"># but must put correct field into the database</span>
 
     <span class="c"># lower case only screen names, as of 11/2008</span>
-    <span class="i">$$fieldsref</span>{<span class="w">nuserLogin</span>} =~ <span class="q">s/\s+$//</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>} = <span class="k">lc</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">nuserLogin</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">nuserLogin</span>} =~ <span class="q">s/\s+$//</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>} = <span class="k">lc</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">nuserLogin</span>} <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># api user creation gives non-validated stub records</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">logontype</span>} <span class="k">ne</span> <span class="q">&#39;api&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">logontype</span>} <span class="k">ne</span> <span class="q">&#39;api&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">@status</span> =
           <span class="i">validate_user</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span>
             <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">if</span> <span class="s">(</span> <span class="i">$status</span>[<span class="n">0</span>] == <span class="n">-1</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">shift</span> <span class="i">@status</span><span class="sc">;</span>
-            <span class="i">$$fieldsref</span>{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">errors</span>} = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@status</span> <span class="s">)</span><span class="sc">;</span>
             <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;newuser.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="c"># new users are set to initial status defined in cclite.cgi</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userStatus</span>} = <span class="i">$$fieldsref</span>{<span class="w">initialUserStatus</span>}<span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userStatus</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">initialUserStatus</span>}<span class="sc">;</span>
 
 <span class="c">#FIXME: boolean userSmsreceipt update, probably unnecessary but test, if removed</span>
-    <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span>
-      ? <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;userSmsreceipt&#39;</span>} = <span class="n">1</span> <span class="s">)</span>
-      <span class="co">:</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;userSmsreceipt&#39;</span>} = <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="c">###$log-&gt;debug(&quot;sms receipt is $$fieldsref{&#39;userSmsreceipt&#39;}&quot;) ;</span>
+    <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span>
+      ? <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} = <span class="n">1</span> <span class="s">)</span>
+      <span class="co">:</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} = <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="c">###$log-&gt;debug(&quot;sms receipt is $fieldsref-&gt;{&#39;userSmsreceipt&#39;}&quot;) ;</span>
 
     <span class="c"># FIXME: These should not be hardcoded, 3 tries, not test yet + active</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userPasswordTries</span>}  = <span class="n">3</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userPasswordStatus</span>} = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userPasswordTries</span>}  = <span class="n">3</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userPasswordStatus</span>} = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
 
     <span class="c">#</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">&amp;Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userJoindate</span>} = <span class="i">$date</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userJoindate</span>} = <span class="i">$date</span><span class="sc">;</span>
 
     <span class="c">#</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userLevel</span>}    = <span class="q">&#39;user&#39;</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>} = <span class="i">$$fieldsref</span>{<span class="w">userHash</span>}<span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userLevel</span>}    = <span class="q">&#39;user&#39;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userPassword</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">userHash</span>}<span class="sc">;</span>
 
 <span class="c"># mobile pin number is stored as hashed, status waiting, phone number reformatted</span>
 <span class="c"># pin status is always waiting until a confirm sms, 3 tries then locked</span>
 <span class="c"># FIXME: Most of these should not be hardcoded</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userPin</span>}       = <span class="i">text_to_hash</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userPinStatus</span>} = <span class="q">&#39;waiting&#39;</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userPinTries</span>}  = <span class="n">3</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>}       = <span class="i">text_to_hash</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userPinStatus</span>} = <span class="q">&#39;waiting&#39;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userPinTries</span>}  = <span class="n">3</span><span class="sc">;</span>
 
     <span class="c">#FIXME: don&#39;t assume that all mobiles are UK based, drop  this..</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} =
-      <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userMobile</span>} =
+      <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userMobile</span>} <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># add the user to the registry database</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$rc</span><span class="cm">,</span> <span class="i">$rv</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span> =
       <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c">#</span>
-    <span class="k">delete</span> <span class="i">$$fieldsref</span>{<span class="w">saveadd</span>}<span class="sc">;</span>
-    <span class="k">delete</span> <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>}<span class="sc">;</span>
+    <span class="k">delete</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">saveadd</span>}<span class="sc">;</span>
+    <span class="k">delete</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPassword</span>}<span class="sc">;</span>
 
     <span class="c">#</span>
-    <span class="i">$$fieldsref</span>{<span class="w">action</span>}     = <span class="q">&quot;confirmuser&quot;</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userStatus</span>} = <span class="q">&quot;active&quot;</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">Send</span>}       = <span class="q">&quot;$messages{confirm} $$fieldsref{userName}&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">action</span>}     = <span class="q">&quot;confirmuser&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userStatus</span>} = <span class="q">&quot;active&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">Send</span>}       = <span class="q">&quot;$messages{confirm} $fieldsref-&gt;{userName}&quot;</span><span class="sc">;</span>
 
 <span class="c"># make a hyperlink: many people will receive text-only email, therefore no buttons</span>
     <span class="k">my</span> <span class="i">$urlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">$return_url?registry=$$fieldsref{registry}&amp;subaction=om_users&amp;userLogin=$$fieldsref{userLogin}&amp;userStatus=active&amp;action=confirmuser</span>
+<span class="hh">$return_url?registry=$fieldsref-&gt;{registry}&amp;subaction=om_users&amp;userLogin=$fieldsref-&gt;{userLogin}&amp;userStatus=active&amp;action=confirmuser</span>
 <span class="h">EOT</span>
 
     <span class="c"># type 1 notification for new user</span>
@@ -367,16 +368,16 @@ here, in this case, validation is skipped. August 2009</p>
     <span class="c"># won&#39;t send email if user is intially active as default, saves an email!</span>
     <span class="k">my</span> <span class="i">$mail_return</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">initialUserStatus</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">initialUserStatus</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$mail_return</span> = <span class="i">notify_by_mail</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span>
             <span class="i">$db</span><span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">userName</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">userEmail</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">systemMailAddress</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">systemMailReplyAddress</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">smtp</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">userName</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">userEmail</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">systemMailAddress</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">systemMailReplyAddress</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">smtp</span>}<span class="cm">,</span>
             <span class="i">$urlstring</span><span class="cm">,</span>
             <span class="k">undef</span><span class="cm">,</span>
             <span class="n">1</span><span class="cm">,</span>
@@ -395,9 +396,9 @@ here, in this case, validation is skipped. August 2009</p>
 <a name="confirm_user-"></a><span class="k">sub </span><span class="m">confirm_user</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="i">update_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span>
-        <span class="q">&quot;$$fieldsref{userLogin} $messages{isnowactive}&quot;</span><span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span>
+        <span class="q">&quot;$fieldsref-&gt;{userLogin} $messages{isnowactive}&quot;</span><span class="cm">,</span>
         <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -429,33 +430,34 @@ start page via print Location. 10/2009</p>
     <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># user delivered via REST, same as form....</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;form&#39;</span> || <span class="i">$$fieldsref</span>{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;api&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$userref</span> <span class="s">)</span> =
-          <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>
-            <span class="q">&quot;userLogin&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="i">$registry_private_value</span><span class="cm">,</span>
-            <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;form&#39;</span> || <span class="i">$fieldsref</span>-&gt;{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;api&#39;</span> <span class="s">)</span>
+    <span class="s">{</span>
+        <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$userref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
+            <span class="i">$class</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
+            <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;userLogin&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>}<span class="cm">,</span>
+            <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
+        <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># test and branch to deal with bad db user and non-existent database, used  to 500</span>
         <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 <span class="c">###            $log-&gt;warn(</span>
-<span class="c">###&quot;logon database problem: s:$status u:$$fieldsref{userLogin} r:$$fieldsref{registry}&quot;</span>
+<span class="c">###&quot;logon database problem: s:$status u:$fieldsref-&gt;{userLogin} r:$fieldsref-&gt;{registry}&quot;</span>
 <span class="c">###            );</span>
             <span class="i">$html</span> =
-<span class="q">&quot;$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry}: $status &lt;a href=\&quot;$$fieldsref{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry}: $status &lt;a href=\&quot;$fieldsref-&gt;{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
             <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
                 <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
-    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;remote&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$userref</span> <span class="s">)</span> =
-          <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>
-            <span class="q">&quot;userLogin&quot;</span><span class="cm">,</span> <span class="i">$ENV</span>{<span class="w">REMOTE_USER</span>}<span class="cm">,</span> <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span>
-            <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;remote&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$userref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
+            <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&quot;userLogin&quot;</span><span class="cm">,</span> <span class="i">$ENV</span>{<span class="w">REMOTE_USER</span>}<span class="cm">,</span>
+            <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># cash, liquidity and sysaccount may not logon</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&#39;sysaccount&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&#39;sysaccount&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$html</span> =
-<span class="q">&quot;$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry}: $status &lt;a href=\&quot;$$fieldsref{home}\&quot;&gt; $messages{notallowedsysaccount}&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry}: $status &lt;a href=\&quot;$fieldsref-&gt;{home}\&quot;&gt; $messages{notallowedsysaccount}&quot;</span><span class="sc">;</span>
 
         <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
@@ -464,12 +466,12 @@ start page via print Location. 10/2009</p>
 
     <span class="c"># login failed here...need some industrial processing to deal with this</span>
     <span class="c"># no user found</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userId</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userId</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
-<span class="q">&quot;$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry} : user not found&quot;</span>
+<span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry} : user not found&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
         <span class="i">$html</span> =
-<span class="q">&quot;$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry}: $status &lt;a href=\&quot;$$fieldsref{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry}: $status &lt;a href=\&quot;$fieldsref-&gt;{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
         <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -484,32 +486,32 @@ start page via print Location. 10/2009</p>
 
     <span class="s">{</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
-<span class="q">&quot;$messages{loginfailedfor} $$fieldsref{userLogin} $messages{at} $$fieldsref{registry} : password failed&quot;</span>
+<span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry} : password failed&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#FIXME: The locking mechanism is in place but nothing for resetting and testing, bigger job...</span>
-        <span class="i">$$userref</span>{<span class="w">userPasswordTries</span>}--<span class="sc">;</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$userref</span>{<span class="q">&#39;userPasswordTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$$userref</span>{<span class="q">&#39;userPasswordStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
-            <span class="i">$$userref</span>{<span class="w">userPasswordTries</span>} = <span class="n">0</span><span class="sc">;</span>
+        <span class="i">$userref</span>-&gt;{<span class="w">userPasswordTries</span>}--<span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
+            <span class="i">$userref</span>-&gt;{<span class="w">userPasswordTries</span>} = <span class="n">0</span><span class="sc">;</span>
         <span class="s">}</span>
 
-        <span class="k">undef</span>
-          <span class="i">$$userref</span>{<span class="w">userPassword</span>}<span class="sc">;</span> <span class="c"># remove this otherwise it&#39;s rehashed and re-updated</span>
+        <span class="k">undef</span> <span class="i">$userref</span>
+          -&gt;{<span class="w">userPassword</span>}<span class="sc">;</span> <span class="c"># remove this otherwise it&#39;s rehashed and re-updated</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
           <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span>
-            <span class="i">$$userref</span>{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$userref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
 
         <span class="i">$html</span> =
-<span class="q">&quot;$messages{passwordfailedfor} $$fieldsref{userLogin} $messages{at} $db &lt;a href=\&quot;$$fieldsref{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$messages{passwordfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $db &lt;a href=\&quot;$fieldsref-&gt;{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
 
         <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># user not active</span>
-    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$html</span> =
-<span class="q">&quot;$$fieldsref{userLogin} $messages{at} $db $messages{isnotactive} &lt;a href=\&quot;$$fieldsref{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$fieldsref-&gt;{userLogin} $messages{at} $db $messages{isnotactive} &lt;a href=\&quot;$fieldsref-&gt;{home}\&quot;&gt;$messages{tryagain}&lt;/a&gt;&quot;</span><span class="sc">;</span>
         <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
@@ -518,7 +520,7 @@ start page via print Location. 10/2009</p>
         <span class="k">my</span> <span class="i">$path</span> = <span class="q">&quot;/&quot;</span><span class="sc">;</span>
 
         <span class="c">#my $nonce;</span>
-        <span class="k">my</span> <span class="i">$domain</span> = <span class="i">$$fieldsref</span>{<span class="w">domain</span>}<span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$domain</span> = <span class="i">$fieldsref</span>-&gt;{<span class="w">domain</span>}<span class="sc">;</span>
 
         <span class="k">my</span> <span class="i">$ip_address</span> = <span class="i">$ENV</span>{<span class="w">REMOTE_ADDR</span>}<span class="sc">;</span>
 
@@ -528,15 +530,15 @@ start page via print Location. 10/2009</p>
             <span class="i">$fieldsref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$ip_address</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># make cookie fields from the user table</span>
-        <span class="i">$cookie</span>{<span class="w">userLogin</span>} = <span class="i">$$userref</span>{<span class="w">userLogin</span>}<span class="sc">;</span>
+        <span class="i">$cookie</span>{<span class="w">userLogin</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
         <span class="i">$cookie</span>{<span class="w">userId</span>} =
-          <span class="i">$$userref</span>{<span class="w">userId</span>}<span class="sc">;</span>    <span class="c"># not used yet, to replace userLogin</span>
-        <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$$userref</span>{<span class="w">userLang</span>}<span class="sc">;</span>
+          <span class="i">$userref</span>-&gt;{<span class="w">userId</span>}<span class="sc">;</span>    <span class="c"># not used yet, to replace userLogin</span>
+        <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLang</span>}<span class="sc">;</span>
 
   <span class="c"># avoid cumulation of registry cookie values, this is a browser problem though</span>
-        <span class="i">$cookie</span>{<span class="w">registry</span>} = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="sc">;</span>
+        <span class="i">$cookie</span>{<span class="w">registry</span>} = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="sc">;</span>
 
-        <span class="i">$cookie</span>{<span class="w">userLevel</span>} = <span class="i">$$userref</span>{<span class="w">userLevel</span>}<span class="sc">;</span>
+        <span class="i">$cookie</span>{<span class="w">userLevel</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLevel</span>}<span class="sc">;</span>
 
         <span class="c"># make a cookie header, valid for session</span>
         <span class="i">$cookieheader</span> =
@@ -545,18 +547,18 @@ start page via print Location. 10/2009</p>
         <span class="c"># calculate date and time stamp for om_users table</span>
         <span class="c"># get date and timestamp</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">&amp;Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$$userref</span>{<span class="w">userLastLogin</span>} = <span class="q">&quot;$date$time&quot;</span><span class="sc">;</span>
-        <span class="k">undef</span>
-          <span class="i">$$userref</span>{<span class="w">userPassword</span>}<span class="sc">;</span> <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
-                                   <span class="c"># mode 2 is where userLogin = value ;</span>
+        <span class="i">$userref</span>-&gt;{<span class="w">userLastLogin</span>} = <span class="q">&quot;$date$time&quot;</span><span class="sc">;</span>
+        <span class="k">undef</span> <span class="i">$userref</span>
+          -&gt;{<span class="w">userPassword</span>}<span class="sc">;</span>  <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
+                             <span class="c"># mode 2 is where userLogin = value ;</span>
             <span class="c"># use userref to update record, should strip all other fields...</span>
             <span class="c"># throw away return codes for the present</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
           <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span>
-            <span class="i">$$userref</span>{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$userref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
 
         <span class="k">print</span> <span class="i">$cookieheader</span> <span class="sc">;</span>
-        <span class="k">print</span> <span class="q">&quot;Location:$$fieldsref{home}\n\n&quot;</span><span class="sc">;</span>
+        <span class="k">print</span> <span class="q">&quot;Location:$fieldsref-&gt;{home}\n\n&quot;</span><span class="sc">;</span>
         <span class="c">### print &quot;Location:$ENV{SCRIPT_PATH}\n\n&quot;;</span>
         <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 
@@ -579,34 +581,34 @@ security hole here...</p>
         <span class="i">$ENV</span>{<span class="w">REMOTE_ADDR</span>} <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># make cookie fields from the user table</span>
-    <span class="i">$cookie</span>{<span class="w">userLogin</span>} = <span class="i">$$userref</span>{<span class="w">userLogin</span>}<span class="sc">;</span>
-    <span class="i">$cookie</span>{<span class="w">userId</span>}   = <span class="i">$$userref</span>{<span class="w">userId</span>}<span class="sc">;</span>  <span class="c"># not used yet, to replace userLogin</span>
-    <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$$userref</span>{<span class="w">userLang</span>}<span class="sc">;</span>
+    <span class="i">$cookie</span>{<span class="w">userLogin</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
+    <span class="i">$cookie</span>{<span class="w">userId</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userId</span>}<span class="sc">;</span>   <span class="c"># not used yet, to replace userLogin</span>
+    <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLang</span>}<span class="sc">;</span>
 
   <span class="c"># avoid cumulation of registry cookie values, this is a browser problem though</span>
-    <span class="i">$cookie</span>{<span class="w">registry</span>} = <span class="i">$registry</span> || <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="sc">;</span>
+    <span class="i">$cookie</span>{<span class="w">registry</span>} = <span class="i">$registry</span> || <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="sc">;</span>
 
-    <span class="i">$cookie</span>{<span class="w">userLevel</span>} = <span class="i">$$userref</span>{<span class="w">userLevel</span>}<span class="sc">;</span>
+    <span class="i">$cookie</span>{<span class="w">userLevel</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLevel</span>}<span class="sc">;</span>
 
     <span class="c"># make a cookie header, valid for session</span>
     <span class="k">my</span> <span class="i">$cookieheader</span> =
-      <span class="i">return_cookie_header</span><span class="s">(</span> <span class="q">&quot;-1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">domain</span>}<span class="cm">,</span> <span class="q">&#39;/&#39;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">%cookie</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="i">return_cookie_header</span><span class="s">(</span> <span class="q">&quot;-1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">domain</span>}<span class="cm">,</span> <span class="q">&#39;/&#39;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">%cookie</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># calculate date and time stamp for om_users table</span>
     <span class="c"># get date and timestamp</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">&amp;Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$$userref</span>{<span class="w">userLastLogin</span>} = <span class="q">&quot;$date$time&quot;</span><span class="sc">;</span>
-    <span class="k">undef</span>
-      <span class="i">$$userref</span>{<span class="w">userPassword</span>}<span class="sc">;</span> <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
-                               <span class="c"># mode 2 is where userLogin = value ;</span>
+    <span class="i">$userref</span>-&gt;{<span class="w">userLastLogin</span>} = <span class="q">&quot;$date$time&quot;</span><span class="sc">;</span>
+    <span class="k">undef</span> <span class="i">$userref</span>
+      -&gt;{<span class="w">userPassword</span>}<span class="sc">;</span>    <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
+                           <span class="c"># mode 2 is where userLogin = value ;</span>
         <span class="c"># use userref to update record, should strip all other fields...</span>
         <span class="c"># throw away return codes for the present</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
       <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">registry</span>}<span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span>
-        <span class="i">$userref</span><span class="cm">,</span> <span class="i">$$userref</span>{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$userref</span><span class="cm">,</span> <span class="i">$userref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">print</span> <span class="i">$cookieheader</span> <span class="sc">;</span>
-    <span class="k">print</span> <span class="q">&quot;Location:$$fieldsref{home}\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;Location:$fieldsref-&gt;{home}\n\n&quot;</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 
 <span class="s">}</span>
@@ -622,19 +624,19 @@ security hole here...</p>
     <span class="k">my</span> <span class="i">$compare_password</span> = <span class="n">0</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$compare_api_key</span>  = <span class="n">0</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;form&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;logontype&#39;</span>} <span class="k">eq</span> <span class="q">&#39;form&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="i">$compare_password</span> = <span class="i">compare_password</span><span class="s">(</span>
             <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userHash&#39;</span>}<span class="cm">,</span>
             <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userPassword&#39;</span>}<span class="cm">,</span>
-            <span class="i">$$userref</span>{<span class="w">userPassword</span>}
+            <span class="i">$userref</span>-&gt;{<span class="w">userPassword</span>}
         <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
 
     <span class="c"># password failed and it comes from the api key hash</span>
     <span class="c"># first cut drupal and elgg etc. connections 08/2009</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">logontype</span>} <span class="k">eq</span> <span class="q">&#39;api&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;logontype&#39;</span>} <span class="k">eq</span> <span class="q">&#39;api&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="i">$compare_api_key</span> = <span class="i">compare_api_key</span><span class="s">(</span>
             <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span>
@@ -661,9 +663,9 @@ Again this should probably be moved away from Cclite</p>
 
     <span class="k">my</span> <span class="i">$goodbye</span> = <span class="q">&quot;$messages{goodbye} $cookieref-&gt;{userLogin}&quot;</span><span class="sc">;</span>
 
-    <span class="i">$$fieldsref</span>{<span class="w">youare</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">at</span>}     = <span class="q">&quot;&quot;</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">action</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">youare</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">at</span>}     = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">action</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$cookieref</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$cookieref</span>-&gt;{<span class="i">$key</span>} = <span class="k">undef</span><span class="sc">;</span>
@@ -720,7 +722,8 @@ some way to go though...</p>
     <span class="k">my</span> <span class="i">$allow_changes</span> = <span class="n">0</span><span class="sc">;</span>    <span class="c"># used only to avoid repeating a complex test</span>
 
     <span class="c"># these come from Ajax search boxes</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string&#39;</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string1&#39;</span>}
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string&#39;</span>} =
+         <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string1&#39;</span>}
       || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string2&#39;</span>}
       || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string3&#39;</span>}<span class="sc">;</span>
 
@@ -761,9 +764,11 @@ some way to go though...</p>
 
         <span class="k">if</span> <span class="s">(</span>
             <span class="i">$$cookieref</span>{<span class="w">userLevel</span>} <span class="k">eq</span> <span class="q">&quot;admin&quot;</span>
-            || <span class="s">(</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&quot;om_yellowpages&quot;</span> <span class="s">)</span>
+            || <span class="s">(</span>
+                <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&quot;om_yellowpages&quot;</span> <span class="s">)</span>
                 &amp;&amp; <span class="s">(</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;fromuserid&#39;</span>} <span class="k">eq</span>
-                    <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span>
+                    <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span>
+            <span class="s">)</span>
           <span class="s">)</span>
         <span class="s">{</span>
 
@@ -844,7 +849,7 @@ some way to go though...</p>
 
         <span class="i">$header</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">      &lt;tr&gt;</span>
-<span class="hh">         &lt;td class=&quot;pme-key-1&quot; colspan=&quot;$colspan&quot;&gt;$messages{found} $count $messages{recordswith} &quot;$$fieldsref{string}&quot; $messages{in} $table_title&lt;/td&gt;</span>
+<span class="hh">         &lt;td class=&quot;pme-key-1&quot; colspan=&quot;$colspan&quot;&gt;$messages{found} $count $messages{recordswith} &quot;$fieldsref-&gt;{string}&quot; $messages{in} $table_title&lt;/td&gt;</span>
 <span class="hh">         &lt;td class=&quot;pme-key-1&quot;&gt;&lt;/td&gt;</span>
 <span class="hh">     &lt;/tr&gt;</span>
 <span class="h">EOT</span>
@@ -983,11 +988,11 @@ html is somewhat complete and in another language...</p>
     <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">%cookie</span>    = <span class="i">%$cookieref</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$path</span>      = <span class="q">&quot;&quot;</span><span class="sc">;</span>
-    <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$$fieldsref</span>{<span class="w">language</span>}<span class="sc">;</span>
+    <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">language</span>}<span class="sc">;</span>
     <span class="k">my</span> <span class="i">$pages</span> =
       <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;$template_dir/$fieldsref-&gt;{language}&quot;</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$cookies</span> = <span class="i">return_cookie_header</span><span class="s">(</span> <span class="q">&quot;-1&quot;</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$path</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">%cookie</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">languagechanged</span>}<span class="cm">,</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">languagechanged</span>}<span class="cm">,</span>
         <span class="i">$pages</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -1003,7 +1008,7 @@ can modify credit limit fields etc.</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$hash</span>       = <span class="q">&quot;&quot;</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$return_url</span> = <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$return_url</span> = <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="sc">;</span>
 
     <span class="i">@status</span> =
       <span class="i">validate_user</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
@@ -1018,7 +1023,7 @@ can modify credit limit fields etc.</p>
     <span class="s">}</span>
 
     <span class="c"># mobile pin number is stored as hashed</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} = <span class="i">text_to_hash</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} = <span class="i">text_to_hash</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span>
         <span class="i">$refresh</span><span class="cm">,</span>  <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>   <span class="i">$html</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
@@ -1100,12 +1105,12 @@ the transaction function
     <span class="k">push</span> <span class="i">@errors</span><span class="cm">,</span> <span class="q">&quot;rdb1: $status&quot;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># destination user doesn&#39;t exist</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@errors</span><span class="cm">,</span> <span class="q">&#39;nonexist&#39;</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># destination user does exist but inactive</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@errors</span><span class="cm">,</span> <span class="q">&#39;userinactive&#39;</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -1397,12 +1402,12 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
         <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="q">&quot;db4: $status&quot;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># destination user doesn&#39;t exist</span>
-        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">nonexist</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="c"># destination user does exist but inactive</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">userinactive</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
@@ -1509,19 +1514,25 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
     <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="q">&quot;db7: $error&quot;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$local_status</span>[<span class="n">0</span>] <span class="s">)</span> || <span class="k">length</span><span class="s">(</span> <span class="i">$remote_status</span>[<span class="n">0</span>] <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">transactionrejected</span>}<span class="sc">;</span>
-    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span>
 <span class="q">&quot;$messages{transactionaccepted}&lt;br/&gt;Ref:&amp;nbsp;$transaction{tradeHash}&quot;</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span>
+<span class="q">&quot;\&quot;message\&quot;:\&quot;$messages{transactionaccepted}\&quot;, \&quot;reference\&quot;:\&quot;$transaction{tradeHash}\&quot;&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># default separator is for html</span>
     <span class="k">my</span> <span class="i">$separator</span> = <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
-    <span class="i">$separator</span> = <span class="q">&#39;,&#39;</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;csv&#39;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$separator</span> = <span class="q">&#39;,&#39;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;csv&#39;</span> || <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$output_message</span> =
       <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">@translated_remote_status</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;engine&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span>   <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;engine&#39;</span>
+        &amp;&amp; <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span>
+    <span class="s">{</span>
 
         <span class="k">return</span> <span class="s">(</span>
             <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="q">&quot;$$transaction_ref{home}?action=showtransnotify_by_mail&quot;</span><span class="cm">,</span>
@@ -1531,10 +1542,11 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
             <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
 
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;\{$output_message\}&quot;</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="q">&quot;\{$output_message\}&quot;</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-
         <span class="k">return</span> <span class="i">$transaction_ref</span><span class="sc">;</span>
-
     <span class="s">}</span>
 
 <span class="s">}</span>
@@ -1619,8 +1631,7 @@ in here, they are database enums, not message literals</p>
 
 </pre><p></p>
 <h3><a name="delete_trade">delete_trade</a></h3>
-<p>This operation should probably NOT be allowed on an established transaction
-</p>
+<p>This operation should probably NOT be allowed on an established transaction</p>
 <pre>
 
 Needs the timestamp to identify it
@@ -1697,8 +1708,7 @@ this is how a trade should be cancelled</p>
 and user</p>
 <p>get via get_where and delete via delete_database_record
 these are packed together to increase web services efficiency
-This is a remote trade that cannot be identified via an id
-</p>
+This is a remote trade that cannot be identified via an id</p>
 <pre>
 
 Need check here that multiple trades aren't returned for mirror
@@ -1837,8 +1847,7 @@ Remote one needs 'get where fromuser = user and timestamp = timestamp</p>
 and user</p>
 <p>get via get_where and delete via delete_database_record
 these are packed together to increase web services efficiency
-This is a remote trade that cannot be identified via an id
-</p>
+This is a remote trade that cannot be identified via an id</p>
 <pre>
 
 Need check here that multiple trades aren't returned for mirror
@@ -1920,8 +1929,8 @@ xx/2008: get_trades added to start to unscramble...</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&quot;om_trades&quot;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$total_count</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> =
-          <span class="i">get_trades</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="i">$trade_type</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span>
-            <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+          <span class="i">get_trades</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>}<span class="cm">,</span>
+            <span class="i">$trade_type</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> = <span class="i">get_where_multiple</span><span class="s">(</span>
@@ -1938,6 +1947,14 @@ xx/2008: get_trades added to start to unscramble...</p>
 
     <span class="c"># unhappily the id field used in each table is inconsistent</span>
     <span class="k">my</span> <span class="i">$id</span> = <span class="i">get_id_name</span><span class="s">(</span><span class="i">$table</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># only refresh is [mis]used to carry json payload if json is being returned 2/2011</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="s">(</span><span class="i">$json</span><span class="s">)</span> =
+          <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="cm">,</span>
+            <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
+    <span class="s">}</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span><span class="s">(</span> <span class="i">%</span>{<span class="i">$hash_ref</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -1967,7 +1984,7 @@ xx/2008: get_trades added to start to unscramble...</p>
                 <span class="s">(</span>
                     <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&quot;om_yellowpages&quot;</span> <span class="s">)</span>
                     &amp;&amp; <span class="s">(</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;fromuserid&#39;</span>} <span class="k">eq</span>
-                        <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>} <span class="s">)</span>
+                        <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span>
                 <span class="s">)</span>
                 || <span class="s">(</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">ne</span> <span class="q">&quot;om_trades&quot;</span> <span class="s">)</span> &amp;&amp; <span class="i">is_admin</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span>
                 || <span class="s">(</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&quot;om_openid&quot;</span> <span class="s">)</span> <span class="s">)</span>
@@ -1993,7 +2010,7 @@ xx/2008: get_trades added to start to unscramble...</p>
                 <span class="c"># if the record is a trade, then the delete operation becomes</span>
                 <span class="c"># &#39;modify the status to cancel&#39;</span>
 
-                <span class="i">$$fieldsref</span>{<span class="w">tradeStatus</span>} = <span class="q">&quot;cancelled&quot;</span><span class="sc">;</span>
+                <span class="i">$fieldsref</span>-&gt;{<span class="w">tradeStatus</span>} = <span class="q">&quot;cancelled&quot;</span><span class="sc">;</span>
                 <span class="i">$delete_button</span> =
                   <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">modify</span>}<span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&quot;template&quot;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span>
                     <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
@@ -2030,7 +2047,7 @@ xx/2008: get_trades added to start to unscramble...</p>
           <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_currencies&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># experimental: show decimal places for trades</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&quot;yes&quot;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&quot;yes&quot;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} =~ <span class="q">s/(\d{2})$/.$1/</span>
               <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_trades&#39;</span> <span class="s">)</span><span class="sc">;</span>
             <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_trades&#39;</span>
@@ -2047,7 +2064,7 @@ xx/2008: get_trades added to start to unscramble...</p>
 
         <span class="k">my</span> <span class="i">$buttons</span><span class="sc">;</span>
 
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">mode</span>} <span class="k">ne</span> <span class="q">&#39;csv&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">mode</span>} <span class="k">ne</span> <span class="q">&#39;csv&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&quot;om_trades&quot;</span> <span class="s">)</span> <span class="s">{</span>
                 <span class="i">$buttons</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">          &lt;td class=&quot;pme-key-1&quot;&gt;$display_button&lt;/td&gt;</span>
@@ -2076,7 +2093,7 @@ xx/2008: get_trades added to start to unscramble...</p>
     <span class="s">}</span>    <span class="c"># end of loop for records</span>
 
     <span class="k">my</span> <span class="i">$template</span> = <span class="q">&quot;result.html&quot;</span>
-      <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">resulttemplate</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">resulttemplate</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># only do all the formatting, if there are some results returned</span>
     <span class="k">my</span> <span class="i">$col_titles</span><span class="sc">;</span>
@@ -2092,7 +2109,7 @@ xx/2008: get_trades added to start to unscramble...</p>
     <span class="k">my</span> <span class="i">$header</span><span class="sc">;</span>
 
     <span class="c"># if there&#39;s more than one page and not csv show paging</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$paging_html</span><span class="s">)</span> &amp;&amp; <span class="i">$$fieldsref</span>{<span class="w">mode</span>} <span class="k">ne</span> <span class="q">&#39;csv&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$paging_html</span><span class="s">)</span> &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="w">mode</span>} <span class="k">ne</span> <span class="q">&#39;csv&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$header</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">   &lt;tr&gt;</span>
 <span class="hh">         &lt;td class=&quot;pme-key-title&quot; colspan=&quot;$thisspan&quot;&gt;$messages{pages} $paging_html&lt;/td&gt;</span>
@@ -2113,7 +2130,7 @@ xx/2008: get_trades added to start to unscramble...</p>
         <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">ne</span> <span class="q">&quot;om_trades&quot;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">unshift</span> <span class="i">@columns</span><span class="cm">,</span>
               <span class="s">(</span> <span class="i">$messages</span>{<span class="w">display</span>}<span class="cm">,</span> <span class="i">$messages</span>{<span class="w">modify</span>}<span class="cm">,</span> <span class="i">$messages</span>{<span class="w">delete</span>} <span class="s">)</span><span class="sc">;</span>
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">mode</span>} <span class="k">ne</span> <span class="q">&#39;csv&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">mode</span>} <span class="k">ne</span> <span class="q">&#39;csv&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">unshift</span> <span class="i">@columns</span><span class="cm">,</span>
               <span class="s">(</span> <span class="i">$messages</span>{<span class="w">display</span>}<span class="cm">,</span> <span class="i">$messages</span>{<span class="w">ok</span>}<span class="cm">,</span> <span class="i">$messages</span>{<span class="w">no</span>} <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>    <span class="c"># end of unshift column titles</span>
@@ -2335,7 +2352,7 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
                 <span class="s">}</span>
             <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">eq</span> <span class="q">&quot;checkbox&quot;</span> <span class="s">)</span> <span class="s">{</span>
                 <span class="i">$name</span> = <span class="q">&quot;$item$x&quot;</span><span class="sc">;</span>
-                <span class="i">$checked</span> = <span class="q">&quot;checked&quot;</span> <span class="k">if</span> <span class="s">(</span> <span class="k">defined</span> <span class="i">$$fieldsref</span>{<span class="i">$name</span>} <span class="s">)</span><span class="sc">;</span>
+                <span class="i">$checked</span> = <span class="q">&quot;checked&quot;</span> <span class="k">if</span> <span class="s">(</span> <span class="k">defined</span> <span class="i">$fieldsref</span>-&gt;{<span class="i">$name</span>} <span class="s">)</span><span class="sc">;</span>
                 <span class="i">$option_string</span> .=
 <span class="q">&quot;&lt;input type=\&quot;checkbox\&quot; name=\&quot;$name\&quot; $checked value=\&quot;$item\&quot;&gt;\u$item &amp;nbsp;&quot;</span><span class="sc">;</span>
                 <span class="k">undef</span> <span class="i">$checked</span><span class="sc">;</span>
@@ -2374,9 +2391,6 @@ and may be a current problem</p>
     <span class="c"># new style configuration read</span>
     <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from</span><span class="cm">,</span> <span class="i">$subject</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="c"># cite an additional mailserver if necessary, localhost is default</span>
-    <span class="i">$mailcfg</span>{<span class="w">smtp</span>} = <span class="s">[</span><span class="q">qw(localhost $smtp)</span><span class="s">]</span> <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$smtp</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$notificationtype</span> == <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -2525,6 +2539,12 @@ and may be a current problem</p>
                 <span class="w">Message</span> <span class="cm">=&gt;</span> <span class="i">$message</span><span class="cm">,</span>
             <span class="s">)</span><span class="sc">;</span>
 
+            <span class="c"># older non-preferred way of doing mail</span>
+            <span class="c"># cite an additional mailserver if necessary, localhost is default</span>
+            <span class="k">my</span> <span class="i">%mailcfg</span><span class="sc">;</span>
+            <span class="i">$mailcfg</span>{<span class="q">&#39;smtp&#39;</span>} = <span class="s">[</span><span class="q">qw(localhost $smtp)</span><span class="s">]</span> <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$smtp</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+            <span class="k">eval</span> <span class="s">{</span> <span class="k">require</span> <span class="q">&quot;Mail::Sendmail qw(sendmail %mailcfg)&quot;</span> <span class="s">}</span><span class="sc">;</span>
             <span class="i">sendmail</span><span class="s">(</span><span class="i">%mail</span><span class="s">)</span> <span class="k">or</span> <span class="k">die</span> <span class="i">$Mail::Sendmail::error</span><span class="sc">;</span>
 
         <span class="s">}</span><span class="sc">;</span>
@@ -2553,53 +2573,54 @@ and returns</p>
     <span class="c"># get the user record from the database, depending on login type</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$userref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$userref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
-        <span class="i">$class</span><span class="cm">,</span>      <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span>
+        <span class="i">$class</span><span class="cm">,</span>      <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
         <span class="q">&quot;om_users&quot;</span><span class="cm">,</span>  <span class="q">&#39;*&#39;</span><span class="cm">,</span>
-        <span class="q">&quot;userEmail&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">userEmail</span>}<span class="cm">,</span>
+        <span class="q">&quot;userEmail&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userEmail</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span>      <span class="i">$offset</span><span class="cm">,</span>
         <span class="i">$limit</span>
     <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># no user found for this email</span>
     <span class="c"># FIXME: Fixed bug in return signature, add tests into test suite...</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userId</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userId</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$html</span> =
-<span class="q">&quot;email not found $$fieldsref{userEmail} at $$fieldsref{registry}: $status&quot;</span><span class="sc">;</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span>
+<span class="q">&quot;email not found $fieldsref-&gt;{userEmail} at $fieldsref-&gt;{registry}: $status&quot;</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$userref</span>{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$html</span> = <span class="q">&quot;user $$fieldsref{userLogin} at $db is not active&quot;</span><span class="sc">;</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$html</span> = <span class="q">&quot;user $fieldsref-&gt;{userLogin} at $db is not active&quot;</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$password</span> = <span class="i">random_password</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># get a random password</span>
 
-        <span class="i">$$userref</span>{<span class="w">userPassword</span>} = <span class="i">$password</span><span class="sc">;</span> <span class="c"># don&#39;t hash it done at update time</span>
+        <span class="i">$userref</span>-&gt;{<span class="w">userPassword</span>} =
+          <span class="i">$password</span><span class="sc">;</span>                         <span class="c"># don&#39;t hash it done at update time</span>
 
 <span class="c">#FIXME: mild kludge to make om_user specific update processing work in Cclitedb/Ccvalidate</span>
-        <span class="i">$$userref</span>{<span class="w">action</span>}  = <span class="q">&#39;update&#39;</span><span class="sc">;</span>
-        <span class="i">$$userref</span>{<span class="w">userPin</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+        <span class="i">$userref</span>-&gt;{<span class="w">action</span>}  = <span class="q">&#39;update&#39;</span><span class="sc">;</span>
+        <span class="i">$userref</span>-&gt;{<span class="w">userPin</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
 
         <span class="k">my</span> <span class="i">$passwordstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh"> $messages{heresyourpassword} $$fieldsref{registry}, $messages{pleasechangeit}\n\n</span>
+<span class="hh"> $messages{heresyourpassword} $fieldsref-&gt;{registry}, $messages{pleasechangeit}\n\n</span>
 <span class="hh">  $password</span>
 <span class="h">EOT</span>
 
         <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
-          <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">registry</span>}<span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span>
-            <span class="i">$userref</span><span class="cm">,</span> <span class="i">$$userref</span>{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+          <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
+            <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span> <span class="i">$userref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># ....and mail it</span>
 
         <span class="k">my</span> <span class="i">$mail_return</span> = <span class="i">notify_by_mail</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span>
             <span class="i">$db</span><span class="cm">,</span>
-            <span class="i">$$userref</span>{<span class="w">userName</span>}<span class="cm">,</span>
-            <span class="i">$$userref</span>{<span class="w">userEmail</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">systemMailAddress</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">systemMailReplyAddress</span>}<span class="cm">,</span>
-            <span class="i">$$userref</span>{<span class="w">userLogin</span>}<span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">smtp</span>}<span class="cm">,</span>
+            <span class="i">$userref</span>-&gt;{<span class="w">userName</span>}<span class="cm">,</span>
+            <span class="i">$userref</span>-&gt;{<span class="w">userEmail</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">systemMailAddress</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">systemMailReplyAddress</span>}<span class="cm">,</span>
+            <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>}<span class="cm">,</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">smtp</span>}<span class="cm">,</span>
             <span class="i">$passwordstring</span><span class="cm">,</span>
             <span class="k">undef</span><span class="cm">,</span>
             <span class="n">2</span><span class="cm">,</span>
@@ -2608,7 +2629,7 @@ and returns</p>
 
         <span class="i">$html</span> = <span class="i">$messages</span>{<span class="w">passwordsent</span>}<span class="sc">;</span>
         <span class="c">###return;</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 <span class="s">}</span>
@@ -2616,8 +2637,7 @@ and returns</p>
 </pre><p></p>
 <h3><a name="show_balance_and_volume1">show_balance_and_volume1</a></h3>
 <p>Create and display balances. For a given user calculate volume of trade activity
-and current balance for each currency for which they participate
-</p>
+and current balance for each currency for which they participate</p>
 <pre>
 
 Necessary anyway for user, also for transaction fees and demurrage, perhaps
@@ -2638,7 +2658,7 @@ Same signature as get many items</pre>
 <pre>
     # hack for large limit clause...
     my ( $registry_error, $total_count, $hash_ref ) =
-      get_trades( 'local', $db, $$fieldsref{userLogin}, $type, $token, 0,
+      get_trades( 'local', $db, $fieldsref-&gt;{userLogin}, $type, $token, 0,
         99999999 );</pre>
 <pre>
     my %balances;    #  hash of balances keyed on currency
@@ -2667,7 +2687,7 @@ Same signature as get many items</pre>
               $hash_ref-&gt;{$key}-&gt;{'tradeAmount'};    # add to the currency accumulator: signed
         }</pre>
 <p># cumulate month also, add only, to give 'volume': abs is used because balances are signed
-        $balances{``$year-$month-$hash_ref-&gt;{$key}-&gt;{'tradeCurrency'}''} += abs( $hash_ref-&gt;{$key}-&gt;{'tradeAmount'} );
+        $balances{&quot;$year-$month-$hash_ref-&gt;{$key}-&gt;{'tradeCurrency'}&quot;} += abs( $hash_ref-&gt;{$key}-&gt;{'tradeAmount'} );
         $volumes{ $hash_ref-&gt;{$key}-&gt;{'tradeCurrency'} }++;
     }</p>
 <pre>
@@ -2676,7 +2696,7 @@ Same signature as get many items</pre>
     # reverse sort, most recent entries first 2005 before 2004 etc.</pre>
 <pre>
     # maxreport can be passed in to give a 'little' sidebar display
-    my $maxreport = $$fieldsref{maxreport} || 6;</pre>
+    my $maxreport = $fieldsref-&gt;{maxreport} || 6;</pre>
 <pre>
     my %counts;    # count history for each currency</pre>
 <pre>
@@ -2706,9 +2726,9 @@ Same signature as get many items</pre>
 # make stripey styles
         my $row_style;
         if ( $record_counter % 2 ) {
-            $row_style = ``odd'';
+            $row_style = &quot;odd&quot;;
         } else {
-            $row_style = ``even'';
+            $row_style = &quot;even&quot;;
         }</p>
 <pre>
         $line =~ s/key-1/key-debit/ if ( $balances{$currency} &lt; 0 );
@@ -2717,10 +2737,10 @@ Same signature as get many items</pre>
         $record_counter++;
     }
     my $title .= &lt;&lt;EOT;</pre>
-<p>&lt;tr&gt;&lt;td class=\``pme-key-title\''&gt;$messages{currency}&lt;/td&gt;
-&lt;td class=\``pme-key-title\''&gt;$messages{balance}&lt;/td&gt;
-&lt;td class=\``pme-key-title\''&gt;$messages{trades}&lt;/td&gt;
-&lt;td class=\``pme-key-title\''&gt;$messages{tradevolumes}&lt;/td&gt;&lt;/tr&gt;
+<p>&lt;tr&gt;&lt;td class=\&quot;pme-key-title\&quot;&gt;$messages{currency}&lt;/td&gt;
+&lt;td class=\&quot;pme-key-title\&quot;&gt;$messages{balance}&lt;/td&gt;
+&lt;td class=\&quot;pme-key-title\&quot;&gt;$messages{trades}&lt;/td&gt;
+&lt;td class=\&quot;pme-key-title\&quot;&gt;$messages{tradevolumes}&lt;/td&gt;&lt;/tr&gt;
 EOT</p>
 <pre>
     $html = &quot;&lt;table&gt;&lt;tbody class=\&quot;stripy\&quot;&gt;$title$html&lt;/tbody&gt;&lt;/table&gt;&quot;;</pre>
@@ -2728,31 +2748,28 @@ EOT</p>
     # default behaviour is to return html
     if ( $mode eq 'html' || !length($mode) ) {
         my $template = &quot;result.html&quot;
-          if ( !length( $$fieldsref{resulttemplate} ) );
+          if ( !length( $fieldsref-&gt;{resulttemplate} ) );
         return ( 0, '', $error, $html, $template, '' );
     } elsif ( $mode eq 'values' ) {
         return ( \%balances, \%volumes );
     }
 
 </pre>
-<p>}
-
-</p>
+<p>}</p>
 <p>
 </p>
 <h3><a name="show_balance_and_volume">show_balance_and_volume</a></h3>
 <p>New version, more heavy lifting done in sql, sql moved to Cclitedb
-Some html remains for the moment...
-
-</p>
+Some html remains for the moment...</p>
 
 <pre>
 <a name="show_balance_and_volume-"></a><span class="k">sub </span><span class="m">show_balance_and_volume</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$user</span><span class="cm">,</span> <span class="i">$mode</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">$months_back</span> =
-      <span class="n">4</span><span class="sc">;</span>    <span class="c">#FIXME how many previous months to display, configurable later</span>
+    <span class="c">#FIXME how many previous months to display, configurable later</span>
+    <span class="k">my</span> <span class="i">$months_back</span> = <span class="n">4</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="i">%month_hash</span><span class="sc">;</span>    <span class="c"># contains lines by month only the last x are printed</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$month_titles</span><span class="cm">,</span> <span class="i">$row_style</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$month_counter</span> = <span class="n">0</span><span class="sc">;</span>
@@ -2767,6 +2784,11 @@ Some html remains for the moment...
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$balance_hash_ref</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$total_balance</span>{ <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;currency&#39;</span>} } +=
           <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;sum&#39;</span>}<span class="sc">;</span>
+
+        <span class="c">###$log-&gt;debug(&quot;currency: $key = $balance_hash_ref-&gt;{$key}-&gt;{&#39;currency&#39;} &quot;) ;</span>
+        <span class="c">###$log-&gt;debug(&quot;sum: $key = $balance_hash_ref-&gt;{$key}-&gt;{&#39;sum&#39;} &quot;) ;</span>
+        <span class="c">###$log-&gt;debug(&quot;total: $balance_hash_ref-&gt;{$key}-&gt;{&#39;currency&#39;}  = $total_balance{ $balance_hash_ref-&gt;{$key}-&gt;{&#39;currency&#39;} } &quot;) ;</span>
+
         <span class="k">if</span> <span class="s">(</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">eq</span> <span class="q">&#39;html&#39;</span> || !<span class="k">length</span><span class="s">(</span><span class="i">$mode</span><span class="s">)</span> <span class="s">)</span>
             &amp;&amp; <span class="i">$month_counter</span> &lt;= <span class="i">$months_back</span> <span class="s">)</span>
         <span class="s">{</span>
@@ -2818,9 +2840,38 @@ Some html remains for the moment...
         <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="q">&quot;$volume_table $html_totals&lt;hr/&gt;&quot;</span><span class="cm">,</span>
             <span class="i">$template</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">eq</span> <span class="q">&#39;values&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">return</span> <span class="s">(</span> <span class="i">$balance_hash_ref</span><span class="cm">,</span> <span class="i">$volume_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="k">return</span> <span class="s">(</span> \<span class="i">%total_balance</span><span class="cm">,</span> \<span class="i">%total_count</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+<span class="c"># only refresh is [mis]used to carry json payload if json is being returned 2/2011</span>
+        <span class="k">my</span> <span class="i">$json</span> = <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_transactions&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span>
+            <span class="i">$balance_hash_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$json1</span> .=
+          <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_transactions&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span>
+            <span class="i">$volume_hash_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="q">&quot;$json|$json1&quot;</span><span class="sc">;</span>    <span class="c"># delivers two structures though....</span>
     <span class="s">}</span>
 
+    <span class="c"># }</span>
+
+<span class="s">}</span>
+
+<a name="_debug_hash_contents-"></a><span class="k">sub </span><span class="m">_debug_hash_contents</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span><span class="i">$fields_ref</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$x</span><span class="sc">;</span>
+
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$hash_key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$fields_ref</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$x</span> .= <span class="q">&quot;$hash_key: $fields_ref-&gt;{$hash_key}\n&quot;</span><span class="sc">;</span>
+
+    <span class="s">}</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;pack:$package file:$filename line:$line&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;fields: $x&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="n">1</span><span class="sc">;</span>

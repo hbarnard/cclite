@@ -40,8 +40,10 @@ pre { color: #000000;
 <a name="-top-"></a>
 <h1>Ccinterfaces.pm</h1>
 
-<p><a name="__index__"></a></p>
+
 <!-- INDEX BEGIN -->
+<div name="index">
+<p><a name="__index__"></a></p>
 
 <ul>
 
@@ -65,6 +67,9 @@ pre { color: #000000;
 	</ul>
 
 </ul>
+
+<hr name="index" />
+</div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
@@ -81,7 +86,6 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<hr />
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
@@ -112,8 +116,7 @@ If there's smart card, it'll go here</p>
 </p>
 <hr />
 <h1><a name="copyright">COPYRIGHT</a></h1>
-<p>(c) Hugh Barnard 2005 GPL Licenced
-</p>
+<p>(c) Hugh Barnard 2005 GPL Licenced</p>
 <pre>
 
 =cut</pre>
@@ -142,8 +145,7 @@ If there's smart card, it'll go here</p>
 <h3><a name="messagehash">messagehash</a></h3>
 <p>this is the provisional solution to the multilingual message fragments
 later, it will go somewhere neater
-to change these, just substitute a translated hash
-</p>
+to change these, just substitute a translated hash</p>
 <pre>
 
 =cut</pre>
@@ -269,8 +271,7 @@ a set of transactions. It therefore has to do a email address to user name
 look up, data reformatting etc.</p>
 <p>This will only go registry-a to registry-a, at present
 when you say 'at' it's assumed that the to and from registries
-are the same
-</p>
+are the same</p>
 <pre>
 
 example mail text
@@ -413,7 +414,7 @@ a set of transactions.</p>
 <p>Prints a new file showing accepted transactions and rejected ones</p>
 <p>example text
    0 date     1 from 2 to	3 fromreg 4 toreg  5 currency 6 type 7 taxflag  8 amount   9 description
-``10-04-2005'',``ddawg'',``manager'',``dalston'',``dalston'',``ducket'',``credit'',``N'',345,``test1''
+&quot;10-04-2005&quot;,&quot;ddawg&quot;,&quot;manager&quot;,&quot;dalston&quot;,&quot;dalston&quot;,&quot;ducket&quot;,&quot;credit&quot;,&quot;N&quot;,345,&quot;test1&quot;
 This will move to GPG encoded at -some- stage</p>
 <p>Note that $db is empty, the registries are declared in the transactions
 themselves. It has remained to keep the function signatures consistent.</p>
@@ -575,13 +576,9 @@ themselves. It has remained to keep the function signatures consistent.</p>
 <p>transaction from oscommerce, authorised with merchantkey
 this is a work in progress at present.</p>
 <p>Several transactions are generated depending on the (Cclite) user
-in the OsCommerce manufacturer fields. This is the 'link' between the two systems
-
-</p>
+in the OsCommerce manufacturer fields. This is the 'link' between the two systems</p>
 <p>Currently there's still work to be
-done to generate a merchant key: hotbits + hashing probably for the moment.
-
-</p>
+done to generate a merchant key: hotbits + hashing probably for the moment.</p>
 
 <pre>
 <a name="oscommerce_transaction-"></a><span class="k">sub </span><span class="m">oscommerce_transaction</span> <span class="s">{</span>

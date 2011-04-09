@@ -105,10 +105,18 @@ sub _dying_message {
 
     my ($configfile) = @_;
 
+    
+    my (
+        $package,   $filename, $line,       $subroutine, $hasargs,
+        $wantarray, $evaltext, $is_require, $hints,      $bitmask
+    ) = caller(4);
+
     my $message = <<EOT;
     Configuration file not found at: $configfile <br/>
     Please use the <a title=\"cclite google group\" href=\"http://groups.google.co.uk/group/cclite\">Cclite Google Group</a>
     for help, if necessary
+    
+    package:$package line:$line function:$subroutine
 EOT
 
     return $message;
