@@ -20,7 +20,7 @@
 
 sub print_statements {
 
-    my ( $class, $db, $user, $document, $title, $table_lines, $column_headers_hash_ref,
+    my ( $class, $db, $user_hash_ref, $document, $title, $table_lines, $column_headers_hash_ref,
         $token )
       = @_;
 
@@ -28,45 +28,84 @@ sub print_statements {
     my $item_counter      = 1;
     my $table_row_counter = 1;
     my $table_counter     = 1;
+ 
 
-    my ($error, $count, $trade_hash_ref) = get_trades ( $class, $db, $user, 'active', $token, '', '' ) ;
+    my $sqlstring = <<EOT; 
+SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, format((tradeAmount/100),2) as total from om_trades 
+ where (tradeSource = '$user_hash_ref->{'userLogin'}' and tradeType = 'debit' and month(tradeDate) = '4')
+union
+SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, format((tradeAmount/100),2) as total from om_trades 
+ where (tradeDestination = '$user_hash_ref->{'userLogin'}' and tradeType = 'credit' and month(tradeDate) = '4')
+
+EOT
+
+ 
+    my ($registryerror, $trade_hash_ref) =  sqlraw  ( $class, $db, $sqlstring, 'tradeId', '' ) ;
+ 
+ 
     # tradeId,tradeStatus,tradeDate,tradeSource,tradeDestination,tradeMirror,tradeCurrency,tradeType,tradeAmount
     # how many records in total in the yellow pages
     my $total_lines = scalar keys %$trade_hash_ref;
     my $table_count = $total_lines / $table_lines;
+    
+    # if there's a remainder increment table count...
     $total_lines % $table_lines ? $table_count++ : $table_count;
+
+
+    my $address =<<EOT;
+    $user_hash_ref->{'userName'}
+    $user_hash_ref->{'userNameornumber'} $user_hash_ref->{'userStreet'},
+    $user_hash_ref->{'userTown'} $user_hash_ref->{'userPostcode'}
+EOT
+    
+    $document->appendParagraph
+                        (
+                        text    => $address,
+                        style   => 'Text body'
+                        );
+
+
+
+
+
 
     # print "total lines are $total_lines\n" ;
 
     # write out empty table pages + page break paragraph, ready to fill
     for ( $x = 1 ; $x <= $table_count ; $x++ ) {
-        my $table = $document->appendTable( "t$user$x", ( $table_lines + 1 ), 10);
+        
+        my $table_id  = "t$user_hash_ref->{'userLogin'}$x" ;
+        my $table = $document->appendTable( $table_id , ( $table_lines + 1 ), 10);
      #   paragraph( $document, $title, 1 );
 
-        $document->cellValue( "t$user$x", 0, 0,
+        $document->cellValue( $table_id, 0, 0,
             $column_headers_hash_ref->{'tradeId'} );
-        $document->cellValue( "t$user$x", 0, 1,
+        $document->cellValue( $table_id, 0, 1,
             $column_headers_hash_ref->{'tradeStatus'} );
-        $document->cellValue( "t$user$x", 0, 2,
+        $document->cellValue( $table_id, 0, 2,
             $column_headers_hash_ref->{'tradeDate'} );
-        $document->cellValue( "t$user$x", 0, 3,
+        $document->cellValue( $table_id, 0, 3,
             $column_headers_hash_ref->{'tradeSource'} );
-        $document->cellValue( "t$user$x", 0, 4,
+        $document->cellValue( $table_id, 0, 4,
             $column_headers_hash_ref->{'tradeDestination'} );
-        $document->cellValue( "t$user$x", 0, 5,
+        $document->cellValue( $table_id, 0, 5,
             $column_headers_hash_ref->{'tradeMirror'} );
- $document->cellValue( "t$user$x", 0, 6,
+ $document->cellValue( $table_id, 0, 6,
             $column_headers_hash_ref->{'tradeCurrency'} );
- $document->cellValue( "t$user$x", 0, 7,
-            $column_headers_hash_ref->{'tradeType'} );
- $document->cellValue( "t$user$x", 0, 8,
-            $column_headers_hash_ref->{'tradeAmount'} );
+ $document->cellValue( $table_id, 0, 7,
+            $column_headers_hash_ref->{'tradeTitle'} );
+                        
+ $document->cellValue( $table_id, 0, 8,
+            $column_headers_hash_ref->{'debit'} );
+            
+ $document->cellValue( $table_id, 0, 9,
+            $column_headers_hash_ref->{'credit'} );           
  
     }
 
     foreach my $key ( sort keys %$trade_hash_ref) {
 
-        my $current_table = "t$user$table_counter" ;
+        my $current_table = "t$user_hash_ref->{'userLogin'}$table_counter" ;
 
         $document->cellValue( $current_table, $item_counter, 0,
             $trade_hash_ref->{$key}->{'tradeId'} );
@@ -83,10 +122,17 @@ sub print_statements {
         $document->cellValue( $current_table, $item_counter, 6,
             $trade_hash_ref->{$key}->{'tradeCurrency'} );
         $document->cellValue( $current_table, $item_counter, 7,
-            $trade_hash_ref->{$key}->{'tradeType'} );
-        $document->cellValue( $current_table, $item_counter, 8,
-            $trade_hash_ref->{$key}->{'tradeAmount'} );
+            $trade_hash_ref->{$key}->{'tradeTitle'} );
+ 
+    # different column for credits and Debits    
+        my $column ;
+        $trade_hash_ref->{$key}->{'tradeType'} eq 'debit' ? ($column = 8) : ($column = 9) ; 
+        print "$trade_hash_ref->{$key}->{'tradeType'} $column\n" ;          
+        $document->cellValue( $current_table, $item_counter, $column,
+            $trade_hash_ref->{$key}->{'total'} );
 
+ 
+ 
         # testing only
         ### $document->cellValue( $current_table, $item_counter, 5,
         ###     $yellowdirectory_hash_ref->{$key}->{'sortal'} );
@@ -137,7 +183,6 @@ sub paragraph {
 =head3 comments
 
 
-
 =cut
 
 use lib "../../../lib";
@@ -172,6 +217,9 @@ my $table_lines = 40;
 # where to create the open-office output
 my $output_file = "/home/hbarnard/cclite-support-files/testing/statements.odt";
 
+# correct path for output file
+# my $output_file = "$configuration{'printdir'}/$registry/$language"
+
 # title of each page
 my $title = "Statement";
 
@@ -187,7 +235,9 @@ my $column_headers_hash_ref;
             $column_headers_hash_ref->{'tradeMirror'} = 'Registry';
             $column_headers_hash_ref->{'tradeCurrency'} = 'Currency';
             $column_headers_hash_ref->{'tradeType'} = 'Type';
-            $column_headers_hash_ref->{'tradeAmount'} = 'Quantity';
+            # these don't correspond to fields...
+            $column_headers_hash_ref->{'debit'} = 'Money Out';
+            $column_headers_hash_ref->{'credit'} = 'Money In';
 
 
 
@@ -201,6 +251,8 @@ my $document = odfDocument(
 );
 style($document);
 
+
+# get all users
 my ($registry_error,$user_hash_ref) = get_where_multiple (
         'local', $registry,    'om_users',  '*','userLogin',
         '*',  '', 0, 9999999 );
@@ -208,12 +260,15 @@ my ($registry_error,$user_hash_ref) = get_where_multiple (
 
 foreach my $key ( sort keys %$user_hash_ref) {
 
+# don't print system accounts as printed statements
+next if ($user_hash_ref->{$key}->{'userLevel'} eq 'sysaccount' || $user_hash_ref->{$key}->{'userLevel'} eq 'admin') ;
+
 print "$user_hash_ref->{$key}->{'userLogin'} \n" ;
 
 paragraph( $document, "$title for $user_hash_ref->{$key}->{'userLogin'}", 0 );
 
 
-print_statements( 'local', $registry, $user_hash_ref->{$key}->{'userLogin'}, $document, $title, $table_lines,
+print_statements( 'local', $registry, $user_hash_ref->{$key}, $document, $title, $table_lines,
     $column_headers_hash_ref, $token );
 }
 
