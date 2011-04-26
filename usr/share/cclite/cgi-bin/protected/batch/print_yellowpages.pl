@@ -28,14 +28,12 @@ print STDOUT "Content-type: text/html\n\n";
 #}
 #__END__
 
-
 =head3 print_yellow_dir
 
 
 Main routine for printing the directory...
 
 =cut
-
 
 sub print_yellow_dir {
 

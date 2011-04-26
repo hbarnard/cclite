@@ -302,6 +302,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="i">$token</span> = <span class="i">$registry_private_value</span> =
   <span class="i">$configuration</span>{<span class="w">publickeyid</span>}<span class="sc">;</span>    <span class="c"># for the moment, calculated later</span>
 
+<span class="c">#--------------------------------------------------------------------</span>
+<span class="c"># Switches on/off decimals, sent to index page</span>
+<span class="i">$fields</span>{<span class="w">usedecimals</span>} = <span class="i">$configuration</span>{<span class="w">usedecimals</span>}<span class="sc">;</span>
+
 <span class="c">#---------------------------------------------------------------------</span>
 <span class="c"># elementary controller based on the action field</span>
 <span class="c"># note that add database record also writes a record in the people file</span>

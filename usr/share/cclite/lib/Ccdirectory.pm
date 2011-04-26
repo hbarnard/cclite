@@ -53,7 +53,6 @@ our %messages = readmessages("en");
 # used in several places now, moved up here 4/2011
 our %configuration = Ccconfiguration::readconfiguration();
 
-
 =head3 add_yellow
 
 add a yellow page, promoted from raw add_database_record to
@@ -68,9 +67,10 @@ sub add_yellow {
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
     $fieldsref->{date}   = $date;
     $fieldsref->{status} = 'active';
-    
+
     # decimals used, values stored in 'pence'
-    $fieldsref->{price} = 100 * $fieldsref->{price} if ($configuration{usedecimals} eq 'yes') ;
+    $fieldsref->{price} = 100 * $fieldsref->{price}
+      if ( $configuration{usedecimals} eq 'yes' );
 
     # parse the option field
     (
@@ -125,7 +125,10 @@ EOT
     foreach my $hash_key ( keys %$hash_ref ) {
 
         # decimal display, if configured
-        $hash_ref->{$hash_key}->{'price'} = sprintf "%.2f", ($hash_ref->{$hash_key}->{'price'} / 100) if ($configuration{usedecimals} eq 'yes') ;
+        $hash_ref->{$hash_key}->{'price'} = sprintf "%.2f",
+          ( $hash_ref->{$hash_key}->{'price'} / 100 )
+          if ( $configuration{usedecimals} eq 'yes' );
+
         # my $parent = "$hash_ref->{$hash_key}->{parent}" ;
         $record_ref = $hash_ref->{$hash_key};
     }

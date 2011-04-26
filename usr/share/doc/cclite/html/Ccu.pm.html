@@ -340,13 +340,26 @@ note that the $html variable is badly named, it should be 'message' or something
 
     <span class="k">my</span> <span class="i">$blank_option</span> = <span class="q">&quot;&lt;option value=\&quot;\&quot;&gt;&lt;/option&gt;&quot;</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> !~ <span class="q">/logon/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="c"># not done for install, blocked &#39;new&#39; installer 6/4/2011</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> !~ <span class="q">/logon/</span>
+        &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} &amp;&amp; <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="s">)</span>
+    <span class="s">{</span>
         <span class="k">my</span> <span class="i">$option_string</span> =
           <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
             <span class="q">&#39;om_currencies&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="c"># this is the primary currency or the &#39;only&#39; one</span>
+        <span class="c"># get the latest news field from the registry for front page display</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} =
+          <span class="i">Cclite::get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
+        <span class="c"># format it for user level users, admin needs to edit it</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} =
+          <span class="q">&quot;&lt;span class=\&quot;news\&quot;&gt;$fieldsref-&gt;{latest_news}&lt;\/span&gt;&quot;</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&quot;admin&quot;</span>
+            &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="c"># this is the primary currency or the &#39;only&#39; one</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="w">selectcurrency</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh">&lt;select class=&quot;required&quot; name=&quot;tradeCurrency&quot;&gt;$blank_option$option_string&lt;/select&gt;\n    </span>
 <span class="h">EOT</span>
@@ -411,18 +424,6 @@ note that the $html variable is badly named, it should be 'message' or something
 <span class="h">EOT</span>
 
     <span class="s">}</span>
-
-    <span class="c"># get the latest news field from the registry for front page display</span>
-
-    <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} =
-      <span class="i">Cclite::get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="c"># format it for user level users, admin needs to edit it</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} =
-      <span class="q">&quot;&lt;span class=\&quot;news\&quot;&gt;$fieldsref-&gt;{latest_news}&lt;\/span&gt;&quot;</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&quot;admin&quot;</span>
-        &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">latest_news</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">print</span> <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">Content-type: text/html</span>
@@ -685,9 +686,8 @@ configuration should work...</p>
     <span class="c"># in /usr/share/cclite</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;ubuntu&#39;</span> || <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;debian&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$checkdir</span>     = <span class="q">`find /usr/share/cclite -prune -type d`</span><span class="sc">;</span>
-        <span class="i">$package_type</span> = <span class="n">2</span>
-          <span class="k">if</span> <span class="s">(</span> <span class="i">$checkdir</span> =~ <span class="q">m!^/usr/share/cclite!</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># 2 is debian</span>
+        <span class="i">$checkdir</span> = <span class="q">`usr/share/cclite`</span><span class="sc">;</span>
+        <span class="i">$package_type</span> = <span class="n">2</span> <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$checkdir</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># 2 is debian package</span>
     <span class="s">}</span>
 
     <span class="c"># guessing at cpanel because the whole thing is under the document root</span>
@@ -957,7 +957,7 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
     <span class="s">)</span> = <span class="k">caller</span><span class="s">(</span><span class="i">$i</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;p:$package l:$line f:$subroutine&quot;</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">print</span> <span class="q">&quot;p:$package l:$line f:$subroutine&quot;</span><span class="sc">;</span>
+    <span class="c">###print &quot;p:$package l:$line f:$subroutine&quot;;</span>
 <span class="s">}</span>
 
 <span class="n">1</span><span class="sc">;</span>

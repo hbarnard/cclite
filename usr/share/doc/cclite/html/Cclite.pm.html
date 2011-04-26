@@ -250,6 +250,9 @@ to change these, just substitute a translated hash</p>
 <span class="k">our</span> <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span>         = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Cclite&quot;</span><span class="s">)</span><span class="sc">;</span>
 
+<span class="c"># used in several places now, moved up here 4/2011</span>
+<span class="k">our</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span><span class="sc">;</span>
+
 </pre><p></p>
 <h3><a name="get_basic_credentials">get_basic_credentials</a></h3>
 <p>SOAP basic endpoint authentication: needs configuration file parameters and
@@ -1258,6 +1261,10 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span><span class="sc">;</span>
 
+    <span class="c"># multiply by 100 to put into &#39;pence&#39;, if decimal</span>
+    <span class="i">$transaction</span>{<span class="w">tradeAmount</span>} = <span class="n">100</span> * <span class="i">$transaction</span>{<span class="w">tradeAmount</span>}
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
 <span class="c">#----------------------------------------------------------------------------------</span>
 <span class="c"># validate transaction, do everything we can to make sure it&#39;s valid</span>
 <span class="c"># can&#39;t do a transaction with the same person as sender and receiver</span>
@@ -1956,7 +1963,7 @@ xx/2008: get_trades added to start to unscramble...</p>
         <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span><span class="s">(</span> <span class="i">%</span>{<span class="i">$hash_ref</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="s">{</span> <span class="i">$b</span> &lt;=&gt; <span class="i">$a</span> <span class="s">}</span> <span class="k">keys</span><span class="s">(</span> <span class="i">%</span>{<span class="i">$hash_ref</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="k">my</span> <span class="i">$modify_button</span>  = <span class="q">&quot;&amp;nbsp;&quot;</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$delete_button</span>  = <span class="q">&quot;&amp;nbsp;&quot;</span><span class="sc">;</span>
@@ -2047,15 +2054,9 @@ xx/2008: get_trades added to start to unscramble...</p>
           <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_currencies&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># experimental: show decimal places for trades</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&quot;yes&quot;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} =~ <span class="q">s/(\d{2})$/.$1/</span>
-              <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_trades&#39;</span> <span class="s">)</span><span class="sc">;</span>
-            <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_trades&#39;</span>
-                &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} <span class="s">)</span> == <span class="n">3</span> <span class="s">)</span>
-            <span class="s">{</span>
-                <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} =
-                  <span class="q">&#39;0&#39;</span> . <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>}<span class="sc">;</span>
-            <span class="s">}</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> &amp;&amp; <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_trades&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span>
+              <span class="s">(</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} / <span class="n">100</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
 
  <span class="c"># trades have somehwat different buttons to the others</span>
@@ -2233,9 +2234,11 @@ enum('waiting', 'rejected', 'timedout', 'accepted', 'cleared', 'declined', 'canc
 
 <span class="c"># sqlfind either records belonging to this account, or all, if an admin is asking</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$trade_hash_ref</span> <span class="s">)</span> =
-      <span class="i">sqlfind</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39; &#39;</span><span class="cm">,</span> <span class="i">$sqlstring</span><span class="cm">,</span> <span class="q">&#39;tradeStamp desc&#39;</span><span class="cm">,</span>
-        <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$trade_hash_ref</span> <span class="s">)</span> = <span class="i">sqlfind</span><span class="s">(</span>
+        <span class="i">$class</span><span class="cm">,</span>  <span class="i">$db</span><span class="cm">,</span>        <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span>    <span class="q">&#39;&#39;</span><span class="cm">,</span>
+        <span class="q">&#39; &#39;</span><span class="cm">,</span>     <span class="i">$sqlstring</span><span class="cm">,</span> <span class="q">&#39;tradeId desc&#39;</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span>
+        <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
+    <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">return</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$trade_hash_ref</span><span class="sc">;</span>
 
@@ -2389,7 +2392,7 @@ and may be a current problem</p>
     <span class="c">###$email = quotemeta($email) ;</span>
 
     <span class="c"># new style configuration read</span>
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="s">(</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from</span><span class="cm">,</span> <span class="i">$subject</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$notificationtype</span> == <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
@@ -2782,6 +2785,12 @@ Some html remains for the moment...</p>
       <span class="i">get_transaction_totals</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$user</span><span class="cm">,</span> <span class="i">$months_back</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$balance_hash_ref</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="c">#FIXME: does this work properly?</span>
+        <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;sum&#39;</span>} = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span>
+          <span class="s">(</span> <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;sum&#39;</span>} / <span class="n">100</span> <span class="s">)</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
         <span class="i">$total_balance</span>{ <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;currency&#39;</span>} } +=
           <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;sum&#39;</span>}<span class="sc">;</span>
 

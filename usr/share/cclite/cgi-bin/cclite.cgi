@@ -245,7 +245,6 @@ $token = $registry_private_value =
 # Switches on/off decimals, sent to index page
 $fields{usedecimals} = $configuration{usedecimals};
 
-
 #---------------------------------------------------------------------
 # elementary controller based on the action field
 # note that add database record also writes a record in the people file

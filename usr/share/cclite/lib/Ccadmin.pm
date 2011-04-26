@@ -888,7 +888,7 @@ sub apply_service_charge {
     #toregistry : chelsea
     $transaction{toregistry} = $db;
 
-    #tradeAmount : 23, note conversion to 'pennies' done in the transaction itself, if using decimals...
+#tradeAmount : 23, note conversion to 'pennies' done in the transaction itself, if using decimals...
     $transaction{tradeAmount} = $fieldsref->{value};
 
     #tradeCurrency : ducket

@@ -188,10 +188,17 @@ information, always!</p>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$configfile</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
+    <span class="k">my</span> <span class="s">(</span>
+        <span class="i">$package</span><span class="cm">,</span>   <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span><span class="cm">,</span>       <span class="i">$subroutine</span><span class="cm">,</span> <span class="i">$hasargs</span><span class="cm">,</span>
+        <span class="i">$wantarray</span><span class="cm">,</span> <span class="i">$evaltext</span><span class="cm">,</span> <span class="i">$is_require</span><span class="cm">,</span> <span class="i">$hints</span><span class="cm">,</span>      <span class="i">$bitmask</span>
+    <span class="s">)</span> = <span class="k">caller</span><span class="s">(</span><span class="n">4</span><span class="s">)</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">    Configuration file not found at: $configfile &lt;br/&gt;</span>
 <span class="hh">    Please use the &lt;a title=\&quot;cclite google group\&quot; href=\&quot;http://groups.google.co.uk/group/cclite\&quot;&gt;Cclite Google Group&lt;/a&gt;</span>
 <span class="hh">    for help, if necessary</span>
+    
+<span class="hh">    package:$package line:$line function:$subroutine</span>
 <span class="h">EOT</span>
 
     <span class="k">return</span> <span class="i">$message</span><span class="sc">;</span>

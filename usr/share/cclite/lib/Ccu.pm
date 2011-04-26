@@ -233,22 +233,23 @@ EOT
     my $blank_option = "<option value=\"\"></option>";
 
     # not done for install, blocked 'new' installer 6/4/2011
-    if ( $pagename !~ /logon/ && length( $cookieref->{registry} && $0 !~ /ccinstall/ ) ) {
+    if ( $pagename !~ /logon/
+        && length( $cookieref->{registry} && $0 !~ /ccinstall/ ) )
+    {
         my $option_string =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_currencies', $fieldsref, 'name', 'select', $token );
 
-     # get the latest news field from the registry for front page display
-     $fieldsref->{latest_news} =
-       Cclite::get_news( 'local', $fieldsref->{'registry'}, $token )
-       if ( length( $cookieref->{registry} ) );
+        # get the latest news field from the registry for front page display
+        $fieldsref->{latest_news} =
+          Cclite::get_news( 'local', $fieldsref->{'registry'}, $token )
+          if ( length( $cookieref->{registry} ) );
 
-
-     # format it for user level users, admin needs to edit it
-     $fieldsref->{latest_news} =
-       "<span class=\"news\">$fieldsref->{latest_news}<\/span>"
-       if ( $cookieref->{userLevel} ne "admin"
-         && length( $fieldsref->{latest_news} ) );
+        # format it for user level users, admin needs to edit it
+        $fieldsref->{latest_news} =
+          "<span class=\"news\">$fieldsref->{latest_news}<\/span>"
+          if ( $cookieref->{userLevel} ne "admin"
+            && length( $fieldsref->{latest_news} ) );
 
         # this is the primary currency or the 'only' one
         $fieldsref->{selectcurrency} = <<EOT ;
@@ -315,8 +316,6 @@ EOT
 EOT
 
     }
-
-
 
     print <<EOT;
 Content-type: text/html
@@ -605,9 +604,8 @@ sub get_os_and_distribution {
     # in /usr/share/cclite
 
     if ( $distribution eq 'ubuntu' || $distribution eq 'debian' ) {
-        $checkdir     = `find /usr/share/cclite -prune -type d`;
-        $package_type = 2
-          if ( $checkdir =~ m!^/usr/share/cclite! );    # 2 is debian
+        $checkdir = `usr/share/cclite`;
+        $package_type = 2 if ( -e $checkdir );    # 2 is debian package
     }
 
     # guessing at cpanel because the whole thing is under the document root

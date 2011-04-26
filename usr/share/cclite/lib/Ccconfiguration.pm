@@ -105,7 +105,6 @@ sub _dying_message {
 
     my ($configfile) = @_;
 
-    
     my (
         $package,   $filename, $line,       $subroutine, $hasargs,
         $wantarray, $evaltext, $is_require, $hints,      $bitmask

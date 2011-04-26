@@ -223,6 +223,9 @@ to change these, just substitute a translated hash</p>
 <span class="c"># number of records per page in lists ex-db tables, change at will</span>
 <span class="k">my</span> <span class="i">$limit</span> = <span class="i">$fields</span>{<span class="w">limit</span>} || <span class="i">$configuration</span>{<span class="w">linesperpage</span>}<span class="sc">;</span>
 
+<span class="c"># Switches on/off decimals, sent to index page</span>
+<span class="i">$fields</span>{<span class="w">usedecimals</span>} = <span class="i">$configuration</span>{<span class="w">usedecimals</span>}<span class="sc">;</span>
+
 <span class="c"># now take these from configuration because of unreliable $ENV{SERVER_NAME} 11/2009</span>
 <span class="c">#FIXME: But creates problem with certain admin actions...modify currency etc...</span>
 <span class="i">$fields</span>{<span class="w">home</span>}   = <span class="i">$configuration</span>{<span class="w">home</span>}<span class="sc">;</span>

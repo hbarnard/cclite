@@ -965,14 +965,14 @@ in the sysaccount at present</p>
     <span class="c">#toregistry : chelsea</span>
     <span class="i">$transaction</span>{<span class="w">toregistry</span>} = <span class="i">$db</span><span class="sc">;</span>
 
-    <span class="c">#tradeAmount : 23</span>
+<span class="c">#tradeAmount : 23, note conversion to &#39;pennies&#39; done in the transaction itself, if using decimals...</span>
     <span class="i">$transaction</span>{<span class="w">tradeAmount</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">value</span>}<span class="sc">;</span>
 
     <span class="c">#tradeCurrency : ducket</span>
     <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">tradeCurrency</span>}<span class="sc">;</span>
 
     <span class="c">#tradeDate : this is date of reception and processing, in fact</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">&amp;Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
     <span class="i">$transaction</span>{<span class="w">tradeDate</span>} = <span class="i">$date</span><span class="sc">;</span>
 
     <span class="c">#tradeTitle : added by this routine</span>

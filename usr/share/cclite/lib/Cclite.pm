@@ -111,7 +111,7 @@ our $messagesref = \%messages;
 our $log         = Log::Log4perl->get_logger("Cclite");
 
 # used in several places now, moved up here 4/2011
-our %configuration = readconfiguration() if ($0 !~ /ccinstall/) ;
+our %configuration = readconfiguration() if ( $0 !~ /ccinstall/ );
 
 =head3 get_basic_credentials
 
@@ -1185,7 +1185,8 @@ sub transaction {
     my ( $refresh, $metarefresh, $error, $html, $pagename, $cookies );
 
     # multiply by 100 to put into 'pence', if decimal
-    $transaction{tradeAmount} = 100 * $transaction{tradeAmount} if ($configuration{usedecimals} eq 'yes') ;
+    $transaction{tradeAmount} = 100 * $transaction{tradeAmount}
+      if ( $configuration{usedecimals} eq 'yes' );
 
 #----------------------------------------------------------------------------------
 # validate transaction, do everything we can to make sure it's valid
@@ -1903,7 +1904,7 @@ sub get_many_items {
         return $json;
     }
 
-    foreach my $key (sort {$b <=> $a} keys( %{$hash_ref} ) ) {
+    foreach my $key ( sort { $b <=> $a } keys( %{$hash_ref} ) ) {
 
         my $modify_button  = "&nbsp;";
         my $delete_button  = "&nbsp;";
@@ -1994,10 +1995,10 @@ sub get_many_items {
           if ( $table eq 'om_currencies' );
 
         # experimental: show decimal places for trades
-        if ( $configuration{usedecimals} eq 'yes' && $table eq 'om_trades')
-         {
-            $hash_ref->{$key}->{'tradeAmount'} =  sprintf "%.2f", ($hash_ref->{$key}->{'tradeAmount'} / 100);  
-         }                                     
+        if ( $configuration{usedecimals} eq 'yes' && $table eq 'om_trades' ) {
+            $hash_ref->{$key}->{'tradeAmount'} = sprintf "%.2f",
+              ( $hash_ref->{$key}->{'tradeAmount'} / 100 );
+        }
 
  # trades have somehwat different buttons to the others
  # everything now has three, but passthrough Drupal or Elgg display doesn't have
@@ -2181,9 +2182,11 @@ EOT
 
 # sqlfind either records belonging to this account, or all, if an admin is asking
 
-    my ( $error, $trade_hash_ref ) =
-      sqlfind( $class, $db, 'om_trades', '', ' ', $sqlstring, 'tradeId desc',
-        $token, $offset, $limit );
+    my ( $error, $trade_hash_ref ) = sqlfind(
+        $class,  $db,        'om_trades',    '',
+        ' ',     $sqlstring, 'tradeId desc', $token,
+        $offset, $limit
+    );
 
     return $error, $count, $trade_hash_ref;
 
@@ -2752,10 +2755,12 @@ sub show_balance_and_volume {
       get_transaction_totals( $class, $db, $user, $months_back, $token );
 
     foreach my $key ( keys %$balance_hash_ref ) {
-        
+
         #FIXME: does this work properly?
-        $balance_hash_ref->{$key}->{'sum'} = sprintf "%.2f", ($balance_hash_ref->{$key}->{'sum'} / 100) if ($configuration{usedecimals} eq 'yes') ;
-        
+        $balance_hash_ref->{$key}->{'sum'} = sprintf "%.2f",
+          ( $balance_hash_ref->{$key}->{'sum'} / 100 )
+          if ( $configuration{usedecimals} eq 'yes' );
+
         $total_balance{ $balance_hash_ref->{$key}->{'currency'} } +=
           $balance_hash_ref->{$key}->{'sum'};
 

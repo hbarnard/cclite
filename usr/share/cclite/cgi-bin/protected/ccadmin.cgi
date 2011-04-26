@@ -150,7 +150,6 @@ my $limit = $fields{limit} || $configuration{linesperpage};
 # Switches on/off decimals, sent to index page
 $fields{usedecimals} = $configuration{usedecimals};
 
-
 # now take these from configuration because of unreliable $ENV{SERVER_NAME} 11/2009
 #FIXME: But creates problem with certain admin actions...modify currency etc...
 $fields{home}   = $configuration{home};
