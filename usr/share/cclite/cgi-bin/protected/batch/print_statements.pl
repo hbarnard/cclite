@@ -216,17 +216,13 @@ EOT
         # running totals but in pence, format at end...    
         $total_this_month{ $trade_hash_ref->{$key}->{'tradeCurrency'} } +=
               $trade_hash_ref->{$key}->{'tradeAmount'};
-        
-        
-        print "$user_hash_ref->{'userLogin'} curr:$trade_hash_ref->{$key}->{'tradeCurrency'}  tot:$total_this_month{ $trade_hash_ref->{$key}->{'tradeCurrency'} }  amt:$trade_hash_ref->{$key}->{'tradeAmount'}\n" ;
-              
+                      
         # experimental: show decimal places for trades
         if ( $configuration{usedecimals} eq 'yes' ) {
             $trade_hash_ref->{$key}->{'tradeAmount'} = sprintf "%.2f",
               ( $trade_hash_ref->{$key}->{'tradeAmount'} / 100 );
         }
 
- 
 
         my $cell;
         if ( $item_counter % 2 == 0 ) {
@@ -266,7 +262,7 @@ EOT
     my $balances_now;
 
     foreach my $key ( keys %total_this_month ) {
-     print "I am here" ;
+     
         my $total = $total_this_month{$key} + $total_balance_todate_ref->{$key};
      ###   print "$user_hash_ref->{'userLogin'} $total\n" ;
         
