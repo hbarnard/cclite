@@ -64,12 +64,11 @@ EOT
     # this is a little ugly, formatted a second variable for printed
     # and kept a hash ref in 'pence' for the cumulative addition 5/2011
     foreach my $key ( sort keys %total_balance ) {
-        
-          my $printed_balance = $total_balance{$key} ;
-          $printed_balance = sprintf "%.2f",
-          ( $printed_balance/100 )
+
+        my $printed_balance = $total_balance{$key};
+        $printed_balance = sprintf "%.2f", ( $printed_balance / 100 )
           if ( $configuration{usedecimals} eq 'yes' );
-          
+
         $balances .= "$key = $printed_balance \n";
     }
 
@@ -82,7 +81,6 @@ EOT
     return ( $balances, \%total_balance );
 
 }
-
 
 =pod print_statements
 
@@ -97,8 +95,6 @@ Since there's now a facility for decimals, all arithmetic is done with
 
 =cut
 
-
-
 sub print_statements {
 
     my (
@@ -112,7 +108,7 @@ sub print_statements {
     my $item_counter      = 1;
     my $table_row_counter = 1;
     my $table_counter     = 1;
-    my %total_this_month ;    # hash keyed by currency
+    my %total_this_month;    # hash keyed by currency
 
     # individual statement lines..
     my $sqlstring = <<EOT;
@@ -210,19 +206,20 @@ EOT
             $trade_hash_ref->{$key}->{'tradeTitle'} );
 
         # different column for credits and Debits
-        my $column ;
-        $trade_hash_ref->{$key}->{'tradeType'} eq 'credit'? ($column = 6) : ($column = 5) ;
-        
-        # running totals but in pence, format at end...    
+        my $column;
+        $trade_hash_ref->{$key}->{'tradeType'} eq 'credit'
+          ? ( $column = 6 )
+          : ( $column = 5 );
+
+        # running totals but in pence, format at end...
         $total_this_month{ $trade_hash_ref->{$key}->{'tradeCurrency'} } +=
-              $trade_hash_ref->{$key}->{'tradeAmount'};
-                      
+          $trade_hash_ref->{$key}->{'tradeAmount'};
+
         # experimental: show decimal places for trades
         if ( $configuration{usedecimals} eq 'yes' ) {
             $trade_hash_ref->{$key}->{'tradeAmount'} = sprintf "%.2f",
               ( $trade_hash_ref->{$key}->{'tradeAmount'} / 100 );
         }
-
 
         my $cell;
         if ( $item_counter % 2 == 0 ) {
@@ -262,13 +259,12 @@ EOT
     my $balances_now;
 
     foreach my $key ( keys %total_this_month ) {
-     
+
         my $total = $total_this_month{$key} + $total_balance_todate_ref->{$key};
-     ###   print "$user_hash_ref->{'userLogin'} $total\n" ;
-        
+        ###   print "$user_hash_ref->{'userLogin'} $total\n" ;
+
         # convert to decimals, if switched on
-         $total = sprintf "%.2f",
-          ( $total/100 )
+        $total = sprintf "%.2f", ( $total / 100 )
           if ( $configuration{usedecimals} eq 'yes' );
         $balances_now .= "Current balance for $key = $total\n";
     }
