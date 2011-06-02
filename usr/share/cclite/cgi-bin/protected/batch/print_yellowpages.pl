@@ -77,6 +77,12 @@ sub print_yellow_dir {
 
         my $current_table = 't' . $table_counter;
 
+        # experimental: show decimal places for price
+        if ( $configuration{usedecimals} eq 'yes') {
+            $yellowdirectory_hash_ref->{$key}->{'price'} = sprintf "%.2f",
+              ( $yellowdirectory_hash_ref->{$key}->{'price'} / 100 );
+        }
+
         # change this, to change expressed price...uses / to remain multilingual
         my $price_expression =
 "$yellowdirectory_hash_ref->{$key}->{'price'} $yellowdirectory_hash_ref->{$key}->{'tradeCurrency'} \/  $yellowdirectory_hash_ref->{$key}->{'unit'}";
@@ -169,14 +175,14 @@ use Cclitedb;       # this probably should be delegated
 use Ccconfiguration;
 use Ccu;
 use Cccookie;
-
-my %configuration = readconfiguration();
+ 
+our %configuration = readconfiguration();
 
 my %fields = cgiparse();
 
 my $cookieref = get_cookie();
-my $registry  = $$cookieref{registry} || 'dalston';
-my $language  = $$cookieref{language} || 'en';
+my $registry  = $$cookieref{registry} || $fields{'registry'} || 'dalston';
+my $language  = $$cookieref{language} || $fields{'language'} || 'en';
 
 # lines in one page of table
 my $table_lines = 40;

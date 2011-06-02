@@ -23,7 +23,7 @@
 This duplicates show_balance_and_colume somewhat but with date restrictions
 since we don't want to include the current transactions in the -previous- balance figures 
 
-Although it would be elegant to merge, it may just create extra complexity...
+Although it would be elegant to merge the two, it may just create extra complexity...
 
 =cut
 
@@ -55,19 +55,22 @@ EOT
 
     foreach my $key ( keys %$balance_hash_ref ) {
 
-        #FIXME: does this work properly?
-        $balance_hash_ref->{$key}->{'sum'} = sprintf "%.2f",
-          ( $balance_hash_ref->{$key}->{'sum'} / 100 )
-          if ( $configuration{usedecimals} eq 'yes' );
-
         $total_balance{ $balance_hash_ref->{$key}->{'currency'} } +=
           $balance_hash_ref->{$key}->{'sum'};
     }
 
     my $balances;
 
+    # this is a little ugly, formatted a second variable for printed
+    # and kept a hash ref in 'pence' for the cumulative addition 5/2011
     foreach my $key ( sort keys %total_balance ) {
-        $balances .= "$key = $total_balance{$key}\n";
+        
+          my $printed_balance = $total_balance{$key} ;
+          $printed_balance = sprintf "%.2f",
+          ( $printed_balance/100 )
+          if ( $configuration{usedecimals} eq 'yes' );
+          
+        $balances .= "$key = $printed_balance \n";
     }
 
     $balances = <<EOT;
@@ -79,6 +82,22 @@ EOT
     return ( $balances, \%total_balance );
 
 }
+
+
+=pod print_statements
+
+There are three parts to this, like Gaul:
+
+1. Get the balances on file from previous months for all currencies
+2. Print and cumulate the current month
+3. Calculate and print balances reported at the end of the month
+
+Since there's now a facility for decimals, all arithmetic is done with
+'pence', 'cents' etc and reformatted at the end
+
+=cut
+
+
 
 sub print_statements {
 
@@ -93,12 +112,14 @@ sub print_statements {
     my $item_counter      = 1;
     my $table_row_counter = 1;
     my $table_counter     = 1;
+    my %total_this_month ;    # hash keyed by currency
 
+    # individual statement lines..
     my $sqlstring = <<EOT;
-SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, format((tradeAmount/100),2) as total from om_trades 
+SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, -(tradeAmount) as tradeAmount from om_trades 
  where (tradeSource = '$user_hash_ref->{'userLogin'}' and tradeType = 'debit' and month(tradeDate) = '$statement_month' and year(tradeDate) = '$statement_year')
 union
-SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, format((tradeAmount/100),2) as total from om_trades 
+SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, tradeAmount from om_trades 
  where (tradeDestination = '$user_hash_ref->{'userLogin'}' and tradeType = 'credit' and month(tradeDate) = '$statement_month' and year(tradeDate) = '$statement_year')
 
 EOT
@@ -129,8 +150,8 @@ EOT
         style => 'Text body'
     );
 
-    # formating done already, perhaps that's a misteak...
-    my ( $balances, $total_balance_ref ) =
+    # formatting done already, perhaps that's a misteak...
+    my ( $balances, $total_balance_todate_ref ) =
       get_balances_to_date( $class, $db, $user_hash_ref->{'userLogin'},
         $statement_month, $statement_year );
 
@@ -153,11 +174,6 @@ EOT
         $document->textStyle( $column_headers_hash_ref->{'tradeDate'},
             'BlueStyle' );
 
-        ###  $doc->getCell( "Directory$table_counter", $row_counter,
-        ###    $column_counter );
-
-        ###$doc->cellValue( $cell, $text );
-
         $document->cellValue( $table_id, 0, 0,
             $column_headers_hash_ref->{'tradeDate'} );
 
@@ -176,7 +192,7 @@ EOT
         $document->cellValue( $table_id, 0, 6,
             $column_headers_hash_ref->{'credit'} );
 
-    }
+    }    # endif write out empty table
 
     foreach my $key ( sort keys %$trade_hash_ref ) {
 
@@ -194,16 +210,23 @@ EOT
             $trade_hash_ref->{$key}->{'tradeTitle'} );
 
         # different column for credits and Debits
-        my $column;
-        if ( $trade_hash_ref->{$key}->{'tradeType'} eq 'debit' ) {
-            $column = 5;
-            $total_balance{ $trade_hash_ref->{$key}->{'tradeCurrency'} } -=
-              $trade_hash_ref->{$key}->{'total'};
-        } elsif ( $trade_hash_ref->{$key}->{'tradeType'} eq 'credit' ) {
-            $column = 6;
-            $total_balance{ $trade_hash_ref->{$key}->{'tradeCurrency'} } +=
-              $trade_hash_ref->{$key}->{'total'};
+        my $column ;
+        $trade_hash_ref->{$key}->{'tradeType'} eq 'credit'? ($column = 6) : ($column = 5) ;
+        
+        # running totals but in pence, format at end...    
+        $total_this_month{ $trade_hash_ref->{$key}->{'tradeCurrency'} } +=
+              $trade_hash_ref->{$key}->{'tradeAmount'};
+        
+        
+        print "$user_hash_ref->{'userLogin'} curr:$trade_hash_ref->{$key}->{'tradeCurrency'}  tot:$total_this_month{ $trade_hash_ref->{$key}->{'tradeCurrency'} }  amt:$trade_hash_ref->{$key}->{'tradeAmount'}\n" ;
+              
+        # experimental: show decimal places for trades
+        if ( $configuration{usedecimals} eq 'yes' ) {
+            $trade_hash_ref->{$key}->{'tradeAmount'} = sprintf "%.2f",
+              ( $trade_hash_ref->{$key}->{'tradeAmount'} / 100 );
         }
+
+ 
 
         my $cell;
         if ( $item_counter % 2 == 0 ) {
@@ -222,10 +245,11 @@ EOT
             $cell = $document->getCell( $current_table, $item_counter, 7 );
             $document->cellStyle( $cell, 'TelCell' );
 
-        }
+        }    # endif write blue cells
 
+        #
         $document->cellValue( $current_table, $item_counter, $column,
-            $trade_hash_ref->{$key}->{'total'} );
+            $trade_hash_ref->{$key}->{'tradeAmount'} );
 
         $table_row_counter++;
         $item_counter++;
@@ -236,7 +260,26 @@ EOT
             $table_row_counter = 1;
         }
 
+    }    #end foreach main transaction printing loop
+
+   # print balances for the end of the statement, add previous totals to current
+    my $balances_now;
+
+    foreach my $key ( keys %total_this_month ) {
+     print "I am here" ;
+        my $total = $total_this_month{$key} + $total_balance_todate_ref->{$key};
+     ###   print "$user_hash_ref->{'userLogin'} $total\n" ;
+        
+        # convert to decimals, if switched on
+         $total = sprintf "%.2f",
+          ( $total/100 )
+          if ( $configuration{usedecimals} eq 'yes' );
+        $balances_now .= "Current balance for $key = $total\n";
     }
+    $document->appendParagraph(
+        text  => $balances_now,
+        style => 'Text body'
+    );
 
 }
 
@@ -332,10 +375,10 @@ use Cccookie;
 
 print "Content-type: text/html\n\n";
 
-my %configuration = readconfiguration();
-my %fields        = cgiparse();
+our %configuration = readconfiguration();
+my %fields = cgiparse();
 
-#replace with cgi in a while...
+#replace entirely with cgi in a while...
 my $statement_month = $fields{'month'}     || $ARGV[0];
 my $statement_year  = $fields{'year'}      || $ARGV[1];
 my $user_or_all     = $fields{'userorall'} || $ARGV[2] || 'all';
@@ -352,7 +395,7 @@ my $language  = $$cookieref{language} || 'en';
 # lines in one page of table
 my $table_lines = 40;
 
-# where to create the open-office output
+# where to create the open-office output, whilst testing
 my $output_file = "/home/hbarnard/cclite-support-files/testing/statements.odt";
 
 # correct path for output file
