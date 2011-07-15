@@ -467,5 +467,200 @@ sub decode_base64 {
     return $data;
 }
 
+=item cut
+
+#
+# Author:       David Shu 
+# Created:      5/26/2005
+# Description:  This is a collection of functions that will assist in
+#               working with salted SHA (SSHA) passwords.
+#
+use Digest::SHA1;
+use MIME::Base64;
+
+#
+# Description:  Extracts the prefix portion of the hashed password
+# Parameters:   hashed password => (required; the hashed password must contain
+#               the appropriate prefix)
+# Return: scheme (string)
+#
+sub getPassScheme
+{
+	my $hashed_pass = shift;
+
+	# extract prefix from hash
+	$hashed_pass=~m/{([^}]*)/;
+	return $1;
+}
+
+
+#
+# Description : Extracts the hash portion of the hashed password
+# Parameters : hashed password => (required; the hashed password must contain
+#              the appropriate prefix)
+# Return : hash (string)
+#
+sub getPassHash
+{
+	my $hashed_pass = shift;
+
+	# extract hash from passwordhash
+	$hashed_pass=~m/}([^s]*)/;
+	return $1;
+}
+
+#
+# Description :    Generate a SHA or SSHA hash
+# Parameters :     password => clear text (required)
+#                  salted => boolean (optional; default = FALSE)
+#                  salt => hexString (optional; default = ""; a random salt will be
+# 			generated if none is provided
+# Return : 	   Hash (string)
+#
+sub generateSHA
+{
+	my $password = shift;
+	my $salted = shift;
+	my $salt = shift;
+
+	if($salted && $salt eq ""){
+		$salt = generateHexSalt();
+	}
+
+	my $hashed_pass = "";
+	my $ctx = Digest::SHA1->new;
+	$ctx->add($password);
+	print $password;
+	if($salted){
+		print $salt;
+		$salt = pack("H*", $salt);
+		$ctx->add($salt);
+		$hashed_pass = encode_base64($ctx->digest . $salt ,'');
+
+	}
+	else{
+		$hashed_pass = encode_base64($ctx->digest,'');
+	}
+
+	return $hashed_pass;
+}
+
+#
+# Description : Generate a SHA or SSHA hashed password; same as generateSHA
+# 		but adds the appropriate prefix
+# Parameters :  password => clear text (required)
+# 		salted => boolean (optional; default = FALSE)
+# 		salt => hexString (optional; default = ""; a random salt will be
+# 			generated if none is provided
+# Return : 	Hashed Password (string)
+#
+sub generateSHAWithPrefix
+{
+	my $password = shift;
+	my $salted = shift;
+	my $salt = shift;
+	my $hashed_pass = "";
+
+	if(!$salted){
+		$hashed_pass = "{SHA}" . generateSHA($password,$salted,$salt);
+	}else{
+		$hashed_pass = "{SSHA}" . generateSHA($password,$salted,$salt);
+	}
+
+	return $hashed_pass;
+}
+
+#
+# Description : Randomly generate a 4 byte hex-based string
+# Parameters : N/a
+# Return : Hex based salt (string)
+#
+sub generateHexSalt
+{
+	# RANDOM KEY PARAMETERS
+	my @keychars = ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
+	my @keychars_initial = ("1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
+	my $length = 8;
+
+	# RANDOM KEY GENERATOR
+	my $randkey = "";
+	for ($i=0;$i<$length;$i++) {
+		if($i==0){
+			$randkey .= $keychars_initial[int(rand(15))];
+		}
+		else{
+			$randkey .= $keychars[int(rand(16))];
+		}
+	}
+
+	return $randkey;
+}
+
+#
+# Description : Extracts the hex based salt that was used in the hashed password
+# Parameters :  hashed password => (required; the hashed password must contain
+# 		the appropriate prefix)
+# Return : Hex based salt (string)
+#
+sub extractSalt
+{
+	my $hashed_pass=shift;
+	my $hash = getPassHash($hashed_pass);
+	my $ohash = decode_base64($hash);
+	my $osalt = substr($ohash, 20);
+	return join("",unpack("H*",$osalt));
+}
+
+#
+# Description : Compare the hashed password with the clear text password;
+# 		Currently this only supports 3 password schemes (all are
+# 		base64 encoded):
+# 			1) SSHA (sha1 algorithm)
+# 			2) SHA (sha1 algorithm)
+# 			3) MD5
+# Parameters :  hashed password => (required; the hashed password must contain
+# 		the appropriate prefix)
+# 		cleartext password => (required)
+# Return : 	1/0
+#
+sub validatePassword
+{
+	$hashed_pass = shift;
+	$clear_pass = shift;
+	$scheme = lc(getPassScheme($hashed_pass));
+	$hash = getPassHash($hashed_pass);
+	$clear_pass=~s/^s+//g;
+	$clear_pass=~s/s+$//g;
+	$retval = 0;
+	if($scheme eq "ssha"){
+		$salt = extractSalt($hashed_pass);
+		$hpass = generateSHA($clear_pass,1,$salt);
+
+		if($hash eq $hpass){
+			$retval = 1;
+		}
+	}
+	elsif($scheme eq "sha"){
+		$hpass = generateSHA($clear_pass,0,"");
+		if($hash eq $hpass){
+			$retval = 1;
+		}
+	}
+	else{
+		$hpass = encode_base64(pack("H*",md5($clear_pass)));
+		if($hash eq $hpass){
+			$retval = 1;
+		}
+	}
+
+	return $retval;
+}
+
+1;
+
+=cut
+
+
+
 1;
 

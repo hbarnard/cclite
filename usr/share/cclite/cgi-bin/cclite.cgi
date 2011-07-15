@@ -13,6 +13,7 @@ if ($test) {
 }
 ###__END__
 
+
 =head1 NAME
  
 cclite.cgi
@@ -610,25 +611,38 @@ my $fieldsref = \%fields;
     )
   );
 
-$$fieldsref{news} = get_news( 'local', $db, $token );
+$fieldsref->{'news'} = get_news( 'local', $db, $token );
 
 #FIXME: Probably only to be done when logged on?
 # but nice to show a few 'public' listings....
 # collect ad listing for bottom of screen, only want news field, don't disturb anything else
 
-if ( length( $$cookieref{userLogin} ) ) {
+if ( length( $cookieref->{'userLogin'} ) ) {
 
     # get top line news for registry
 
-    my $save = $$fieldsref{getdetail};
-    $$fieldsref{getdetail} = 1;
-    (
+    my $save = $fieldsref->{'getdetail'};
+    $fieldsref->{'getdetail'} = 1;
+    
+    
+    # choice between strict categories and free-form tags now...
+    if ($configuration{'usetags'} ne 'yes') {
         ( undef, undef, $error, $$fieldsref{righthandside}, undef, undef ) =
+        
           show_yellow_dir1(
             'local', $db, '', $fieldsref, $token, $offset, $limit
-          )
-    );
-    $$fieldsref{getdetail} = $save;
+          ) ;
+          
+    } else {
+           
+         ( $error, $fieldsref->{'righthandside'} ) =
+        
+          show_tag_cloud(
+            'local', $db, '', $fieldsref, $token, $offset, $limit
+          )  ;       
+          
+    }
+    $fieldsref->{'getdetail'} = $save;
 }
 
 # display an action result, all actions are consumed

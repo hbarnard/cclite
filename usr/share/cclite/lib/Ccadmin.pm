@@ -126,7 +126,9 @@ sub _guess_config_values {
     $configuration{dbpassword}             = "change-me-please";
     $configuration{registrypublickey}      = "notused";
     $configuration{userss}                 = "no";
-    $configuration{version}                = "0.8.0";
+    $configuration{usedecimals}            = "yes"; 
+    $configuration{usetags}                = "yes";
+    $configuration{version}                = "0.9.0";
     $configuration{servicechargelimit}     = "notused";
     $configuration{smslocal}               = "1";
 

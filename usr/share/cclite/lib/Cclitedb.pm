@@ -66,12 +66,14 @@ our $log = Log::Log4perl->get_logger("Cclitedb");
   sqlget
   sqlgetall
   sqlcount
+  get_check_tag_sql
   get_id_name
   get_suggest_sql
   get_table_fields
   get_where
   get_where_multiple
   get_transaction_totals
+  get_yellowpages_tag_cloud_data
   get_yellowpages_directory_data
   get_yellowpages_directory_print
   get_user_display_data
@@ -564,10 +566,41 @@ EOT
         $sql =
 "SELECT userLogin FROM `om_users` WHERE userMobile LIKE \'\%$query_string\%\' LIMIT 0 , 10";
 
-    }
+    } elsif ( $type eq 'tag' ) {
+        $sql = 
+        "SELECT description FROM `om_categories` WHERE (description LIKE \'\%$query_string\%\' and category = '9999') LIMIT 0 , 10"; 
+        
+        
+}
 
     return $sql;
 }
+
+
+=head3 get_check_tag_sql
+
+Check if free form category tag exists, to avoid
+duplicating them. They always have 9999 category codes
+
+=cut
+
+sub get_check_tag_sql {
+    
+    
+my ($tag) = @_ ;    
+    
+my $sql = "SELECT description FROM `om_categories` WHERE (description = $tag and category = '9999'" ;    
+return $sql ;    
+    
+}    
+
+
+
+
+
+
+
+
 
 =head3 get_user_display_data
 
@@ -685,6 +718,46 @@ EOT
     return ( $new_items_hash_ref, $yellowdirectory_hash_ref );
 
 }
+
+
+
+=head3 get_yellowpages_tag_cloud_data
+
+July 2011, same signature as all the other parts of yellowpages
+but for tag cloud retrieval. Main idea of this is for the listing
+classification to become more flexible and multilingual
+
+FIXME: keywords are a string of keywords, they are not properly normalised
+
+=cut
+
+sub get_yellowpages_tag_cloud_data {
+
+    my ( $class, $db, $interval, $detail, $token ) = @_;
+
+
+my $sql = <<EOT;
+SELECT  y.id, y.keywords, count( * ) AS 'count', y.type
+FROM om_yellowpages y
+WHERE datediff(curdate(),y.date) < 2
+EOT
+
+
+    my $sqltestifnew = <<EOT;
+SELECT  y.id, y.keywords, count( * ) AS 'count', y.type, y.category
+FROM om_yellowpages y
+WHERE datediff(curdate(),y.date) < 2
+EOT
+
+
+    my ( $registryerror, $yellowdirectory_hash_ref ) =
+      sqlraw( $class, $db, $sql, 'id', $token );
+
+    return ( $yellowdirectory_hash_ref );
+ 
+}
+
+
 
 =head3 get_yellowpages_directory_print
 

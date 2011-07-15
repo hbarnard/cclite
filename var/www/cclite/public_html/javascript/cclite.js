@@ -281,7 +281,11 @@ function poptastic(url)
      $('input[name=userSmsreceipt]').attr('checked', true);
   }
 
-  
+
+// autocompletes, depending on the field used, the 'type' of lookup is decided and this
+// is passed in to ccsuggest.cgi  
+
+
 
  $("#tradeDestination").autocomplete("/cgi-bin/ccsuggest.cgi",
 {
@@ -296,10 +300,27 @@ function poptastic(url)
        type: function() { return 'user' ; }
    }
 }); 
+
+
+  $('#yellowtags').tagSuggest({
+    url: '/cgi-bin/ccsuggest.cgi' ,
+    delay: 250
+  });
+
+
+/*
+ $("#yellowtags").autocomplete("/cgi-bin/ccsuggest.cgi",
+{
+   extraParams: {
+       type: function() { return 'tags' ; }
+   }
+   
+
+}); 
+*/
  
 
-
-  $("#string1").autocomplete("/cgi-bin/ccsuggest.cgi",
+ $("#string1").autocomplete("/cgi-bin/ccsuggest.cgi",
 
 {
    extraParams: {

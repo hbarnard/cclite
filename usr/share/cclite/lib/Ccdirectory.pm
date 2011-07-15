@@ -44,6 +44,7 @@ my $VERSION = 1.00;
   show_yellow
   show_yellow_dir
   show_yellow_dir1
+  show_tag_cloud
 );
 
 # read messages from literals file, this isn't fully multilingual yet
@@ -81,6 +82,45 @@ sub add_yellow {
 
     ###$log->debug("string: $fieldsref->{'category'}, $fieldsref->{'parent'}, $fieldsref->{'keywords'}  = $fieldsref->{'classification'}") ;
     #
+    
+    # put new tags into category table. if free-form tags are in use   
+    if ($configuration{'usetags'} eq 'yes' ) {
+         my @tags = split (/\s+/, $fieldsref->{'yellowtags'} ) ;
+    
+   foreach my $tag (@tags) {
+
+       ###print "$tag<br/>\n" ;
+       
+       
+       $tag = lc($tag) ; # make canonical lower case...
+       
+       # free form tags are category 9999
+       my $sql = get_check_tag_sql($tag) ;
+       my($registryerror,$categoryref) = sqlraw( 'local', $db, $sql, '', '' );
+
+    # if it exists already, skip...
+    next if ( length( $categoryref->{'description'} ) ) ; 
+ 
+    my $newref ;
+    #FIXME: hack to make all keywords 9999
+    $newref->{'category'} = '9999';
+    $newref->{'status'} = 'active';
+    $newref->{'description'} = $tag;
+     
+    add_database_record( $class, $db, 'om_categories', $newref, $token );
+     
+    }
+    
+    # move tags to keywords field...
+    $fieldsref->{'keywords'}  = $fieldsref->{'yellowtags'} ;
+    $fieldsref->{'category'} = '9999';
+    undef $fieldsref->{'yellowtags'} ;  
+    
+   }
+    
+
+    
+    
     my ( $refresh, $error, $html, $cookies ) =
       add_database_record( $class, $db, $table, $fieldsref, $token );
     return ( 1, $fieldsref->{home}, $error, $messages{directorypageadded},
@@ -99,6 +139,7 @@ should be done as a nightly batch to generate static html
 This also contains SQL at present, goodbye n-tier purity!
 
 =cut
+
 
 sub show_yellow {
     my ( $class, $db, $table, $fieldsref, $token ) = @_;
@@ -242,6 +283,87 @@ EOT
         return ( 0, '', '', $html, "result.html", '', '', $token );
     }
 }
+
+
+
+=head3 show_tag_cloud
+
+
+This produces the free form tag cloud enabled by usetags. Main idea
+is to make the yellow pages more flexible and multilingual.
+
+Same signatures as the other yellow pages functions, for simplicity
+
+FIXME: Of course this is still very html-bound...
+
+=cut
+
+
+
+sub show_tag_cloud {
+   
+   my ( $class, $db, $sqlstring, $fieldsref, $token, $offset, $limit ) = @_; 
+    
+   my (%keyword_index, %keyword_count, %keyword_type) ;  # type is offer/wanted/match
+   
+   my $interval    = 1;        # one week for displaying items as new...
+   my $error ;
+   my $width_count = 1;
+   my $max_depth = $fieldsref->{maxdepth}
+      || 5; 
+   my $max_entries = 100 ; 
+   my $total_count = 0 ;   
+     
+   my $hash_ref = get_yellowpages_tag_cloud_data  ( $class, $db, $interval, 0, $token ) ; 
+
+   # phase 1 collect    
+    foreach my $key ( sort keys %$hash_ref ) {
+     my @tags = split(/\s+/,$hash_ref->{$key}->{'keywords'}) ; 
+     foreach my $tag (@tags) {
+       $keyword_index{$tag} .= "$key," ;  # list of ids that this keyword references 
+       $keyword_count{$tag}++ ;           # add one to the count for this tag  
+       $total_count++ ;                   # and to the total
+       
+       if ($keyword_type{$tag} ne  $hash_ref->{$key}->{'type'}) {
+           $keyword_type{$tag} = 'matched' ;  
+       }  elsif ($keyword_type{$tag} ne 'matched') {
+           $keyword_type{$tag} = $hash_ref->{$key}->{'type'} ;
+       }       
+      }          
+    }
+    
+    
+  # phase 2 make the cloud either json or html
+  my $depth = 1 ;
+  my $cloud ;
+  
+  foreach my $tag (sort keys %keyword_index) {
+
+    $tag =~ s/\s+$//g;
+    my $size = int($keyword_count{$tag}/$total_count * 100 )  ;
+    ### print "$keyword_count{$tag} $total_count $size<br/>" ;
+       $size = 50 if ($size < 50) ;  
+    $cloud .=<<EOT;
+    <a title="get listing by category: $messages{'count'} $keyword_count{$tag}: $messages{$keyword_type{$tag}}" href="/cgi-bin/cclite.cgi?action=showyellowbycat&string1=$tag">
+         <span class="$keyword_type{$tag}" style="font-size:$size%">$tag</span></a>&nbsp;  
+EOT
+
+    
+    if ($depth == $max_depth) {
+        $cloud .= "<br/>" ; 
+        $depth = 1 ;       
+    }    else {
+        $depth++ ;
+    }    
+
+  }
+
+ return ($error, $cloud) ;    
+    
+}    
+    
+
+
 
 1;
 

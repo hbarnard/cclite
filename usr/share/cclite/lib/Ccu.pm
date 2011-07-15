@@ -128,9 +128,11 @@ sub display_template {
         $pagename, $fieldsref,   $cookies, $token
     ) = @_;
 
+
+    my %configuration;
     #FIXME: hack to deal with cpanel database names....
     if ( $0 !~ /ccinstall/ ) {
-        my %configuration;
+        
         %configuration = Ccconfiguration::readconfiguration();
 
         foreach my $key (%$fieldsref) {
@@ -291,8 +293,9 @@ EOT
     # this is now changed to use om_categories, based on Camden LETS
     # rather than the SIC codes. should become 'pluggable' eventually.
     # the codes now have a tree structure, category and parent (category).
+    # as of 07/2011 this is switched off, if free form tags are allowed
 
-    if ( $pagename =~ /yellowpages/ && length( $cookieref->{registry} ) ) {
+    if ( $pagename =~ /yellowpages/ && length( $cookieref->{'registry'} ) && $configuration{'usetags'} ne 'yes') {
 
         # collect categories for yellow pages
         my $option_string =
@@ -302,7 +305,10 @@ EOT
  <select type="required" name="classification">$blank_option$option_string</select>\n    
 EOT
 
-    }
+    }    else {
+    
+    $fieldsref->{selectclassification} = $messages{'usetags'} ;
+}
 
     if ( $pagename =~ /category/ && length( $cookieref->{registry} ) ) {
 

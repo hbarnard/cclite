@@ -2194,6 +2194,7 @@ EOT
 
 =head3 collect_items
 
+
 FIXME: This has become a problem in that it is invoked, when there's not a
 valid user or registry, because it is implicated in display_template..
 
@@ -2214,6 +2215,8 @@ Amended in 2010 to use hashes, as with all the other listing functions
 
 =cut
 
+
+
 sub collect_items {
     my (
         $class, $db,    $table,  $fieldsref, $field_name,
@@ -2229,9 +2232,10 @@ sub collect_items {
     my ( $registry_error, $hash_ref );
 
     # hacked in special sql for categories, keep them in order in the drop down
+    # 11/7/2011 9999 category number is for folksonomy tags only....
     if ( $table eq 'om_categories' ) {
         my $sqlstring =
-          "SELECT * FROM `om_categories` WHERE 1 order by parent,description";
+          "SELECT * FROM `om_categories` WHERE category != '9999' order by parent,description";
         ( $registry_error, $hash_ref ) =
           sqlraw( $class, $db, $sqlstring, $id, $token );
     } else {

@@ -78,7 +78,7 @@ sub print_yellow_dir {
         my $current_table = 't' . $table_counter;
 
         # experimental: show decimal places for price
-        if ( $configuration{usedecimals} eq 'yes') {
+        if ( $configuration{usedecimals} eq 'yes' ) {
             $yellowdirectory_hash_ref->{$key}->{'price'} = sprintf "%.2f",
               ( $yellowdirectory_hash_ref->{$key}->{'price'} / 100 );
         }
@@ -105,6 +105,8 @@ sub print_yellow_dir {
             $price_expression );
 
         # testing only
+        print "$key: $yellowdirectory_hash_ref->{$key}->{'sortal'} \n";
+
         ### $document->cellValue( $current_table, $item_counter, 5,
         ###     $yellowdirectory_hash_ref->{$key}->{'sortal'} );
 
@@ -175,7 +177,7 @@ use Cclitedb;       # this probably should be delegated
 use Ccconfiguration;
 use Ccu;
 use Cccookie;
- 
+
 our %configuration = readconfiguration();
 
 my %fields = cgiparse();
