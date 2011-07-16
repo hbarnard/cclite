@@ -611,6 +611,14 @@ my $fieldsref = \%fields;
     )
   );
 
+
+# get yellowpages as json tag cloud for remote users
+( $action eq "showtags" )
+  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+    show_tag_cloud( 'local', $db, $fieldsref, $token  ));
+
+
+
 $fieldsref->{'news'} = get_news( 'local', $db, $token );
 
 #FIXME: Probably only to be done when logged on?
@@ -638,7 +646,7 @@ if ( length( $cookieref->{'userLogin'} ) ) {
          ( $error, $fieldsref->{'righthandside'} ) =
         
           show_tag_cloud(
-            'local', $db, '', $fieldsref, $token, $offset, $limit
+            'local', $db, $fieldsref, $token
           )  ;       
           
     }

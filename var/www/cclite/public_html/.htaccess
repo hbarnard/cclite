@@ -1,10 +1,20 @@
-# experimental REST style rewrite for Cclite
+# REST style rewrite for Cclite
+
 RewriteEngine on
 
 # /pay/ddawg/chelsea/23/luckets
 # deals with manual restful transactions
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
 RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=csv  [R]
+
+
+
+
+# payment transaction with json return, doesn't work as of 7/2011
+# /pay/ddawg/chelsea/23/luckets.json
+# deals with manual restful transactions
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=json  [R]
 
 
 # /pay/ddawg/chelsea/23/luckets
@@ -52,7 +62,6 @@ RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b
 RewriteRule   recent/transactions	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=csv  [R]
 
 
-
 # show logged on user trade summary, returns json...
 # changed mode to csv for the moment: 12/8/2009
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
@@ -63,6 +72,12 @@ RewriteRule   summary\.json		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2
 # changed mode to csv for the moment: 12/8/2009
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
 RewriteRule   summary		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=csv [R]
+
+# show yellow pages active cloud as json, useful as integration/distance tool
+# doesn't work yet as of 7/2011
+# /active/tags.json
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   active/tags\.json		     /cgi-bin/cclite.cgi?action=showtags&token=%2&mode=json [R]
 
 
 # /logon/ddawg/dalston

@@ -302,23 +302,38 @@ FIXME: Of course this is still very html-bound...
 
 sub show_tag_cloud {
    
-   my ( $class, $db, $sqlstring, $fieldsref, $token, $offset, $limit ) = @_; 
+   my ( $class, $db, $fieldsref, $token) = @_; 
     
    my (%keyword_index, %keyword_count, %keyword_type) ;  # type is offer/wanted/match
    
    my $interval    = 1;        # one week for displaying items as new...
-   my $error ;
+   my $registry_error ;
    my $width_count = 1;
    my $max_depth = $fieldsref->{maxdepth}
       || 5; 
    my $max_entries = 100 ; 
    my $total_count = 0 ;   
      
-   my $hash_ref = get_yellowpages_tag_cloud_data  ( $class, $db, $interval, 0, $token ) ; 
+   my ($registry_error, $hash_ref) = get_yellowpages_tag_cloud_data  ( $class, $db, $interval, 0, $token ) ; 
 
-   # phase 1 collect    
+  # json raw cloud
+   if ( $fieldsref->{'mode'} eq 'json' ) {
+        my ($json) =
+          deliver_remote_data( $db, 'om_categories', $registry_error, $hash_ref,
+            $token );
+        return $json;
+   }
+
+   # phase 1 collect
+      
     foreach my $key ( sort keys %$hash_ref ) {
-     my @tags = split(/\s+/,$hash_ref->{$key}->{'keywords'}) ; 
+     my @tags = split(/\s+/,$hash_ref->{$key}->{'keywords'}) ;
+     # make unique...legacy problems
+     @tags = map lc, @tags ; # deal with legacy problems between upper and lower....
+     my %hash   = map { $_, 1 } @tags;
+     @tags   = keys %hash ;
+     
+      
      foreach my $tag (@tags) {
        $keyword_index{$tag} .= "$key," ;  # list of ids that this keyword references 
        $keyword_count{$tag}++ ;           # add one to the count for this tag  
@@ -331,21 +346,23 @@ sub show_tag_cloud {
        }       
       }          
     }
+
+
     
-    
-  # phase 2 make the cloud either json or html
+  # phase 2 make the cloud either json or html     
   my $depth = 1 ;
   my $cloud ;
-  
+      
   foreach my $tag (sort keys %keyword_index) {
 
     $tag =~ s/\s+$//g;
+    
     my $size = int($keyword_count{$tag}/$total_count * 100 )  ;
     ### print "$keyword_count{$tag} $total_count $size<br/>" ;
        $size = 50 if ($size < 50) ;  
     $cloud .=<<EOT;
-    <a title="get listing by category: $messages{'count'} $keyword_count{$tag}: $messages{$keyword_type{$tag}}" href="/cgi-bin/cclite.cgi?action=showyellowbycat&string1=$tag">
-         <span class="$keyword_type{$tag}" style="font-size:$size%">$tag</span></a>&nbsp;  
+    <span class="$keyword_type{$tag}" style="font-size:$size%"><a title="get listing by category: $messages{'count'} $keyword_count{$tag}: $messages{$keyword_type{$tag}}" href="/cgi-bin/cclite.cgi?action=showyellowbycat&string1=$tag">
+         $tag</a></span> 
 EOT
 
     
@@ -358,7 +375,7 @@ EOT
 
   }
 
- return ($error, $cloud) ;    
+ return ($registry_error, $cloud) ;    
     
 }    
     

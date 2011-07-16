@@ -737,14 +737,13 @@ sub get_yellowpages_tag_cloud_data {
 
 
 my $sql = <<EOT;
-SELECT  y.id, y.keywords, count( * ) AS 'count', y.type
-FROM om_yellowpages y
-WHERE datediff(curdate(),y.date) < 2
+SELECT  y.id, y.keywords, y.type
+FROM om_yellowpages y order by `date` desc LIMIT 0,1000
 EOT
 
 
     my $sqltestifnew = <<EOT;
-SELECT  y.id, y.keywords, count( * ) AS 'count', y.type, y.category
+SELECT  y.id, y.keywords, y.type, y.category
 FROM om_yellowpages y
 WHERE datediff(curdate(),y.date) < 2
 EOT
@@ -753,7 +752,7 @@ EOT
     my ( $registryerror, $yellowdirectory_hash_ref ) =
       sqlraw( $class, $db, $sql, 'id', $token );
 
-    return ( $yellowdirectory_hash_ref );
+    return ($registryerror, $yellowdirectory_hash_ref );
  
 }
 
