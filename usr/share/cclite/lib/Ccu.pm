@@ -839,7 +839,7 @@ sub deliver_remote_data {
     } else {
         for my $id ( keys %$hash_ref ) {
             # misteak corrected 20.05.2011, was $id, for the value as well
-            $json .= "\n{\"id\": \"$hash_ref->{$id}\",\n ";
+            $json .= "\n{\"$id\": \"$hash_ref->{$id}\",\n ";
             $json =~ s/\,$//
               ;      # snip off the last comma in the record, ugly but simple...
             $json .= "},\n";

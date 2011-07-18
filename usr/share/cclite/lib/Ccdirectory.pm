@@ -316,13 +316,7 @@ sub show_tag_cloud {
      
    my ($registry_error, $hash_ref) = get_yellowpages_tag_cloud_data  ( $class, $db, $interval, 0, $token ) ; 
 
-  # json raw cloud
-   if ( $fieldsref->{'mode'} eq 'json' ) {
-        my ($json) =
-          deliver_remote_data( $db, 'om_categories', $registry_error, $hash_ref,
-            $token );
-        return $json;
-   }
+ 
 
    # phase 1 collect
       
@@ -333,7 +327,6 @@ sub show_tag_cloud {
      my %hash   = map { $_, 1 } @tags;
      @tags   = keys %hash ;
      
-      
      foreach my $tag (@tags) {
        $keyword_index{$tag} .= "$key," ;  # list of ids that this keyword references 
        $keyword_count{$tag}++ ;           # add one to the count for this tag  
@@ -344,8 +337,10 @@ sub show_tag_cloud {
        }  elsif ($keyword_type{$tag} ne 'matched') {
            $keyword_type{$tag} = $hash_ref->{$key}->{'type'} ;
        }       
-      }          
+      }
+     
     }
+    
 
 
     
@@ -356,6 +351,7 @@ sub show_tag_cloud {
   foreach my $tag (sort keys %keyword_index) {
 
     $tag =~ s/\s+$//g;
+    $keyword_index{$tag} =~ s/\,$// ;
     
     my $size = int($keyword_count{$tag}/$total_count * 100 )  ;
     ### print "$keyword_count{$tag} $total_count $size<br/>" ;
@@ -374,6 +370,16 @@ EOT
     }    
 
   }
+  
+  
+ # json raw cloud
+   if ( $fieldsref->{'mode'} eq 'json' ) {
+        my ($json) =
+          deliver_remote_data( $db, 'om_categories', $registry_error, \%keyword_index,
+            $token );
+        return $json;
+   }
+
 
  return ($registry_error, $cloud) ;    
     

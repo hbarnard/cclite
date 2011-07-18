@@ -1164,6 +1164,15 @@ of remote commit: returns hash/compared to local calculation?
 When this is invoked the SMS, Mail, CSV is already translated into
 standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm
 
+New since 7/2011, automagic singular for json:
+tpounds = tpound
+dallies = dally
+to avoid most common REST misteak...
+
+FIXME: probably need to store error and other messages as hashes
+not as arrays, to ensure 'good' processing/translation from
+remote systems
+
 =cut
 
 sub transaction {
@@ -1173,7 +1182,19 @@ sub transaction {
     my $same_registry =
       0;    # if the same registry, can use a Mysql transaction...
             # if local registries can use two, but not the same effect...
+    
     my %transaction = %$transaction_ref;
+
+    # default separator is for html
+    my $separator = "<br/>\n";
+    #FIXME: json be a separate case
+    $separator = ','
+      if ( $transaction{mode} eq 'csv' || $transaction{mode} eq 'json' );
+   
+    # make the header like the 'others'
+    my $json_header =<<EOT;
+     {"registry":"$transaction{fromregistry}","table": "om_trades", "message"
+EOT
 
     # $log->warn("mode:$$transaction_ref{mode} \n ===============" );
     # this is somewhat more rational as of 06/2007
@@ -1243,7 +1264,7 @@ sub transaction {
 # if more than commitment limit transaction does not proceed
 # sysaccount -can- issue value into accounts: should check for 'local' style currency
 # corrected commit limit arithmetic 12/2008
-
+ 
         if (
             (
                 (
@@ -1312,12 +1333,12 @@ sub transaction {
 
             );
             push @local_status, "db3: $status" if length($status);
-            if ( !length( $$partnerref{name} ) ) {
+            if ( !length( $partnerref->{'name'} ) ) {
                 push @local_status, $messages{noremotepartner};
             }
 
             # destination partner does exist but inactive
-            if ( $$partnerref{status} ne "active" ) {
+            if ( $partnerref->{'status'} ne "active" ) {
                 push @local_status, $messages{remotepartnerinactive};
             }
         }
@@ -1332,16 +1353,21 @@ sub transaction {
         push @local_status, "db4: $status" if length($status);
 
         # destination user doesn't exist
-        if ( !length( $userref->{userLogin} ) ) {
+        if ( !length( $userref->{'userLogin'} ) ) {
             push @local_status, $messages{nonexist};
         }
 
         # destination user does exist but inactive
-        if ( $userref->{userStatus} ne "active" ) {
+        if ( $userref->{'userStatus'} ne "active" ) {
             push @local_status, $messages{userinactive};
         }
 
         # see if the currency exists in partner
+        # 07/2011 make singular, where necessary for REST/json
+        if ($transaction{'mode'} eq 'json') {
+            $transaction{tradeCurrency} =~ s/ies$/y/i ; # dallies -> dally
+            $transaction{tradeCurrency} =~ s/s$//i ;    # tpounds -> tpound            
+        }    
 
         my ( $status, $currencyref ) = get_where(
             $class, $transaction{toregistry},
@@ -1351,12 +1377,12 @@ sub transaction {
         push @local_status, "db5: $status" if length($status);
 
         # no currency in remote registry
-        if ( !length( $$currencyref{name} ) ) {
+        if ( !length( $currencyref->{'name'} ) ) {
             push @local_status, $messages{noremotecurrency};
         }
 
         # currency inactive in remote registry
-        if ( $$currencyref{status} ne "active" ) {
+        if ( $currencyref->{'status'} ne "active" ) {
             push @local_status, $messages{currencyinactive};
         }
 
@@ -1372,12 +1398,23 @@ sub transaction {
         if ( length( $local_status[0] ) ) {
             push @local_status, $messages{transactionrejected};
             $transaction{tradeStatus} = "rejected";
-            my $output_message = join( "<br/>\n", @local_status );
-
+            my $output_message = join( $separator, @local_status );
+     ###       print "here $error, $output_message $currencyref->{'name'}" ; 
             # warn about rejections at this level in log
             ### $log->warn("rejected transaction: $output_message");
+            
+            if ($transaction{'mode'} ne 'json') {
             return ( "1", $$transaction_ref{home}, $error, $output_message,
                 "result.html", "" );
+            } else {
+                # put quotes around the messages for json...                
+                my @local_status = map { (my $s = $_) =~ s/(.*)/\"$1\"/; $s } @local_status;
+                my $output_message = join( $separator, @local_status );
+                my $json =<<EOT;
+                 $json_header: "NOK", "data": [$output_message ] }
+EOT
+                return $json ;
+            }        
         }
 
         # add the transaction to the receiving user...
@@ -1452,18 +1489,13 @@ sub transaction {
 "\"message\":\"$messages{transactionaccepted}\", \"reference\":\"$transaction{tradeHash}\"";
     }
 
-    # default separator is for html
-    my $separator = "<br/>\n";
-    $separator = ','
-      if ( $transaction{mode} eq 'csv' || $transaction{mode} eq 'json' );
-
+    
     my $output_message =
       join( $separator, @local_status, @translated_remote_status );
 
     if (   $transaction_ref->{'mode'} ne 'engine'
         && $transaction_ref->{'mode'} ne 'json' )
     {
-
         return (
             "1", "$$transaction_ref{home}?action=showtransnotify_by_mail",
             $error,
@@ -1473,10 +1505,12 @@ sub transaction {
         );
 
     } elsif ( $transaction_ref->{'mode'} eq 'json' ) {
-        $log->debug("\{$output_message\}");
+   
+
+       # $log->debug("\{$output_message\}");
         return "\{$output_message\}";
     } else {
-        return $transaction_ref;
+           return $transaction_ref;
     }
 
 }

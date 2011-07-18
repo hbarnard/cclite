@@ -49,6 +49,7 @@ use Exporter;
 use Ccu;
 use Cclitedb;
 use Cccookie;
+use MIME::Base64;
 use Ccconfiguration;    # new style configuration, read hash type...
 ###use GnuPG qw( :algo );
 
@@ -467,7 +468,7 @@ sub decode_base64 {
     return $data;
 }
 
-=item cut
+
 
 #
 # Author:       David Shu 
@@ -475,8 +476,7 @@ sub decode_base64 {
 # Description:  This is a collection of functions that will assist in
 #               working with salted SHA (SSHA) passwords.
 #
-use Digest::SHA1;
-use MIME::Base64;
+
 
 #
 # Description:  Extracts the prefix portion of the hashed password
@@ -484,7 +484,7 @@ use MIME::Base64;
 #               the appropriate prefix)
 # Return: scheme (string)
 #
-sub getPassScheme
+sub getpassscheme
 {
 	my $hashed_pass = shift;
 
@@ -500,7 +500,7 @@ sub getPassScheme
 #              the appropriate prefix)
 # Return : hash (string)
 #
-sub getPassHash
+sub getpasshash
 {
 	my $hashed_pass = shift;
 
@@ -517,14 +517,12 @@ sub getPassHash
 # 			generated if none is provided
 # Return : 	   Hash (string)
 #
-sub generateSHA
+sub generatesha
 {
-	my $password = shift;
-	my $salted = shift;
-	my $salt = shift;
+	my ($password, $salted, $salt) = @_ ;
 
 	if($salted && $salt eq ""){
-		$salt = generateHexSalt();
+		$salt = generatehexsalt();
 	}
 
 	my $hashed_pass = "";
@@ -546,7 +544,7 @@ sub generateSHA
 }
 
 #
-# Description : Generate a SHA or SSHA hashed password; same as generateSHA
+# Description : Generate a SHA or SSHA hashed password; same as generatesha
 # 		but adds the appropriate prefix
 # Parameters :  password => clear text (required)
 # 		salted => boolean (optional; default = FALSE)
@@ -554,17 +552,16 @@ sub generateSHA
 # 			generated if none is provided
 # Return : 	Hashed Password (string)
 #
-sub generateSHAWithPrefix
+sub generateshawithprefix
 {
-	my $password = shift;
-	my $salted = shift;
-	my $salt = shift;
+    my ($password, $salted, $salt) = @_ ;
+
 	my $hashed_pass = "";
 
 	if(!$salted){
-		$hashed_pass = "{SHA}" . generateSHA($password,$salted,$salt);
+		$hashed_pass = "{SHA}" . generatesha($password,$salted,$salt);
 	}else{
-		$hashed_pass = "{SSHA}" . generateSHA($password,$salted,$salt);
+		$hashed_pass = "{SSHA}" . generatesha($password,$salted,$salt);
 	}
 
 	return $hashed_pass;
@@ -575,7 +572,7 @@ sub generateSHAWithPrefix
 # Parameters : N/a
 # Return : Hex based salt (string)
 #
-sub generateHexSalt
+sub generatehexsalt
 {
 	# RANDOM KEY PARAMETERS
 	my @keychars = ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
@@ -584,7 +581,7 @@ sub generateHexSalt
 
 	# RANDOM KEY GENERATOR
 	my $randkey = "";
-	for ($i=0;$i<$length;$i++) {
+	for (my $i=0;$i<$length;$i++) {
 		if($i==0){
 			$randkey .= $keychars_initial[int(rand(15))];
 		}
@@ -602,10 +599,10 @@ sub generateHexSalt
 # 		the appropriate prefix)
 # Return : Hex based salt (string)
 #
-sub extractSalt
+sub extractsalt
 {
-	my $hashed_pass=shift;
-	my $hash = getPassHash($hashed_pass);
+	my ($hashed_pass) = @_ ;
+	my $hash = getpasshash($hashed_pass);
 	my $ohash = decode_base64($hash);
 	my $osalt = substr($ohash, 20);
 	return join("",unpack("H*",$osalt));
@@ -623,31 +620,30 @@ sub extractSalt
 # 		cleartext password => (required)
 # Return : 	1/0
 #
-sub validatePassword
+sub validatepassword
 {
-	$hashed_pass = shift;
-	$clear_pass = shift;
-	$scheme = lc(getPassScheme($hashed_pass));
-	$hash = getPassHash($hashed_pass);
+	my ($hashed_pass, $clear_pass) = @_ ;
+	my $scheme = lc(getpassscheme($hashed_pass));
+	my $hash = getpasshash($hashed_pass);
 	$clear_pass=~s/^s+//g;
 	$clear_pass=~s/s+$//g;
-	$retval = 0;
+	my $retval = 0;
 	if($scheme eq "ssha"){
-		$salt = extractSalt($hashed_pass);
-		$hpass = generateSHA($clear_pass,1,$salt);
+		my $salt = extractsalt($hashed_pass);
+		my $hpass = generatesha($clear_pass,1,$salt);
 
 		if($hash eq $hpass){
 			$retval = 1;
 		}
 	}
 	elsif($scheme eq "sha"){
-		$hpass = generateSHA($clear_pass,0,"");
+		my $hpass = generatesha($clear_pass,0,"");
 		if($hash eq $hpass){
 			$retval = 1;
 		}
 	}
 	else{
-		$hpass = encode_base64(pack("H*",md5($clear_pass)));
+		my $hpass = encode_base64(pack("H*",md5($clear_pass)));
 		if($hash eq $hpass){
 			$retval = 1;
 		}
@@ -658,7 +654,7 @@ sub validatePassword
 
 1;
 
-=cut
+
 
 
 

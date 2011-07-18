@@ -2,26 +2,31 @@
 
 RewriteEngine on
 
-# /pay/ddawg/chelsea/23/luckets
-# deals with manual restful transactions
-RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=csv  [R]
-
-
 
 
 # payment transaction with json return, doesn't work as of 7/2011
 # /pay/ddawg/chelsea/23/luckets.json
 # deals with manual restful transactions
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=json  [R]
+RewriteRule   pay/(\w+)/(\w+)/([\d\.]+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=json [L]
+
+
+# /pay/ddawg/chelsea/23/luckets
+# deals with manual restful transactions
+RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
+RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=csv  
+
+
+
+
+
 
 
 # /pay/ddawg/chelsea/23/luckets
 # changed mode to csv for the moment: 12/8/2009
 # deals with php cookiejar transactions can't be sure of order
 RewriteCond   %{HTTP_COOKIE}	token=(\w+).*userLogin=(\S+)\b   
-RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%2&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%1&mode=csv  [R]
+RewriteRule   pay/(\w+)/(\w+)/([\d\.]+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%2&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%1&mode=csv  [R]
 
 
 # /credit/ddawg/dalston/23/duckets
@@ -44,14 +49,14 @@ RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transact
 # /recent/transactions.json
 # changed mode to json. returns only a json structure
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   recent/transactions(\.json)	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=json  [R]
+RewriteRule   recent/transactions(\.json)	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=json  
 
 # show user transactions with a limit on display
 # /recent/transactions/nnn
 # changed mode to csv for the moment: 12/8/2009 changed also to recent, need limited list only, no buttons etc., new function
 # actually the csv mode is detected in Cclite.pm for the moment
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   recent/transactions/(\d+)	     /cgi-bin/cclite.cgi?action=showtrans&&limit=$1&token=%2&mode=csv  [R]
+RewriteRule   recent/transactions/(\d+)	     /cgi-bin/cclite.cgi?action=showtrans&&limit=$1&token=%2&mode=csv  
 
 
 # show user transactions, default limit
@@ -59,13 +64,13 @@ RewriteRule   recent/transactions/(\d+)	     /cgi-bin/cclite.cgi?action=showtran
 # changed mode to csv for the moment: 12/8/2009 changed also to recent, need limited list only, no buttons etc., new function
 # actually the csv mode is detected in Cclite.pm for the moment
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   recent/transactions	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=csv  [R]
+RewriteRule   recent/transactions	     /cgi-bin/cclite.cgi?action=showtrans&token=%2&mode=csv  
 
 
 # show logged on user trade summary, returns json...
 # changed mode to csv for the moment: 12/8/2009
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   summary\.json		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=json [R]
+RewriteRule   summary\.json		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=json 
 
 
 # show logged on user trade summary
@@ -77,7 +82,7 @@ RewriteRule   summary		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=
 # doesn't work yet as of 7/2011
 # /active/tags.json
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   active/tags\.json		     /cgi-bin/cclite.cgi?action=showtags&token=%2&mode=json [R]
+RewriteRule   active/tags\.json		     /cgi-bin/cclite.cgi?action=showtags&token=%2&mode=json 
 
 
 # /logon/ddawg/dalston

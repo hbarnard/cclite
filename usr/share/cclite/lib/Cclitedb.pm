@@ -727,7 +727,12 @@ July 2011, same signature as all the other parts of yellowpages
 but for tag cloud retrieval. Main idea of this is for the listing
 classification to become more flexible and multilingual
 
-FIXME: keywords are a string of keywords, they are not properly normalised
+9999 category are free form keywords to keep them away from the static
+classification scheme.
+
+
+FIXME: keywords are a string of keywords, they are not properly normalised,
+but I don't want millions of little tables
 
 =cut
 
@@ -738,14 +743,14 @@ sub get_yellowpages_tag_cloud_data {
 
 my $sql = <<EOT;
 SELECT  y.id, y.keywords, y.type
-FROM om_yellowpages y order by `date` desc LIMIT 0,1000
+FROM om_yellowpages y where category = '9999' order by `date` desc LIMIT 0,1000
 EOT
 
 
     my $sqltestifnew = <<EOT;
 SELECT  y.id, y.keywords, y.type, y.category
 FROM om_yellowpages y
-WHERE datediff(curdate(),y.date) < 2
+WHERE where (category = '9999' and datediff(curdate(),y.date) < 2) order by `date` desc LIMIT 0,1000
 EOT
 
 
