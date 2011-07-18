@@ -355,6 +355,7 @@ sub logon_user {
     } elsif
 
       # compares password from form or api key from initial cookie
+      # FIXME: api_key method should be replace by OAuth, real-soon-now 07/2011
       (
         !_compare_password_or_api_key(
             $fieldsref, $cookieref, $userref, $registry_private_value
@@ -517,6 +518,7 @@ sub _compare_password_or_api_key {
 
     # password failed and it comes from the api key hash
     # first cut drupal and elgg etc. connections 08/2009
+    # FIXME: Replace with OAuth, real-soon-now 07/2011
     if ( $fieldsref->{'logontype'} eq 'api' ) {
 
         $compare_api_key = compare_api_key(

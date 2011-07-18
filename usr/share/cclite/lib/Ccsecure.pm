@@ -17,7 +17,7 @@ They shouldn't work from a new address by being transported.
 Action completes OK or it's a violation. If it's a violation, it's logged.
 
 Note that nearly every other routine within Cclite can consume a token.
-This is usually the last input paramter for any given subroutine.
+This is usually the last input parameter for any given subroutine.
 
 This isn't used at present but the idea is many watertight doors rather
 than a perimeter and a leaky interior.
@@ -28,6 +28,12 @@ and similar here too.
 This can now use the pure Perl SHA package.
 The idea is to enable a full installation where a user may not be able
 to use CPAN. However Digest::SHA2 will be much faster.
+
+07/2011
+
+Code is gradually being added for salted passwords and OAuth. This is turned
+off at the moment, but will be 'on' within a couple of releases
+
 
 =head1 AUTHOR
 
@@ -50,6 +56,7 @@ use Ccu;
 use Cclitedb;
 use Cccookie;
 use MIME::Base64;
+#use Net::OAuth;
 use Ccconfiguration;    # new style configuration, read hash type...
 ###use GnuPG qw( :algo );
 
@@ -651,6 +658,41 @@ sub validatepassword
 
 	return $retval;
 }
+
+# Skeleton OAuth processing 07/2011
+
+sub do_oauth {
+
+    my ($fields_ref) = @_ ;
+    
+    $Net::OAuth::PROTOCOL_VERSION = 'Net::OAuth::PROTOCOL_VERSION_1_0A';
+    
+    my $request = Net::OAuth->request("request token")->from_hash({$fields_ref},
+        request_url => 'https://photos.example.net/request_token',
+        request_method => $ENV{'REQUEST_METHOD'},
+        consumer_secret => 'kd94hf93k423kf44',
+    );
+
+    if (!$request->verify) {
+        die "Signature verification failed";
+    }
+    else {
+        # Service Provider sends Request Token Response
+
+        my $response = Net::OAuth->response("request token")->new( 
+            token => 'abcdef',
+            token_secret => '0123456',
+            callback_confirmed => 'true',
+        );
+
+        print $response->to_post_body;
+    }    
+
+}
+
+
+
+
 
 1;
 
