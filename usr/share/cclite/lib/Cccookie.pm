@@ -137,7 +137,7 @@ sub return_cookie_header {
         $domain = $ENV{'SERVER_NAME'};
     }    #set domain of cookie.  Default is current host.
     if ( !defined $path )   { $path   = "/"; }    #set default path = "/"
-    if ( !defined $secure ) { $secure = "0"; }
+    #if ( !defined $secure ) { $secure = "0"; }
 
     my $header;
     foreach my $key ( keys %cookie ) {
@@ -163,8 +163,7 @@ sub delete_cookies {
     my $header;
 
     foreach my $key ( keys %cookie ) {
-        undef $cookie{ $key
-          }; #undefines cookie so if you call set_cookie, it doesn't reset the cookie.
+        undef $cookie{$key}; #undefines cookie so if you call set_cookie, it doesn't reset the cookie.
         $header .=
           "Set-Cookie: $key=deleted; expires=Thu, 01-Jan-1970 00:00:00 GMT;\n";
 

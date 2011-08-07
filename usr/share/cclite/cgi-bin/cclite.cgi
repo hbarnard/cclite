@@ -13,7 +13,6 @@ if ($test) {
 }
 ###__END__
 
-
 =head1 NAME
  
 cclite.cgi
@@ -155,12 +154,11 @@ if (   $fields{action} ne "logoff"
 
 #
 #---------------------------------------------------------------------------
-# change the language default here
+# change the language default here, languages should be ISO 639 lower case
 #
-my $language =
-     $cookieref->{'language'}
-  || $fields{language}
-  || $configuration{language};    # default is english in logon
+my $language = decide_language($fieldsref) ;
+
+###print "language = $language\n" ;
 
 #---------------------------------------------------------------------------
 
@@ -283,7 +281,7 @@ $fields{logontype} ||= 'form';
 # note that widgets can't have cookies...at least in Opera 12/2009
 #FIXME: this is becoming a disgrace, move to a gatekeeper function in Ccsecurity.pm
 my %allowed_actions =
-  qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes);
+  qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes);
 
 if (
        ( !length( $cookieref->{'token'} ) )
@@ -611,13 +609,20 @@ my $fieldsref = \%fields;
     )
   );
 
-
 # get yellowpages as json tag cloud for remote users
 ( $action eq "showtags" )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
-    show_tag_cloud( 'local', $db, $fieldsref, $token  ));
+    show_tag_cloud( 'local', $db, $fieldsref, $token ) );
 
+# get requestoken for remote oauth users
+( $action eq "requesttoken" )
+  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+    do_oauth( 'local', $db, $fieldsref, $token ) );
 
+# get accesstoken for remote oauth users
+( $action eq "accesstoken" )
+  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+    do_oauth( 'local', $db, $fieldsref, $token ) );
 
 $fieldsref->{'news'} = get_news( 'local', $db, $token );
 
@@ -631,24 +636,20 @@ if ( length( $cookieref->{'userLogin'} ) ) {
 
     my $save = $fieldsref->{'getdetail'};
     $fieldsref->{'getdetail'} = 1;
-    
-    
+
     # choice between strict categories and free-form tags now...
-    if ($configuration{'usetags'} ne 'yes') {
+    if ( $configuration{'usetags'} ne 'yes' ) {
         ( undef, undef, $error, $$fieldsref{righthandside}, undef, undef ) =
-        
-          show_yellow_dir1(
-            'local', $db, '', $fieldsref, $token, $offset, $limit
-          ) ;
-          
+
+          show_yellow_dir1( 'local', $db, '', $fieldsref, $token, $offset,
+            $limit );
+
     } else {
-           
-         ( $error, $fieldsref->{'righthandside'} ) =
-        
-          show_tag_cloud(
-            'local', $db, $fieldsref, $token
-          )  ;       
-          
+
+        ( $error, $fieldsref->{'righthandside'} ) =
+
+          show_tag_cloud( 'local', $db, $fieldsref, $token );
+
     }
     $fieldsref->{'getdetail'} = $save;
 }

@@ -98,7 +98,7 @@ pre { color: #000000;
 <span class="c"># onto the status web page</span>
 
 </pre><p>This duplicates show_balance_and_colume somewhat but with date restrictionssince we don't want to include the current transactions in the -previous- balance figures</p>
-<p>Although it would be elegant to merge, it may just create extra complexity...</p>
+<p>Although it would be elegant to merge the two, it may just create extra complexity...</p>
 <pre>
 <a name="get_balances_to_date-"></a><span class="k">sub </span><span class="m">get_balances_to_date</span> <span class="s">{</span>
 
@@ -128,19 +128,21 @@ pre { color: #000000;
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$balance_hash_ref</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="c">#FIXME: does this work properly?</span>
-        <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;sum&#39;</span>} = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span>
-          <span class="s">(</span> <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;sum&#39;</span>} / <span class="n">100</span> <span class="s">)</span>
-          <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
-
         <span class="i">$total_balance</span>{ <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;currency&#39;</span>} } +=
           <span class="i">$balance_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;sum&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">my</span> <span class="i">$balances</span><span class="sc">;</span>
 
+    <span class="c"># this is a little ugly, formatted a second variable for printed</span>
+    <span class="c"># and kept a hash ref in &#39;pence&#39; for the cumulative addition 5/2011</span>
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%total_balance</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$balances</span> .= <span class="q">&quot;$key = $total_balance{$key}\n&quot;</span><span class="sc">;</span>
+
+        <span class="k">my</span> <span class="i">$printed_balance</span> = <span class="i">$total_balance</span>{<span class="i">$key</span>}<span class="sc">;</span>
+        <span class="i">$printed_balance</span> = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span> <span class="s">(</span> <span class="i">$printed_balance</span> / <span class="n">100</span> <span class="s">)</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="i">$balances</span> .= <span class="q">&quot;$key = $printed_balance \n&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="i">$balances</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
@@ -153,6 +155,12 @@ pre { color: #000000;
 
 <span class="s">}</span>
 
+</pre><p>There are three parts to this, like Gaul:</p><p>1. Get the balances on file from previous months for all currencies
+2. Print and cumulate the current month
+3. Calculate and print balances reported at the end of the month</p>
+<p>Since there's now a facility for decimals, all arithmetic is done with
+'pence', 'cents' etc and reformatted at the end</p>
+<pre>
 <a name="print_statements-"></a><span class="k">sub </span><span class="m">print_statements</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span>
@@ -166,12 +174,14 @@ pre { color: #000000;
     <span class="k">my</span> <span class="i">$item_counter</span>      = <span class="n">1</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$table_row_counter</span> = <span class="n">1</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$table_counter</span>     = <span class="n">1</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%total_this_month</span><span class="sc">;</span>    <span class="c"># hash keyed by currency</span>
 
+    <span class="c"># individual statement lines..</span>
     <span class="k">my</span> <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, format((tradeAmount/100),2) as total from om_trades </span>
+<span class="hh">SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, -(tradeAmount) as tradeAmount from om_trades </span>
 <span class="hh"> where (tradeSource = &#39;$user_hash_ref-&gt;{&#39;userLogin&#39;}&#39; and tradeType = &#39;debit&#39; and month(tradeDate) = &#39;$statement_month&#39; and year(tradeDate) = &#39;$statement_year&#39;)</span>
 <span class="hh">union</span>
-<span class="hh">SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, format((tradeAmount/100),2) as total from om_trades </span>
+<span class="hh">SELECT tradeId,tradeType,tradeDate,tradeTitle, tradeSource,tradeDestination, tradeCurrency, tradeAmount from om_trades </span>
 <span class="hh"> where (tradeDestination = &#39;$user_hash_ref-&gt;{&#39;userLogin&#39;}&#39; and tradeType = &#39;credit&#39; and month(tradeDate) = &#39;$statement_month&#39; and year(tradeDate) = &#39;$statement_year&#39;)</span>
 
 <span class="h">EOT</span>
@@ -202,8 +212,8 @@ pre { color: #000000;
         <span class="w">style</span> <span class="cm">=&gt;</span> <span class="q">&#39;Text body&#39;</span>
     <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># formating done already, perhaps that&#39;s a misteak...</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$balances</span><span class="cm">,</span> <span class="i">$total_balance_ref</span> <span class="s">)</span> =
+    <span class="c"># formatting done already, perhaps that&#39;s a misteak...</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$balances</span><span class="cm">,</span> <span class="i">$total_balance_todate_ref</span> <span class="s">)</span> =
       <span class="i">get_balances_to_date</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$user_hash_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
         <span class="i">$statement_month</span><span class="cm">,</span> <span class="i">$statement_year</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -226,11 +236,6 @@ pre { color: #000000;
         <span class="i">$document</span><span class="i">-&gt;textStyle</span><span class="s">(</span> <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeDate&#39;</span>}<span class="cm">,</span>
             <span class="q">&#39;BlueStyle&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="c">###  $doc-&gt;getCell( &quot;Directory$table_counter&quot;, $row_counter,</span>
-        <span class="c">###    $column_counter );</span>
-
-        <span class="c">###$doc-&gt;cellValue( $cell, $text );</span>
-
         <span class="i">$document</span><span class="i">-&gt;cellValue</span><span class="s">(</span> <span class="i">$table_id</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span>
             <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeDate&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
@@ -249,7 +254,7 @@ pre { color: #000000;
         <span class="i">$document</span><span class="i">-&gt;cellValue</span><span class="s">(</span> <span class="i">$table_id</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">6</span><span class="cm">,</span>
             <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;credit&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
-    <span class="s">}</span>
+    <span class="s">}</span>    <span class="c"># endif write out empty table</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%$trade_hash_ref</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -268,14 +273,18 @@ pre { color: #000000;
 
         <span class="c"># different column for credits and Debits</span>
         <span class="k">my</span> <span class="i">$column</span><span class="sc">;</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeType&#39;</span>} <span class="k">eq</span> <span class="q">&#39;debit&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$column</span> = <span class="n">5</span><span class="sc">;</span>
-            <span class="i">$total_balance</span>{ <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeCurrency&#39;</span>} } -=
-              <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;total&#39;</span>}<span class="sc">;</span>
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeType&#39;</span>} <span class="k">eq</span> <span class="q">&#39;credit&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$column</span> = <span class="n">6</span><span class="sc">;</span>
-            <span class="i">$total_balance</span>{ <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeCurrency&#39;</span>} } +=
-              <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;total&#39;</span>}<span class="sc">;</span>
+        <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeType&#39;</span>} <span class="k">eq</span> <span class="q">&#39;credit&#39;</span>
+          ? <span class="s">(</span> <span class="i">$column</span> = <span class="n">6</span> <span class="s">)</span>
+          <span class="co">:</span> <span class="s">(</span> <span class="i">$column</span> = <span class="n">5</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="c"># running totals but in pence, format at end...</span>
+        <span class="i">$total_this_month</span>{ <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeCurrency&#39;</span>} } +=
+          <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>}<span class="sc">;</span>
+
+        <span class="c"># experimental: show decimal places for trades</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span>
+              <span class="s">(</span> <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} / <span class="n">100</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="k">my</span> <span class="i">$cell</span><span class="sc">;</span>
@@ -295,10 +304,11 @@ pre { color: #000000;
             <span class="i">$cell</span> = <span class="i">$document</span><span class="i">-&gt;getCell</span><span class="s">(</span> <span class="i">$current_table</span><span class="cm">,</span> <span class="i">$item_counter</span><span class="cm">,</span> <span class="n">7</span> <span class="s">)</span><span class="sc">;</span>
             <span class="i">$document</span><span class="i">-&gt;cellStyle</span><span class="s">(</span> <span class="i">$cell</span><span class="cm">,</span> <span class="q">&#39;TelCell&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="s">}</span>
+        <span class="s">}</span>    <span class="c"># endif write blue cells</span>
 
+        <span class="c">#</span>
         <span class="i">$document</span><span class="i">-&gt;cellValue</span><span class="s">(</span> <span class="i">$current_table</span><span class="cm">,</span> <span class="i">$item_counter</span><span class="cm">,</span> <span class="i">$column</span><span class="cm">,</span>
-            <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;total&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$trade_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeAmount&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
         <span class="i">$table_row_counter</span>++<span class="sc">;</span>
         <span class="i">$item_counter</span>++<span class="sc">;</span>
@@ -309,7 +319,25 @@ pre { color: #000000;
             <span class="i">$table_row_counter</span> = <span class="n">1</span><span class="sc">;</span>
         <span class="s">}</span>
 
+    <span class="s">}</span>    <span class="c">#end foreach main transaction printing loop</span>
+
+   <span class="c"># print balances for the end of the statement, add previous totals to current</span>
+    <span class="k">my</span> <span class="i">$balances_now</span><span class="sc">;</span>
+
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%total_this_month</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="k">my</span> <span class="i">$total</span> = <span class="i">$total_this_month</span>{<span class="i">$key</span>} + <span class="i">$total_balance_todate_ref</span>-&gt;{<span class="i">$key</span>}<span class="sc">;</span>
+        <span class="c">###   print &quot;$user_hash_ref-&gt;{&#39;userLogin&#39;} $total\n&quot; ;</span>
+
+        <span class="c"># convert to decimals, if switched on</span>
+        <span class="i">$total</span> = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span> <span class="s">(</span> <span class="i">$total</span> / <span class="n">100</span> <span class="s">)</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$balances_now</span> .= <span class="q">&quot;Current balance for $key = $total\n&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
+    <span class="i">$document</span><span class="i">-&gt;appendParagraph</span><span class="s">(</span>
+        <span class="w">text</span>  <span class="cm">=&gt;</span> <span class="i">$balances_now</span><span class="cm">,</span>
+        <span class="w">style</span> <span class="cm">=&gt;</span> <span class="q">&#39;Text body&#39;</span>
+    <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
@@ -401,10 +429,10 @@ my ($document) = @_;</pre>
 
 <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
 
-<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">%fields</span>        = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="c">#replace with cgi in a while...</span>
+<span class="c">#replace entirely with cgi in a while...</span>
 <span class="k">my</span> <span class="i">$statement_month</span> = <span class="i">$fields</span>{<span class="q">&#39;month&#39;</span>}     || <span class="i">$ARGV</span>[<span class="n">0</span>]<span class="sc">;</span>
 <span class="k">my</span> <span class="i">$statement_year</span>  = <span class="i">$fields</span>{<span class="q">&#39;year&#39;</span>}      || <span class="i">$ARGV</span>[<span class="n">1</span>]<span class="sc">;</span>
 <span class="k">my</span> <span class="i">$user_or_all</span>     = <span class="i">$fields</span>{<span class="q">&#39;userorall&#39;</span>} || <span class="i">$ARGV</span>[<span class="n">2</span>] || <span class="q">&#39;all&#39;</span><span class="sc">;</span>
@@ -421,7 +449,7 @@ my ($document) = @_;</pre>
 <span class="c"># lines in one page of table</span>
 <span class="k">my</span> <span class="i">$table_lines</span> = <span class="n">40</span><span class="sc">;</span>
 
-<span class="c"># where to create the open-office output</span>
+<span class="c"># where to create the open-office output, whilst testing</span>
 <span class="k">my</span> <span class="i">$output_file</span> = <span class="q">&quot;/home/hbarnard/cclite-support-files/testing/statements.odt&quot;</span><span class="sc">;</span>
 
 <span class="c"># correct path for output file</span>

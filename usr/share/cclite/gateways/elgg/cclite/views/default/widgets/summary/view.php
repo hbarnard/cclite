@@ -70,10 +70,6 @@ $json_array = explode('|',$cclite) ; // separate the two json structures
 $balances = json_decode($json_array[0],TRUE) ;
 $volumes = json_decode($json_array[1],TRUE) ;
 
- 
-
-
-
 ?>
 
 <div style="font-size:small;">
@@ -103,5 +99,6 @@ echo "<div>$line</div>" ;
 
 }
 
- ?> 
+?>
+ 
 </div>

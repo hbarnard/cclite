@@ -56,7 +56,7 @@ use Ccu;
 use Cclitedb;
 use Cccookie;
 use MIME::Base64;
-#use Net::OAuth;
+# use Net::OAuth;       # for Oauth in a while...
 use Ccconfiguration;    # new style configuration, read hash type...
 ###use GnuPG qw( :algo );
 
@@ -73,6 +73,7 @@ my $VERSION = 1.00;
   calculate_token
   calculate_api_key
   compare_api_key
+  do_oauth
   valid_token
   parse_remote_user
   log_violation
@@ -199,6 +200,10 @@ sub calculate_token {
         $nonce = _get_digest( $url_type, $nonce );
         $token = _get_digest( $url_type, $fieldsref->{'userLogin'},
             $nonce, $remote_address );
+         $log->debug(
+"in token calc, new token: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
+    );    
+            
         return ( $token, $nonce );
     } else {
         $token = _get_digest(
@@ -207,7 +212,9 @@ sub calculate_token {
             $cookieref->{'token1'},
             $remote_address
         );
-
+ $log->debug(
+"in token calc, existing: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
+    );
         return ( $token, undef );
     }
 ###    $log->error(
@@ -475,15 +482,12 @@ sub decode_base64 {
     return $data;
 }
 
-
-
 #
-# Author:       David Shu 
+# Author:       David Shu
 # Created:      5/26/2005
 # Description:  This is a collection of functions that will assist in
 #               working with salted SHA (SSHA) passwords.
 #
-
 
 #
 # Description:  Extracts the prefix portion of the hashed password
@@ -491,15 +495,13 @@ sub decode_base64 {
 #               the appropriate prefix)
 # Return: scheme (string)
 #
-sub getpassscheme
-{
-	my $hashed_pass = shift;
+sub getpassscheme {
+    my $hashed_pass = shift;
 
-	# extract prefix from hash
-	$hashed_pass=~m/{([^}]*)/;
-	return $1;
+    # extract prefix from hash
+    $hashed_pass =~ m/{([^}]*)/;
+    return $1;
 }
-
 
 #
 # Description : Extracts the hash portion of the hashed password
@@ -507,13 +509,12 @@ sub getpassscheme
 #              the appropriate prefix)
 # Return : hash (string)
 #
-sub getpasshash
-{
-	my $hashed_pass = shift;
+sub getpasshash {
+    my $hashed_pass = shift;
 
-	# extract hash from passwordhash
-	$hashed_pass=~m/}([^s]*)/;
-	return $1;
+    # extract hash from passwordhash
+    $hashed_pass =~ m/}([^s]*)/;
+    return $1;
 }
 
 #
@@ -524,30 +525,28 @@ sub getpasshash
 # 			generated if none is provided
 # Return : 	   Hash (string)
 #
-sub generatesha
-{
-	my ($password, $salted, $salt) = @_ ;
+sub generatesha {
+    my ( $password, $salted, $salt ) = @_;
 
-	if($salted && $salt eq ""){
-		$salt = generatehexsalt();
-	}
+    if ( $salted && $salt eq "" ) {
+        $salt = generatehexsalt();
+    }
 
-	my $hashed_pass = "";
-	my $ctx = Digest::SHA1->new;
-	$ctx->add($password);
-	print $password;
-	if($salted){
-		print $salt;
-		$salt = pack("H*", $salt);
-		$ctx->add($salt);
-		$hashed_pass = encode_base64($ctx->digest . $salt ,'');
+    my $hashed_pass = "";
+    my $ctx         = Digest::SHA1->new;
+    $ctx->add($password);
+    print $password;
+    if ($salted) {
+        print $salt;
+        $salt = pack( "H*", $salt );
+        $ctx->add($salt);
+        $hashed_pass = encode_base64( $ctx->digest . $salt, '' );
 
-	}
-	else{
-		$hashed_pass = encode_base64($ctx->digest,'');
-	}
+    } else {
+        $hashed_pass = encode_base64( $ctx->digest, '' );
+    }
 
-	return $hashed_pass;
+    return $hashed_pass;
 }
 
 #
@@ -559,19 +558,18 @@ sub generatesha
 # 			generated if none is provided
 # Return : 	Hashed Password (string)
 #
-sub generateshawithprefix
-{
-    my ($password, $salted, $salt) = @_ ;
+sub generateshawithprefix {
+    my ( $password, $salted, $salt ) = @_;
 
-	my $hashed_pass = "";
+    my $hashed_pass = "";
 
-	if(!$salted){
-		$hashed_pass = "{SHA}" . generatesha($password,$salted,$salt);
-	}else{
-		$hashed_pass = "{SSHA}" . generatesha($password,$salted,$salt);
-	}
+    if ( !$salted ) {
+        $hashed_pass = "{SHA}" . generatesha( $password, $salted, $salt );
+    } else {
+        $hashed_pass = "{SSHA}" . generatesha( $password, $salted, $salt );
+    }
 
-	return $hashed_pass;
+    return $hashed_pass;
 }
 
 #
@@ -579,25 +577,30 @@ sub generateshawithprefix
 # Parameters : N/a
 # Return : Hex based salt (string)
 #
-sub generatehexsalt
-{
-	# RANDOM KEY PARAMETERS
-	my @keychars = ("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
-	my @keychars_initial = ("1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
-	my $length = 8;
+sub generatehexsalt {
 
-	# RANDOM KEY GENERATOR
-	my $randkey = "";
-	for (my $i=0;$i<$length;$i++) {
-		if($i==0){
-			$randkey .= $keychars_initial[int(rand(15))];
-		}
-		else{
-			$randkey .= $keychars[int(rand(16))];
-		}
-	}
+    # RANDOM KEY PARAMETERS
+    my @keychars = (
+        "0", "1", "2", "3", "4", "5", "6", "7",
+        "8", "9", "a", "b", "c", "d", "e", "f"
+    );
+    my @keychars_initial = (
+        "1", "2", "3", "4", "5", "6", "7", "8",
+        "9", "a", "b", "c", "d", "e", "f"
+    );
+    my $length = 8;
 
-	return $randkey;
+    # RANDOM KEY GENERATOR
+    my $randkey = "";
+    for ( my $i = 0 ; $i < $length ; $i++ ) {
+        if ( $i == 0 ) {
+            $randkey .= $keychars_initial[ int( rand(15) ) ];
+        } else {
+            $randkey .= $keychars[ int( rand(16) ) ];
+        }
+    }
+
+    return $randkey;
 }
 
 #
@@ -606,13 +609,12 @@ sub generatehexsalt
 # 		the appropriate prefix)
 # Return : Hex based salt (string)
 #
-sub extractsalt
-{
-	my ($hashed_pass) = @_ ;
-	my $hash = getpasshash($hashed_pass);
-	my $ohash = decode_base64($hash);
-	my $osalt = substr($ohash, 20);
-	return join("",unpack("H*",$osalt));
+sub extractsalt {
+    my ($hashed_pass) = @_;
+    my $hash          = getpasshash($hashed_pass);
+    my $ohash         = decode_base64($hash);
+    my $osalt = substr( $ohash, 20 );
+    return join( "", unpack( "H*", $osalt ) );
 }
 
 #
@@ -627,78 +629,92 @@ sub extractsalt
 # 		cleartext password => (required)
 # Return : 	1/0
 #
-sub validatepassword
-{
-	my ($hashed_pass, $clear_pass) = @_ ;
-	my $scheme = lc(getpassscheme($hashed_pass));
-	my $hash = getpasshash($hashed_pass);
-	$clear_pass=~s/^s+//g;
-	$clear_pass=~s/s+$//g;
-	my $retval = 0;
-	if($scheme eq "ssha"){
-		my $salt = extractsalt($hashed_pass);
-		my $hpass = generatesha($clear_pass,1,$salt);
+sub validatepassword {
+    my ( $hashed_pass, $clear_pass ) = @_;
+    my $scheme = lc( getpassscheme($hashed_pass) );
+    my $hash   = getpasshash($hashed_pass);
+    $clear_pass =~ s/^s+//g;
+    $clear_pass =~ s/s+$//g;
+    my $retval = 0;
+    if ( $scheme eq "ssha" ) {
+        my $salt = extractsalt($hashed_pass);
+        my $hpass = generatesha( $clear_pass, 1, $salt );
 
-		if($hash eq $hpass){
-			$retval = 1;
-		}
-	}
-	elsif($scheme eq "sha"){
-		my $hpass = generatesha($clear_pass,0,"");
-		if($hash eq $hpass){
-			$retval = 1;
-		}
-	}
-	else{
-		my $hpass = encode_base64(pack("H*",md5($clear_pass)));
-		if($hash eq $hpass){
-			$retval = 1;
-		}
-	}
+        if ( $hash eq $hpass ) {
+            $retval = 1;
+        }
+    } elsif ( $scheme eq "sha" ) {
+        my $hpass = generatesha( $clear_pass, 0, "" );
+        if ( $hash eq $hpass ) {
+            $retval = 1;
+        }
+    } else {
+        my $hpass = encode_base64( pack( "H*", md5($clear_pass) ) );
+        if ( $hash eq $hpass ) {
+            $retval = 1;
+        }
+    }
 
-	return $retval;
+    return $retval;
 }
 
 # Skeleton OAuth processing 07/2011
 
+=head3  do_oauth
+
+Experimental oauth token supply and checking etc. This is to complete
+the open transact work and also to replace the hand-rolled api access
+method in previous releases....
+
+These calls exit here after supplying the tokens
+
+
+=cut
+
 sub do_oauth {
 
-    my ($fields_ref) = @_ ;
-    
+    my ( $class, $db, $fields_ref, $token ) = @_;
+
+    print "Content-type: text/html\n\n";
+    print "in do auth $fields_ref->{'registry'}";
+
+    ###require "Net::OAuth" ;
+
+    # temporary parameters...
+    $fields_ref->{'consumer_key'} = '123123';
+
     $Net::OAuth::PROTOCOL_VERSION = 'Net::OAuth::PROTOCOL_VERSION_1_0A';
-    
-    my $request = Net::OAuth->request("request token")->from_hash({$fields_ref},
-        request_url => 'https://photos.example.net/request_token',
-        request_method => $ENV{'REQUEST_METHOD'},
-        consumer_secret => 'kd94hf93k423kf44',
+
+    my $request = Net::OAuth->request("request token")->from_hash(
+        {$fields_ref},
+        consumer_key     => $fields_ref->{'consumer_key'},
+        request_url      => $fields_ref->{'request_url'},
+        signature_method => 'HMAC-SHA1',
+        request_method   => $ENV{'REQUEST_METHOD'},
+        timestamp        => time(),
+        nonce            => '123123',
+        consumer_secret  => '123123',
     );
 
-    if (!$request->verify) {
+    if ( !$request->verify ) {
         die "Signature verification failed";
-    }
-    else {
+    } else {
+
         # Service Provider sends Request Token Response
 
-        my $response = Net::OAuth->response("request token")->new( 
-            token => 'abcdef',
-            token_secret => '0123456',
+        my $response = Net::OAuth->response("request token")->new(
+            token              => 'abcdef',
+            token_secret       => '0123456',
             callback_confirmed => 'true',
         );
 
         print $response->to_post_body;
-    }    
 
+    }
+    exit 0;
 }
 
-
-
-
-
 1;
-
-
-
-
 
 1;
 

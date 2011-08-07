@@ -152,6 +152,12 @@ pre { color: #000000;
 
         <span class="k">my</span> <span class="i">$current_table</span> = <span class="q">&#39;t&#39;</span> . <span class="i">$table_counter</span><span class="sc">;</span>
 
+        <span class="c"># experimental: show decimal places for price</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$yellowdirectory_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;price&#39;</span>} = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span>
+              <span class="s">(</span> <span class="i">$yellowdirectory_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;price&#39;</span>} / <span class="n">100</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span>
+
         <span class="c"># change this, to change expressed price...uses / to remain multilingual</span>
         <span class="k">my</span> <span class="i">$price_expression</span> =
 <span class="q">&quot;$yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;price&#39;} $yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;tradeCurrency&#39;} \/  $yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;unit&#39;}&quot;</span><span class="sc">;</span>
@@ -174,6 +180,8 @@ pre { color: #000000;
             <span class="i">$price_expression</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># testing only</span>
+        <span class="k">print</span> <span class="q">&quot;$key: $yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;sortal&#39;} \n&quot;</span><span class="sc">;</span>
+
         <span class="c">### $document-&gt;cellValue( $current_table, $item_counter, 5,</span>
         <span class="c">###     $yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;sortal&#39;} );</span>
 
@@ -243,13 +251,13 @@ add-ons to cclite, in the tradition of transition-style technology.</p>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
 
-<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$registry</span>  = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="q">&#39;dalston&#39;</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$language</span>  = <span class="i">$$cookieref</span>{<span class="w">language</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$registry</span>  = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$fields</span>{<span class="q">&#39;registry&#39;</span>} || <span class="q">&#39;dalston&#39;</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$language</span>  = <span class="i">$$cookieref</span>{<span class="w">language</span>} || <span class="i">$fields</span>{<span class="q">&#39;language&#39;</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
 
 <span class="c"># lines in one page of table</span>
 <span class="k">my</span> <span class="i">$table_lines</span> = <span class="n">40</span><span class="sc">;</span>

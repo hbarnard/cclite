@@ -6,5 +6,5 @@
         <field key="website" value="http://www.hughbarnard.org/" />
         <field key="copyright" value="(C) Hugh Barnard 2008-2009" />
         <field key="licence" value="GNU Public License version 2" />
-        <field key="elgg_version" value="" />
+        <field key="elgg_version" value="1.7" />
 </plugin_manifest>

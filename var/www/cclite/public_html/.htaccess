@@ -78,6 +78,33 @@ RewriteRule   summary\.json		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
 RewriteRule   summary		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=csv [R]
 
+#---------------------------------------------------------------------------------------------------------
+# these are all OAuth functions related to the current elgg experiment...
+# they're based on work done with linkedin, so we'll see...
+
+# get an oauth access token,
+# doesn't work yet as of 7/2011
+# registry_name/oauth/accesstoken
+RewriteRule   (\w+)/oauth/accesstoken		     /cgi-bin/cclite.cgi?action=accesstoken&registry=$2
+
+# oauth authenticate,
+# doesn't work yet as of 7/2011
+# registry_name/oauth/authenticate
+RewriteRule   (\w+)/oauth/authenticate		     /cgi-bin/cclite.cgi?action=authenticate&registry=$2
+
+# oauth authorise,
+# doesn't work yet as of 7/2011
+# registry_name/oauth/authorise
+RewriteRule   (\w+)/oauth/authorise		     /cgi-bin/cclite.cgi?action=authorise&registry=$2
+
+# get an oauth request token, 
+# doesn't work yet as of 7/2011
+# registry_name/oauth/requesttoken
+RewriteRule   (\w+)/oauth/requesttoken		     /cgi-bin/cclite.cgi?action=requesttoken&registry=$2
+
+# end of oauth experimental endpoints
+#--------------------------------------------------------------------------------------------------------------
+
 # show yellow pages active cloud as json, useful as integration/distance tool
 # doesn't work yet as of 7/2011
 # /active/tags.json

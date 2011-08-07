@@ -411,10 +411,12 @@ sub logon_user {
         $cookie{userLogin} = $userref->{userLogin};
         $cookie{userId} =
           $userref->{userId};    # not used yet, to replace userLogin
+          
+        #FIXME: should language be taken from user record or recent cookie?  
         $cookie{language} = $userref->{userLang};
 
   # avoid cumulation of registry cookie values, this is a browser problem though
-        $cookie{registry} = $$cookieref{registry} || $fieldsref->{registry};
+        $cookie{registry} = $cookieref->{registry} || $fieldsref->{registry};
 
         $cookie{userLevel} = $userref->{userLevel};
 
@@ -879,12 +881,13 @@ html is somewhat complete and in another language...
 
 =cut
 
+
 sub change_language {
     my ( $template_dir, $fieldsref, $cookieref, $token ) = @_;
-    my $domain    = "bigwaveheuristics.com";
+    my $domain    = $configuration{'domain'};
     my $cookieref = get_cookie();
     my %cookie    = %$cookieref;
-    my $path      = "";
+    my $path      = "/";
     $cookie{language} = $fieldsref->{language};
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
@@ -1184,17 +1187,18 @@ sub transaction {
     my $same_registry =
       0;    # if the same registry, can use a Mysql transaction...
             # if local registries can use two, but not the same effect...
-    
+
     my %transaction = %$transaction_ref;
 
     # default separator is for html
     my $separator = "<br/>\n";
+
     #FIXME: json be a separate case
     $separator = ','
       if ( $transaction{mode} eq 'csv' || $transaction{mode} eq 'json' );
-   
+
     # make the header like the 'others'
-    my $json_header =<<EOT;
+    my $json_header = <<EOT;
      {"registry":"$transaction{fromregistry}","table": "om_trades", "message"
 EOT
 
@@ -1266,7 +1270,7 @@ EOT
 # if more than commitment limit transaction does not proceed
 # sysaccount -can- issue value into accounts: should check for 'local' style currency
 # corrected commit limit arithmetic 12/2008
- 
+
         if (
             (
                 (
@@ -1366,10 +1370,10 @@ EOT
 
         # see if the currency exists in partner
         # 07/2011 make singular, where necessary for REST/json
-        if ($transaction{'mode'} eq 'json') {
-            $transaction{tradeCurrency} =~ s/ies$/y/i ; # dallies -> dally
-            $transaction{tradeCurrency} =~ s/s$//i ;    # tpounds -> tpound            
-        }    
+        if ( $transaction{'mode'} eq 'json' ) {
+            $transaction{tradeCurrency} =~ s/ies$/y/i;    # dallies -> dally
+            $transaction{tradeCurrency} =~ s/s$//i;       # tpounds -> tpound
+        }
 
         my ( $status, $currencyref ) = get_where(
             $class, $transaction{toregistry},
@@ -1401,22 +1405,24 @@ EOT
             push @local_status, $messages{transactionrejected};
             $transaction{tradeStatus} = "rejected";
             my $output_message = join( $separator, @local_status );
-     ###       print "here $error, $output_message $currencyref->{'name'}" ; 
+            ###       print "here $error, $output_message $currencyref->{'name'}" ;
             # warn about rejections at this level in log
             ### $log->warn("rejected transaction: $output_message");
-            
-            if ($transaction{'mode'} ne 'json') {
-            return ( "1", $$transaction_ref{home}, $error, $output_message,
-                "result.html", "" );
+
+            if ( $transaction{'mode'} ne 'json' ) {
+                return ( "1", $$transaction_ref{home}, $error, $output_message,
+                    "result.html", "" );
             } else {
-                # put quotes around the messages for json...                
-                my @local_status = map { (my $s = $_) =~ s/(.*)/\"$1\"/; $s } @local_status;
+
+                # put quotes around the messages for json...
+                my @local_status =
+                  map { ( my $s = $_ ) =~ s/(.*)/\"$1\"/; $s } @local_status;
                 my $output_message = join( $separator, @local_status );
-                my $json =<<EOT;
+                my $json = <<EOT;
                  $json_header: "NOK", "data": [$output_message ] }
 EOT
-                return $json ;
-            }        
+                return $json;
+            }
         }
 
         # add the transaction to the receiving user...
@@ -1491,7 +1497,6 @@ EOT
 "\"message\":\"$messages{transactionaccepted}\", \"reference\":\"$transaction{tradeHash}\"";
     }
 
-    
     my $output_message =
       join( $separator, @local_status, @translated_remote_status );
 
@@ -1507,12 +1512,11 @@ EOT
         );
 
     } elsif ( $transaction_ref->{'mode'} eq 'json' ) {
-   
 
-       # $log->debug("\{$output_message\}");
+        # $log->debug("\{$output_message\}");
         return "\{$output_message\}";
     } else {
-           return $transaction_ref;
+        return $transaction_ref;
     }
 
 }
@@ -2251,8 +2255,6 @@ Amended in 2010 to use hashes, as with all the other listing functions
 
 =cut
 
-
-
 sub collect_items {
     my (
         $class, $db,    $table,  $fieldsref, $field_name,
@@ -2271,7 +2273,7 @@ sub collect_items {
     # 11/7/2011 9999 category number is for folksonomy tags only....
     if ( $table eq 'om_categories' ) {
         my $sqlstring =
-          "SELECT * FROM `om_categories` WHERE category != '9999' order by parent,description";
+"SELECT * FROM `om_categories` WHERE category != '9999' order by parent,description";
         ( $registry_error, $hash_ref ) =
           sqlraw( $class, $db, $sqlstring, $id, $token );
     } else {

@@ -69,6 +69,7 @@ pre { color: #000000;
 			<li><a href="#random_password">random_password</a></li>
 			<li><a href="#grumble">grumble</a></li>
 			<li><a href="#is_admin">is_admin</a></li>
+			<li><a href="#do_oauth">do_oauth</a></li>
 		</ul>
 
 	</ul>
@@ -98,6 +99,14 @@ pre { color: #000000;
 <li><a href="#is_admin-">is_admin</a></li>
 <li><a href="#encode_base64-">encode_base64</a></li>
 <li><a href="#decode_base64-">decode_base64</a></li>
+<li><a href="#getpassscheme-">getpassscheme</a></li>
+<li><a href="#getpasshash-">getpasshash</a></li>
+<li><a href="#generatesha-">generatesha</a></li>
+<li><a href="#generateshawithprefix-">generateshawithprefix</a></li>
+<li><a href="#generatehexsalt-">generatehexsalt</a></li>
+<li><a href="#extractsalt-">extractsalt</a></li>
+<li><a href="#validatepassword-">validatepassword</a></li>
+<li><a href="#do_oauth-">do_oauth</a></li>
 </ul>
 </li>
 <li><a href="#EOF-">EOF</a></li>
@@ -122,7 +131,7 @@ are via tokens. Tokens are hashes of IP address and validated password.
 They shouldn't work from a new address by being transported.</p>
 <p>Action completes OK or it's a violation. If it's a violation, it's logged.</p>
 <p>Note that nearly every other routine within Cclite can consume a token.
-This is usually the last input paramter for any given subroutine.</p>
+This is usually the last input parameter for any given subroutine.</p>
 <p>This isn't used at present but the idea is many watertight doors rather
 than a perimeter and a leaky interior.</p>
 <p>I expect to put public key processing for GPG email
@@ -130,6 +139,9 @@ and similar here too.</p>
 <p>This can now use the pure Perl SHA package.
 The idea is to enable a full installation where a user may not be able
 to use CPAN. However Digest::SHA2 will be much faster.</p>
+<p>07/2011</p>
+<p>Code is gradually being added for salted passwords and OAuth. This is turned
+off at the moment, but will be 'on' within a couple of releases</p>
 <p>
 </p>
 <hr />
@@ -150,6 +162,8 @@ to use CPAN. However Digest::SHA2 will be much faster.</p>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">MIME::Base64</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Net::OAuth</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>    <span class="c"># new style configuration, read hash type...</span>
 <span class="c">###use GnuPG qw( :algo );</span>
 
@@ -166,6 +180,7 @@ to use CPAN. However Digest::SHA2 will be much faster.</p>
   <span class="q">calculate_token</span>
   <span class="q">calculate_api_key</span>
   <span class="q">compare_api_key</span>
+  <span class="q">do_oauth</span>
   <span class="q">valid_token</span>
   <span class="q">parse_remote_user</span>
   <span class="q">log_violation</span>
@@ -506,7 +521,6 @@ mainly installer for the present</p>
 <p>Very crude method of determining whether the administration script is being run.
 Should be replaced by something more secure and subtle.</p>
 <p>Should also check token to provide some assurance that session is not hijacked</p>
-
 <pre>
 <a name="is_admin-"></a><span class="k">sub </span><span class="m">is_admin</span> <span class="s">{</span>
     <span class="k">my</span> <span class="i">$is_admin</span>  = <span class="n">0</span><span class="sc">;</span>
@@ -533,6 +547,255 @@ Should be replaced by something more secure and subtle.</p>
     <span class="s">}</span>
     <span class="k">return</span> <span class="i">$data</span><span class="sc">;</span>
 <span class="s">}</span>
+
+
+
+<span class="c">#</span>
+<span class="c"># Author:       David Shu </span>
+<span class="c"># Created:      5/26/2005</span>
+<span class="c"># Description:  This is a collection of functions that will assist in</span>
+<span class="c">#               working with salted SHA (SSHA) passwords.</span>
+<span class="c">#</span>
+
+
+<span class="c">#</span>
+<span class="c"># Description:  Extracts the prefix portion of the hashed password</span>
+<span class="c"># Parameters:   hashed password =&gt; (required; the hashed password must contain</span>
+<span class="c">#               the appropriate prefix)</span>
+<span class="c"># Return: scheme (string)</span>
+<span class="c">#</span>
+<a name="getpassscheme-"></a><span class="k">sub </span><span class="m">getpassscheme</span>
+<span class="s">{</span>
+	<span class="k">my</span> <span class="i">$hashed_pass</span> = <span class="k">shift</span><span class="sc">;</span>
+
+	<span class="c"># extract prefix from hash</span>
+	<span class="i">$hashed_pass</span>=~<span class="q">m/{([^}]*)/</span><span class="sc">;</span>
+	<span class="k">return</span> <span class="i">$1</span><span class="sc">;</span>
+<span class="s">}</span>
+
+
+<span class="c">#</span>
+<span class="c"># Description : Extracts the hash portion of the hashed password</span>
+<span class="c"># Parameters : hashed password =&gt; (required; the hashed password must contain</span>
+<span class="c">#              the appropriate prefix)</span>
+<span class="c"># Return : hash (string)</span>
+<span class="c">#</span>
+<a name="getpasshash-"></a><span class="k">sub </span><span class="m">getpasshash</span>
+<span class="s">{</span>
+	<span class="k">my</span> <span class="i">$hashed_pass</span> = <span class="k">shift</span><span class="sc">;</span>
+
+	<span class="c"># extract hash from passwordhash</span>
+	<span class="i">$hashed_pass</span>=~<span class="q">m/}([^s]*)/</span><span class="sc">;</span>
+	<span class="k">return</span> <span class="i">$1</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="c">#</span>
+<span class="c"># Description :    Generate a SHA or SSHA hash</span>
+<span class="c"># Parameters :     password =&gt; clear text (required)</span>
+<span class="c">#                  salted =&gt; boolean (optional; default = FALSE)</span>
+<span class="c">#                  salt =&gt; hexString (optional; default = &quot;&quot;; a random salt will be</span>
+<span class="c"># 			generated if none is provided</span>
+<span class="c"># Return : 	   Hash (string)</span>
+<span class="c">#</span>
+<a name="generatesha-"></a><span class="k">sub </span><span class="m">generatesha</span>
+<span class="s">{</span>
+	<span class="k">my</span> <span class="s">(</span><span class="i">$password</span><span class="cm">,</span> <span class="i">$salted</span><span class="cm">,</span> <span class="i">$salt</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+
+	<span class="k">if</span><span class="s">(</span><span class="i">$salted</span> &amp;&amp; <span class="i">$salt</span> <span class="k">eq</span> <span class="q">&quot;&quot;</span><span class="s">)</span><span class="s">{</span>
+		<span class="i">$salt</span> = <span class="i">generatehexsalt</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+	<span class="s">}</span>
+
+	<span class="k">my</span> <span class="i">$hashed_pass</span> = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$ctx</span> = <span class="w">Digest::SHA1</span><span class="w">-&gt;new</span><span class="sc">;</span>
+	<span class="i">$ctx</span><span class="i">-&gt;add</span><span class="s">(</span><span class="i">$password</span><span class="s">)</span><span class="sc">;</span>
+	<span class="k">print</span> <span class="i">$password</span><span class="sc">;</span>
+	<span class="k">if</span><span class="s">(</span><span class="i">$salted</span><span class="s">)</span><span class="s">{</span>
+		<span class="k">print</span> <span class="i">$salt</span><span class="sc">;</span>
+		<span class="i">$salt</span> = <span class="k">pack</span><span class="s">(</span><span class="q">&quot;H*&quot;</span><span class="cm">,</span> <span class="i">$salt</span><span class="s">)</span><span class="sc">;</span>
+		<span class="i">$ctx</span><span class="i">-&gt;add</span><span class="s">(</span><span class="i">$salt</span><span class="s">)</span><span class="sc">;</span>
+		<span class="i">$hashed_pass</span> = <span class="i">encode_base64</span><span class="s">(</span><span class="i">$ctx</span><span class="i">-&gt;digest</span> . <span class="i">$salt</span> <span class="cm">,</span><span class="q">&#39;&#39;</span><span class="s">)</span><span class="sc">;</span>
+
+	<span class="s">}</span>
+	<span class="k">else</span><span class="s">{</span>
+		<span class="i">$hashed_pass</span> = <span class="i">encode_base64</span><span class="s">(</span><span class="i">$ctx</span><span class="i">-&gt;digest</span><span class="cm">,</span><span class="q">&#39;&#39;</span><span class="s">)</span><span class="sc">;</span>
+	<span class="s">}</span>
+
+	<span class="k">return</span> <span class="i">$hashed_pass</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="c">#</span>
+<span class="c"># Description : Generate a SHA or SSHA hashed password; same as generatesha</span>
+<span class="c"># 		but adds the appropriate prefix</span>
+<span class="c"># Parameters :  password =&gt; clear text (required)</span>
+<span class="c"># 		salted =&gt; boolean (optional; default = FALSE)</span>
+<span class="c"># 		salt =&gt; hexString (optional; default = &quot;&quot;; a random salt will be</span>
+<span class="c"># 			generated if none is provided</span>
+<span class="c"># Return : 	Hashed Password (string)</span>
+<span class="c">#</span>
+<a name="generateshawithprefix-"></a><span class="k">sub </span><span class="m">generateshawithprefix</span>
+<span class="s">{</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$password</span><span class="cm">,</span> <span class="i">$salted</span><span class="cm">,</span> <span class="i">$salt</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+
+	<span class="k">my</span> <span class="i">$hashed_pass</span> = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+
+	<span class="k">if</span><span class="s">(</span>!<span class="i">$salted</span><span class="s">)</span><span class="s">{</span>
+		<span class="i">$hashed_pass</span> = <span class="q">&quot;{SHA}&quot;</span> . <span class="i">generatesha</span><span class="s">(</span><span class="i">$password</span><span class="cm">,</span><span class="i">$salted</span><span class="cm">,</span><span class="i">$salt</span><span class="s">)</span><span class="sc">;</span>
+	<span class="s">}</span><span class="k">else</span><span class="s">{</span>
+		<span class="i">$hashed_pass</span> = <span class="q">&quot;{SSHA}&quot;</span> . <span class="i">generatesha</span><span class="s">(</span><span class="i">$password</span><span class="cm">,</span><span class="i">$salted</span><span class="cm">,</span><span class="i">$salt</span><span class="s">)</span><span class="sc">;</span>
+	<span class="s">}</span>
+
+	<span class="k">return</span> <span class="i">$hashed_pass</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="c">#</span>
+<span class="c"># Description : Randomly generate a 4 byte hex-based string</span>
+<span class="c"># Parameters : N/a</span>
+<span class="c"># Return : Hex based salt (string)</span>
+<span class="c">#</span>
+<a name="generatehexsalt-"></a><span class="k">sub </span><span class="m">generatehexsalt</span>
+<span class="s">{</span>
+	<span class="c"># RANDOM KEY PARAMETERS</span>
+	<span class="k">my</span> <span class="i">@keychars</span> = <span class="s">(</span><span class="q">&quot;0&quot;</span><span class="cm">,</span><span class="q">&quot;1&quot;</span><span class="cm">,</span><span class="q">&quot;2&quot;</span><span class="cm">,</span><span class="q">&quot;3&quot;</span><span class="cm">,</span><span class="q">&quot;4&quot;</span><span class="cm">,</span><span class="q">&quot;5&quot;</span><span class="cm">,</span><span class="q">&quot;6&quot;</span><span class="cm">,</span><span class="q">&quot;7&quot;</span><span class="cm">,</span><span class="q">&quot;8&quot;</span><span class="cm">,</span><span class="q">&quot;9&quot;</span><span class="cm">,</span><span class="q">&quot;a&quot;</span><span class="cm">,</span><span class="q">&quot;b&quot;</span><span class="cm">,</span><span class="q">&quot;c&quot;</span><span class="cm">,</span><span class="q">&quot;d&quot;</span><span class="cm">,</span><span class="q">&quot;e&quot;</span><span class="cm">,</span><span class="q">&quot;f&quot;</span><span class="s">)</span><span class="sc">;</span>
+	<span class="k">my</span> <span class="i">@keychars_initial</span> = <span class="s">(</span><span class="q">&quot;1&quot;</span><span class="cm">,</span><span class="q">&quot;2&quot;</span><span class="cm">,</span><span class="q">&quot;3&quot;</span><span class="cm">,</span><span class="q">&quot;4&quot;</span><span class="cm">,</span><span class="q">&quot;5&quot;</span><span class="cm">,</span><span class="q">&quot;6&quot;</span><span class="cm">,</span><span class="q">&quot;7&quot;</span><span class="cm">,</span><span class="q">&quot;8&quot;</span><span class="cm">,</span><span class="q">&quot;9&quot;</span><span class="cm">,</span><span class="q">&quot;a&quot;</span><span class="cm">,</span><span class="q">&quot;b&quot;</span><span class="cm">,</span><span class="q">&quot;c&quot;</span><span class="cm">,</span><span class="q">&quot;d&quot;</span><span class="cm">,</span><span class="q">&quot;e&quot;</span><span class="cm">,</span><span class="q">&quot;f&quot;</span><span class="s">)</span><span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$length</span> = <span class="n">8</span><span class="sc">;</span>
+
+	<span class="c"># RANDOM KEY GENERATOR</span>
+	<span class="k">my</span> <span class="i">$randkey</span> = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+	<span class="k">for</span> <span class="s">(</span><span class="k">my</span> <span class="i">$i</span>=<span class="n">0</span><span class="sc">;</span><span class="i">$i</span>&lt;<span class="i">$length</span><span class="sc">;</span><span class="i">$i</span>++<span class="s">)</span> <span class="s">{</span>
+		<span class="k">if</span><span class="s">(</span><span class="i">$i</span>==<span class="n">0</span><span class="s">)</span><span class="s">{</span>
+			<span class="i">$randkey</span> .= <span class="i">$keychars_initial</span>[<span class="k">int</span><span class="s">(</span><span class="k">rand</span><span class="s">(</span><span class="n">15</span><span class="s">)</span><span class="s">)</span>]<span class="sc">;</span>
+		<span class="s">}</span>
+		<span class="k">else</span><span class="s">{</span>
+			<span class="i">$randkey</span> .= <span class="i">$keychars</span>[<span class="k">int</span><span class="s">(</span><span class="k">rand</span><span class="s">(</span><span class="n">16</span><span class="s">)</span><span class="s">)</span>]<span class="sc">;</span>
+		<span class="s">}</span>
+	<span class="s">}</span>
+
+	<span class="k">return</span> <span class="i">$randkey</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="c">#</span>
+<span class="c"># Description : Extracts the hex based salt that was used in the hashed password</span>
+<span class="c"># Parameters :  hashed password =&gt; (required; the hashed password must contain</span>
+<span class="c"># 		the appropriate prefix)</span>
+<span class="c"># Return : Hex based salt (string)</span>
+<span class="c">#</span>
+<a name="extractsalt-"></a><span class="k">sub </span><span class="m">extractsalt</span>
+<span class="s">{</span>
+	<span class="k">my</span> <span class="s">(</span><span class="i">$hashed_pass</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$hash</span> = <span class="i">getpasshash</span><span class="s">(</span><span class="i">$hashed_pass</span><span class="s">)</span><span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$ohash</span> = <span class="i">decode_base64</span><span class="s">(</span><span class="i">$hash</span><span class="s">)</span><span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$osalt</span> = <span class="k">substr</span><span class="s">(</span><span class="i">$ohash</span><span class="cm">,</span> <span class="n">20</span><span class="s">)</span><span class="sc">;</span>
+	<span class="k">return</span> <span class="k">join</span><span class="s">(</span><span class="q">&quot;&quot;</span><span class="cm">,</span><span class="k">unpack</span><span class="s">(</span><span class="q">&quot;H*&quot;</span><span class="cm">,</span><span class="i">$osalt</span><span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="c">#</span>
+<span class="c"># Description : Compare the hashed password with the clear text password;</span>
+<span class="c"># 		Currently this only supports 3 password schemes (all are</span>
+<span class="c"># 		base64 encoded):</span>
+<span class="c"># 			1) SSHA (sha1 algorithm)</span>
+<span class="c"># 			2) SHA (sha1 algorithm)</span>
+<span class="c"># 			3) MD5</span>
+<span class="c"># Parameters :  hashed password =&gt; (required; the hashed password must contain</span>
+<span class="c"># 		the appropriate prefix)</span>
+<span class="c"># 		cleartext password =&gt; (required)</span>
+<span class="c"># Return : 	1/0</span>
+<span class="c">#</span>
+<a name="validatepassword-"></a><span class="k">sub </span><span class="m">validatepassword</span>
+<span class="s">{</span>
+	<span class="k">my</span> <span class="s">(</span><span class="i">$hashed_pass</span><span class="cm">,</span> <span class="i">$clear_pass</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$scheme</span> = <span class="k">lc</span><span class="s">(</span><span class="i">getpassscheme</span><span class="s">(</span><span class="i">$hashed_pass</span><span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$hash</span> = <span class="i">getpasshash</span><span class="s">(</span><span class="i">$hashed_pass</span><span class="s">)</span><span class="sc">;</span>
+	<span class="i">$clear_pass</span>=~<span class="q">s/^s+//g</span><span class="sc">;</span>
+	<span class="i">$clear_pass</span>=~<span class="q">s/s+$//g</span><span class="sc">;</span>
+	<span class="k">my</span> <span class="i">$retval</span> = <span class="n">0</span><span class="sc">;</span>
+	<span class="k">if</span><span class="s">(</span><span class="i">$scheme</span> <span class="k">eq</span> <span class="q">&quot;ssha&quot;</span><span class="s">)</span><span class="s">{</span>
+		<span class="k">my</span> <span class="i">$salt</span> = <span class="i">extractsalt</span><span class="s">(</span><span class="i">$hashed_pass</span><span class="s">)</span><span class="sc">;</span>
+		<span class="k">my</span> <span class="i">$hpass</span> = <span class="i">generatesha</span><span class="s">(</span><span class="i">$clear_pass</span><span class="cm">,</span><span class="n">1</span><span class="cm">,</span><span class="i">$salt</span><span class="s">)</span><span class="sc">;</span>
+
+		<span class="k">if</span><span class="s">(</span><span class="i">$hash</span> <span class="k">eq</span> <span class="i">$hpass</span><span class="s">)</span><span class="s">{</span>
+			<span class="i">$retval</span> = <span class="n">1</span><span class="sc">;</span>
+		<span class="s">}</span>
+	<span class="s">}</span>
+	<span class="k">elsif</span><span class="s">(</span><span class="i">$scheme</span> <span class="k">eq</span> <span class="q">&quot;sha&quot;</span><span class="s">)</span><span class="s">{</span>
+		<span class="k">my</span> <span class="i">$hpass</span> = <span class="i">generatesha</span><span class="s">(</span><span class="i">$clear_pass</span><span class="cm">,</span><span class="n">0</span><span class="cm">,</span><span class="q">&quot;&quot;</span><span class="s">)</span><span class="sc">;</span>
+		<span class="k">if</span><span class="s">(</span><span class="i">$hash</span> <span class="k">eq</span> <span class="i">$hpass</span><span class="s">)</span><span class="s">{</span>
+			<span class="i">$retval</span> = <span class="n">1</span><span class="sc">;</span>
+		<span class="s">}</span>
+	<span class="s">}</span>
+	<span class="k">else</span><span class="s">{</span>
+		<span class="k">my</span> <span class="i">$hpass</span> = <span class="i">encode_base64</span><span class="s">(</span><span class="k">pack</span><span class="s">(</span><span class="q">&quot;H*&quot;</span><span class="cm">,</span><span class="i">md5</span><span class="s">(</span><span class="i">$clear_pass</span><span class="s">)</span><span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+		<span class="k">if</span><span class="s">(</span><span class="i">$hash</span> <span class="k">eq</span> <span class="i">$hpass</span><span class="s">)</span><span class="s">{</span>
+			<span class="i">$retval</span> = <span class="n">1</span><span class="sc">;</span>
+		<span class="s">}</span>
+	<span class="s">}</span>
+
+	<span class="k">return</span> <span class="i">$retval</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="c"># Skeleton OAuth processing 07/2011</span>
+
+</pre><p></p>
+<h3><a name="do_oauth">do_oauth</a></h3>
+<p>Experimental oauth token supply and checking etc. This is to complete
+the open transact work and also to replace the hand-rolled api access
+method in previous releases....</p>
+<p>These calls exit here after supplying the tokens</p>
+
+<pre>
+
+<a name="do_oauth-"></a><span class="k">sub </span><span class="m">do_oauth</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span><span class="i">$class</span><span class="cm">,</span><span class="i">$db</span><span class="cm">,</span><span class="i">$fields_ref</span><span class="cm">,</span><span class="i">$token</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+    
+    
+    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span> <span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;in do auth $fields_ref-&gt;{&#39;registry&#39;}&quot;</span> <span class="sc">;</span>
+    
+    <span class="c">###require &quot;Net::OAuth&quot; ;</span>
+    
+    <span class="c"># temporary parameters...</span>
+    <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;consumer_key&#39;</span>} = <span class="q">&#39;123123&#39;</span> <span class="sc">;</span>
+    
+    
+    <span class="i">$Net::OAuth::PROTOCOL_VERSION</span> = <span class="q">&#39;Net::OAuth::PROTOCOL_VERSION_1_0A&#39;</span><span class="sc">;</span>
+    
+    <span class="k">my</span> <span class="i">$request</span> = <span class="w">Net::OAuth</span><span class="w">-&gt;request</span><span class="s">(</span><span class="q">&quot;request token&quot;</span><span class="s">)</span><span class="i">-&gt;from_hash</span><span class="s">(</span><span class="s">{</span><span class="i">$fields_ref</span><span class="s">}</span><span class="cm">,</span>
+        <span class="w">consumer_key</span> <span class="cm">=&gt;</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;consumer_key&#39;</span>}<span class="cm">,</span>
+        <span class="w">request_url</span> <span class="cm">=&gt;</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;request_url&#39;</span>}<span class="cm">,</span>
+        <span class="w">signature_method</span> <span class="cm">=&gt;</span> <span class="q">&#39;HMAC-SHA1&#39;</span><span class="cm">,</span>
+        <span class="w">request_method</span> <span class="cm">=&gt;</span> <span class="i">$ENV</span>{<span class="q">&#39;REQUEST_METHOD&#39;</span>}<span class="cm">,</span>
+        <span class="w">timestamp</span> <span class="cm">=&gt;</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span><span class="cm">,</span>
+        <span class="w">nonce</span><span class="cm">=&gt;</span><span class="q">&#39;123123&#39;</span><span class="cm">,</span>
+        <span class="w">consumer_secret</span> <span class="cm">=&gt;</span> <span class="q">&#39;123123&#39;</span><span class="cm">,</span>
+    <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span>!<span class="i">$request</span><span class="i">-&gt;verify</span><span class="s">)</span> <span class="s">{</span>
+        <span class="k">die</span> <span class="q">&quot;Signature verification failed&quot;</span><span class="sc">;</span>
+    <span class="s">}</span>
+    <span class="k">else</span> <span class="s">{</span>
+        <span class="c"># Service Provider sends Request Token Response</span>
+
+        <span class="k">my</span> <span class="i">$response</span> = <span class="w">Net::OAuth</span><span class="w">-&gt;response</span><span class="s">(</span><span class="q">&quot;request token&quot;</span><span class="s">)</span><span class="i">-&gt;new</span><span class="s">(</span> 
+            <span class="w">token</span> <span class="cm">=&gt;</span> <span class="q">&#39;abcdef&#39;</span><span class="cm">,</span>
+            <span class="w">token_secret</span> <span class="cm">=&gt;</span> <span class="q">&#39;0123456&#39;</span><span class="cm">,</span>
+            <span class="w">callback_confirmed</span> <span class="cm">=&gt;</span> <span class="q">&#39;true&#39;</span><span class="cm">,</span>
+        <span class="s">)</span><span class="sc">;</span>
+
+        <span class="k">print</span> <span class="i">$response</span><span class="i">-&gt;to_post_body</span><span class="sc">;</span>
+        
+    <span class="s">}</span>    
+ <span class="k">exit</span> <span class="n">0</span> <span class="sc">;</span>
+<span class="s">}</span>
+
+
+
+
+
+<span class="n">1</span><span class="sc">;</span>
+
+
+
+
 
 <span class="n">1</span><span class="sc">;</span>
 

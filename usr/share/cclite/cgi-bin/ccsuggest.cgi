@@ -13,12 +13,10 @@ sub get_suggestions {
 
     my ( $db, $cookieref, $type, $query_string, $token ) = @_;
 
-    
     # split and deal with last entry only if 'free form' yellowpages tags
     # for example baking,bread,shop this will suggest for 'shop'
-    
-    my @tags ;
 
+    my @tags;
 
 # get the sql string corresponding to the autosuggest, moved to Cclitedb 9/5/2010
     my $sql = get_suggest_sql(
@@ -33,27 +31,28 @@ sub get_suggestions {
 
     my $menu_select;
     my $menu_count = 0;
-   
 
     foreach my $row_ref (@$array_ref) {
         my $menu_item;
         $menu_count++;
-        # fixme: this probably shoudln't be true for tags
-       if ($type ne 'tag') {
-         $menu_item = substr( $$row_ref[0], 0, 15 );
-         $menu_select .= "$menu_item\n";
-        } else {
-          push @tags ,"\"$$row_ref[0]\"" ;  
-        }    
-    }
-    
-    if ($type eq 'tag') {
-        # produce json for jquery-tagsuggest.js
-       $menu_select =  join(",",@tags)  ;
-       $menu_select = "[$menu_select]" ;      
-    }    
 
-    return ( $registryerror, $menu_count, $menu_select);
+        # fixme: this probably shoudln't be true for tags
+        if ( $type ne 'tag' ) {
+            $menu_item = substr( $$row_ref[0], 0, 15 );
+            $menu_select .= "$menu_item\n";
+        } else {
+            push @tags, "\"$$row_ref[0]\"";
+        }
+    }
+
+    if ( $type eq 'tag' ) {
+
+        # produce json for jquery-tagsuggest.js
+        $menu_select = join( ",", @tags );
+        $menu_select = "[$menu_select]";
+    }
+
+    return ( $registryerror, $menu_count, $menu_select );
 
 }
 
@@ -88,7 +87,7 @@ my $language = $cookieref->{'language'} || "en";
 our %messages = readmessages($language);
 
 # array of tags for yellowpage tags autosuggest
-our @tags ; 
+our @tags;
 
 # registry1 is filled for newuser suggest, this is ugly but it avoids the untraceable
 # bug where the value of the registry cookie is cumulated. Exists on mailing lists but
@@ -123,18 +122,17 @@ if ( !length( $cookieref->{'token'} ) ) {
 # need to format no spaces before looking up, if new mobile number, international format...
 $fields{'q'} = format_for_standard_mobile( $fields{'q'} )
   if ( $fields{'type'} eq 'newusermobile' );
-  
- my ( $registryerror, $menu_count, $menu_select ) ;
- 
- # using tagsuggest now for yellow pages tags, to be generalised 7/2011
-if (length($fields{'tag'}) ) {  
- ( $registryerror, $menu_count, $menu_select ) =
-  get_suggestions( $db, $cookieref, 'tag', $fields{'tag'}, $token );
-} else {
- ( $registryerror, $menu_count, $menu_select ) =
-  get_suggestions( $db, $cookieref, $fields{'type'}, $fields{'q'}, $token );
-}
 
+my ( $registryerror, $menu_count, $menu_select );
+
+# using tagsuggest now for yellow pages tags, to be generalised 7/2011
+if ( length( $fields{'tag'} ) ) {
+    ( $registryerror, $menu_count, $menu_select ) =
+      get_suggestions( $db, $cookieref, 'tag', $fields{'tag'}, $token );
+} else {
+    ( $registryerror, $menu_count, $menu_select ) =
+      get_suggestions( $db, $cookieref, $fields{'type'}, $fields{'q'}, $token );
+}
 
 # menu suggest output
 if (   $fields{'type'} ne 'newuser'

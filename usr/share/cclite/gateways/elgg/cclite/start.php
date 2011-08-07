@@ -9,7 +9,6 @@
 	 * @copyright Hugh Barnard
 	 * @link http://www.hughbarnard.org
          * Provides a passthrough to the cclite alternative currency package
-
 	 */
 
 	/**
@@ -23,95 +22,105 @@
 	 */
 	
  
-		function cclite_init() {
+	function cclite_init() {
 			
-			// Load system configuration
-				global $CONFIG;
-			
-			
-			// Set up menu for logged in users
-				if (isloggedin()) {
-    				
-					add_menu(elgg_echo('cclite'), $CONFIG->wwwroot . "pg/cclite/" . $_SESSION['user']->username);
-					
-			// And for logged out users
-				} else {
-					add_menu(elgg_echo('cclite'), $CONFIG->wwwroot . "mod/cclite/everyone.php",array(
-					));
-				}
-				
-			// Extend system CSS with our own styles, which are defined in the cclite/css view
-				extend_view('css','cclite/css');
-				
-			// Extend hover-over menu	
-				extend_view('profile/menu/links','cclite/menu');
-				
-			// Register a page handler, so we can have nice URLs
-				register_page_handler('cclite','cclite_page_handler');
-			
- 
+	// Load system configuration
+	global $CONFIG ;
 
+	// require libraries
+	require_once "{$CONFIG->pluginspath}cclite/cclite-oauth/oauthservice_lib.php";
+
+	if (!class_exists('LinkedinOAuth')) {
+		require_once "{$CONFIG->pluginspath}cclite/cclite-oauth/ccliteoauth.php";
+	}
+	// Set up menu for logged in users
+	if (isloggedin()) {    				
+		add_menu(elgg_echo('cclite'), $CONFIG->wwwroot . "pg/cclite/" . $_SESSION['user']->username);					
+	// And for logged out users
+	} else {
+		add_menu(elgg_echo('cclite'), $CONFIG->wwwroot . "mod/cclite/everyone.php",array());
+	}
+			
+	// Extend system CSS with our own styles, which are defined in the cclite/css view
+	extend_view('css','cclite/css');				
 	
-			// Register a URL handler for cclite posts
-				register_entity_url_handler('cclite_url','object','cclite');
-				
-			// Register this plugin's object for sending pingbacks
-				register_plugin_hook('pingback:object:subtypes', 'object', 'cclite_pingback_subtypes');
+	// Extend hover-over menu, not sure that this is needed	
+	extend_view('profile/menu/links','cclite/menu');				
 
-			// Register granular notification for this type
-			if (is_callable('register_notification_object'))
-				register_notification_object('object', 'cclite', elgg_echo('cclite:newpost'));
-
-			// Listen to notification events and supply a more useful message
-			register_plugin_hook('notify:entity:message', 'object', 'cclite_notify_message');
+	// Register a page handler, so we can have nice URLs
+	register_page_handler('cclite','cclite_page_handler');
 
 				
-			// Listen for new pingbacks
-				register_elgg_event_handler('create', 'object', 'cclite_incoming_ping');
+	// Register a URL handler for cclite posts
+	register_entity_url_handler('cclite_url','object','cclite');
 				
-			// Register entity type
-				register_entity_type('object','cclite');
+	// Register this plugin's object for sending pingbacks
+	register_plugin_hook('pingback:object:subtypes', 'object', 'cclite_pingback_subtypes');
+
+	// Register granular notification for this type
+	if (is_callable('register_notification_object'))
+		register_notification_object('object', 'cclite', elgg_echo('cclite:newpost'));
+
+	// Listen to notification events and supply a more useful message
+	register_plugin_hook('notify:entity:message', 'object', 'cclite_notify_message');
+				
+	// Listen for new pingbacks
+	register_elgg_event_handler('create', 'object', 'cclite_incoming_ping');
+				
+	// Register entity type
+	register_entity_type('object','cclite');
 				
 				
-			// widget created data is metadata, mainly to be posted to remote cclite instance
-		        // this is a little ugly but I haven't found better...
-		        register_elgg_event_handler('create','metadata','cclite_post_data', 1000);
+        // widget created data is metadata, mainly to be posted to remote cclite instance
+        // this is a little ugly but I haven't found better...
+        register_elgg_event_handler('create','metadata','cclite_post_data', 1000);
 			
-			register_elgg_event_handler('create', 'user', 'post_create_update_handler', 501);
-		}
+		register_elgg_event_handler('create', 'user', 'post_create_update_handler', 501);
+	
+	} // end of init
 		
-		function cclite_pagesetup() {
-			
-			global $CONFIG;
 
-			//add submenu options
-				if (get_context() == "cclite") {
-					
-				}
-			
-		}
+	// not sure how necessary this is, currently
+        function cclite_pagesetup() {			
+	    global $CONFIG;
+	    //add submenu options
+	      if (get_context() == "cclite") { }			
+	}
 		
-		/**
-		 * cclite page handler; allows the use of fancy URLs
-		 *
-		 * @param array $page From the page_handler function
-		 * @return true|false Depending on success
-		 */
-		function cclite_page_handler($page) {
-			
-			
+	/**
+	* cclite page handler; allows the use of URLs related to oauth
+	* currently necessary for oauth
+	* @param array $page From the page_handler function
+	* @return true|false Depending on success
+	*/
+
+       function cclite_pagehandler($page) {
+		if (!isset($page[0])) {
+			forward();
 		}
 
-		/**
-		 * Returns a more meaningful message
-		 *
-		 * @param unknown_type $hook
-		 * @param unknown_type $entity_type
-		 * @param unknown_type $returnvalue
-		 * @param unknown_type $params
-		 */
-		function cclite_notify_message($hook, $entity_type, $returnvalue, $params)
-		{
+		switch ($page[0]) {
+		case 'authorize':
+			cclite_authorize(); break;
+		case 'revoke':
+			cclite_revoke(); break;
+		case 'sync':
+			cclite_sync(); break;
+		default:
+			forward(); break;
+		}
+	}
+
+	/**
+	* Returns a more meaningful message
+	* probably unnecessary currently
+	* @param unknown_type $hook
+	* @param unknown_type $entity_type
+	* @param unknown_type $returnvalue
+	* @param unknown_type $params
+	*/
+
+	function cclite_notify_message($hook, $entity_type, $returnvalue, $params) {
 			$entity = $params['entity'];
 			$to_entity = $params['to_entity'];
 			$method = $params['method'];
@@ -129,74 +138,75 @@
 				}
 			}
 			return null;
-		}
-
-
-
+	}
 		
-		/**
-		 * This function adds 'cclite' to the list of objects which will be looked for pingback urls.
-		 *
-		 * @param unknown_type $hook
-		 * @param unknown_type $entity_type
-		 * @param unknown_type $returnvalue
-		 * @param unknown_type $params
-		 * @return unknown
-		 */
-		function cclite_pingback_subtypes($hook, $entity_type, $returnvalue, $params)
-		{
+	/**
+	* This function adds 'cclite' to the list of objects which will be looked for pingback urls.
+	* probably unecessary
+	* @param unknown_type $hook
+	* @param unknown_type $entity_type
+	* @param unknown_type $returnvalue
+	* @param unknown_type $params
+	* @return unknown
+	*/
+
+	function cclite_pingback_subtypes($hook, $entity_type, $returnvalue, $params) {
 			$returnvalue[] = 'cclite';
 			return $returnvalue;
-		}
-		
-		/**
-		 * Listen to incoming pings, this parses an incoming target url - sees if its for me, and then
-		 * either passes it back or prevents it from being created and attaches it as an annotation to a given
-		 *
-		 * @param unknown_type $event
-		 * @param unknown_type $object_type
-		 * @param unknown_type $object
-		 */
-		function cclite_incoming_ping($event, $object_type, $object)
-		{
-			// TODO: Get incoming ping object, see if its a ping on a cclite and if so attach it as a comment
-		}
+	}
 
 		
-	        function post_create_update_handler($event, $object_type, $object) {
+	/**
+	* Listen to incoming pings, this parses an incoming target url - sees if its for me, and then
+	* either passes it back or prevents it from being created and attaches it as an annotation to a given
+	* probably unecessary
+	* @param unknown_type $event
+	* @param unknown_type $object_type
+	* @param unknown_type $object
+	*/
+
+	function cclite_incoming_ping($event, $object_type, $object) {
+			// TODO: Get incoming ping object, see if its a ping on a cclite and if so attach it as a comment 
+        }
+		
+
+	/* cclite content is currently in widgets, this is code from drupal really, probably unecessary */
+        function post_create_update_handler($event, $object_type, $object) {
 
 			$user = $object;
 			$username = $user->username;
 			global $CONFIG;
                         include ($CONFIG->wwwroot."/mod/cclite/cclite-common.php") ;
-            // do any followup operations on successfull login
-			
+
+            // do any followup operations on successfull login			
 			// ensure "admin" is a friend for all users ... if you want
 			// any other user just use it below
 		//	if ( ($username != "admin") && ($admin = get_user_by_username ("admin")) ) {
 		//          $block_content = cclite_contents('adduser',$username) ;
-		//         system_message ( "trying to create cclite user $block_content");
-			
+		//         system_message ( "trying to create cclite user $block_content");			
 
-		//	}
-            
+		// }            
 			// put out a greeting message ... this could be customized
 			// depending on user's profile, etc. 
 		//	system_message ( "Welcome " . $user->name . " to " . $CONFIG->wwwroot );
-	}
+	 }
 
-	//register plugin initialization handler
+	
+        //register plugin initialization handler
 	register_elgg_event_handler('init', 'system', 'post_create_update_init');
 		
 	// Make sure the cclite initialisation function is called on initialisation
-		register_elgg_event_handler('init','system','cclite_init');
-		register_elgg_event_handler('pagesetup','system','cclite_pagesetup');
-                register_elgg_event_handler('create', 'user', 'post_login_update_handler', 501);
-		add_widget_type('summary',elgg_echo("Trading Summary"),elgg_echo("Trading Summary"));
-                add_widget_type('transactions',elgg_echo("Recent Transactions"),elgg_echo("Recent Transactions"));
-                add_widget_type('payment',elgg_echo("Payment"),elgg_echo("Payment"));
-	// Register actions
-		global $CONFIG;
-		register_action("cclite/pay",false,$CONFIG->pluginspath . "cclite/actions/pay.php");
+	register_elgg_event_handler('init','system','cclite_init');
+	register_elgg_event_handler('pagesetup','system','cclite_pagesetup');
+        register_elgg_event_handler('create', 'user', 'post_login_update_handler', 501);
+	
+        add_widget_type('summary',elgg_echo("Trading Summary"),elgg_echo("Trading Summary"));
+        add_widget_type('transactions',elgg_echo("Recent Transactions"),elgg_echo("Recent Transactions"));
+        add_widget_type('payment',elgg_echo("Payment"),elgg_echo("Payment"));
+	
+        // Register actions
+	global $CONFIG;
+	register_action("cclite/pay",false,$CONFIG->pluginspath . "cclite/actions/pay.php");
+
 		
 ?>

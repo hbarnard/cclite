@@ -68,8 +68,10 @@ pre { color: #000000;
 			<li><a href="#find_database_records">find_database_records</a></li>
 			<li><a href="#get_transaction_totals">get_transaction_totals</a></li>
 			<li><a href="#get_suggest_sql">get_suggest_sql</a></li>
+			<li><a href="#get_check_tag_sql">get_check_tag_sql</a></li>
 			<li><a href="#get_user_display_data">get_user_display_data</a></li>
 			<li><a href="#get_yellowpages_directory_data">get_yellowpages_directory_data</a></li>
+			<li><a href="#get_yellowpages_tag_cloud_data">get_yellowpages_tag_cloud_data</a></li>
 			<li><a href="#get_yellowpages_directory_print">get_yellowpages_directory_print</a></li>
 			<li><a href="#get_statement_print">get_statement_print</a></li>
 			<li><a href="#get_where">get_where</a></li>
@@ -118,8 +120,10 @@ pre { color: #000000;
 <li><a href="#find_database_records-">find_database_records</a></li>
 <li><a href="#get_transaction_totals-">get_transaction_totals</a></li>
 <li><a href="#get_suggest_sql-">get_suggest_sql</a></li>
+<li><a href="#get_check_tag_sql-">get_check_tag_sql</a></li>
 <li><a href="#get_user_display_data-">get_user_display_data</a></li>
 <li><a href="#get_yellowpages_directory_data-">get_yellowpages_directory_data</a></li>
+<li><a href="#get_yellowpages_tag_cloud_data-">get_yellowpages_tag_cloud_data</a></li>
 <li><a href="#get_yellowpages_directory_print-">get_yellowpages_directory_print</a></li>
 <li><a href="#get_statement_print-">get_statement_print</a></li>
 <li><a href="#get_where-">get_where</a></li>
@@ -223,12 +227,14 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
   <span class="q">sqlget</span>
   <span class="q">sqlgetall</span>
   <span class="q">sqlcount</span>
+  <span class="q">get_check_tag_sql</span>
   <span class="q">get_id_name</span>
   <span class="q">get_suggest_sql</span>
   <span class="q">get_table_fields</span>
   <span class="q">get_where</span>
   <span class="q">get_where_multiple</span>
   <span class="q">get_transaction_totals</span>
+  <span class="q">get_yellowpages_tag_cloud_data</span>
   <span class="q">get_yellowpages_directory_data</span>
   <span class="q">get_yellowpages_directory_print</span>
   <span class="q">get_user_display_data</span>
@@ -693,10 +699,39 @@ All this depends on cclite.js which fires various bits of jquery</p>
         <span class="i">$sql</span> =
 <span class="q">&quot;SELECT userLogin FROM `om_users` WHERE userMobile LIKE \&#39;\%$query_string\%\&#39; LIMIT 0 , 10&quot;</span><span class="sc">;</span>
 
-    <span class="s">}</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;tag&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sql</span> = 
+        <span class="q">&quot;SELECT description FROM `om_categories` WHERE (description LIKE \&#39;\%$query_string\%\&#39; and category = &#39;9999&#39;) LIMIT 0 , 10&quot;</span><span class="sc">;</span> 
+        
+        
+<span class="s">}</span>
 
     <span class="k">return</span> <span class="i">$sql</span><span class="sc">;</span>
 <span class="s">}</span>
+
+
+</pre><p></p>
+<h3><a name="get_check_tag_sql">get_check_tag_sql</a></h3>
+<p>Check if free form category tag exists, to avoid
+duplicating them. They always have 9999 category codes</p>
+<pre>
+<a name="get_check_tag_sql-"></a><span class="k">sub </span><span class="m">get_check_tag_sql</span> <span class="s">{</span>
+    
+    
+<span class="k">my</span> <span class="s">(</span><span class="i">$tag</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>    
+    
+<span class="k">my</span> <span class="i">$sql</span> = <span class="q">&quot;SELECT description FROM `om_categories` WHERE (description = $tag and category = &#39;9999&#39;&quot;</span> <span class="sc">;</span>    
+<span class="k">return</span> <span class="i">$sql</span> <span class="sc">;</span>    
+    
+<span class="s">}</span>    
+
+
+
+
+
+
+
+
 
 </pre><p></p>
 <h3><a name="get_user_display_data">get_user_display_data</a></h3>
@@ -808,6 +843,45 @@ less fragile with respect to database changes...</p>
     <span class="k">return</span> <span class="s">(</span> <span class="i">$new_items_hash_ref</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
+
+
+
+</pre><p></p>
+<h3><a name="get_yellowpages_tag_cloud_data">get_yellowpages_tag_cloud_data</a></h3>
+<p>July 2011, same signature as all the other parts of yellowpages
+but for tag cloud retrieval. Main idea of this is for the listing
+classification to become more flexible and multilingual</p>
+<p>9999 category are free form keywords to keep them away from the static
+classification scheme.</p>
+<p>FIXME: keywords are a string of keywords, they are not properly normalised,
+but I don't want millions of little tables</p>
+<pre>
+<a name="get_yellowpages_tag_cloud_data-"></a><span class="k">sub </span><span class="m">get_yellowpages_tag_cloud_data</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$interval</span><span class="cm">,</span> <span class="i">$detail</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+
+<span class="k">my</span> <span class="i">$sql</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">SELECT  y.id, y.keywords, y.type</span>
+<span class="hh">FROM om_yellowpages y where category = &#39;9999&#39; order by `date` desc LIMIT 0,1000</span>
+<span class="h">EOT</span>
+
+
+    <span class="k">my</span> <span class="i">$sqltestifnew</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">SELECT  y.id, y.keywords, y.type, y.category</span>
+<span class="hh">FROM om_yellowpages y</span>
+<span class="hh">WHERE where (category = &#39;9999&#39; and datediff(curdate(),y.date) &lt; 2) order by `date` desc LIMIT 0,1000</span>
+<span class="h">EOT</span>
+
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span> =
+      <span class="i">sqlraw</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sql</span><span class="cm">,</span> <span class="q">&#39;id&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="s">(</span><span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
+ 
+<span class="s">}</span>
+
+
 
 </pre><p></p>
 <h3><a name="get_yellowpages_directory_print">get_yellowpages_directory_print</a></h3>

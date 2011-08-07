@@ -1,6 +1,20 @@
 <?php
 // $Id$
 
+// new version of cclite-common.php with oauth for elgg, at least...
+// elgg needs the outh plugin and url_getter plugin too with this plugin...
+
+
+function oauth_processing () {
+
+// create the consumer
+$consument = oauth_create_consumer('cclite-test', 'cclite test elgg-oauth consumer', '123123', '123123');
+set_plugin_setting('oauthconsumer', $consument->getGUID());
+
+}
+
+
+
 // used to transport merchant key hash
 function urlsafe_b64encode($string) {
     $data = base64_encode($string);
@@ -246,6 +260,27 @@ function cclite_contents($input) {
          return $block_content ;
     }
  
+}
+
+// oauth functions
+
+function test_and_get_token() {
+ 
+  $token = oauth_get_token($user, $consumer);
+
+  // not set up for Oauth, take to setup view
+  if ($token->AccessToken == NULL && $token->RequestToken == NULL) {
+
+    /* msg: a text message to display to the user. If this is left out, the system will use a generic one.
+     * consumer_key: the key for the consumer, used to look up the consumer object downstream
+     * user_auth: URL for user authentication for the service you're trying to access
+     * request_url: URL for getting request tokens
+     * access_url: URL for trading validated request tokens for access tokens
+     * return_to: URL to return to once this whole process is complete */
+
+
+  }
+
 }
 
 

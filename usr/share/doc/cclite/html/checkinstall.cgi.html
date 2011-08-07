@@ -152,7 +152,7 @@ checkinstall.cgi</pre>
 <span class="hh">&lt;meta name=&quot;author&quot; content=&quot;hugh barnard&quot; /&gt;</span>
 
 <span class="hh">&lt;link type=&quot;text/css&quot; href=&quot;/styles/cc.css&quot; rel=&quot;stylesheet&quot;&gt;</span>
-<span class="hh">&lt;title&gt;Cclite 0.8.0: Check and diagnose install&lt;/title&gt;</span>
+<span class="hh">&lt;title&gt;Cclite 0.8.1: Check and diagnose install&lt;/title&gt;</span>
 <span class="hh">&lt;script src=&quot;/javascript/jquery-1.3.2.js&quot;&gt;&lt;/script&gt;</span>
 <span class="hh">&lt;script src=&quot;/javascript/jquery-validation-1.5.5.js&quot;&gt;&lt;/script&gt;</span>
 <span class="hh">&lt;script src=&quot;/javascript/jquery-cookies.js&quot;&gt;&lt;/script&gt;</span>
@@ -173,52 +173,44 @@ checkinstall.cgi</pre>
 <span class="hh">	&lt;div id=&quot;page&quot; align=&quot;center&quot;&gt;</span>
 <span class="hh">		&lt;div id=&quot;toppage&quot; align=&quot;center&quot;&gt;</span>
 <span class="hh">			&lt;div id=&quot;date&quot;&gt;</span>
-<span class="hh">				&lt;div class=&quot;smalltext&quot; style=&quot;padding:13px;&quot;&gt;&lt;strong&gt;Cclite Check Install&lt;/strong&gt;&lt;/div&gt;</span>
+<span class="hh">				&lt;!-- top left --&gt;</span>
 <span class="hh">			&lt;/div&gt;</span>
 <span class="hh">			&lt;div id=&quot;topbar&quot;&gt;</span>
-<span class="hh">				&lt;div align=&quot;right&quot; style=&quot;padding:12px;&quot; class=&quot;smallwhitetext&quot;&gt;</span>
-<span class="hh"> &lt;span&gt;</span>
-<span class="hh"> &lt;form id=&quot;form&quot; type=&quot;post&quot; action=&quot;/cgi-bin/protected/ccinstall.cgi&quot;&gt;</span>
-<span class="hh">&lt;input id=&quot;installer1&quot; type=&quot;button&quot; onclick=&quot;location.href=(&#39;/cgi-bin/protected/ccinstall.cgi&#39;);&quot; value=&quot;&gt;&gt; Installer&quot;&gt;</span>
-<span class="hh">&lt;/form&gt;</span>
- 
-<span class="hh">&lt;input type=&quot;button&quot; value=&quot;Back&quot; onClick=&quot;history.go(-1)&quot; &gt;</span>
-<span class="hh">&lt;/span&gt;</span>
-
-
-<span class="hh">&lt;!-- menu here --&gt;</span>
-
-<span class="hh">&lt;/div&gt;</span>
+<span class="hh">			Cclite Installation and Perl Module Checker</span>
 <span class="hh">			&lt;/div&gt;</span>
 <span class="hh">		&lt;/div&gt;</span>
 <span class="hh">		&lt;div id=&quot;header&quot; align=&quot;center&quot;&gt;</span>
+<span class="hh">		 &lt;!-- top right --&gt;</span>
 <span class="hh">			&lt;div class=&quot;titletext&quot; id=&quot;logo&quot;&gt;</span>
 <span class="hh">Cclite</span>
 <span class="hh">                             &lt;div align=&quot;right&quot; style=&quot;padding:12px;&quot; class=&quot;smalltext&quot;&gt;&lt;/div&gt;</span>
 <span class="hh">				&lt;div class=&quot;logotext&quot; style=&quot;margin:30px&quot;&gt;&lt;span class=&quot;orangelogotext&quot;&gt;&lt;/span&gt;&lt;/div&gt; </span>
+				
 <span class="hh">			&lt;/div&gt;</span>
+			
 <span class="hh">			&lt;div id=&quot;pagetitle&quot;&gt;</span>
+<span class="hh">			&lt;div align=&quot;right&quot; class=\&quot;system\&quot;&gt;&lt;a title=&quot;Go to Cclite installer&quot; href=&quot;/cgi-bin/protected/ccinstall.cgi&quot;&gt;Go to Installer&lt;/a&gt; |</span>
+<span class="hh">                          &lt;a title=&quot;Cclite Google Discussion Group&quot; href=&quot;http://groups.google.co.uk/group/cclite?hl=en&quot;&gt;Help with Cclite&lt;/a&gt;&lt;/div&gt;</span>
 
+<span class="hh">                          &lt;/div&gt;</span>
 <span class="hh">				&lt;div id=&quot;title&quot; class=&quot;titletext&quot; align=&quot;right&quot;&gt;&lt;/div&gt;</span>
 <span class="hh">                                &lt;span class=&quot;news&quot;&gt;&lt;/span&gt;</span>
-<span class="hh">			&lt;/div&gt;</span>
+			
 <span class="hh">		&lt;/div&gt;</span>
 <span class="hh">		&lt;div id=&quot;content&quot; align=&quot;center&quot;&gt;</span>
+		
 <span class="hh">			&lt;div id=&quot;menu&quot; align=&quot;right&quot;&gt;</span>
 <span class="hh">				&lt;div align=&quot;right&quot; style=&quot;width:189px; height:8px;&quot;&gt;&lt;img src=&quot;/cclite/images/mnu_topshadow.gif&quot; width=&quot;189&quot; height=&quot;8&quot; alt=&quot;mnutopshadow&quot; /&gt;&lt;/div&gt;</span>
 <span class="hh">				&lt;div id=&quot;linksmenu&quot; align=&quot;center&quot;&gt;</span>
 
-<span class="hh">&lt;!-- menu here --&gt;</span>
-<span class="hh">&lt;!-- autocomplete search boxes --&gt;</span>
-<span class="hh">&lt;!-- end of autocomplete search boxes --&gt;</span>
 
 
 <span class="hh">				&lt;/div&gt;</span>
-<span class="hh">				&lt;div align=&quot;right&quot; style=&quot;width:189px; height:8px;&quot;&gt;&lt;img src=&quot;/cclite/images/mnu_bottomshadow.gif&quot; width=&quot;189&quot; height=&quot;8&quot; alt=&quot;mnubottomshadow&quot; /&gt;&lt;/div&gt;</span>
+				
 <span class="hh">			&lt;/div&gt;</span>
  
 <span class="hh">		&lt;div id=&quot;contenttext&quot;&gt;</span>
-<span class="hh">&lt;div align=&quot;right&quot; class=\&quot;system\&quot;&gt;&lt;a title=&quot;Cclite Google Discussion Group&quot; href=&quot;http://groups.google.co.uk/group/cclite?hl=en&quot;&gt;Help with Cclite&lt;/a&gt;&lt;/div&gt;</span>
+
 
 <span class="hh">			&lt;div class=&quot;bodytext&quot; style=&quot;padding:12px;&quot; align=&quot;justify&quot;&gt;</span>
 
@@ -247,23 +239,17 @@ checkinstall.cgi</pre>
 <span class="hh">&lt;h2&gt;Analysis of Installed Modules and Programs&lt;/h2&gt;				</span>
 <span class="hh">$diagnosis</span>
 <span class="hh">&lt;!-- bottom text here--&gt;</span>
-<span class="hh">				&lt;span class=&quot;bodytext&quot;&gt;</span>
 
+<span class="hh">		&lt;/div&gt;</span>
 
-			
-<span class="hh">&lt;/span&gt;			&lt;/div&gt;</span>
-<span class="hh">			&lt;/div&gt;</span>
-			
-			
+<span class="hh">		&lt;/div&gt;			</span>
 <span class="hh">		&lt;/div&gt;</span>
 <span class="hh">		&lt;div id=&quot;footer&quot; class=&quot;smallgraytext&quot; align=&quot;center&quot;&gt;</span>
-<span class="hh">		&lt;script&gt;</span>
-<span class="hh">		 $disable_installer_button</span>
-<span class="hh">		&lt;/script&gt;</span>
+
 <span class="hh">			&lt;a href=&quot;#&quot;&gt;Home&lt;/a&gt; | &lt;a title=&quot;Help with Cclite&quot; href=&quot;http://groups.google.co.uk/group/cclite?hl=en&quot;&gt;Help with Cclite&lt;/a&gt;&lt;br /&gt;</span>
 <span class="hh">			Cclite &amp;copy; Hugh Barnard 2003-2009</span>
 <span class="hh">		&lt;/div&gt;</span>
-<span class="hh">	&lt;/div&gt;</span>
+	
 <span class="hh">&lt;/body&gt;</span>
 <span class="hh">&lt;/html&gt;</span>
 <span class="h">EOT</span>
@@ -296,7 +282,7 @@ checkinstall.cgi</pre>
     <span class="q">&#39;cgi|CGI::Carp&#39;</span>             <span class="cm">=&gt;</span> <span class="q">&#39;0:Web Error Reporting&#39;</span><span class="cm">,</span>
     <span class="q">&#39;snd|Net::SMTP&#39;</span>             <span class="cm">=&gt;</span> <span class="q">&#39;0:Mail Current Method&#39;</span><span class="cm">,</span>
     <span class="q">&#39;net|Net::POP3&#39;</span>             <span class="cm">=&gt;</span> <span class="q">&#39;1:Mail Current Method&#39;</span><span class="cm">,</span>
-    <span class="q">&#39;opi|Net::OpenID::Consumer&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;2:Open ID&#39;</span><span class="cm">,</span>
+    <span class="q">&#39;opi|Net::OpenID::Consumer&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;2:Open ID consumer&#39;</span><span class="cm">,</span>
     <span class="q">&#39;mim|MIME::Base64&#39;</span>          <span class="cm">=&gt;</span> <span class="q">&#39;2:Mail/Jabber Encryption&#39;</span><span class="cm">,</span>
     <span class="q">&#39;mim|MIME::Decoder&#39;</span>         <span class="cm">=&gt;</span> <span class="q">&#39;2:Mail/Jabber Encryption&#39;</span><span class="cm">,</span>
     <span class="q">&#39;mim|GnuPG&#39;</span>                 <span class="cm">=&gt;</span> <span class="q">&#39;2:Mail/Jabber Encryption&#39;</span><span class="cm">,</span>
@@ -308,6 +294,7 @@ checkinstall.cgi</pre>
     <span class="q">&#39;gde|GD::Graph::lines&#39;</span>      <span class="cm">=&gt;</span> <span class="q">&#39;2:Graphics for Graphs&#39;</span><span class="cm">,</span>
     <span class="q">&#39;gds|GD::Graph::sparklines&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;2:Graphics for Graphs&#39;</span><span class="cm">,</span>
     <span class="q">&#39;cgi|CGI&#39;</span>                   <span class="cm">=&gt;</span> <span class="q">&#39;0:CGI Module&#39;</span><span class="cm">,</span>
+    <span class="q">&#39;ood|OpenOffice::OODoc&#39;</span>     <span class="cm">=&gt;</span> <span class="q">&#39;2:Open Office for batch printing&#39;</span><span class="cm">,</span>
 <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
@@ -318,9 +305,11 @@ checkinstall.cgi</pre>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span>    <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$sort_key</span><span class="cm">,</span> <span class="i">$module_name</span> <span class="s">)</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/\|/</span><span class="cm">,</span> <span class="i">$key</span> <span class="s">)</span><span class="sc">;</span>
 
+
+    <span class="k">print</span> <span class="q">&quot;&lt;br/&gt;\n&quot;</span> <span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">use_ok</span><span class="s">(</span><span class="i">$module_name</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="c"># print &#39;!&#39; ;</span>
+   
         <span class="i">$class</span>   = <span class="q">&#39;system&#39;</span><span class="sc">;</span>
         <span class="i">$message</span> = <span class="q">&#39;usable&#39;</span><span class="sc">;</span>
         <span class="i">$counter</span>{<span class="i">$sort_key</span>}++<span class="sc">;</span>    <span class="c"># count modules in a particular group</span>
@@ -364,17 +353,34 @@ checkinstall.cgi</pre>
 <span class="i">$diagnosis</span> .=
 <span class="q">&quot;&lt;div class=\&quot;failedcheck\&quot;&gt;cclite can&#39;t send mail needs Mail::Sendmail or better Net::SMTP &lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;snd&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
+
 <span class="i">$diagnosis</span> .= <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
 
+<span class="c"># GD missing</span>
 <span class="i">$diagnosis</span> .=
 <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t produce graphs GD module[s] missing&lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;gde&#39;</span>} &lt; <span class="n">3</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># GnuPG missing  </span>
 <span class="i">$diagnosis</span> .=
-  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process encrypted email&lt;/div&gt;&quot;</span>
+  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process encrypted email: GnuPG missing&lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;mim&#39;</span>} &lt; <span class="n">3</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># Net::XMPP missing</span>
 <span class="i">$diagnosis</span> .=
-  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process jabber based payment&lt;/div&gt;&quot;</span>
+  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process jabber based payment: Net::XMPP missing&lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;jab&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># OpenOffice missing</span>
+<span class="i">$diagnosis</span> .=
+  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t print statements or yellowpages: OpenOffice::OODoc missing&lt;/div&gt;&quot;</span>
+  <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;ood&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># OpenID miessing  </span>
+<span class="i">$diagnosis</span> .=
+  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t use OpenID: Net::OpenID::Consumer missing&lt;/div&gt;&quot;</span>
+  <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;opi&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>      
+  
 <span class="i">$diagnosis</span> .= <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$sendmail</span> <span class="s">)</span> <span class="s">{</span>
@@ -398,7 +404,8 @@ checkinstall.cgi</pre>
   <span class="q">&quot;document.getElementById(\&quot;installer1\&quot;).disabled = true;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$usable</span> == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="i">print_results</span><span class="s">(</span> <span class="i">$diagnosis</span><span class="cm">,</span> <span class="i">$disable_installer_button</span> <span class="s">)</span><span class="sc">;</span>
+<span class="c">#FIXME: removed install button disable because test is not totally reliable 08/2011</span>
+<span class="i">print_results</span><span class="s">(</span> <span class="i">$diagnosis</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <a name="EOF-"></a></pre></body>

@@ -481,6 +481,7 @@ start page via print Location. 10/2009</p>
     <span class="s">}</span> <span class="k">elsif</span>
 
       <span class="c"># compares password from form or api key from initial cookie</span>
+      <span class="c"># FIXME: api_key method should be replace by OAuth, real-soon-now 07/2011</span>
       <span class="s">(</span>
         !<span class="i">_compare_password_or_api_key</span><span class="s">(</span>
             <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span> <span class="i">$registry_private_value</span>
@@ -639,6 +640,7 @@ security hole here...</p>
 
     <span class="c"># password failed and it comes from the api key hash</span>
     <span class="c"># first cut drupal and elgg etc. connections 08/2009</span>
+    <span class="c"># FIXME: Replace with OAuth, real-soon-now 07/2011</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;logontype&#39;</span>} <span class="k">eq</span> <span class="q">&#39;api&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="i">$compare_api_key</span> = <span class="i">compare_api_key</span><span class="s">(</span>
@@ -1242,6 +1244,13 @@ modes need to be identified</p>
 of remote commit: returns hash/compared to local calculation?</p>
 <p>When this is invoked the SMS, Mail, CSV is already translated into
 standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
+<p>New since 7/2011, automagic singular for json:
+tpounds = tpound
+dallies = dally
+to avoid most common REST misteak...</p>
+<p>FIXME: probably need to store error and other messages as hashes
+not as arrays, to ensure 'good' processing/translation from
+remote systems</p>
 <pre>
 <a name="transaction-"></a><span class="k">sub </span><span class="m">transaction</span> <span class="s">{</span>
 
@@ -1250,7 +1259,19 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
     <span class="k">my</span> <span class="i">$same_registry</span> =
       <span class="n">0</span><span class="sc">;</span>    <span class="c"># if the same registry, can use a Mysql transaction...</span>
             <span class="c"># if local registries can use two, but not the same effect...</span>
+    
     <span class="k">my</span> <span class="i">%transaction</span> = <span class="i">%$transaction_ref</span><span class="sc">;</span>
+
+    <span class="c"># default separator is for html</span>
+    <span class="k">my</span> <span class="i">$separator</span> = <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
+    <span class="c">#FIXME: json be a separate case</span>
+    <span class="i">$separator</span> = <span class="q">&#39;,&#39;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;csv&#39;</span> || <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span><span class="sc">;</span>
+   
+    <span class="c"># make the header like the &#39;others&#39;</span>
+    <span class="k">my</span> <span class="i">$json_header</span> =<span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">     {&quot;registry&quot;:&quot;$transaction{fromregistry}&quot;,&quot;table&quot;: &quot;om_trades&quot;, &quot;message&quot;</span>
+<span class="h">EOT</span>
 
     <span class="c"># $log-&gt;warn(&quot;mode:$$transaction_ref{mode} \n ===============&quot; );</span>
     <span class="c"># this is somewhat more rational as of 06/2007</span>
@@ -1320,7 +1341,7 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
 <span class="c"># if more than commitment limit transaction does not proceed</span>
 <span class="c"># sysaccount -can- issue value into accounts: should check for &#39;local&#39; style currency</span>
 <span class="c"># corrected commit limit arithmetic 12/2008</span>
-
+ 
         <span class="k">if</span> <span class="s">(</span>
             <span class="s">(</span>
                 <span class="s">(</span>
@@ -1389,12 +1410,12 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
 
             <span class="s">)</span><span class="sc">;</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="q">&quot;db3: $status&quot;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span><span class="sc">;</span>
-            <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$partnerref</span>{<span class="w">name</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$partnerref</span>-&gt;{<span class="q">&#39;name&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
                 <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">noremotepartner</span>}<span class="sc">;</span>
             <span class="s">}</span>
 
             <span class="c"># destination partner does exist but inactive</span>
-            <span class="k">if</span> <span class="s">(</span> <span class="i">$$partnerref</span>{<span class="w">status</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$partnerref</span>-&gt;{<span class="q">&#39;status&#39;</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
                 <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">remotepartnerinactive</span>}<span class="sc">;</span>
             <span class="s">}</span>
         <span class="s">}</span>
@@ -1409,16 +1430,21 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
         <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="q">&quot;db4: $status&quot;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># destination user doesn&#39;t exist</span>
-        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">nonexist</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="c"># destination user does exist but inactive</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="w">userStatus</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userStatus&#39;</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">userinactive</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="c"># see if the currency exists in partner</span>
+        <span class="c"># 07/2011 make singular, where necessary for REST/json</span>
+        <span class="k">if</span> <span class="s">(</span><span class="i">$transaction</span>{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span><span class="s">)</span> <span class="s">{</span>
+            <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} =~ <span class="q">s/ies$/y/i</span> <span class="sc">;</span> <span class="c"># dallies -&gt; dally</span>
+            <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} =~ <span class="q">s/s$//i</span> <span class="sc">;</span>    <span class="c"># tpounds -&gt; tpound            </span>
+        <span class="s">}</span>    
 
         <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$currencyref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">toregistry</span>}<span class="cm">,</span>
@@ -1428,12 +1454,12 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
         <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="q">&quot;db5: $status&quot;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># no currency in remote registry</span>
-        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$currencyref</span>{<span class="w">name</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$currencyref</span>-&gt;{<span class="q">&#39;name&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">noremotecurrency</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="c"># currency inactive in remote registry</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$currencyref</span>{<span class="w">status</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$currencyref</span>-&gt;{<span class="q">&#39;status&#39;</span>} <span class="k">ne</span> <span class="q">&quot;active&quot;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">currencyinactive</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
@@ -1449,12 +1475,23 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
         <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$local_status</span>[<span class="n">0</span>] <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">transactionrejected</span>}<span class="sc">;</span>
             <span class="i">$transaction</span>{<span class="w">tradeStatus</span>} = <span class="q">&quot;rejected&quot;</span><span class="sc">;</span>
-            <span class="k">my</span> <span class="i">$output_message</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="cm">,</span> <span class="i">@local_status</span> <span class="s">)</span><span class="sc">;</span>
-
+            <span class="k">my</span> <span class="i">$output_message</span> = <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span> <span class="s">)</span><span class="sc">;</span>
+     <span class="c">###       print &quot;here $error, $output_message $currencyref-&gt;{&#39;name&#39;}&quot; ; </span>
             <span class="c"># warn about rejections at this level in log</span>
             <span class="c">### $log-&gt;warn(&quot;rejected transaction: $output_message&quot;);</span>
+            
+            <span class="k">if</span> <span class="s">(</span><span class="i">$transaction</span>{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span><span class="s">)</span> <span class="s">{</span>
             <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$transaction_ref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span>
                 <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+                <span class="c"># put quotes around the messages for json...                </span>
+                <span class="k">my</span> <span class="i">@local_status</span> = <span class="k">map</span> <span class="s">{</span> <span class="s">(</span><span class="k">my</span> <span class="i">$s</span> = <span class="i">$_</span><span class="s">)</span> =~ <span class="q">s/(.*)/\&quot;$1\&quot;/</span><span class="sc">;</span> <span class="i">$s</span> <span class="s">}</span> <span class="i">@local_status</span><span class="sc">;</span>
+                <span class="k">my</span> <span class="i">$output_message</span> = <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span> <span class="s">)</span><span class="sc">;</span>
+                <span class="k">my</span> <span class="i">$json</span> =<span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">                 $json_header: &quot;NOK&quot;, &quot;data&quot;: [$output_message ] }</span>
+<span class="h">EOT</span>
+                <span class="k">return</span> <span class="i">$json</span> <span class="sc">;</span>
+            <span class="s">}</span>        
         <span class="s">}</span>
 
         <span class="c"># add the transaction to the receiving user...</span>
@@ -1529,18 +1566,13 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
 <span class="q">&quot;\&quot;message\&quot;:\&quot;$messages{transactionaccepted}\&quot;, \&quot;reference\&quot;:\&quot;$transaction{tradeHash}\&quot;&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="c"># default separator is for html</span>
-    <span class="k">my</span> <span class="i">$separator</span> = <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
-    <span class="i">$separator</span> = <span class="q">&#39;,&#39;</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;csv&#39;</span> || <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span><span class="sc">;</span>
-
+    
     <span class="k">my</span> <span class="i">$output_message</span> =
       <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">@translated_remote_status</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span>   <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;engine&#39;</span>
         &amp;&amp; <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span>
     <span class="s">{</span>
-
         <span class="k">return</span> <span class="s">(</span>
             <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="q">&quot;$$transaction_ref{home}?action=showtransnotify_by_mail&quot;</span><span class="cm">,</span>
             <span class="i">$error</span><span class="cm">,</span>
@@ -1550,10 +1582,12 @@ standard transaction format in Ccinterfaces.pm and Ccsmsgateway.pm</p>
         <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;\{$output_message\}&quot;</span><span class="s">)</span><span class="sc">;</span>
+   
+
+       <span class="c"># $log-&gt;debug(&quot;\{$output_message\}&quot;);</span>
         <span class="k">return</span> <span class="q">&quot;\{$output_message\}&quot;</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="k">return</span> <span class="i">$transaction_ref</span><span class="sc">;</span>
+           <span class="k">return</span> <span class="i">$transaction_ref</span><span class="sc">;</span>
     <span class="s">}</span>
 
 <span class="s">}</span>
@@ -2260,6 +2294,8 @@ This is hacked in for yellow page categories, at present.</p>
 <p>Amended not to display closed or suspended currencies in 12/2005
 Amended in 2010 to use hashes, as with all the other listing functions</p>
 <pre>
+
+
 <a name="collect_items-"></a><span class="k">sub </span><span class="m">collect_items</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span>
         <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>    <span class="i">$table</span><span class="cm">,</span>  <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$field_name</span><span class="cm">,</span>
@@ -2275,9 +2311,10 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># hacked in special sql for categories, keep them in order in the drop down</span>
+    <span class="c"># 11/7/2011 9999 category number is for folksonomy tags only....</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_categories&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$sqlstring</span> =
-          <span class="q">&quot;SELECT * FROM `om_categories` WHERE 1 order by parent,description&quot;</span><span class="sc">;</span>
+          <span class="q">&quot;SELECT * FROM `om_categories` WHERE category != &#39;9999&#39; order by parent,description&quot;</span><span class="sc">;</span>
         <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> =
           <span class="i">sqlraw</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sqlstring</span><span class="cm">,</span> <span class="i">$id</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>

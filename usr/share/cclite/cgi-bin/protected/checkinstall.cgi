@@ -68,7 +68,7 @@ sub print_header {
 <meta name="author" content="hugh barnard" />
 
 <link type="text/css" href="/styles/cc.css" rel="stylesheet">
-<title>Cclite 0.8.0: Check and diagnose install</title>
+<title>Cclite 0.8.1: Check and diagnose install</title>
 <script src="/javascript/jquery-1.3.2.js"></script>
 <script src="/javascript/jquery-validation-1.5.5.js"></script>
 <script src="/javascript/jquery-cookies.js"></script>
@@ -89,52 +89,44 @@ sub print_header {
 	<div id="page" align="center">
 		<div id="toppage" align="center">
 			<div id="date">
-				<div class="smalltext" style="padding:13px;"><strong>Cclite Check Install</strong></div>
+				<!-- top left -->
 			</div>
 			<div id="topbar">
-				<div align="right" style="padding:12px;" class="smallwhitetext">
- <span>
- <form id="form" type="post" action="/cgi-bin/protected/ccinstall.cgi">
-<input id="installer1" type="button" onclick="location.href=('/cgi-bin/protected/ccinstall.cgi');" value=">> Installer">
-</form>
- 
-<input type="button" value="Back" onClick="history.go(-1)" >
-</span>
-
-
-<!-- menu here -->
-
-</div>
+			Cclite Installation and Perl Module Checker
 			</div>
 		</div>
 		<div id="header" align="center">
+		 <!-- top right -->
 			<div class="titletext" id="logo">
 Cclite
                              <div align="right" style="padding:12px;" class="smalltext"></div>
 				<div class="logotext" style="margin:30px"><span class="orangelogotext"></span></div> 
+				
 			</div>
+			
 			<div id="pagetitle">
+			<div align="right" class=\"system\"><a title="Go to Cclite installer" href="/cgi-bin/protected/ccinstall.cgi">Go to Installer</a> |
+                          <a title="Cclite Google Discussion Group" href="http://groups.google.co.uk/group/cclite?hl=en">Help with Cclite</a></div>
 
+                          </div>
 				<div id="title" class="titletext" align="right"></div>
                                 <span class="news"></span>
-			</div>
+			
 		</div>
 		<div id="content" align="center">
+		
 			<div id="menu" align="right">
 				<div align="right" style="width:189px; height:8px;"><img src="/cclite/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
 				<div id="linksmenu" align="center">
 
-<!-- menu here -->
-<!-- autocomplete search boxes -->
-<!-- end of autocomplete search boxes -->
 
 
 				</div>
-				<div align="right" style="width:189px; height:8px;"><img src="/cclite/images/mnu_bottomshadow.gif" width="189" height="8" alt="mnubottomshadow" /></div>
+				
 			</div>
  
 		<div id="contenttext">
-<div align="right" class=\"system\"><a title="Cclite Google Discussion Group" href="http://groups.google.co.uk/group/cclite?hl=en">Help with Cclite</a></div>
+
 
 			<div class="bodytext" style="padding:12px;" align="justify">
 
@@ -164,23 +156,17 @@ sub print_results {
 <h2>Analysis of Installed Modules and Programs</h2>				
 $diagnosis
 <!-- bottom text here-->
-				<span class="bodytext">
 
+		</div>
 
-			
-</span>			</div>
-			</div>
-			
-			
+		</div>			
 		</div>
 		<div id="footer" class="smallgraytext" align="center">
-		<script>
-		 $disable_installer_button
-		</script>
+
 			<a href="#">Home</a> | <a title="Help with Cclite" href="http://groups.google.co.uk/group/cclite?hl=en">Help with Cclite</a><br />
 			Cclite &copy; Hugh Barnard 2003-2009
 		</div>
-	</div>
+	
 </body>
 </html>
 EOT
@@ -213,7 +199,7 @@ my %module = (
     'cgi|CGI::Carp'             => '0:Web Error Reporting',
     'snd|Net::SMTP'             => '0:Mail Current Method',
     'net|Net::POP3'             => '1:Mail Current Method',
-    'opi|Net::OpenID::Consumer' => '2:Open ID',
+    'opi|Net::OpenID::Consumer' => '2:Open ID consumer',
     'mim|MIME::Base64'          => '2:Mail/Jabber Encryption',
     'mim|MIME::Decoder'         => '2:Mail/Jabber Encryption',
     'mim|GnuPG'                 => '2:Mail/Jabber Encryption',
@@ -225,6 +211,7 @@ my %module = (
     'gde|GD::Graph::lines'      => '2:Graphics for Graphs',
     'gds|GD::Graph::sparklines' => '2:Graphics for Graphs',
     'cgi|CGI'                   => '0:CGI Module',
+    'ood|OpenOffice::OODoc'     => '2:Open Office for batch printing',
 );
 
 print STDOUT "Content-type: text/html\n\n";
@@ -235,9 +222,9 @@ foreach my $key ( sort keys %module ) {
     my ( $class,    $message );
     my ( $sort_key, $module_name ) = split( /\|/, $key );
 
+    print "<br/>\n";
     if ( use_ok($module_name) ) {
 
-        # print '!' ;
         $class   = 'system';
         $message = 'usable';
         $counter{$sort_key}++;    # count modules in a particular group
@@ -281,17 +268,34 @@ $diagnosis .=
 $diagnosis .=
 "<div class=\"failedcheck\">cclite can't send mail needs Mail::Sendmail or better Net::SMTP </div>"
   if ( $counter{'snd'} == 0 );
+
 $diagnosis .= "<br/>\n";
 
+# GD missing
 $diagnosis .=
 "<div class=\"optional\">cclite can't produce graphs GD module[s] missing</div>"
   if ( $counter{'gde'} < 3 );
+
+# GnuPG missing
 $diagnosis .=
-  "<div class=\"optional\">cclite can't process encrypted email</div>"
+"<div class=\"optional\">cclite can't process encrypted email: GnuPG missing</div>"
   if ( $counter{'mim'} < 3 );
+
+# Net::XMPP missing
 $diagnosis .=
-  "<div class=\"optional\">cclite can't process jabber based payment</div>"
+"<div class=\"optional\">cclite can't process jabber based payment: Net::XMPP missing</div>"
   if ( $counter{'jab'} == 0 );
+
+# OpenOffice missing
+$diagnosis .=
+"<div class=\"optional\">cclite can't print statements or yellowpages: OpenOffice::OODoc missing</div>"
+  if ( $counter{'ood'} == 0 );
+
+# OpenID miessing
+$diagnosis .=
+"<div class=\"optional\">cclite can't use OpenID: Net::OpenID::Consumer missing</div>"
+  if ( $counter{'opi'} == 0 );
+
 $diagnosis .= "<br/>\n";
 
 if ( -e $sendmail ) {
@@ -315,6 +319,7 @@ $disable_installer_button =
   "document.getElementById(\"installer1\").disabled = true;"
   if ( $usable == 0 );
 
-print_results( $diagnosis, $disable_installer_button );
+#FIXME: removed install button disable because test is not totally reliable 08/2011
+print_results( $diagnosis, '' );
 
 exit 0;

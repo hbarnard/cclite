@@ -82,7 +82,7 @@ to change these, just substitute a translated hash
 
 =cut
 
-our %messages    = readmessages("en");
+our %messages    = readmessages();
 our $messagesref = \%messages;
 
 =head3 _guess_config_values
@@ -126,7 +126,7 @@ sub _guess_config_values {
     $configuration{dbpassword}             = "change-me-please";
     $configuration{registrypublickey}      = "notused";
     $configuration{userss}                 = "no";
-    $configuration{usedecimals}            = "yes"; 
+    $configuration{usedecimals}            = "yes";
     $configuration{usetags}                = "yes";
     $configuration{version}                = "0.9.0";
     $configuration{servicechargelimit}     = "notused";

@@ -236,9 +236,11 @@ note that the $html variable is badly named, it should be 'message' or something
         <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>   <span class="i">$cookies</span><span class="cm">,</span> <span class="i">$token</span>
     <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
+
+    <span class="k">my</span> <span class="i">%configuration</span><span class="sc">;</span>
     <span class="c">#FIXME: hack to deal with cpanel database names....</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">my</span> <span class="i">%configuration</span><span class="sc">;</span>
+        
         <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
         <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span><span class="i">%$fieldsref</span><span class="s">)</span> <span class="s">{</span>
@@ -399,8 +401,9 @@ note that the $html variable is badly named, it should be 'message' or something
     <span class="c"># this is now changed to use om_categories, based on Camden LETS</span>
     <span class="c"># rather than the SIC codes. should become &#39;pluggable&#39; eventually.</span>
     <span class="c"># the codes now have a tree structure, category and parent (category).</span>
+    <span class="c"># as of 07/2011 this is switched off, if free form tags are allowed</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/yellowpages/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/yellowpages/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} <span class="s">)</span> &amp;&amp; <span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span><span class="s">)</span> <span class="s">{</span>
 
         <span class="c"># collect categories for yellow pages</span>
         <span class="k">my</span> <span class="i">$option_string</span> =
@@ -410,7 +413,10 @@ note that the $html variable is badly named, it should be 'message' or something
 <span class="hh"> &lt;select type=&quot;required&quot; name=&quot;classification&quot;&gt;$blank_option$option_string&lt;/select&gt;\n    </span>
 <span class="h">EOT</span>
 
-    <span class="s">}</span>
+    <span class="s">}</span>    <span class="k">else</span> <span class="s">{</span>
+    
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">selectclassification</span>} = <span class="i">$messages</span>{<span class="q">&#39;usetags&#39;</span>} <span class="sc">;</span>
+<span class="s">}</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/category/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -895,7 +901,8 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
           <span class="q">s/\,$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">for</span> <span class="k">my</span> <span class="i">$id</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$json</span> .= <span class="q">&quot;\n{\&quot;id\&quot;: \&quot;$id\&quot;,\n &quot;</span><span class="sc">;</span>
+            <span class="c"># misteak corrected 20.05.2011, was $id, for the value as well</span>
+            <span class="i">$json</span> .= <span class="q">&quot;\n{\&quot;$id\&quot;: \&quot;$hash_ref-&gt;{$id}\&quot;,\n &quot;</span><span class="sc">;</span>
             <span class="i">$json</span> =~ <span class="q">s/\,$//</span>
               <span class="sc">;</span>      <span class="c"># snip off the last comma in the record, ugly but simple...</span>
             <span class="i">$json</span> .= <span class="q">&quot;},\n&quot;</span><span class="sc">;</span>

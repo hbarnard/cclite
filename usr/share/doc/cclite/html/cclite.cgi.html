@@ -129,6 +129,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="s">}</span>
 <span class="c">###__END__</span>
 
+
 </pre><pre>
 <span class="k">BEGIN</span> <span class="s">{</span>
 
@@ -343,7 +344,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c"># note that widgets can&#39;t have cookies...at least in Opera 12/2009</span>
 <span class="c">#FIXME: this is becoming a disgrace, move to a gatekeeper function in Ccsecurity.pm</span>
 <span class="k">my</span> <span class="i">%allowed_actions</span> =
-  <span class="q">qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes)</span><span class="sc">;</span>
+  <span class="q">qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes)</span> <span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span>
        <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
@@ -671,25 +672,58 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
-<span class="i">$$fieldsref</span>{<span class="w">news</span>} = <span class="i">get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># get yellowpages as json tag cloud for remote users</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showtags&quot;</span> <span class="s">)</span>
+  &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
+    <span class="i">show_tag_cloud</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>  <span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># get requestoken for remote oauth users</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;requesttoken&quot;</span> <span class="s">)</span>
+  &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
+    <span class="i">do_oauth</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>  <span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># get accesstoken for remote oauth users</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;accesstoken&quot;</span> <span class="s">)</span>
+  &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
+    <span class="i">do_oauth</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>  <span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+
+
+
+
+
+<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;news&#39;</span>} = <span class="i">get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#FIXME: Probably only to be done when logged on?</span>
 <span class="c"># but nice to show a few &#39;public&#39; listings....</span>
 <span class="c"># collect ad listing for bottom of screen, only want news field, don&#39;t disturb anything else</span>
 
-<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$cookieref</span>{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+<span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
     <span class="c"># get top line news for registry</span>
 
-    <span class="k">my</span> <span class="i">$save</span> = <span class="i">$$fieldsref</span>{<span class="w">getdetail</span>}<span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">getdetail</span>} = <span class="n">1</span><span class="sc">;</span>
-    <span class="s">(</span>
+    <span class="k">my</span> <span class="i">$save</span> = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;getdetail&#39;</span>}<span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;getdetail&#39;</span>} = <span class="n">1</span><span class="sc">;</span>
+    
+    
+    <span class="c"># choice between strict categories and free-form tags now...</span>
+    <span class="k">if</span> <span class="s">(</span><span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span><span class="s">)</span> <span class="s">{</span>
         <span class="s">(</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">righthandside</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span> =
+        
           <span class="i">show_yellow_dir1</span><span class="s">(</span>
             <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
-          <span class="s">)</span>
-    <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$$fieldsref</span>{<span class="w">getdetail</span>} = <span class="i">$save</span><span class="sc">;</span>
+          <span class="s">)</span> <span class="sc">;</span>
+          
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+           
+         <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;righthandside&#39;</span>} <span class="s">)</span> =
+        
+          <span class="i">show_tag_cloud</span><span class="s">(</span>
+            <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>
+          <span class="s">)</span>  <span class="sc">;</span>       
+          
+    <span class="s">}</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;getdetail&#39;</span>} = <span class="i">$save</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="c"># display an action result, all actions are consumed</span>

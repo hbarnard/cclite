@@ -41,6 +41,7 @@ my $VERSION = 1.00;
   readmessages
   debug_soap
   debug_hash_contents
+  decide_language
   deliver_remote_data
   display_template
   make_page_links
@@ -128,11 +129,11 @@ sub display_template {
         $pagename, $fieldsref,   $cookies, $token
     ) = @_;
 
-
     my %configuration;
+
     #FIXME: hack to deal with cpanel database names....
     if ( $0 !~ /ccinstall/ ) {
-        
+
         %configuration = Ccconfiguration::readconfiguration();
 
         foreach my $key (%$fieldsref) {
@@ -295,7 +296,10 @@ EOT
     # the codes now have a tree structure, category and parent (category).
     # as of 07/2011 this is switched off, if free form tags are allowed
 
-    if ( $pagename =~ /yellowpages/ && length( $cookieref->{'registry'} ) && $configuration{'usetags'} ne 'yes') {
+    if (   $pagename =~ /yellowpages/
+        && length( $cookieref->{'registry'} )
+        && $configuration{'usetags'} ne 'yes' )
+    {
 
         # collect categories for yellow pages
         my $option_string =
@@ -305,10 +309,10 @@ EOT
  <select type="required" name="classification">$blank_option$option_string</select>\n    
 EOT
 
-    }    else {
-    
-    $fieldsref->{selectclassification} = $messages{'usetags'} ;
-}
+    } else {
+
+        $fieldsref->{selectclassification} = $messages{'usetags'};
+    }
 
     if ( $pagename =~ /category/ && length( $cookieref->{registry} ) ) {
 
@@ -475,8 +479,9 @@ depending on the package or installation type:
 sub readmessages {
 
     my ($language) = @_;
-
-    $language = "en" if ( !length($language) );
+    
+    #FIXME: this is called in several places....
+    $language = decide_language() if ( !length($language) );
 
     # deals with various directory structures
     my ( $os, $distribution, $package_type ) =
@@ -506,10 +511,10 @@ sub readmessages {
             $value = "";
         }
     } else {
-
+        pretty_caller(3) ;
         error(
             $language,
-"Cannot x find messages file:$error $messfile for $language may be missing?",
+"Cannot find messages file:$error $messfile for $language may be missing?",
             "",
             ""
         );
@@ -838,6 +843,7 @@ sub deliver_remote_data {
           s/\,$//;   # snip off the last comma in the record, ugly but simple...
     } else {
         for my $id ( keys %$hash_ref ) {
+
             # misteak corrected 20.05.2011, was $id, for the value as well
             $json .= "\n{\"$id\": \"$hash_ref->{$id}\",\n ";
             $json =~ s/\,$//
@@ -858,7 +864,7 @@ EOT
 
 }
 
-=head3 _timestamp
+=head3 sql_timestamp
 
 mysql compatible timestamp
 
@@ -873,9 +879,47 @@ sub sql_timestamp {
     return $timestamp;
 }
 
+
+
+
+=head3 decide_language
+
+Now we're going multilingual need to deal with this in a non-hardcoded fashion
+This decides the language:
+1. Via cookie, if set
+2. fields{'language'} if not cookie
+3. base cclite.cf language if not 1 and 2
+4. engleesh if not 1,2,3
+
+=cut
+
+
+sub decide_language {
+
+my ($fieldsref) = @_ ;
+my $cookieref = get_cookie();
+my %configuration = Ccconfiguration::readconfiguration();
+#
+#---------------------------------------------------------------------------
+# change the language default here, languages should be ISO 639 lower case
+#
+my $language =
+     $cookieref->{'language'}
+  || $fieldsref->{language}
+  || $configuration{language};    # default is english in logon
+  
+    #FIXME: remove garbage at end of cookie
+    $language =~ s/[^\w]+$// ;
+
+
+return $language ;
+
+}
+
 =head3 debug_hash_contents
 
 debug the contents of a hash, with stamp for calling routine
+Probably should use data dumper, but that's 'yam', yet another module
 
 =cut
 

@@ -88,7 +88,7 @@ body {
 	margin:10px;
 	padding:10px;
 	width:550px;
-	height:320px;
+//	height:320px;
 }
 
 /*TEXT STYLES*/
@@ -422,7 +422,7 @@ font-family:Courier;
 }
 
 div.optional, span.optional {
-color:orange;
+color: blue;
 font-size: 12px;
 font-family:Courier;
 }
@@ -492,6 +492,10 @@ font-size:8pt;
 text-decoration:none;
 padding:3px;
 }
+
+
+
+
 
 input.greysmalldisabled {
 color:#004d9c;

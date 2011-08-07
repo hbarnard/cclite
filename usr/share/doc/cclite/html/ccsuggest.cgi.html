@@ -76,7 +76,9 @@ pre { color: #000000;
 <p></p>
 <h3><a name="get_suggestions">get_suggestions</a></h3>
 <p>Does a lookup corresponding to the data type presented and returns
-the row count and a drop down format menu item...</p>
+the row count and a drop down format menu item...this is for newusers,
+mobile phone numbers, transaction destinations and yellow page 'tag style'
+categories for example...</p>
 
 <hr /><pre>#!/usr/bin/perl 
 
@@ -84,6 +86,13 @@ the row count and a drop down format menu item...</p>
 <a name="get_suggestions-"></a><span class="k">sub </span><span class="m">get_suggestions</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$query_string</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    
+    <span class="c"># split and deal with last entry only if &#39;free form&#39; yellowpages tags</span>
+    <span class="c"># for example baking,bread,shop this will suggest for &#39;shop&#39;</span>
+    
+    <span class="k">my</span> <span class="i">@tags</span> <span class="sc">;</span>
+
 
 <span class="c"># get the sql string corresponding to the autosuggest, moved to Cclitedb 9/5/2010</span>
     <span class="k">my</span> <span class="i">$sql</span> = <span class="i">get_suggest_sql</span><span class="s">(</span>
@@ -98,16 +107,27 @@ the row count and a drop down format menu item...</p>
 
     <span class="k">my</span> <span class="i">$menu_select</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$menu_count</span> = <span class="n">0</span><span class="sc">;</span>
+   
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$row_ref</span> <span class="s">(</span><span class="i">@$array_ref</span><span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$menu_item</span><span class="sc">;</span>
         <span class="i">$menu_count</span>++<span class="sc">;</span>
-        <span class="i">$menu_item</span> = <span class="k">substr</span><span class="s">(</span> <span class="i">$$row_ref</span>[<span class="n">0</span>]<span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">15</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$menu_select</span> .= <span class="q">&quot;$menu_item\n&quot;</span><span class="sc">;</span>
-
+        <span class="c"># fixme: this probably shoudln&#39;t be true for tags</span>
+       <span class="k">if</span> <span class="s">(</span><span class="i">$type</span> <span class="k">ne</span> <span class="q">&#39;tag&#39;</span><span class="s">)</span> <span class="s">{</span>
+         <span class="i">$menu_item</span> = <span class="k">substr</span><span class="s">(</span> <span class="i">$$row_ref</span>[<span class="n">0</span>]<span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">15</span> <span class="s">)</span><span class="sc">;</span>
+         <span class="i">$menu_select</span> .= <span class="q">&quot;$menu_item\n&quot;</span><span class="sc">;</span>
+        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+          <span class="k">push</span> <span class="i">@tags</span> <span class="cm">,</span><span class="q">&quot;\&quot;$$row_ref[0]\&quot;&quot;</span> <span class="sc">;</span>  
+        <span class="s">}</span>    
     <span class="s">}</span>
+    
+    <span class="k">if</span> <span class="s">(</span><span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;tag&#39;</span><span class="s">)</span> <span class="s">{</span>
+        <span class="c"># produce json for jquery-tagsuggest.js</span>
+       <span class="i">$menu_select</span> =  <span class="k">join</span><span class="s">(</span><span class="q">&quot;,&quot;</span><span class="cm">,</span><span class="i">@tags</span><span class="s">)</span>  <span class="sc">;</span>
+       <span class="i">$menu_select</span> = <span class="q">&quot;[$menu_select]&quot;</span> <span class="sc">;</span>      
+    <span class="s">}</span>    
 
-    <span class="k">return</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$menu_count</span><span class="cm">,</span> <span class="i">$menu_select</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$menu_count</span><span class="cm">,</span> <span class="i">$menu_select</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
@@ -140,6 +160,9 @@ the row count and a drop down format menu item...</p>
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$language</span> = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>} || <span class="q">&quot;en&quot;</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># array of tags for yellowpage tags autosuggest</span>
+<span class="k">our</span> <span class="i">@tags</span> <span class="sc">;</span> 
 
 <span class="c"># registry1 is filled for newuser suggest, this is ugly but it avoids the untraceable</span>
 <span class="c"># bug where the value of the registry cookie is cumulated. Exists on mailing lists but</span>
@@ -174,9 +197,18 @@ the row count and a drop down format menu item...</p>
 <span class="c"># need to format no spaces before looking up, if new mobile number, international format...</span>
 <span class="i">$fields</span>{<span class="q">&#39;q&#39;</span>} = <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;q&#39;</span>} <span class="s">)</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;newusermobile&#39;</span> <span class="s">)</span><span class="sc">;</span>
-
-<span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$menu_count</span><span class="cm">,</span> <span class="i">$menu_select</span> <span class="s">)</span> =
+  
+ <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$menu_count</span><span class="cm">,</span> <span class="i">$menu_select</span> <span class="s">)</span> <span class="sc">;</span>
+ 
+ <span class="c"># using tagsuggest now for yellow pages tags, to be generalised 7/2011</span>
+<span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$fields</span>{<span class="q">&#39;tag&#39;</span>}<span class="s">)</span> <span class="s">)</span> <span class="s">{</span>  
+ <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$menu_count</span><span class="cm">,</span> <span class="i">$menu_select</span> <span class="s">)</span> =
+  <span class="i">get_suggestions</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="q">&#39;tag&#39;</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="q">&#39;tag&#39;</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+ <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$menu_count</span><span class="cm">,</span> <span class="i">$menu_select</span> <span class="s">)</span> =
   <span class="i">get_suggestions</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="q">&#39;type&#39;</span>}<span class="cm">,</span> <span class="i">$fields</span>{<span class="q">&#39;q&#39;</span>}<span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
 
 <span class="c"># menu suggest output</span>
 <span class="k">if</span> <span class="s">(</span>   <span class="i">$fields</span>{<span class="q">&#39;type&#39;</span>} <span class="k">ne</span> <span class="q">&#39;newuser&#39;</span>

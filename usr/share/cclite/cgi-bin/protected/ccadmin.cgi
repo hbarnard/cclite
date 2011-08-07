@@ -166,10 +166,12 @@ $fields{home} = $user_home if ( $fields{action} eq "logoff" );
 
 my $cookieref = get_cookie();
 
-my $language =
-     $fields{language}
-  || $cookieref->{language}
-  || "en";    # default is english
+#
+#---------------------------------------------------------------------------
+# change the language default here, languages should be ISO 639 lower case
+#
+my $language = decide_language($fieldsref) ;
+
 
 my $pagename = $fields{name} || "front.html";    # default is the index page
 
