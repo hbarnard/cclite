@@ -1,0 +1,147 @@
+      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+      <span class="error">$$fieldsref{error}</span>  
+       <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td title="name of database defining trading group, one word without spaces" class="pme-key-0">Registry Name<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addregistry">
+   
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
+
+            </tr>
+
+            <tr class="pme-row-0">
+              <td title="short description of trading group" class="pme-key-0">Registry Description<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
+            </tr>
+
+<tr title="address and account used to send official emails for this group" class="pme-row-0">
+              <td class="pme-key-0">Manager Email<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
+            </tr>
+
+<td title="password for admin email account" class="pme-key-0">Manager Email Password<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
+            </tr>
+
+<tr title="account where emails transactions are received can be the same as admin" class="pme-row-1">
+              <td class="pme-key-1">Email for Batch Transactions<br>
+              </td>
+<td class="pme-value-1"> 
+<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
+            </tr>
+
+
+<td title="password for batch email account" class="pme-key-0">Batch Email Password<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
+            </tr>
+
+<tr title="not used currently but defines trading model" class="pme-row-1">
+              <td nowrap class="pme-key-1">System Charging Model
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="chargetype"><option value="equaltime">Equality</option><option selected value="market">Market Rates</option></select></td>
+            </tr>
+
+<tr title="not used currently but defines commission model" class="pme-row-1">
+              <td class="pme-key-1">System Commission Model
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="commission">
+<option selected value="no">No Commission</option>
+<option value="yes">Commission Based Registry</option>
+</select></td>
+            </tr>
+
+
+<tr title="not used currently but defines subscription model" class="pme-row-1">
+              <td class="pme-key-1">Subscription Model
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="subscription">
+<option selected value="no">No Subscription</option>
+<option value="yes">Subscription Based</option>
+</select></td>
+            </tr>
+
+<tr title="defines commitment limit for all currencies in this registry" class="pme-row-1">
+              <td class="pme-key-1">Global Commitment Limit<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
+            </tr>
+
+<tr title="key server used:public key id for this registry currently for email transactions only" class="pme-row-1">
+              <td class="pme-key-1">Key Server:Public key id<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
+            </tr>
+
+
+</tr>
+<tr title="not used currently but defines whether geographic area or special interest"  class="pme-row-1">
+              <td class="pme-key-1">Covers Geographic Area?
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="geographic">
+<option selected value="yes">Yes</option>
+<option value="no">No</option>
+</select></td>
+            </tr>
+
+<tr title="not used currently but defines posts or zip codes so that public registries can be geocoded and mapped" class="pme-row-1">
+              <td class="pme-key-1">Postcodes or Latitude,Longitude
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+</td>
+ </tr>
+
+<tr title="used to provide merchant key for elgg, drupal and os-commerce connectors" class="pme-row-1">
+              <td class="pme-key-1">Merchant Key
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+</td>
+ </tr>
+
+<tr title="used, in principle to limit connectors to certain ips, easily spoofed probably" class="pme-row-1">
+              <td class="pme-key-1">Allow Merchant from IP addresses
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+</td>
+ </tr>
+
+
+
+
+
+          </tbody>
+        </table>
+  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
+  $$fieldsref{script}  
+        <hr class="pme-hr">
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Go" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
+type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
