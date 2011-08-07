@@ -57,6 +57,9 @@
          messages.put("adminmenu", "Admin Menu");
          messages.put("mustbecsv","Error must be csv type file") ;
          messages.put("batchfileprobs","Batch files or directories below have problems, put mouse over to examine") ;
+         messages.put("erroris", "Error is");
+         messages.put("uploadedfile", "Fichero subido");
+         messages.put("fileprocessed", "File processed");
 
 
      } else if ($.cookie('language') == 'es') {
@@ -69,9 +72,11 @@
          messages.put("processing", "Tratamiento");
          messages.put("running", "ejecutando");
          messages.put("adminmenu", "Menú Admin");
-         messages.put("mustbecsv","Error: debe ser un archivo csv") ;
+         messages.put("mustbecsv","Error: debe ser un fichero csv") ;
          messages.put("batchfileprobs","Archivos por lotes o por debajo de los directorios tienen problemas, puesto puntero del ratón sobre para examinar") ;
-
+         messages.put("erroris", "De error es");
+         messages.put("uploadedfile", "Fichero subido");
+         messages.put("fileprocessed", "Fichero es procesado");
 
      }
 
@@ -223,7 +228,7 @@ changed into milliseconds here */
 
              //alert('time ' + window[interval] + ' id ' + window[interval_id] + ' ' + interval_id) ;
          } catch (error) {
-             alert('error is ' + error)
+             alert(messages.get('erroris') + ' ' + error) ;
          }
 
      }
@@ -268,7 +273,7 @@ can be used to transmit errors from the script into the page */
 
          $(selector).html(waiting + ' ' + type);
      } catch (error) {
-         alert('error is ' + error)
+         alert(messages.get('erroris') + ' ' + error) ;
      }
  }
 
@@ -497,13 +502,13 @@ can be used to transmit errors from the script into the page */
 
              // read the file when it's uploaded
              onComplete: function (file, response) {
-                 alert('uploaded file ' + file + ' started |CSV File input| to process');
+                 alert(messages.get('uploadedfile') + ' ' + file + ' started |CSV File input| to process');
                  $.ajax({
                      type: "POST",
                      url: "/cgi-bin/protected/batch/readcsv.pl",
                      data: "",
                      success: function (file) {
-                         alert('file processed ' + file);
+                         alert(messages.get('fileprocessed') + ' ' + file);
                      }
                  });
 

@@ -110,3 +110,5 @@
 2011/08/07 17:45:26 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
 2011/08/07 17:46:12 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
 2011/08/07 17:49:43 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
+2011/08/07 19:22:17 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
+2011/08/07 19:22:21 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
