@@ -879,11 +879,13 @@ Change the user language for the web interface
 never tested recently as of 4/2005, waiting until
 html is somewhat complete and in another language...
 
+Now in testing as of August 2011...
+
 =cut
 
 
 sub change_language {
-    my ( $template_dir, $fieldsref, $cookieref, $token ) = @_;
+    my ($class, $db, $template_dir, $fieldsref, $cookieref, $token ) = @_;
     my $domain    = $configuration{'domain'};
     my $cookieref = get_cookie();
     my %cookie    = %$cookieref;
@@ -892,6 +894,15 @@ sub change_language {
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
     my $cookies = return_cookie_header( "-1", $domain, $path, "", %cookie );
+    
+    # update om_users for language change for this user, if someone is logged on
+    if (length($db)) {   
+      my %new_language = ('userId', $cookieref->{'userId'}, 'userLang', $fieldsref->{'language'}) ;
+      my $x = join ('|',%new_language) ;
+      $log->debug("update is $x") ;
+      update_database_record( $class, $db, 'om_users', 1, \%new_language, undef, $token );
+    }
+    
     return ( "1", $fieldsref->{home}, "", $messages{languagechanged},
         $pages, "result.html", $fieldsref, $cookies );
 }

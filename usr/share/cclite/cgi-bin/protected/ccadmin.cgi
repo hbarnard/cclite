@@ -382,7 +382,7 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
         $refresh, $metarefresh, $error,     $html,
         $pages,   $pagename,    $fieldsref, $cookies
     )
-    = change_language( $pages, $fieldsref, $cookieref, $token )
+    = change_language('local', $db, $pages, $fieldsref, $cookieref, $token )
   );
 
 # show balance and volume

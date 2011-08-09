@@ -1,114 +1,1943 @@
-=cclite logging file
-
-2011/08/06 17:15:10 WARN> cclite.cgi:329 main:: - corrupt token or spoofing attempt from: test2test2 127.0.0.1
-2011/08/06 17:15:10 DEBUG> Ccu.pm:949 Ccu::pretty_caller - p:main l:369 f:Cclite::logoff_user
-2011/08/06 17:23:26 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2test2, ip:127.0.0.1
-2011/08/06 17:23:26 WARN> cclite.cgi:329 main:: - corrupt token or spoofing attempt from: test2test2 127.0.0.1
-2011/08/06 17:23:26 DEBUG> Ccu.pm:949 Ccu::pretty_caller - p:main l:369 f:Cclite::logoff_user
-2011/08/06 17:23:29 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2test2, ip:127.0.0.1
-2011/08/06 17:23:29 WARN> cclite.cgi:329 main:: - corrupt token or spoofing attempt from: test2test2 127.0.0.1
-2011/08/06 17:23:29 DEBUG> Ccu.pm:949 Ccu::pretty_caller - p:main l:369 f:Cclite::logoff_user
-2011/08/06 17:33:31 DEBUG> Ccsecure.pm:203 Ccsecure::calculate_token - in token calc, new token: , u:test2, ip:127.0.0.1
-2011/08/06 17:33:32 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/06 17:33:39 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/06 17:33:42 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/06 17:37:16 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/06 17:37:27 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/06 17:37:30 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/06 17:37:36 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/06 17:37:39 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:00:19 DEBUG> Ccsecure.pm:203 Ccsecure::calculate_token - in token calc, new token: , u:test2, ip:127.0.0.1
-2011/08/07 12:00:19 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:00:27 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:00:30 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:00:43 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:00:47 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:00:51 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:01:04 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:01:09 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:01:13 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:01:25 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:12:59 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:13:55 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:15:45 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:16:29 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:16:52 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:18:24 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:18:51 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 12:20:52 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:04:55 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:26:24 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:27:05 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:30:28 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:31:08 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:32:28 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:34:32 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:35:14 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:53:38 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:54:17 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:54:22 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:55:45 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 13:57:15 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 14:15:31 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:test2, ip:127.0.0.1
-2011/08/07 14:19:14 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:19:40 DEBUG> Ccsecure.pm:203 Ccsecure::calculate_token - in token calc, new token: , u:manager, ip:127.0.0.1
-2011/08/07 14:19:41 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:19:51 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:19:55 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:20:11 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:23:04 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:23:09 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:23:30 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:23:35 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:24:04 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:27:01 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:27:15 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:29:19 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:29:35 DEBUG> Ccsecure.pm:203 Ccsecure::calculate_token - in token calc, new token: , u:manager, ip:127.0.0.1
-2011/08/07 14:29:36 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:29:40 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:29:44 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:30:38 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:31:11 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 14:31:28 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:25:40 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:27:06 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:27:10 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:36:03 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:36:08 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:36:31 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:37:13 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:38:54 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:39:16 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:42:14 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:42:19 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:42:54 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:46:33 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:46:47 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 15:46:52 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:00:15 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:00:35 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:00:40 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:08:09 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:09:17 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:10:10 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:10:22 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:11:40 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:11:54 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:12:22 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:18:50 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:22:36 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 16:23:44 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:16:59 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:17:26 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:28:04 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:36:27 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:36:35 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:37:33 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:39:12 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:44:37 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:45:26 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:46:12 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 17:49:43 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 19:22:17 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
-2011/08/07 19:22:21 DEBUG> Ccsecure.pm:215 Ccsecure::calculate_token - in token calc, existing: , u:, ip:127.0.0.1
+2011/08/08 11:29:32 WARN> Cclite.pm:366 Cclite::logon_user - login failed for test2 at dalston : password failed
+2011/08/08 11:29:32 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-07-18',
+userLastLogin = '2011-08-08 11:27:51',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '2',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 11:29:51 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-07-18',
+userLastLogin = '20110808112951',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '2',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 11:29:55 DEBUG> Cclite.pm:902 Cclite::change_language - update is userLang|en|userId|6
+2011/08/08 11:29:55 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLang = 'en'
+ 
+   WHERE ( userId = '6')
+2011/08/08 11:32:01 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-07-18',
+userLastLogin = '20110808113201',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '2',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 11:32:05 DEBUG> Cclite.pm:902 Cclite::change_language - update is userLang|es|userId|6
+2011/08/08 11:32:05 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLang = 'es'
+ 
+   WHERE ( userId = '6')
+2011/08/08 12:17:10 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-07-18',
+userLastLogin = '20110808121710',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '2',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 12:17:46 DEBUG> Cclite.pm:902 Cclite::change_language - update is userLang|es|userId|6
+2011/08/08 12:17:46 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLang = 'es'
+ 
+   WHERE ( userId = '6')
+2011/08/08 18:35:50 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808183550',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:36:38 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808183638',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:37:21 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808183721',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:38:56 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userTelephone = '0207 005 0957',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808183856',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test1')
+2011/08/08 18:39:14 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userTelephone = '0207 005 0957',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808183914',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test1')
+2011/08/08 18:39:22 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLogin = 'test1',
+userLang = 'en',
+userPassword = '8sV4cDCNyH9DLlkS1N5vjjInIbo',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userStatus = 'active',
+userSmsreceipt = '0'
+ 
+   WHERE ( userId = '5')
+2011/08/08 18:39:30 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userTelephone = '0207 005 0957',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808183930',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test1')
+2011/08/08 18:39:40 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLogin = 'test1',
+userLang = 'en',
+userPassword = 'W6ph5Mm5Pz8GgiULbPgzG37mj9g',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userStatus = 'active',
+userSmsreceipt = '0'
+ 
+   WHERE ( userId = '5')
+2011/08/08 18:39:48 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808183948',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:39:56 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLogin = 'test2',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userStatus = 'active',
+userSmsreceipt = '1'
+ 
+   WHERE ( userId = '6')
+2011/08/08 18:40:03 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184003',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:40:11 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_trades 
+   SET
+   tradeStatus = 'accepted'
+ 
+   WHERE ( tradeId = '')
+2011/08/08 18:40:11 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_trades 
+   SET
+   tradeStatus = 'accepted',
+tradeSource = 'test1',
+tradeDestination = 'test2',
+tradeMirror = 'dalston',
+tradeCurrency = 'dally'
+ 
+   WHERE ( tradeId = '1')
+2011/08/08 18:40:18 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184018',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:40:57 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userTelephone = '0207 005 0957',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184057',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test1')
+2011/08/08 18:41:17 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '1234123456',
+userName = 'Hugh Barnard',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184117',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test4')
+2011/08/08 18:41:23 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_trades 
+   SET
+   tradeStatus = 'accepted'
+ 
+   WHERE ( tradeId = '')
+2011/08/08 18:41:23 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_trades 
+   SET
+   tradeStatus = 'accepted',
+tradeSource = 'test1',
+tradeDestination = 'test4',
+tradeMirror = 'dalston',
+tradeCurrency = 'dally'
+ 
+   WHERE ( tradeId = '1')
+2011/08/08 18:41:30 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184130',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:41:45 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184145',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:42:01 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184201',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:42:16 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184216',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:42:31 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184231',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:42:45 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184245',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:43:00 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184300',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:43:13 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184313',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:43:25 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184325',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:43:38 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184338',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:43:49 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184349',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:44:02 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184402',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:44:16 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184416',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:44:29 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184429',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:44:41 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184441',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:44:53 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184453',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:45:05 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184505',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:45:16 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184516',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:45:29 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184529',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:45:41 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184541',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:45:53 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184553',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:46:08 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184608',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:46:20 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184620',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:46:32 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184632',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:46:44 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184644',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:46:56 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184656',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:47:09 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184709',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:47:20 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184720',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:47:32 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184732',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:47:44 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184744',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:47:56 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184756',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/08 18:48:15 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '7',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@laposte.net',
+userTelephone = '0207 005 0957',
+userMobile = '447779159453',
+userName = 'A N Other',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184815',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test3')
+2011/08/08 18:48:34 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '1234123456',
+userName = 'Hugh Barnard',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184834',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test4')
+2011/08/08 18:48:53 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '7',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@laposte.net',
+userTelephone = '0207 005 0957',
+userMobile = '447779159453',
+userName = 'A N Other',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184853',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test3')
+2011/08/08 18:49:07 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808184907',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:49:17 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_currencies 
+   SET
+   name = 'tpound',
+description = 'Totnes Local',
+status = 'active',
+mail = 'hugh.barnard1@caca.com',
+membership = 'open'
+ 
+   WHERE ( id = '4')
+2011/08/08 18:49:23 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808184923',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:49:37 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808184937',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:49:47 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_partners 
+   SET
+   name = 'limehouse',
+email = 'hugh.barnard@gmail.com',
+type = 'local',
+status = 'active'
+ 
+   WHERE ( id = '1')
+2011/08/08 18:49:56 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userTelephone = '0207 005 0957',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808184956',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test1')
+2011/08/08 18:50:16 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '1234123456',
+userName = 'Hugh Barnard',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110808185016',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'test4')
+2011/08/08 18:50:21 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLogin = 'test4',
+userLang = 'en',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userMobile = '4444444444',
+userName = 'Mr Test 4',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userStatus = 'active',
+userSmsreceipt = '0'
+ 
+   WHERE ( userId = '5')
+2011/08/08 18:50:30 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '5',
+userLang = 'en',
+userPassword = 'MONDiGI+HgpHiW6r//Es3u/iDiA',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hugh.barnard@googlemail.com',
+userTelephone = '0207 005 0957',
+userMobile = '447779159451',
+userName = 'Number One',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '2011-08-08 18:49:56',
+userRegistration = '0',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test1')
+2011/08/08 18:50:57 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808185057',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:51:09 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808185109',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:51:29 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808185129',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:51:35 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_registry 
+   SET
+   name = 'dalston',
+description = 'Dalston Registry',
+admemail = 'cclite.dalston@cclite.cclite.k-hosting.co.uk',
+admpass = 'caca',
+postemail = 'cclite.dalston@cclite.cclite.k-hosting.co.uk',
+postpass = 'caca',
+commitlimit = '10000',
+merchant_key = '1234',
+latest_news = 'This is some news'
+ 
+   WHERE ( id = '1')
+2011/08/08 18:51:40 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808185140',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:51:48 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_registry 
+   SET
+   name = 'dalston',
+description = 'Dalston Registry',
+admemail = 'cclite.dalston@cclite.cclite.k-hosting.co.uk',
+admpass = 'caca',
+postemail = 'cclite.dalston@cclite.cclite.k-hosting.co.uk',
+postpass = 'caca',
+commitlimit = '10000',
+merchant_key = '1234',
+latest_news = ''
+ 
+   WHERE ( id = '1')
+2011/08/08 18:51:57 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808185157',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:52:13 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808185213',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/08 18:52:28 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '1',
+userLang = 'en',
+userEmail = 'yourmail@yourdomain.com',
+userName = 'Registry Manager',
+userLevel = 'admin',
+userStatus = 'active',
+userJoindate = '0000-00-00',
+userLastLogin = '20110808185228',
+userRegistration = '0',
+userPin = '0',
+userPinStatus = 'waiting',
+userPinTries = '0',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '0'
+ 
+   WHERE ( userLogin = 'manager')
+2011/08/09 11:44:22 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'en',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110809114422',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '3',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/09 11:44:27 DEBUG> Cclite.pm:902 Cclite::change_language - update is userLang|es|userId|6
+2011/08/09 11:44:27 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userLang = 'es'
+ 
+   WHERE ( userId = '6')
+2011/08/09 11:45:25 WARN> Cclite.pm:366 Cclite::logon_user - login failed for test2 at dalston : password failed
+2011/08/09 11:45:25 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'es',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '2011-08-09 11:44:27',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '2',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')
+2011/08/09 11:45:43 DEBUG> Cclitedb.pm:1358 Cclitedb::_sqlupdate - update is    UPDATE om_users 
+   SET
+   userId = '6',
+userLang = 'es',
+userPublickeyid = '51E7D8C9',
+userEmail = 'hughbarnardlists@yahoo.co.uk',
+userTelephone = '0207 005 0957',
+userMobile = '447779159452',
+userName = 'Number Two',
+userNameornumber = '23',
+userStreet = 'Kiln Court Newell Street',
+userTown = 'London',
+userArea = 'London',
+userPostcode = 'E14 7JP',
+userLevel = 'user',
+userStatus = 'active',
+userJoindate = '2011-08-08',
+userLastLogin = '20110809114543',
+userRegistration = '0',
+userPin = '83vpO2dOPc2YjLpKfPZoeUaMOzU',
+userPinStatus = 'waiting',
+userPinTries = '3',
+userPinChanged = '0000-00-00',
+userPasswordStatus = 'active',
+userPasswordTries = '2',
+userPasswordChanged = '0000-00-00',
+userSmsreceipt = '1'
+ 
+   WHERE ( userLogin = 'test2')

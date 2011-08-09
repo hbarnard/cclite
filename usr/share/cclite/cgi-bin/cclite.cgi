@@ -604,7 +604,7 @@ my $fieldsref = \%fields;
         $refresh, $metarefresh, $error,     $html,
         $pages,   $pagename,    $fieldsref, $cookies
     )
-    = change_language(
+    = change_language('local', $db,
         $configuration{templates}, $fieldsref, $cookieref, $token
     )
   );

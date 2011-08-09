@@ -200,9 +200,9 @@ sub calculate_token {
         $nonce = _get_digest( $url_type, $nonce );
         $token = _get_digest( $url_type, $fieldsref->{'userLogin'},
             $nonce, $remote_address );
-         $log->debug(
-"in token calc, new token: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
-    );    
+###         $log->debug(
+###"in token calc, new token: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
+###    );    
             
         return ( $token, $nonce );
     } else {
@@ -212,9 +212,9 @@ sub calculate_token {
             $cookieref->{'token1'},
             $remote_address
         );
- $log->debug(
-"in token calc, existing: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
-    );
+### $log->debug(
+###"in token calc, existing: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
+###    );
         return ( $token, undef );
     }
 ###    $log->error(
