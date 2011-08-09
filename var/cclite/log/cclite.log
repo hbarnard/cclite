@@ -1941,3 +1941,9 @@ userPasswordChanged = '0000-00-00',
 userSmsreceipt = '1'
  
    WHERE ( userLogin = 'test2')
+2011/08/09 15:05:03 ERROR> Cclitedb.pm:839 Cclitedb::get_where - local, , om_registry, name, , , 0, 1 g:    SELECT * FROM om_registry WHERE name = '' ORDER BY name LIMIT 0,1 
+  p:Cclite, f:../lib/Cclite.pm, l:585
+2011/08/09 15:14:32 ERROR> Cclitedb.pm:839 Cclitedb::get_where - local, , om_registry, name, , , 0, 1 g:    SELECT * FROM om_registry WHERE name = '' ORDER BY name LIMIT 0,1 
+  p:Cclite, f:../lib/Cclite.pm, l:585
+2011/08/09 15:14:40 ERROR> Cclitedb.pm:839 Cclitedb::get_where - local, , om_registry, name, , , 0, 1 g:    SELECT * FROM om_registry WHERE name = '' ORDER BY name LIMIT 0,1 
+  p:Cclite, f:../lib/Cclite.pm, l:585

@@ -586,7 +586,7 @@ sub get_news {
       get_where( $class, $db, 'om_registry', '*', 'name', $db, $token, 0, 1 );
 
     # this is messy but don't want the box, if empty
-    return $$registryref{latest_news};
+    return $registryref->{latest_news};
 
 }
 
@@ -879,7 +879,8 @@ Change the user language for the web interface
 never tested recently as of 4/2005, waiting until
 html is somewhat complete and in another language...
 
-Now in testing as of August 2011...
+Now in testing as of August 2011...modified to update
+om_users and send only language cookie with expiry of around six months
 
 =cut
 
@@ -887,14 +888,17 @@ Now in testing as of August 2011...
 sub change_language {
     my ($class, $db, $template_dir, $fieldsref, $cookieref, $token ) = @_;
     my $domain    = $configuration{'domain'};
-    my $cookieref = get_cookie();
-    my %cookie    = %$cookieref;
     my $path      = "/";
+    
+    ### my $cookieref = get_cookie();
+    my %cookie    ;    
     $cookie{language} = $fieldsref->{language};
+    my $expires = 15552000 + time() ; # six month expiry for language cookie
+    my $cookies = return_cookie_header( $expires, $domain, $path, "", %cookie );
+    
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
-    my $cookies = return_cookie_header( "-1", $domain, $path, "", %cookie );
-    
+       
     # update om_users for language change for this user, if someone is logged on
     if (length($db)) {   
       my %new_language = ('userId', $cookieref->{'userId'}, 'userLang', $fieldsref->{'language'}) ;

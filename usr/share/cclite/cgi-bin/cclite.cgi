@@ -281,7 +281,7 @@ $fields{logontype} ||= 'form';
 # note that widgets can't have cookies...at least in Opera 12/2009
 #FIXME: this is becoming a disgrace, move to a gatekeeper function in Ccsecurity.pm
 my %allowed_actions =
-  qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes);
+  qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes lang yes);
 
 if (
        ( !length( $cookieref->{'token'} ) )
@@ -614,6 +614,9 @@ my $fieldsref = \%fields;
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     show_tag_cloud( 'local', $db, $fieldsref, $token ) );
 
+
+# beginning of oauth 
+
 # get requestoken for remote oauth users
 ( $action eq "requesttoken" )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
@@ -624,7 +627,9 @@ my $fieldsref = \%fields;
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     do_oauth( 'local', $db, $fieldsref, $token ) );
 
-$fieldsref->{'news'} = get_news( 'local', $db, $token );
+
+# only get news if there's a defined registry containing it 08/2011
+$fieldsref->{'news'} = get_news( 'local', $db, $token ) if (length($db)) ;
 
 #FIXME: Probably only to be done when logged on?
 # but nice to show a few 'public' listings....
