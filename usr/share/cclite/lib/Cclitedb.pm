@@ -42,11 +42,12 @@ use Ccsecure;
 use Ccconfiguration;
 
 ###DBI->trace( 4, '../debug/debug.dbi' );      # Database abstraction
+###DBI->trace( 2, '/home/hbarnard/trunk/var/cclite/log/debug.dbi.log' );
+
 use Ccu;    # for paging routine, at least
+
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
-
-###DBI->trace( 2, '/home/hbarnard/trunk/var/cclite/log/debug.dbi.log' );
 
 our $log = Log::Log4perl->get_logger("Cclitedb");
 
@@ -200,10 +201,9 @@ sub update_database_record {
 
     # deals with no language problem
     #FIXME: In Ccsmsgateway language delivers notused why is this?
-    # duplicated language code with Ccu
+    # duplicated language code with Ccu, name collision perhaps 08/2011
     if ( !length($messagesref) ) {
-        my $language = 'en' if ( !length($language) || $language eq 'notused' );
-        %messages    = Ccu::readmessages($language);
+        %messages    = readmessages();
         $messagesref = \%messages;
     }
 

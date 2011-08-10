@@ -55,11 +55,13 @@ my $token ;
 
 # you'll have to hardcode these, if this is a cron
 my $cookieref = get_cookie();
-my $registry = $$cookieref{registry} ;
-my $language = $$cookieref{language} ;
+my $registry = $cookieref->{registry} ;
+my $language = $cookieref->{language} ;
 
 my  %configuration  = readconfiguration();
-our %messages = readmessages("en");
+
+# message language now decided by decide_language 08/2011
+our %messages = readmessages();
 
 Log::Log4perl->init($configuration{'loggerconfig'});
 our $log = Log::Log4perl->get_logger("writerss");

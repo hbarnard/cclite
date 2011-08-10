@@ -237,9 +237,13 @@ use Cccrypto;
 use Cccookie;
 use Ccu;
 
-our %messages = readmessages("en");
+
 my %configuration          = readconfiguration;
 my $configuration_hash_ref = \%configuration;
+
+# message language now decided by decide_language 08/2011
+our %messages = readmessages();
+
 Log::Log4perl->init( $configuration{'loggerconfig'} );
 our $log = Log::Log4perl->get_logger("read_from_jabber");
 

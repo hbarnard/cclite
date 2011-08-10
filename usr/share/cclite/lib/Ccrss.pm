@@ -69,7 +69,7 @@ my $VERSION = 1.00;
 
 @EXPORT = qw(create_rss_feed);
 
-our %messages    = readmessages("en");
+our %messages    = readmessages();
 our $messagesref = \%messages;
 our $log         = Log::Log4perl->get_logger("Ccrss");
 

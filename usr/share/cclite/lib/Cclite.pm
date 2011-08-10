@@ -98,7 +98,7 @@ my $VERSION = 1.00;
   wrapper_for_check_user_and_add_trade
 );
 
-=head3 messagehash
+=head3 messages
 
 this is the provisional solution to the multilingual message fragments
 later, it will go somewhere neater
@@ -106,8 +106,9 @@ to change these, just substitute a translated hash
  
 =cut
 
-our %messages    = readmessages("en");
+our %messages    = readmessages();
 our $messagesref = \%messages;
+
 our $log         = Log::Log4perl->get_logger("Cclite");
 
 # used in several places now, moved up here 4/2011
@@ -199,7 +200,7 @@ sub add_user {
     $fieldsref->{userPasswordStatus} = 'active';
 
     #
-    my ( $date, $time ) = &Ccu::getdateandtime( time() );
+    my ( $date, $time ) = getdateandtime( time() );
     $fieldsref->{userJoindate} = $date;
 
     #
@@ -412,29 +413,32 @@ sub logon_user {
         $cookie{userId} =
           $userref->{userId};    # not used yet, to replace userLogin
           
-        #FIXME: should language be taken from user record or recent cookie?  
-        $cookie{language} = $userref->{userLang};
+        # language taken from cookie first, then user record
+        $cookie{language} ||= $userref->{userLang};
 
-  # avoid cumulation of registry cookie values, this is a browser problem though
-        $cookie{registry} = $cookieref->{registry} || $fieldsref->{registry};
-
+        # avoid cumulation of registry cookie values, this is a browser problem though
+        $cookie{registry} ||= $fieldsref->{registry};
         $cookie{userLevel} = $userref->{userLevel};
 
         # make a cookie header, valid for session
+        #FIXME: language cookie should have long expiry
         $cookieheader =
           return_cookie_header( "-1", $domain, $path, "", %cookie );
 
         # calculate date and time stamp for om_users table
         # get date and timestamp
-        my ( $date, $time ) = &Ccu::getdateandtime( time() );
-        $userref->{userLastLogin} = "$date$time";
+        my ( $date, $time ) = getdateandtime( time() );
+        
+        # just supply necessary fields, not the whole records, restore password tries on success, 08/2011
+        my %update =  ('userId', $userref->{'userId'}, 'userLastLogin', "$date$time", 'userPasswordTries', 3 ) ;
+        
         undef $userref
           ->{userPassword};  # remove this otherwise it's rehashed and re-update
                              # mode 2 is where userLogin = value ;
             # use userref to update record, should strip all other fields...
             # throw away return codes for the present
         my ( $a, $b, $c, $d ) =
-          update_database_record( 'local', $db, "om_users", 2, $userref,
+          update_database_record( 'local', $db, "om_users", 1, \%update,
             $userref->{language}, $cookie{token} );
 
         print $cookieheader ;

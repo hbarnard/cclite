@@ -64,7 +64,9 @@ Cchooks.pm
 
 (c) Hugh Barnard 2005 - 2008 GPL Licenced
  
-=cut    my %configuration = readconfiguration();
+=cut    
+
+
 
 package Ccsms::Cardboardfish;
 
@@ -104,14 +106,11 @@ to change these, just substitute a translated hash
 
 #============== change the configuration to your registry and currency for sms
 
-# application specific globals
-our $language = 'en';
-
-our %messages = readmessages($language);
-
+# messages will now use decide_language to get language, in Ccu.pm 08/2011
+our %messages = readmessages();
+my %configuration = readconfiguration();
 my %sms_configuration = readconfiguration('../../config/readsms.cf');
 
-my %configuration = readconfiguration();
 
 # this is a little unnecessary, but can stay for a while
 our $registry     = $sms_configuration{'registry'};

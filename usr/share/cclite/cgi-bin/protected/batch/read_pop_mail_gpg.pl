@@ -125,10 +125,11 @@ BEGIN {
 }
 
 # read configuration and messages
-
 my %configuration          = readconfiguration;
 my $configuration_hash_ref = \%configuration;
-our %messages = readmessages("en");
+
+# language now decided by decide_language 08/2011
+our %messages = readmessages();
 
 Log::Log4perl->init( $configuration{'loggerconfig'} );
 our $log = Log::Log4perl->get_logger("read_pop_mail_gpg");

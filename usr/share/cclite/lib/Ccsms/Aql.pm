@@ -90,16 +90,9 @@ use Ccconfiguration;    # new style configuration method
   gateway_sms_transaction
 );
 
-=head3 messagehash
 
-this is the provisional solution to the multilingual message fragments
-later, it will go somewhere neater
-to change these, just substitute a translated hash
- 
-=cut
-
-# application specific globals
-our %messages = readmessages("en");
+# messages will now use decide_language to get language, in Ccu.pm 08/2011
+our %messages = readmessages();
 
 #============== change the configuration to your registry and currency for sms
 

@@ -223,7 +223,7 @@ EOT
     if ( length( $cookieref->{token} ) ) {
 
         my $login = $cookieref->{userLogin} || $fieldsref->{userLogin};
-        %messages                = readmessages( $cookieref->{language} );
+        %messages                = readmessages();
         $fieldsref->{youare}     = "$messages{youare} $login";
         $fieldsref->{atregistry} = "$messages{at} $fieldsref->{registry}";
     }
@@ -887,8 +887,8 @@ sub sql_timestamp {
 Now we're going multilingual need to deal with this in a non-hardcoded fashion
 This decides the language:
 1. Via cookie, if set
-2. fields{'language'} if not cookie
-3. base cclite.cf language if not 1 and 2
+2. fieldsref->{'language'} if not cookie
+3. base cclite.cf language if not 1 and 2, because single country based, usually
 4. engleesh if not 1,2,3
 
 =cut
@@ -906,9 +906,10 @@ my %configuration = Ccconfiguration::readconfiguration();
 my $language =
      $cookieref->{'language'}
   || $fieldsref->{language}
-  || $configuration{language};    # default is english in logon
-  
-    #FIXME: remove garbage at end of cookie
+  || $configuration{language}
+  || 'en' ;
+
+    #FIXME: remove garbage at end of cookie, probably OK 08/2011"en"
     $language =~ s/[^\w]+$// ;
 
 

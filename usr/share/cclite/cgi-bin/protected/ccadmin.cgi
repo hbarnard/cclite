@@ -118,9 +118,12 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $cookies,
 
 my %configuration = readconfiguration();
 my $configref     = \%configuration;
+
+# message language now decided by decide_language 08/2011 
+our %messages = readmessages();
+
 my %fields        = cgiparse();
 my $offset        = $fields{offset};
-our %messages = readmessages("en");
 
 Log::Log4perl->init( $configuration{'loggerconfig'} );
 our $log = Log::Log4perl->get_logger("ccadmin");

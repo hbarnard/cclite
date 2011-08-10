@@ -55,7 +55,8 @@ to change these, just substitute a translated hash
  
 =cut
 
-our %messages = readmessages("en");
+# language of messages decided now by Ccu::decide_language
+our %messages = readmessages();
 our $log      = Log::Log4perl->get_logger("Ccinterfaces");
 
 =head3 sms_transaction

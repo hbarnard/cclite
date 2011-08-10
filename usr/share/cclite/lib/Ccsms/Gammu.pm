@@ -98,8 +98,8 @@ to change these, just substitute a translated hash
  
 =cut
 
-# application specific globals
-our %messages = readmessages("en");
+# messages will now use decide_language to get language, in Ccu.pm 08/2011
+our %messages = readmessages();
 
 #============== change the configuration to your registry and currency for sms
 
@@ -128,8 +128,7 @@ sub gateway_sms_transaction {
 
     my ( $offset, $limit );
 
-###    $log->debug("orig is $$fieldsref{'originator'}");
-
+    ### $log->debug("orig is $$fieldsref{'originator'}");
     ### my $x;
     ### $x = join( "|", %$fieldsref );
 

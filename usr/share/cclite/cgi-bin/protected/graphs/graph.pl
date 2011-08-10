@@ -28,67 +28,6 @@ if ($@) {
 __END__
 
 
-=head3 readconfiguration
-
-
-Read the configuration data and return a hash, this routine
-also exists in ccserver.cgi
-
-Skip comments marked with #
-cgi parameters will override configuration file
-information, always!
-
-Included here, needs to be executed within BEGIN
-
-
-=cut
-
-
-sub readconfiguration {
-
-    my $os = $^O;
-    my $dir;
-    my $default_config;
-
-    # if it's windows use cd to find the directory
-    if ( $os =~ /^ms/i ) {
-        $dir = `cd`;
-    } else {
-        $dir = `pwd`;
-    }
-
-    # make an informed guess at the config file not explictly supplied
-    $dir =~ s/\bcgi-bin.*//;
-    $default_config = "${dir}config/cclite.cf";
-    $default_config =~ s/\s//g;
-
-     ###print "default config is $default_config" ;
-
-    # either supply it explicitly with full path or it will guess..
-    my $configfile = $_[0] || $default_config;
-
-    my %configuration;
-    if ( -e $configfile ) {
-        open( CONFIG, $configfile );
-        while (<CONFIG>) {
-            s/\s$//g;
-            next if /^#/;
-            my ( $key, $value ) = split( /\=/, $_ );
-            if ($value) {
-                $key =~ lc($key);    #- make key canonic, all lower
-                $configuration{$key} = $value if ( length($value) );
-            }
-            $key   = "";
-            $value = "";
-        }
-    } else {
-        error(
-            "Cannot find configuration file file: $configfile may be missing?");
-    }
-    return %configuration;
-}
-
-
 
 =head3 get_volumes
 
@@ -332,8 +271,6 @@ use strict ;
 use GD ;
 use Cclitedb;
 
-###use GD::Graph::bars;
-
 my $format = 'sparklines' ;
 eval {
    use GD::Graph::sparklines;
@@ -345,6 +282,7 @@ if(@$) {
 }
 
 use GD::Text;
+
 %configuration = readconfiguration();
 
 Log::Log4perl->init($configuration{'loggerconfig'});
@@ -352,7 +290,9 @@ our $log = Log::Log4perl->get_logger("graph");
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
-our %messages = readmessages("en");
+
+# message language now decided by decide_language 08/2011
+our %messages = readmessages();
 
 # you'll have to hardwire this, if running from cron
 my $registry = $$cookieref{registry} ;

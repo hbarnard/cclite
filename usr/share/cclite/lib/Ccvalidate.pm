@@ -58,7 +58,7 @@ use Ccu;         # just for debugging take this away afterwards
 use Cclitedb;    # semantic checks in database during validation
 
 our $log         = Log::Log4perl->get_logger("Ccvalidate");
-our %messages    = readmessages("en");
+our %messages    = readmessages();
 our $messagesref = \%messages;
 
 =head3 validate_registry
@@ -77,31 +77,31 @@ sub validate_registry {
     # registry name must be filled
 
     # registry name must start with alpha and be one 'word'
-    if ( $$fieldsref{newregistry} !~ /^[a-zA-Z]\w+$/ ) {
-        push @status, $$messagesref{badregistryname};
+    if ( $fieldsref->{'newregistry'} !~ /^[a-zA-Z]\w+$/ ) {
+        push @status, $messagesref->{'badregistryname'};
     }
 
    # there's no really good match for valid email addresses, in fact..
    # these two are supressed, checked by jquery 11/2009
-   # if ( $$fieldsref{admemail} !~
+   # if ( $fieldsref->{admemail} !~
    #    /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/ )
    # {
-   #    push @status, "$$messagesref{bademail} $$messagesref{regmanager}";
+   #    push @status, "$messagesref->{bademail} $messagesref->{regmanager}";
    # }
 
    # there's no really good match for valid email addresses, in fact..
-   # if ( length( $$fieldsref{postemail} )
-   #    && $$fieldsref{postemail} !~
+   # if ( length( $fieldsref->{postemail} )
+   #    && $fieldsref->{postemail} !~
    #    /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/ )
    # {
-   #    push @status, "$$messagesref{bademail} $$messagesref{batchtrans}";
+   #    push @status, "$messagesref->{bademail} $messagesref->{batchtrans}";
    # }
 
     # commit limit must be numeric, if present
-    if ( length( $$fieldsref{commitlimit} )
-        && $$fieldsref{commitlimit} !~ /^\d+$/ )
+    if ( length( $fieldsref->{'commitlimit'} )
+        && $fieldsref->{'commitlimit'} !~ /^\d+$/ )
     {
-        push @status, $$messagesref{badcommitlimit};
+        push @status, $messagesref->{'badcommitlimit'};
     }
     return @status;
 }
@@ -122,15 +122,15 @@ sub validate_currency {
     # registry name must be filled
 
     # there's no really good match for valid email addresses, in fact..
-    if ( $$fieldsref{mail} !~
+    if ( $fieldsref->{mail} !~
         /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/ )
     {
-        push @status, $$messagesref{bademail};
+        push @status, $messagesref->{bademail};
     }
 
     # currency name must start with alpha, one word
-    if ( $$fieldsref{cname} !~ /^[a-zA-Z]\w+$/ ) {
-        push @status, $$messagesref{badcurrencyname};
+    if ( $fieldsref->{cname} !~ /^[a-zA-Z]\w+$/ ) {
+        push @status, $messagesref->{badcurrencyname};
     }
 
     return @status;
@@ -147,59 +147,59 @@ sub validate_user {
 
     my ( $class, $db, $fieldsref, $messagesref, $token, $offset, $limit ) = @_;
     my @status, %messages;
-    my $action = $$fieldsref{'action'};    # simplify code somewaht
+    my $action = $fieldsref->{'action'};    # simplify code somewaht
 
     # deals with problem comming from update_database_record
     if ( !length($messagesref) ) {
-        %messages    = readmessages("en");
+        %messages    = readmessages();
         $messagesref = \%messages;
     }
 
-    if ( !length( $$fieldsref{userLang} ) && $action eq "adduser" ) {
-        push @status, $$messagesref{'invalidlanguage'};
+    if ( !length( $fieldsref->{userLang} ) && $action eq "adduser" ) {
+        push @status, $messagesref->{'invalidlanguage'};
     }
 
-    if (   $$fieldsref{userLogin} !~ /^\w[\w\d_]+$/
+    if (   $fieldsref->{userLogin} !~ /^\w[\w\d_]+$/
         && $action eq "adduser" )
     {
-        push @status, $$messagesref{'invalidlogin'};
+        push @status, $messagesref->{'invalidlogin'};
     }
 
     # there's no really good match for valid email addresses, in fact..
-    if ( $$fieldsref{userEmail} !~
+    if ( $fieldsref->{userEmail} !~
         /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/ )
     {
-        push @status, $$messagesref{'bademail'};
+        push @status, $messagesref->{'bademail'};
     }
 
     # mobile phone numbers need to contain spaces and numbers, if present
-    if ( length( $$fieldsref{'userMobile'} )
-        && $$fieldsref{userMobile} =~ /[^\d\s]+/ )
+    if ( length( $fieldsref->{'userMobile'} )
+        && $fieldsref->{userMobile} =~ /[^\d\s]+/ )
     {
-        push @status, $$messagesref{badphone};
+        push @status, $messagesref->{badphone};
     }
 
     # mobile phone numbers must be unique
-    $$fieldsref{userMobile} =
-      format_for_standard_mobile( $$fieldsref{userMobile} );
+    $fieldsref->{userMobile} =
+      format_for_standard_mobile( $fieldsref->{userMobile} );
 
     # only do these, if there is a mobile number:  3045485 27/9/2010
 
-    if ( length( $$fieldsref{'userMobile'} ) ) {
+    if ( length( $fieldsref->{'userMobile'} ) ) {
 
         my ( $error, $fromuserref ) =
           get_where( $class, $db, 'om_users', '*', 'userMobile',
-            $$fieldsref{userMobile}, $token, $offset, $limit );
+            $fieldsref->{userMobile}, $token, $offset, $limit );
 
         # not unique, another record contains this number
         if ( length($fromuserref) && $action eq 'adduser' ) {
-            push @status, $$messagesref{mobphoneexists};
+            push @status, $messagesref->{mobphoneexists};
         }
 
         # not unique another record, not yours, contains this number
         if ( length($fromuserref) && $action eq 'update' ) {
-            if ( $$fromuserref{'userId'} != $$fieldsref{'userId'} ) {
-                push @status, $$messagesref{mobphoneexists};
+            if ( $$fromuserref{'userId'} != $fieldsref->{'userId'} ) {
+                push @status, $messagesref->{mobphoneexists};
             }
         }
 
@@ -217,7 +217,7 @@ sub validate_user {
     my @password_status =
       _validate_new_password( $class, $db, $fieldsref, $messagesref, $token,
         $offset, $limit )
-      if ( $$fieldsref{action} eq "adduser" );
+      if ( $fieldsref->{action} eq "adduser" );
     if ( scalar(@password_status) > 0 ) {
         @status = ( @status, @password_status );
     }
@@ -225,7 +225,7 @@ sub validate_user {
     # do new pin validation and comparison in private function
     # pin is not obligatory when mobile phone number is absent
 
-    if ( length( $$fieldsref{userMobile} ) && $action eq "adduser" ) {
+    if ( length( $fieldsref->{userMobile} ) && $action eq "adduser" ) {
         my @pin_status =
           _validate_new_pin( $class, $db, $fieldsref, $messagesref, $token,
             $offset, $limit );
@@ -235,7 +235,7 @@ sub validate_user {
     }
 
     # if new pin entered during update, needs revalidation
-    if ( length( $$fieldsref{userPin} ) && $action eq "update" ) {
+    if ( length( $fieldsref->{userPin} ) && $action eq "update" ) {
         my @pin_status =
           _validate_new_pin( $class, $db, $fieldsref, $messagesref, $token,
             $offset, $limit );
@@ -250,10 +250,10 @@ sub validate_user {
 
     my ( $error1, $fromuserref1 ) =
       get_where( $class, $db, 'om_users', '*', 'userLogin',
-        $$fieldsref{userLogin}, $token, $offset, $limit );
+        $fieldsref->{userLogin}, $token, $offset, $limit );
     my ( $error2, $fromuserref2 ) =
       get_where( $class, $db, 'om_users', '*', 'userEmail',
-        $$fieldsref{userEmail}, $token, $offset, $limit );
+        $fieldsref->{userEmail}, $token, $offset, $limit );
 
     my ( $nameexists, $emailexists );
 
@@ -265,19 +265,19 @@ sub validate_user {
 
     # adding a user that already exists
     if ( $nameexists > 0 && $action eq "adduser" ) {
-        push @status, $$messagesref{userexists};
+        push @status, $messagesref->{userexists};
     }
 
     # adding a user email exists
     if ( $emailexists > 0 && $action eq "adduser" ) {
-        push @status, $$messagesref{emailexists};
+        push @status, $messagesref->{emailexists};
     }
 
     # modifying a user email exists and not this user
     # this is probably inadequate...race condition
     if ( $emailexists > 0 && $action eq "update" ) {
-        if ( $$fromuserref2{'userId'} != $$fieldsref{'userId'} ) {
-            push @status, $$messagesref{emailexists};
+        if ( $$fromuserref2{'userId'} != $fieldsref->{'userId'} ) {
+            push @status, $messagesref->{emailexists};
         }
     }
 
@@ -302,45 +302,45 @@ sub validate_partner {
     my @status;
 
     # registry name must start with alpha
-    if ( $$fieldsref{dname} !~ /^[a-zA-Z]\w+$/ ) {
-        push @status, $$messagesref{badregistryname};
+    if ( $fieldsref->{dname} !~ /^[a-zA-Z]\w+$/ ) {
+        push @status, $messagesref->{badregistryname};
     }
 
-    if ( $$fieldsref{'type'} eq 'local' ) {
+    if ( $fieldsref->{'type'} eq 'local' ) {
         my @registries =
           Ccadmin::show_registries( 'local', $db, '', $fieldsref, 'values',
             $token );
         my $regex = join( '|', @registries );
 
-        if ( $$fieldsref{'dname'} !~ /$regex/ ) {
-            push @status, $$messagesref{nonexistentpartner};
+        if ( $fieldsref->{'dname'} !~ /$regex/ ) {
+            push @status, $messagesref->{nonexistentpartner};
         }
     }
 
     # only need uri and proxy for proxy type partners
-    if ( $$fieldsref{'type'} eq 'proxy' ) {
+    if ( $fieldsref->{'type'} eq 'proxy' ) {
 
         # uri must start with http://
-        if ( $$fieldsref{uri} !~ /^http\:\/\/.*\/Cclite/ ) {
-            push @status, $$messagesref{baduriname};
+        if ( $fieldsref->{uri} !~ /^http\:\/\/.*\/Cclite/ ) {
+            push @status, $messagesref->{baduriname};
         }
 
         # proxy must start with http://
-        if ( $$fieldsref{proxy} !~ /^http\:\/\/.*ccserver.cgi/ ) {
-            push @status, $$messagesref{badproxyname};
+        if ( $fieldsref->{proxy} !~ /^http\:\/\/.*ccserver.cgi/ ) {
+            push @status, $messagesref->{badproxyname};
         }
     }
 
     # there's no really good match for valid email addresses, in fact..
-    if ( $$fieldsref{email} !~
+    if ( $fieldsref->{email} !~
         /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/ )
     {
-        push @status, $$messagesref{bademail};
+        push @status, $messagesref->{bademail};
     }
 
     # type must not be blank
-    if ( !length( $$fieldsref{type} ) ) {
-        push @status, $$messagesref{blankpartnertype};
+    if ( !length( $fieldsref->{type} ) ) {
+        push @status, $messagesref->{blankpartnertype};
     }
 
     return @status;
@@ -359,9 +359,9 @@ sub validate_transaction {
 
     # registry name must be filled
     # quantity isn't absent, negative or non-numeric
-    if (   ( !length( $$fieldsref{quantity} ) )
-        || ( $$fieldsref{quantity} lt 0 )
-        || ( $$fieldsref{quantity} !~ /^[\d\056]+$/ ) )
+    if (   ( !length( $fieldsref->{quantity} ) )
+        || ( $fieldsref->{quantity} lt 0 )
+        || ( $fieldsref->{quantity} !~ /^[\d\056]+$/ ) )
     {
         push @status, "can't accept negative quantities";
     }
@@ -391,24 +391,24 @@ sub _validate_address {
     my @status;
 
     # Street starts with alpha, has two components
-    if ( $$fieldsref{userStreet} !~ /[\'a-zA-z](\w+)(\W+)(\w+)/ ) {
-        push @status, $$messagesref{badstreet};
+    if ( $fieldsref->{userStreet} !~ /[\'a-zA-z](\w+)(\W+)(\w+)/ ) {
+        push @status, $messagesref->{badstreet};
     }
 
     # Town starts with alpha, is alphanumeric
-    if ( $$fieldsref{userTown} !~ /^[\'a-zA-z](\w+)$/ ) {
-        push @status, $$messagesref{badtown};
+    if ( $fieldsref->{userTown} !~ /^[\'a-zA-z](\w+)$/ ) {
+        push @status, $messagesref->{badtown};
     }
 
     # this will do UK, Canada, US and (afaik) most of Europe
     if (
-        $$fieldsref{userPostcode} !~ /\b[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}\b/i
-        && $$fieldsref{userPostcode} !~ /\b\d{5}(?:[-\s]\d{4})?\b/
-        && $$fieldsref{userPostcode} !~ /\b[0-9]{6}\b/i
+        $fieldsref->{userPostcode} !~ /\b[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}\b/i
+        && $fieldsref->{userPostcode} !~ /\b\d{5}(?:[-\s]\d{4})?\b/
+        && $fieldsref->{userPostcode} !~ /\b[0-9]{6}\b/i
 
       )
     {
-        push @status, $$messagesref{badpostcode};
+        push @status, $messagesref->{badpostcode};
     }
 
     return @status;
@@ -428,14 +428,14 @@ sub _validate_new_password {
 
     # password must be filled
     # they must be equal
-    if ( $$fieldsref{userPassword} ne $$fieldsref{cuserPassword} ) {
-        push @status, $$messagesref{passwordnotsame};
+    if ( $fieldsref->{userPassword} ne $fieldsref->{cuserPassword} ) {
+        push @status, $messagesref->{passwordnotsame};
     }
-    if ( $$fieldsref{userPassword} eq $$fieldsref{userLogin} ) {
-        push @status, $$messagesref{passwordnelogin};
+    if ( $fieldsref->{userPassword} eq $fieldsref->{userLogin} ) {
+        push @status, $messagesref->{passwordnelogin};
     }
-    if ( length( $$fieldsref{userPassword} ) < 6 ) {
-        push @status, $$messagesref{passwordgesix};
+    if ( length( $fieldsref->{userPassword} ) < 6 ) {
+        push @status, $messagesref->{passwordgesix};
     }
     return @status;
 }
@@ -451,10 +451,10 @@ sub validate_service_charge {
 
     my ( $class, $db, $fieldsref, $messagesref, $token, $offset, $limit ) = @_;
     my @status;
-    if ( ( $$fieldsref{value} > $$fieldsref{servicechargelimit} )
-        && $$fieldsref{servicechargelimit} =~ /^\d+$/ )
+    if ( ( $fieldsref->{value} > $fieldsref->{servicechargelimit} )
+        && $fieldsref->{servicechargelimit} =~ /^\d+$/ )
     {
-        push @status, $$messagesref{overservicechargelimit};
+        push @status, $messagesref->{overservicechargelimit};
     }
     return @status;
 }
@@ -473,21 +473,21 @@ sub _validate_new_pin {
     my @status;
 
     # pin and confirmation must be filled
-    if ( !length( $$fieldsref{userPin} ) || !length( $$fieldsref{cuserPin} ) ) {
-        push @status, $$messagesref{'needpin'};
+    if ( !length( $fieldsref->{userPin} ) || !length( $fieldsref->{cuserPin} ) ) {
+        push @status, $messagesref->{'needpin'};
     }
-    if ( $$fieldsref{userPin} =~
+    if ( $fieldsref->{userPin} =~
         /123|234|345|456|789|321|432|543|654|765|876|987/ )
     {
-        push @status, $$messagesref{'pinobvious'};
+        push @status, $messagesref->{'pinobvious'};
     }
-    if ( $$fieldsref{userPin} =~ /(\d)(\d)(\d)/ && $1 == $2 && $2 == $3 ) {
-        push @status, $$messagesref{'pinsamenumbers'};
+    if ( $fieldsref->{userPin} =~ /(\d)(\d)(\d)/ && $1 == $2 && $2 == $3 ) {
+        push @status, $messagesref->{'pinsamenumbers'};
     }
 
     # they must be equal
-    if ( $$fieldsref{userPin} ne $$fieldsref{cuserPin} ) {
-        push @status, $$messagesref{'pinconfirmdifferent'};
+    if ( $fieldsref->{userPin} ne $fieldsref->{cuserPin} ) {
+        push @status, $messagesref->{'pinconfirmdifferent'};
     }
 
     return @status;

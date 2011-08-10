@@ -80,8 +80,9 @@ if (length($error) ) {
     exit 0 ;
 }       
     
-    
-our %messages = readmessages("en");
+
+# message language now decided by decide_language 08/2011    
+our %messages = readmessages();
 
 my $username = $registryref->{postemail};
 my $password = $registryref->{postpass};

@@ -49,7 +49,7 @@ my $VERSION = 1.00;
 
 # read messages from literals file, this isn't fully multilingual yet
 our $log      = Log::Log4perl->get_logger("Ccdirectory");
-our %messages = readmessages("en");
+our %messages = readmessages();
 
 # used in several places now, moved up here 4/2011
 our %configuration = Ccconfiguration::readconfiguration();

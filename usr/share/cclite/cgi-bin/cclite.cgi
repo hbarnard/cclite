@@ -71,6 +71,7 @@ Hugh Barnard
 
 BEGIN {
 
+   # krystal hosting only stuff
     my $base_module_dir = (
         -d '/home/ccliekh/perl'
         ? '/home/ccliekh/perl'

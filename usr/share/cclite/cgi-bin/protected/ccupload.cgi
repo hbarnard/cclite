@@ -90,8 +90,11 @@ my $upload_dir = "$configuration{csvpath}/$$cookieref{registry}";
 my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
     $templatename, $registry_private_value );    # for the moment
 
-my $language = $$cookieref{language} || "en";    # default is english
-my %messages = readmessages($language);
+
+my $language = decide_language() ;
+
+# message language now decided by decide_language, within readmessages 08/2011
+my %messages = readmessages();
 
 my $query = new CGI ;
  

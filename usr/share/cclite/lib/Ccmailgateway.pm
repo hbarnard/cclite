@@ -73,8 +73,8 @@ to change these, just substitute a translated hash
  
 =cut
 
-# application specific globals
-our %messages = readmessages("en");
+# changed to get language from decide_language 08/2011
+our %messages = readmessages();
 
 =head3 _check_to_and_from
 
