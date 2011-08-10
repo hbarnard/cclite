@@ -395,10 +395,8 @@ sub logon_user {
             $cookieheader );
     } else {
 
-        # login success
-        my $path = "/";
-
-        #my $nonce;
+        # login success, fill in cookie fields
+        my $path = "/";   
         my $domain = $fieldsref->{domain};
 
         my $ip_address = $ENV{REMOTE_ADDR};
@@ -414,7 +412,8 @@ sub logon_user {
           $userref->{userId};    # not used yet, to replace userLogin
           
         # language taken from cookie first, then user record
-        $cookie{language} ||= $userref->{userLang};
+        #FIXME: duplicates decide_language, pretty much, fold in
+        $cookie{language} = $cookieref->{'language'} || $userref->{userLang} || $configuration{language} || 'en' ;
 
         # avoid cumulation of registry cookie values, this is a browser problem though
         $cookie{registry} ||= $fieldsref->{registry};
@@ -430,7 +429,11 @@ sub logon_user {
         my ( $date, $time ) = getdateandtime( time() );
         
         # just supply necessary fields, not the whole records, restore password tries on success, 08/2011
-        my %update =  ('userId', $userref->{'userId'}, 'userLastLogin', "$date$time", 'userPasswordTries', 3 ) ;
+        # language updated just in case changed without logging in...
+        my %update =  ('userId', $userref->{'userId'},
+                       'userLastLogin', "$date$time", 
+                       'userPasswordTries', 3,
+                       'userLang', $cookie{language} ) ;
         
         undef $userref
           ->{userPassword};  # remove this otherwise it's rehashed and re-update
@@ -452,15 +455,19 @@ sub logon_user {
 =head3 _do_login
 
 Internal function to enable openid, widget etc. Possible
-security hole here...
+security hole here...language comes only from user record
+no facility for changing it here...
 
 =cut
 
 sub do_login {
 
     my ( $fieldsref, $registry, $userref, $registry_private_value ) = @_;
+    
     my %cookie;
-
+    
+    $cookie{language} = $userref->{userLang};
+    
     # cookie is produced this time, not checked
     ( $cookie{'token'}, $cookie{'token1'} ) =
       calculate_token( $registry_private_value, $fieldsref, undef,
@@ -469,8 +476,7 @@ sub do_login {
     # make cookie fields from the user table
     $cookie{userLogin} = $userref->{userLogin};
     $cookie{userId} = $userref->{userId};   # not used yet, to replace userLogin
-    $cookie{language} = $userref->{userLang};
-
+    
   # avoid cumulation of registry cookie values, this is a browser problem though
     $cookie{registry} = $registry || $fieldsref->{registry};
 
@@ -554,12 +560,12 @@ sub logoff_user {
 
     my $goodbye = "$messages{goodbye} $cookieref->{userLogin}";
 
-    $fieldsref->{youare} = "";
-    $fieldsref->{at}     = "";
-    $fieldsref->{action} = "";
+    $fieldsref->{'youare'} = "";
+    $fieldsref->{'at'}     = "";
+    $fieldsref->{'action'} = "";
 
     foreach my $key ( keys %$cookieref ) {
-        $cookieref->{$key} = undef;
+        $cookieref->{$key} = undef if ($key ne 'language');
     }
 
     my $cookieheader =

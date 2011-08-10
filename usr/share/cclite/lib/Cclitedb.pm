@@ -1355,7 +1355,7 @@ sub _sqlupdate {
    $value_string 
    WHERE ( $id_field = '$fields{$id_field}')
 EOT
-    $log->debug("update is $sqlupdate") ;
+    ###$log->debug("update is $sqlupdate") ;
     return $sqlupdate;
 }
 

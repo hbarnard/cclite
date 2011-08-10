@@ -905,8 +905,8 @@ my %configuration = Ccconfiguration::readconfiguration();
 #
 my $language =
      $cookieref->{'language'}
-  || $fieldsref->{language}
-  || $configuration{language}
+  || $fieldsref->{'language'}
+  || $configuration{'language'}
   || 'en' ;
 
     #FIXME: remove garbage at end of cookie, probably OK 08/2011"en"
