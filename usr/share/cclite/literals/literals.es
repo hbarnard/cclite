@@ -251,7 +251,21 @@ userinfofor=La información del usuario para 
 #=
 smsdebitfor=sms de débito para 
 smserror=sms error se ha producido 
-usetags=Utilice las etiquetas de forma libre por debajo de 
+usetags=Utilice las etiquetas de forma libre por debajo de
+#
+january=enero
+february=febrero
+march=marzo
+april=abril
+may=mayo
+june=junio
+july=julio
+august=agosto
+september=septiembre
+october=octubre
+november=noviembre
+december=diciembre
+ 
 
 
 

@@ -2848,10 +2848,19 @@ sub show_balance_and_volume {
             ( $month_counter % 2 )
               ? ( $row_style = "odd" )
               : ( $row_style = "even" );
+              
+              $volume_hash_ref->{$key}->{'volume'} = sprintf "%.2f",
+          ( $volume_hash_ref->{$key}->{'volume'} / 100 )
+          if ( $configuration{usedecimals} eq 'yes' );
+                  
+          # convert month-names to appropriate languages    
+          my $month_name = $messages{lc($volume_hash_ref->{$key}->{'mth'})} ;    
+              
+              
             $total_volume_html{ $volume_hash_ref->{$key}->{'currency'} } .=
               <<EOT;
      <td class="$row_style"> 
-    $volume_hash_ref->{$key}->{'volume'}:$volume_hash_ref->{$key}->{'cnt'} in $volume_hash_ref->{$key}->{'mth'}/$volume_hash_ref->{$key}->{'yr'} 
+    $volume_hash_ref->{$key}->{'volume'}:$volume_hash_ref->{$key}->{'cnt'} $messages{'in'} $month_name/$volume_hash_ref->{$key}->{'yr'} 
     </td>
 EOT
 
