@@ -128,15 +128,12 @@ sub _guess_config_values {
     $configuration{userss}                 = "no";
     $configuration{usedecimals}            = "yes";
     $configuration{usetags}                = "yes";
-    $configuration{version}                = "0.9.0";
+    $configuration{version}                = "0.8.1";
     $configuration{servicechargelimit}     = "notused";
     $configuration{smslocal}               = "1";
 
-    # Log4perl configuration file path
-    $configuration{loggerconfig} = "$currdir/config/logging.cf";
-
-    #FIXME: experimental don't use at present
-    $configuration{usedecimals} = "no";
+    # Log4perl configuration file path: modified for // 08/2011
+    $configuration{loggerconfig} = "${currdir}config/logging.cf";
 
     #FIXME: eliminate double separators, check_path?
     $configuration{literalspath} =~ s/\/\//\//;
@@ -161,7 +158,7 @@ sub _guess_config_values {
         my $base_directory = $ENV{DOCUMENT_ROOT};
 
         # strip back to var, from document root, stay with c:\cclite..etc..
-        # C:/cclite-0.8.0-xp/var/www/cclite/public_html
+        # C:/cclite-0.8.1-xp/var/www/cclite/public_html
         # print "base directory is $base_directory\n" ;
         $base_directory =~ s/\/www\/cclite\/public_html//;
         $configuration{csvpath} = "$base_directory/cclite/batch";

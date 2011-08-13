@@ -14,6 +14,7 @@ if ($test) {
 }
 ###__END__
 
+
 =head1 NAME
 
 ccinstall.cgi
@@ -50,6 +51,13 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
+
+Package types:
+
+0 Generic tarball/generic install [Fedora]
+1 Windows
+2 Debian/Ubuntu via package
+3 Debian/Ubuntu unpackaged
 
 =head1 SEE ALSO
 
@@ -111,6 +119,7 @@ sub readconfiguration {
         }
     } else {
         $configuration{error} = "no configuration file found at $configfile";
+        
     }
 
     return %configuration;
@@ -159,15 +168,19 @@ sub get_os_and_distribution {
         $distribution = lc($1);
     }
 
-    #FIXME: Not quite right because can be debian/ubuntu and in /home
+    
     # if ubuntu or debian, test whether packaged by looking
     # in /usr/share/cclite
 
     if ( $distribution eq 'ubuntu' || $distribution eq 'debian' ) {
-        $checkdir     = `find /usr/share/cclite -prune -type d`;
-        $package_type = 2
-          if ( $checkdir =~ m!^/usr/share/cclite! );    # 2 is debian
+        $checkdir     = '/usr/share/cclite' ;
+    if (-e $checkdir) {
+        $package_type = 2 ;    # 2 is debian and derivatives
+    } else  {
+        $package_type = 3 ;    # debian/ubuntu but unpackaged
+     }    
     }
+       
 
     # guessing at cpanel because the whole thing is under the document root
     my $path = `pwd` if ( $os eq 'linux' );
@@ -193,7 +206,14 @@ sub check_log_path {
     my ($dir) = @_;
     my $message;
     my $log_path = "$dir/var/cclite/log";
-
+    
+    #FIXME: remove double slash in some log paths
+    $log_path =~ s/\/\//\//; 
+    
+    
+    
+    ###print "log path is $log_path" ;
+    
     # can't find log directory or can't write to it..
     if ( !-e $log_path || !-w $log_path ) {
         $message = <<EOT;
@@ -237,17 +257,17 @@ sub check_paths {
     } else {
         $dir = getcwd() || `pwd`;
     }
-    ###print "os is $os dir is $dir" ;
+
     chomp $dir;
     $dir =~ s/\bcgi-bin.*//;
 
     # in standard place, so package is -very probably- being used
     if ( $dir =~ /^\/usr/ && $package_type == 2 ) {
         $dir = '/usr/share/cclite';
-
- # but, if not in standard place, for example in /home, path is preserved 7/2010
     }
-
+     
+    # but, if not in standard place, for example in /home, path is preserved 7/2010
+   
     if ( !length($dir) ) {
         $message = <<EOT;
  <h5>Error  in ccintall::check_paths</h5>
@@ -256,7 +276,7 @@ sub check_paths {
 EOT
 
     }
-
+   ###print "os is $os, dir is $dir, package type is $package_type" ;
     return ( $message, $dir, "${dir}lib" );
 
 }
@@ -399,13 +419,21 @@ EOT
 
 sub write_log_config {
 
-    my ( $dir, $os, $distribution ) = @_;
-    my ( $log_file, $log_config );
+    my ( $dir, $os, $distribution, $package_type ) = @_;
+    my $log_config ;
     my $log_base        = 'var/cclite/log';
     my $log_config_file = "$dir/config/logging.cf";
     my $error;
 
-    $log_file = "$dir/$log_base/cclite.log";
+    # default case...
+    my $log_file = "$dir/$log_base/cclite.log";
+
+    # non-standard debian/ubuntu, especially home/username/cclite
+    if ($package_type == 3 && $dir =~ /home/) {
+        my @components = split(/\//,$dir) ;
+        $log_file = "/$components[1]/$components[2]/$components[3]/$log_base/cclite.log" ;
+        
+    }    
 
     if ( !( -w $log_file ) ) {
         $error .=
@@ -470,11 +498,12 @@ sub show_problems {
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite 0.8.0 Installer: Problems</title>
+<title>Cclite 0.8.1 Installer: Problems</title>
 
 
 
 <script src="/javascript/jquery-1.3.2.js"></script>
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>
 <script src="/javascript/jquery-validation-1.5.5.js"></script>
 <script src="/javascript/jquery-cookies.js"></script>
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
@@ -488,7 +517,9 @@ sub show_problems {
 <script src="/javascript/striper.js" type="text/javascript"></script>
 <script src="/javascript/cclite.js" type="text/javascript"></script>
 
-       <title>Cclite Installer Errors for $os type $distribution</title>
+ <title>Cclite Installer Errors for $os type $distribution</title>
+
+
       </head>
       <body>
       <h3>Cclite Installer Errors for $os $distribution running as $login</h3>
@@ -522,7 +553,7 @@ BEGIN {
     set_message(
 "Please use the <a title=\"cclite google group\" href=\"http://groups.google.co.uk/group/cclite\">Cclite Google Group</a> for help, if necessary"
     );
-
+    
     # checks that the installation is feasible, necessary modules are there
 
     ( $os, $distribution, $package_type ) = get_os_and_distribution();
@@ -545,11 +576,12 @@ BEGIN {
     }
 
 # if this is a windows or debian style package, already setup, so don't do this...
-#FIXME: Rereading don't understand this, to review
+# but if it's a tarball or non-standard debian/ubuntu need to set up log config...
 
-    if ( !$package_type && $newinstall ) {
+
+    if ( ( $package_type == 0 || $package_type == 3 ) && $newinstall ) {
         ( $messages[6], $log_config ) =
-          write_log_config( $dir, $os, $distribution );
+          write_log_config( $dir, $os, $distribution, $package_type );
 
         $messages[3] = check_template_path($dir);    # check template directory
 
@@ -563,17 +595,17 @@ BEGIN {
     $login = getpwuid($<) if ( $os ne 'windows' );
 
     # can't tell which entry will be present...
-    my $test_results = join( "", @messages );
-
+    my $test_results ;
+    foreach my $message (@messages) {
+    $test_results .= $message ;
+    }
     # complain and stop..
     if ( length($test_results) ) {
         show_problems( $os, $distribution, $package_type, $login, @messages );
         exit 0;
     }
-
+ 
 }
-
-# signal new configuration and use prototype if
 
 use lib '../../lib';
 
@@ -605,7 +637,8 @@ my $offset = $fields{offset};
 # hash type is passed into the configuration, only if newinstall
 $fields{hash_type} = $hash_type if ($newinstall);
 
-$fields{version} = "0.8.0";
+#FIXME: no configuration file at this stage, but hard-code horror...
+$fields{version} ||= "0.8.1";
 
 # number of records per page in lists ex-db tables, provided in cclite.cf
 my $limit = $fields{limit} || 15;
@@ -637,7 +670,7 @@ $token = $registry_private_value =
   "testtoken";    # for the moment, calculated later
 
 #
-$fields{menustyle}    = "menu";
+
 $fields{os}           = $os;
 $fields{package_type} = $package_type;
 $fields{distribution} = $distribution;

@@ -107,15 +107,17 @@ sub return_cookie_header {
         "Jan", "Feb", "Mar", "Apr", "May", "Jun",
         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
     );
-    my ( $seconds, $min, $hour, $mday, $mon, $year, $wday ) = gmtime($expires)
-      if ( $expires > 0 );    #get date info if expiration set.
-
+    
+    my ( $seconds, $min, $hour, $mday, $mon, $year, $wday )  ;
+    if ( $expires > 0 ) {    #get date info if expiration set.
+     ( $seconds, $min, $hour, $mday, $mon, $year, $wday ) = gmtime($expires) ;
     # expiry date format: Wdy, DD-Mon-YYYY HH:MM:SS GMT
 
     "0" . $seconds if ( $seconds < 10 );    # formatting of date variables
     "0" . $min     if ( $min < 10 );
     "0" . $hour    if ( $hour < 10 );
-
+    }
+    
     my (@secure) = ( "", "secure" )
       ; # add security to the cookie if defined.  I'm not too sure how this works.
 
@@ -133,6 +135,8 @@ sub return_cookie_header {
 "expires\=$days[$wday], $mday-$months[$mon]-$year $hour:$min:$seconds GMT; "
           ;    #form expiration from value passed to function.
     }
+    
+    
     if ( !defined $domain ) {
         $domain = $ENV{'SERVER_NAME'};
     }    #set domain of cookie.  Default is current host.
@@ -141,7 +145,7 @@ sub return_cookie_header {
 
     my $header;
     foreach my $key ( keys %cookie ) {
-        $cookie{$key} =~ s/ /+/g;                 #convert plus to space.
+        $cookie{$key} =~ s/ /+/g if (length($cookie{$key}));                 #convert space to plus.
         $header .=
 "Set-Cookie: $key\=$cookie{$key}; $expires path\=$path; domain\=$domain; $secure[$sec]\n";
     }

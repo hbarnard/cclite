@@ -111,10 +111,27 @@ sub _dying_message {
     ) = caller(4);
 
     my $message = <<EOT;
-    Configuration file not found at: $configfile <br/>
-    Please use the <a title=\"cclite google group\" href=\"http://groups.google.co.uk/group/cclite\">Cclite Google Group</a>
-    for help, if necessary
+ en:   
+    Configuration file not found at: $configfile    
+    Use cgi-bin/protected/ccinstall.cgi to set it up 
     
+    Please use the http://groups.google.co.uk/group/cclite Cclite Google Group
+    for help, if necessary
+ es:
+     Archivo de configuración que no se encuentra en: $ configfile
+     Use cgi-bin/protected/ccinstall.cgi para configurarlo
+    
+     Por favor, utilice el http://groups.google.co.uk/group/cclite Cclite Google Group
+     en busca de ayuda, si es necesario
+ zh:    
+    没有找到配置文件：$configfile
+    使用cgi-bin/protected/ccinstall.cgi设置它
+    
+    请使用http://groups.google.co.uk/group/cclite Cclite谷歌集团
+    为帮助，如有必要，
+    
+    package:$package line:$line function:$subroutine
+EOT    
     package:$package line:$line function:$subroutine
 EOT
 

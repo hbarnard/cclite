@@ -433,16 +433,16 @@ sub logon_user {
         my %update =  ('userId', $userref->{'userId'},
                        'userLastLogin', "$date$time", 
                        'userPasswordTries', 3,
-                       'userLang', $cookie{language} ) ;
+                       'userLang', $cookie{'language'} ) ;
         
         undef $userref
-          ->{userPassword};  # remove this otherwise it's rehashed and re-update
+          ->{'userPassword'};  # remove this otherwise it's rehashed and re-update
                              # mode 2 is where userLogin = value ;
             # use userref to update record, should strip all other fields...
             # throw away return codes for the present
         my ( $a, $b, $c, $d ) =
           update_database_record( 'local', $db, "om_users", 1, \%update,
-            $userref->{language}, $cookie{token} );
+            $userref->{'language'}, $cookie{'token'} );
 
         print $cookieheader ;
         print "Location:$fieldsref->{home}\n\n";

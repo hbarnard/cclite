@@ -98,7 +98,7 @@ my $db = $cookieref->{registry} || $cookieref->{registry1};
 my %fields = cgiparse();
 
 #FIXME: This script should probably use Ccconfiguration values...
-$fields{'version'} = '0.8.0';
+$fields{'version'} = '0.8.1';
 
 # $fields{'q'} is the query string
 # $fields{'type'} is the type of query and therefore table used etc.

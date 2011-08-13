@@ -2,7 +2,7 @@
 <div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
 <table><tbody class="stripy">
 <form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
-<select name="simpleinstall" id="simpleinstall" onchange="remove_readonly_install('simpleinstall');">
+<select name="install_type" id="install_type" onchange="change_install();">
 <option selected value="simple">Simple</option>
 <option value="full">All Options</option>
 </select>
@@ -17,8 +17,16 @@
 
 </td></tr>
 
-<tr><td title="experimental cpanel prefix, use with care, uusally cpanel user name" class="pme-key-title">cpanel prefix</td><td class="pme-key-1">
+<tr><td title="experimental cpanel prefix, use with care, uusally cpanel user name" class="menu">cpanel prefix</td><td class="pme-key-1">
     <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+</td></tr>
+
+<tr><td title="decimal point display for currencies" class="menu">use decimals</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+</td></tr>
+
+<tr><td title="use free form tags for yellow pages instead of fixed categories" class="menu">use tags</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
 </td></tr>
 
 
@@ -165,14 +173,6 @@
 </td></tr>
 
 <tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
-
-<tr><td title="decimal point display for currencies" class="pme-key-title">use decimals</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
-</td></tr>
-
-<tr><td title="use free form tags for yellow pages" class="pme-key-title">use tags</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
 </td></tr>
 
 <tr><td title="path to Log4perl configuration file" class="pme-key-title">logger config path</td><td class="pme-key-1">

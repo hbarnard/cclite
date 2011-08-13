@@ -87,6 +87,9 @@ my $VERSION = 1.00;
 
 our $log = Log::Log4perl->get_logger("Ccsecure");
 
+our %messages    = readmessages();
+our $messagesref = \%messages;
+
 =head3  _get_digest
 
 Returns a SHA digest. Digest SHA1
@@ -105,7 +108,7 @@ sub _get_digest {
     my $digest;
     my $sha2obj;
     my $type;
-    my %configuration = readconfiguration();
+    my %configuration = readconfiguration()  if ( $0 !~ /ccinstall/ ) ;
     my ( $os, $distribution, $package_type ) = get_os_and_distribution();
     eval {
         if ( $configuration{hash_type} eq 'sha2' && $os ne 'windows' )
@@ -178,8 +181,6 @@ sub compare_password {
 The token is a hash of the user, their current address (avoids some man
 in the middle and some replay and the private value which is never exposed
 to the network and changed frequently (we hope).
-
-As of 2008, there's 
 
 The hashref is either the fields reference or the cookie reference
 

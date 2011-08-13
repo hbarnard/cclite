@@ -465,10 +465,11 @@ sub get_transaction_totals {
     my $volume_sql = _sql_give_volumes( $user, $months_back, $token );
     my $balance_sql = _sql_get_balance_by_currency( $user, $token );
 
-    my $sth = $dbh->prepare($volume_sql);
+    my $sth ;
+    $sth = $dbh->prepare($volume_sql);
     $sth->execute();
     my $volume_hash_ref = $sth->fetchall_hashref('sort');
-    my $sth             = $dbh->prepare($balance_sql);
+    $sth             = $dbh->prepare($balance_sql);
     $sth->execute();
     my $balance_hash_ref = $sth->fetchall_hashref('tradeId');
     $sth->finish();
@@ -605,7 +606,12 @@ less fragile with respect to database changes...
 sub get_user_display_data {
     my ( $class, $db, $user, $token ) = @_;
 
-    my $sqlstring = <<EOT;
+    my $sqlstring ;
+   
+   #FIXME: need to remove the simpler version
+   
+=item cut-this    
+    $sqlstring = <<EOT;
   SELECT  u.userLogin,u.userName, userStatus,
                   u.userPostcode, u.userEmail,u.userMobile,
                   u.userTelephone
@@ -613,8 +619,10 @@ sub get_user_display_data {
   WHERE (
   u.userLogin = '$user')
 EOT
+=cut
 
-    my $sqlstring = <<EOT;
+
+   $sqlstring = <<EOT;
   SELECT DISTINCT u.userLogin,u.userName, userStatus,
                   u.userPostcode, u.userEmail,u.userMobile,
                   u.userTelephone, y.id, y.subject, y.description, 
@@ -644,7 +652,7 @@ sub get_yellowpages_directory_data {
 
     my ( $class, $db, $interval, $detail, $token ) = @_;
 
-    my $interval = 1;    # if there are items a week or less in a category
+    $interval ||= 1;    # if there are items a week or less in a category
                          # they'll show up as new
 
     my $sqldetail = <<EOT;
@@ -696,7 +704,7 @@ EOT
 
     # look up categories which have new ads
     my %newads;
-####DBI->trace( 4, '../debug/debug.dbi' );      # Database abstraction
+
     # get a list of categories which have received ads recently
     # put in a hash
     my ( $registryerror, $new_items_hash_ref ) =
@@ -1092,7 +1100,7 @@ sub _registry_connect {
 
     my ( $db, $token ) = @_;
 
-    my %configuration = readconfiguration();
+    my %configuration = readconfiguration()  if ( $0 !~ /ccinstall/ ) ;
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 
@@ -1119,7 +1127,7 @@ This is for the future with persistent database handles in mono-registry
 
 sub registry_connect {
 
-    my %configuration = readconfiguration();
+    my %configuration = readconfiguration()  if ( $0 !~ /ccinstall/ ) ;
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 

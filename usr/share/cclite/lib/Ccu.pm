@@ -481,7 +481,7 @@ sub readmessages {
     my ($language) = @_;
     
     #FIXME: this is called in several places....
-    $language = decide_language() if ( !length($language) );
+    $language = decide_language() if ( ! length($language) );
 
     # deals with various directory structures
     my ( $os, $distribution, $package_type ) =
@@ -613,10 +613,17 @@ sub get_os_and_distribution {
 
     # if ubuntu or debian, test whether packaged by looking
     # in /usr/share/cclite
+    #FIXME: Not quite right because can be debian/ubuntu and in /home
+    # if ubuntu or debian, test whether packaged by looking
+    # in /usr/share/cclite
 
     if ( $distribution eq 'ubuntu' || $distribution eq 'debian' ) {
-        $checkdir = `usr/share/cclite`;
-        $package_type = 2 if ( -e $checkdir );    # 2 is debian package
+        $checkdir     = '/usr/share/cclite' ;
+    if (-e $checkdir) {
+        $package_type = 2 ;    # 2 is debian and derivatives
+    } else  {
+        $package_type = 3 ;    # debian/ubuntu but unpackaged
+     }    
     }
 
     # guessing at cpanel because the whole thing is under the document root
@@ -898,7 +905,7 @@ sub decide_language {
 
 my ($fieldsref) = @_ ;
 my $cookieref = get_cookie();
-my %configuration = Ccconfiguration::readconfiguration();
+my %configuration = Ccconfiguration::readconfiguration() if ( $0 !~ /ccinstall/ )  ;
 #
 #---------------------------------------------------------------------------
 # change the language default here, languages should be ISO 639 lower case

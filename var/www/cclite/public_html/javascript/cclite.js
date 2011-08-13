@@ -104,28 +104,33 @@ function show_registries () {
 */
 
 
- function remove_readonly_install(id) {
+ function change_install(id) {
 
      selector = '#' + eval("id");
-     var selected = $(selector + " option:selected");
-
+     var selected = $('install_type' + " option:selected").index();
+    // hide_installation_options () ;
+    alert('selected is ' + selected) ;
      if (selected.val() == 'full') {
          $('#installer2').attr('disabled', '1');
          $("input").each(function (i) {
              //  alert('! ' + i) ;
              // if ($(this).attr('readonly') == "1") {
              $(this).removeAttr('readonly');
+             $(this).parent().parent().show();
              //  $(this).css('background-color', 'red');
              //  } 
          });
 
      } else {
+         hide_installation_options () ;
          $('#installer2').removeAttr('disabled');
          $("input").each(function (i) {
              //  alert('! ' + i) ;
              if ($(this).attr('name') != "dbuser" && $(this).attr('name') != "dbpassword") {
-                 $(this).attr('readonly', '1');
-                 //  $(this).css('background-color', 'red');
+                 if ($(this).attr('readonly')) {
+                 $(this).parent().parent().hide();
+                 }
+                // $(this).css('background-color', 'red');
              }
          });
 
@@ -133,6 +138,24 @@ function show_registries () {
 
 
  }
+
+
+ /* hide all the complex options, first of all */
+
+ function hide_installation_options () {
+
+  // alert('in here') ;
+
+   $("input").each(function (i) {
+             //  alert('! ' + i) ;
+             if ($(this).attr('readonly') == 1 ) {
+                 $(this).parent().parent().hide();
+               // $(this).css('background-color', 'red');
+             }
+   });
+
+ }
+
 
  function on_select_change(id) {
      // #stats_value, #mail_value etc
@@ -291,6 +314,8 @@ can be used to transmit errors from the script into the page */
  $(document).ready(function () {
 
      messages = readmessages();
+     hide_installation_options () ;
+
      $("#form").validate();
      // balloon help via qtip plugin, turned off at present
      //  $('input').qtip({ style: { name: 'cream', tip: true } }) ;

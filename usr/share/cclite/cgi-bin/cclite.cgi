@@ -1,4 +1,5 @@
 #!/usr/bin/perl
+
 my $test = 0;
 if ($test) {
     print STDOUT "Content-type: text/html\n\n";
@@ -112,8 +113,9 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $cookies,
 
 my %configuration = readconfiguration();
 
+
 Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("cclite");
+our $log = Log::Log4perl->get_logger('cclite');
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
@@ -121,7 +123,7 @@ $fieldsref = \%fields;
 
 # no soap and associated modules required,
 # if you declare multiregistry=no in cclite.cf
-if ( $configuration{multiregistry} eq "yes" ) {
+if ( $configuration{multiregistry} eq 'yes' ) {
     require SOAP::Lite;    # uses this for remote lookups etc.
     import SOAP::Lite;
 }
@@ -145,9 +147,9 @@ $fields{mode} ||= 'html';
 $fields{client_ip} = $ENV{REMOTE_ADDR};
 
 # moved from template because other routines need it
-if (   $fields{action} ne "logoff"
+if (   $fields{action} ne 'logoff'
     && length( $cookieref->{'userLogin'} )
-    && $cookieref->{'userLevel'} ne "admin" )
+    && $cookieref->{'userLevel'} ne 'admin' )
 {
 
     $fields{userLogin} = $cookieref->{'userLogin'};
@@ -288,8 +290,8 @@ if (
        ( !length( $cookieref->{'token'} ) )
     && ( !exists $allowed_actions{$action} )
 
-    && ( $ENV{QUERY_STRING} ne "action=template&name=newuser.html" )
-    && ( $ENV{QUERY_STRING} ne "action=template&name=forgotpass.html" )
+    && ( $ENV{QUERY_STRING} ne 'action=template&name=newuser.html' )
+    && ( $ENV{QUERY_STRING} ne 'action=template&name=forgotpass.html' )
     && ( $fields{logontype} ne 'widget' )
 
   )
@@ -326,7 +328,7 @@ if (
     if ( length( $cookieref->{'token'} )
         && ( $compare_token ne $cookieref->{'token'} ) )
     {
-        my $fieldsref = \%fields;
+        ### my $fieldsref = \%fields;
         $log->warn(
 "corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}"
         );
@@ -361,23 +363,23 @@ if (
 my $fieldsref = \%fields;
 
 # logon to a registry
-( $action eq "logon" )
+( $action eq 'logon' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies ) =
     logon_user( 'local', $db, $table, $fieldsref, $cookieref, $token ) );
 
 # logoff, doesn't return, exits
-( $action eq "logoff" )
+( $action eq 'logoff' )
   && logoff_user( 'local', $db, 'om_users', $pages, $cookieref, $fieldsref,
     $token );
 
 # these are 'raw' db actions, need a bit of work, except for find_records...
-( $action eq "insert" )
+( $action eq 'insert' )
   && ( ( $refresh, $error, $html, $cookies ) =
     add_database_record( 'local', $db, $table, $fieldsref, $token ) );
 
 # fieldslist as spaces added after fieldsref to display selected fields only 4/2010
-( $action eq "find" )
+( $action eq 'find' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     find_records(
@@ -385,11 +387,11 @@ my $fieldsref = \%fields;
         $token,  $offset, $limit
     )
   );
-( $action eq "delete" )
+( $action eq 'delete' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     delete_database_record( 'local', $db, $table, $fieldsref, $token ) );
 
-( $action eq "modifyuser" )
+( $action eq 'modifyuser' )
   && (
     (
         $refresh,  $metarefresh, $error,   $html, $pages,
@@ -399,11 +401,11 @@ my $fieldsref = \%fields;
         'local', $db, 'om_users', $fieldsref, $cookieref, $pages, $token
     )
   );
-( $action eq "display" )
+( $action eq 'display' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
     show_record( 'local', $db, $table, $fieldsref, $token ) );
 
-( $action eq "update" )
+( $action eq 'update' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
     update_database_record(
@@ -412,7 +414,7 @@ my $fieldsref = \%fields;
   );
 
 # show a template
-( $action eq "template" )
+( $action eq 'template' )
   && (
     ( $refresh, $error, $html, $cookies ) = display_template(
         $refresh,  $metarefresh, $error,   $html, $pages,
@@ -422,7 +424,7 @@ my $fieldsref = \%fields;
 
 # these are specific actions which belong to the application
 # show my current transactions
-( $action eq "showtrans" )
+( $action eq 'showtrans' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     get_many_items(
@@ -441,20 +443,20 @@ my $fieldsref = \%fields;
 # other parts of the trade should always remain integral
 # actually the hash should change at this point?!
 
-( $action eq "confirmtrade" )
+( $action eq 'confirmtrade' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     modify_trade( 'local', $db, 'om_trades', $fieldsref, $pages, $token ) );
 
-( $action eq "declinetrade" )
+( $action eq 'declinetrade' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     modify_trade( 'local', $db, 'om_trades', $fieldsref, $pages, $token ) );
 
-( $action eq "canceltrade" )
+( $action eq 'canceltrade' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     modify_trade( 'local', $db, 'om_trades', $fieldsref, $pages, $token ) );
 
 # show my yellow pages entries
-( $action eq "showmyyellow" )
+( $action eq 'showmyyellow' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     get_many_items(
@@ -465,7 +467,7 @@ my $fieldsref = \%fields;
   );
 
 # show yellow pages entries following category selection, space after fieldsref selects limited fields display
-( $action eq "showyellowbycat" )
+( $action eq 'showyellowbycat' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     find_records(
@@ -477,7 +479,7 @@ my $fieldsref = \%fields;
 
 #FIXME: this is 0.4.0 code and will be removed soon, replaced by showyellowdir1
 
-( $action eq "showyellowdir" )
+( $action eq 'showyellowdir' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     show_yellow_dir(
@@ -487,33 +489,33 @@ my $fieldsref = \%fields;
     )
   );
 
-( $action eq "showyellowdir1" )
+( $action eq 'showyellowdir1' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     show_yellow_dir1( 'local', $db, '', $fieldsref, $token, $offset, $limit ) );
 
-( $action eq "addyellow" )
+( $action eq 'addyellow' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     add_yellow( 'local', $db, 'om_yellowpages', $fieldsref, $token ) );
 
-( $action eq "showyellow" )
+( $action eq 'showyellow' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
     show_yellow( 'local', $db, 'om_yellowpages', $fieldsref, $token ) );
 
 # make a newly created user active
-( $action eq "confirmuser" )
+( $action eq 'confirmuser' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies ) =
     confirm_user( 'local', $db, $table, $fieldsref, $token ) );
 
 # add an openid to the logged on user
 # add a user with status unconfirmed
-( $action eq "addopenid" )
+( $action eq 'addopenid' )
 
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     add_openid( 'local', $db, "om_openid", $fieldsref, $cookieref, $token ) );
 
 # show my current openids
-( $action eq "showopenid" )
+( $action eq 'showopenid' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     get_many_items(
@@ -524,7 +526,7 @@ my $fieldsref = \%fields;
   );
 
 # show my current openids
-( $action eq "showcategories" )
+( $action eq 'showcategories' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     get_many_items(
@@ -535,17 +537,17 @@ my $fieldsref = \%fields;
   );
 
 # add a user with status unconfirmed
-( $action eq "adduser" )
+( $action eq 'adduser' )
 
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     add_user( 'local', $db, "om_users", $fieldsref, $token ) );
 
-( $action eq "showuser" )
+( $action eq 'showuser' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
     show_user( 'local', $db, 'om_users', $fieldsref, $token ) );
 
 # email password: to be done..
-( $action eq "forgotpassword" )
+( $action eq 'forgotpassword' )
   && (
 
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
@@ -555,22 +557,22 @@ my $fieldsref = \%fields;
   );
 
 # pay another user
-( $action eq "transaction" )
+( $action eq 'transaction' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     transaction( 'local', $db, $table, $fieldsref, $token ) );
 
 # pay another user in two currencies
-( $action eq "splittransaction" )
+( $action eq 'splittransaction' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     split_transaction( 'local', $db, $table, $fieldsref, $token ) );
 
 # pay another user from oscommerce shop
-( $action eq "oscommerce_pay" )
+( $action eq 'oscommerce_pay' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     oscommerce_transaction( 'local', $db, $table, $fieldsref, $token ) );
 
 # show balance and volume
-( $action eq "showbalvol1" )
+( $action eq 'showbalvol1' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
 
@@ -582,7 +584,7 @@ my $fieldsref = \%fields;
   );
 
 # show balance and volume, changed to non-hardcoded mode 2/2011
-( $action eq "showbalvol" )
+( $action eq 'showbalvol' )
   && (
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
 
@@ -594,12 +596,12 @@ my $fieldsref = \%fields;
   );
 
 # sms and touchtone
-( $action eq "smsemulate" )
+( $action eq 'smsemulate' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     sms_transaction( $fields{fromnumber}, $fields{smsmessage} ) );
 
-# change language
-( $action eq "lang" )
+# change language: now in full testing 06/2011
+( $action eq 'lang' )
   && (
     (
         $refresh, $metarefresh, $error,     $html,
@@ -611,7 +613,7 @@ my $fieldsref = \%fields;
   );
 
 # get yellowpages as json tag cloud for remote users
-( $action eq "showtags" )
+( $action eq 'showtags' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     show_tag_cloud( 'local', $db, $fieldsref, $token ) );
 
@@ -619,12 +621,12 @@ my $fieldsref = \%fields;
 # beginning of oauth 
 
 # get requestoken for remote oauth users
-( $action eq "requesttoken" )
+( $action eq 'requesttoken' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     do_oauth( 'local', $db, $fieldsref, $token ) );
 
 # get accesstoken for remote oauth users
-( $action eq "accesstoken" )
+( $action eq 'accesstoken' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     do_oauth( 'local', $db, $fieldsref, $token ) );
 

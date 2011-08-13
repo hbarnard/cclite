@@ -146,7 +146,7 @@ A work in progress!
 sub validate_user {
 
     my ( $class, $db, $fieldsref, $messagesref, $token, $offset, $limit ) = @_;
-    my @status, %messages;
+    my (@status, %messages) ;
     my $action = $fieldsref->{'action'};    # simplify code somewaht
 
     # deals with problem comming from update_database_record
