@@ -1,0 +1,9 @@
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2834 Cclite::show_balance_and_volume - currency: 1 = dally 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2835 Cclite::show_balance_and_volume - sum: 1 = 20.00 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2836 Cclite::show_balance_and_volume - total: dally  = 20 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2834 Cclite::show_balance_and_volume - currency: 66 = tpound 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2835 Cclite::show_balance_and_volume - sum: 66 = 12.00 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2836 Cclite::show_balance_and_volume - total: tpound  = 12 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2834 Cclite::show_balance_and_volume - currency: 5 = dally 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2835 Cclite::show_balance_and_volume - sum: 5 = -311.04 
+2011/08/14 10:15:47 DEBUG> Cclite.pm:2836 Cclite::show_balance_and_volume - total: dally  = -291.04 

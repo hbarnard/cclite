@@ -421,20 +421,17 @@ sub install_grumble {
     my @grumbles;
     my $configfile = "$base_path/config/cclite.cf";
     if ( -e $configfile && -w $configfile ) {
-        push @grumbles,
-          "cclite.cf is writable, this is very insecure, please change";
+        push @grumbles, $messages{'cclitecfinsecure'};
     }
     my $cgiinstall = "$base_path/cgi-bin/protected/ccinstall.cgi";
     if ( -e $cgiinstall && -x $cgiinstall ) {
-        push @grumbles,
-"ccinstall.cgi present and executable, this is very insecure, please remove";
+        push @grumbles, $messages{'ccinstallinsecure'} ;
     }
 
     # grumble about soap server also insecure
     my $soapserver = "$base_path/cgi-bin/ccserver.cgi/";
     if ( -e $soapserver && -x $soapserver ) {
-        push @grumbles,
-"ccserver.cgi present and executable, this is insecure, please remove unless used";
+        push @grumbles, $messages{'ccsoapserverinsecure'} ;
     }
 
     # turn off this grumble for the moment: people don't want it 10/2009

@@ -268,6 +268,11 @@ december=diciembre
 #
 from=de
 transactions=transacciónes
+#
+cclitecfinsecure=cclite.cf se puede escribir, esto es muy inseguro, por favor, cambie
+ccinstallinsecure=presente ccinstall.cgi y ejecutable, esto es muy inseguro, por favor retire
+ccsoapserverinsecure=presente ccserver.cgi y ejecutable, esto es inseguro, por favor retire si no se utiliza
+
 
  
 
