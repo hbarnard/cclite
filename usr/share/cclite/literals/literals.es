@@ -265,6 +265,10 @@ september=septiembre
 october=octubre
 november=noviembre
 december=diciembre
+#
+from=de
+transactions=transacciónes
+
  
 
 

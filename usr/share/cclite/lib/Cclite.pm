@@ -2860,7 +2860,7 @@ sub show_balance_and_volume {
             $total_volume_html{ $volume_hash_ref->{$key}->{'currency'} } .=
               <<EOT;
      <td class="$row_style"> 
-    $volume_hash_ref->{$key}->{'volume'}:$volume_hash_ref->{$key}->{'cnt'} $messages{'in'} $month_name/$volume_hash_ref->{$key}->{'yr'} 
+    $volume_hash_ref->{$key}->{'volume'} $messages{'from'} $volume_hash_ref->{$key}->{'cnt'} $messages{'transactions'} $messages{'in'} $month_name/$volume_hash_ref->{$key}->{'yr'} 
     </td>
 EOT
 
@@ -2879,7 +2879,7 @@ EOT
               ? ( $row_style = "odd" )
               : ( $row_style = "even" );
             $html .=
-"<tr class=\"$row_style\" title=\"volume:transaction count\" ><td>\u$key</td><td> $total_volume_html{$key}</td></tr>";
+"<tr class=\"$row_style\" title=\"volume $messages{'from'} transaction count $messages{'transactions'}\" ><td>\u$key</td><td> $total_volume_html{$key}</td></tr>";
             $record_counter++;
         }
         my ( $html_totals, $template ) =
@@ -2892,7 +2892,7 @@ EOT
     </table>
 EOT
 
-        return ( 0, '', $registry_error, "$volume_table $html_totals<hr/>",
+        return ( 0, '', $registry_error, "$volume_table <br/> $html_totals<hr/>",
             $template, '' );
     } elsif ( $mode eq 'values' ) {
 
