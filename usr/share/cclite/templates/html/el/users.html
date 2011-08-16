@@ -1,0 +1,132 @@
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="update" type="hidden">
+<input name="subaction" value="om_users" type="hidden">
+<input name="userId" value="$$fields{userId}" type="hidden">
+  <table class="pme-main" summary="om_users">
+    <tbody class="stripy">
+      <tr class="pme-row-1">
+        <td class="pme-key-1">UserLogin</td>
+        <td class="pme-value-0"> <input class="grey"
+ name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">User Κωδικός πρόσβασης</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="userΚωδικός πρόσβασης" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm Κωδικός πρόσβασης</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="confirmΚωδικός πρόσβασης" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">UserΗλεκτρονικό ταχυδρομείο</td>
+        <td class="pme-value-1"> <input class="required email"
+ name="userΗλεκτρονικό ταχυδρομείο" size="40" maxlength="255" value="$$fields{userΗλεκτρονικό ταχυδρομείο}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Αριθμός/Σώμα όνομα</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userΌνομαornumber" size="30" maxlength="30" value="$$fields{userΌνομαornumber}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Όνομα του δρόμου</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">Πόλη</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userΠόλη" size="40" maxlength="40" value="$$fields{userΠόλη}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Νομός/μέλος</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Ταχυδρομικός κώδικας</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userΤαχυδρομικός κώδικας" size="10" maxlength="10" value="$$fieldsref{userΤαχυδρομικός κώδικας}" type="text">
+</td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Κινητό τηλέφωνο</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Pin for Κινητό τηλέφωνο Συναλλαγές</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Confirm Pin for Κινητό τηλέφωνο Συναλλαγές</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">SMS πληρωμής παραλαβές</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td title="Αυτό είναι το δημόσιο κλειδί id για κρυπτογραφημένες συναλλαγές" class="pme-key-0">Δημόσιο κλειδί Id</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Γλώσσα</td>
+              <td class="pme-value-1"> 
+                 <select name="userLang">
+                   <option value="de">Deutsch</option>
+                   <option selected value="en">Αγγλικά</option>
+                   <option value="fr">Fran</option>
+                 </select>
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Όνομα χρήστη</td>
+        <td class="pme-value-0"> <input class="required"
+ name="userΌνομα" size="40" maxlength="255" value="$$fields{userΌνομα}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Holiday or Ενεργό</td>
+        <td class="pme-value-1"> 
+                 <select name="userΚατάσταση">
+                   <option selected value="active">Ενεργό</option>
+                   <option value="holiday">Διακοπές</option>
+                 </select>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="pme-hr">
+  <table class="pme-navigation">
+    <tbody>
+      <tr class="pme-navigation">
+        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
+ value="Αποθήκευση" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Cancel"  type="reset"> </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

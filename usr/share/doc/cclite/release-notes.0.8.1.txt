@@ -1,0 +1,19 @@
+Release notes: 9.4.2011
+
+1. Decimal place currencies pretty much fully implemented, only per installation though, at present.
+
+2. Pretty registry names in web interface on cpanel, via hacking on/off user prefix
+
+3. Remote delivery of json for certain popular operations, extra REST operations supporting this
+
+4. Primitive printed yellow pages
+
+5. Primitive printed statements
+
+6. Old skool $$something cleared up to $something-> pretty much throughhout
+
+7. Regular increments published to github/cclite
+
+8.Folksonomy and auto-suggest replaces fixed yellow page categories
+
+9. New simpler package type check method...Ccu.pm 608 approx

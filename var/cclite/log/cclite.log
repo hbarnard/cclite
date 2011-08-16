@@ -7,3 +7,11 @@
 2011/08/14 10:15:47 DEBUG> Cclite.pm:2834 Cclite::show_balance_and_volume - currency: 5 = dally 
 2011/08/14 10:15:47 DEBUG> Cclite.pm:2835 Cclite::show_balance_and_volume - sum: 5 = -311.04 
 2011/08/14 10:15:47 DEBUG> Cclite.pm:2836 Cclite::show_balance_and_volume - total: dally  = -291.04 
+2011/08/16 13:20:41 WARN> Cclite.pm:367 Cclite::logon_user - Échec de la connexion test2  dalston : password failed
+2011/08/16 13:21:51 WARN> Cclite.pm:367 Cclite::logon_user - Échec de la connexion test2  dalston : password failed
+2011/08/16 13:24:15 DEBUG> Cclite.pm:916 Cclite::change_language - update is userLang|en|userId|6
+2011/08/16 13:24:32 DEBUG> Cclite.pm:916 Cclite::change_language - update is userLang|th|userId|6
+2011/08/16 17:42:12 WARN> Cclite.pm:367 Cclite::logon_user -  test2  dalston : password failed
+2011/08/16 19:43:08 WARN> Cclite.pm:367 Cclite::logon_user - 登录失败 test2 在 dalston : password failed
+2011/08/16 20:46:15 DEBUG> Cclite.pm:916 Cclite::change_language - update is userLang|es|userId|6
+2011/08/16 20:46:50 DEBUG> Cclite.pm:916 Cclite::change_language - update is userLang|el|userId|6

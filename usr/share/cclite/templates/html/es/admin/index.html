@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="LETS CC finance currency" />
+<meta name="keywords" content="PERMITE C finance currency" />
 <meta name="author" content="hugh barnard" />
 $$fieldsref{metarefresh}
 <link type="text/css" href="/styles/cc.css" rel="stylesheet">
@@ -12,7 +12,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite $$fieldsref{version} Manager</title>
+<title>Cclite $$fieldsref{Versión} Manager</title>
 
 <!-- this -should- be compatible with jquery -->
 <script src="/javascript/ajax.upload.js"></script>
@@ -20,15 +20,13 @@ $$fieldsref{metarefresh}
 <script src="/javascript/jquery-1.3.2.js"></script>
 <script src="/javascript/jquery-validation-1.5.5.js"></script>
 <script src="/javascript/jquery-cookies.js"></script>
-
-<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/thickbox-compressed.js'></script>
 <script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
 
-<script src="/javascript/jquery-tagsuggest.js"></script>
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
+<script src="/javascript/jquery-tagsuggest.js"></script>
 
 <script type='text/javascript' src='/javascript/jquery.event.drop-1.2/jquery.event.drop-1.2.js'></script>
 <script type='text/javascript' src='/javascript/jquery.event.drag-1.5/jquery.event.drag-1.5.js'></script>
@@ -59,12 +57,12 @@ $$fieldsref{metarefresh}
 			<div id="topbar">
 				<div align="left" style="padding:12px;">
  
-<a class="bodytext" href="/cgi-bin/cclite.cgi">User Menu</a> |
-<a class="bodytext" title="Show Linked Partner Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Partners</a>|
-<a class="bodytext" title="Create a New Currency" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Create Currency</a>|
-<a class="bodytext" title="Show Currencies in " href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Show Currencies</a>|
-<a class="bodytext"title="Create New Ad Category" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Create Ad Category</a>|
-<a class="bodytext" title="Registry and Configuration Installer" href="/cgi-bin/protected/ccinstall.cgi">Installer</a>
+<a class="bodytext" href="/cgi-bin/cclite.cgi">Usuario Menu</a> |
+<a class="bodytext" title="Mostrar registros vinculados de socio" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Asociados de negocios</a>|
+<a class="bodytext" title="Crear a New Moneda" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Crear moneda</a>|
+<a class="bodytext" title="Mostrar monedas en" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Mostrar monedas</a>|
+<a class="bodytext"title="Crear New Ad Categoría" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Crear Ad Categoría</a>|
+<a class="bodytext" title="Registro y instalador de configuración" href="/cgi-bin/protected/ccinstall.cgi">Instalador</a>
 
 </div>
 			</div>
@@ -94,14 +92,14 @@ Cclite
 			<div id="menu" align="right">
 				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
 				<div id="linksmenu" align="center">
-<a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Show Registry Balances</a>
-<a title="Create Rule or Credit Limit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Create Rule/Credit Limit</a>
-<a title="Create Remote or Local Registry Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Create Registry Partner</a>
-<a title="Upload Batch File containing Batch Payments" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">Upload Batch Files</a>
-<a title="Apply Service Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply Service Charge</a>
-<a title="Create Open Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">Open Office Directory</a>
-<a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">Create Batch Dirs</a>
-<a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">Modify $$fieldsref{registry}</a>
+<a  title="Mostrar saldos de registro for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Mostrar saldos de registro</a>
+<a title="Crear regla o límite de crédito" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Crear Rule/Límite de crédito</a>
+<a title="Crear Remote or Local Registro Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Crear Registro Partner</a>
+<a title="Subir Batch File containing Batch Pagos" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">Subir Batch Files</a>
+<a title="Apply Servicio Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply Servicio Charge</a>
+<a title="Crear Abierto Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">Abierto Office Directory</a>
+<a title="Crear Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">Crear Batch Dirs</a>
+<a title="Modificar values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">Modificar $$fieldsref{registry}</a>
 
 
 
@@ -113,8 +111,8 @@ Cclite
 <form action="/cgi-bin/cclite.cgi" method="post">
 <input name="action" value="find" type="hidden">
 <input type="hidden" name="subaction" value="om_users">
-<input onfocus="if(this.value == this.defaultValue) this.value = ''" value="search users" name="string1" id="string1"  size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="look for users">
+<input onfocus="if(this.value == this.defaultValor) this.value = ''" value="search users" name="string1" id="string1"  size="10" type="text">
+<input src="/images/24-zoom.png"  type="image" title="Buscar usuarios">
 </form>
 </div>
 <!-- search for ads -->
@@ -123,8 +121,8 @@ Cclite
 <form action="/cgi-bin/cclite.cgi" method="post">
 <input name="action" value="find" type="hidden">
 <input type="hidden" name="subaction" value="om_yellowpages">
- <input onfocus="if(this.value == this.defaultValue) this.value = ''"  value="search ads" name="string2" id="string2"  autocomplete="off" size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="look for ads">
+ <input onfocus="if(this.value == this.defaultValor) this.value = ''"  value="search ads" name="string2" id="string2"  autocomplete="off" size="10" type="text">
+<input src="/images/24-zoom.png"  type="image" title="buscar anuncios">
 </form>
 </div>
 <!-- search for trades -->
@@ -132,8 +130,8 @@ Cclite
  <form action="/cgi-bin/cclite.cgi" method="post">
 <input name="action" value="find" type="hidden">
 <input type="hidden" name="subaction" value="om_trades">
-<input onfocus="if(this.value == this.defaultValue) this.value = ''" value="search trades" name="string3" id="string3" autocomplete="off" size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="look for trades">
+<input onfocus="if(this.value == this.defaultValor) this.value = ''" value="search trades" name="string3" id="string3" autocomplete="off" size="10" type="text">
+<input src="/images/24-zoom.png"  type="image" title="Buscar oficios">
 </div>
 </form>
 
@@ -163,7 +161,7 @@ $$fieldsref{righthandside}
 			</div>
 		</div>
 		<div id="footer" class="smallgraytext" align="center">
-			<a href="#">Home</a> | <a href="#">Contact Us</a><br />
+			<a href="#">Hogar</a> | <a href="#">Póngase en contacto con nosotros</a><br />
 			Cclite &copy; Hugh Barnard 2003-2011<br />
 	
 		</div>

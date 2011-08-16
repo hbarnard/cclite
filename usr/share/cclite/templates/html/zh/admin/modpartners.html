@@ -1,0 +1,65 @@
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+        <span class="errors">$$fieldsref{errors}</span>
+        <input name="subaction" value="om_partners" type="hidden">
+        <input name="action" value="update" type="hidden">
+        <input name="id" value="$$fieldsref{id}" type="hidden">
+        <table class="pme-main" summary="om_partners">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td class="pme-key-0">注册表名称</td>
+              <td class="pme-value-1">
+              <input readonly="readonly" class="grey" name="name" size="50"  value="$$fieldsref{dname}" type="text">
+              <input type="hidden" name="r_name" value="Need a valid registry name to partner with, please">
+            </td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Uri&nbsp; (for 代理服务器 registries)<br>
+              </td>
+              <td class="pme-value-1">
+              <input class="pme-input-1" name="uri" size="50"  value="$$fieldsref{uri}" type="text"></td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Proxy (for 代理服务器 registries)<br>
+              </td>
+              <td class="pme-value-0">
+              <input class="pme-input-0" name="代理服务器" size="50" value="$$fieldsref{代理服务器}" type="text"></td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Admin 电子邮件</td>
+              <td class="pme-value-1">
+              <input class="required email" name="email" size="50" value="$$fieldsref{email}" type="text"></td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">类型</td>
+              <td class="pme-value-0">
+              <select class="required" name="type">
+               <option value="" selected="selected"></option>
+               <option value="本地">本地</option>
+               <option value="代理服务器">代理服务器</option>
+              </select>
+              <input type="hidden" name="r_type" value="Need a partner type, please">
+              </td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">状态</td>
+              <td class="pme-value-1">
+              <select class="required" name="status">
+              <option value="活动" selected="selected">活动</option>
+              <option value="暂停">暂停</option>
+              <option value="关闭">关闭</option>
+              </select>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="转到" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel" type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

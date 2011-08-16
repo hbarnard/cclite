@@ -1,0 +1,62 @@
+      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+       <input type="hidden" name="action" value="insert">
+       <input type="hidden" name="subaction" value="om_rules">
+        <table class="pme-main" summary="om_rules">
+          <tbody class="stripy">
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">规则说明<br>
+              </td>
+              <td class="pme-value-0"> 
+
+<input class="required" name="description" size="40" maxlength="40" value="" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">规则水平 **<br>
+              </td>
+<td class="pme-value-0">
+<select name="event"><option value="creditlimit" selected>信用额度</option></select> 
+</td>
+            </tr>
+
+<tr class="pme-row-0">
+              <td class="pme-key-0">Applies to 货币<br>
+              </td>
+<td class="pme-value-0">
+$$fieldsref{selectcurrency}
+</td>
+            </tr>
+
+
+
+<tr class="pme-row-0">
+              <td class="pme-key-0">信用额度<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="rulevalue" size="10" maxlength="10" value="" type="text"></td>
+
+
+            </tr>
+
+<tr class="pme-row-0">
+              <td class="pme-key-0">
+              * Only per currency credit limits are supported at present
+              </td>
+<td class="pme-value-0"> 
+</td>
+
+
+            </tr>
+
+
+<tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="创建 Rule" type="submit">&nbsp; </td>
+<td><input
+ class="pme-cancel" name="cancel" value="Cancel"
+ type="reset"></td>
+            </tr>
+       </tbody>
+        </table>
+      </form>

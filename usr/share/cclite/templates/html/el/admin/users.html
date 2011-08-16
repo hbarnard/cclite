@@ -1,0 +1,115 @@
+<form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="update" type="hidden">
+<input name="subaction" value="om_users" type="hidden">
+<input name="userId" value="$$fields{userId}" type="hidden">
+  <table class="pme-main" summary="om_users">
+    <tbody>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">ΧρήστηςLogin</td>
+        <td "pme-value-0"> <input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Χρήστης Κωδικός πρόσβασης</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="userΚωδικός πρόσβασης" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm Κωδικός πρόσβασης</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="confirmΚωδικός πρόσβασης" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">ΧρήστηςΗλεκτρονικό ταχυδρομείο</td>
+        <td class="pme-value-1"> <input class="pme-input-1"
+ name="userΗλεκτρονικό ταχυδρομείο" size="60" maxlength="255" value="$$fields{userΗλεκτρονικό ταχυδρομείο}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Αριθμός/Σώμα όνομα</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userΌνομαornumber" size="30" maxlength="30" value="$$fields{userΌνομαornumber}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Όνομα του δρόμου</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">Για ναwn</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userΓια ναwn" size="40" maxlength="40" value="$$fields{userΓια ναwn}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Νομός/μέλος</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Κινητό τηλέφωνο</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Γλώσσα</td>
+              <td class="pme-value-1"> 
+                 <select name="userLang">
+                   <option value="de">Deutsch</option>
+                   <option selected value="en">Αγγλικά</option>
+                   <option value="fr">Fran</option>
+                 </select>
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">ΧρήστηςΌνομα</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="userΌνομα" size="60" maxlength="255" value="$$fields{userΌνομα}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Holiday or Ενεργό</td>
+        <td class="pme-value-1"> 
+                 <select name="userΚατάσταση">
+                   <option selected value="ενεργό">Ενεργό</option>
+                   <option value="holiday">Διακοπές</option>
+                   <option value="unconfirmed">Μη επιβεβαιωμένες</option>
+                   <option value="predelete">Διαγραφή πριν από το</option>
+                  <option value="αναστολήed">Αναστολή</option>
+                 </select>
+</td>
+      </tr>
+
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Επίπεδο χρήστη</td>
+        <td class="pme-value-1"> 
+                 <select name="userLevel">
+                   <option selected value="user">Χρήστης</option>
+                   <option value="admin">Διαχειριστής</option>
+                   <option value="sysaccount">Λογαριασμός συστήματος</option>
+                 </select>
+</td>
+      </tr>
+
+
+    </tbody>
+  </table>
+  <hr class="pme-hr">
+  <table class="pme-navigation">
+    <tbody>
+      <tr class="pme-navigation">
+        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
+ value="Αποθήκευση" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

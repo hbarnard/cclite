@@ -1,0 +1,147 @@
+      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+      <span class="error">$$fieldsref{error}</span>  
+       <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td title="数据库定义贸易集团，一个字不带空格的名称" class="pme-key-0">注册表名称<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addregistry">
+   
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
+
+            </tr>
+
+            <tr class="pme-row-0">
+              <td title="贸易集团的简短说明" class="pme-key-0">注册表 说明<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
+            </tr>
+
+<tr title="地址和用于此组发送正式的电子邮件帐户" class="pme-row-0">
+              <td class="pme-key-0">经理的电子邮箱<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
+            </tr>
+
+<td title="管理电子邮件帐户的密码" class="pme-key-0">经理的电子邮箱 密码<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
+            </tr>
+
+<tr title="接收到的电子邮件交易时的帐户可以是管理员相同" class="pme-row-1">
+              <td class="pme-key-1">电子邮件 for Batch 交易<br>
+              </td>
+<td class="pme-value-1"> 
+<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
+            </tr>
+
+
+<td title="批量电子邮件帐户的密码" class="pme-key-0">Batch 电子邮件 密码<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
+            </tr>
+
+<tr title="目前未使用但定义贸易模型" class="pme-row-1">
+              <td nowrap class="pme-key-1">系统收费模式
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="chargetype"><option value="equaltime">平等</option><option selected value="market">市场利率</option></select></td>
+            </tr>
+
+<tr title="目前未使用但定义委员会模型" class="pme-row-1">
+              <td class="pme-key-1">系统委员会模型
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="commission">
+<option selected value="no">无 Commission</option>
+<option value="yes">Commission Based 注册表</option>
+</select></td>
+            </tr>
+
+
+<tr title="目前未使用但定义订阅模型" class="pme-row-1">
+              <td class="pme-key-1">订阅模型
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="subscription">
+<option selected value="no">无 Subscription</option>
+<option value="yes">基于预订</option>
+</select></td>
+            </tr>
+
+<tr title="此注册表中定义所有货币的承诺的限制" class="pme-row-1">
+              <td class="pme-key-1">全球承诺限制<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
+            </tr>
+
+<tr title="使用的关键服务器： 此注册表的公共密钥 id currently for email transactions only" class="pme-row-1">
+              <td class="pme-key-1">关键服务器： 公共密钥 id<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
+            </tr>
+
+
+</tr>
+<tr title="目前未使用但定义是否地理区域或特殊兴趣"  class="pme-row-1">
+              <td class="pme-key-1">涵盖的地理区域？?
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="geographic">
+<option selected value="yes">是</option>
+<option value="no">无</option>
+</select></td>
+            </tr>
+
+<tr title="没有当前使用但定义职位或邮政编码，以便公众登记册可以编码和映射" class="pme-row-1">
+              <td class="pme-key-1">邮编s or Latitude,Longitude
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+</td>
+ </tr>
+
+<tr title="用来为埃尔格，drupal 和 os 商务连接器提供商户的关键" class="pme-row-1">
+              <td class="pme-key-1">商船的关键
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+</td>
+ </tr>
+
+<tr title="用来限制某些 ips，轻松地可能伪造的连接器的原则" class="pme-row-1">
+              <td class="pme-key-1">从 IP 地址允许商人
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+</td>
+ </tr>
+
+
+
+
+
+          </tbody>
+        </table>
+  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
+  $$fieldsref{script}  
+        <hr class="pme-hr">
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="转到" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
+type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

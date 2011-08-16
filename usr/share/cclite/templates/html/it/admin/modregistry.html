@@ -1,0 +1,106 @@
+      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+      <span class="error">$$fieldsref{error}</span>  
+       <table class="pme-main" summary="om_registry">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Nome del Registro di sistema<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="update">
+<input type="hidden" name="subaction" value="om_registry">
+<input type="hidden" name="id" value="$$fieldsref{id}">
+   <input type="hidden" name="name" value="$$fieldsref{name}">
+<input class="grey" readonly="true" name="registry" size="32" maxlength="32" value="$$fieldsref{registry}" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Registro di sistema Descrizione<br>
+              </td>
+<td class="pme-value-0"> 
+<input name="description" size="50" maxlength="250" value="$$fieldsref{description}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-0">
+              <td class="pme-key-0">Posta elettronica Manager<br>
+              </td>
+<td class="pme-value-0"> 
+<input  name="admemail" size="60" maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
+            </tr>
+
+<td title="password per account email admin" class="pme-key-0">Posta elettronica Manager Password<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="pme-input-0" class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-1">Posta elettronica for Batch Transazioni<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
+            </tr>
+
+<td title="password per l'account di posta elettronica di lotto" class="pme-key-0">Batch Posta elettronica Password<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="pme-input-0" class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
+            </tr>
+
+
+<tr class="pme-row-1">
+              <td class="pme-key-1">Limite di impegno globale<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
+            </tr>
+
+<tr title="chiave server utilizzato: id chiave pubblica per questo registro" class="pme-row-1">
+              <td class="pme-key-1">Id chiave Key Server: pubblico<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-1">Chiave mercantile
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="merchant_key" size="50" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+</td>
+ </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-1">Consentire il mercante da indirizzi IP (space separated list)
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="allow_ip_list" size="50" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+</td>
+ </tr>
+
+
+<tr class="pme-row-1">
+              <td class="pme-key-1">Ultime notizie di aggiornamento
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="latest_news" size="50" maxlength="80" value="$$fieldsref{latest_news}" type="text">
+</td>
+ </tr>
+
+
+
+
+
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Vai"  type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
+  type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

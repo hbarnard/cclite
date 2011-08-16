@@ -1,0 +1,135 @@
+<form id="form">
+<table>
+
+<tr>
+<td title="avviare lo script grafico">
+Graphing
+</td>
+<td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
+Posta elettronica input 
+</td>
+<!--
+<td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
+<del>GPG Posta elettronica input</del> 
+</td>
+-->
+
+
+<td title="iniziare a produrre i feed rss per pagine gialle piccoli annunci">
+RSS Feed    
+</td>
+<td title="start accepting input via gammu from a locale mobile phone">
+Gammu input
+</td>
+
+<td title="transazioni batch upload e processo">
+Caricare/process Batch Transazioni
+</td>
+
+
+</tr>
+
+<tr>
+
+<td>
+   <select onchange="on_select_change('stats');" id="stats_value" >
+	<option value="0"> Stop Stats</option>
+	<option value="5">Ogni 5 minuti</option>
+	<option value="10">Ogni 10 min</option>
+	<option value="30">Ogni 30 min</option>
+</select>
+   
+    </td>
+
+
+
+
+<td>
+    <select onchange="on_select_change('mail');" id="mail_value" >
+	<option value="0"> Stop Posta</option>
+	<option value="5">Ogni 5 minuti</option>
+	<option value="10">Ogni 10 min</option>
+	<option value="30">Ogni 30 min</option>
+</select>
+
+    
+    </td>
+<!--
+<td>
+    <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
+	<option value="0"> Stop GPG Posta</option>
+	<option value="5">Ogni 5 minuti</option>
+	<option value="10">Ogni 10 min</option>
+	<option value="30">Ogni 30 min</option>
+</select>
+
+    
+    </td>
+-->
+
+
+<td>
+    <select onchange="on_select_change('rss');" id="rss_value" >
+	<option value="0"> Stop Rss</option>
+	<option value="5">Ogni 5 minuti</option>
+	<option value="10">Ogni 10 min</option>
+	<option value="30">Ogni 30 min</option>
+</select>
+    
+    </td>
+
+
+
+<td>
+    <select onchange="on_select_change('gammu');" id="gammu_value" >
+	<option value="0"> Stop SMS</option>
+	<option value="5">Ogni 5 minuti</option>
+	<option value="10">Ogni 10 min</option>
+	<option value="30">Ogni 30 min</option>
+</select>
+  </td>
+
+<td>
+<input type="submit" class="smalltext" id="upload_button" value="Caricare Batch Transazioni"> 	
+</td>
+
+</tr>
+
+
+<tr>
+    <td><span id="stats">Aspettare</span></td>
+    <td><span id="mail">Aspettare</span></td>
+    <td><span id="gpg_mail">Aspettare</span></td>
+    <td><span id="rss">Aspettare</span></td> 
+    <td><span id="gammu">Aspettare</span></td>
+   <td></td>
+</tr>    
+
+
+<tr>
+    <td><span id="statements"><a title="stampare estratti conto bancari odt" href="/cgi-bin/protected/batch/print_statements.pl">Stampare le dichiarazioni</a></span></td>
+    <td><span id="yellowpages"><a title="stampare pagine gialle odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">Stampare pagine gialle</a></span></td>
+    <td><span id=""></span></td>
+    <td><span id=""></span></td> 
+    <td><span id=""></span></td>
+   <td></td>
+</tr>
+
+
+
+
+</table>
+</form>
+
+<div id="stats_status"></div>
+<div id="gpg_mail_status"></div>
+<div id="mail_status"></div>
+<div id="csv_status"></div>
+<div id="rss_status"></div>
+<div id="gammu_status"></div><br/>
+
+<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<br/>
+
+<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
+<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />

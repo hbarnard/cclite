@@ -1,0 +1,135 @@
+<form id="form">
+<table>
+
+<tr>
+<td title="グラフ作成のスクリプトを開始します。">
+Graphing
+</td>
+<td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
+電子メール input 
+</td>
+<!--
+<td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
+<del>GPG 電子メール input</del> 
+</td>
+-->
+
+
+<td title="rss フィードのイエロー ページの小さな広告を生産開始します。">
+RSS Feed    
+</td>
+<td title="start accepting input via gammu from a ローカル mobile phone">
+Gammu input
+</td>
+
+<td title="アップロードとプロセスのバッチ トランザクション">
+アップロード/process Batch トランザクション
+</td>
+
+
+</tr>
+
+<tr>
+
+<td>
+   <select onchange="on_select_change('stats');" id="stats_value" >
+	<option value="0"> Stop Stats</option>
+	<option value="5">すべて 5 分</option>
+	<option value="10">すべて 10 分</option>
+	<option value="30">配車間隔 30 分</option>
+</select>
+   
+    </td>
+
+
+
+
+<td>
+    <select onchange="on_select_change('mail');" id="mail_value" >
+	<option value="0"> Stop メール</option>
+	<option value="5">すべて 5 分</option>
+	<option value="10">すべて 10 分</option>
+	<option value="30">配車間隔 30 分</option>
+</select>
+
+    
+    </td>
+<!--
+<td>
+    <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
+	<option value="0"> Stop GPG メール</option>
+	<option value="5">すべて 5 分</option>
+	<option value="10">すべて 10 分</option>
+	<option value="30">配車間隔 30 分</option>
+</select>
+
+    
+    </td>
+-->
+
+
+<td>
+    <select onchange="on_select_change('rss');" id="rss_value" >
+	<option value="0"> Stop Rss</option>
+	<option value="5">すべて 5 分</option>
+	<option value="10">すべて 10 分</option>
+	<option value="30">配車間隔 30 分</option>
+</select>
+    
+    </td>
+
+
+
+<td>
+    <select onchange="on_select_change('gammu');" id="gammu_value" >
+	<option value="0"> Stop SMS</option>
+	<option value="5">すべて 5 分</option>
+	<option value="10">すべて 10 分</option>
+	<option value="30">配車間隔 30 分</option>
+</select>
+  </td>
+
+<td>
+<input type="submit" class="smalltext" id="upload_button" value="アップロード Batch トランザクション"> 	
+</td>
+
+</tr>
+
+
+<tr>
+    <td><span id="stats">待機</span></td>
+    <td><span id="mail">待機</span></td>
+    <td><span id="gpg_mail">待機</span></td>
+    <td><span id="rss">待機</span></td> 
+    <td><span id="gammu">待機</span></td>
+   <td></td>
+</tr>    
+
+
+<tr>
+    <td><span id="statements"><a title="odt の銀行のステートメントを印刷します。" href="/cgi-bin/protected/batch/print_statements.pl">ステートメントを印刷します。</a></span></td>
+    <td><span id="yellowpages"><a title="odt イエロー ページを印刷します。" href="/cgi-bin/protected/batch/print_yellowpages.pl">Yellowpages 利用を印刷します。</a></span></td>
+    <td><span id=""></span></td>
+    <td><span id=""></span></td> 
+    <td><span id=""></span></td>
+   <td></td>
+</tr>
+
+
+
+
+</table>
+</form>
+
+<div id="stats_status"></div>
+<div id="gpg_mail_status"></div>
+<div id="mail_status"></div>
+<div id="csv_status"></div>
+<div id="rss_status"></div>
+<div id="gammu_status"></div><br/>
+
+<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<br/>
+
+<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
+<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />

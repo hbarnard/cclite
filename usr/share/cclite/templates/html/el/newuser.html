@@ -1,0 +1,157 @@
+      <form name="newuser" class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
+ name="action" value="adduser" type="hidden"> <input name="subaction"
+ value="om_users" type="hidden">
+        <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+
+           <tr>
+              <td class="pme-key-0"><br>
+              </td>
+              <td style="vertical-align: top;"><span class="errors">$$fields{errors}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="pme-key-0">Reg όνομα<br>
+              </td>
+              <td style="vertical-align: top;">
+<!-- note explicit path value in cookie setting, otherwise path is set for cgi-bin -->
+<input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
+
+              </td>
+            </tr>
+            <tr class="pme-row-1">
+              <td title="Πρέπει να είναι μεγαλύτερη από 3 χαρακτήρες, γράμματα, αριθμούς και _ μόνο" class="pme-key-0">Το όνομα του λογαριασμού<br>
+              </td>
+              <td class="pme-value-1"> <input 
+ name="nuserLogin" id="nuserLogin" class="required" value="$$fieldsref{userLogin}" size="60" maxlength="255" value="" type="text">
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Κωδικός πρόσβασης</td>
+        <td class="pme-value-0"> <input 
+ name="userΚωδικός πρόσβασης" class="required" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm Κωδικός πρόσβασης</td>
+        <td class="pme-value-0"> <input 
+ name="cuserΚωδικός πρόσβασης" class="required" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Ηλεκτρονικό ταχυδρομείο</td>
+              <td class="pme-value-1"> <input 
+ name="userΗλεκτρονικό ταχυδρομείο" id="nuserΗλεκτρονικό ταχυδρομείο" class="required email" size="50" maxlength="50" value="$$fieldsref{userΗλεκτρονικό ταχυδρομείο}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Αριθμός/Σώμα όνομα</td>
+              <td class="pme-value-1"> <input 
+ name="userNameornumber" class="required" value="$$fieldsref{userNameornumber}" size="30" maxlength="30" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Όνομα του δρόμου</td>
+              <td class="pme-value-1"> <input 
+ name="userStreet" size="40" class="required" maxlength="40" value="$$fieldsref{userStreet}" type="text">
+
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">Πόλη</td>
+              <td class="pme-value-1"> <input 
+ name="userΠόλη" class="required" size="40" maxlength="40" value="$$fieldsref{userΠόλη}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Νομός/μέλος</td>
+              <td class="pme-value-1"> <input 
+ name="userArea" class="required" size="40" maxlength="40" value="$$fieldsref{userArea}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Ταχυδρομικός κώδικας</td>
+              <td class="pme-value-1"> <input 
+ name="userΤαχυδρομικός κώδικας" class="required" size="10" maxlength="10" value="$$fieldsref{userΤαχυδρομικός κώδικας}" type="text">
+</td>
+            </tr>
+
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Σταθερό τηλέφωνο</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userTelephone" size="20" maxlength="20" value="$$fieldsref{userTelephone}" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td  class="pme-key-0">Κινητό τηλέφωνο</td>
+              <td class="pme-value-1"> <input title="Παρακαλώ να τον αριθμό αυτόν στον διεθνή μορφή 44777766666" class="pme-input-1"
+ name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Pin for Κινητό τηλέφωνο Συναλλαγές</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="$$fieldsref{userPin}" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Confirm Pin for Κινητό τηλέφωνο Συναλλαγές</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="$$fieldsref{cuserPin}" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">SMS πληρωμής παραλαβές</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userSmsreceipt" type="checkbox"></td>
+            </tr>
+
+
+<tr class="pme-row-1">
+              <td title="Αυτό είναι το δημόσιο κλειδί id για κρυπτογραφημένες συναλλαγές" class="pme-key-0">Δημόσιο κλειδί Id</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Γλώσσα</td>
+              <td class="pme-value-1"> 
+                 <select class="required" name="userLang">
+                   <option value=""></option>
+                   <option selected value="en">Αγγλικά</option>
+                   <option value="de">Deutsch</option>                   
+                   <option value="fr">Fran</option>
+                 </select>
+</td>
+            </tr>
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Πλήρες όνομα</td>
+              <td class="pme-value-0"> <input 
+ name="userName" size="60" class="required" maxlength="255" value="$$fieldsref{userName}" type="text">
+
+</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> 
+<!-- we erase the registry cookie here, otherwise it'll prevent a clean logon later -->
+<input class="pme-save"
+ name="saveadd" value="Δημιουργία" onClick="eraseCookie('registry');" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+

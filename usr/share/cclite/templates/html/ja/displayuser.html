@@ -1,0 +1,41 @@
+<table class="pme-main" summary="om_users">
+    <tbody class="stripy">
+      <tr class="pme-row-1">
+        <td class="pme-key-title">UserLogin</td>
+        <!-- duserLogin is used to distinguish from userLogin, processed generally -->
+        <td class="pme-value-0"> $$fields{duserLogin}</td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-title">User電子メール</td>
+        <td class="pme-value-1">$$fields{user電子メール}</td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-title">ストリート</td>
+              <td class="pme-value-1">$$fields{user名前ornumber} $$fields{userストリート}
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-title">町/County</td>
+              <td class="pme-value-1">$$fields{user町} $$fields{userArea}
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-title">携帯電話</td>
+              <td class="pme-value-1"> $$fields{userMobile} </td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-title">名前</td>
+        <td class="pme-value-0">$$fields{user名前}</td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-title">休日またはアクティブ</td>
+        <td class="pme-value-1">$$fieldsref{userステータス} 
+</td>
+      </tr>
+ </tbody>
+  </table>
+

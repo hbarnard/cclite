@@ -1,46 +1,121 @@
-<form class="pme-form" action="om_users.php" method="post"
- onsubmit="return phpMyEdit_form_control(this);"><input name="sfn[0]"
- value="0" type="hidden"> <input name="sfn[1]" value="1" type="hidden"><input
- name="qfn" value="" type="hidden"> <input name="rec" value="1"
- type="hidden"><input name="fm" value="0" type="hidden"> <input
- name="fl" value="0" type="hidden">
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="update" type="hidden">
+<input name="subaction" value="om_users" type="hidden">
+<input name="userId" value="$$fields{userId}" type="hidden">
   <table class="pme-main" summary="om_users">
-    <tbody>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">UserId</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- disabled="disabled" name="userId" size="8" maxlength="8" value="0"
- type="text"></td>
-      </tr>
+    <tbody class="stripy">
       <tr class="pme-row-1">
         <td class="pme-key-1">UserLogin</td>
-        <td class="pme-value-1"> <input class="pme-input-1"
- name="userLogin" size="60" maxlength="255" value="" type="text"></td>
+        <td class="pme-value-0"> <input class="grey"
+ name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text"></td>
       </tr>
       <tr class="pme-row-0">
-        <td class="pme-key-0">UserPassword</td>
+        <td class="pme-key-0">User Mot de passe</td>
         <td class="pme-value-0"> <input class="pme-input-0"
- name="userPassword" size="32" maxlength="32" value="" type="text"></td>
+ name="userMot de passe" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm Mot de passe</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="confirmMot de passe" size="32" maxlength="32" value="" type="password"></td>
       </tr>
       <tr class="pme-row-1">
-        <td class="pme-key-1">UserEmail</td>
-        <td class="pme-value-1"> <input class="pme-input-1"
- name="userEmail" size="60" maxlength="255" value="" type="text"></td>
+        <td class="pme-key-1">UserMessagerie</td>
+        <td class="pme-value-1"> <input class="required email"
+ name="userMessagerie" size="40" maxlength="255" value="$$fields{userMessagerie}" type="text"></td>
       </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Aucunmbre/maison nom</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userNomornumber" size="30" maxlength="30" value="$$fields{userNomornumber}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Nom de la rue</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userRue" size="40" maxlength="40" value="$$fields{userRue}" type="text">
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">Ville</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userVille" size="40" maxlength="40" value="$$fields{userVille}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Etat du comté</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Code postal</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userCode postal" size="10" maxlength="10" value="$$fieldsref{userCode postal}" type="text">
+</td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Téléphone mobile</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Pin for Téléphone mobile Transactions</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Confirmer le NIP pour les Transactions de téléphone Mobile</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">SMS reçus de paiement</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td title="Il s'agit de l'id de clé publique pour les transactions cryptées" class="pme-key-0">Id de clé publique</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Langue</td>
+              <td class="pme-value-1"> 
+                 <select name="userLang">
+                   <option value="de">Deutsch</option>
+                   <option selected value="en">Anglais</option>
+                   <option value="fr">Fran</option>
+                 </select>
+</td>
+            </tr>
       <tr class="pme-row-0">
-        <td class="pme-key-0">UserName</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userName" size="60" maxlength="255" value="" type="text"></td>
+        <td class="pme-key-0">Nom d'utilisateur</td>
+        <td class="pme-value-0"> <input class="required"
+ name="userNom" size="40" maxlength="255" value="$$fields{userNom}" type="text"></td>
       </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">UserLastLogin</td>
-        <td class="pme-value-1"> <input class="pme-input-1"
- name="userLastLogin" size="11" maxlength="11" value="0" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">UserRegistration</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userRegistration" size="11" maxlength="11" value="0" type="text"></td>
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Vacances ou Active</td>
+        <td class="pme-value-1"> 
+                 <select name="userStatut">
+                   <option selected value="active">Active</option>
+                   <option value="holiday">En vacances</option>
+                 </select>
+</td>
       </tr>
     </tbody>
   </table>
@@ -49,8 +124,8 @@
     <tbody>
       <tr class="pme-navigation">
         <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="Save" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
+ value="Enregistrez" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Cancel"  type="reset"> </td>
       </tr>
     </tbody>
   </table>

@@ -1,0 +1,147 @@
+      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+      <span class="error">$$fieldsref{error}</span>  
+       <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td title="取引グループ、スペースなしの 1 つの単語を定義するデータベースの名前" class="pme-key-0">レジストリ名<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addregistry">
+   
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
+
+            </tr>
+
+            <tr class="pme-row-0">
+              <td title="トレーディング グループの簡単な説明" class="pme-key-0">レジストリ 説明<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
+            </tr>
+
+<tr title="アドレスと公式の電子メールをこのグループの送信に使用するアカウント" class="pme-row-0">
+              <td class="pme-key-0">マネージャーの電子メール<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
+            </tr>
+
+<td title="管理者のメール アカウントのパスワード" class="pme-key-0">マネージャーの電子メール パスワード<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
+            </tr>
+
+<tr title="メールのトランザクションは、受信アカウント管理者と同じにすることができます。" class="pme-row-1">
+              <td class="pme-key-1">電子メール for Batch トランザクション<br>
+              </td>
+<td class="pme-value-1"> 
+<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
+            </tr>
+
+
+<td title="バッチ e メール アカウントのパスワード" class="pme-key-0">Batch 電子メール パスワード<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
+            </tr>
+
+<tr title="現在使用されていませんが、取引のモデルを定義します" class="pme-row-1">
+              <td nowrap class="pme-key-1">充電システム モデル
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="chargetype"><option value="equaltime">等しいかどうか</option><option selected value="market">市場金利</option></select></td>
+            </tr>
+
+<tr title="現在使用されていませんが、委員会のモデルを定義します" class="pme-row-1">
+              <td class="pme-key-1">システム委員会モデル
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="commission">
+<option selected value="no">なし Commission</option>
+<option value="yes">Commission Based レジストリ</option>
+</select></td>
+            </tr>
+
+
+<tr title="現在使用されていませんが、サブスクリプション モデルを定義します" class="pme-row-1">
+              <td class="pme-key-1">サブスクリプション モデル
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="subscription">
+<option selected value="no">なし Subscription</option>
+<option value="yes">ベースのサブスクリプション</option>
+</select></td>
+            </tr>
+
+<tr title="このレジストリのすべての通貨の責任制限を定義します" class="pme-row-1">
+              <td class="pme-key-1">世界的な責任の制限<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
+            </tr>
+
+<tr title="使用されるキーのサーバー: このレジストリのパブリック キー id currently for email transactions only" class="pme-row-1">
+              <td class="pme-key-1">キー サーバー: パブリック キー id<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
+            </tr>
+
+
+</tr>
+<tr title="現在使用されていませんが、地理的かどうかを定義します領域または特別な関心"  class="pme-row-1">
+              <td class="pme-key-1">地理的領域をカバーですか？?
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="geographic">
+<option selected value="yes">はい</option>
+<option value="no">なし</option>
+</select></td>
+            </tr>
+
+<tr title="現在使用されてなく、パブリック レジストリ ジオコードとマップが投稿または zip コードを定義します" class="pme-row-1">
+              <td class="pme-key-1">郵便番号s or Latitude,Longitude
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+</td>
+ </tr>
+
+<tr title="elgg、drupal と os-コマース コネクタの商人のキーを提供するために使用" class="pme-row-1">
+              <td class="pme-key-1">商人のキー
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+</td>
+ </tr>
+
+<tr title="、原則的に特定の ip アドレスは、おそらくは容易に偽装にコネクタを制限するために使用します。" class="pme-row-1">
+              <td class="pme-key-1">商人からの IP アドレスを許可します。
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+</td>
+ </tr>
+
+
+
+
+
+          </tbody>
+        </table>
+  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
+  $$fieldsref{script}  
+        <hr class="pme-hr">
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="行く" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
+type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

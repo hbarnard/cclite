@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="cclite community currency system" />
+<meta name="keywords" content="ことができます。 C" />
+<meta name="author" content="hugh barnard  / Original design: ヴィクルンド - http://andreasviklund.com/" />
+ 
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+<link rel="alternate" type="application/rss+xml" title="実験的 cclite リンク" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>  
+
+<title>Cclite $$fieldsref{バージョン} Admin</title>
+
+!$$fieldsref{jscript}
+
+
+<script src="/javascript/prototype.js"></script>
+<script src="/javascript/scriptaculous.js"></script>
+
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+<div id="toptabs">
+<a 
+ class="toptab" title="Forgot Your パスワード?"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">Forgotten パスワード?</a>
+
+
+<a class="toptabstrikethrough" title="ドイツ"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;言語=de">ドイツ</a>
+
+<a 
+ class="toptabstrikethrough" title="フランス語に変更します。"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;言語=fr">フラン</a>
+$$fieldsref{youare} $$fieldsref{atregistry} 
+<p>
+<a class="toptab" title="新しいアカウント" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">新しいアカウント</a><span class="hide"> | </span>
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">Log off $$fieldsref{user} </a><span class="hide"> | </span>
+<a class="toptab" title="戻る to ユーザー Menu" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">ユーザー Menu</a><span class="hide"> | </span>
+</p>
+
+
+
+</div>
+
+<div id="container">
+<h1>Cclite $$fieldsref{バージョン} Administration</h1>
+
+
+<div id="navitabs">
+<a class="showpartnersresulthtml" title="パートナーのレジストリを表示します。" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">パートナーを表示します。</a><span class="hide"> | </span>
+<a class="templatecurrencyhtml" title="作成します。 New 通貨" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">通貨を作成します。</a><span class="hide"> | </span>
+<a class="showcurrenciesresulthtml" title="取引通貨を表示します。" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">通貨を表示します。</a><span class="hide"> | </span>
+<a class="templatecategoryhtml" title="作成します。 New Ad カテゴリ" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">作成します。 Ad カテゴリ</a><span class="hide"> | </span>
+<a class="navitab" title="変更 ユーザー Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">Change a ユーザー Account</a><span class="hide"> | </span>
+<br/>
+<br/>
+<a class="showbalvolresulthtml" title="レジストリの残高を表示します。" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">レジストリの残高を表示します。</a><span class="hide"> | </span>
+<a class="navitab" title="ルールやクレジットの上限を作成します。" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">作成します。 Rule/与信限度額</a><span class="hide"> | </span>
+<a class="navitab" title="作成します。 レジストリ Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">作成します。 レジストリ Partner</a><span class="hide"> | </span>
+<a class="navitab" title="アップロード Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">アップロード Batch Files</a><span class="hide"> | </span>
+<br/>
+<br/>
+<a class="テンプレートervicechghtml" title="Apply サービス Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply サービス Charge</a><span class="hide"> | </span>
+<a class="navitab" title="作成します。 オープン Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">オープン Office Directory</a><span class="hide"> | </span>
+<a class="navitab" title="変更 $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">変更 $$fieldsref{registry}</a><span class="hide"> | </span>
+<a class="navitab" title="レジストリ、インストーラ構成" href="/cgi-bin/protected/ccinstall.cgi">インストーラー</a><span class="hide"> | </span>
+<a class="toptabstrikethrough" title="システムの正常性と統計" href="/">システムの健康統計情報</a><span class="hide"> | </span>
+</div>
+
+<hr>    
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+
+    
+<div id="footer">
+Cclite copyright &copy; 2005-2008 (Hugh Barnard). Design by <a href="http://andreasviklund.com">ヴィクルンド</a>.
+</div>
+
+</div>
+</body>
+</html>

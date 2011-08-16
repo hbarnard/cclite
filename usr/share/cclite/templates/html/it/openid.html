@@ -1,0 +1,39 @@
+      <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+        <input name="subaction" value="om_openid" type="hidden">
+        <input name="action" value="addopenid" type="hidden">
+          <input name="userId" value="$$fieldsref{userId}" type="hidden"> 
+        <table class="pme-main" summary="om_openid">
+          <tbody class="stripy">
+<tr class="pme-row-1">
+              <td class="pme-key-1"></td>
+              <td class="pme-value-1"><span class="errors">$$fieldsref{errors}</span>
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-1">OpenID</td>
+              <td class="pme-value-1"> <input class="required"
+ name="openId" size="70" maxlength="120" value="$$fieldsref{openid}" type="text">
+
+</td>
+            </tr>
+ <tr class="pme-row-1">
+              <td class="pme-key-1">Descrizione</td>
+              <td class="pme-value-1"> <input class="required"
+ name="openIdDesc" size="70" maxlength="120" value="$$fieldsref{openid_description}" type="text">
+
+</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> 
+<input class="pme-save" name="saveadd" value="Creare" type="submit">&nbsp;
+<input class="pme-cancel" name="cancel" value="Cancel" type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

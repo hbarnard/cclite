@@ -1,0 +1,115 @@
+<form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="update" type="hidden">
+<input name="subaction" value="om_users" type="hidden">
+<input name="userId" value="$$fields{userId}" type="hidden">
+  <table class="pme-main" summary="om_users">
+    <tbody>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">UtilisateurLogin</td>
+        <td "pme-value-0"> <input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Utilisateur Mot de passe</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="userMot de passe" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm Mot de passe</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="confirmMot de passe" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">UtilisateurMessagerie</td>
+        <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMessagerie" size="60" maxlength="255" value="$$fields{userMessagerie}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Aucunmbre/maison nom</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userAucunmornumber" size="30" maxlength="30" value="$$fields{userAucunmornumber}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Aucunm de la rue</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userRue" size="40" maxlength="40" value="$$fields{userRue}" type="text">
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">Àwn</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userÀwn" size="40" maxlength="40" value="$$fields{userÀwn}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Etat du comté</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Téléphone mobile</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Langue</td>
+              <td class="pme-value-1"> 
+                 <select name="userLang">
+                   <option value="de">Deutsch</option>
+                   <option selected value="en">Anglais</option>
+                   <option value="fr">Fran</option>
+                 </select>
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">UtilisateurAucunm</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="userAucunm" size="60" maxlength="255" value="$$fields{userAucunm}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Vacances ou Active</td>
+        <td class="pme-value-1"> 
+                 <select name="userStatut">
+                   <option selected value="active">Active</option>
+                   <option value="holiday">En vacances</option>
+                   <option value="unconfirmed">Non confirmées</option>
+                   <option value="predelete">Suppression de pré</option>
+                  <option value="suspendreed">Suspendu</option>
+                 </select>
+</td>
+      </tr>
+
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Niveau utilisateur</td>
+        <td class="pme-value-1"> 
+                 <select name="userLevel">
+                   <option selected value="user">Utilisateur</option>
+                   <option value="admin">Administrateur</option>
+                   <option value="sysaccount">Compte système</option>
+                 </select>
+</td>
+      </tr>
+
+
+    </tbody>
+  </table>
+  <hr class="pme-hr">
+  <table class="pme-navigation">
+    <tbody>
+      <tr class="pme-navigation">
+        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
+ value="Enregistrez" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

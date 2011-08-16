@@ -1,0 +1,41 @@
+<table class="pme-main" summary="om_users">
+    <tbody class="stripy">
+      <tr class="pme-row-1">
+        <td class="pme-key-title">UserLogin</td>
+        <!-- duserLogin is used to distinguish from userLogin, processed generally -->
+        <td class="pme-value-0"> $$fields{duserLogin}</td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-title">UserΗλεκτρονικό ταχυδρομείο</td>
+        <td class="pme-value-1">$$fields{userΗλεκτρονικό ταχυδρομείο}</td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-title">Street</td>
+              <td class="pme-value-1">$$fields{userΌνομαornumber} $$fields{userStreet}
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-title">Πόλη/County</td>
+              <td class="pme-value-1">$$fields{userΠόλη} $$fields{userArea}
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-title">Κινητό τηλέφωνο</td>
+              <td class="pme-value-1"> $$fields{userMobile} </td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-title">Όνομα</td>
+        <td class="pme-value-0">$$fields{userΌνομα}</td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-title">Αργία ή ενεργό</td>
+        <td class="pme-value-1">$$fieldsref{userΚατάσταση} 
+</td>
+      </tr>
+ </tbody>
+  </table>
+

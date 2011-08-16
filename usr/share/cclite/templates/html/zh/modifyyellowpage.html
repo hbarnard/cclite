@@ -1,0 +1,106 @@
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="modifyyellowpages">
+<!-- modifyyellowpage.html template for modifying yellow pages -->
+<input name="subaction" value="om_yellowpages" type="hidden">
+<input name="action" value="update" type="hidden">
+<input name="id" value="$$fieldsref{id}" type="hidden">
+<table class="pme-main" summary="om_yellowpages">
+<tbody class="stripy">
+<tr class="pme-row-0">
+<td class="pme-key-0">Fromuserid</td>
+<td class="pme-value-0">
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{fromuserid}" type="text"></td>
+</tr>
+<tr class="pme-row-1">
+<td class="pme-key-1">类型</td>
+<td class="pme-value-1">
+              <select class="required" name="type">
+              <option value="offered" selected="selected">报价</option>
+              <option value="wanted">想要</option>
+              <option value="other">其他</option>
+              </select>
+</td>
+</tr>
+<tr class="pme-row-1">
+<td class="pme-key-1">专业类</td>
+<td class="pme-value-1">
+              <select class="required" name="majorclass">
+              <option value="service" selected="selected">服务</option>
+              <option value="goods">货物</option>
+              <option value="other">其他</option>
+              </select>
+</td>
+</tr>
+
+<tr class="pme-row-1">
+<td class="pme-key-1">分类</td>
+<td class="pme-value-1">
+$$fieldsref{selectclassification}</td>
+<input type="hidden" name="r_classification" value="Need a classification for the item or service please">
+</tr>
+
+<tr>
+<td class="pme-key-1">标签</td>
+<td class="pme-value-1">
+<input id="yellowtags" name="yellowtags" size="30" maxlength="60" value="$$fieldsref{yellowtags}"></td>
+</tr>
+
+
+<tr class="pme-row-0">
+<td class="pme-key-0">主题</td>
+<td class="pme-value-0">
+<input class="required" value="$$fieldsref{subject}" name="subject" size="30" maxlength="30" value="" type="text"></td>
+</tr>
+<tr class="pme-row-1">
+<td class="pme-key-1">说明</td>
+<td class="pme-value-1">
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}</textarea>
+</td>
+</tr>
+<tr class="pme-row-0">
+<td class="pme-key-0">价格</td>
+<td class="pme-value-0">
+<input class="required" name="price" id="price" onChange="validatedecimals(this,this.value);"  size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+</tr>
+<tr class="pme-row-1">
+<td class="pme-key-1">货币</td>
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+</td>
+</tr>
+
+<tr class="pme-row-1">
+<td class="pme-key-1">Per unit (services only)</td>
+<td class="pme-value-1">
+              <select class="pme-input-1" name="unit">
+              <option value="" ></option>
+              <option value="hour" >每小时</option>
+              <option value="day" >每一天</option>
+              <option value="week" >每周</option>
+              <option value="month" >每月</option>
+              </select>
+</td>
+</tr>
+</tbody>
+
+<tr class="pme-row-1">
+<td class="pme-key-1">另类货币的完成付款？?</td>
+<td class="pme-value-1">
+              <select class="required" name="truelets">
+              <option value="yes" >是</option>
+              <option value="no">无</option>
+              </select>
+</td>
+</tr>
+</tbody></table>
+
+<hr class="pme-hr">
+<table class="pme-navigation">
+<tbody><tr class="pme-navigation">
+<td class="pme-buttons">
+<input class="pme-save"
+ name="saveadd" value="修改" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+</tr></tbody></table>
+</form>
+</body></html>

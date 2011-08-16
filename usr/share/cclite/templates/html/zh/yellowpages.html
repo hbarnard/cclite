@@ -1,0 +1,107 @@
+
+<table>
+<tbody class="stripy">
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+<input name="action" value="addyellow" type="hidden">
+
+
+<tr>
+<td class="pme-key-0">从用户</td>
+<td class="pme-value-0">
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text"></td>
+</tr>
+<tr>
+<td class="pme-key-1">类型</td>
+<td class="pme-value-1">
+              <select class="required" name="type">
+              <option value="offered" selected="selected">报价</option>
+              <option value="wanted">想要</option>
+              <option value="other">其他</option>
+              </select>
+</td>
+</tr>
+<tr>
+<td class="pme-key-1">专业类</td>
+<td class="pme-value-1">
+              <select class="required" name="majorclass">
+              <option value="service" selected="selected">服务</option>
+              <option value="goods">货物</option>
+              <option value="other">其他</option>
+              </select>
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">分类</td>
+<td class="pme-value-1">
+$$fieldsref{selectclassification}</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">标签 (autocomplete)</td>
+<td class="pme-value-1">
+<span id="tagmatches" class="tagmatches"><input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}"></span></td>
+</tr>
+
+<tr>
+<td class="pme-key-0">主题</td>
+<td class="pme-value-0">
+<input class="required" name="subject" size="30" maxlength="30" value="" type="text"></td>
+</tr>
+<tr>
+<td class="pme-key-1">说明</td>
+<td class="pme-value-1">
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}</textarea>
+</td>
+</tr>
+<tr>
+<td class="pme-key-0">价格</td>
+<td class="pme-value-0">
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+</tr>
+<tr class="pme-row-1">
+<td class="pme-key-1">货币</td>
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Per unit (services only)</td>
+<td class="pme-value-1">
+              <select class="pme-input-1" name="unit">
+              <option value="" ></option>
+              <option value="hour" >每小时</option>
+              <option value="day" >每一天</option>
+              <option value="week" >每周</option>
+              <option value="month" >每月</option>
+              </select>
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">在允许货币的完成付款？?</td>
+<td class="pme-value-1">
+              <select class="pme-input-1" name="truelets">
+              <option value="yes" >是</option>
+              <option value="no">无</option>
+              </select>
+</td>
+</tr>
+
+<table class="pme-navigation">
+<tr class="pme-navigation">
+<td class="pme-buttons">
+<input class="pme-save"
+ name="saveadd" value="使页面" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+</tr>
+</form>
+ </table>
+</tbody>
+</table>
+

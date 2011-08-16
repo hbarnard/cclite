@@ -2,28 +2,28 @@
 <table>
 
 <tr>
-<td title="start the graphing script">
+<td title="iniciar la secuencia de comandos de gráficos">
 Graphing
 </td>
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-Email input 
+Correo electrónico input 
 </td>
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG Email input</del> 
+<del>GPG Correo electrónico input</del> 
 </td>
 -->
 
 
-<td title="start producing rss feeds for yellow pages small ads">
+<td title="empezar a producir canales rss para páginas amarillas pequeños anuncios">
 RSS Feed    
 </td>
-<td title="start accepting input via gammu from a local mobile phone">
+<td title="empezar a aceptar entrada a través de gammu desde un teléfono móvil local">
 Gammu input
 </td>
 
-<td title="upload and process batch transactions">
-Upload/process Batch Transactions
+<td title="carga y proceso de transacciones de lote">
+Subir/process Batch Transacciones
 </td>
 
 
@@ -34,9 +34,9 @@ Upload/process Batch Transactions
 <td>
    <select onchange="on_select_change('stats');" id="stats_value" >
 	<option value="0"> Stop Stats</option>
-	<option value="5">Every 5min</option>
-	<option value="10">Every 10min</option>
-	<option value="30">Every 30min</option>
+	<option value="5">Cada 5 minutos</option>
+	<option value="10">Cada 10 min.</option>
+	<option value="30">Cada 30 minutos</option>
 </select>
    
     </td>
@@ -46,10 +46,10 @@ Upload/process Batch Transactions
 
 <td>
     <select onchange="on_select_change('mail');" id="mail_value" >
-	<option value="0"> Stop Mail</option>
-	<option value="5">Every 5min</option>
-	<option value="10">Every 10min</option>
-	<option value="30">Every 30min</option>
+	<option value="0"> Stop Correo</option>
+	<option value="5">Cada 5 minutos</option>
+	<option value="10">Cada 10 min.</option>
+	<option value="30">Cada 30 minutos</option>
 </select>
 
     
@@ -57,10 +57,10 @@ Upload/process Batch Transactions
 <!--
 <td>
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
-	<option value="0"> Stop GPG Mail</option>
-	<option value="5">Every 5min</option>
-	<option value="10">Every 10min</option>
-	<option value="30">Every 30min</option>
+	<option value="0"> Stop GPG Correo</option>
+	<option value="5">Cada 5 minutos</option>
+	<option value="10">Cada 10 min.</option>
+	<option value="30">Cada 30 minutos</option>
 </select>
 
     
@@ -71,9 +71,9 @@ Upload/process Batch Transactions
 <td>
     <select onchange="on_select_change('rss');" id="rss_value" >
 	<option value="0"> Stop Rss</option>
-	<option value="5">Every 5min</option>
-	<option value="10">Every 10min</option>
-	<option value="30">Every 30min</option>
+	<option value="5">Cada 5 minutos</option>
+	<option value="10">Cada 10 min.</option>
+	<option value="30">Cada 30 minutos</option>
 </select>
     
     </td>
@@ -83,32 +83,32 @@ Upload/process Batch Transactions
 <td>
     <select onchange="on_select_change('gammu');" id="gammu_value" >
 	<option value="0"> Stop SMS</option>
-	<option value="5">Every 5min</option>
-	<option value="10">Every 10min</option>
-	<option value="30">Every 30min</option>
+	<option value="5">Cada 5 minutos</option>
+	<option value="10">Cada 10 min.</option>
+	<option value="30">Cada 30 minutos</option>
 </select>
   </td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="Upload Batch Transactions"> 	
+<input type="submit" class="smalltext" id="upload_button" value="Subir Batch Transacciones"> 	
 </td>
 
 </tr>
 
 
 <tr>
-    <td><span id="stats">Wait</span></td>
-    <td><span id="mail">Wait</span></td>
-    <td><span id="gpg_mail">Wait</span></td>
-    <td><span id="rss">Wait</span></td> 
-    <td><span id="gammu">Wait</span></td>
+    <td><span id="stats">Esperar</span></td>
+    <td><span id="mail">Esperar</span></td>
+    <td><span id="gpg_mail">Esperar</span></td>
+    <td><span id="rss">Esperar</span></td> 
+    <td><span id="gammu">Esperar</span></td>
    <td></td>
 </tr>    
 
 
 <tr>
-    <td><span id="statements"><a title="print odt bank statements" href="/cgi-bin/protected/batch/print_statements.pl">Print Statements</a></span></td>
-    <td><span id="yellowpages"><a title="print odt yellow pages" href="/cgi-bin/protected/batch/print_yellowpages.pl">Print Yellowpages</a></span></td>
+    <td><span id="statements"><a title="imprimir extractos bancarios de odt" href="/cgi-bin/protected/batch/print_statements.pl">Imprimir extractos</a></span></td>
+    <td><span id="yellowpages"><a title="imprimir las páginas amarillas de odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">Imprimir amarillas</a></span></td>
     <td><span id=""></span></td>
     <td><span id=""></span></td> 
     <td><span id=""></span></td>

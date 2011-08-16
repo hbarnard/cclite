@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="LETS CC finance currency" />
+<meta name="keywords" content="PERMITE C finance currency" />
 <meta name="author" content="hugh barnard" />
 $$fieldsref{metarefresh}
 
@@ -14,7 +14,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite $$fieldsref{version} Installer</title>
+<title>Cclite $$fieldsref{Versión} Instalador</title>
 
 <script src="/javascript/jquery-1.3.2.js"></script>
 <script src="/javascript/jquery-cookies.js"></script>
@@ -22,6 +22,9 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/thickbox-compressed.js'></script>
 <script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
+<script src="/javascript/jquery-tagsuggest.js"></script>
 
 <script type='text/javascript' src='/javascript/jquery.event.drop-1.2/jquery.event.drop-1.2.js'></script>
 <script type='text/javascript' src='/javascript/jquery.event.drag-1.5/jquery.event.drag-1.5.js'></script>
@@ -48,10 +51,10 @@ $$fieldsref{metarefresh}
 			<div id="topbar">
 				<div align="right" style="padding:12px;">
 <a class="bodytext" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff"><span id="logoff"><span></a>|
-<a title="Google group for support" href="http://groups.google.co.uk/group/cclite?hl=en">Want Help?</a>| 
-<a target="blank" title="Check and diagnose installation" href="/cgi-bin/protected/checkinstall.cgi">Check Install</a>|
-<a title="Admin Menu" href="/cgi-bin/protected/ccadmin.cgi">Admin Menu</a>|
-<a title="User Menu" href="/cgi-bin/cclite.cgi">User Menu</a>
+<a title="Grupo de Google para soporte" href="http://groups.google.co.uk/group/cclite?hl=en">¿Desea ayuda??</a>| 
+<a target="blank" title="Compruebe y diagnosticar la instalación" href="/cgi-bin/protected/checkinstall.cgi">Comprobar la instalación</a>|
+<a title="Menú de administración" href="/cgi-bin/protected/ccadmin.cgi">Menú de administración</a>|
+<a title="Usuario Menu" href="/cgi-bin/cclite.cgi">Usuario Menu</a>
 
 </div>
 			</div>
@@ -72,9 +75,9 @@ Cclite
 			<div id="menu" align="right">
 				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
 				<div id="linksmenu" align="center">
-<a id="updateconfig" title="Update conifguration stored in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">Update Configuration</a>
-<a id="newregistry" title="Create New Registry" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">Create New Registry</a>
-<a id="showregistry" title="Show Current Cclite Registries" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">Show Registries</a>
+<a id="updateconfig" title="Conifguration de actualización en cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">Configuración de la actualización</a>
+<a id="newregistry" title="Crear New Registro" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">Crear New Registro</a>
+<a id="showregistry" title="Mostrar registros de Cclite actual" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">Mostrar registros</a>
 
 
 				</div>
@@ -91,7 +94,7 @@ Cclite
 			</div>
 		</div>
 		<div id="footer" class="smallgraytext" align="center">
-			<a title="Cclite user login" href="/cgi-bin/cclite.cgi">Home</a> | <a title="Google group for support" href="http://groups.google.co.uk/group/cclite?hl=en">Help with Cclite</a><br />
+			<a title="Inicio de sesión de usuario Cclite" href="/cgi-bin/cclite.cgi">Hogar</a> | <a title="Grupo de Google para soporte" href="http://groups.google.co.uk/group/cclite?hl=en">Ayuda con Cclite</a><br />
 			Cclite &copy; Hugh Barnard 2003-2011<br />
 
 		</div>

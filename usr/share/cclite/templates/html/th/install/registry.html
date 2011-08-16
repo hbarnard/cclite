@@ -1,0 +1,147 @@
+      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+      <span class="error">$$fieldsref{error}</span>  
+       <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td title="ชื่อของฐานข้อมูลการกำหนดกลุ่มการค้า, หนึ่งคำได้โดยไม่ต้องเว้นวรรค" class="pme-key-0">ชื่อรีจิสทรี<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addregistry">
+   
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
+
+            </tr>
+
+            <tr class="pme-row-0">
+              <td title="อธิบายสั้น ๆ ของกลุ่มการค้า" class="pme-key-0">รีจิสทรี รายละเอียด<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
+            </tr>
+
+<tr title="ที่อยู่และบัญชีที่ใช้ในการส่งอีเมลอย่างเป็นทางการสำหรับนี้กลุ่ม" class="pme-row-0">
+              <td class="pme-key-0">ผู้จัดการ<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
+            </tr>
+
+<td title="รหัสผ่านสำหรับบัญชีอีเมลของผู้ดูแลระบบ" class="pme-key-0">ผู้จัดการ รหัสผ่าน<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
+            </tr>
+
+<tr title="บัญชีที่ทำธุรกรรมอีเมลที่ได้รับสามารถเช่นเดียวกับของผู้ดูแลระบบ" class="pme-row-1">
+              <td class="pme-key-1">อีเมล์ for Batch ก\u200b\u200bารทำธุรกรรม<br>
+              </td>
+<td class="pme-value-1"> 
+<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
+            </tr>
+
+
+<td title="รหัสผ่านสำหรับชุดบัญชีอีเมล" class="pme-key-0">Batch อีเมล์ รหัสผ่าน<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
+            </tr>
+
+<tr title="ไม่ได้ใช้อยู่ในปัจจุบัน แต่กำหนดรูปแบบการค้า" class="pme-row-1">
+              <td nowrap class="pme-key-1">รูปแบบของระบบการชาร์จไฟ
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="chargetype"><option value="equaltime">ความเท่าเทียมกัน</option><option selected value="market">อัตราดอกเบี้ยในตลาด</option></select></td>
+            </tr>
+
+<tr title="ไม่ได้ใช้อยู่ในปัจจุบัน แต่กำหนดรูปแบบคณะกรรมการ" class="pme-row-1">
+              <td class="pme-key-1">System   Commission Model
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="commission">
+<option selected value="no">ไม่มีใน   Commission</option>
+<option value="yes">  Commission Based รีจิสทรี</option>
+</select></td>
+            </tr>
+
+
+<tr title="ไม่ได้ใช้อยู่ในปัจจุบัน แต่กำหนดรูปแบบการสมัคร" class="pme-row-1">
+              <td class="pme-key-1">รูปแบบการสมัคร
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="subscription">
+<option selected value="no">ไม่มีใน Subscription</option>
+<option value="yes">การสมัครสมาชิกจากทั่ว</option>
+</select></td>
+            </tr>
+
+<tr title="กำหนดขีด จำกัด ของความมุ่งมั่นสำหรับสกุลเงินทั้งหมดในรีจิสทรีนี้" class="pme-row-1">
+              <td class="pme-key-1">Global   Commitment Limit<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
+            </tr>
+
+<tr title="เซิร์ฟเวอร์สำคัญที่ใช้ : รหัสกุญแจสาธารณะสำหรับรีจิสทรีนี้ currently for email transactions only" class="pme-row-1">
+              <td class="pme-key-1">เซิร์ฟเวอร์สำคัญ :  id คีย์สาธารณะ<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
+            </tr>
+
+
+</tr>
+<tr title="ไม่ได้ใช้อยู่ในปัจจุบัน แต่ไม่ว่าจะกำหนดพื้นที่ทางภูมิศาสตร์หรือที่น่าสนใจเป็นพิเศษ"  class="pme-row-1">
+              <td class="pme-key-1">  ครอบคลุมพื้นที่ทางภูมิศาสตร์??
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="geographic">
+<option selected value="yes">ใช่</option>
+<option value="no">ไม่มีใน</option>
+</select></td>
+            </tr>
+
+<tr title="ไม่ได้ใช้อยู่ในปัจจุบัน แต่กำหนดโพสต์หรือรหัสไปรษณีย์เพื่อให้การลงทะเบียนประชาชนสามารถ geocoded และแมป" class="pme-row-1">
+              <td class="pme-key-1">รหัสไปรษณีย์s or Latitude,Longitude
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+</td>
+ </tr>
+
+<tr title="ใช้เพื่อให้ผู้ประกอบการค้าที่สำคัญสำหรับ elgg, Drupal และ OS -  Commerce เชื่อมต่อ" class="pme-row-1">
+              <td class="pme-key-1">ก\u200b\u200bารค้าที่สำคัญ
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+</td>
+ </tr>
+
+<tr title="ที่ใช้ในหลักการเพื่อ จำกัด การเชื่อมต่อไปยัง IPS บางอย่างได้อย่างง่ายดายปลอมอาจ" class="pme-row-1">
+              <td class="pme-key-1">อนุญาตให้ผู้ค้าจากทั่วที่อยู่ IP
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+</td>
+ </tr>
+
+
+
+
+
+          </tbody>
+        </table>
+  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
+  $$fieldsref{script}  
+        <hr class="pme-hr">
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="ไปทั่ว" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="  Cancel"
+type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

@@ -1,0 +1,41 @@
+      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+        <table class="pme-main" summary="om_categories">
+          <tbody class="stripy">
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">  หมวดหมู่ ชื่อ<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addcategory">
+<input type="hidden" name="subaction" value="om_categories">
+<input class="required" name="description" size="50" maxlength="80" value="" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">หมวดหมู่ผู้ปกครอง<br>
+              </td>
+<td class="pme-value-0"> 
+$$fieldsref{selectparent}</td>
+            </tr>
+
+<tr class="pme-row-0">
+              <td class="pme-key-0">สถานะ<br>
+              </td>
+<td class="pme-value-0"> 
+<select class="required" name="status">
+<option selected value=""> </option>
+<option value="ก\u200b\u200bารใช้งาน">ใช้งานล่าสุด</option>
+<option value="inก\u200b\u200bารใช้งาน">Inก\u200b\u200bารใช้งาน</option>
+</select>
+            </tr>
+
+<tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="สร้าง   หมวดหมู่"  type="submit">&nbsp; </td>
+<td><input
+ class="pme-cancel" name="cancel" value="  Cancel"
+  type="reset"></td>
+            </tr>
+       </tbody>
+        </table>
+      </form>

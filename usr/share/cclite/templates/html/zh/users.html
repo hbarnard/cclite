@@ -1,0 +1,132 @@
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="update" type="hidden">
+<input name="subaction" value="om_users" type="hidden">
+<input name="userId" value="$$fields{userId}" type="hidden">
+  <table class="pme-main" summary="om_users">
+    <tbody class="stripy">
+      <tr class="pme-row-1">
+        <td class="pme-key-1">UserLogin</td>
+        <td class="pme-value-0"> <input class="grey"
+ name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">User 密码</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="user密码" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm 密码</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="confirm密码" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">User电子邮件</td>
+        <td class="pme-value-1"> <input class="required email"
+ name="user电子邮件" size="40" maxlength="255" value="$$fields{user电子邮件}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">数量/房子名称</td>
+              <td class="pme-value-1"> <input class="required"
+ name="user名称ornumber" size="30" maxlength="30" value="$$fields{user名称ornumber}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">街道名称</td>
+              <td class="pme-value-1"> <input class="required"
+ name="user街" size="40" maxlength="40" value="$$fields{user街}" type="text">
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">镇</td>
+              <td class="pme-value-1"> <input class="required"
+ name="user镇" size="40" maxlength="40" value="$$fields{user镇}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">县/状态</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">邮编</td>
+              <td class="pme-value-1"> <input class="required"
+ name="user邮编" size="10" maxlength="10" value="$$fieldsref{user邮编}" type="text">
+</td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">移动电话</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Pin for 移动电话 交易</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Confirm Pin for 移动电话 交易</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">短信支付收益</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td title="这是加密事务的公共密钥 id" class="pme-key-0">公共密钥 Id</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">语言</td>
+              <td class="pme-value-1"> 
+                 <select name="userLang">
+                   <option value="de">多伊奇</option>
+                   <option selected value="en">英语</option>
+                   <option value="fr">弗朗索瓦</option>
+                 </select>
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">用户名</td>
+        <td class="pme-value-0"> <input class="required"
+ name="user名称" size="40" maxlength="255" value="$$fields{user名称}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Holiday or 活动</td>
+        <td class="pme-value-1"> 
+                 <select name="user状态">
+                   <option selected value="active">活动</option>
+                   <option value="holiday">度假</option>
+                 </select>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="pme-hr">
+  <table class="pme-navigation">
+    <tbody>
+      <tr class="pme-navigation">
+        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
+ value="保存" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Cancel"  type="reset"> </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

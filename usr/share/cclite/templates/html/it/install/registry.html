@@ -1,0 +1,147 @@
+      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+      <span class="error">$$fieldsref{error}</span>  
+       <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td title="nome del database definendo gruppo commerciale, una parola senza spazi" class="pme-key-0">Nome del Registro di sistema<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addregistry">
+   
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
+
+            </tr>
+
+            <tr class="pme-row-0">
+              <td title="breve descrizione del gruppo di trading" class="pme-key-0">Registro di sistema Descrizione<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
+            </tr>
+
+<tr title="indirizzo e l'account utilizzato per inviare le email ufficiale per questo gruppo" class="pme-row-0">
+              <td class="pme-key-0">Posta elettronica Manager<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
+            </tr>
+
+<td title="password per account email admin" class="pme-key-0">Posta elettronica Manager Password<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
+            </tr>
+
+<tr title="account dove sono ricevute email transazioni può essere lo stesso di admin" class="pme-row-1">
+              <td class="pme-key-1">Posta elettronica for Batch Transazioni<br>
+              </td>
+<td class="pme-value-1"> 
+<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
+            </tr>
+
+
+<td title="password per l'account di posta elettronica di lotto" class="pme-key-0">Batch Posta elettronica Password<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
+            </tr>
+
+<tr title="non utilizzato attualmente ma definisce il modello commerciale" class="pme-row-1">
+              <td nowrap class="pme-key-1">Sistema di ricarica modello
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="chargetype"><option value="equaltime">Uguaglianza</option><option selected value="market">Tassi di mercato</option></select></td>
+            </tr>
+
+<tr title="non utilizzato attualmente ma definisce il modello di Commissione" class="pme-row-1">
+              <td class="pme-key-1">Modello di Commissione del sistema
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="commission">
+<option selected value="no">Nessuna Commissione</option>
+<option value="yes">Commission Based Registro di sistema</option>
+</select></td>
+            </tr>
+
+
+<tr title="non utilizzato attualmente ma definisce il modello di sottoscrizione" class="pme-row-1">
+              <td class="pme-key-1">Modello di sottoscrizione
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="subscription">
+<option selected value="no">Nessun abbonamento</option>
+<option value="yes">Basato su abbonamento</option>
+</select></td>
+            </tr>
+
+<tr title="definisce il limite di impegno per tutte le valute in questo registro" class="pme-row-1">
+              <td class="pme-key-1">Limite di impegno globale<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
+            </tr>
+
+<tr title="chiave server utilizzato: id chiave pubblica per questo registro currently for email transactions only" class="pme-row-1">
+              <td class="pme-key-1">Id chiave Key Server: pubblico<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
+            </tr>
+
+
+</tr>
+<tr title="non utilizzato attualmente ma definisce se geografica area o interesse speciale"  class="pme-row-1">
+              <td class="pme-key-1">Copertine Area geografica??
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="geographic">
+<option selected value="yes">Sì</option>
+<option value="no">No</option>
+</select></td>
+            </tr>
+
+<tr title="non utilizzato attualmente ma definisce i messaggi o codici postali in modo che registri pubblici possono essere mappate e geocodificate" class="pme-row-1">
+              <td class="pme-key-1">Codice postales or Latitude,Longitude
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+</td>
+ </tr>
+
+<tr title="utilizzato per fornire la chiave mercantile per elgg, drupal e connettori os-commerce" class="pme-row-1">
+              <td class="pme-key-1">Chiave mercantile
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+</td>
+ </tr>
+
+<tr title="utilizzato, in linea di principio per limitare i connettori a certe ips, facilmente falsificati probabilmente" class="pme-row-1">
+              <td class="pme-key-1">Consentire il mercante da indirizzi IP
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+</td>
+ </tr>
+
+
+
+
+
+          </tbody>
+        </table>
+  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
+  $$fieldsref{script}  
+        <hr class="pme-hr">
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Vai" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
+type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

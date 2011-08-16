@@ -1,0 +1,115 @@
+<form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="update" type="hidden">
+<input name="subaction" value="om_users" type="hidden">
+<input name="userId" value="$$fields{userId}" type="hidden">
+  <table class="pme-main" summary="om_users">
+    <tbody>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">用户Login</td>
+        <td "pme-value-0"> <input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">用户 密码</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="user密码" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm 密码</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="confirm密码" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">用户电子邮件</td>
+        <td class="pme-value-1"> <input class="pme-input-1"
+ name="user电子邮件" size="60" maxlength="255" value="$$fields{user电子邮件}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">数量/房子名称</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="user名称ornumber" size="30" maxlength="30" value="$$fields{user名称ornumber}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">街道名称</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="user街" size="40" maxlength="40" value="$$fields{user街}" type="text">
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">自wn</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="user自wn" size="40" maxlength="40" value="$$fields{user自wn}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">县/状态</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">移动电话</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-0">语言</td>
+              <td class="pme-value-1"> 
+                 <select name="userLang">
+                   <option value="de">多伊奇</option>
+                   <option selected value="en">英语</option>
+                   <option value="fr">弗朗索瓦</option>
+                 </select>
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">用户名称</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="user名称" size="60" maxlength="255" value="$$fields{user名称}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Holiday or 活动</td>
+        <td class="pme-value-1"> 
+                 <select name="user状态">
+                   <option selected value="活动">活动</option>
+                   <option value="holiday">度假</option>
+                   <option value="unconfirmed">未经证实</option>
+                   <option value="predelete">预删除</option>
+                  <option value="暂停ed">暂停</option>
+                 </select>
+</td>
+      </tr>
+
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">用户级别</td>
+        <td class="pme-value-1"> 
+                 <select name="userLevel">
+                   <option selected value="user">用户</option>
+                   <option value="admin">管理员</option>
+                   <option value="sysaccount">系统帐户</option>
+                 </select>
+</td>
+      </tr>
+
+
+    </tbody>
+  </table>
+  <hr class="pme-hr">
+  <table class="pme-navigation">
+    <tbody>
+      <tr class="pme-navigation">
+        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
+ value="保存" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

@@ -1,0 +1,193 @@
+<div class="failedcheck"> $$fieldsref{updatemessage}</div>
+<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
+<table><tbody class="stripy">
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+<select name="install_type" id="install_type" onchange="change_install();">
+<option selected value="simple">简单</option>
+<option value="full">所有选项</option>
+</select>
+<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> 注册表">
+<input name="action" value="updateconfig2" type="hidden">
+
+<tr><td title="这是为 mysql 数据库用户" class="menu">dbuser</td><td class="pme-key-1">
+    <input id="dbuser" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+</td></tr>
+<tr><td title="这是 mysql 的数据库密码" class="menu">dbpassword</td><td class="pme-key-1">
+    <input id="dbpassword" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td></tr>
+
+<tr><td title="experimental 那时前缀, use with care, uusally cpanel user name" class="menu">那时前缀</td><td class="pme-key-1">
+    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+</td></tr>
+
+<tr><td title="小数点显示货币" class="menu">使用小数</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+</td></tr>
+
+<tr><td title="黄页的固定类别而不是使用自由格式的标签" class="menu">使用标签</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+</td></tr>
+
+
+<tr><td title="这是域，如脚本路径而推断，需要正确的 cookie 的工作" class="menu">域</td><td class="pme-key-1">
+    <input type="text" readonly="1"  class="required" name="域" size="60" value="$$fieldsref{域}">
+</td></tr>
+<tr><td title="this is the smtp 服务器 for mail, for cpanel usually same as 域 name, 本地host or ip for internal servers" class="menu">smtp 服务器</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+</td></tr>
+
+<tr><td title="cclite 的主要用户脚本" class="menu">首页</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required"  name="首页" size="60" value="$$fieldsref{u首页}">
+</td></tr>
+
+<tr><td title="这是用于密码和令牌计算的哈希值类型，sha2 是首选，不能更改混合一次设置" class="menu">哈希值类型</td><td class="pme-key-1">
+    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td></tr>
+
+<tr><td title="html、 rss、 输出文件和内服务器的文档根目录而推断的图表" class="menu">htmlpath</td><td class="pme-key-1">
+    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+</td></tr>
+<tr><td title="付款，如果等待将需要确认通过接收用户的初始状态" class="pme-key-title">首期付款状态</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td></tr>
+<tr><td title="初始状态的用户，如果未经证实将需要确认的用户的电子邮件" class="pme-key-title">初始用户状态</td><td class="pme-key-1">
+    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+</td></tr>
+<tr><td title="邮件和模板的默认语言" class="pme-key-title">语言</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="语言" size="60" value="$$fieldsref{语言}">
+</td></tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr><td title="屏幕上的表格报表的行的数目" class="pme-key-title">每页的行</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+</td></tr>
+<tr><td title="邮件文件的路径，没有将工作如果这是错误的 ！" class="menu">消息路径</td><td class="pme-key-1">
+    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+</td></tr>
+<tr><td title="如果不是，不需要 Soap::Lite 模块" class="menu">multiregistry？?</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="multiregistry？" size="60" value="$$fieldsref{multiregistry？}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+</td></tr>
+<tr><td title="不直接使用，但可以包含在自定义模板" class="pme-key-title">支持邮件</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="used to send mail and log in to smtp 服务器, set up in cpanel, if necessary, first" class="menu">系统邮件地址</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="用于通知等这是首选，将成为未来，唯一的选项开关 Net::SMTP 0 或 1" class="menu">净 smtp 吗？?</td><td >
+    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+</td></tr>
+
+
+
+<tr><td title="password for logging on to system email address within smtp 服务器" class="menu">系统邮件密码</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+</td></tr>
+<tr><td title="对于生成的电子邮件，经常做不-回复的回复地址" class="pme-key-title">系统邮件答复地址</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td></tr>
+<tr><td title="用于 web 界面模板文件的路径，不多会工作如果这是错误的 ！" class="menu">模板</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="模板" size="60" value="$$fieldsref{模板}">
+</td></tr>
+
+<!-- section dealing with batch files -->
+
+<tr><td title="基地输出路径对于 web 根目录下活动图表、 注册表名称添加到此路径" class="pme-key-title">图表目录</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+</td></tr>
+
+<tr><td title="将需要 perl rss 模块生成 rss，如果是" class="pme-key-title">userss</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="基地上传批事务处理的路径，不应在 web 根目录下" class="pme-key-title">csv 目录</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td></tr>
+
+<tr><td title="gammu 收到短信，不需要为 http sms 网关的收件箱" class="pme-key-title">短信收件箱</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+</td></tr>
+
+<tr><td title="收件箱中的邮件，取而代之的是在每个注册表中的流行邮件的旧方法" class="pme-key-title">readmail.pl 目录</td><td class="pme-key-1">
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+</td></tr>
+
+<tr><td title="web 根目录下的 csv 交易基地输出路径" class="pme-key-title">csv 出</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+</td></tr>
+
+
+
+<tr><td title="基于输出路径下 web 根目录、 注册表名称和语言的印刷材料添加到此路径" class="pme-key-title">打印路径</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+</td></tr>
+
+<tr><td title="基于输出 rss、 注册表名称和语言路径添加到此路径" class="pme-key-title">基地饲料目录</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+</td></tr>
+
+<tr><td title="基于目录的 gammu 的结果，不需要为 http sms 网关" class="pme-key-title">出短信</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+</td></tr>
+
+<tr><td title="gammu input processed 本地ly if 1, otherwise this uses soap to process remotely" class="pme-key-title">本地 sms?</td><td class="pme-key-1">
+<input type="text"  readonly="1" class="required" name="sms本地" size="1" value="$$fieldsref{sms本地}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="Log4perl 配置文件的路径" class="pme-key-title">记录器配置路径</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+</td></tr>
+
+<tr><td ctitle="current cclite 版本" lass="pme-key-title">版本</td><td class="pme-key-1">
+    <input type="text" class="required" class="grey" readonly="1" name="版本" size="5" value="$$fieldsref{版本}">
+
+</td></tr>
+ <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="更新" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset">
+ </td>
+            </tr>
+</tbody></table>
+</form>

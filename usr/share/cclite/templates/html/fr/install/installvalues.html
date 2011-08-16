@@ -1,0 +1,193 @@
+<div class="failedcheck"> $$fieldsref{updatemessage}</div>
+<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
+<table><tbody class="stripy">
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+<select name="install_type" id="install_type" onchange="change_install();">
+<option selected value="simple">Simple</option>
+<option value="full">Toutes les Options</option>
+</select>
+<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> Registre">
+<input name="action" value="updateconfig2" type="hidden">
+
+<tr><td title="Il s'agit de l'utilisateur de db pour mysql" class="menu">pour dbUser</td><td class="pme-key-1">
+    <input id="pour dbUser" type="text" class="required" name="pour dbUser" size="60" value="$$fieldsref{pour dbUser}">
+</td></tr>
+<tr><td title="C'est le mot de passe db pour mysql" class="menu">dbpassword</td><td class="pme-key-1">
+    <input id="dbpassword" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td></tr>
+
+<tr><td title="experimental préfixe cPanel, use with care, uusally cpanel user name" class="menu">préfixe cPanel</td><td class="pme-key-1">
+    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+</td></tr>
+
+<tr><td title="affichage de la virgule décimale monnaies" class="menu">Utilisez les décimales</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+</td></tr>
+
+<tr><td title="utiliser des étiquettes de forme libre pour les pages jaunes au lieu des catégories fixes" class="menu">utiliser des balises</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+</td></tr>
+
+
+<tr><td title="C'est le domainee comme déduit le chemin du script, doit être correct des cookies travailler" class="menu">domaine</td><td class="pme-key-1">
+    <input type="text" readonly="1"  class="required" name="domaine" size="60" value="$$fieldsref{domaine}">
+</td></tr>
+<tr><td title="this is the serveur SMTP for mail, for cpanel usually same as domaine name, localhost or ip for internal servers" class="menu">serveur SMTP</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+</td></tr>
+
+<tr><td title="script utilisateur principal pour cclite" class="menu">Accueil</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required"  name="Accueil" size="60" value="$$fieldsref{uAccueil}">
+</td></tr>
+
+<tr><td title="C'est le type de hachage utilisé pour les calculs jetons et de mot de passe, il est préférable de sha2, ne peut être changé/mixtes une fois mis en place" class="menu">type de hachage</td><td class="pme-key-1">
+    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td></tr>
+
+<tr><td title="HTML, rss, les fichiers de sortie et graphiques, déduites de la racine du document au sein du serveur" class="menu">htmlpath</td><td class="pme-key-1">
+    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+</td></tr>
+<tr><td title="statut initial d'un paiement, si l'attente exigera la confirmation par la réception d'utilisateur" class="pme-key-title">statut de paiement initial</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td></tr>
+<tr><td title="statut initial d'un utilisateur, si non confirmé exigera une confirmation par email de l'utilisateur" class="pme-key-title">statut de l'utilisateur initial</td><td class="pme-key-1">
+    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+</td></tr>
+<tr><td title="langue par défaut pour les messages et les modèles" class="pme-key-title">langue</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="langue" size="60" value="$$fieldsref{langue}">
+</td></tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr><td title="nombre de lignes de l'écran pour les rapports tabulaires" class="pme-key-title">lignes par page</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+</td></tr>
+<tr><td title="chemin d'accès au fichier de messages, rien ne travaillera si c'est faux !" class="menu">chemin d'accès pour les messages</td><td class="pme-key-1">
+    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+</td></tr>
+<tr><td title="Si non, n'ont pas besoin Soap::Lite modules" class="menu">multiregistry ??</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="multiregistry ?" size="60" value="$$fieldsref{multiregistry ?}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+</td></tr>
+<tr><td title="pas utilisée directement, mais peuvent être incluses dans les modèles personnalisés" class="pme-key-title">soutenir le courrier</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="used to send mail and log in to serveur SMTP, set up in cpanel, if necessary, first" class="menu">Adresse de courrier électronique de système</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="utilisée pour basculer sur Net::SMTP pour les notifications etc. C'est privilégiée et sera la seule option à l'avenir, 0 ou 1" class="menu">net smtp ??</td><td >
+    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+</td></tr>
+
+
+
+<tr><td title="password for logging on to system email address within serveur SMTP" class="menu">mot de passe système courrier</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+</td></tr>
+<tr><td title="Adresse de réponse pour les courriels générés, souvent une-non-réponse" class="pme-key-title">Adresse de réponse système</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td></tr>
+<tr><td title="chemin d'accès pour les fichiers de modèle utilisé pour l'interface web, rien beaucoup fonctionnera si c'est faux !" class="menu">modèles</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="modèles" size="60" value="$$fieldsref{modèles}">
+</td></tr>
+
+<!-- section dealing with batch files -->
+
+<tr><td title="base de sortie chemin pour les graphiques d'activité sous la racine web, le nom du Registre est ajoutée à ce chemin" class="pme-key-title">répertoire graphique</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+</td></tr>
+
+<tr><td title="exigera des modules perl rss pour générer des flux rss, si oui" class="pme-key-title">userss</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="base de télécharger le chemin d'accès pour les transactions par lot, ne devrait pas être sous la racine web" class="pme-key-title">répertoire CSV</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td></tr>
+
+<tr><td title="boîte de réception sms gammu a reçu, non requis pour les passerelles sms http" class="pme-key-title">boîte de réception de SMS</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+</td></tr>
+
+<tr><td title="boîte de réception pour le courrier, ancienne méthode remplacé par courrier pop dans chaque registre" class="pme-key-title">répertoire ReadMail.pl</td><td class="pme-key-1">
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+</td></tr>
+
+<tr><td title="chemin de la base de sortie pour les transactions csv sous la racine web" class="pme-key-title">CSV hors</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+</td></tr>
+
+
+
+<tr><td title="sortie de base chemin d'accès aux documents imprimés sous la racine web, nom du Registre et la langue est ajouté à ce chemin" class="pme-key-title">chemin d'accès d'impression</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+</td></tr>
+
+<tr><td title="sortie de base chemin pour rss, nom du Registre et la langue est ajouté à ce chemin" class="pme-key-title">base de nourrir le répertoire</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+</td></tr>
+
+<tr><td title="base de répertoire pour gammu résultats, non requis pour les passerelles sms http" class="pme-key-title">SMS hors</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+</td></tr>
+
+<tr><td title="entrée de gammu traitée localement si 1, sinon cela utilise soap à traiter à distance" class="pme-key-title">sms local ??</td><td class="pme-key-1">
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="chemin d'accès au fichier de configuration de Log4perl" class="pme-key-title">chemin de config de Logger</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+</td></tr>
+
+<tr><td ctitle="current cclite Version" lass="pme-key-title">Version</td><td class="pme-key-1">
+    <input type="text" class="required" class="grey" readonly="1" name="Version" size="5" value="$$fieldsref{Version}">
+
+</td></tr>
+ <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Mise à jour" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset">
+ </td>
+            </tr>
+</tbody></table>
+</form>

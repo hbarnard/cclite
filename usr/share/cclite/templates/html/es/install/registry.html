@@ -3,7 +3,7 @@
        <table class="pme-main" summary="om_users">
           <tbody class="stripy">
             <tr class="pme-row-0">
-              <td title="name of database defining trading group, one word without spaces" class="pme-key-0">Registry Name<br>
+              <td title="nombre de la base de datos de definición de grupo comercial, una palabra sin espacios" class="pme-key-0">Nombre del registro<br>
               </td>
               <td class="pme-value-0"> 
 <input type="hidden" name="action" value="addregistry">
@@ -13,76 +13,76 @@
             </tr>
 
             <tr class="pme-row-0">
-              <td title="short description of trading group" class="pme-key-0">Registry Description<br>
+              <td title="breve descripción del grupo de comercio" class="pme-key-0">Registro Descripción<br>
               </td>
 <td class="pme-value-0"> 
 <input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
             </tr>
 
-<tr title="address and account used to send official emails for this group" class="pme-row-0">
-              <td class="pme-key-0">Manager Email<br>
+<tr title="dirección y cuenta que se utiliza para enviar mensajes de correo electrónico oficiales para este grupo" class="pme-row-0">
+              <td class="pme-key-0">Administrador de correo electrónico<br>
               </td>
 <td class="pme-value-0"> 
 <input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
             </tr>
 
-<td title="password for admin email account" class="pme-key-0">Manager Email Password<br>
+<td title="contraseña para la cuenta de correo electrónico del administrador" class="pme-key-0">Administrador de correo electrónico Contraseña<br>
               </td>
 <td class="pme-value-0"> 
 <input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
             </tr>
 
-<tr title="account where emails transactions are received can be the same as admin" class="pme-row-1">
-              <td class="pme-key-1">Email for Batch Transactions<br>
+<tr title="cuenta que se reciben los mensajes de correo electrónico de transacciones puede ser el mismo que admin" class="pme-row-1">
+              <td class="pme-key-1">Correo electrónico for Batch Transacciones<br>
               </td>
 <td class="pme-value-1"> 
 <input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
             </tr>
 
 
-<td title="password for batch email account" class="pme-key-0">Batch Email Password<br>
+<td title="contraseña de cuenta de correo electrónico de lote" class="pme-key-0">Batch Correo electrónico Contraseña<br>
               </td>
 <td class="pme-value-0"> 
 <input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
             </tr>
 
-<tr title="not used currently but defines trading model" class="pme-row-1">
-              <td nowrap class="pme-key-1">System Charging Model
+<tr title="no utiliza actualmente pero define el modelo comercial" class="pme-row-1">
+              <td nowrap class="pme-key-1">Modelo del sistema de carga
               </td>
 <td class="pme-value-1"> 
-<select class="pme-input-1" name="chargetype"><option value="equaltime">Equality</option><option selected value="market">Market Rates</option></select></td>
+<select class="pme-input-1" name="chargetype"><option value="equaltime">Igualdad</option><option selected value="market">Tipos de mercado</option></select></td>
             </tr>
 
-<tr title="not used currently but defines commission model" class="pme-row-1">
-              <td class="pme-key-1">System Commission Model
+<tr title="no utiliza actualmente pero define el modelo de la Comisión" class="pme-row-1">
+              <td class="pme-key-1">Modelo de sistema de Comisión
               </td>
 <td class="pme-value-1"> 
 <select class="pme-input-1" name="commission">
-<option selected value="no">No Commission</option>
-<option value="yes">Commission Based Registry</option>
+<option selected value="no">No hay Comisión</option>
+<option value="yes">Commission Based Registro</option>
 </select></td>
             </tr>
 
 
-<tr title="not used currently but defines subscription model" class="pme-row-1">
-              <td class="pme-key-1">Subscription Model
+<tr title="no utiliza actualmente pero define el modelo de suscripción" class="pme-row-1">
+              <td class="pme-key-1">Modelo de suscripción
               </td>
 <td class="pme-value-1"> 
 <select class="pme-input-1" name="subscription">
-<option selected value="no">No Subscription</option>
-<option value="yes">Subscription Based</option>
+<option selected value="no">Sin suscripción</option>
+<option value="yes">Suscripción basado</option>
 </select></td>
             </tr>
 
-<tr title="defines commitment limit for all currencies in this registry" class="pme-row-1">
-              <td class="pme-key-1">Global Commitment Limit<br>
+<tr title="define el límite del compromiso de todas las monedas en este registro" class="pme-row-1">
+              <td class="pme-key-1">Límite de compromiso global<br>
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
             </tr>
 
-<tr title="key server used:public key id for this registry currently for email transactions only" class="pme-row-1">
-              <td class="pme-key-1">Key Server:Public key id<br>
+<tr title="servidor clave utilizado: id de clave pública para este registro currently for email transactions only" class="pme-row-1">
+              <td class="pme-key-1">Id de clave Key Server: público<br>
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
@@ -90,34 +90,34 @@
 
 
 </tr>
-<tr title="not used currently but defines whether geographic area or special interest"  class="pme-row-1">
-              <td class="pme-key-1">Covers Geographic Area?
+<tr title="no utiliza actualmente pero define si geográfica zona o interés especial"  class="pme-row-1">
+              <td class="pme-key-1">¿Portadas zona geográfica??
               </td>
 <td class="pme-value-1"> 
 <select class="pme-input-1" name="geographic">
-<option selected value="yes">Yes</option>
+<option selected value="yes">Sí</option>
 <option value="no">No</option>
 </select></td>
             </tr>
 
-<tr title="not used currently but defines posts or zip codes so that public registries can be geocoded and mapped" class="pme-row-1">
-              <td class="pme-key-1">Postcodes or Latitude,Longitude
+<tr title="no utiliza actualmente pero define puestos o códigos postales para que registros públicos pueden ser asignada y geocoded" class="pme-row-1">
+              <td class="pme-key-1">Código postals or Latitude,Longitude
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
 </td>
  </tr>
 
-<tr title="used to provide merchant key for elgg, drupal and os-commerce connectors" class="pme-row-1">
-              <td class="pme-key-1">Merchant Key
+<tr title="utilizan para proporcionar mercante clave de elgg, drupal y conectores de os-commerce" class="pme-row-1">
+              <td class="pme-key-1">Mercante clave
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
 </td>
  </tr>
 
-<tr title="used, in principle to limit connectors to certain ips, easily spoofed probably" class="pme-row-1">
-              <td class="pme-key-1">Allow Merchant from IP addresses
+<tr title="utilizada en principio para limitar los conectores a determinadas ips, fácilmente falseada probablemente" class="pme-row-1">
+              <td class="pme-key-1">Permitir a comerciante de direcciones IP
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">

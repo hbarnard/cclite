@@ -1,0 +1,135 @@
+<form id="form">
+<table>
+
+<tr>
+<td title="ξεκινήσετε τη γραφική δέσμη ενεργειών">
+Graphing
+</td>
+<td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
+Ηλεκτρονικό ταχυδρομείο input 
+</td>
+<!--
+<td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
+<del>GPG Ηλεκτρονικό ταχυδρομείο input</del> 
+</td>
+-->
+
+
+<td title="έναρξη παραγωγής τροφοδοτήσεων rss για Κίτρινες σελίδες μικρές αγγελίες">
+RSS Feed    
+</td>
+<td title="start accepting input via gammu from a τοπικό mobile phone">
+Gammu input
+</td>
+
+<td title="συναλλαγών μαζική αποστολή και διαδικασία">
+Αποστολή/process Batch Συναλλαγές
+</td>
+
+
+</tr>
+
+<tr>
+
+<td>
+   <select onchange="on_select_change('stats');" id="stats_value" >
+	<option value="0"> Stop Stats</option>
+	<option value="5">Κάθε 5 λεπτά</option>
+	<option value="10">Κάθε 10 λεπτά</option>
+	<option value="30">Κάθε 30 min</option>
+</select>
+   
+    </td>
+
+
+
+
+<td>
+    <select onchange="on_select_change('mail');" id="mail_value" >
+	<option value="0"> Stop Mail</option>
+	<option value="5">Κάθε 5 λεπτά</option>
+	<option value="10">Κάθε 10 λεπτά</option>
+	<option value="30">Κάθε 30 min</option>
+</select>
+
+    
+    </td>
+<!--
+<td>
+    <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Κάθε 5 λεπτά</option>
+	<option value="10">Κάθε 10 λεπτά</option>
+	<option value="30">Κάθε 30 min</option>
+</select>
+
+    
+    </td>
+-->
+
+
+<td>
+    <select onchange="on_select_change('rss');" id="rss_value" >
+	<option value="0"> Stop Rss</option>
+	<option value="5">Κάθε 5 λεπτά</option>
+	<option value="10">Κάθε 10 λεπτά</option>
+	<option value="30">Κάθε 30 min</option>
+</select>
+    
+    </td>
+
+
+
+<td>
+    <select onchange="on_select_change('gammu');" id="gammu_value" >
+	<option value="0"> Stop SMS</option>
+	<option value="5">Κάθε 5 λεπτά</option>
+	<option value="10">Κάθε 10 λεπτά</option>
+	<option value="30">Κάθε 30 min</option>
+</select>
+  </td>
+
+<td>
+<input type="submit" class="smalltext" id="upload_button" value="Αποστολή Batch Συναλλαγές"> 	
+</td>
+
+</tr>
+
+
+<tr>
+    <td><span id="stats">Περίμενε</span></td>
+    <td><span id="mail">Περίμενε</span></td>
+    <td><span id="gpg_mail">Περίμενε</span></td>
+    <td><span id="rss">Περίμενε</span></td> 
+    <td><span id="gammu">Περίμενε</span></td>
+   <td></td>
+</tr>    
+
+
+<tr>
+    <td><span id="statements"><a title="εκτύπωση καταστάσεων Τράπεζα odt" href="/cgi-bin/protected/batch/print_statements.pl">Εκτύπωση καταστάσεων</a></span></td>
+    <td><span id="yellowpages"><a title="εκτύπωση odt Κίτρινες σελίδες" href="/cgi-bin/protected/batch/print_yellowpages.pl">Εκτύπωση Yellowpages</a></span></td>
+    <td><span id=""></span></td>
+    <td><span id=""></span></td> 
+    <td><span id=""></span></td>
+   <td></td>
+</tr>
+
+
+
+
+</table>
+</form>
+
+<div id="stats_status"></div>
+<div id="gpg_mail_status"></div>
+<div id="mail_status"></div>
+<div id="csv_status"></div>
+<div id="rss_status"></div>
+<div id="gammu_status"></div><br/>
+
+<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<br/>
+
+<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
+<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
