@@ -3,7 +3,7 @@
        <table class="pme-main" summary="om_registry">
           <tbody class="stripy">
             <tr class="pme-row-0">
-              <td class="pme-key-0">ชื่อรีจิสทรี<br>
+              <td class="pme-key-0">ชื่อของรีจิสทรี<br>
               </td>
               <td class="pme-value-0"> 
 <input type="hidden" name="action" value="update">
@@ -14,33 +14,33 @@
             </tr>
 
             <tr class="pme-row-0">
-              <td class="pme-key-0">รีจิสทรี รายละเอียด<br>
+              <td class="pme-key-0">รีจิสทรี คำอธิบาย<br>
               </td>
 <td class="pme-value-0"> 
 <input name="description" size="50" maxlength="250" value="$$fieldsref{description}" type="text"></td>
             </tr>
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">ผู้จัดการ<br>
+              <td class="pme-key-0">จัดการอีเมล์<br>
               </td>
 <td class="pme-value-0"> 
 <input  name="admemail" size="60" maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
             </tr>
 
-<td title="รหัสผ่านสำหรับบัญชีอีเมลของผู้ดูแลระบบ" class="pme-key-0">ผู้จัดการ รหัสผ่าน<br>
+<td title="รหัสผ่านสำหรับบัญชีผู้ใช้อีเมลของผู้ดูแลระบบ" class="pme-key-0">จัดการอีเมล์ รหัสผ่าน<br>
               </td>
 <td class="pme-value-0"> 
 <input class="pme-input-0" class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
             </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-1">อีเมล์ for Batch ก\u200b\u200bารทำธุรกรรม<br>
+              <td class="pme-key-1">อีเมล for Batch ธุรกรรม<br>
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
             </tr>
 
-<td title="รหัสผ่านสำหรับชุดบัญชีอีเมล" class="pme-key-0">Batch อีเมล์ รหัสผ่าน<br>
+<td title="รหัสผ่านสำหรับบัญชีผู้ใช้อีเมล์ของชุดงาน" class="pme-key-0">Batch อีเมล รหัสผ่าน<br>
               </td>
 <td class="pme-value-0"> 
 <input class="pme-input-0" class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
@@ -48,21 +48,21 @@
 
 
 <tr class="pme-row-1">
-              <td class="pme-key-1">Global   Commitment Limit<br>
+              <td class="pme-key-1">ขีดจำกัดของความมุ่งมั่นส่วนกลาง<br>
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
             </tr>
 
-<tr title="เซิร์ฟเวอร์สำคัญที่ใช้ : รหัสกุญแจสาธารณะสำหรับรีจิสทรีนี้" class="pme-row-1">
-              <td class="pme-key-1">เซิร์ฟเวอร์สำคัญ :  id คีย์สาธารณะ<br>
+<tr title="เซิร์ฟเวอร์หลักที่ใช้: รหัสคีย์สาธารณะสำหรับรีจิสทรีนี้" class="pme-row-1">
+              <td class="pme-key-1">หมายเลขคีย์ Key Server: Public<br>
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
             </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-1">ก\u200b\u200bารค้าที่สำคัญ
+              <td class="pme-key-1">คีย์การค้า
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="merchant_key" size="50" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
@@ -70,7 +70,7 @@
  </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-1">อนุญาตให้ผู้ค้าจากทั่วที่อยู่ IP (space separated list)
+              <td class="pme-key-1">อนุญาตให้พ่อค้าจาก IP แอดเดรส (space separated list)
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="allow_ip_list" size="50" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
@@ -79,7 +79,7 @@
 
 
 <tr class="pme-row-1">
-              <td class="pme-key-1">ปรับปรุงข่าวล่าสุด
+              <td class="pme-key-1">ปรับปรุงข้อมูลข่าวสารล่าสุด
               </td>
 <td class="pme-value-1"> 
 <input class="pme-input-1" name="latest_news" size="50" maxlength="80" value="$$fieldsref{latest_news}" type="text">
@@ -97,8 +97,8 @@
           <tbody>
             <tr class="pme-navigation">
               <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="ไปทั่ว"  type="submit">&nbsp;<input
- class="pme-cancel" name="cancel" value="  Cancel"
+ name="saveadd" value="ไป"  type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="Cancel"
   type="reset"> </td>
             </tr>
           </tbody>

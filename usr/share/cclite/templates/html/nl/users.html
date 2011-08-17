@@ -1,0 +1,132 @@
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="update" type="hidden">
+<input name="subaction" value="om_users" type="hidden">
+<input name="userId" value="$$fields{userId}" type="hidden">
+  <table class="pme-main" summary="om_users">
+    <tbody class="stripy">
+      <tr class="pme-row-1">
+        <td class="pme-key-1">UserLogin</td>
+        <td class="pme-value-0"> <input class="grey"
+ name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">User Wachtwoord</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="userWachtwoord" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm Wachtwoord</td>
+        <td class="pme-value-0"> <input class="pme-input-0"
+ name="confirmWachtwoord" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-1">UserE-mail</td>
+        <td class="pme-value-1"> <input class="required email"
+ name="userE-mail" size="40" maxlength="255" value="$$fields{userE-mail}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Nummer/naam</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userNaamornumber" size="30" maxlength="30" value="$$fields{userNaamornumber}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Straatnaam</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userStraat" size="40" maxlength="40" value="$$fields{userStraat}" type="text">
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">Stad</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userStad" size="40" maxlength="40" value="$$fields{userStad}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">County/staat</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Postcode</td>
+              <td class="pme-value-1"> <input class="required"
+ name="userPostcode" size="10" maxlength="10" value="$$fieldsref{userPostcode}" type="text">
+</td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Mobiele telefoon</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Pin for Mobiele telefoon Transacties</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Confirm Pin for Mobiele telefoon Transacties</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Betalingsontvangsten SMS</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td title="Dit is de openbare sleutel id voor gecodeerde transacties" class="pme-key-0">Openbare sleutel-Id</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
+            </tr>
+
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">Taal</td>
+              <td class="pme-value-1"> 
+                 <select name="userLang">
+                   <option value="de">Deutsch</option>
+                   <option selected value="en">Engels</option>
+                   <option value="fr">Fran</option>
+                 </select>
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Gebruikersnaam</td>
+        <td class="pme-value-0"> <input class="required"
+ name="userNaam" size="40" maxlength="255" value="$$fields{userNaam}" type="text"></td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-1">Holiday or Actieve</td>
+        <td class="pme-value-1"> 
+                 <select name="userStatus">
+                   <option selected value="active">Actieve</option>
+                   <option value="holiday">Op vakantie</option>
+                 </select>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="pme-hr">
+  <table class="pme-navigation">
+    <tbody>
+      <tr class="pme-navigation">
+        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
+ value="Opslaan" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Cancel"  type="reset"> </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

@@ -20,13 +20,13 @@
  name="confirmรหัสผ่าน" size="32" maxlength="32" value="" type="password"></td>
       </tr>
       <tr class="pme-row-1">
-        <td class="pme-key-1">Userอีเมล์</td>
+        <td class="pme-key-1">Userอีเมล</td>
         <td class="pme-value-1"> <input class="required email"
- name="userอีเมล์" size="40" maxlength="255" value="$$fields{userอีเมล์}" type="text"></td>
+ name="userอีเมล" size="40" maxlength="255" value="$$fields{userอีเมล}" type="text"></td>
       </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">ชื่อจำนวน / ของตกแต่งบ้าน</td>
+              <td class="pme-key-0">หมายเลข/บ้านชื่อ</td>
               <td class="pme-value-1"> <input class="required"
  name="userชื่อornumber" size="30" maxlength="30" value="$$fields{userชื่อornumber}" type="text">
 
@@ -40,14 +40,14 @@
 </td>
             </tr>
 <tr class="pme-row-1">
-              <td class="pme-key-0">ทาวน์</td>
+              <td class="pme-key-0">เมือง</td>
               <td class="pme-value-1"> <input class="required"
- name="userทาวน์" size="40" maxlength="40" value="$$fields{userทาวน์}" type="text">
+ name="userเมือง" size="40" maxlength="40" value="$$fields{userเมือง}" type="text">
 </td>
             </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">มณฑล / รัฐ</td>
+              <td class="pme-key-0">ประเทศ</td>
               <td class="pme-value-1"> <input class="required"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
 </td>
@@ -68,25 +68,25 @@
             </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Pin for โทรศัพท์มือถือ ก\u200b\u200bารทำธุรกรรม</td>
+              <td class="pme-key-0">Pin for โทรศัพท์มือถือ ธุรกรรม</td>
               <td class="pme-value-1"> <input class="pme-input-1"
  name="userPin" size="6" maxlength="6" value="" type="password"></td>
             </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Confirm Pin for โทรศัพท์มือถือ ก\u200b\u200bารทำธุรกรรม</td>
+              <td class="pme-key-0">Confirm Pin for โทรศัพท์มือถือ ธุรกรรม</td>
               <td class="pme-value-1"> <input class="pme-input-1"
  name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
             </tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">SMS การชำระเงินใบเสร็จรับเงิน</td>
+              <td class="pme-key-0">ใบรับชำระเงินทาง SMS</td>
               <td class="pme-value-1"> <input class="pme-input-1"
  name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
             </tr>
 
 <tr class="pme-row-1">
-              <td title="นี้คือรหัสคีย์สาธารณะสำหรับการทำธุรกรรมการเข้ารหัส" class="pme-key-0"> Id คีย์สาธารณะ</td>
+              <td title="นี้เป็นหมายเลขคีย์สาธารณะสำหรับธุรกรรมการเข้ารหัสลับ" class="pme-key-0">Id ของคีย์สาธารณะ</td>
               <td class="pme-value-1"> <input class="pme-input-1"
  name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
             </tr>
@@ -96,8 +96,8 @@
               <td class="pme-key-0">ภาษา</td>
               <td class="pme-value-1"> 
                  <select name="userLang">
-                   <option value="de"> Deutsch</option>
-                   <option selected value="en">ภาษาอังกฤษ</option>
+                   <option value="de">Deutsch</option>
+                   <option selected value="en">อังกฤษ</option>
                    <option value="fr">Fran</option>
                  </select>
 </td>
@@ -109,11 +109,11 @@
       </tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or ใช้งานล่าสุด</td>
+        <td class="pme-key-1">Holiday or ใช้งานอยู่</td>
         <td class="pme-value-1"> 
                  <select name="userสถานะ">
-                   <option selected value="active">ใช้งานล่าสุด</option>
-                   <option value="holiday">เมื่อหยุด</option>
+                   <option selected value="active">ใช้งานอยู่</option>
+                   <option value="holiday">ในวันหยุด</option>
                  </select>
 </td>
       </tr>

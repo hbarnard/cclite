@@ -1,0 +1,41 @@
+<table class="pme-main" summary="om_users">
+    <tbody class="stripy">
+      <tr class="pme-row-1">
+        <td class="pme-key-title">UserLogin</td>
+        <!-- duserLogin is used to distinguish from userLogin, processed generally -->
+        <td class="pme-value-0"> $$fields{duserLogin}</td>
+      </tr>
+      <tr class="pme-row-1">
+        <td class="pme-key-title">UserE-Mail</td>
+        <td class="pme-value-1">$$fields{userE-Mail}</td>
+      </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-title">Straße</td>
+              <td class="pme-value-1">$$fields{userNameornumber} $$fields{userStraße}
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-title">Stadt/County</td>
+              <td class="pme-value-1">$$fields{userStadt} $$fields{userArea}
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-title">Mobiltelefon</td>
+              <td class="pme-value-1"> $$fields{userMobile} </td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-title">Name</td>
+        <td class="pme-value-0">$$fields{userName}</td>
+      </tr>
+
+<tr class="pme-row-1">
+        <td class="pme-key-title">Urlaub oder aktiv</td>
+        <td class="pme-value-1">$$fieldsref{userStatus} 
+</td>
+      </tr>
+ </tbody>
+  </table>
+

@@ -8,22 +8,22 @@
 
 
 <tr>
-<td class="pme-key-0">จากของผู้ใช้</td>
+<td class="pme-key-0">จากผู้ใช้</td>
 <td class="pme-value-0">
 <input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text"></td>
 </tr>
 <tr>
-<td class="pme-key-1">ประเภท</td>
+<td class="pme-key-1">ชนิด</td>
 <td class="pme-value-1">
               <select class="required" name="type">
-              <option value="offered" selected="selected">เสนอ</option>
+              <option value="offered" selected="selected">ข้อเสนอ</option>
               <option value="wanted">ต้องการ</option>
               <option value="other">อื่น ๆ</option>
               </select>
 </td>
 </tr>
 <tr>
-<td class="pme-key-1">ชั้นนำระดับที่สำคัญ</td>
+<td class="pme-key-1">หลักของคลาส</td>
 <td class="pme-value-1">
               <select class="required" name="majorclass">
               <option value="service" selected="selected">บริการ</option>
@@ -34,24 +34,24 @@
 </tr>
 
 <tr>
-<td class="pme-key-1">ก\u200b\u200bารจัดหมวดหมู่</td>
+<td class="pme-key-1">การจัดประเภท</td>
 <td class="pme-value-1">
 $$fieldsref{selectclassification}</td>
 </tr>
 
 <tr>
-<td class="pme-key-1"> Tags : (autocomplete)</td>
+<td class="pme-key-1">แท็ก (autocomplete)</td>
 <td class="pme-value-1">
 <span id="tagmatches" class="tagmatches"><input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}"></span></td>
 </tr>
 
 <tr>
-<td class="pme-key-0">เรื่อง</td>
+<td class="pme-key-0">ชื่อเรื่อง</td>
 <td class="pme-value-0">
 <input class="required" name="subject" size="30" maxlength="30" value="" type="text"></td>
 </tr>
 <tr>
-<td class="pme-key-1">รายละเอียด</td>
+<td class="pme-key-1">คำอธิบาย</td>
 <td class="pme-value-1">
 <textarea class="required" name="description" rows="5" columns="50">
 $$fieldsref{description}</textarea>
@@ -75,20 +75,20 @@ $$fieldsref{selectcurrency}
 <td class="pme-value-1">
               <select class="pme-input-1" name="unit">
               <option value="" ></option>
-              <option value="hour" >ต่อชั่วโมงทั่ว</option>
+              <option value="hour" >ต่อชั่วโมง</option>
               <option value="day" >ต่อวัน</option>
-              <option value="week" >ต่อสัปดาห์ที่</option>
+              <option value="week" >ต่อสัปดาห์</option>
               <option value="month" >ต่อเดือน</option>
               </select>
 </td>
 </tr>
 
 <tr>
-<td class="pme-key-1">การชำระเงินเสร็จสมบูรณ์ใน LETS สกุลเงิน? ?</td>
+<td class="pme-key-1">การชำระเงินเสร็จสมบูรณ์ในสกุลเงินให้หรือไม่?</td>
 <td class="pme-value-1">
               <select class="pme-input-1" name="truelets">
               <option value="yes" >ใช่</option>
-              <option value="no">ไม่มีใน</option>
+              <option value="no">ไม่ใช่</option>
               </select>
 </td>
 </tr>

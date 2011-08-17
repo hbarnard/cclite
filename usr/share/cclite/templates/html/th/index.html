@@ -56,14 +56,26 @@ $$fieldsref{metarefresh}
 			</div>
 			<div id="topbar">
 				<div align="right" style="padding:12px;">
-<a title="การบริหารเมนู" href="/cgi-bin/protected/ccadmin.cgi"><span id="adminlink"></span></a> <a title="เมนูการบริหารจัดการในแท็บใหม่" target="_blank" href="/cgi-bin/protected/ccadmin.cgi"><span id="adminlinknewtab"></span></a> |
-<a class="bodytext"  title="ลืม Password? ?" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">ลืมรหัสผ่าน? ?</a> |
-<a class="bodytext" title=" Deutsch" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">เพิ่ม OpenID </a> |
-<a class="bodytext" title=" Deutsch" href="/cgi-bin/cclite.cgi?action=showopenid">รายการ Openids</a> |
-<a class="bodytext" title="Fran" href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">Fran</a> |
-<a class="bodytext" title=" Espagnol" href="/cgi-bin/cclite.cgi?action=lang&amp;language=es"> Espagnol</a> |
-<a class="bodytext" title="Create a บัญชีใหม่" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">บัญชีใหม่</a> |
-<a class="bodytext" title="ปรับเปลี่ยนบัญชีรายละเอียดของคุณ" href="/cgi-bin/cclite.cgi?action=modifyuser">ปรับเปลี่ยนที่บัญชี</a>
+<a title="การจัดการเมนู" href="/cgi-bin/protected/ccadmin.cgi"><span id="adminlink"></span></a> <a title="การจัดการเมนูในแท็บใหม่" target="_blank" href="/cgi-bin/protected/ccadmin.cgi"><span id="adminlinknewtab"></span></a> |
+<a class="bodytext"  title="ลืมรหัสผ่านของคุณ?" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">ลืมรหัสผ่าน?</a> |
+<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">เพิ่มโอเพนไอดี</a> |
+<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=showopenid">Openids รายการ</a> |
+<!-- language selector version 1  -->
+<select id="language_value" class="small" onchange=change_language(this) ; name="language">
+<option value='en'>English</option>
+<option value='zh'>Chinese</option>
+<option value='de'>Deutsch</option>
+<option value='fr'>Francais</option>
+<option value='es'>Espagnol</option>
+<option value='it'>Italiano</option>
+<option value='el'>Greek</option>
+<option value='ja'>Japanese</option>
+<option value='ja'>Portugese</option>
+<option value='th'>Thai</option>
+</select>
+<!--  language selector version 1 end  --> |
+<a class="bodytext" title="Create a บัญชีผู้ใช้ใหม่" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">บัญชีผู้ใช้ใหม่</a> |
+<a class="bodytext" title="ปรับเปลี่ยนรายละเอียดบัญชีของคุณ" href="/cgi-bin/cclite.cgi?action=modifyuser">ปรับเปลี่ยนบัญชีผู้ใช้</a>
 
 </div>
 			</div>
@@ -85,13 +97,13 @@ Cclite
 			<div id="menu" align="right">
 				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
 				<div id="linksmenu" align="center">
-<a title="สกุลเงินการถ่ายโอนหรือชั่วโมง" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">ก\u200b\u200bารชำระเงิน</a>
-<a title="วิธีการชำระเงินแบบแยกส่วนสำหรับสินค้าหรือบริการ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">Split ก\u200b\u200bารชำระเงิน</a>
-<a title="Show My ก\u200b\u200bารทำธุรกรรม" href="/cgi-bin/cclite.cgi?action=showtrans">ก\u200b\u200bารทำธุรกรรม</a>
-<a title="แสดงยอดคงเหลือของฉัน" href="/cgi-bin/cclite.cgi?action=showbalvol">ยอดคงเหลือ</a>
-<a title="แสดงสินค้าและบริการไดเรกทอรี" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">สินค้า / บริการ</a>
+<a title="สกุลเงินโอนย้ายหรือชั่วโมง" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">ชำระเงิน</a>
+<a title="แยกการชำระเงินสำหรับสินค้าหรือบริการ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">Split ชำระเงิน</a>
+<a title="Show My ธุรกรรม" href="/cgi-bin/cclite.cgi?action=showtrans">ธุรกรรม</a>
+<a title="แสดงยอดดุลของฉัน" href="/cgi-bin/cclite.cgi?action=showbalvol">ยอดดุล</a>
+<a title="แสดงสินค้าและบริการไดเรกทอรี" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">สินค้า/บริการ</a>
 <a title="Show โฆษณาของฉัน in the Goods and Services Directory" href="/cgi-bin/cclite.cgi?action=showmyyellow">โฆษณาของฉัน</a>
-<a title="สร้างเพจของสินค้าและบริการไดเรกทอรี" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">วางโฆษณา</a>
+<a title="สร้างหน้าสำหรับสินค้าและบริการไดเรกทอรี" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">ตำแหน่งโฆษณา</a>
 
 <!-- autocomplete search boxes -->
 
@@ -102,7 +114,7 @@ Cclite
 <input name="action" value="find" type="hidden">
 <input type="hidden" name="subaction" value="om_users">
 <input onfocus="if(this.value == this.defaultValue) this.value = ''" value="search users" name="string1" id="string1"  size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="มองหาผู้ใช้ทั่ว">
+<input src="/images/24-zoom.png"  type="image" title="ค้นหาผู้ใช้">
 </form>
 </div>
 <!-- search for ads -->
@@ -112,7 +124,7 @@ Cclite
 <input name="action" value="find" type="hidden">
 <input type="hidden" name="subaction" value="om_yellowpages">
  <input onfocus="if(this.value == this.defaultValue) this.value = ''"  value="search ads" name="string2" id="string2"  autocomplete="off" size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="มองหาโฆษณา">
+<input src="/images/24-zoom.png"  type="image" title="ค้นหาโฆษณา">
 </form>
 </div>
 <!-- search for trades -->
@@ -121,7 +133,7 @@ Cclite
 <input name="action" value="find" type="hidden">
 <input type="hidden" name="subaction" value="om_trades">
 <input onfocus="if(this.value == this.defaultValue) this.value = ''" value="search trades" name="string3" id="string3" autocomplete="off" size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="มองหาธุรกิจการค้า">
+<input src="/images/24-zoom.png"  type="image" title="ค้นหาการเทรด">
 </div>
 </form>
 

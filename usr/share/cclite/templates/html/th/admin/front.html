@@ -2,28 +2,28 @@
 <table>
 
 <tr>
-<td title="เริ่มการทำงานของกราฟสคริปต์">
+<td title="เริ่มการทำงานของสคริปต์สร้างกราฟ">
 Graphing
 </td>
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-อีเมล์ input 
+อีเมล input 
 </td>
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG อีเมล์ input</del> 
+<del>GPG อีเมล input</del> 
 </td>
 -->
 
 
-<td title="เริ่มผลิต RSS ฟีดสำหรับสมุดหน้าเหลืองโฆษณาเล็ก">
+<td title="เริ่มผลิตตัวดึงข้อมูล rss สำหรับโฆษณาขนาดเล็กของสมุดหน้าเหลือง">
 RSS Feed    
 </td>
-<td title="start accepting input via gammu from a ในท้องถิ่น mobile phone">
+<td title="start accepting input via gammu from a ท้องถิ่น mobile phone">
 Gammu input
 </td>
 
-<td title="อัพโหลดและกระบวนการ batch การทำธุรกรรม">
-อัพโหลด/process Batch ก\u200b\u200bารทำธุรกรรม
+<td title="ธุรกรรมชุดอัปโหลดและกระบวนการ">
+การอัปโหลด/process Batch ธุรกรรม
 </td>
 
 
@@ -35,8 +35,8 @@ Gammu input
    <select onchange="on_select_change('stats');" id="stats_value" >
 	<option value="0"> Stop Stats</option>
 	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาทีทั่ว</option>
-	<option value="30">ทุก 30 นาทีทั่ว</option>
+	<option value="10">ทุก 10 นาที</option>
+	<option value="30">ทุก 30 นาที</option>
 </select>
    
     </td>
@@ -48,8 +48,8 @@ Gammu input
     <select onchange="on_select_change('mail');" id="mail_value" >
 	<option value="0"> Stop จดหมาย</option>
 	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาทีทั่ว</option>
-	<option value="30">ทุก 30 นาทีทั่ว</option>
+	<option value="10">ทุก 10 นาที</option>
+	<option value="30">ทุก 30 นาที</option>
 </select>
 
     
@@ -59,8 +59,8 @@ Gammu input
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
 	<option value="0"> Stop GPG จดหมาย</option>
 	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาทีทั่ว</option>
-	<option value="30">ทุก 30 นาทีทั่ว</option>
+	<option value="10">ทุก 10 นาที</option>
+	<option value="30">ทุก 30 นาที</option>
 </select>
 
     
@@ -72,8 +72,8 @@ Gammu input
     <select onchange="on_select_change('rss');" id="rss_value" >
 	<option value="0"> Stop Rss</option>
 	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาทีทั่ว</option>
-	<option value="30">ทุก 30 นาทีทั่ว</option>
+	<option value="10">ทุก 10 นาที</option>
+	<option value="30">ทุก 30 นาที</option>
 </select>
     
     </td>
@@ -84,31 +84,31 @@ Gammu input
     <select onchange="on_select_change('gammu');" id="gammu_value" >
 	<option value="0"> Stop SMS</option>
 	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาทีทั่ว</option>
-	<option value="30">ทุก 30 นาทีทั่ว</option>
+	<option value="10">ทุก 10 นาที</option>
+	<option value="30">ทุก 30 นาที</option>
 </select>
   </td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="อัพโหลด Batch ก\u200b\u200bารทำธุรกรรม"> 	
+<input type="submit" class="smalltext" id="upload_button" value="การอัปโหลด Batch ธุรกรรม"> 	
 </td>
 
 </tr>
 
 
 <tr>
-    <td><span id="stats">รอ</span></td>
-    <td><span id="mail">รอ</span></td>
-    <td><span id="gpg_mail">รอ</span></td>
-    <td><span id="rss">รอ</span></td> 
-    <td><span id="gammu">รอ</span></td>
+    <td><span id="stats">รอสักครู่</span></td>
+    <td><span id="mail">รอสักครู่</span></td>
+    <td><span id="gpg_mail">รอสักครู่</span></td>
+    <td><span id="rss">รอสักครู่</span></td> 
+    <td><span id="gammu">รอสักครู่</span></td>
    <td></td>
 </tr>    
 
 
 <tr>
-    <td><span id="statements"><a title="พิมพ์ odt ธนาคารงบ" href="/cgi-bin/protected/batch/print_statements.pl">พิมพ์งบ</a></span></td>
-    <td><span id="yellowpages"><a title="พิมพ์ odt หน้าเหลือง" href="/cgi-bin/protected/batch/print_yellowpages.pl">พิมพ์เยลโล่เพจเจ</a></span></td>
+    <td><span id="statements"><a title="พิมพ์คำสั่งธนาคาร odt" href="/cgi-bin/protected/batch/print_statements.pl">พิมพ์คำสั่ง</a></span></td>
+    <td><span id="yellowpages"><a title="พิมพ์สมุดหน้าเหลือง odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">พิมพ์ Yellowpages</a></span></td>
     <td><span id=""></span></td>
     <td><span id=""></span></td> 
     <td><span id=""></span></td>

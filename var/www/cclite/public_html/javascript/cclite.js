@@ -198,6 +198,15 @@ function show_registries () {
  }
 
 
+/* change the template language */
+
+ function change_language() {
+  var e = document.getElementById("language_value");
+  var lang = e.options[e.selectedIndex].value;
+
+  path = '/cgi-bin/cclite.cgi?action=lang&language=' + lang ;
+  window.location=path ;
+ }
 
 
 /* experimental general input processing, value supplied by select as minutes

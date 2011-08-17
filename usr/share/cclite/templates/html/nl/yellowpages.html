@@ -1,0 +1,107 @@
+
+<table>
+<tbody class="stripy">
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+<input name="action" value="addyellow" type="hidden">
+
+
+<tr>
+<td class="pme-key-0">Van gebruiker</td>
+<td class="pme-value-0">
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text"></td>
+</tr>
+<tr>
+<td class="pme-key-1">Type</td>
+<td class="pme-value-1">
+              <select class="required" name="type">
+              <option value="offered" selected="selected">Aanbieding</option>
+              <option value="wanted">Gezocht</option>
+              <option value="other">Andere</option>
+              </select>
+</td>
+</tr>
+<tr>
+<td class="pme-key-1">Grote klasse</td>
+<td class="pme-value-1">
+              <select class="required" name="majorclass">
+              <option value="service" selected="selected">Service</option>
+              <option value="goods">Goederen</option>
+              <option value="other">Andere</option>
+              </select>
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Classificatie</td>
+<td class="pme-value-1">
+$$fieldsref{selectclassification}</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Tags (autocomplete)</td>
+<td class="pme-value-1">
+<span id="tagmatches" class="tagmatches"><input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}"></span></td>
+</tr>
+
+<tr>
+<td class="pme-key-0">Onderwerp</td>
+<td class="pme-value-0">
+<input class="required" name="subject" size="30" maxlength="30" value="" type="text"></td>
+</tr>
+<tr>
+<td class="pme-key-1">Beschrijving</td>
+<td class="pme-value-1">
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}</textarea>
+</td>
+</tr>
+<tr>
+<td class="pme-key-0">Prijs</td>
+<td class="pme-value-0">
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+</tr>
+<tr class="pme-row-1">
+<td class="pme-key-1">Valuta</td>
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Per unit (services only)</td>
+<td class="pme-value-1">
+              <select class="pme-input-1" name="unit">
+              <option value="" ></option>
+              <option value="hour" >per uur</option>
+              <option value="day" >per dag</option>
+              <option value="week" >per week</option>
+              <option value="month" >per maand</option>
+              </select>
+</td>
+</tr>
+
+<tr>
+<td class="pme-key-1">Voltooien van de betaling in laat valuta??</td>
+<td class="pme-value-1">
+              <select class="pme-input-1" name="truelets">
+              <option value="yes" >Ja</option>
+              <option value="no">No</option>
+              </select>
+</td>
+</tr>
+
+<table class="pme-navigation">
+<tr class="pme-navigation">
+<td class="pme-buttons">
+<input class="pme-save"
+ name="saveadd" value="Pagina maken" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+</tr>
+</form>
+ </table>
+</tbody>
+</table>
+

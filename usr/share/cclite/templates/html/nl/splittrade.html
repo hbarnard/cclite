@@ -1,0 +1,111 @@
+<table>
+ <tbody class="stripy"> 
+     <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden"> <input
+ name="action" value="splittransaction" type="hidden"> <input
+ name="subaction" value="om_trades" type="hidden">
+
+            <tr>
+              <td class="pme-key-1">Datum</td>
+              <td class="pme-value-1"> <input class="grey"
+ name="tradeDatum" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text"></td>
+            </tr>
+            <tr>
+              <td class="pme-key-0">Van Account<br>
+              </td>
+              <td class="pme-value-1"> <input class="grey"
+ name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
+ </td>
+            </tr>
+            <tr>
+              <td class="pme-key-0">Aan Account<br>
+              </td>
+              <td class="pme-value-1">
+
+<!--
+
+ if you don't want autosuggest
+ decomment this and put the lines below
+ upto </script> into comments <input class="pme-input-1" name="tradeDestination" size="11" maxlength="11"  type="text"> 
+
+-->
+
+<input type="text" class="required" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
+<div  class="autocomplete" id="suggestionBox" ></div>
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+		// <![CDATA[
+  var myAutoCompleter = new Ajax.Autocompleter('tradeDestination', 'suggestionBox', '/cgi-bin/ccsuggest.cgi', {});
+		// ]]>
+</script>
+
+
+
+<span class="pme-key-0">Register</span> $$fieldsref{selectpartners}
+
+</td>
+            </tr>
+            <tr>
+              <td class="pme-key-0">Valuta</td>
+              <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
+
+<span class="pme-key-0"> Bedrag </span>
+<input class="required" id="tradeBedrag" onChange="validatedecimals(this,this.value);" name="tradeBedrag" size="11" maxlength="11" type="text">
+
+
+</td>
+            </tr>
+            <tr>
+              <td class="pme-key-0">
+<tr class="pme-row-0">
+              <td class="pme-key-0">Secondary Valuta</td>
+              <td class="pme-value-0"> $$fieldsref{sselectcurrency}
+
+<span class="pme-key-0">Secondary Bedrag
+<input class="required" name="stradeBedrag" id="stradeBedrag"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
+
+</td>
+            </tr>
+
+
+
+</td>
+              <td class="pme-value-1"> 
+</td>
+            </tr>
+
+<tr class="pme-row-0">
+              <td class="pme-key-0">Itemtype<br>
+              </td>
+              <td class="pme-value-0">
+ 
+<select class="required" name="tradeItem">
+ <option value="goods">Goederen</option>
+ <option value="services">Diensten</option>
+ <option value="other">Andere</option>
+</select>
+
+
+
+<span class="pme-key-0"> Item Titel</span> <input class="required"
+ name="tradeTitel" size="60" maxlength="255" value="" type="text">
+
+</td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Objectbeschrijving uitbreiden</td>
+              <td class="pme-value-1"> <textarea class="required"
+ name="tradeBeschrijving" rows="3" cols="60"></textarea></td>
+            </tr>
+
+        <table class="pme-navigation">
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd"  value="Maken overdracht" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+            </tr>
+      </form>
+   </table>
+ </tbody>
+</table>

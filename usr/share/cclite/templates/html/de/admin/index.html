@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="cclite community currency system" />
+<meta name="keywords" content="KÖNNEN C finance currency" />
+<meta name="author" content="hugh barnard" />
+$$fieldsref{metarefresh}
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
+
+<title>Cclite $$fieldsref{Version} Manager</title>
+
+<!-- this -should- be compatible with jquery -->
+<script src="/javascript/ajax.upload.js"></script>
+
+<script src="/javascript/jquery-1.3.2.js"></script>
+<script src="/javascript/jquery-validation-1.5.5.js"></script>
+<script src="/javascript/jquery-cookies.js"></script>
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/thickbox-compressed.js'></script>
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
+<script src="/javascript/jquery-tagsuggest.js"></script>
+
+<script type='text/javascript' src='/javascript/jquery.event.drop-1.2/jquery.event.drop-1.2.js'></script>
+<script type='text/javascript' src='/javascript/jquery.event.drag-1.5/jquery.event.drag-1.5.js'></script>
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.tooltip.js'></script>
+
+<script src="/javascript/cookies.js" type="text/javascript"></script>
+
+<script src="/javascript/striper.js" type="text/javascript"></script>
+<script src="/javascript/cclite.js" type="text/javascript"></script>
+
+<style type="text/css">
+</style>
+
+<!-- all forms have the same name 'form', avoids complexity here -->
+
+</head>
+<body>
+
+        <!-- this switch turns on/off the decimal point stuff -->
+        <div id="usedecimals" class="hidden">$$fieldsref{usedecimals}</div>
+
+	<div id="page" align="center">
+		<div id="toppage" align="center">
+			<div id="date">
+				<div class="smalltext" style="padding:13px;">
+				</div>
+			</div>
+			<div id="topbar">
+				<div align="left" style="padding:12px;">
+ 
+<a class="bodytext" href="/cgi-bin/cclite.cgi">Benutzer Menu</a> |
+<a class="bodytext" title="Zeigen Sie verknüpfte Partner-Register" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Partner</a>|
+<a class="bodytext" title="Erstellen a New Währung" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Währung erstellen</a>|
+<a class="bodytext" title="Anzeigen von Währungen in" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Währungen anzeigen</a>|
+<a class="bodytext"title="Erstellen New Ad Kategorie" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Erstellen Ad Kategorie</a>|
+<a class="bodytext" title="Registrierung und Konfiguration-Installateur" href="/cgi-bin/protected/ccinstall.cgi">Installateur</a>
+
+</div>
+			</div>
+		</div>
+		<div id="header" align="center">
+			<div class="titletext" id="logo">
+Cclite
+                                
+                                 <div align="right" style="padding:12px;" class="smalltext"></div>
+				<div class="logotext" style="margin:30px"><span class="orangelogotext"></span></div> 
+			</div>
+			<div id="pagetitle">
+				<div id="title" class="titletext" align="right"></div>
+                               <div align="right" style="padding:12px;" class="smalltext">$$fieldsref{youare} $$fieldsref{atregistry}</div>
+				<div align="right" style="padding:12px;" class="smalltext"><a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff"><span id="logoff"><span></a></div>
+
+
+
+
+
+
+			</div>
+			
+			
+		</div>
+		<div id="content" align="center">
+			<div id="menu" align="right">
+				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
+				<div id="linksmenu" align="center">
+<a  title="Registrierung-Salden anzeigen for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Registrierung-Salden anzeigen</a>
+<a title="Erstellen der Regel oder Kreditlimit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Erstellen Rule/Kreditlimit</a>
+<a title="Erstellen Remote or Lokale Registrierung Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Erstellen Registrierung Partner</a>
+<a title="Upload Batch-Datumi containing Batch Zahlungs" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">Upload Batch-Datumien</a>
+<a title="Service-Gebühr für alle Konten gelten" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Anwenden von Service-Gebühr</a>
+<a title="Erstellen Offene Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">Offene Office Directory</a>
+<a title="Erstellen Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">Erstellen Batch Dirs</a>
+<a title="Ändern values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">Ändern $$fieldsref{registry}</a>
+
+
+
+<!-- autocomplete search boxes -->
+
+<!-- search for users -->
+<div class="adsearch">
+
+<form action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="find" type="hidden">
+<input type="hidden" name="subaction" value="om_users">
+<input onfocus="if(this.value == this.defaultWert) this.value = ''" value="search users" name="string1" id="string1"  size="10" type="text">
+<input src="/images/24-zoom.png"  type="image" title="Suchen Sie nach Benutzer">
+</form>
+</div>
+<!-- search for ads -->
+<div class="adsearch">
+
+<form action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="find" type="hidden">
+<input type="hidden" name="subaction" value="om_yellowpages">
+ <input onfocus="if(this.value == this.defaultWert) this.value = ''"  value="search ads" name="string2" id="string2"  autocomplete="off" size="10" type="text">
+<input src="/images/24-zoom.png"  type="image" title="Suchen Sie nach anzeigen">
+</form>
+</div>
+<!-- search for trades -->
+<div class="adsearch">
+ <form action="/cgi-bin/cclite.cgi" method="post">
+<input name="action" value="find" type="hidden">
+<input type="hidden" name="subaction" value="om_trades">
+<input onfocus="if(this.value == this.defaultWert) this.value = ''" value="search trades" name="string3" id="string3" autocomplete="off" size="10" type="text">
+<input src="/images/24-zoom.png"  type="image" title="Suchen Sie nach trades">
+</div>
+</form>
+
+<!-- end of autocomplete search boxes -->
+
+
+				</div>
+				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_bottomshadow.gif" width="189" height="8" alt="mnubottomshadow" /></div>
+			</div>
+
+		<div id="contenttext">
+			<div class="bodytext" style="padding:12px;" align="justify">
+				
+!$$fieldsref{pagename}
+
+			</div>
+			<div class="panel" align="justify">
+				<span class="orangetitle"></span>
+				<span class="bodytext">
+
+$$fieldsref{righthandside}
+
+</span>
+	
+
+			</div>
+			</div>
+		</div>
+		<div id="footer" class="smallgraytext" align="center">
+			<a href="#">Startseite</a> | <a href="#">Kontaktieren Sie uns</a><br />
+			Cclite &copy; Hugh Barnard 2003-2011<br />
+	
+		</div>
+	</div>
+</body>
+</html>

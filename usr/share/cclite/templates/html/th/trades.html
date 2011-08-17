@@ -6,20 +6,20 @@
  name="subaction" value="om_trades" type="hidden">
  
             <tr>
-              <td class="pme-key-1">วันที่</td>
+              <td class="pme-key-1">วัน</td>
               <td class="pme-value-1"> <input class="grey"
- name="tradeวันที่" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ name="tradeวัน" size="11"  readonly="readonly" value="$$fieldsref{date}"
  type="text"></td>
             </tr>
             <tr>
-              <td class="pme-key-0">จากที่บัญชี<br>
+              <td class="pme-key-0">จากบัญชีผู้ใช้<br>
               </td>
               <td class="pme-value-1"> <input class="grey"
  name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
  </td>
             </tr>
             <tr>
-              <td class="pme-key-0">ไปทั่ว Account<br>
+              <td class="pme-key-0">ถึง Account<br>
               </td>
               <td class="pme-value-1">
 
@@ -37,8 +37,8 @@ $$fieldsref{selectpartners}
             <tr>
               <td class="pme-key-0">สกุลเงิน</td>
               <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
-<span class="pme-key-0"> จำนวน </span>
-<input class="required" name="tradeจำนวน" onChange="validatedecimals(this,this.value);" id="tradeจำนวน" size="11" maxlength="11" type="text">
+<span class="pme-key-0"> ยอดเงิน </span>
+<input class="required" name="tradeยอดเงิน" onChange="validatedecimals(this,this.value);" id="tradeยอดเงิน" size="11" maxlength="11" type="text">
 
 </td>
             </tr>
@@ -49,30 +49,30 @@ $$fieldsref{selectpartners}
             </tr>
 
 <tr>
-              <td class="pme-key-0">รายการ ประเภท
+              <td class="pme-key-0">สินค้า ชนิด
               </td>
               <td class="pme-value-0">
  
-<select class="required" name="tradeรายการ">
+<select class="required" name="tradeสินค้า">
  <option value="goods">สินค้า</option>
  <option value="services">บริการs</option>
  <option value="other">อื่น ๆ</option>
 </select>
 
 </td></tr><tr><td class="pme-key-0">
-รายการ เริ่มหัวข้อโดย</td><td> <input class="required"
- name="tradeเริ่มหัวข้อโดย" size="50" maxlength="255" value="" type="text">
+สินค้า ชื่อเรื่อง</td><td> <input class="required"
+ name="tradeชื่อเรื่อง" size="50" maxlength="255" value="" type="text">
 </td>
             </tr>
             <tr>
-              <td class="pme-key-1">รายละเอียดสินค้า</td>
+              <td class="pme-key-1">คำอธิบายสินค้า</td>
               <td class="pme-value-1"> <textarea class="required"
- name="tradeรายละเอียด" rows="3" cols="60"></textarea></td>
+ name="tradeคำอธิบาย" rows="3" cols="60"></textarea></td>
             </tr>
         <table class="pme-navigation">
             <tr class="pme-navigation">
               <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="ทำให้การถ่ายโอน" type="submit">&nbsp;<input class="pme-cancel"
+ name="saveadd" value="ทำการโอนย้าย" type="submit">&nbsp;<input class="pme-cancel"
  name="cancel" value="Clear" type="reset"> </td>
             </tr>
   
