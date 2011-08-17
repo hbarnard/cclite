@@ -135,7 +135,7 @@ There are extra actions for remote registry checks already</p>
 
 <span class="c"># read messages from literals file, this isn&#39;t fully multilingual yet</span>
 <span class="k">our</span> <span class="i">$log</span>      = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Ccdirectory&quot;</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># used in several places now, moved up here 4/2011</span>
 <span class="k">our</span> <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -166,45 +166,44 @@ category and keywords work out</p>
 
     <span class="c">###$log-&gt;debug(&quot;string: $fieldsref-&gt;{&#39;category&#39;}, $fieldsref-&gt;{&#39;parent&#39;}, $fieldsref-&gt;{&#39;keywords&#39;}  = $fieldsref-&gt;{&#39;classification&#39;}&quot;) ;</span>
     <span class="c">#</span>
-    
-    <span class="c"># put new tags into category table. if free-form tags are in use   </span>
-    <span class="k">if</span> <span class="s">(</span><span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
-         <span class="k">my</span> <span class="i">@tags</span> = <span class="k">split</span> <span class="s">(</span><span class="q">/\s+/</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;yellowtags&#39;</span>} <span class="s">)</span> <span class="sc">;</span>
-    
-   <span class="k">foreach</span> <span class="k">my</span> <span class="i">$tag</span> <span class="s">(</span><span class="i">@tags</span><span class="s">)</span> <span class="s">{</span>
 
-       <span class="c">###print &quot;$tag&lt;br/&gt;\n&quot; ;</span>
-       
-       
-       <span class="i">$tag</span> = <span class="k">lc</span><span class="s">(</span><span class="i">$tag</span><span class="s">)</span> <span class="sc">;</span> <span class="c"># make canonical lower case...</span>
-       
-       <span class="c"># free form tags are category 9999</span>
-       <span class="k">my</span> <span class="i">$sql</span> = <span class="i">get_check_tag_sql</span><span class="s">(</span><span class="i">$tag</span><span class="s">)</span> <span class="sc">;</span>
-       <span class="k">my</span><span class="s">(</span><span class="i">$registryerror</span><span class="cm">,</span><span class="i">$categoryref</span><span class="s">)</span> = <span class="i">sqlraw</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sql</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="c"># put new tags into category table. if free-form tags are in use</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">@tags</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/\s+/</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;yellowtags&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># if it exists already, skip...</span>
-    <span class="k">next</span> <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$categoryref</span>-&gt;{<span class="q">&#39;description&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="sc">;</span> 
- 
-    <span class="k">my</span> <span class="i">$newref</span> <span class="sc">;</span>
-    <span class="c">#FIXME: hack to make all keywords 9999</span>
-    <span class="i">$newref</span>-&gt;{<span class="q">&#39;category&#39;</span>} = <span class="q">&#39;9999&#39;</span><span class="sc">;</span>
-    <span class="i">$newref</span>-&gt;{<span class="q">&#39;status&#39;</span>} = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
-    <span class="i">$newref</span>-&gt;{<span class="q">&#39;description&#39;</span>} = <span class="i">$tag</span><span class="sc">;</span>
-     
-    <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$newref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-     
+        <span class="k">foreach</span> <span class="k">my</span> <span class="i">$tag</span> <span class="s">(</span><span class="i">@tags</span><span class="s">)</span> <span class="s">{</span>
+
+            <span class="c">###print &quot;$tag&lt;br/&gt;\n&quot; ;</span>
+
+            <span class="i">$tag</span> = <span class="k">lc</span><span class="s">(</span><span class="i">$tag</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># make canonical lower case...</span>
+
+            <span class="c"># free form tags are category 9999</span>
+            <span class="k">my</span> <span class="i">$sql</span> = <span class="i">get_check_tag_sql</span><span class="s">(</span><span class="i">$tag</span><span class="s">)</span><span class="sc">;</span>
+            <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$categoryref</span> <span class="s">)</span> =
+              <span class="i">sqlraw</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sql</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
+            <span class="c"># if it exists already, skip...</span>
+            <span class="k">next</span> <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$categoryref</span>-&gt;{<span class="q">&#39;description&#39;</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+            <span class="k">my</span> <span class="i">$newref</span><span class="sc">;</span>
+
+            <span class="c">#FIXME: hack to make all keywords 9999</span>
+            <span class="i">$newref</span>-&gt;{<span class="q">&#39;category&#39;</span>}    = <span class="q">&#39;9999&#39;</span><span class="sc">;</span>
+            <span class="i">$newref</span>-&gt;{<span class="q">&#39;status&#39;</span>}      = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
+            <span class="i">$newref</span>-&gt;{<span class="q">&#39;description&#39;</span>} = <span class="i">$tag</span><span class="sc">;</span>
+
+            <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$newref</span><span class="cm">,</span>
+                <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="s">}</span>
+
+        <span class="c"># move tags to keywords field...</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;keywords&#39;</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;yellowtags&#39;</span>}<span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;category&#39;</span>} = <span class="q">&#39;9999&#39;</span><span class="sc">;</span>
+        <span class="k">undef</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;yellowtags&#39;</span>}<span class="sc">;</span>
+
     <span class="s">}</span>
-    
-    <span class="c"># move tags to keywords field...</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;keywords&#39;</span>}  = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;yellowtags&#39;</span>} <span class="sc">;</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;category&#39;</span>} = <span class="q">&#39;9999&#39;</span><span class="sc">;</span>
-    <span class="k">undef</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;yellowtags&#39;</span>} <span class="sc">;</span>  
-    
-   <span class="s">}</span>
-    
 
-    
-    
     <span class="k">my</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
       <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">return</span> <span class="s">(</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">directorypageadded</span>}<span class="cm">,</span>
@@ -220,7 +219,6 @@ bottom of ad. This is a pretty heavy operation and perhaps
 should be done as a nightly batch to generate static html</p>
 <p>This also contains SQL at present, goodbye n-tier purity!</p>
 <pre>
-
 <a name="show_yellow-"></a><span class="k">sub </span><span class="m">show_yellow</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
@@ -358,8 +356,6 @@ display etc. 06/2007</p>
     <span class="s">}</span>
 <span class="s">}</span>
 
-
-
 </pre><p></p>
 <h3><a name="show_tag_cloud">show_tag_cloud</a></h3>
 <p>This produces the free form tag cloud enabled by usetags. Main idea
@@ -368,95 +364,86 @@ is to make the yellow pages more flexible and multilingual.</p>
 <p>FIXME: Of course this is still very html-bound...</p>
 
 <pre>
-
-
 <a name="show_tag_cloud-"></a><span class="k">sub </span><span class="m">show_tag_cloud</span> <span class="s">{</span>
-   
-   <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span> 
-    
-   <span class="k">my</span> <span class="s">(</span><span class="i">%keyword_index</span><span class="cm">,</span> <span class="i">%keyword_count</span><span class="cm">,</span> <span class="i">%keyword_type</span><span class="s">)</span> <span class="sc">;</span>  <span class="c"># type is offer/wanted/match</span>
-   
-   <span class="k">my</span> <span class="i">$interval</span>    = <span class="n">1</span><span class="sc">;</span>        <span class="c"># one week for displaying items as new...</span>
-   <span class="k">my</span> <span class="i">$registry_error</span> <span class="sc">;</span>
-   <span class="k">my</span> <span class="i">$width_count</span> = <span class="n">1</span><span class="sc">;</span>
-   <span class="k">my</span> <span class="i">$max_depth</span> = <span class="i">$fieldsref</span>-&gt;{<span class="w">maxdepth</span>}
-      || <span class="n">5</span><span class="sc">;</span> 
-   <span class="k">my</span> <span class="i">$max_entries</span> = <span class="n">100</span> <span class="sc">;</span> 
-   <span class="k">my</span> <span class="i">$total_count</span> = <span class="n">0</span> <span class="sc">;</span>   
-     
-   <span class="k">my</span> <span class="s">(</span><span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="s">)</span> = <span class="w">get_yellowpages_tag_cloud_data</span>  <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$interval</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="sc">;</span> 
 
- 
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-   <span class="c"># phase 1 collect</span>
-      
+    <span class="k">my</span> <span class="s">(</span> <span class="i">%keyword_index</span><span class="cm">,</span> <span class="i">%keyword_count</span><span class="cm">,</span> <span class="i">%keyword_type</span> <span class="s">)</span>
+      <span class="sc">;</span>    <span class="c"># type is offer/wanted/match</span>
+
+    <span class="k">my</span> <span class="i">$interval</span> = <span class="n">1</span><span class="sc">;</span>    <span class="c"># one week for displaying items as new...</span>
+    <span class="k">my</span> <span class="i">$registry_error</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$width_count</span> = <span class="n">1</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$max_depth</span>   = <span class="i">$fieldsref</span>-&gt;{<span class="w">maxdepth</span>}
+      || <span class="n">5</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$max_entries</span> = <span class="n">100</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$total_count</span> = <span class="n">0</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> =
+      <span class="i">get_yellowpages_tag_cloud_data</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$interval</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c"># phase 1 collect</span>
+
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
-     <span class="k">my</span> <span class="i">@tags</span> = <span class="k">split</span><span class="s">(</span><span class="q">/\s+/</span><span class="cm">,</span><span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;keywords&#39;</span>}<span class="s">)</span> <span class="sc">;</span>
-     <span class="c"># make unique...legacy problems</span>
-     <span class="i">@tags</span> = <span class="k">map</span> <span class="k">lc</span><span class="cm">,</span> <span class="i">@tags</span> <span class="sc">;</span> <span class="c"># deal with legacy problems between upper and lower....</span>
-     <span class="k">my</span> <span class="i">%hash</span>   = <span class="k">map</span> <span class="s">{</span> <span class="i">$_</span><span class="cm">,</span> <span class="n">1</span> <span class="s">}</span> <span class="i">@tags</span><span class="sc">;</span>
-     <span class="i">@tags</span>   = <span class="k">keys</span> <span class="i">%hash</span> <span class="sc">;</span>
-     
-     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$tag</span> <span class="s">(</span><span class="i">@tags</span><span class="s">)</span> <span class="s">{</span>
-       <span class="i">$keyword_index</span>{<span class="i">$tag</span>} .= <span class="q">&quot;$key,&quot;</span> <span class="sc">;</span>  <span class="c"># list of ids that this keyword references </span>
-       <span class="i">$keyword_count</span>{<span class="i">$tag</span>}++ <span class="sc">;</span>           <span class="c"># add one to the count for this tag  </span>
-       <span class="i">$total_count</span>++ <span class="sc">;</span>                   <span class="c"># and to the total</span>
-       
-       <span class="k">if</span> <span class="s">(</span><span class="i">$keyword_type</span>{<span class="i">$tag</span>} <span class="k">ne</span>  <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>}<span class="s">)</span> <span class="s">{</span>
-           <span class="i">$keyword_type</span>{<span class="i">$tag</span>} = <span class="q">&#39;matched&#39;</span> <span class="sc">;</span>  
-       <span class="s">}</span>  <span class="k">elsif</span> <span class="s">(</span><span class="i">$keyword_type</span>{<span class="i">$tag</span>} <span class="k">ne</span> <span class="q">&#39;matched&#39;</span><span class="s">)</span> <span class="s">{</span>
-           <span class="i">$keyword_type</span>{<span class="i">$tag</span>} = <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>} <span class="sc">;</span>
-       <span class="s">}</span>       
-      <span class="s">}</span>
-     
+        <span class="k">my</span> <span class="i">@tags</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/\s+/</span><span class="cm">,</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;keywords&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+
+        <span class="c"># make unique...legacy problems</span>
+        <span class="i">@tags</span> = <span class="k">map</span> <span class="k">lc</span><span class="cm">,</span>
+          <span class="i">@tags</span><span class="sc">;</span>    <span class="c"># deal with legacy problems between upper and lower....</span>
+        <span class="k">my</span> <span class="i">%hash</span> = <span class="k">map</span> <span class="s">{</span> <span class="i">$_</span><span class="cm">,</span> <span class="n">1</span> <span class="s">}</span> <span class="i">@tags</span><span class="sc">;</span>
+        <span class="i">@tags</span> = <span class="k">keys</span> <span class="i">%hash</span><span class="sc">;</span>
+
+        <span class="k">foreach</span> <span class="k">my</span> <span class="i">$tag</span> <span class="s">(</span><span class="i">@tags</span><span class="s">)</span> <span class="s">{</span>
+            <span class="i">$keyword_index</span>{<span class="i">$tag</span>} .=
+              <span class="q">&quot;$key,&quot;</span><span class="sc">;</span>    <span class="c"># list of ids that this keyword references</span>
+            <span class="i">$keyword_count</span>{<span class="i">$tag</span>}++<span class="sc">;</span>    <span class="c"># add one to the count for this tag</span>
+            <span class="i">$total_count</span>++<span class="sc">;</span>            <span class="c"># and to the total</span>
+
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$keyword_type</span>{<span class="i">$tag</span>} <span class="k">ne</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$keyword_type</span>{<span class="i">$tag</span>} = <span class="q">&#39;matched&#39;</span><span class="sc">;</span>
+            <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$keyword_type</span>{<span class="i">$tag</span>} <span class="k">ne</span> <span class="q">&#39;matched&#39;</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$keyword_type</span>{<span class="i">$tag</span>} = <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>}<span class="sc">;</span>
+            <span class="s">}</span>
+        <span class="s">}</span>
+
     <span class="s">}</span>
-    
 
+    <span class="c"># phase 2 make the cloud either json or html</span>
+    <span class="k">my</span> <span class="i">$depth</span> = <span class="n">1</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$cloud</span><span class="sc">;</span>
 
-    
-  <span class="c"># phase 2 make the cloud either json or html     </span>
-  <span class="k">my</span> <span class="i">$depth</span> = <span class="n">1</span> <span class="sc">;</span>
-  <span class="k">my</span> <span class="i">$cloud</span> <span class="sc">;</span>
-      
-  <span class="k">foreach</span> <span class="k">my</span> <span class="i">$tag</span> <span class="s">(</span><span class="k">sort</span> <span class="k">keys</span> <span class="i">%keyword_index</span><span class="s">)</span> <span class="s">{</span>
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$tag</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%keyword_index</span> <span class="s">)</span> <span class="s">{</span>
 
-    <span class="i">$tag</span> =~ <span class="q">s/\s+$//g</span><span class="sc">;</span>
-    <span class="i">$keyword_index</span>{<span class="i">$tag</span>} =~ <span class="q">s/\,$//</span> <span class="sc">;</span>
-    
-    <span class="k">my</span> <span class="i">$size</span> = <span class="k">int</span><span class="s">(</span><span class="i">$keyword_count</span>{<span class="i">$tag</span>}/<span class="i">$total_count</span> * <span class="n">100</span> <span class="s">)</span>  <span class="sc">;</span>
-    <span class="c">### print &quot;$keyword_count{$tag} $total_count $size&lt;br/&gt;&quot; ;</span>
-       <span class="i">$size</span> = <span class="n">50</span> <span class="k">if</span> <span class="s">(</span><span class="i">$size</span> &lt; <span class="n">50</span><span class="s">)</span> <span class="sc">;</span>  
-    <span class="i">$cloud</span> .=<span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+        <span class="i">$tag</span> =~ <span class="q">s/\s+$//g</span><span class="sc">;</span>
+        <span class="i">$keyword_index</span>{<span class="i">$tag</span>} =~ <span class="q">s/\,$//</span><span class="sc">;</span>
+
+        <span class="k">my</span> <span class="i">$size</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$keyword_count</span>{<span class="i">$tag</span>} / <span class="i">$total_count</span> * <span class="n">100</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="c">### print &quot;$keyword_count{$tag} $total_count $size&lt;br/&gt;&quot; ;</span>
+        <span class="i">$size</span> = <span class="n">50</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$size</span> &lt; <span class="n">50</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$cloud</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">    &lt;span class=&quot;$keyword_type{$tag}&quot; style=&quot;font-size:$size%&quot;&gt;&lt;a title=&quot;get listing by category: $messages{&#39;count&#39;} $keyword_count{$tag}: $messages{$keyword_type{$tag}}&quot; href=&quot;/cgi-bin/cclite.cgi?action=showyellowbycat&amp;string1=$tag&quot;&gt;</span>
 <span class="hh">         $tag&lt;/a&gt;&lt;/span&gt; </span>
 <span class="h">EOT</span>
 
-    
-    <span class="k">if</span> <span class="s">(</span><span class="i">$depth</span> == <span class="i">$max_depth</span><span class="s">)</span> <span class="s">{</span>
-        <span class="i">$cloud</span> .= <span class="q">&quot;&lt;br/&gt;&quot;</span> <span class="sc">;</span> 
-        <span class="i">$depth</span> = <span class="n">1</span> <span class="sc">;</span>       
-    <span class="s">}</span>    <span class="k">else</span> <span class="s">{</span>
-        <span class="i">$depth</span>++ <span class="sc">;</span>
-    <span class="s">}</span>    
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$depth</span> == <span class="i">$max_depth</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$cloud</span> .= <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="sc">;</span>
+            <span class="i">$depth</span> = <span class="n">1</span><span class="sc">;</span>
+        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+            <span class="i">$depth</span>++<span class="sc">;</span>
+        <span class="s">}</span>
 
-  <span class="s">}</span>
-  
-  
- <span class="c"># json raw cloud</span>
-   <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">my</span> <span class="s">(</span><span class="i">$json</span><span class="s">)</span> =
-          <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span> \<span class="i">%keyword_index</span><span class="cm">,</span>
-            <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="c"># json raw cloud</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="s">(</span><span class="i">$json</span><span class="s">)</span> = <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span>
+            \<span class="i">%keyword_index</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
-   <span class="s">}</span>
+    <span class="s">}</span>
 
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$cloud</span> <span class="s">)</span><span class="sc">;</span>
 
- <span class="k">return</span> <span class="s">(</span><span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$cloud</span><span class="s">)</span> <span class="sc">;</span>    
-    
-<span class="s">}</span>    
-    
-
-
+<span class="s">}</span>
 
 <span class="n">1</span><span class="sc">;</span>
 

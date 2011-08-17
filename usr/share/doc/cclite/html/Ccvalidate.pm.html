@@ -162,7 +162,7 @@ This keeps the display stuff seperate from the client side processing</p>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>    <span class="c"># semantic checks in database during validation</span>
 
 <span class="k">our</span> <span class="i">$log</span>         = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Ccvalidate&quot;</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
 
 </pre><p></p>
@@ -178,31 +178,31 @@ This keeps the display stuff seperate from the client side processing</p>
     <span class="c"># registry name must be filled</span>
 
     <span class="c"># registry name must start with alpha and be one &#39;word&#39;</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">newregistry</span>} !~ <span class="q">/^[a-zA-Z]\w+$/</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badregistryname</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;newregistry&#39;</span>} !~ <span class="q">/^[a-zA-Z]\w+$/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;badregistryname&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
    <span class="c"># there&#39;s no really good match for valid email addresses, in fact..</span>
    <span class="c"># these two are supressed, checked by jquery 11/2009</span>
-   <span class="c"># if ( $$fieldsref{admemail} !~</span>
+   <span class="c"># if ( $fieldsref-&gt;{admemail} !~</span>
    <span class="c">#    /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/ )</span>
    <span class="c"># {</span>
-   <span class="c">#    push @status, &quot;$$messagesref{bademail} $$messagesref{regmanager}&quot;;</span>
+   <span class="c">#    push @status, &quot;$messagesref-&gt;{bademail} $messagesref-&gt;{regmanager}&quot;;</span>
    <span class="c"># }</span>
 
    <span class="c"># there&#39;s no really good match for valid email addresses, in fact..</span>
-   <span class="c"># if ( length( $$fieldsref{postemail} )</span>
-   <span class="c">#    &amp;&amp; $$fieldsref{postemail} !~</span>
+   <span class="c"># if ( length( $fieldsref-&gt;{postemail} )</span>
+   <span class="c">#    &amp;&amp; $fieldsref-&gt;{postemail} !~</span>
    <span class="c">#    /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/ )</span>
    <span class="c"># {</span>
-   <span class="c">#    push @status, &quot;$$messagesref{bademail} $$messagesref{batchtrans}&quot;;</span>
+   <span class="c">#    push @status, &quot;$messagesref-&gt;{bademail} $messagesref-&gt;{batchtrans}&quot;;</span>
    <span class="c"># }</span>
 
     <span class="c"># commit limit must be numeric, if present</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">commitlimit</span>} <span class="s">)</span>
-        &amp;&amp; <span class="i">$$fieldsref</span>{<span class="w">commitlimit</span>} !~ <span class="q">/^\d+$/</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;commitlimit&#39;</span>} <span class="s">)</span>
+        &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;commitlimit&#39;</span>} !~ <span class="q">/^\d+$/</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badcommitlimit</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;badcommitlimit&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
     <span class="k">return</span> <span class="i">@status</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -220,15 +220,15 @@ This keeps the display stuff seperate from the client side processing</p>
     <span class="c"># registry name must be filled</span>
 
     <span class="c"># there&#39;s no really good match for valid email addresses, in fact..</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">mail</span>} !~
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">mail</span>} !~
         <span class="q">/^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">bademail</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">bademail</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># currency name must start with alpha, one word</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">cname</span>} !~ <span class="q">/^[a-zA-Z]\w+$/</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badcurrencyname</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">cname</span>} !~ <span class="q">/^[a-zA-Z]\w+$/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">badcurrencyname</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">@status</span><span class="sc">;</span>
@@ -245,60 +245,60 @@ A work in progress!</p>
 <a name="validate_user-"></a><span class="k">sub </span><span class="m">validate_user</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">%messages</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$action</span> = <span class="i">$$fieldsref</span>{<span class="q">&#39;action&#39;</span>}<span class="sc">;</span>    <span class="c"># simplify code somewaht</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">@status</span><span class="cm">,</span> <span class="i">%messages</span><span class="s">)</span> <span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$action</span> = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;action&#39;</span>}<span class="sc">;</span>    <span class="c"># simplify code somewaht</span>
 
     <span class="c"># deals with problem comming from update_database_record</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$messagesref</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userLang</span>} <span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="q">&#39;invalidlanguage&#39;</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userLang</span>} <span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;invalidlanguage&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="k">if</span> <span class="s">(</span>   <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>} !~ <span class="q">/^\w[\w\d_]+$/</span>
+    <span class="k">if</span> <span class="s">(</span>   <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>} !~ <span class="q">/^\w[\w\d_]+$/</span>
         &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="q">&#39;invalidlogin&#39;</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;invalidlogin&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># there&#39;s no really good match for valid email addresses, in fact..</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userEmail</span>} !~
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userEmail</span>} !~
         <span class="q">/^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="q">&#39;bademail&#39;</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;bademail&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># mobile phone numbers need to contain spaces and numbers, if present</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;userMobile&#39;</span>} <span class="s">)</span>
-        &amp;&amp; <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} =~ <span class="q">/[^\d\s]+/</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>} <span class="s">)</span>
+        &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="w">userMobile</span>} =~ <span class="q">/[^\d\s]+/</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badphone</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">badphone</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># mobile phone numbers must be unique</span>
-    <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} =
-      <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">userMobile</span>} =
+      <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userMobile</span>} <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># only do these, if there is a mobile number:  3045485 27/9/2010</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;userMobile&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
           <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
-            <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$fieldsref</span>-&gt;{<span class="w">userMobile</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># not unique, another record contains this number</span>
         <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;adduser&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">mobphoneexists</span>}<span class="sc">;</span>
+            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">mobphoneexists</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="c"># not unique another record, not yours, contains this number</span>
         <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;update&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userId&#39;</span>} != <span class="i">$$fieldsref</span>{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">{</span>
-                <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">mobphoneexists</span>}<span class="sc">;</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userId&#39;</span>} != <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+                <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">mobphoneexists</span>}<span class="sc">;</span>
             <span class="s">}</span>
         <span class="s">}</span>
 
@@ -316,7 +316,7 @@ A work in progress!</p>
     <span class="k">my</span> <span class="i">@password_status</span> =
       <span class="i">_validate_new_password</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span>
         <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">action</span>} <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">action</span>} <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span><span class="i">@password_status</span><span class="s">)</span> &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">@status</span> = <span class="s">(</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">@password_status</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -324,7 +324,7 @@ A work in progress!</p>
     <span class="c"># do new pin validation and comparison in private function</span>
     <span class="c"># pin is not obligatory when mobile phone number is absent</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userMobile</span>} <span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userMobile</span>} <span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">@pin_status</span> =
           <span class="i">_validate_new_pin</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span>
             <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
@@ -334,7 +334,7 @@ A work in progress!</p>
     <span class="s">}</span>
 
     <span class="c"># if new pin entered during update, needs revalidation</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} <span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;update&quot;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} <span class="s">)</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;update&quot;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">@pin_status</span> =
           <span class="i">_validate_new_pin</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span>
             <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
@@ -349,10 +349,10 @@ A work in progress!</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$fromuserref1</span> <span class="s">)</span> =
       <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error2</span><span class="cm">,</span> <span class="i">$fromuserref2</span> <span class="s">)</span> =
       <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userEmail&#39;</span><span class="cm">,</span>
-        <span class="i">$$fieldsref</span>{<span class="w">userEmail</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">userEmail</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$nameexists</span><span class="cm">,</span> <span class="i">$emailexists</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -364,19 +364,19 @@ A work in progress!</p>
 
     <span class="c"># adding a user that already exists</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$nameexists</span> &gt; <span class="n">0</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">userexists</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">userexists</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># adding a user email exists</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$emailexists</span> &gt; <span class="n">0</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">emailexists</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">emailexists</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># modifying a user email exists and not this user</span>
     <span class="c"># this is probably inadequate...race condition</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$emailexists</span> &gt; <span class="n">0</span> &amp;&amp; <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;update&quot;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref2</span>{<span class="q">&#39;userId&#39;</span>} != <span class="i">$$fieldsref</span>{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">emailexists</span>}<span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref2</span>{<span class="q">&#39;userId&#39;</span>} != <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">emailexists</span>}<span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
@@ -399,45 +399,45 @@ A work in progress!</p>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
 
     <span class="c"># registry name must start with alpha</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">dname</span>} !~ <span class="q">/^[a-zA-Z]\w+$/</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badregistryname</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">dname</span>} !~ <span class="q">/^[a-zA-Z]\w+$/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">badregistryname</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;local&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;local&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">@registries</span> =
           <span class="i">Ccadmin::show_registries</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;values&#39;</span><span class="cm">,</span>
             <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$regex</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;|&#39;</span><span class="cm">,</span> <span class="i">@registries</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;dname&#39;</span>} !~ <span class="q">/$regex/</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">nonexistentpartner</span>}<span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;dname&#39;</span>} !~ <span class="q">/$regex/</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">nonexistentpartner</span>}<span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="c"># only need uri and proxy for proxy type partners</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;proxy&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;proxy&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="c"># uri must start with http://</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">uri</span>} !~ <span class="q">/^http\:\/\/.*\/Cclite/</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">baduriname</span>}<span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">uri</span>} !~ <span class="q">/^http\:\/\/.*\/Cclite/</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">baduriname</span>}<span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="c"># proxy must start with http://</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">proxy</span>} !~ <span class="q">/^http\:\/\/.*ccserver.cgi/</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badproxyname</span>}<span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">proxy</span>} !~ <span class="q">/^http\:\/\/.*ccserver.cgi/</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">badproxyname</span>}<span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="c"># there&#39;s no really good match for valid email addresses, in fact..</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">email</span>} !~
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">email</span>} !~
         <span class="q">/^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">bademail</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">bademail</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># type must not be blank</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">type</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">blankpartnertype</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">type</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">blankpartnertype</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">@status</span><span class="sc">;</span>
@@ -454,9 +454,9 @@ A work in progress!</p>
 
     <span class="c"># registry name must be filled</span>
     <span class="c"># quantity isn&#39;t absent, negative or non-numeric</span>
-    <span class="k">if</span> <span class="s">(</span>   <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">quantity</span>} <span class="s">)</span> <span class="s">)</span>
-        || <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">quantity</span>} <span class="k">lt</span> <span class="n">0</span> <span class="s">)</span>
-        || <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">quantity</span>} !~ <span class="q">/^[\d\056]+$/</span> <span class="s">)</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span>   <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">quantity</span>} <span class="s">)</span> <span class="s">)</span>
+        || <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">quantity</span>} <span class="k">lt</span> <span class="n">0</span> <span class="s">)</span>
+        || <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">quantity</span>} !~ <span class="q">/^[\d\056]+$/</span> <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="q">&quot;can&#39;t accept negative quantities&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -483,24 +483,24 @@ full addresses not kept currently</p>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
 
     <span class="c"># Street starts with alpha, has two components</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userStreet</span>} !~ <span class="q">/[\&#39;a-zA-z](\w+)(\W+)(\w+)/</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badstreet</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userStreet</span>} !~ <span class="q">/[\&#39;a-zA-z](\w+)(\W+)(\w+)/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">badstreet</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># Town starts with alpha, is alphanumeric</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userTown</span>} !~ <span class="q">/^[\&#39;a-zA-z](\w+)$/</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badtown</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userTown</span>} !~ <span class="q">/^[\&#39;a-zA-z](\w+)$/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">badtown</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># this will do UK, Canada, US and (afaik) most of Europe</span>
     <span class="k">if</span> <span class="s">(</span>
-        <span class="i">$$fieldsref</span>{<span class="w">userPostcode</span>} !~ <span class="q">/\b[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}\b/i</span>
-        &amp;&amp; <span class="i">$$fieldsref</span>{<span class="w">userPostcode</span>} !~ <span class="q">/\b\d{5}(?:[-\s]\d{4})?\b/</span>
-        &amp;&amp; <span class="i">$$fieldsref</span>{<span class="w">userPostcode</span>} !~ <span class="q">/\b[0-9]{6}\b/i</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">userPostcode</span>} !~ <span class="q">/\b[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}\b/i</span>
+        &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="w">userPostcode</span>} !~ <span class="q">/\b\d{5}(?:[-\s]\d{4})?\b/</span>
+        &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="w">userPostcode</span>} !~ <span class="q">/\b[0-9]{6}\b/i</span>
 
       <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">badpostcode</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">badpostcode</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">@status</span><span class="sc">;</span>
@@ -518,14 +518,14 @@ Need to add checks for easy passwords etc.</p>
 
     <span class="c"># password must be filled</span>
     <span class="c"># they must be equal</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>} <span class="k">ne</span> <span class="i">$$fieldsref</span>{<span class="w">cuserPassword</span>} <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">passwordnotsame</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPassword</span>} <span class="k">ne</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">cuserPassword</span>} <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">passwordnotsame</span>}<span class="sc">;</span>
     <span class="s">}</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>} <span class="k">eq</span> <span class="i">$$fieldsref</span>{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">passwordnelogin</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPassword</span>} <span class="k">eq</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>} <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">passwordnelogin</span>}<span class="sc">;</span>
     <span class="s">}</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>} <span class="s">)</span> &lt; <span class="n">6</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">passwordgesix</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPassword</span>} <span class="s">)</span> &lt; <span class="n">6</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">passwordgesix</span>}<span class="sc">;</span>
     <span class="s">}</span>
     <span class="k">return</span> <span class="i">@status</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -539,10 +539,10 @@ it's tested against</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$messagesref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">value</span>} &gt; <span class="i">$$fieldsref</span>{<span class="w">servicechargelimit</span>} <span class="s">)</span>
-        &amp;&amp; <span class="i">$$fieldsref</span>{<span class="w">servicechargelimit</span>} =~ <span class="q">/^\d+$/</span> <span class="s">)</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">value</span>} &gt; <span class="i">$fieldsref</span>-&gt;{<span class="w">servicechargelimit</span>} <span class="s">)</span>
+        &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="w">servicechargelimit</span>} =~ <span class="q">/^\d+$/</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="w">overservicechargelimit</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="w">overservicechargelimit</span>}<span class="sc">;</span>
     <span class="s">}</span>
     <span class="k">return</span> <span class="i">@status</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -559,21 +559,21 @@ If there's a mobile phone number, need a PIN number</p>
     <span class="k">my</span> <span class="i">@status</span><span class="sc">;</span>
 
     <span class="c"># pin and confirmation must be filled</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} <span class="s">)</span> || !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">cuserPin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="q">&#39;needpin&#39;</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} <span class="s">)</span> || !<span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">cuserPin</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;needpin&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} =~
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} =~
         <span class="q">/123|234|345|456|789|321|432|543|654|765|876|987/</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="q">&#39;pinobvious&#39;</span>}<span class="sc">;</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;pinobvious&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} =~ <span class="q">/(\d)(\d)(\d)/</span> &amp;&amp; <span class="i">$1</span> == <span class="i">$2</span> &amp;&amp; <span class="i">$2</span> == <span class="i">$3</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="q">&#39;pinsamenumbers&#39;</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} =~ <span class="q">/(\d)(\d)(\d)/</span> &amp;&amp; <span class="i">$1</span> == <span class="i">$2</span> &amp;&amp; <span class="i">$2</span> == <span class="i">$3</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;pinsamenumbers&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># they must be equal</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPin</span>} <span class="k">ne</span> <span class="i">$$fieldsref</span>{<span class="w">cuserPin</span>} <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$$messagesref</span>{<span class="q">&#39;pinconfirmdifferent&#39;</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPin</span>} <span class="k">ne</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">cuserPin</span>} <span class="s">)</span> <span class="s">{</span>
+        <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messagesref</span>-&gt;{<span class="q">&#39;pinconfirmdifferent&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">@status</span><span class="sc">;</span>

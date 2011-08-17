@@ -194,9 +194,12 @@ to change these, just substitute a translated hash</p>
 
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$configref</span>     = \<span class="i">%configuration</span><span class="sc">;</span>
+
+<span class="c"># message language now decided by decide_language 08/2011 </span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
 <span class="k">my</span> <span class="i">%fields</span>        = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$offset</span>        = <span class="i">$fields</span>{<span class="w">offset</span>}<span class="sc">;</span>
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccadmin&quot;</span><span class="s">)</span><span class="sc">;</span>
@@ -242,10 +245,12 @@ to change these, just substitute a translated hash</p>
 
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="k">my</span> <span class="i">$language</span> =
-     <span class="i">$fields</span>{<span class="w">language</span>}
-  || <span class="i">$cookieref</span>-&gt;{<span class="w">language</span>}
-  || <span class="q">&quot;en&quot;</span><span class="sc">;</span>    <span class="c"># default is english</span>
+<span class="c">#</span>
+<span class="c">#---------------------------------------------------------------------------</span>
+<span class="c"># change the language default here, languages should be ISO 639 lower case</span>
+<span class="c">#</span>
+<span class="k">my</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span> <span class="sc">;</span>
+
 
 <span class="k">my</span> <span class="i">$pagename</span> = <span class="i">$fields</span>{<span class="w">name</span>} || <span class="q">&quot;front.html&quot;</span><span class="sc">;</span>    <span class="c"># default is the index page</span>
 
@@ -456,7 +461,7 @@ to change these, just substitute a translated hash</p>
         <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>     <span class="i">$html</span><span class="cm">,</span>
         <span class="i">$pages</span><span class="cm">,</span>   <span class="i">$pagename</span><span class="cm">,</span>    <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span>
     <span class="s">)</span>
-    = <span class="i">change_language</span><span class="s">(</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
+    = <span class="i">change_language</span><span class="s">(</span><span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show balance and volume</span>

@@ -479,9 +479,9 @@ depending on the package or installation type:
 sub readmessages {
 
     my ($language) = @_;
-    
+
     #FIXME: this is called in several places....
-    $language = decide_language() if ( ! length($language) );
+    $language = decide_language() if ( !length($language) );
 
     # deals with various directory structures
     my ( $os, $distribution, $package_type ) =
@@ -511,7 +511,7 @@ sub readmessages {
             $value = "";
         }
     } else {
-        pretty_caller(3) ;
+        pretty_caller(3);
         error(
             $language,
 "Cannot find messages file:$error $messfile for $language may be missing?",
@@ -618,12 +618,12 @@ sub get_os_and_distribution {
     # in /usr/share/cclite
 
     if ( $distribution eq 'ubuntu' || $distribution eq 'debian' ) {
-        $checkdir     = '/usr/share/cclite' ;
-    if (-e $checkdir) {
-        $package_type = 2 ;    # 2 is debian and derivatives
-    } else  {
-        $package_type = 3 ;    # debian/ubuntu but unpackaged
-     }    
+        $checkdir = '/usr/share/cclite';
+        if ( -e $checkdir ) {
+            $package_type = 2;    # 2 is debian and derivatives
+        } else {
+            $package_type = 3;    # debian/ubuntu but unpackaged
+        }
     }
 
     # guessing at cpanel because the whole thing is under the document root
@@ -886,9 +886,6 @@ sub sql_timestamp {
     return $timestamp;
 }
 
-
-
-
 =head3 decide_language
 
 Now we're going multilingual need to deal with this in a non-hardcoded fashion
@@ -900,27 +897,27 @@ This decides the language:
 
 =cut
 
-
 sub decide_language {
 
-my ($fieldsref) = @_ ;
-my $cookieref = get_cookie();
-my %configuration = Ccconfiguration::readconfiguration() if ( $0 !~ /ccinstall/ )  ;
-#
-#---------------------------------------------------------------------------
-# change the language default here, languages should be ISO 639 lower case
-#
-my $language =
-     $cookieref->{'language'}
-  || $fieldsref->{'language'}
-  || $configuration{'language'}
-  || 'en' ;
+    my ($fieldsref)   = @_;
+    my $cookieref     = get_cookie();
+    my %configuration = Ccconfiguration::readconfiguration()
+      if ( $0 !~ /ccinstall/ );
+
+    #
+    #---------------------------------------------------------------------------
+    # change the language default here, languages should be ISO 639 lower case
+    #
+    my $language =
+         $cookieref->{'language'}
+      || $fieldsref->{'language'}
+      || $configuration{'language'}
+      || 'en';
 
     #FIXME: remove garbage at end of cookie, probably OK 08/2011"en"
-    $language =~ s/[^\w]+$// ;
+    $language =~ s/[^\w]+$//;
 
-
-return $language ;
+    return $language;
 
 }
 

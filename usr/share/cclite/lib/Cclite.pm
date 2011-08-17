@@ -109,7 +109,7 @@ to change these, just substitute a translated hash
 our %messages    = readmessages();
 our $messagesref = \%messages;
 
-our $log         = Log::Log4perl->get_logger("Cclite");
+our $log = Log::Log4perl->get_logger("Cclite");
 
 # used in several places now, moved up here 4/2011
 our %configuration = readconfiguration() if ( $0 !~ /ccinstall/ );
@@ -396,7 +396,7 @@ sub logon_user {
     } else {
 
         # login success, fill in cookie fields
-        my $path = "/";   
+        my $path   = "/";
         my $domain = $fieldsref->{domain};
 
         my $ip_address = $ENV{REMOTE_ADDR};
@@ -410,12 +410,16 @@ sub logon_user {
         $cookie{userLogin} = $userref->{userLogin};
         $cookie{userId} =
           $userref->{userId};    # not used yet, to replace userLogin
-          
+
         # language taken from cookie first, then user record
         #FIXME: duplicates decide_language, pretty much, fold in
-        $cookie{language} = $cookieref->{'language'} || $userref->{userLang} || $configuration{language} || 'en' ;
+        $cookie{language} =
+             $cookieref->{'language'}
+          || $userref->{userLang}
+          || $configuration{language}
+          || 'en';
 
-        # avoid cumulation of registry cookie values, this is a browser problem though
+  # avoid cumulation of registry cookie values, this is a browser problem though
         $cookie{registry} ||= $fieldsref->{registry};
         $cookie{userLevel} = $userref->{userLevel};
 
@@ -427,22 +431,23 @@ sub logon_user {
         # calculate date and time stamp for om_users table
         # get date and timestamp
         my ( $date, $time ) = getdateandtime( time() );
-        
-        # just supply necessary fields, not the whole records, restore password tries on success, 08/2011
-        # language updated just in case changed without logging in...
-        my %update =  ('userId', $userref->{'userId'},
-                       'userLastLogin', "$date$time", 
-                       'userPasswordTries', 3,
-                       'userLang', $cookie{'language'} ) ;
-        
-        undef $userref
-          ->{'userPassword'};  # remove this otherwise it's rehashed and re-update
-                             # mode 2 is where userLogin = value ;
+
+# just supply necessary fields, not the whole records, restore password tries on success, 08/2011
+# language updated just in case changed without logging in...
+        my %update = (
+            'userId', $userref->{'userId'}, 'userLastLogin', "$date$time",
+            'userPasswordTries', 3, 'userLang', $cookie{'language'}
+        );
+
+        undef $userref->{
+            'userPassword'}; # remove this otherwise it's rehashed and re-update
+            # mode 2 is where userLogin = value ;
             # use userref to update record, should strip all other fields...
             # throw away return codes for the present
         my ( $a, $b, $c, $d ) =
           update_database_record( 'local', $db, "om_users", 1, \%update,
-            $userref->{'language'}, $cookie{'token'} );
+            $userref->{'language'},
+            $cookie{'token'} );
 
         print $cookieheader ;
         print "Location:$fieldsref->{home}\n\n";
@@ -463,11 +468,11 @@ no facility for changing it here...
 sub do_login {
 
     my ( $fieldsref, $registry, $userref, $registry_private_value ) = @_;
-    
+
     my %cookie;
-    
+
     $cookie{language} = $userref->{userLang};
-    
+
     # cookie is produced this time, not checked
     ( $cookie{'token'}, $cookie{'token1'} ) =
       calculate_token( $registry_private_value, $fieldsref, undef,
@@ -476,7 +481,7 @@ sub do_login {
     # make cookie fields from the user table
     $cookie{userLogin} = $userref->{userLogin};
     $cookie{userId} = $userref->{userId};   # not used yet, to replace userLogin
-    
+
   # avoid cumulation of registry cookie values, this is a browser problem though
     $cookie{registry} = $registry || $fieldsref->{registry};
 
@@ -565,7 +570,7 @@ sub logoff_user {
     $fieldsref->{'action'} = "";
 
     foreach my $key ( keys %$cookieref ) {
-        $cookieref->{$key} = undef if ($key ne 'language');
+        $cookieref->{$key} = undef if ( $key ne 'language' );
     }
 
     my $cookieheader =
@@ -894,29 +899,32 @@ om_users and send only language cookie with expiry of around six months
 
 =cut
 
-
 sub change_language {
-    my ($class, $db, $template_dir, $fieldsref, $cookieref, $token ) = @_;
-    my $domain    = $configuration{'domain'};
-    my $path      = "/";
-    
+    my ( $class, $db, $template_dir, $fieldsref, $cookieref, $token ) = @_;
+    my $domain = $configuration{'domain'};
+    my $path   = "/";
+
     ### my $cookieref = get_cookie();
-    my %cookie    ;    
+    my %cookie;
     $cookie{language} = $fieldsref->{language};
-    my $expires = 15552000 + time() ; # six month expiry for language cookie
+    my $expires = 15552000 + time();    # six month expiry for language cookie
     my $cookies = return_cookie_header( $expires, $domain, $path, "", %cookie );
-    
+
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
-       
+
     # update om_users for language change for this user, if someone is logged on
-    if (length($db)) {   
-      my %new_language = ('userId', $cookieref->{'userId'}, 'userLang', $fieldsref->{'language'}) ;
-      my $x = join ('|',%new_language) ;
-      $log->debug("update is $x") ;
-      update_database_record( $class, $db, 'om_users', 1, \%new_language, undef, $token );
+    if ( length($db) ) {
+        my %new_language = (
+            'userId',   $cookieref->{'userId'},
+            'userLang', $fieldsref->{'language'}
+        );
+        my $x = join( '|', %new_language );
+        $log->debug("update is $x");
+        update_database_record( $class, $db, 'om_users', 1, \%new_language,
+            undef, $token );
     }
-    
+
     return ( "1", $fieldsref->{home}, "", $messages{languagechanged},
         $pages, "result.html", $fieldsref, $cookies );
 }
@@ -2848,15 +2856,15 @@ sub show_balance_and_volume {
             ( $month_counter % 2 )
               ? ( $row_style = "odd" )
               : ( $row_style = "even" );
-              
-              $volume_hash_ref->{$key}->{'volume'} = sprintf "%.2f",
-          ( $volume_hash_ref->{$key}->{'volume'} / 100 )
-          if ( $configuration{usedecimals} eq 'yes' );
-                  
-          # convert month-names to appropriate languages    
-          my $month_name = $messages{lc($volume_hash_ref->{$key}->{'mth'})} ;    
-              
-              
+
+            $volume_hash_ref->{$key}->{'volume'} = sprintf "%.2f",
+              ( $volume_hash_ref->{$key}->{'volume'} / 100 )
+              if ( $configuration{usedecimals} eq 'yes' );
+
+            # convert month-names to appropriate languages
+            my $month_name =
+              $messages{ lc( $volume_hash_ref->{$key}->{'mth'} ) };
+
             $total_volume_html{ $volume_hash_ref->{$key}->{'currency'} } .=
               <<EOT;
      <td class="$row_style"> 
@@ -2892,7 +2900,8 @@ EOT
     </table>
 EOT
 
-        return ( 0, '', $registry_error, "$volume_table <br/> $html_totals<hr/>",
+        return ( 0, '', $registry_error,
+            "$volume_table <br/> $html_totals<hr/>",
             $template, '' );
     } elsif ( $mode eq 'values' ) {
 

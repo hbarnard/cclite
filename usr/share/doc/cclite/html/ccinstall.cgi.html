@@ -113,6 +113,7 @@ pre { color: #000000;
 <span class="s">}</span>
 <span class="c">###__END__</span>
 
+
 </pre><p></p>
 <hr />
 <h1><a name="name">NAME</a></h1>
@@ -147,6 +148,11 @@ It, obviously, can't guess database passwords etc.</p>
 <p>You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
+<p>Package types:</p>
+<p>0 Generic tarball/generic install [Fedora]
+1 Windows
+2 Debian/Ubuntu via package
+3 Debian/Ubuntu unpackaged</p>
 <p>
 </p>
 <hr />
@@ -206,6 +212,7 @@ information, always!</p>
         <span class="s">}</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="i">$configuration</span>{<span class="w">error</span>} = <span class="q">&quot;no configuration file found at $configfile&quot;</span><span class="sc">;</span>
+        
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">%configuration</span><span class="sc">;</span>
@@ -248,15 +255,19 @@ configuration should work...</p>
         <span class="i">$distribution</span> = <span class="k">lc</span><span class="s">(</span><span class="i">$1</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="c">#FIXME: Not quite right because can be debian/ubuntu and in /home</span>
+    
     <span class="c"># if ubuntu or debian, test whether packaged by looking</span>
     <span class="c"># in /usr/share/cclite</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;ubuntu&#39;</span> || <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;debian&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$checkdir</span>     = <span class="q">`find /usr/share/cclite -prune -type d`</span><span class="sc">;</span>
-        <span class="i">$package_type</span> = <span class="n">2</span>
-          <span class="k">if</span> <span class="s">(</span> <span class="i">$checkdir</span> =~ <span class="q">m!^/usr/share/cclite!</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># 2 is debian</span>
+        <span class="i">$checkdir</span>     = <span class="q">&#39;/usr/share/cclite&#39;</span> <span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span><span class="k">-e</span> <span class="i">$checkdir</span><span class="s">)</span> <span class="s">{</span>
+        <span class="i">$package_type</span> = <span class="n">2</span> <span class="sc">;</span>    <span class="c"># 2 is debian and derivatives</span>
+    <span class="s">}</span> <span class="k">else</span>  <span class="s">{</span>
+        <span class="i">$package_type</span> = <span class="n">3</span> <span class="sc">;</span>    <span class="c"># debian/ubuntu but unpackaged</span>
+     <span class="s">}</span>    
     <span class="s">}</span>
+       
 
     <span class="c"># guessing at cpanel because the whole thing is under the document root</span>
     <span class="k">my</span> <span class="i">$path</span> = <span class="q">`pwd`</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;linux&#39;</span> <span class="s">)</span><span class="sc">;</span>
@@ -279,7 +290,14 @@ on Fedora/Redhat and commodity hosting this is often of form:</p>
     <span class="k">my</span> <span class="s">(</span><span class="i">$dir</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$message</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$log_path</span> = <span class="q">&quot;$dir/var/cclite/log&quot;</span><span class="sc">;</span>
-
+    
+    <span class="c">#FIXME: remove double slash in some log paths</span>
+    <span class="i">$log_path</span> =~ <span class="q">s/\/\//\//</span><span class="sc">;</span> 
+    
+    
+    
+    <span class="c">###print &quot;log path is $log_path&quot; ;</span>
+    
     <span class="c"># can&#39;t find log directory or can&#39;t write to it..</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">-e</span> <span class="i">$log_path</span> || !<span class="k">-w</span> <span class="i">$log_path</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
@@ -319,17 +337,17 @@ and general extra flexibility</p>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="i">$dir</span> = <span class="i">getcwd</span><span class="s">(</span><span class="s">)</span> || <span class="q">`pwd`</span><span class="sc">;</span>
     <span class="s">}</span>
-    <span class="c">###print &quot;os is $os dir is $dir&quot; ;</span>
+
     <span class="k">chomp</span> <span class="i">$dir</span><span class="sc">;</span>
     <span class="i">$dir</span> =~ <span class="q">s/\bcgi-bin.*//</span><span class="sc">;</span>
 
     <span class="c"># in standard place, so package is -very probably- being used</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$dir</span> =~ <span class="q">/^\/usr/</span> &amp;&amp; <span class="i">$package_type</span> == <span class="n">2</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$dir</span> = <span class="q">&#39;/usr/share/cclite&#39;</span><span class="sc">;</span>
-
- <span class="c"># but, if not in standard place, for example in /home, path is preserved 7/2010</span>
     <span class="s">}</span>
-
+     
+    <span class="c"># but, if not in standard place, for example in /home, path is preserved 7/2010</span>
+   
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$dir</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh"> &lt;h5&gt;Error  in ccintall::check_paths&lt;/h5&gt;</span>
@@ -338,7 +356,7 @@ and general extra flexibility</p>
 <span class="h">EOT</span>
 
     <span class="s">}</span>
-
+   <span class="c">###print &quot;os is $os, dir is $dir, package type is $package_type&quot; ;</span>
     <span class="k">return</span> <span class="s">(</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$dir</span><span class="cm">,</span> <span class="q">&quot;${dir}lib&quot;</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
@@ -471,13 +489,21 @@ FIXME: Needs test in test suite</p>
 
 <a name="write_log_config-"></a><span class="k">sub </span><span class="m">write_log_config</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$log_file</span><span class="cm">,</span> <span class="i">$log_config</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$log_config</span> <span class="sc">;</span>
     <span class="k">my</span> <span class="i">$log_base</span>        = <span class="q">&#39;var/cclite/log&#39;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$log_config_file</span> = <span class="q">&quot;$dir/config/logging.cf&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$error</span><span class="sc">;</span>
 
-    <span class="i">$log_file</span> = <span class="q">&quot;$dir/$log_base/cclite.log&quot;</span><span class="sc">;</span>
+    <span class="c"># default case...</span>
+    <span class="k">my</span> <span class="i">$log_file</span> = <span class="q">&quot;$dir/$log_base/cclite.log&quot;</span><span class="sc">;</span>
+
+    <span class="c"># non-standard debian/ubuntu, especially home/username/cclite</span>
+    <span class="k">if</span> <span class="s">(</span><span class="i">$package_type</span> == <span class="n">3</span> &amp;&amp; <span class="i">$dir</span> =~ <span class="q">/home/</span><span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">@components</span> = <span class="k">split</span><span class="s">(</span><span class="q">/\//</span><span class="cm">,</span><span class="i">$dir</span><span class="s">)</span> <span class="sc">;</span>
+        <span class="i">$log_file</span> = <span class="q">&quot;/$components[1]/$components[2]/$components[3]/$log_base/cclite.log&quot;</span> <span class="sc">;</span>
+        
+    <span class="s">}</span>    
 
     <span class="k">if</span> <span class="s">(</span> !<span class="s">(</span> <span class="k">-w</span> <span class="i">$log_file</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$error</span> .=
@@ -540,11 +566,12 @@ FIXME: Needs test in test suite</p>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/jquery.autocomplete.css&quot; /&gt;</span>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/lib/thickbox.css&quot; /&gt;</span>
 
-<span class="hh">&lt;title&gt;Cclite 0.8.0 Installer: Problems&lt;/title&gt;</span>
+<span class="hh">&lt;title&gt;Cclite 0.8.1 Installer: Problems&lt;/title&gt;</span>
 
 
 
 <span class="hh">&lt;script src=&quot;/javascript/jquery-1.3.2.js&quot;&gt;&lt;/script&gt;</span>
+<span class="hh">&lt;script type=&#39;text/javascript&#39; src=&#39;/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js&#39;&gt;&lt;/script&gt;</span>
 <span class="hh">&lt;script src=&quot;/javascript/jquery-validation-1.5.5.js&quot;&gt;&lt;/script&gt;</span>
 <span class="hh">&lt;script src=&quot;/javascript/jquery-cookies.js&quot;&gt;&lt;/script&gt;</span>
 <span class="hh">&lt;script type=&#39;text/javascript&#39; src=&#39;/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js&#39;&gt;&lt;/script&gt;</span>
@@ -558,7 +585,9 @@ FIXME: Needs test in test suite</p>
 <span class="hh">&lt;script src=&quot;/javascript/striper.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span>
 <span class="hh">&lt;script src=&quot;/javascript/cclite.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;</span>
 
-<span class="hh">       &lt;title&gt;Cclite Installer Errors for $os type $distribution&lt;/title&gt;</span>
+<span class="hh"> &lt;title&gt;Cclite Installer Errors for $os type $distribution&lt;/title&gt;</span>
+
+
 <span class="hh">      &lt;/head&gt;</span>
 <span class="hh">      &lt;body&gt;</span>
 <span class="hh">      &lt;h3&gt;Cclite Installer Errors for $os $distribution running as $login&lt;/h3&gt;</span>
@@ -592,7 +621,7 @@ FIXME: Needs test in test suite</p>
     <span class="i">set_message</span><span class="s">(</span>
 <span class="q">&quot;Please use the &lt;a title=\&quot;cclite google group\&quot; href=\&quot;http://groups.google.co.uk/group/cclite\&quot;&gt;Cclite Google Group&lt;/a&gt; for help, if necessary&quot;</span>
     <span class="s">)</span><span class="sc">;</span>
-
+    
     <span class="c"># checks that the installation is feasible, necessary modules are there</span>
 
     <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -615,11 +644,12 @@ FIXME: Needs test in test suite</p>
     <span class="s">}</span>
 
 <span class="c"># if this is a windows or debian style package, already setup, so don&#39;t do this...</span>
-<span class="c">#FIXME: Rereading don&#39;t understand this, to review</span>
+<span class="c"># but if it&#39;s a tarball or non-standard debian/ubuntu need to set up log config...</span>
 
-    <span class="k">if</span> <span class="s">(</span> !<span class="i">$package_type</span> &amp;&amp; <span class="i">$newinstall</span> <span class="s">)</span> <span class="s">{</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="s">(</span> <span class="i">$package_type</span> == <span class="n">0</span> || <span class="i">$package_type</span> == <span class="n">3</span> <span class="s">)</span> &amp;&amp; <span class="i">$newinstall</span> <span class="s">)</span> <span class="s">{</span>
         <span class="s">(</span> <span class="i">$messages</span>[<span class="n">6</span>]<span class="cm">,</span> <span class="i">$log_config</span> <span class="s">)</span> =
-          <span class="i">write_log_config</span><span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span> <span class="s">)</span><span class="sc">;</span>
+          <span class="i">write_log_config</span><span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="i">$messages</span>[<span class="n">3</span>] = <span class="i">check_template_path</span><span class="s">(</span><span class="i">$dir</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># check template directory</span>
 
@@ -633,17 +663,17 @@ FIXME: Needs test in test suite</p>
     <span class="i">$login</span> = <span class="k">getpwuid</span><span class="s">(</span><span class="i">$&lt;</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># can&#39;t tell which entry will be present...</span>
-    <span class="k">my</span> <span class="i">$test_results</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">@messages</span> <span class="s">)</span><span class="sc">;</span>
-
+    <span class="k">my</span> <span class="i">$test_results</span> <span class="sc">;</span>
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$message</span> <span class="s">(</span><span class="i">@messages</span><span class="s">)</span> <span class="s">{</span>
+    <span class="i">$test_results</span> .= <span class="i">$message</span> <span class="sc">;</span>
+    <span class="s">}</span>
     <span class="c"># complain and stop..</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$test_results</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">show_problems</span><span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span><span class="cm">,</span> <span class="i">$login</span><span class="cm">,</span> <span class="i">@messages</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
     <span class="s">}</span>
-
+ 
 <span class="s">}</span>
-
-<span class="c"># signal new configuration and use prototype if</span>
 
 <span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../../lib&#39;</span><span class="sc">;</span>
 
@@ -675,7 +705,8 @@ FIXME: Needs test in test suite</p>
 <span class="c"># hash type is passed into the configuration, only if newinstall</span>
 <span class="i">$fields</span>{<span class="w">hash_type</span>} = <span class="i">$hash_type</span> <span class="k">if</span> <span class="s">(</span><span class="i">$newinstall</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="i">$fields</span>{<span class="w">version</span>} = <span class="q">&quot;0.8.0&quot;</span><span class="sc">;</span>
+<span class="c">#FIXME: no configuration file at this stage, but hard-code horror...</span>
+<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.8.1&quot;</span><span class="sc">;</span>
 
 <span class="c"># number of records per page in lists ex-db tables, provided in cclite.cf</span>
 <span class="k">my</span> <span class="i">$limit</span> = <span class="i">$fields</span>{<span class="w">limit</span>} || <span class="n">15</span><span class="sc">;</span>
@@ -707,7 +738,7 @@ FIXME: Needs test in test suite</p>
   <span class="q">&quot;testtoken&quot;</span><span class="sc">;</span>    <span class="c"># for the moment, calculated later</span>
 
 <span class="c">#</span>
-<span class="i">$fields</span>{<span class="w">menustyle</span>}    = <span class="q">&quot;menu&quot;</span><span class="sc">;</span>
+
 <span class="i">$fields</span>{<span class="w">os</span>}           = <span class="i">$os</span><span class="sc">;</span>
 <span class="i">$fields</span>{<span class="w">package_type</span>} = <span class="i">$package_type</span><span class="sc">;</span>
 <span class="i">$fields</span>{<span class="w">distribution</span>} = <span class="i">$distribution</span><span class="sc">;</span>

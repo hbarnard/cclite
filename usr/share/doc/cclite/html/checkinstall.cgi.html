@@ -305,11 +305,9 @@ checkinstall.cgi</pre>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span>    <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$sort_key</span><span class="cm">,</span> <span class="i">$module_name</span> <span class="s">)</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/\|/</span><span class="cm">,</span> <span class="i">$key</span> <span class="s">)</span><span class="sc">;</span>
 
-
-    <span class="k">print</span> <span class="q">&quot;&lt;br/&gt;\n&quot;</span> <span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">use_ok</span><span class="s">(</span><span class="i">$module_name</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
-   
         <span class="i">$class</span>   = <span class="q">&#39;system&#39;</span><span class="sc">;</span>
         <span class="i">$message</span> = <span class="q">&#39;usable&#39;</span><span class="sc">;</span>
         <span class="i">$counter</span>{<span class="i">$sort_key</span>}++<span class="sc">;</span>    <span class="c"># count modules in a particular group</span>
@@ -361,26 +359,26 @@ checkinstall.cgi</pre>
 <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t produce graphs GD module[s] missing&lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;gde&#39;</span>} &lt; <span class="n">3</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># GnuPG missing  </span>
+<span class="c"># GnuPG missing</span>
 <span class="i">$diagnosis</span> .=
-  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process encrypted email: GnuPG missing&lt;/div&gt;&quot;</span>
+<span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process encrypted email: GnuPG missing&lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;mim&#39;</span>} &lt; <span class="n">3</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># Net::XMPP missing</span>
 <span class="i">$diagnosis</span> .=
-  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process jabber based payment: Net::XMPP missing&lt;/div&gt;&quot;</span>
+<span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t process jabber based payment: Net::XMPP missing&lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;jab&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># OpenOffice missing</span>
 <span class="i">$diagnosis</span> .=
-  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t print statements or yellowpages: OpenOffice::OODoc missing&lt;/div&gt;&quot;</span>
+<span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t print statements or yellowpages: OpenOffice::OODoc missing&lt;/div&gt;&quot;</span>
   <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;ood&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># OpenID miessing  </span>
+<span class="c"># OpenID miessing</span>
 <span class="i">$diagnosis</span> .=
-  <span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t use OpenID: Net::OpenID::Consumer missing&lt;/div&gt;&quot;</span>
-  <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;opi&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>      
-  
+<span class="q">&quot;&lt;div class=\&quot;optional\&quot;&gt;cclite can&#39;t use OpenID: Net::OpenID::Consumer missing&lt;/div&gt;&quot;</span>
+  <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;opi&#39;</span>} == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
+
 <span class="i">$diagnosis</span> .= <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$sendmail</span> <span class="s">)</span> <span class="s">{</span>

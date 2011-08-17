@@ -119,11 +119,11 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $cookies,
 my %configuration = readconfiguration();
 my $configref     = \%configuration;
 
-# message language now decided by decide_language 08/2011 
+# message language now decided by decide_language 08/2011
 our %messages = readmessages();
 
-my %fields        = cgiparse();
-my $offset        = $fields{offset};
+my %fields = cgiparse();
+my $offset = $fields{offset};
 
 Log::Log4perl->init( $configuration{'loggerconfig'} );
 our $log = Log::Log4perl->get_logger("ccadmin");
@@ -173,8 +173,7 @@ my $cookieref = get_cookie();
 #---------------------------------------------------------------------------
 # change the language default here, languages should be ISO 639 lower case
 #
-my $language = decide_language($fieldsref) ;
-
+my $language = decide_language($fieldsref);
 
 my $pagename = $fields{name} || "front.html";    # default is the index page
 
@@ -385,7 +384,7 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
         $refresh, $metarefresh, $error,     $html,
         $pages,   $pagename,    $fieldsref, $cookies
     )
-    = change_language('local', $db, $pages, $fieldsref, $cookieref, $token )
+    = change_language( 'local', $db, $pages, $fieldsref, $cookieref, $token )
   );
 
 # show balance and volume

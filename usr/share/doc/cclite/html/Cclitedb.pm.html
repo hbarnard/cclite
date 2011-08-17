@@ -203,11 +203,12 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
 
 <span class="c">###DBI-&gt;trace( 4, &#39;../debug/debug.dbi&#39; );      # Database abstraction</span>
+<span class="c">###DBI-&gt;trace( 2, &#39;/home/hbarnard/trunk/var/cclite/log/debug.dbi.log&#39; );</span>
+
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>    <span class="c"># for paging routine, at least</span>
+
 <span class="k">my</span> <span class="i">$VERSION</span> = <span class="n">1.00</span><span class="sc">;</span>
 <span class="i">@ISA</span> = <span class="q">qw(Exporter)</span><span class="sc">;</span>
-
-<span class="c">###DBI-&gt;trace( 2, &#39;/home/hbarnard/trunk/var/cclite/log/debug.dbi.log&#39; );</span>
 
 <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Cclitedb&quot;</span><span class="s">)</span><span class="sc">;</span>
 
@@ -351,10 +352,9 @@ modify_database_record2 : where</p>
 
     <span class="c"># deals with no language problem</span>
     <span class="c">#FIXME: In Ccsmsgateway language delivers notused why is this?</span>
-    <span class="c"># duplicated language code with Ccu</span>
+    <span class="c"># duplicated language code with Ccu, name collision perhaps 08/2011</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$messagesref</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">my</span> <span class="i">$language</span> = <span class="q">&#39;en&#39;</span> <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span> || <span class="i">$language</span> <span class="k">eq</span> <span class="q">&#39;notused&#39;</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">%messages</span>    = <span class="i">Ccu::readmessages</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -600,10 +600,11 @@ Replaces pile of junk code in Cclite::show_balance_and_volume 4/2010</p>
     <span class="k">my</span> <span class="i">$volume_sql</span> = <span class="i">_sql_give_volumes</span><span class="s">(</span> <span class="i">$user</span><span class="cm">,</span> <span class="i">$months_back</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$balance_sql</span> = <span class="i">_sql_get_balance_by_currency</span><span class="s">(</span> <span class="i">$user</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$volume_sql</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$sth</span> <span class="sc">;</span>
+    <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$volume_sql</span><span class="s">)</span><span class="sc">;</span>
     <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$volume_hash_ref</span> = <span class="i">$sth</span><span class="i">-&gt;fetchall_hashref</span><span class="s">(</span><span class="q">&#39;sort&#39;</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$sth</span>             = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$balance_sql</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">$sth</span>             = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$balance_sql</span><span class="s">)</span><span class="sc">;</span>
     <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$balance_hash_ref</span> = <span class="i">$sth</span><span class="i">-&gt;fetchall_hashref</span><span class="s">(</span><span class="q">&#39;tradeId&#39;</span><span class="s">)</span><span class="sc">;</span>
     <span class="i">$sth</span><span class="i">-&gt;finish</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -700,15 +701,13 @@ All this depends on cclite.js which fires various bits of jquery</p>
 <span class="q">&quot;SELECT userLogin FROM `om_users` WHERE userMobile LIKE \&#39;\%$query_string\%\&#39; LIMIT 0 , 10&quot;</span><span class="sc">;</span>
 
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;tag&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$sql</span> = 
-        <span class="q">&quot;SELECT description FROM `om_categories` WHERE (description LIKE \&#39;\%$query_string\%\&#39; and category = &#39;9999&#39;) LIMIT 0 , 10&quot;</span><span class="sc">;</span> 
-        
-        
-<span class="s">}</span>
+        <span class="i">$sql</span> =
+<span class="q">&quot;SELECT description FROM `om_categories` WHERE (description LIKE \&#39;\%$query_string\%\&#39; and category = &#39;9999&#39;) LIMIT 0 , 10&quot;</span><span class="sc">;</span>
+
+    <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">$sql</span><span class="sc">;</span>
 <span class="s">}</span>
-
 
 </pre><p></p>
 <h3><a name="get_check_tag_sql">get_check_tag_sql</a></h3>
@@ -716,22 +715,14 @@ All this depends on cclite.js which fires various bits of jquery</p>
 duplicating them. They always have 9999 category codes</p>
 <pre>
 <a name="get_check_tag_sql-"></a><span class="k">sub </span><span class="m">get_check_tag_sql</span> <span class="s">{</span>
-    
-    
-<span class="k">my</span> <span class="s">(</span><span class="i">$tag</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>    
-    
-<span class="k">my</span> <span class="i">$sql</span> = <span class="q">&quot;SELECT description FROM `om_categories` WHERE (description = $tag and category = &#39;9999&#39;&quot;</span> <span class="sc">;</span>    
-<span class="k">return</span> <span class="i">$sql</span> <span class="sc">;</span>    
-    
-<span class="s">}</span>    
 
+    <span class="k">my</span> <span class="s">(</span><span class="i">$tag</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
+    <span class="k">my</span> <span class="i">$sql</span> =
+<span class="q">&quot;SELECT description FROM `om_categories` WHERE (description = $tag and category = &#39;9999&#39;&quot;</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="i">$sql</span><span class="sc">;</span>
 
-
-
-
-
-
+<span class="s">}</span>
 
 </pre><p></p>
 <h3><a name="get_user_display_data">get_user_display_data</a></h3>
@@ -743,16 +734,24 @@ less fragile with respect to database changes...</p>
 <a name="get_user_display_data-"></a><span class="k">sub </span><span class="m">get_user_display_data</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$user</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">  SELECT  u.userLogin,u.userName, userStatus,</span>
-<span class="hh">                  u.userPostcode, u.userEmail,u.userMobile,</span>
-<span class="hh">                  u.userTelephone</span>
-<span class="hh">  FROM om_users u</span>
-<span class="hh">  WHERE (</span>
-<span class="hh">  u.userLogin = &#39;$user&#39;)</span>
-<span class="h">EOT</span>
+    <span class="k">my</span> <span class="i">$sqlstring</span> <span class="sc">;</span>
+   
+   <span class="c">#FIXME: need to remove the simpler version</span>
+   
+</pre><dl><dt><strong><a name="where" class="item">cut-this    
+    $sqlstring = &lt;&lt;EOT;
+  SELECT  u.userLogin,u.userName, userStatus,
+                  u.userPostcode, u.userEmail,u.userMobile,
+                  u.userTelephone
+  FROM om_users u
+  WHERE (
+  u.userLogin = '$user')
+EOT
+=cut</a></strong></dt>
 
-    <span class="k">my</span> <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<pre>
+
+   <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">  SELECT DISTINCT u.userLogin,u.userName, userStatus,</span>
 <span class="hh">                  u.userPostcode, u.userEmail,u.userMobile,</span>
 <span class="hh">                  u.userTelephone, y.id, y.subject, y.description, </span>
@@ -768,7 +767,8 @@ less fragile with respect to database changes...</p>
     <span class="k">return</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
-</pre><p></p>
+</pre></dl><p>
+</p>
 <h3><a name="get_yellowpages_directory_data">get_yellowpages_directory_data</a></h3>
 <p>This moves all the sql and retrieval for the Craigslist style directory
 into its correct place, since it contains sql May 2010</p>
@@ -779,7 +779,7 @@ less fragile with respect to database changes...</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$interval</span><span class="cm">,</span> <span class="i">$detail</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">$interval</span> = <span class="n">1</span><span class="sc">;</span>    <span class="c"># if there are items a week or less in a category</span>
+    <span class="i">$interval</span> ||= <span class="n">1</span><span class="sc">;</span>    <span class="c"># if there are items a week or less in a category</span>
                          <span class="c"># they&#39;ll show up as new</span>
 
     <span class="k">my</span> <span class="i">$sqldetail</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
@@ -831,7 +831,7 @@ less fragile with respect to database changes...</p>
 
     <span class="c"># look up categories which have new ads</span>
     <span class="k">my</span> <span class="i">%newads</span><span class="sc">;</span>
-<span class="c">####DBI-&gt;trace( 4, &#39;../debug/debug.dbi&#39; );      # Database abstraction</span>
+
     <span class="c"># get a list of categories which have received ads recently</span>
     <span class="c"># put in a hash</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$new_items_hash_ref</span> <span class="s">)</span> =
@@ -843,8 +843,6 @@ less fragile with respect to database changes...</p>
     <span class="k">return</span> <span class="s">(</span> <span class="i">$new_items_hash_ref</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
-
-
 
 </pre><p></p>
 <h3><a name="get_yellowpages_tag_cloud_data">get_yellowpages_tag_cloud_data</a></h3>
@@ -860,12 +858,10 @@ but I don't want millions of little tables</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$interval</span><span class="cm">,</span> <span class="i">$detail</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-
-<span class="k">my</span> <span class="i">$sql</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$sql</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">SELECT  y.id, y.keywords, y.type</span>
 <span class="hh">FROM om_yellowpages y where category = &#39;9999&#39; order by `date` desc LIMIT 0,1000</span>
 <span class="h">EOT</span>
-
 
     <span class="k">my</span> <span class="i">$sqltestifnew</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">SELECT  y.id, y.keywords, y.type, y.category</span>
@@ -873,15 +869,12 @@ but I don't want millions of little tables</p>
 <span class="hh">WHERE where (category = &#39;9999&#39; and datediff(curdate(),y.date) &lt; 2) order by `date` desc LIMIT 0,1000</span>
 <span class="h">EOT</span>
 
-
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span> =
       <span class="i">sqlraw</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sql</span><span class="cm">,</span> <span class="q">&#39;id&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">return</span> <span class="s">(</span><span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
- 
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$yellowdirectory_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
+
 <span class="s">}</span>
-
-
 
 </pre><p></p>
 <h3><a name="get_yellowpages_directory_print">get_yellowpages_directory_print</a></h3>
@@ -1202,7 +1195,7 @@ probably refactor this as a mode of get_table_columns?</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span>  <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbuser</span>     = <span class="i">$configuration</span>{<span class="w">dbuser</span>}<span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbpassword</span> = <span class="i">$configuration</span>{<span class="w">dbpassword</span>}<span class="sc">;</span>
 
@@ -1226,7 +1219,7 @@ probably refactor this as a mode of get_table_columns?</p>
 <pre>
 <a name="registry_connect-"></a><span class="k">sub </span><span class="m">registry_connect</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span>  <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbuser</span>     = <span class="i">$configuration</span>{<span class="w">dbuser</span>}<span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbpassword</span> = <span class="i">$configuration</span>{<span class="w">dbpassword</span>}<span class="sc">;</span>
 
@@ -1449,7 +1442,7 @@ in which ALL the columns are initialised.</p>
 <span class="hh">   $value_string </span>
 <span class="hh">   WHERE ( $id_field = &#39;$fields{$id_field}&#39;)</span>
 <span class="h">EOT</span>
-
+    <span class="c">###$log-&gt;debug(&quot;update is $sqlupdate&quot;) ;</span>
     <span class="k">return</span> <span class="i">$sqlupdate</span><span class="sc">;</span>
 <span class="s">}</span>
 

@@ -165,8 +165,10 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 <p>(c) Hugh Barnard 2005 - 2008 GPL Licenced</p>
 <pre>
 
-=cut    my %configuration = readconfiguration();</pre>
+=cut</pre>
 <pre>
+
+
 <a name="package-Ccsms::Cardboardfish-"></a><span class="k">package </span><span class="i">Ccsms::Cardboardfish</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
@@ -206,14 +208,11 @@ to change these, just substitute a translated hash</p>
 <pre>
 <span class="c">#============== change the configuration to your registry and currency for sms</span>
 
-<span class="c"># application specific globals</span>
-<span class="k">our</span> <span class="i">$language</span> = <span class="q">&#39;en&#39;</span><span class="sc">;</span>
-
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span><span class="sc">;</span>
-
+<span class="c"># messages will now use decide_language to get language, in Ccu.pm 08/2011</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">%sms_configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;../../config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># this is a little unnecessary, but can stay for a while</span>
 <span class="k">our</span> <span class="i">$registry</span>     = <span class="i">$sms_configuration</span>{<span class="q">&#39;registry&#39;</span>}<span class="sc">;</span>

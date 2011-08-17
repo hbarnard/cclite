@@ -307,9 +307,12 @@ receipts at present...</p>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">%configuration</span>          = <span class="w">readconfiguration</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$configuration_hash_ref</span> = \<span class="i">%configuration</span><span class="sc">;</span>
+
+<span class="c"># message language now decided by decide_language 08/2011</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
 <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;read_from_jabber&quot;</span><span class="s">)</span><span class="sc">;</span>
 

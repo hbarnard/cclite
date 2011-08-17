@@ -72,7 +72,7 @@ Hugh Barnard
 
 BEGIN {
 
-   # krystal hosting only stuff
+    # krystal hosting only stuff
     my $base_module_dir = (
         -d '/home/ccliekh/perl'
         ? '/home/ccliekh/perl'
@@ -112,7 +112,6 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $cookies,
     $templatename, $registry_private_value );    # for the moment
 
 my %configuration = readconfiguration();
-
 
 Log::Log4perl->init( $configuration{'loggerconfig'} );
 our $log = Log::Log4perl->get_logger('cclite');
@@ -159,7 +158,7 @@ if (   $fields{action} ne 'logoff'
 #---------------------------------------------------------------------------
 # change the language default here, languages should be ISO 639 lower case
 #
-my $language = decide_language($fieldsref) ;
+my $language = decide_language($fieldsref);
 
 ###print "language = $language\n" ;
 
@@ -607,8 +606,9 @@ my $fieldsref = \%fields;
         $refresh, $metarefresh, $error,     $html,
         $pages,   $pagename,    $fieldsref, $cookies
     )
-    = change_language('local', $db,
-        $configuration{templates}, $fieldsref, $cookieref, $token
+    = change_language(
+        'local',    $db,        $configuration{templates},
+        $fieldsref, $cookieref, $token
     )
   );
 
@@ -617,8 +617,7 @@ my $fieldsref = \%fields;
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     show_tag_cloud( 'local', $db, $fieldsref, $token ) );
 
-
-# beginning of oauth 
+# beginning of oauth
 
 # get requestoken for remote oauth users
 ( $action eq 'requesttoken' )
@@ -630,9 +629,8 @@ my $fieldsref = \%fields;
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     do_oauth( 'local', $db, $fieldsref, $token ) );
 
-
 # only get news if there's a defined registry containing it 08/2011
-$fieldsref->{'news'} = get_news( 'local', $db, $token ) if (length($db)) ;
+$fieldsref->{'news'} = get_news( 'local', $db, $token ) if ( length($db) );
 
 #FIXME: Probably only to be done when logged on?
 # but nice to show a few 'public' listings....

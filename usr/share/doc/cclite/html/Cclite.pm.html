@@ -56,7 +56,7 @@ pre { color: #000000;
 
 		<ul>
 
-			<li><a href="#messagehash">messagehash</a></li>
+			<li><a href="#messages">messages</a></li>
 			<li><a href="#get_basic_credentials">get_basic_credentials</a></li>
 			<li><a href="#add_openid">add_openid</a></li>
 			<li><a href="#add_user">add_user</a></li>
@@ -238,7 +238,7 @@ There are extra actions for remote registry checks already</p>
 <span class="q">)</span><span class="sc">;</span>
 
 </pre><p></p>
-<h3><a name="messagehash">messagehash</a></h3>
+<h3><a name="messages">messages</a></h3>
 <p>this is the provisional solution to the multilingual message fragments
 later, it will go somewhere neater
 to change these, just substitute a translated hash</p>
@@ -246,8 +246,9 @@ to change these, just substitute a translated hash</p>
 
 =cut</pre>
 <pre>
-<span class="k">our</span> <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
+
 <span class="k">our</span> <span class="i">$log</span>         = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Cclite&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># used in several places now, moved up here 4/2011</span>
@@ -330,7 +331,7 @@ here, in this case, validation is skipped. August 2009</p>
     <span class="i">$fieldsref</span>-&gt;{<span class="w">userPasswordStatus</span>} = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
 
     <span class="c">#</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">&amp;Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
     <span class="i">$fieldsref</span>-&gt;{<span class="w">userJoindate</span>} = <span class="i">$date</span><span class="sc">;</span>
 
     <span class="c">#</span>
@@ -520,10 +521,8 @@ start page via print Location. 10/2009</p>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-        <span class="c"># login success</span>
-        <span class="k">my</span> <span class="i">$path</span> = <span class="q">&quot;/&quot;</span><span class="sc">;</span>
-
-        <span class="c">#my $nonce;</span>
+        <span class="c"># login success, fill in cookie fields</span>
+        <span class="k">my</span> <span class="i">$path</span> = <span class="q">&quot;/&quot;</span><span class="sc">;</span>   
         <span class="k">my</span> <span class="i">$domain</span> = <span class="i">$fieldsref</span>-&gt;{<span class="w">domain</span>}<span class="sc">;</span>
 
         <span class="k">my</span> <span class="i">$ip_address</span> = <span class="i">$ENV</span>{<span class="w">REMOTE_ADDR</span>}<span class="sc">;</span>
@@ -537,29 +536,39 @@ start page via print Location. 10/2009</p>
         <span class="i">$cookie</span>{<span class="w">userLogin</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
         <span class="i">$cookie</span>{<span class="w">userId</span>} =
           <span class="i">$userref</span>-&gt;{<span class="w">userId</span>}<span class="sc">;</span>    <span class="c"># not used yet, to replace userLogin</span>
-        <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLang</span>}<span class="sc">;</span>
+          
+        <span class="c"># language taken from cookie first, then user record</span>
+        <span class="c">#FIXME: duplicates decide_language, pretty much, fold in</span>
+        <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>} || <span class="i">$userref</span>-&gt;{<span class="w">userLang</span>} || <span class="i">$configuration</span>{<span class="w">language</span>} || <span class="q">&#39;en&#39;</span> <span class="sc">;</span>
 
-  <span class="c"># avoid cumulation of registry cookie values, this is a browser problem though</span>
-        <span class="i">$cookie</span>{<span class="w">registry</span>} = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="sc">;</span>
-
+        <span class="c"># avoid cumulation of registry cookie values, this is a browser problem though</span>
+        <span class="i">$cookie</span>{<span class="w">registry</span>} ||= <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="sc">;</span>
         <span class="i">$cookie</span>{<span class="w">userLevel</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLevel</span>}<span class="sc">;</span>
 
         <span class="c"># make a cookie header, valid for session</span>
+        <span class="c">#FIXME: language cookie should have long expiry</span>
         <span class="i">$cookieheader</span> =
           <span class="i">return_cookie_header</span><span class="s">(</span> <span class="q">&quot;-1&quot;</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$path</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">%cookie</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># calculate date and time stamp for om_users table</span>
         <span class="c"># get date and timestamp</span>
-        <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">&amp;Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">$userref</span>-&gt;{<span class="w">userLastLogin</span>} = <span class="q">&quot;$date$time&quot;</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+        
+        <span class="c"># just supply necessary fields, not the whole records, restore password tries on success, 08/2011</span>
+        <span class="c"># language updated just in case changed without logging in...</span>
+        <span class="k">my</span> <span class="i">%update</span> =  <span class="s">(</span><span class="q">&#39;userId&#39;</span><span class="cm">,</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="cm">,</span>
+                       <span class="q">&#39;userLastLogin&#39;</span><span class="cm">,</span> <span class="q">&quot;$date$time&quot;</span><span class="cm">,</span> 
+                       <span class="q">&#39;userPasswordTries&#39;</span><span class="cm">,</span> <span class="n">3</span><span class="cm">,</span>
+                       <span class="q">&#39;userLang&#39;</span><span class="cm">,</span> <span class="i">$cookie</span>{<span class="q">&#39;language&#39;</span>} <span class="s">)</span> <span class="sc">;</span>
+        
         <span class="k">undef</span> <span class="i">$userref</span>
-          -&gt;{<span class="w">userPassword</span>}<span class="sc">;</span>  <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
+          -&gt;{<span class="q">&#39;userPassword&#39;</span>}<span class="sc">;</span>  <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
                              <span class="c"># mode 2 is where userLogin = value ;</span>
             <span class="c"># use userref to update record, should strip all other fields...</span>
             <span class="c"># throw away return codes for the present</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
-          <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span>
-            <span class="i">$userref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
+          <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> \<span class="i">%update</span><span class="cm">,</span>
+            <span class="i">$userref</span>-&gt;{<span class="q">&#39;language&#39;</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="q">&#39;token&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
         <span class="k">print</span> <span class="i">$cookieheader</span> <span class="sc">;</span>
         <span class="k">print</span> <span class="q">&quot;Location:$fieldsref-&gt;{home}\n\n&quot;</span><span class="sc">;</span>
@@ -572,13 +581,17 @@ start page via print Location. 10/2009</p>
 </pre><p></p>
 <h3><a name="_do_login">_do_login</a></h3>
 <p>Internal function to enable openid, widget etc. Possible
-security hole here...</p>
+security hole here...language comes only from user record
+no facility for changing it here...</p>
 <pre>
 <a name="do_login-"></a><span class="k">sub </span><span class="m">do_login</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    
     <span class="k">my</span> <span class="i">%cookie</span><span class="sc">;</span>
-
+    
+    <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLang</span>}<span class="sc">;</span>
+    
     <span class="c"># cookie is produced this time, not checked</span>
     <span class="s">(</span> <span class="i">$cookie</span>{<span class="q">&#39;token&#39;</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="q">&#39;token1&#39;</span>} <span class="s">)</span> =
       <span class="i">calculate_token</span><span class="s">(</span> <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span>
@@ -587,8 +600,7 @@ security hole here...</p>
     <span class="c"># make cookie fields from the user table</span>
     <span class="i">$cookie</span>{<span class="w">userLogin</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
     <span class="i">$cookie</span>{<span class="w">userId</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userId</span>}<span class="sc">;</span>   <span class="c"># not used yet, to replace userLogin</span>
-    <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$userref</span>-&gt;{<span class="w">userLang</span>}<span class="sc">;</span>
-
+    
   <span class="c"># avoid cumulation of registry cookie values, this is a browser problem though</span>
     <span class="i">$cookie</span>{<span class="w">registry</span>} = <span class="i">$registry</span> || <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="sc">;</span>
 
@@ -668,12 +680,12 @@ Again this should probably be moved away from Cclite</p>
 
     <span class="k">my</span> <span class="i">$goodbye</span> = <span class="q">&quot;$messages{goodbye} $cookieref-&gt;{userLogin}&quot;</span><span class="sc">;</span>
 
-    <span class="i">$fieldsref</span>-&gt;{<span class="w">youare</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="w">at</span>}     = <span class="q">&quot;&quot;</span><span class="sc">;</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="w">action</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;youare&#39;</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;at&#39;</span>}     = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;action&#39;</span>} = <span class="q">&quot;&quot;</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$cookieref</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$cookieref</span>-&gt;{<span class="i">$key</span>} = <span class="k">undef</span><span class="sc">;</span>
+        <span class="i">$cookieref</span>-&gt;{<span class="i">$key</span>} = <span class="k">undef</span> <span class="k">if</span> <span class="s">(</span><span class="i">$key</span> <span class="k">ne</span> <span class="q">&#39;language&#39;</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">my</span> <span class="i">$cookieheader</span> =
@@ -702,7 +714,7 @@ There's only one record which contains a news field</p>
       <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">1</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># this is messy but don&#39;t want the box, if empty</span>
-    <span class="k">return</span> <span class="i">$$registryref</span>{<span class="w">latest_news</span>}<span class="sc">;</span>
+    <span class="k">return</span> <span class="i">$registryref</span>-&gt;{<span class="w">latest_news</span>}<span class="sc">;</span>
 
 <span class="s">}</span>
 
@@ -986,17 +998,32 @@ html needs removing or internationalizing</p>
 <p>Change the user language for the web interface
 never tested recently as of 4/2005, waiting until
 html is somewhat complete and in another language...</p>
+<p>Now in testing as of August 2011...modified to update
+om_users and send only language cookie with expiry of around six months</p>
 <pre>
+
 <a name="change_language-"></a><span class="k">sub </span><span class="m">change_language</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$template_dir</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$domain</span>    = <span class="q">&quot;bigwaveheuristics.com&quot;</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">%cookie</span>    = <span class="i">%$cookieref</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$path</span>      = <span class="q">&quot;&quot;</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$template_dir</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$domain</span>    = <span class="i">$configuration</span>{<span class="q">&#39;domain&#39;</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$path</span>      = <span class="q">&quot;/&quot;</span><span class="sc">;</span>
+    
+    <span class="c">### my $cookieref = get_cookie();</span>
+    <span class="k">my</span> <span class="i">%cookie</span>    <span class="sc">;</span>    
     <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">language</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$expires</span> = <span class="n">15552000</span> + <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span> <span class="c"># six month expiry for language cookie</span>
+    <span class="k">my</span> <span class="i">$cookies</span> = <span class="i">return_cookie_header</span><span class="s">(</span> <span class="i">$expires</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$path</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">%cookie</span> <span class="s">)</span><span class="sc">;</span>
+    
     <span class="k">my</span> <span class="i">$pages</span> =
       <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;$template_dir/$fieldsref-&gt;{language}&quot;</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$cookies</span> = <span class="i">return_cookie_header</span><span class="s">(</span> <span class="q">&quot;-1&quot;</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$path</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">%cookie</span> <span class="s">)</span><span class="sc">;</span>
+       
+    <span class="c"># update om_users for language change for this user, if someone is logged on</span>
+    <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span><span class="s">)</span> <span class="s">{</span>   
+      <span class="k">my</span> <span class="i">%new_language</span> = <span class="s">(</span><span class="q">&#39;userId&#39;</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="cm">,</span> <span class="q">&#39;userLang&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;language&#39;</span>}<span class="s">)</span> <span class="sc">;</span>
+      <span class="k">my</span> <span class="i">$x</span> = <span class="k">join</span> <span class="s">(</span><span class="q">&#39;|&#39;</span><span class="cm">,</span><span class="i">%new_language</span><span class="s">)</span> <span class="sc">;</span>
+      <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;update is $x&quot;</span><span class="s">)</span> <span class="sc">;</span>
+      <span class="i">update_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> \<span class="i">%new_language</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
+    
     <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">languagechanged</span>}<span class="cm">,</span>
         <span class="i">$pages</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -1259,17 +1286,18 @@ remote systems</p>
     <span class="k">my</span> <span class="i">$same_registry</span> =
       <span class="n">0</span><span class="sc">;</span>    <span class="c"># if the same registry, can use a Mysql transaction...</span>
             <span class="c"># if local registries can use two, but not the same effect...</span>
-    
+
     <span class="k">my</span> <span class="i">%transaction</span> = <span class="i">%$transaction_ref</span><span class="sc">;</span>
 
     <span class="c"># default separator is for html</span>
     <span class="k">my</span> <span class="i">$separator</span> = <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
+
     <span class="c">#FIXME: json be a separate case</span>
     <span class="i">$separator</span> = <span class="q">&#39;,&#39;</span>
       <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;csv&#39;</span> || <span class="i">$transaction</span>{<span class="w">mode</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span><span class="sc">;</span>
-   
+
     <span class="c"># make the header like the &#39;others&#39;</span>
-    <span class="k">my</span> <span class="i">$json_header</span> =<span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$json_header</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">     {&quot;registry&quot;:&quot;$transaction{fromregistry}&quot;,&quot;table&quot;: &quot;om_trades&quot;, &quot;message&quot;</span>
 <span class="h">EOT</span>
 
@@ -1341,7 +1369,7 @@ remote systems</p>
 <span class="c"># if more than commitment limit transaction does not proceed</span>
 <span class="c"># sysaccount -can- issue value into accounts: should check for &#39;local&#39; style currency</span>
 <span class="c"># corrected commit limit arithmetic 12/2008</span>
- 
+
         <span class="k">if</span> <span class="s">(</span>
             <span class="s">(</span>
                 <span class="s">(</span>
@@ -1441,10 +1469,10 @@ remote systems</p>
 
         <span class="c"># see if the currency exists in partner</span>
         <span class="c"># 07/2011 make singular, where necessary for REST/json</span>
-        <span class="k">if</span> <span class="s">(</span><span class="i">$transaction</span>{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span><span class="s">)</span> <span class="s">{</span>
-            <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} =~ <span class="q">s/ies$/y/i</span> <span class="sc">;</span> <span class="c"># dallies -&gt; dally</span>
-            <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} =~ <span class="q">s/s$//i</span> <span class="sc">;</span>    <span class="c"># tpounds -&gt; tpound            </span>
-        <span class="s">}</span>    
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} =~ <span class="q">s/ies$/y/i</span><span class="sc">;</span>    <span class="c"># dallies -&gt; dally</span>
+            <span class="i">$transaction</span>{<span class="w">tradeCurrency</span>} =~ <span class="q">s/s$//i</span><span class="sc">;</span>       <span class="c"># tpounds -&gt; tpound</span>
+        <span class="s">}</span>
 
         <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$currencyref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">toregistry</span>}<span class="cm">,</span>
@@ -1476,22 +1504,24 @@ remote systems</p>
             <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">transactionrejected</span>}<span class="sc">;</span>
             <span class="i">$transaction</span>{<span class="w">tradeStatus</span>} = <span class="q">&quot;rejected&quot;</span><span class="sc">;</span>
             <span class="k">my</span> <span class="i">$output_message</span> = <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span> <span class="s">)</span><span class="sc">;</span>
-     <span class="c">###       print &quot;here $error, $output_message $currencyref-&gt;{&#39;name&#39;}&quot; ; </span>
+            <span class="c">###       print &quot;here $error, $output_message $currencyref-&gt;{&#39;name&#39;}&quot; ;</span>
             <span class="c"># warn about rejections at this level in log</span>
             <span class="c">### $log-&gt;warn(&quot;rejected transaction: $output_message&quot;);</span>
-            
-            <span class="k">if</span> <span class="s">(</span><span class="i">$transaction</span>{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span><span class="s">)</span> <span class="s">{</span>
-            <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$transaction_ref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span>
-                <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$$transaction_ref</span>{<span class="w">home</span>}<span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span>
+                    <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
             <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-                <span class="c"># put quotes around the messages for json...                </span>
-                <span class="k">my</span> <span class="i">@local_status</span> = <span class="k">map</span> <span class="s">{</span> <span class="s">(</span><span class="k">my</span> <span class="i">$s</span> = <span class="i">$_</span><span class="s">)</span> =~ <span class="q">s/(.*)/\&quot;$1\&quot;/</span><span class="sc">;</span> <span class="i">$s</span> <span class="s">}</span> <span class="i">@local_status</span><span class="sc">;</span>
+
+                <span class="c"># put quotes around the messages for json...</span>
+                <span class="k">my</span> <span class="i">@local_status</span> =
+                  <span class="k">map</span> <span class="s">{</span> <span class="s">(</span> <span class="k">my</span> <span class="i">$s</span> = <span class="i">$_</span> <span class="s">)</span> =~ <span class="q">s/(.*)/\&quot;$1\&quot;/</span><span class="sc">;</span> <span class="i">$s</span> <span class="s">}</span> <span class="i">@local_status</span><span class="sc">;</span>
                 <span class="k">my</span> <span class="i">$output_message</span> = <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span> <span class="s">)</span><span class="sc">;</span>
-                <span class="k">my</span> <span class="i">$json</span> =<span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+                <span class="k">my</span> <span class="i">$json</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">                 $json_header: &quot;NOK&quot;, &quot;data&quot;: [$output_message ] }</span>
 <span class="h">EOT</span>
-                <span class="k">return</span> <span class="i">$json</span> <span class="sc">;</span>
-            <span class="s">}</span>        
+                <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
+            <span class="s">}</span>
         <span class="s">}</span>
 
         <span class="c"># add the transaction to the receiving user...</span>
@@ -1566,7 +1596,6 @@ remote systems</p>
 <span class="q">&quot;\&quot;message\&quot;:\&quot;$messages{transactionaccepted}\&quot;, \&quot;reference\&quot;:\&quot;$transaction{tradeHash}\&quot;&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    
     <span class="k">my</span> <span class="i">$output_message</span> =
       <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="i">@translated_remote_status</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -1582,12 +1611,11 @@ remote systems</p>
         <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
-   
 
-       <span class="c"># $log-&gt;debug(&quot;\{$output_message\}&quot;);</span>
+        <span class="c"># $log-&gt;debug(&quot;\{$output_message\}&quot;);</span>
         <span class="k">return</span> <span class="q">&quot;\{$output_message\}&quot;</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-           <span class="k">return</span> <span class="i">$transaction_ref</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="i">$transaction_ref</span><span class="sc">;</span>
     <span class="s">}</span>
 
 <span class="s">}</span>
@@ -2294,8 +2322,6 @@ This is hacked in for yellow page categories, at present.</p>
 <p>Amended not to display closed or suspended currencies in 12/2005
 Amended in 2010 to use hashes, as with all the other listing functions</p>
 <pre>
-
-
 <a name="collect_items-"></a><span class="k">sub </span><span class="m">collect_items</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span>
         <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>    <span class="i">$table</span><span class="cm">,</span>  <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$field_name</span><span class="cm">,</span>
@@ -2314,7 +2340,7 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
     <span class="c"># 11/7/2011 9999 category number is for folksonomy tags only....</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_categories&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$sqlstring</span> =
-          <span class="q">&quot;SELECT * FROM `om_categories` WHERE category != &#39;9999&#39; order by parent,description&quot;</span><span class="sc">;</span>
+<span class="q">&quot;SELECT * FROM `om_categories` WHERE category != &#39;9999&#39; order by parent,description&quot;</span><span class="sc">;</span>
         <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> =
           <span class="i">sqlraw</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sqlstring</span><span class="cm">,</span> <span class="i">$id</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
@@ -2848,10 +2874,19 @@ Some html remains for the moment...</p>
             <span class="s">(</span> <span class="i">$month_counter</span> % <span class="n">2</span> <span class="s">)</span>
               ? <span class="s">(</span> <span class="i">$row_style</span> = <span class="q">&quot;odd&quot;</span> <span class="s">)</span>
               <span class="co">:</span> <span class="s">(</span> <span class="i">$row_style</span> = <span class="q">&quot;even&quot;</span> <span class="s">)</span><span class="sc">;</span>
+              
+              <span class="i">$volume_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;volume&#39;</span>} = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span>
+          <span class="s">(</span> <span class="i">$volume_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;volume&#39;</span>} / <span class="n">100</span> <span class="s">)</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
+                  
+          <span class="c"># convert month-names to appropriate languages    </span>
+          <span class="k">my</span> <span class="i">$month_name</span> = <span class="i">$messages</span>{<span class="k">lc</span><span class="s">(</span><span class="i">$volume_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;mth&#39;</span>}<span class="s">)</span>} <span class="sc">;</span>    
+              
+              
             <span class="i">$total_volume_html</span>{ <span class="i">$volume_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;currency&#39;</span>} } .=
               <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">     &lt;td class=&quot;$row_style&quot;&gt; </span>
-<span class="hh">    $volume_hash_ref-&gt;{$key}-&gt;{&#39;volume&#39;}:$volume_hash_ref-&gt;{$key}-&gt;{&#39;cnt&#39;} in $volume_hash_ref-&gt;{$key}-&gt;{&#39;mth&#39;}/$volume_hash_ref-&gt;{$key}-&gt;{&#39;yr&#39;} </span>
+<span class="hh">    $volume_hash_ref-&gt;{$key}-&gt;{&#39;volume&#39;} $messages{&#39;from&#39;} $volume_hash_ref-&gt;{$key}-&gt;{&#39;cnt&#39;} $messages{&#39;transactions&#39;} $messages{&#39;in&#39;} $month_name/$volume_hash_ref-&gt;{$key}-&gt;{&#39;yr&#39;} </span>
 <span class="hh">    &lt;/td&gt;</span>
 <span class="h">EOT</span>
 
@@ -2870,7 +2905,7 @@ Some html remains for the moment...</p>
               ? <span class="s">(</span> <span class="i">$row_style</span> = <span class="q">&quot;odd&quot;</span> <span class="s">)</span>
               <span class="co">:</span> <span class="s">(</span> <span class="i">$row_style</span> = <span class="q">&quot;even&quot;</span> <span class="s">)</span><span class="sc">;</span>
             <span class="i">$html</span> .=
-<span class="q">&quot;&lt;tr class=\&quot;$row_style\&quot; title=\&quot;volume:transaction count\&quot; &gt;&lt;td&gt;\u$key&lt;/td&gt;&lt;td&gt; $total_volume_html{$key}&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;&lt;tr class=\&quot;$row_style\&quot; title=\&quot;volume $messages{&#39;from&#39;} transaction count $messages{&#39;transactions&#39;}\&quot; &gt;&lt;td&gt;\u$key&lt;/td&gt;&lt;td&gt; $total_volume_html{$key}&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="sc">;</span>
             <span class="i">$record_counter</span>++<span class="sc">;</span>
         <span class="s">}</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$html_totals</span><span class="cm">,</span> <span class="i">$template</span> <span class="s">)</span> =
@@ -2883,7 +2918,7 @@ Some html remains for the moment...</p>
 <span class="hh">    &lt;/table&gt;</span>
 <span class="h">EOT</span>
 
-        <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="q">&quot;$volume_table $html_totals&lt;hr/&gt;&quot;</span><span class="cm">,</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="q">&quot;$volume_table &lt;br/&gt; $html_totals&lt;hr/&gt;&quot;</span><span class="cm">,</span>
             <span class="i">$template</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">eq</span> <span class="q">&#39;values&#39;</span> <span class="s">)</span> <span class="s">{</span>
 

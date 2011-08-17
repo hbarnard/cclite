@@ -14,7 +14,6 @@ if ($test) {
 }
 ###__END__
 
-
 =head1 NAME
 
 ccinstall.cgi
@@ -119,7 +118,7 @@ sub readconfiguration {
         }
     } else {
         $configuration{error} = "no configuration file found at $configfile";
-        
+
     }
 
     return %configuration;
@@ -168,19 +167,17 @@ sub get_os_and_distribution {
         $distribution = lc($1);
     }
 
-    
     # if ubuntu or debian, test whether packaged by looking
     # in /usr/share/cclite
 
     if ( $distribution eq 'ubuntu' || $distribution eq 'debian' ) {
-        $checkdir     = '/usr/share/cclite' ;
-    if (-e $checkdir) {
-        $package_type = 2 ;    # 2 is debian and derivatives
-    } else  {
-        $package_type = 3 ;    # debian/ubuntu but unpackaged
-     }    
+        $checkdir = '/usr/share/cclite';
+        if ( -e $checkdir ) {
+            $package_type = 2;    # 2 is debian and derivatives
+        } else {
+            $package_type = 3;    # debian/ubuntu but unpackaged
+        }
     }
-       
 
     # guessing at cpanel because the whole thing is under the document root
     my $path = `pwd` if ( $os eq 'linux' );
@@ -206,14 +203,12 @@ sub check_log_path {
     my ($dir) = @_;
     my $message;
     my $log_path = "$dir/var/cclite/log";
-    
+
     #FIXME: remove double slash in some log paths
-    $log_path =~ s/\/\//\//; 
-    
-    
-    
+    $log_path =~ s/\/\//\//;
+
     ###print "log path is $log_path" ;
-    
+
     # can't find log directory or can't write to it..
     if ( !-e $log_path || !-w $log_path ) {
         $message = <<EOT;
@@ -265,9 +260,9 @@ sub check_paths {
     if ( $dir =~ /^\/usr/ && $package_type == 2 ) {
         $dir = '/usr/share/cclite';
     }
-     
-    # but, if not in standard place, for example in /home, path is preserved 7/2010
-   
+
+ # but, if not in standard place, for example in /home, path is preserved 7/2010
+
     if ( !length($dir) ) {
         $message = <<EOT;
  <h5>Error  in ccintall::check_paths</h5>
@@ -276,7 +271,7 @@ sub check_paths {
 EOT
 
     }
-   ###print "os is $os, dir is $dir, package type is $package_type" ;
+    ###print "os is $os, dir is $dir, package type is $package_type" ;
     return ( $message, $dir, "${dir}lib" );
 
 }
@@ -420,7 +415,7 @@ EOT
 sub write_log_config {
 
     my ( $dir, $os, $distribution, $package_type ) = @_;
-    my $log_config ;
+    my $log_config;
     my $log_base        = 'var/cclite/log';
     my $log_config_file = "$dir/config/logging.cf";
     my $error;
@@ -429,11 +424,12 @@ sub write_log_config {
     my $log_file = "$dir/$log_base/cclite.log";
 
     # non-standard debian/ubuntu, especially home/username/cclite
-    if ($package_type == 3 && $dir =~ /home/) {
-        my @components = split(/\//,$dir) ;
-        $log_file = "/$components[1]/$components[2]/$components[3]/$log_base/cclite.log" ;
-        
-    }    
+    if ( $package_type == 3 && $dir =~ /home/ ) {
+        my @components = split( /\//, $dir );
+        $log_file =
+          "/$components[1]/$components[2]/$components[3]/$log_base/cclite.log";
+
+    }
 
     if ( !( -w $log_file ) ) {
         $error .=
@@ -553,7 +549,7 @@ BEGIN {
     set_message(
 "Please use the <a title=\"cclite google group\" href=\"http://groups.google.co.uk/group/cclite\">Cclite Google Group</a> for help, if necessary"
     );
-    
+
     # checks that the installation is feasible, necessary modules are there
 
     ( $os, $distribution, $package_type ) = get_os_and_distribution();
@@ -578,7 +574,6 @@ BEGIN {
 # if this is a windows or debian style package, already setup, so don't do this...
 # but if it's a tarball or non-standard debian/ubuntu need to set up log config...
 
-
     if ( ( $package_type == 0 || $package_type == 3 ) && $newinstall ) {
         ( $messages[6], $log_config ) =
           write_log_config( $dir, $os, $distribution, $package_type );
@@ -595,16 +590,17 @@ BEGIN {
     $login = getpwuid($<) if ( $os ne 'windows' );
 
     # can't tell which entry will be present...
-    my $test_results ;
+    my $test_results;
     foreach my $message (@messages) {
-    $test_results .= $message ;
+        $test_results .= $message;
     }
+
     # complain and stop..
     if ( length($test_results) ) {
         show_problems( $os, $distribution, $package_type, $login, @messages );
         exit 0;
     }
- 
+
 }
 
 use lib '../../lib';

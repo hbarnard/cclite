@@ -57,7 +57,6 @@ pre { color: #000000;
 
 		<ul>
 
-			<li><a href="#messagehash">messagehash</a></li>
 			<li><a href="#gateway_sms_transaction">gateway_sms_transaction</a></li>
 			<li><a href="#_gateway_sms_pin_change">_gateway_sms_pin_change</a></li>
 			<li><a href="#_gateway_sms_pay">_gateway_sms_pay</a></li>
@@ -179,17 +178,9 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
   <span class="q">gateway_sms_transaction</span>
 <span class="q">)</span><span class="sc">;</span>
 
-</pre><p></p>
-<h3><a name="messagehash">messagehash</a></h3>
-<p>this is the provisional solution to the multilingual message fragments
-later, it will go somewhere neater
-to change these, just substitute a translated hash</p>
-<pre>
 
-=cut</pre>
-<pre>
-<span class="c"># application specific globals</span>
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="c"># messages will now use decide_language to get language, in Ccu.pm 08/2011</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#============== change the configuration to your registry and currency for sms</span>
 

@@ -90,7 +90,6 @@ use Ccconfiguration;    # new style configuration method
   gateway_sms_transaction
 );
 
-
 # messages will now use decide_language to get language, in Ccu.pm 08/2011
 our %messages = readmessages();
 

@@ -158,8 +158,11 @@ pre { color: #000000;
 <span class="q">my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,</span>
 <span class="q">    $templatename, $registry_private_value );    # for the moment</span>
 
-<span class="q">my $language = $$cookieref{language} || &quot;en&quot;;    # default is english</span>
-<span class="q">my %messages = readmessages($language);</span>
+
+<span class="q">my $language = decide_language() ;</span>
+
+<span class="q"># message language now decided by decide_language, within readmessages 08/2011</span>
+<span class="q">my %messages = readmessages();</span>
 
 <span class="q">my $query = new CGI ;</span>
  

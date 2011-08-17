@@ -237,7 +237,6 @@ use Cccrypto;
 use Cccookie;
 use Ccu;
 
-
 my %configuration          = readconfiguration;
 my $configuration_hash_ref = \%configuration;
 

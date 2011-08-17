@@ -188,8 +188,8 @@ to change these, just substitute a translated hash</p>
 
 =cut</pre>
 <pre>
-<span class="c"># application specific globals</span>
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="c"># messages will now use decide_language to get language, in Ccu.pm 08/2011</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#============== change the configuration to your registry and currency for sms</span>
 
@@ -216,8 +216,7 @@ then dispatches to the appropriate internal function</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="c">###    $log-&gt;debug(&quot;orig is $$fieldsref{&#39;originator&#39;}&quot;);</span>
-
+    <span class="c">### $log-&gt;debug(&quot;orig is $$fieldsref{&#39;originator&#39;}&quot;);</span>
     <span class="c">### my $x;</span>
     <span class="c">### $x = join( &quot;|&quot;, %$fieldsref );</span>
 

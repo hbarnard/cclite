@@ -115,6 +115,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <p>(c) Hugh Barnard 2005 GPL Licenced</p>
 
 <hr /><pre>#!/usr/bin/perl
+
 <span class="k">my</span> <span class="i">$test</span> = <span class="n">0</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$test</span><span class="s">)</span> <span class="s">{</span>
     <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
@@ -129,10 +130,10 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="s">}</span>
 <span class="c">###__END__</span>
 
-
 </pre><pre>
 <span class="k">BEGIN</span> <span class="s">{</span>
 
+   <span class="c"># krystal hosting only stuff</span>
     <span class="k">my</span> <span class="i">$base_module_dir</span> = <span class="s">(</span>
         <span class="k">-d</span> <span class="q">&#39;/home/ccliekh/perl&#39;</span>
         ? <span class="q">&#39;/home/ccliekh/perl&#39;</span>
@@ -173,8 +174,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
+
 <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;cclite&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&#39;cclite&#39;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">%fields</span>    = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -182,7 +184,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="c"># no soap and associated modules required,</span>
 <span class="c"># if you declare multiregistry=no in cclite.cf</span>
-<span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">multiregistry</span>} <span class="k">eq</span> <span class="q">&quot;yes&quot;</span> <span class="s">)</span> <span class="s">{</span>
+<span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">multiregistry</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
     <span class="k">require</span> <span class="w">SOAP::Lite</span><span class="sc">;</span>    <span class="c"># uses this for remote lookups etc.</span>
     <span class="w">import</span> <span class="w">SOAP::Lite</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -206,9 +208,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="i">$fields</span>{<span class="w">client_ip</span>} = <span class="i">$ENV</span>{<span class="w">REMOTE_ADDR</span>}<span class="sc">;</span>
 
 <span class="c"># moved from template because other routines need it</span>
-<span class="k">if</span> <span class="s">(</span>   <span class="i">$fields</span>{<span class="w">action</span>} <span class="k">ne</span> <span class="q">&quot;logoff&quot;</span>
+<span class="k">if</span> <span class="s">(</span>   <span class="i">$fields</span>{<span class="w">action</span>} <span class="k">ne</span> <span class="q">&#39;logoff&#39;</span>
     &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span>
-    &amp;&amp; <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLevel&#39;</span>} <span class="k">ne</span> <span class="q">&quot;admin&quot;</span> <span class="s">)</span>
+    &amp;&amp; <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLevel&#39;</span>} <span class="k">ne</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span>
 <span class="s">{</span>
 
     <span class="i">$fields</span>{<span class="w">userLogin</span>} = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="sc">;</span>
@@ -216,12 +218,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="c">#</span>
 <span class="c">#---------------------------------------------------------------------------</span>
-<span class="c"># change the language default here</span>
+<span class="c"># change the language default here, languages should be ISO 639 lower case</span>
 <span class="c">#</span>
-<span class="k">my</span> <span class="i">$language</span> =
-     <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
-  || <span class="i">$fields</span>{<span class="w">language</span>}
-  || <span class="i">$configuration</span>{<span class="w">language</span>}<span class="sc">;</span>    <span class="c"># default is english in logon</span>
+<span class="k">my</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span> <span class="sc">;</span>
+
+<span class="c">###print &quot;language = $language\n&quot; ;</span>
 
 <span class="c">#---------------------------------------------------------------------------</span>
 
@@ -344,14 +345,14 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c"># note that widgets can&#39;t have cookies...at least in Opera 12/2009</span>
 <span class="c">#FIXME: this is becoming a disgrace, move to a gatekeeper function in Ccsecurity.pm</span>
 <span class="k">my</span> <span class="i">%allowed_actions</span> =
-  <span class="q">qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes)</span> <span class="sc">;</span>
+  <span class="q">qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes lang yes)</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span>
        <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
     &amp;&amp; <span class="s">(</span> !<span class="k">exists</span> <span class="i">$allowed_actions</span>{<span class="i">$action</span>} <span class="s">)</span>
 
-    &amp;&amp; <span class="s">(</span> <span class="i">$ENV</span>{<span class="w">QUERY_STRING</span>} <span class="k">ne</span> <span class="q">&quot;action=template&amp;name=newuser.html&quot;</span> <span class="s">)</span>
-    &amp;&amp; <span class="s">(</span> <span class="i">$ENV</span>{<span class="w">QUERY_STRING</span>} <span class="k">ne</span> <span class="q">&quot;action=template&amp;name=forgotpass.html&quot;</span> <span class="s">)</span>
+    &amp;&amp; <span class="s">(</span> <span class="i">$ENV</span>{<span class="w">QUERY_STRING</span>} <span class="k">ne</span> <span class="q">&#39;action=template&amp;name=newuser.html&#39;</span> <span class="s">)</span>
+    &amp;&amp; <span class="s">(</span> <span class="i">$ENV</span>{<span class="w">QUERY_STRING</span>} <span class="k">ne</span> <span class="q">&#39;action=template&amp;name=forgotpass.html&#39;</span> <span class="s">)</span>
     &amp;&amp; <span class="s">(</span> <span class="i">$fields</span>{<span class="w">logontype</span>} <span class="k">ne</span> <span class="q">&#39;widget&#39;</span> <span class="s">)</span>
 
   <span class="s">)</span>
@@ -388,7 +389,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span>
         &amp;&amp; <span class="s">(</span> <span class="i">$compare_token</span> <span class="k">ne</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
+        <span class="c">### my $fieldsref = \%fields;</span>
         <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
 <span class="q">&quot;corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
@@ -423,23 +424,23 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 
 <span class="c"># logon to a registry</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;logon&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;logon&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">logon_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># logoff, doesn&#39;t return, exits</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;logoff&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;logoff&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="i">logoff_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
     <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># these are &#39;raw&#39; db actions, need a bit of work, except for find_records...</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;insert&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;insert&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">add_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># fieldslist as spaces added after fieldsref to display selected fields only 4/2010</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;find&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;find&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">find_records</span><span class="s">(</span>
@@ -447,11 +448,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <span class="i">$token</span><span class="cm">,</span>  <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;delete&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;delete&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">delete_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;modifyuser&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;modifyuser&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span>
         <span class="i">$refresh</span><span class="cm">,</span>  <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>   <span class="i">$html</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
@@ -461,11 +462,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;display&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;display&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
     <span class="i">show_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;update&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;update&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
     <span class="i">update_database_record</span><span class="s">(</span>
@@ -474,7 +475,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show a template</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;template&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;template&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> = <span class="i">display_template</span><span class="s">(</span>
         <span class="i">$refresh</span><span class="cm">,</span>  <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>   <span class="i">$html</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
@@ -484,7 +485,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="c"># these are specific actions which belong to the application</span>
 <span class="c"># show my current transactions</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showtrans&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showtrans&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">get_many_items</span><span class="s">(</span>
@@ -503,20 +504,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c"># other parts of the trade should always remain integral</span>
 <span class="c"># actually the hash should change at this point?!</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;confirmtrade&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;confirmtrade&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">modify_trade</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;declinetrade&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;declinetrade&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">modify_trade</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;canceltrade&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;canceltrade&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">modify_trade</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show my yellow pages entries</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showmyyellow&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showmyyellow&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">get_many_items</span><span class="s">(</span>
@@ -527,7 +528,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show yellow pages entries following category selection, space after fieldsref selects limited fields display</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showyellowbycat&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showyellowbycat&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">find_records</span><span class="s">(</span>
@@ -539,7 +540,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="c">#FIXME: this is 0.4.0 code and will be removed soon, replaced by showyellowdir1</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showyellowdir&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showyellowdir&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">show_yellow_dir</span><span class="s">(</span>
@@ -549,33 +550,33 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showyellowdir1&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showyellowdir1&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">show_yellow_dir1</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;addyellow&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;addyellow&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">add_yellow</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_yellowpages&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showyellow&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showyellow&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
     <span class="i">show_yellow</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_yellowpages&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># make a newly created user active</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;confirmuser&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;confirmuser&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">confirm_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># add an openid to the logged on user</span>
 <span class="c"># add a user with status unconfirmed</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;addopenid&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;addopenid&#39;</span> <span class="s">)</span>
 
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">add_openid</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_openid&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show my current openids</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showopenid&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showopenid&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">get_many_items</span><span class="s">(</span>
@@ -586,7 +587,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show my current openids</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showcategories&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showcategories&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">get_many_items</span><span class="s">(</span>
@@ -597,17 +598,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># add a user with status unconfirmed</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;adduser&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;adduser&#39;</span> <span class="s">)</span>
 
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">add_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showuser&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showuser&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
     <span class="i">show_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># email password: to be done..</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;forgotpassword&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;forgotpassword&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
 
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
@@ -617,22 +618,22 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># pay another user</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;transaction&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;transaction&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># pay another user in two currencies</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;splittransaction&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;splittransaction&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">split_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># pay another user from oscommerce shop</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;oscommerce_pay&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;oscommerce_pay&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">oscommerce_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show balance and volume</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showbalvol1&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showbalvol1&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
 
@@ -644,7 +645,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show balance and volume, changed to non-hardcoded mode 2/2011</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showbalvol&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showbalvol&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
 
@@ -656,43 +657,43 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># sms and touchtone</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;smsemulate&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;smsemulate&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">sms_transaction</span><span class="s">(</span> <span class="i">$fields</span>{<span class="w">fromnumber</span>}<span class="cm">,</span> <span class="i">$fields</span>{<span class="w">smsmessage</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># change language</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;lang&quot;</span> <span class="s">)</span>
+<span class="c"># change language: now in full testing 06/2011</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;lang&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span>
         <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>     <span class="i">$html</span><span class="cm">,</span>
         <span class="i">$pages</span><span class="cm">,</span>   <span class="i">$pagename</span><span class="cm">,</span>    <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span>
     <span class="s">)</span>
-    = <span class="i">change_language</span><span class="s">(</span>
+    = <span class="i">change_language</span><span class="s">(</span><span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>
         <span class="i">$configuration</span>{<span class="w">templates</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
-
 <span class="c"># get yellowpages as json tag cloud for remote users</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showtags&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showtags&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-    <span class="i">show_tag_cloud</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>  <span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">show_tag_cloud</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+
+<span class="c"># beginning of oauth </span>
 
 <span class="c"># get requestoken for remote oauth users</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;requesttoken&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;requesttoken&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-    <span class="i">do_oauth</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>  <span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">do_oauth</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># get accesstoken for remote oauth users</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;accesstoken&quot;</span> <span class="s">)</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;accesstoken&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-    <span class="i">do_oauth</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>  <span class="s">)</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">do_oauth</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 
-
-
-
-<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;news&#39;</span>} = <span class="i">get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+<span class="c"># only get news if there&#39;s a defined registry containing it 08/2011</span>
+<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;news&#39;</span>} = <span class="i">get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span><span class="s">)</span> <span class="sc">;</span>
 
 <span class="c">#FIXME: Probably only to be done when logged on?</span>
 <span class="c"># but nice to show a few &#39;public&#39; listings....</span>
@@ -704,24 +705,20 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
     <span class="k">my</span> <span class="i">$save</span> = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;getdetail&#39;</span>}<span class="sc">;</span>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;getdetail&#39;</span>} = <span class="n">1</span><span class="sc">;</span>
-    
-    
+
     <span class="c"># choice between strict categories and free-form tags now...</span>
-    <span class="k">if</span> <span class="s">(</span><span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span><span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="s">(</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">righthandside</span>}<span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span> =
-        
-          <span class="i">show_yellow_dir1</span><span class="s">(</span>
-            <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
-          <span class="s">)</span> <span class="sc">;</span>
-          
+
+          <span class="i">show_yellow_dir1</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span>
+            <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-           
-         <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;righthandside&#39;</span>} <span class="s">)</span> =
-        
-          <span class="i">show_tag_cloud</span><span class="s">(</span>
-            <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span>
-          <span class="s">)</span>  <span class="sc">;</span>       
-          
+
+        <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;righthandside&#39;</span>} <span class="s">)</span> =
+
+          <span class="i">show_tag_cloud</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="s">}</span>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;getdetail&#39;</span>} = <span class="i">$save</span><span class="sc">;</span>
 <span class="s">}</span>

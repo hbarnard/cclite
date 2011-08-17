@@ -51,7 +51,6 @@ pre { color: #000000;
 
 		<ul>
 
-			<li><a href="#readconfiguration">readconfiguration</a></li>
 			<li><a href="#get_volumes">get_volumes</a></li>
 			<li><a href="#get_average_transaction_size">get_average_transaction_size</a></li>
 			<li><a href="#render_chart">render_chart</a></li>
@@ -104,61 +103,6 @@ pre { color: #000000;
     <span class="k">exit</span> <span class="n">1</span><span class="sc">;</span>
 <span class="s">}</span>
 <a name="__END__-"></a><span class="k">__END__</span>
-
-
-</pre><p></p>
-<h3><a name="readconfiguration">readconfiguration</a></h3>
-<p>Read the configuration data and return a hash, this routine
-also exists in ccserver.cgi</p>
-<p>Skip comments marked with #
-cgi parameters will override configuration file
-information, always!</p>
-<p>Included here, needs to be executed within BEGIN</p>
-<pre>
-
-<span class="q">sub readconfiguration {</span>
-
-<span class="q">    my $os = $^O;</span>
-<span class="q">    my $dir;</span>
-<span class="q">    my $default_config;</span>
-
-<span class="q">    # if it&#39;s windows use cd to find the directory</span>
-<span class="q">    if ( $os =~ /^ms/i ) {</span>
-<span class="q">        $dir = `cd`;</span>
-<span class="q">    } else {</span>
-<span class="q">        $dir = `pwd`;</span>
-<span class="q">    }</span>
-
-<span class="q">    # make an informed guess at the config file not explictly supplied</span>
-<span class="q">    $dir =~ s/\bcgi-bin.*//;</span>
-<span class="q">    $default_config = &quot;${dir}config/cclite.cf&quot;;</span>
-<span class="q">    $default_config =~ s/\s//g;</span>
-
-<span class="q">     ###print &quot;default config is $default_config&quot; ;</span>
-
-<span class="q">    # either supply it explicitly with full path or it will guess..</span>
-<span class="q">    my $configfile = $_[0] || $default_config;</span>
-
-<span class="q">    my %configuration;</span>
-<span class="q">    if ( -e $configfile ) {</span>
-<span class="q">        open( CONFIG, $configfile );</span>
-<span class="q">        while (&lt;CONFIG&gt;) {</span>
-<span class="q">            s/\s$//g;</span>
-<span class="q">            next if /^#/;</span>
-<span class="q">            my ( $key, $value ) = split( /\=/, $_ );</span>
-<span class="q">            if ($value) {</span>
-<span class="q">                $key =~ lc($key);    #- make key canonic, all lower</span>
-<span class="q">                $configuration{$key} = $value if ( length($value) );</span>
-<span class="q">            }</span>
-<span class="q">            $key   = &quot;&quot;;</span>
-<span class="q">            $value = &quot;&quot;;</span>
-<span class="q">        }</span>
-<span class="q">    } else {</span>
-<span class="q">        error(</span>
-<span class="q">            &quot;Cannot find configuration file file: $configfile may be missing?&quot;);</span>
-<span class="q">    }</span>
-<span class="q">    return %configuration;</span>
-<span class="q">}</span>
 
 
 
@@ -386,8 +330,6 @@ happening. A little crude at present</p>
 <span class="q">use GD ;</span>
 <span class="q">use Cclitedb;</span>
 
-<span class="q">###use GD::Graph::bars;</span>
-
 <span class="q">my $format = &#39;sparklines&#39; ;</span>
 <span class="q">eval {</span>
 <span class="q">   use GD::Graph::sparklines;</span>
@@ -399,6 +341,7 @@ happening. A little crude at present</p>
 <span class="q">}</span>
 
 <span class="q">use GD::Text;</span>
+
 <span class="q">%configuration = readconfiguration();</span>
 
 <span class="q">Log::Log4perl-&gt;init($configuration{&#39;loggerconfig&#39;});</span>
@@ -406,7 +349,9 @@ happening. A little crude at present</p>
 
 <span class="q">my $cookieref = get_cookie();</span>
 <span class="q">my %fields    = cgiparse();</span>
-<span class="q">our %messages = readmessages(&quot;en&quot;);</span>
+
+<span class="q"># message language now decided by decide_language 08/2011</span>
+<span class="q">our %messages = readmessages();</span>
 
 <span class="q"># you&#39;ll have to hardwire this, if running from cron</span>
 <span class="q">my $registry = $$cookieref{registry} ;</span>

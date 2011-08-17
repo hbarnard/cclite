@@ -56,6 +56,7 @@ use Ccu;
 use Cclitedb;
 use Cccookie;
 use MIME::Base64;
+
 # use Net::OAuth;       # for Oauth in a while...
 use Ccconfiguration;    # new style configuration, read hash type...
 ###use GnuPG qw( :algo );
@@ -108,7 +109,7 @@ sub _get_digest {
     my $digest;
     my $sha2obj;
     my $type;
-    my %configuration = readconfiguration()  if ( $0 !~ /ccinstall/ ) ;
+    my %configuration = readconfiguration() if ( $0 !~ /ccinstall/ );
     my ( $os, $distribution, $package_type ) = get_os_and_distribution();
     eval {
         if ( $configuration{hash_type} eq 'sha2' && $os ne 'windows' )
@@ -203,8 +204,8 @@ sub calculate_token {
             $nonce, $remote_address );
 ###         $log->debug(
 ###"in token calc, new token: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
-###    );    
-            
+###    );
+
         return ( $token, $nonce );
     } else {
         $token = _get_digest(
@@ -425,13 +426,13 @@ sub install_grumble {
     }
     my $cgiinstall = "$base_path/cgi-bin/protected/ccinstall.cgi";
     if ( -e $cgiinstall && -x $cgiinstall ) {
-        push @grumbles, $messages{'ccinstallinsecure'} ;
+        push @grumbles, $messages{'ccinstallinsecure'};
     }
 
     # grumble about soap server also insecure
     my $soapserver = "$base_path/cgi-bin/ccserver.cgi/";
     if ( -e $soapserver && -x $soapserver ) {
-        push @grumbles, $messages{'ccsoapserverinsecure'} ;
+        push @grumbles, $messages{'ccsoapserverinsecure'};
     }
 
     # turn off this grumble for the moment: people don't want it 10/2009

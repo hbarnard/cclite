@@ -150,7 +150,8 @@ to change these, just substitute a translated hash</p>
 
 =cut</pre>
 <pre>
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="c"># language of messages decided now by Ccu::decide_language</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span>      = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Ccinterfaces&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 </pre><p></p>

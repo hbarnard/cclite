@@ -116,11 +116,13 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="q"># you&#39;ll have to hardcode these, if this is a cron</span>
 <span class="q">my $cookieref = get_cookie();</span>
-<span class="q">my $registry = $$cookieref{registry} ;</span>
-<span class="q">my $language = $$cookieref{language} ;</span>
+<span class="q">my $registry = $cookieref-&gt;{registry} ;</span>
+<span class="q">my $language = $cookieref-&gt;{language} ;</span>
 
 <span class="q">my  %configuration  = readconfiguration();</span>
-<span class="q">our %messages = readmessages(&quot;en&quot;);</span>
+
+<span class="q"># message language now decided by decide_language 08/2011</span>
+<span class="q">our %messages = readmessages();</span>
 
 <span class="q">Log::Log4perl-&gt;init($configuration{&#39;loggerconfig&#39;});</span>
 <span class="q">our $log = Log::Log4perl-&gt;get_logger(&quot;writerss&quot;);</span>

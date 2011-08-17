@@ -203,10 +203,11 @@ FIXME: Only checks non blank not valid file names</p>
 <span class="s">}</span>
 
 <span class="c"># read configuration and messages</span>
-
 <span class="k">my</span> <span class="i">%configuration</span>          = <span class="w">readconfiguration</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$configuration_hash_ref</span> = \<span class="i">%configuration</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="q">&quot;en&quot;</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># language now decided by decide_language 08/2011</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;read_pop_mail_gpg&quot;</span><span class="s">)</span><span class="sc">;</span>

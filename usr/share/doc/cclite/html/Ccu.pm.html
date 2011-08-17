@@ -71,7 +71,8 @@ pre { color: #000000;
 			<li><a href="#make_html_row_contents">make_html_row_contents</a></li>
 			<li><a href="#make_html_transaction_totals">make_html_transaction_totals</a></li>
 			<li><a href="#deliver_remote_data">deliver_remote_data</a></li>
-			<li><a href="#_timestamp">_timestamp</a></li>
+			<li><a href="#sql_timestamp">sql_timestamp</a></li>
+			<li><a href="#decide_language">decide_language</a></li>
 			<li><a href="#debug_hash_contents">debug_hash_contents</a></li>
 		</ul>
 
@@ -103,6 +104,7 @@ pre { color: #000000;
 <li><a href="#make_html_transaction_totals-">make_html_transaction_totals</a></li>
 <li><a href="#deliver_remote_data-">deliver_remote_data</a></li>
 <li><a href="#sql_timestamp-">sql_timestamp</a></li>
+<li><a href="#decide_language-">decide_language</a></li>
 <li><a href="#debug_hash_contents-">debug_hash_contents</a></li>
 <li><a href="#pretty_caller-">pretty_caller</a></li>
 </ul>
@@ -155,6 +157,7 @@ read in and localise web forms etc.</p>
   <span class="q">readmessages</span>
   <span class="q">debug_soap</span>
   <span class="q">debug_hash_contents</span>
+  <span class="q">decide_language</span>
   <span class="q">deliver_remote_data</span>
   <span class="q">display_template</span>
   <span class="q">make_page_links</span>
@@ -236,11 +239,11 @@ note that the $html variable is badly named, it should be 'message' or something
         <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>   <span class="i">$cookies</span><span class="cm">,</span> <span class="i">$token</span>
     <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-
     <span class="k">my</span> <span class="i">%configuration</span><span class="sc">;</span>
+
     <span class="c">#FIXME: hack to deal with cpanel database names....</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="s">{</span>
-        
+
         <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
         <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span><span class="i">%$fieldsref</span><span class="s">)</span> <span class="s">{</span>
@@ -330,7 +333,7 @@ note that the $html variable is badly named, it should be 'message' or something
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="k">my</span> <span class="i">$login</span> = <span class="i">$cookieref</span>-&gt;{<span class="w">userLogin</span>} || <span class="i">$fieldsref</span>-&gt;{<span class="w">userLogin</span>}<span class="sc">;</span>
-        <span class="i">%messages</span>                = <span class="i">readmessages</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">language</span>} <span class="s">)</span><span class="sc">;</span>
+        <span class="i">%messages</span>                = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="w">youare</span>}     = <span class="q">&quot;$messages{youare} $login&quot;</span><span class="sc">;</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="w">atregistry</span>} = <span class="q">&quot;$messages{at} $fieldsref-&gt;{registry}&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -403,7 +406,10 @@ note that the $html variable is badly named, it should be 'message' or something
     <span class="c"># the codes now have a tree structure, category and parent (category).</span>
     <span class="c"># as of 07/2011 this is switched off, if free form tags are allowed</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/yellowpages/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} <span class="s">)</span> &amp;&amp; <span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span><span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span>   <span class="i">$pagename</span> =~ <span class="q">/yellowpages/</span>
+        &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} <span class="s">)</span>
+        &amp;&amp; <span class="i">$configuration</span>{<span class="q">&#39;usetags&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span>
+    <span class="s">{</span>
 
         <span class="c"># collect categories for yellow pages</span>
         <span class="k">my</span> <span class="i">$option_string</span> =
@@ -413,10 +419,10 @@ note that the $html variable is badly named, it should be 'message' or something
 <span class="hh"> &lt;select type=&quot;required&quot; name=&quot;classification&quot;&gt;$blank_option$option_string&lt;/select&gt;\n    </span>
 <span class="h">EOT</span>
 
-    <span class="s">}</span>    <span class="k">else</span> <span class="s">{</span>
-    
-    <span class="i">$fieldsref</span>-&gt;{<span class="w">selectclassification</span>} = <span class="i">$messages</span>{<span class="q">&#39;usetags&#39;</span>} <span class="sc">;</span>
-<span class="s">}</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">selectclassification</span>} = <span class="i">$messages</span>{<span class="q">&#39;usetags&#39;</span>}<span class="sc">;</span>
+    <span class="s">}</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> =~ <span class="q">/category/</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -570,8 +576,9 @@ depending on the package or installation type:</p>
 <a name="readmessages-"></a><span class="k">sub </span><span class="m">readmessages</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$language</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-
-    <span class="i">$language</span> = <span class="q">&quot;en&quot;</span> <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    
+    <span class="c">#FIXME: this is called in several places....</span>
+    <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> ! <span class="k">length</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># deals with various directory structures</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> =
@@ -601,10 +608,10 @@ depending on the package or installation type:</p>
             <span class="i">$value</span> = <span class="q">&quot;&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-
+        <span class="i">pretty_caller</span><span class="s">(</span><span class="n">3</span><span class="s">)</span> <span class="sc">;</span>
         <span class="i">error</span><span class="s">(</span>
             <span class="i">$language</span><span class="cm">,</span>
-<span class="q">&quot;Cannot x find messages file:$error $messfile for $language may be missing?&quot;</span><span class="cm">,</span>
+<span class="q">&quot;Cannot find messages file:$error $messfile for $language may be missing?&quot;</span><span class="cm">,</span>
             <span class="q">&quot;&quot;</span><span class="cm">,</span>
             <span class="q">&quot;&quot;</span>
         <span class="s">)</span><span class="sc">;</span>
@@ -690,10 +697,17 @@ configuration should work...</p>
 
     <span class="c"># if ubuntu or debian, test whether packaged by looking</span>
     <span class="c"># in /usr/share/cclite</span>
+    <span class="c">#FIXME: Not quite right because can be debian/ubuntu and in /home</span>
+    <span class="c"># if ubuntu or debian, test whether packaged by looking</span>
+    <span class="c"># in /usr/share/cclite</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;ubuntu&#39;</span> || <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;debian&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$checkdir</span> = <span class="q">`usr/share/cclite`</span><span class="sc">;</span>
-        <span class="i">$package_type</span> = <span class="n">2</span> <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$checkdir</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># 2 is debian package</span>
+        <span class="i">$checkdir</span>     = <span class="q">&#39;/usr/share/cclite&#39;</span> <span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span><span class="k">-e</span> <span class="i">$checkdir</span><span class="s">)</span> <span class="s">{</span>
+        <span class="i">$package_type</span> = <span class="n">2</span> <span class="sc">;</span>    <span class="c"># 2 is debian and derivatives</span>
+    <span class="s">}</span> <span class="k">else</span>  <span class="s">{</span>
+        <span class="i">$package_type</span> = <span class="n">3</span> <span class="sc">;</span>    <span class="c"># debian/ubuntu but unpackaged</span>
+     <span class="s">}</span>    
     <span class="s">}</span>
 
     <span class="c"># guessing at cpanel because the whole thing is under the document root</span>
@@ -901,6 +915,7 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
           <span class="q">s/\,$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">for</span> <span class="k">my</span> <span class="i">$id</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
+
             <span class="c"># misteak corrected 20.05.2011, was $id, for the value as well</span>
             <span class="i">$json</span> .= <span class="q">&quot;\n{\&quot;$id\&quot;: \&quot;$hash_ref-&gt;{$id}\&quot;,\n &quot;</span><span class="sc">;</span>
             <span class="i">$json</span> =~ <span class="q">s/\,$//</span>
@@ -922,7 +937,7 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
 <span class="s">}</span>
 
 </pre><p></p>
-<h3><a name="_timestamp">_timestamp</a></h3>
+<h3><a name="sql_timestamp">sql_timestamp</a></h3>
 <p>mysql compatible timestamp</p>
 <pre>
 <a name="sql_timestamp-"></a><span class="k">sub </span><span class="m">sql_timestamp</span> <span class="s">{</span>
@@ -934,9 +949,46 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
     <span class="k">return</span> <span class="i">$timestamp</span><span class="sc">;</span>
 <span class="s">}</span>
 
+
+
+
+</pre><p></p>
+<h3><a name="decide_language">decide_language</a></h3>
+<p>Now we're going multilingual need to deal with this in a non-hardcoded fashion
+This decides the language:
+1. Via cookie, if set
+2. fieldsref-&gt;{'language'} if not cookie
+3. base cclite.cf language if not 1 and 2, because single country based, usually
+4. engleesh if not 1,2,3</p>
+<pre>
+
+<a name="decide_language-"></a><span class="k">sub </span><span class="m">decide_language</span> <span class="s">{</span>
+
+<span class="k">my</span> <span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+<span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span>  <span class="sc">;</span>
+<span class="c">#</span>
+<span class="c">#---------------------------------------------------------------------------</span>
+<span class="c"># change the language default here, languages should be ISO 639 lower case</span>
+<span class="c">#</span>
+<span class="k">my</span> <span class="i">$language</span> =
+     <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
+  || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
+  || <span class="i">$configuration</span>{<span class="q">&#39;language&#39;</span>}
+  || <span class="q">&#39;en&#39;</span> <span class="sc">;</span>
+
+    <span class="c">#FIXME: remove garbage at end of cookie, probably OK 08/2011&quot;en&quot;</span>
+    <span class="i">$language</span> =~ <span class="q">s/[^\w]+$//</span> <span class="sc">;</span>
+
+
+<span class="k">return</span> <span class="i">$language</span> <span class="sc">;</span>
+
+<span class="s">}</span>
+
 </pre><p></p>
 <h3><a name="debug_hash_contents">debug_hash_contents</a></h3>
-<p>debug the contents of a hash, with stamp for calling routine</p>
+<p>debug the contents of a hash, with stamp for calling routine
+Probably should use data dumper, but that's 'yam', yet another module</p>
 
 <pre>
 <a name="debug_hash_contents-"></a><span class="k">sub </span><span class="m">debug_hash_contents</span> <span class="s">{</span>

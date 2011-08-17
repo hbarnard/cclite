@@ -84,7 +84,7 @@ $ENV{IFS} = " ";   # modest security
 my $token;
 my $cookieref = get_cookie();
 
-# message language now defined by decide_language 
+# message language now defined by decide_language
 our %messages = readmessages();
 
 # array of tags for yellowpage tags autosuggest

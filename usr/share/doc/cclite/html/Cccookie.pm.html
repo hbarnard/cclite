@@ -190,15 +190,17 @@ Set-cookie etc.</p>
         <span class="q">&quot;Jan&quot;</span><span class="cm">,</span> <span class="q">&quot;Feb&quot;</span><span class="cm">,</span> <span class="q">&quot;Mar&quot;</span><span class="cm">,</span> <span class="q">&quot;Apr&quot;</span><span class="cm">,</span> <span class="q">&quot;May&quot;</span><span class="cm">,</span> <span class="q">&quot;Jun&quot;</span><span class="cm">,</span>
         <span class="q">&quot;Jul&quot;</span><span class="cm">,</span> <span class="q">&quot;Aug&quot;</span><span class="cm">,</span> <span class="q">&quot;Sep&quot;</span><span class="cm">,</span> <span class="q">&quot;Oct&quot;</span><span class="cm">,</span> <span class="q">&quot;Nov&quot;</span><span class="cm">,</span> <span class="q">&quot;Dec&quot;</span>
     <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$seconds</span><span class="cm">,</span> <span class="i">$min</span><span class="cm">,</span> <span class="i">$hour</span><span class="cm">,</span> <span class="i">$mday</span><span class="cm">,</span> <span class="i">$mon</span><span class="cm">,</span> <span class="i">$year</span><span class="cm">,</span> <span class="i">$wday</span> <span class="s">)</span> = <span class="k">gmtime</span><span class="s">(</span><span class="i">$expires</span><span class="s">)</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="i">$expires</span> &gt; <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>    <span class="c">#get date info if expiration set.</span>
-
+    
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$seconds</span><span class="cm">,</span> <span class="i">$min</span><span class="cm">,</span> <span class="i">$hour</span><span class="cm">,</span> <span class="i">$mday</span><span class="cm">,</span> <span class="i">$mon</span><span class="cm">,</span> <span class="i">$year</span><span class="cm">,</span> <span class="i">$wday</span> <span class="s">)</span>  <span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$expires</span> &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>    <span class="c">#get date info if expiration set.</span>
+     <span class="s">(</span> <span class="i">$seconds</span><span class="cm">,</span> <span class="i">$min</span><span class="cm">,</span> <span class="i">$hour</span><span class="cm">,</span> <span class="i">$mday</span><span class="cm">,</span> <span class="i">$mon</span><span class="cm">,</span> <span class="i">$year</span><span class="cm">,</span> <span class="i">$wday</span> <span class="s">)</span> = <span class="k">gmtime</span><span class="s">(</span><span class="i">$expires</span><span class="s">)</span> <span class="sc">;</span>
     <span class="c"># expiry date format: Wdy, DD-Mon-YYYY HH:MM:SS GMT</span>
 
     <span class="q">&quot;0&quot;</span> . <span class="i">$seconds</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$seconds</span> &lt; <span class="n">10</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># formatting of date variables</span>
     <span class="q">&quot;0&quot;</span> . <span class="i">$min</span>     <span class="k">if</span> <span class="s">(</span> <span class="i">$min</span> &lt; <span class="n">10</span> <span class="s">)</span><span class="sc">;</span>
     <span class="q">&quot;0&quot;</span> . <span class="i">$hour</span>    <span class="k">if</span> <span class="s">(</span> <span class="i">$hour</span> &lt; <span class="n">10</span> <span class="s">)</span><span class="sc">;</span>
-
+    <span class="s">}</span>
+    
     <span class="k">my</span> <span class="s">(</span><span class="i">@secure</span><span class="s">)</span> = <span class="s">(</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;secure&quot;</span> <span class="s">)</span>
       <span class="sc">;</span> <span class="c"># add security to the cookie if defined.  I&#39;m not too sure how this works.</span>
 
@@ -216,15 +218,17 @@ Set-cookie etc.</p>
 <span class="q">&quot;expires\=$days[$wday], $mday-$months[$mon]-$year $hour:$min:$seconds GMT; &quot;</span>
           <span class="sc">;</span>    <span class="c">#form expiration from value passed to function.</span>
     <span class="s">}</span>
+    
+    
     <span class="k">if</span> <span class="s">(</span> !<span class="k">defined</span> <span class="i">$domain</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$domain</span> = <span class="i">$ENV</span>{<span class="q">&#39;SERVER_NAME&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span>    <span class="c">#set domain of cookie.  Default is current host.</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">defined</span> <span class="i">$path</span> <span class="s">)</span>   <span class="s">{</span> <span class="i">$path</span>   = <span class="q">&quot;/&quot;</span><span class="sc">;</span> <span class="s">}</span>    <span class="c">#set default path = &quot;/&quot;</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">defined</span> <span class="i">$secure</span> <span class="s">)</span> <span class="s">{</span> <span class="i">$secure</span> = <span class="q">&quot;0&quot;</span><span class="sc">;</span> <span class="s">}</span>
+    <span class="c">#if ( !defined $secure ) { $secure = &quot;0&quot;; }</span>
 
     <span class="k">my</span> <span class="i">$header</span><span class="sc">;</span>
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%cookie</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$cookie</span>{<span class="i">$key</span>} =~ <span class="q">s/ /+/g</span><span class="sc">;</span>                 <span class="c">#convert plus to space.</span>
+        <span class="i">$cookie</span>{<span class="i">$key</span>} =~ <span class="q">s/ /+/g</span> <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$cookie</span>{<span class="i">$key</span>}<span class="s">)</span><span class="s">)</span><span class="sc">;</span>                 <span class="c">#convert space to plus.</span>
         <span class="i">$header</span> .=
 <span class="q">&quot;Set-Cookie: $key\=$cookie{$key}; $expires path\=$path; domain\=$domain; $secure[$sec]\n&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -243,8 +247,7 @@ Set-cookie etc.</p>
     <span class="k">my</span> <span class="i">$header</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%cookie</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">undef</span> <span class="i">$cookie</span>{ <span class="i">$key</span>
-          }<span class="sc">;</span> <span class="c">#undefines cookie so if you call set_cookie, it doesn&#39;t reset the cookie.</span>
+        <span class="k">undef</span> <span class="i">$cookie</span>{<span class="i">$key</span>}<span class="sc">;</span> <span class="c">#undefines cookie so if you call set_cookie, it doesn&#39;t reset the cookie.</span>
         <span class="i">$header</span> .=
           <span class="q">&quot;Set-Cookie: $key=deleted; expires=Thu, 01-Jan-1970 00:00:00 GMT;\n&quot;</span><span class="sc">;</span>
 

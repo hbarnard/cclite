@@ -66,8 +66,6 @@ Cchooks.pm
  
 =cut    
 
-
-
 package Ccsms::Cardboardfish;
 
 use strict;
@@ -108,9 +106,8 @@ to change these, just substitute a translated hash
 
 # messages will now use decide_language to get language, in Ccu.pm 08/2011
 our %messages = readmessages();
-my %configuration = readconfiguration();
+my %configuration     = readconfiguration();
 my %sms_configuration = readconfiguration('../../config/readsms.cf');
-
 
 # this is a little unnecessary, but can stay for a while
 our $registry     = $sms_configuration{'registry'};

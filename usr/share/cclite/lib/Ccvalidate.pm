@@ -146,7 +146,7 @@ A work in progress!
 sub validate_user {
 
     my ( $class, $db, $fieldsref, $messagesref, $token, $offset, $limit ) = @_;
-    my (@status, %messages) ;
+    my ( @status, %messages );
     my $action = $fieldsref->{'action'};    # simplify code somewaht
 
     # deals with problem comming from update_database_record
@@ -189,7 +189,8 @@ sub validate_user {
 
         my ( $error, $fromuserref ) =
           get_where( $class, $db, 'om_users', '*', 'userMobile',
-            $fieldsref->{userMobile}, $token, $offset, $limit );
+            $fieldsref->{userMobile},
+            $token, $offset, $limit );
 
         # not unique, another record contains this number
         if ( length($fromuserref) && $action eq 'adduser' ) {
@@ -250,10 +251,12 @@ sub validate_user {
 
     my ( $error1, $fromuserref1 ) =
       get_where( $class, $db, 'om_users', '*', 'userLogin',
-        $fieldsref->{userLogin}, $token, $offset, $limit );
+        $fieldsref->{userLogin},
+        $token, $offset, $limit );
     my ( $error2, $fromuserref2 ) =
       get_where( $class, $db, 'om_users', '*', 'userEmail',
-        $fieldsref->{userEmail}, $token, $offset, $limit );
+        $fieldsref->{userEmail},
+        $token, $offset, $limit );
 
     my ( $nameexists, $emailexists );
 
@@ -402,7 +405,8 @@ sub _validate_address {
 
     # this will do UK, Canada, US and (afaik) most of Europe
     if (
-        $fieldsref->{userPostcode} !~ /\b[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}\b/i
+        $fieldsref->{userPostcode} !~
+        /\b[a-z]{1,2}\d{1,2}[a-z]?\s*\d[a-z]{2}\b/i
         && $fieldsref->{userPostcode} !~ /\b\d{5}(?:[-\s]\d{4})?\b/
         && $fieldsref->{userPostcode} !~ /\b[0-9]{6}\b/i
 
@@ -473,7 +477,8 @@ sub _validate_new_pin {
     my @status;
 
     # pin and confirmation must be filled
-    if ( !length( $fieldsref->{userPin} ) || !length( $fieldsref->{cuserPin} ) ) {
+    if ( !length( $fieldsref->{userPin} ) || !length( $fieldsref->{cuserPin} ) )
+    {
         push @status, $messagesref->{'needpin'};
     }
     if ( $fieldsref->{userPin} =~
