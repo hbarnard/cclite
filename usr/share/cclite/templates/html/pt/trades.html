@@ -1,0 +1,82 @@
+       <table> 
+       <tbody class="stripy">
+     <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden"> <input
+ name="action" value="transaction" type="hidden"> <input
+ name="subaction" value="om_trades" type="hidden">
+ 
+            <tr>
+              <td class="pme-key-1">Data</td>
+              <td class="pme-value-1"> <input class="grey"
+ name="tradeData" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text"></td>
+            </tr>
+            <tr>
+              <td class="pme-key-0">Da conta<br>
+              </td>
+              <td class="pme-value-1"> <input class="grey"
+ name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
+ </td>
+            </tr>
+            <tr>
+              <td class="pme-key-0">Para Account<br>
+              </td>
+              <td class="pme-value-1">
+
+
+
+
+<input class="required" type="text" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
+
+
+</td></tr><tr>
+<td><span class="pme-key-0">Registro</span></td><td> 
+$$fieldsref{selectpartners}
+</td>
+            </tr>
+            <tr>
+              <td class="pme-key-0">Moeda</td>
+              <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
+<span class="pme-key-0"> Montante </span>
+<input class="required" name="tradeMontante" onChange="validatedecimals(this,this.value);" id="tradeMontante" size="11" maxlength="11" type="text">
+
+</td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-0"></td>
+              <td class="pme-value-1"> 
+</td>
+            </tr>
+
+<tr>
+              <td class="pme-key-0">Item Tipo
+              </td>
+              <td class="pme-value-0">
+ 
+<select class="required" name="tradeItem">
+ <option value="goods">Mercadorias</option>
+ <option value="services">Serviços</option>
+ <option value="other">Outros</option>
+</select>
+
+</td></tr><tr><td class="pme-key-0">
+Item Título</td><td> <input class="required"
+ name="tradeTítulo" size="50" maxlength="255" value="" type="text">
+</td>
+            </tr>
+            <tr>
+              <td class="pme-key-1">Descrição do item</td>
+              <td class="pme-value-1"> <textarea class="required"
+ name="tradeDescrição" rows="3" cols="60"></textarea></td>
+            </tr>
+        <table class="pme-navigation">
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Fazer transferência" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+            </tr>
+  
+      </form>
+      </table>
+ </tbody>
+</table>

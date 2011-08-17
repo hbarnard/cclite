@@ -1,0 +1,88 @@
+<!DOجTYPE html PUBLIج "-//W3ج//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="cclite community currency system" />
+<meta name="keywords" content="يتيح ج" />
+<meta name="author" content="hugh barnard  / Original design: أندرياس Viklund - http://andreasviklund.com/" />
+ 
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+<link rel="alternate" type="application/rss+xml" title="الارتباط ككليتي التجريبية" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>  
+
+<title>جclite $$fieldsref{الإصدار} Admin</title>
+
+!$$fieldsref{jscript}
+
+
+<script src="/javascript/prototype.js"></script>
+<script src="/javascript/scriptaculous.js"></script>
+
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+<div id="toptabs">
+<a 
+ class="toptab" title="Forgot Your كلمة المرور?"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">Forgotten كلمة المرور?</a>
+
+
+<a class="toptabstrikethrough" title="دوتش"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;لغة=de">دوتش</a>
+
+<a 
+ class="toptabstrikethrough" title="تغيير إلى الفرنسية"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;لغة=fr">فران</a>
+$$fieldsref{youare} $$fieldsref{atregistry} 
+<p>
+<a class="toptab" title="حساب جديد" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">حساب جديد</a><span class="hide"> | </span>
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">Log off $$fieldsref{user} </a><span class="hide"> | </span>
+<a class="toptab" title="مرة أخرى to المستخدم Menu" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">المستخدم Menu</a><span class="hide"> | </span>
+</p>
+
+
+
+</div>
+
+<div id="container">
+<h1>جclite $$fieldsref{الإصدار} Administration</h1>
+
+
+<div id="navitabs">
+<a class="showpartnersresulthtml" title="وتظهر السجلات الشريك" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">إظهار الشركاء</a><span class="hide"> | </span>
+<a class="templatecurrencyhtml" title="إنشاء New العملة" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">إنشاء العملة</a><span class="hide"> | </span>
+<a class="showcurrenciesresulthtml" title="Show Traded جurrencies" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">إظهار العملات</a><span class="hide"> | </span>
+<a class="templatecategoryhtml" title="إنشاء New Ad جategory" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">إنشاء Ad جategory</a><span class="hide"> | </span>
+<a class="navitab" title="تعديل المستخدم Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">جhange a المستخدم Account</a><span class="hide"> | </span>
+<br/>
+<br/>
+<a class="showbalvolresulthtml" title="إظهار أرصدة السجل" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">إظهار أرصدة السجل</a><span class="hide"> | </span>
+<a class="navitab" title="إنشاء قاعدة أو حد الائتمان" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">إنشاء Rule/جredit Limit</a><span class="hide"> | </span>
+<a class="navitab" title="إنشاء التسجيل Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">إنشاء التسجيل Partner</a><span class="hide"> | </span>
+<a class="navitab" title="تحميل Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">تحميل Batch Files</a><span class="hide"> | </span>
+<br/>
+<br/>
+<a class="قوالبervicechghtml" title="Apply الخدمة جharge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply الخدمة جharge</a><span class="hide"> | </span>
+<a class="navitab" title="إنشاء فتح Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">فتح Office Directory</a><span class="hide"> | </span>
+<a class="navitab" title="تعديل $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">تعديل $$fieldsref{registry}</a><span class="hide"> | </span>
+<a class="navitab" title="التسجيل and جonfiguration المثبت" href="/cgi-bin/protected/ccinstall.cgi">المثبت</a><span class="hide"> | </span>
+<a class="toptabstrikethrough" title="نظام الصحة والإحصاءات" href="/">نظام/الإحصاءات الصحية</a><span class="hide"> | </span>
+</div>
+
+<hr>    
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+
+    
+<div id="footer">
+جclite copyright &copy; 2005-2008 (Hugh Barnard). Design by <a href="http://andreasviklund.com">أندرياس Viklund</a>.
+</div>
+
+</div>
+</body>
+</html>

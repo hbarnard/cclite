@@ -1,0 +1,41 @@
+      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+        <table class="pme-main" summary="om_categories">
+          <tbody class="stripy">
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">جategory اسم<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addcategory">
+<input type="hidden" name="subaction" value="om_categories">
+<input class="required" name="description" size="50" maxlength="80" value="" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">الفئة الأصل<br>
+              </td>
+<td class="pme-value-0"> 
+$$fieldsref{selectparent}</td>
+            </tr>
+
+<tr class="pme-row-0">
+              <td class="pme-key-0">مركز<br>
+              </td>
+<td class="pme-value-0"> 
+<select class="required" name="status">
+<option selected value=""> </option>
+<option value="نشط">نشط</option>
+<option value="inنشط">Inنشط</option>
+</select>
+            </tr>
+
+<tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="إنشاء جategory"  type="submit">&nbsp; </td>
+<td><input
+ class="pme-cancel" name="cancel" value="جancel"
+  type="reset"></td>
+            </tr>
+       </tbody>
+        </table>
+      </form>

@@ -1,0 +1,171 @@
+<title>JavaScript Form Validation</title></head>
+
+
+
+<body bgcolor="white">
+
+<table border="0" width="625"><tbody><tr><td rowspan="6" bgcolor="#408080" width="10"><img src="clear.gif" height="1" width="10"></td>
+<td bgcolor="#b6dada">
+<font size="+3">JavaScript Form Validation Paraol</font> <font size="+1">ver 2.5</font></td></tr>
+<tr><td>
+<font size="-1">por Artswork </font><br>
+<font color="#ff0000" size="2">Eu deve pedir desculpas pelo fato de que eu sou&#xD;jÃ¡ nÃ£o Ã© capaz de aceitar e-mail perguntas sobre meu script onde eu iria&#xD;pagar muitas horas para ajudar as pessoas a integrar adequadamente este mÃ³dulo e&#xD;gravar itens adicionais para qualquer um. Isso tem ocorrido desde o e-mail&#xD;worms de agosto de 2003 severamente comprometida meu endereÃ§o de e-mail exibido&#xD;aqui atacou para onde eu tinha que lidar com milhares de errÃ´neo&#xD;retornado e-mails por dia. Eu periodicamente podem tentar ligÃ¡-lo novamente para&#xD;por favor retorne ou tente novamente depois que a poeira baixar. Eu tambÃ©m deve indicar&#xD;como podem arruinar a pessoas com nossas habilidades e incrÃ­vel idÃ©ia como o&#xD;Internet para comunicaÃ§Ã£o Ã© depreciativos. Tenho experimentado por muitos anos&#xD;retornando contribuiÃ§Ãµes para os outros para o meu sucesso trabalhando sobre isso&#xD;mÃ©dio. GraÃ§as ao interesse que recebi.</font><hr size="1">
+This form validation tool can check for <b>campos obrigatÃ³rios, inteiro, e-mail e data</b>
+in your forms.
+It is easily portable to all your forms and will help save server side
+resources from form field validation
+and page reloads. All the messages are customized in the hidden form
+element where you also select the validation requirement. You can mix
+the required element with any of the other elements.
+This code is completely portable and can be used with any form by just
+adding your hidden elements appropriately and adding the onClick
+command to a button.<br><br>
+</td></tr>
+<tr><td bgcolor="#b6dada"><font size="+2">Seguindo as regras.</font></td></tr>
+<tr><td>
+<b>1)</b> Para set a required field use your existing field name and add
+an r_ to the beginning of the field name and create a hidden element.<br>
+<b>EXEMPLO:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
+&lt;input type="hidden" name="r_your_fieldname" value="Required error message goes here"&gt;<p>
+<b>2)</b> Para set an integer field use your existing field name and add
+an i_ to the beginning of the field name and create a hidden element.<br>
+<b>EXEMPLO:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
+&lt;input type="hidden" name="i_your_fieldname" value="Integer error message goes here"&gt;</p><p>
+<b>3)</b> Para set a date field use your existing field name and add an
+d_ to the beginning of the field name and create a hidden element. This
+date field only accepts the format MM/DD/YY or M/D/YY.<br>
+<b>EXEMPLO:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
+&lt;input type="hidden" name="d_your_fieldname" value="Data error message goes here"&gt;<br><br>
+
+<b>4)</b> Para validate an email field use your existing field name and
+add an e_ to the beginning of the field name and create a hidden
+element.<br>
+<b>EXEMPLO:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
+&lt;input type="hidden" name="e_your_fieldname" value="The email address format is incorrect"&gt;<br><br>
+
+</p></td></tr>
+<tr><td bgcolor="#b6dada">
+<font size="+2">InicializaÃ§Ã£o do script.</font></td></tr>
+<tr><td>
+You MUST use the type="button" NOT THE type="submit" for your SUBMIT button, the javascript sends the submit for you.<br>
+<font size="-1"><b>EXEMPLO:</b><br>&lt;input type=button Valor="Button Message Here" onclick="check(form,form.elements.length)"&gt;</font>
+<br><br><hr size="1">
+
+<font size="+2">Este exemplo utiliza todas as ferramentas de validaÃ§Ã£o trÃªs em combinaÃ§Ã£o.</font><p>
+</p><form action="thanks.html">
+<table border="0" width="575">
+<tbody><tr><td>
+<b>EndereÃ§o de e-mail:</b>
+</td>
+<td>
+<input name="email" type="text">
+<input name="e_email" value="Email address format is incorrect" type="hidden">
+<input name="r_email" value="Email address is required" type="hidden">
+</td><td><font size="-1">(required and email validation)</font></td></tr>
+
+<tr><td>
+<b>First NÃ£ome:</b>
+</td>
+<td>
+<input name="fname" type="text">
+<input name="r_fname" value="First name is required" type="hidden">
+</td><td><font size="-1">(required validation)</font></td></tr>
+<tr><td>
+<b>Sobrenome:</b>
+</td>
+<td>
+<input name="lname" type="text">
+<input name="r_lname" value="Last name is required" type="hidden">
+</td><td><font size="-1">(required validation)</font></td></tr>
+<tr><td>
+<b>EndereÃ§o 1:</b>
+</td>
+<td>
+<input name="address1" type="text">
+<input name="r_address1" value="Address is required" type="hidden">
+</td><td><font size="-1">(required validation)</font></td></tr>
+<tr><td>
+<b>EndereÃ§o 2:</b>
+</td>
+<td>
+<input name="address2" type="text"> 
+</td><td><font size="-1">(no validation)</font></td></tr>
+<tr><td>
+<b>Qual Ã© a sua idade:</b>
+</td>
+<td>
+<input name="age" type="text">
+<input name="r_age" value="Age is required" type="hidden">
+<input name="i_age" value="Age must be a valid integer" type="hidden">
+</td><td><font size="-1">(required and integer validation)</font></td></tr>
+<tr><td>
+<b>Anos vocÃª tem sido scripts:</b>
+</td>
+<td>
+<input name="scripting" type="text">
+<!--- <input type="hidden" name="r_scripting" value="Years scripting required"> --->
+<input name="i_scripting" value="Years scripting must be a valid integer" type="hidden">
+</td><td><font size="-1">(integer validation)</font></td></tr>
+<tr><td>
+<b>O que Ã© hoje:</b> <font size="-1">(mm/dd/yy)</font>
+</td>
+<td>
+<input name="todays_dt" type="text">
+<!--- <input type="hidden" name="r_todays_dt" value="Paraday's date is required"> --->
+<input name="d_todays_dt" value="The date is not valid or the format is incorrect. Please format mm/dd/yy." type="hidden">
+</td><td><font size="-1">(date validation)</font></td></tr>
+<tr><td>
+<b>Selecione um assunto:</b>
+</td>
+<td>
+<select name="subject"><option value="">Selecione um
+</option><option value="JavaScript">JavaScript
+</option><option value="C">C
+</option><option value="C++">C++
+</option><option value="Visual Basic">Visual Basic
+</option></select>
+<input name="r_subject" value="You must select a subject" type="hidden">
+</td><td><font size="-1">(required validation)</font></td></tr>
+<tr><td>
+<b>Selecione um botÃ£o de rÃ¡dio:</b>
+</td>
+<td>
+<input name="test" value="1" type="radio">ensaio 1
+<input name="test" value="2" type="radio">ensaio 2
+<input name="test" value="3" type="radio">teste 3
+
+<input name="r_test" value="Please select a radio button 1, 2 or 3" type="hidden">
+
+</td><td><font size="-1">(required validation)</font></td></tr>
+
+<tr><td>
+<b>Selecione todos os que se aplicam:</b>
+</td>
+<td>
+<input name="test1" value="1" type="checkbox">ensaio 1
+<input name="r_test1" value="You must select checkbox ensaio 1" type="hidden">
+<input name="test2" value="2" type="checkbox">ensaio 2
+<input name="test3" value="3" type="checkbox">teste 3
+
+
+
+</td><td><font size="-1">(required validation on box 1)</font></td></tr>
+
+
+<tr><td colspan="3">
+<input value="Submit this form for validation" onclick="check(form,form.elements.length)" type="button">
+</td></tr>
+
+</tbody></table>
+</form>
+
+<hr size="1">
+<center><font size="-1">� 2004 Artswork</font><p>
+
+<img src="/cgi-bin/counter?perflunk">
+
+</p></center>
+
+</td></tr></tbody></table>
+
+</body></html>

@@ -1,0 +1,157 @@
+      <form name="newuser" class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
+ name="action" value="adduser" type="hidden"> <input name="subaction"
+ value="om_users" type="hidden">
+        <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+
+           <tr>
+              <td class="pme-key-0"><br>
+              </td>
+              <td style="vertical-align: top;"><span class="errors">$$fields{errors}</span>
+              </td>
+            </tr>
+
+            <tr>
+              <td class="pme-key-0">الاسم Reg<br>
+              </td>
+              <td style="vertical-align: top;">
+<!-- note explicit path value in cookie setting, otherwise path is set for cgi-bin -->
+<input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
+
+              </td>
+            </tr>
+            <tr class="pme-row-1">
+              <td title="يجب أن يكون أكثر من 3 أحرف الأحرف والأرقام و _ فقط" class="pme-key-0">اسم الحساب<br>
+              </td>
+              <td class="pme-value-1"> <input 
+ name="nuserLogin" id="nuserLogin" class="required" value="$$fieldsref{userLogin}" size="60" maxlength="255" value="" type="text">
+</td>
+            </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">كلمة المرور</td>
+        <td class="pme-value-0"> <input 
+ name="userكلمة المرور" class="required" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+      <tr class="pme-row-0">
+        <td class="pme-key-0">Confirm كلمة المرور</td>
+        <td class="pme-value-0"> <input 
+ name="cuserكلمة المرور" class="required" size="32" maxlength="32" value="" type="password"></td>
+      </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-0">البريد الإلكتروني</td>
+              <td class="pme-value-1"> <input 
+ name="userالبريد الإلكتروني" id="nuserالبريد الإلكتروني" class="required email" size="50" maxlength="50" value="$$fieldsref{userالبريد الإلكتروني}" type="text">
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">العدد/البيت اسم</td>
+              <td class="pme-value-1"> <input 
+ name="userNameornumber" class="required" value="$$fieldsref{userNameornumber}" size="30" maxlength="30" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">اسم الشارع</td>
+              <td class="pme-value-1"> <input 
+ name="userStreet" size="40" class="required" maxlength="40" value="$$fieldsref{userStreet}" type="text">
+
+</td>
+            </tr>
+<tr class="pme-row-1">
+              <td class="pme-key-0">مدينة</td>
+              <td class="pme-value-1"> <input 
+ name="userمدينة" class="required" size="40" maxlength="40" value="$$fieldsref{userمدينة}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">مقاطعة/الدولة</td>
+              <td class="pme-value-1"> <input 
+ name="userArea" class="required" size="40" maxlength="40" value="$$fieldsref{userArea}" type="text">
+
+</td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">الرمز البريدي</td>
+              <td class="pme-value-1"> <input 
+ name="userالرمز البريدي" class="required" size="10" maxlength="10" value="$$fieldsref{userالرمز البريدي}" type="text">
+</td>
+            </tr>
+
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">هاتف ثابت</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userTelephone" size="20" maxlength="20" value="$$fieldsref{userTelephone}" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td  class="pme-key-0">الهاتف المحمول</td>
+              <td class="pme-value-1"> <input title="الرجاء وضع هذا الرقم في شكل الدولية 44777766666" class="pme-input-1"
+ name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Pin for الهاتف المحمول المعاملات</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="$$fieldsref{userPin}" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">Confirm Pin for الهاتف المحمول المعاملات</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="$$fieldsref{cuserPin}" type="password"></td>
+            </tr>
+
+<tr class="pme-row-1">
+              <td class="pme-key-0">إيصالات الدفع SMS</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userSmsreceipt" type="checkbox"></td>
+            </tr>
+
+
+<tr class="pme-row-1">
+              <td title="هذا هو معرف المفتاح العام للمعاملات المشفرة" class="pme-key-0">معرف المفتاح العام</td>
+              <td class="pme-value-1"> <input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-0">لغة</td>
+              <td class="pme-value-1"> 
+                 <select class="required" name="userLang">
+                   <option value=""></option>
+                   <option selected value="en">الإنكليزية</option>
+                   <option value="de">دوتش</option>                   
+                   <option value="fr">فران</option>
+                 </select>
+</td>
+            </tr>
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">الاسم الكامل</td>
+              <td class="pme-value-0"> <input 
+ name="userName" size="60" class="required" maxlength="255" value="$$fieldsref{userName}" type="text">
+
+</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> 
+<!-- we erase the registry cookie here, otherwise it'll prevent a clean logon later -->
+<input class="pme-save"
+ name="saveadd" value="إنشاء" onClick="eraseCookie('registry');" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
+

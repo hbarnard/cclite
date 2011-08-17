@@ -1,0 +1,58 @@
+      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+        <input name="subaction" value="om_currencies" type="hidden">
+        <input name="action" value="update" type="hidden">
+        <input name="id" value="$$fieldsref{id}" type="hidden"> 
+        <table class="pme-main" summary="om_currencies">
+          <tbody class="stripy">
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Nãome</td>
+              <td class="pme-value-1"> <input class="grey"
+ name="name" size="30" maxlength="30" readonly="true" value="$$fieldsref{cname}" type="text">
+
+</td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Descrição</td>
+              <td class="pme-value-0"> <input class="required"
+ name="description" size="30" maxlength="30" value="$$fieldsref{description}" type="text">
+</td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Estatuto</td>
+              <td class="pme-value-1">
+              <select class="required" name="status">
+              <option value="ativo" selected="selected">ativo</option>
+              <option value="suspendered">suspendered</option>
+              <option value="predelete">predelete</option>
+              </select>
+              </td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Associação</td>
+              <td class="pme-value-1">
+              <select class="pme-input-1" name="membership">
+              <option value="open" selected="selected">Aberto</option>
+              <option value="closed">Fechado</option>
+              </select>
+              </td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Correio</td>
+              <td class="pme-value-0"> <input class="required email"
+ name="mail" size="30" maxlength="30" value="$$fieldsref{mail}" type="text">
+<input type="hidden" name="r_mail" value="Need a mail address for an administrator">
+</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Salvar" type="submit">&nbsp;<input class="pme-cancel" name="cancel" value="Cancel"  type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

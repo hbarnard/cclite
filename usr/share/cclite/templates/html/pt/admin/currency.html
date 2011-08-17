@@ -1,0 +1,82 @@
+      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+        <input name="subaction" value="om_currencies" type="hidden">
+        <input name="action" value="addcurrency" type="hidden"> 
+        <table class="pme-main" summary="om_currencies">
+          <tbody class="stripy">
+<tr class="pme-row-1">
+              <td class="pme-key-1"></td>
+              <td class="pme-value-1"><span class="errors">$$fieldsref{errors}</span>
+</td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Nãome</td>
+              <td class="pme-value-1"> <input class="required"
+ name="cname" size="30" maxlength="30" value="$$fieldsref{cname}" type="text">
+
+</td>
+            </tr>
+ <tr class="pme-row-1">
+              <td class="pme-key-1">Código</td>
+              <td class="pme-value-1"> <input class="required"
+ name="code" size="3" maxlength="3" value="$$fieldsref{code}" type="text">
+
+</td>
+            </tr>
+
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Descrição</td>
+              <td class="pme-value-0"> <input class="required"
+ name="description" size="30" maxlength="30" value="$$fieldsref{description}" type="text">
+</td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Estatuto</td>
+              <td class="pme-value-1">
+              <select class="required" name="status">
+              <option value="ativo" selected="selected">ativo</option>
+              <option value="suspendered">suspendered</option>
+              <option value="predelete">predelete</option>
+              </select>
+              </td>
+            </tr>
+
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Tipo</td>
+              <td class="pme-value-1">
+              <select class="required" name="type">
+              <option value="lets" selected="selected">PERMITE</option>
+              <option value="local">Local</option>
+              <option value="hours">Horas</option>
+              <option value="demurrage">Sobrestadia</option>
+              </select>
+              </td>
+            </tr>
+            <tr class="pme-row-1">
+              <td class="pme-key-1">Associação</td>
+              <td class="pme-value-1">
+              <select class="pme-input-1" name="membership">
+              <option value="open" selected="selected">Aberto</option>
+              <option value="closed">Fechado</option>
+              </select>
+              </td>
+            </tr>
+            <tr class="pme-row-0">
+              <td class="pme-key-0">Correio</td>
+              <td class="pme-value-0"> <input class="required email"
+ name="mail" size="30" maxlength="30" value="$$fieldsref{mail}" type="text">
+</td>
+            </tr>
+          </tbody>
+        </table>
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> 
+<input class="pme-save" name="saveadd" value="Criar" type="submit">&nbsp;
+<input class="pme-cancel" name="cancel" value="Cancel" type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>

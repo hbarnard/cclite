@@ -1,0 +1,147 @@
+      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+      <span class="error">$$fieldsref{error}</span>  
+       <table class="pme-main" summary="om_users">
+          <tbody class="stripy">
+            <tr class="pme-row-0">
+              <td title="اسم قاعدة بيانات تعريف المجموعة التجارية، كلمة واحدة بدون مسافات" class="pme-key-0">اسم التسجيل<br>
+              </td>
+              <td class="pme-value-0"> 
+<input type="hidden" name="action" value="addregistry">
+   
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
+
+            </tr>
+
+            <tr class="pme-row-0">
+              <td title="وصف مختصر لتداول الفريق" class="pme-key-0">التسجيل وصف<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
+            </tr>
+
+<tr title="عنوان وحساب المستخدم لإرسال رسائل البريد الإلكتروني الرسمية لهذه المجموعة" class="pme-row-0">
+              <td class="pme-key-0">إدارة البريد الإلكتروني<br>
+              </td>
+<td class="pme-value-0"> 
+<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
+            </tr>
+
+<td title="كلمة المرور لحساب البريد الإلكتروني المسؤول" class="pme-key-0">إدارة البريد الإلكتروني كلمة المرور<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
+            </tr>
+
+<tr title="يمكن أن يكون الحساب حيث يتم تلقي رسائل البريد الإلكتروني المعاملات نفس المشرف" class="pme-row-1">
+              <td class="pme-key-1">البريد الإلكتروني for Batch المعاملات<br>
+              </td>
+<td class="pme-value-1"> 
+<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
+            </tr>
+
+
+<td title="كلمة المرور لحساب البريد الإلكتروني دفعة" class="pme-key-0">Batch البريد الإلكتروني كلمة المرور<br>
+              </td>
+<td class="pme-value-0"> 
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
+            </tr>
+
+<tr title="لا تستخدم حاليا ولكنه يحدد نموذج تجاري" class="pme-row-1">
+              <td nowrap class="pme-key-1">نموذج فرض نظام
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="chargetype"><option value="equaltime">المساواة بين</option><option selected value="market">أسعار السوق</option></select></td>
+            </tr>
+
+<tr title="لا تستخدم حاليا ولكنه يحدد نموذج اللجنة" class="pme-row-1">
+              <td class="pme-key-1">System جommission Model
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="commission">
+<option selected value="no">لا توجد جommission</option>
+<option value="yes">جommission Based التسجيل</option>
+</select></td>
+            </tr>
+
+
+<tr title="لا تستخدم حاليا ولكنه يحدد نموذج الاشتراك" class="pme-row-1">
+              <td class="pme-key-1">نموذج الاشتراك
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="subscription">
+<option selected value="no">لا توجد Subscription</option>
+<option value="yes">الاشتراك على أساس</option>
+</select></td>
+            </tr>
+
+<tr title="ويعرف حدود الالتزام لجميع العملات في هذا السجل" class="pme-row-1">
+              <td class="pme-key-1">Global جommitment Limit<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
+            </tr>
+
+<tr title="ملقم المفاتيح المستخدمة: معرف المفتاح العام لهذا التسجيل currently for email transactions only" class="pme-row-1">
+              <td class="pme-key-1">معرف الملقم مفتاح: العامة الرئيسية<br>
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
+            </tr>
+
+
+</tr>
+<tr title="لا تستخدم حاليا وإنما يحدد ما إذا كانت جغرافية المنطقة أو اهتمام خاص"  class="pme-row-1">
+              <td class="pme-key-1">جovers Geographic Area?
+              </td>
+<td class="pme-value-1"> 
+<select class="pme-input-1" name="geographic">
+<option selected value="yes">نعم</option>
+<option value="no">لا توجد</option>
+</select></td>
+            </tr>
+
+<tr title="لا تستخدم حاليا لكن يحدد الوظائف أو رموز البريدي حتى تكون السجلات العامة والجهوي والمعين" class="pme-row-1">
+              <td class="pme-key-1">الرمز البريديs or Latitude,Longitude
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+</td>
+ </tr>
+
+<tr title="تستخدم لتوفير مفتاح تاجر elgg، دروبال، وروابط التجارة الإلكترونية نظام التشغيل" class="pme-row-1">
+              <td class="pme-key-1">مفتاح تاجر
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+</td>
+ </tr>
+
+<tr title="تستخدم، من حيث المبدأ للحد من الروابط لبعض البرامج المتكاملة، بسهولة المغشوش ربما" class="pme-row-1">
+              <td class="pme-key-1">السماح للتاجر من عناوين IP
+              </td>
+<td class="pme-value-1"> 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+</td>
+ </tr>
+
+
+
+
+
+          </tbody>
+        </table>
+  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
+  $$fieldsref{script}  
+        <hr class="pme-hr">
+        <hr class="pme-hr">
+        <table class="pme-navigation">
+          <tbody>
+            <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="الذهاب" type="submit">&nbsp;<input
+ class="pme-cancel" name="cancel" value="جancel"
+type="reset"> </td>
+            </tr>
+          </tbody>
+        </table>
+      </form>
