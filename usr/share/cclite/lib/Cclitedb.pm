@@ -189,6 +189,8 @@ modify_database_record2 : where
 
 Need to eliminate one of these!
 
+FIXME: this has a pretty stupid return signature 08/2011
+
 =cut
 
 sub update_database_record {

@@ -902,9 +902,9 @@ om_users and send only language cookie with expiry of around six months
 sub change_language {
     my ( $class, $db, $template_dir, $fieldsref, $cookieref, $token ) = @_;
     my $domain = $configuration{'domain'};
+    my $registry_error ;
     my $path   = "/";
 
-    ### my $cookieref = get_cookie();
     my %cookie;
     $cookie{language} = $fieldsref->{language};
     my $expires = 15552000 + time();    # six month expiry for language cookie
@@ -912,17 +912,24 @@ sub change_language {
 
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
-
+          
     # update om_users for language change for this user, if someone is logged on
     if ( length($db) ) {
         my %new_language = (
             'userId',   $cookieref->{'userId'},
             'userLang', $fieldsref->{'language'}
         );
-        my $x = join( '|', %new_language );
-        $log->debug("update is $x");
+ 
         update_database_record( $class, $db, 'om_users', 1, \%new_language,
             undef, $token );
+    }
+
+    # only refresh is [mis]used to carry json payload if json is being returned 2/2011
+    if ( $fieldsref->{'mode'} eq 'json' ) {
+        my ($json) =
+          deliver_remote_data( $db, 'om_users', $registry_error, $fieldsref,
+            $token );
+        return $json;
     }
 
     return ( "1", $fieldsref->{home}, "", $messages{languagechanged},

@@ -31,35 +31,54 @@
   for the system, the intervals must be set here for the moment
 */
 
+
+ window.loadFirebugConsole() ;
+ 
  stats_interval_id = 0;
  mail_interval_id = 0;
  gpg_mail_interval_id = 0;
  csv_interval_id = 0;
  rss_interval_id = 0;
- gammu_interval_id = 0
+ gammu_interval_id = 0 ;
+ message_data = '' ;
+ messages = new Hashtable();
 
  /* multilingual messages */
 
- function readmessages() {
+ function read_message_file() {
 
-     messages = new Hashtable();
+      $.ajax({
+             method: 'get',
+             url: '/cgi-bin/cclite.cgi?action=readmessages',
+             dataType:'json',
+             success: function (data) {
+                
+                 $.each(data.data, function(i, value) {
+                   // console.log( value) ;
+                   for (var key in value) {
+                    var patt = /js/;
+                    //console.log( 'test patt key:' + key.search(patt) + ':' + key ) ;
+                    if ( key.search(patt) == 0 ) {  
+                        newkey = key.replace(/^js-/,'')  ;     // strip off js-    
+                        console.log( newkey + ':' + value[key] ) ;
+                        messages.put(newkey,value[key]) ;
+                       //return( false );
+                    } // endif
+                   } // end for                   
+                 });// end each
+           }} //end success function
+         ); // end ajax
 
-     // alert('here') ;
+  
+ }
+
+ function readmessages (message_data) {
+   
+      
+   
+
      if ($.cookie('language') == 'en') {
-         messages.put("lgoff", "Logoff");
-         messages.put("user", "Cclite user");
-         messages.put("admin", "Cclite admin");
-         messages.put("stopped", "Stopped");
-         messages.put("started", "Started");
-         messages.put("waiting", "Waiting");
-         messages.put("processing", "Processing");
-         messages.put("running", "Running");
-         messages.put("adminmenu", "Admin Menu");
-         messages.put("mustbecsv","Error must be csv type file") ;
-         messages.put("batchfileprobs","Batch files or directories below have problems, put mouse over to examine") ;
-         messages.put("erroris", "Error is");
-         messages.put("uploadedfile", "Fichero subido");
-         messages.put("fileprocessed", "File processed");
+    
 
 
      } else if ($.cookie('language') == 'es') {
@@ -323,6 +342,9 @@ can be used to transmit errors from the script into the page */
  $(document).ready(function () {
 
      messages = readmessages();
+
+     read_message_file() ;
+
      hide_installation_options () ;
 
      $("#form").validate();

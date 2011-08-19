@@ -629,6 +629,16 @@ my $fieldsref = \%fields;
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     do_oauth( 'local', $db, $fieldsref, $token ) );
 
+# get messages and deliver as json for ajax: insecure but is this a problem?
+if  ($action eq 'readmessages' ) {
+   my %messages = readmessages() ;
+   $messages{'message'} = 'ok' ;
+   # json is delivered current as 'abuse' of refresh field in display_template
+   $refresh             = deliver_remote_data( $db, 'none', '', \%messages,'' );
+   $fieldsref->{'mode'} = 'json' ;
+   
+ }   
+
 # only get news if there's a defined registry containing it 08/2011
 $fieldsref->{'news'} = get_news( 'local', $db, $token ) if ( length($db) );
 

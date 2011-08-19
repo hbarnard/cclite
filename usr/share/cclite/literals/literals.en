@@ -272,7 +272,21 @@ transactions=transactions
 cclitecfinsecure=cclite.cf is writable, this is very insecure, please change
 ccinstallinsecure=ccinstall.cgi present and executable, this is very insecure, please remove
 ccsoapserverinsecure=ccserver.cgi present and executable, this is insecure, please remove unless used
-
+# javascript
+js-lgoff=Logoff
+js-user=Cclite user
+js-admin=Cclite admin
+js-stopped=Stopped
+js-started=Started
+js-waiting=Waiting
+js-processing=Processing
+js-running=Running
+js-adminmenu=Admin Menu
+js-mustbecsv=Error must be csv type file
+js-batchfileprobs=Batch files or directories below have problems, put mouse over to examine
+js-erroris=Error is
+js-uploadedfile=File Uploaded
+js-fileprocessed=File processed
 
 
 

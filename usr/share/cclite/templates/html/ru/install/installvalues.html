@@ -1,0 +1,193 @@
+<div class="failedcheck"> $$fieldsref{updatemessage}</div>
+<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
+<table><tbody class="stripy">
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+<select name="install_type" id="install_type" onchange="change_install();">
+<option selected value="simple">Простой</option>
+<option value="full">Все варианты</option>
+</select>
+<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> Реестр">
+<input name="action" value="updateconfig2" type="hidden">
+
+<tr><td title="this is the db user for mysql" class="menu">dbuser</td><td class="pme-key-1">
+    <input id="dbuser" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+</td></tr>
+<tr><td title="this is the db password for mysql" class="menu">dbpassword</td><td class="pme-key-1">
+    <input id="dbpassword" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td></tr>
+
+<tr><td title="experimental префикс CPanel, use with care, uusally cpanel user name" class="menu">префикс CPanel</td><td class="pme-key-1">
+    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+</td></tr>
+
+<tr><td title="decimal point display for currencies" class="menu">использовать десятичные дроби</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+</td></tr>
+
+<tr><td title="use free form tags for yellow pages instead of fixed categories" class="menu">использование тегов</td><td class="pme-key-1">
+    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+</td></tr>
+
+
+<tr><td title="this is the домен as deduced from the script path, needs to be correct for cookies to work" class="menu">домен</td><td class="pme-key-1">
+    <input type="text" readonly="1"  class="required" name="домен" size="60" value="$$fieldsref{домен}">
+</td></tr>
+<tr><td title="this is the SMTP-сервер for mail, for cpanel usually same as домен name, местныеhost or ip for internal servers" class="menu">SMTP-сервер</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+</td></tr>
+
+<tr><td title="main user script for cclite" class="menu">Главная страница</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required"  name="Главная страница" size="60" value="$$fieldsref{uГлавная страница}">
+</td></tr>
+
+<tr><td title="this is the Тип хэша used for password and token calculations, sha2 is preferred, cannot be changed/mixed once set up" class="menu">Тип хэша</td><td class="pme-key-1">
+    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td></tr>
+
+<tr><td title="html, rss, output files and charts, deduced from document root within server" class="menu">htmlpath</td><td class="pme-key-1">
+    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+</td></tr>
+<tr><td title="initial status of a payment made, if waiting will require confirmation by receiving user" class="pme-key-title">статус первоначального платежа</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td></tr>
+<tr><td title="initial status of a user, if unconfirmed will require confirmation by user email" class="pme-key-title">первоначальный пользовательский статус</td><td class="pme-key-1">
+    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+</td></tr>
+<tr><td title="default язык for messages and шаблоны" class="pme-key-title">язык</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="язык" size="60" value="$$fieldsref{язык}">
+</td></tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr><td title="number of screen lines for tabular reports" class="pme-key-title">строк на странице</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+</td></tr>
+<tr><td title="path to messages file, nothing will work if this is wrong!" class="menu">путь для сообщений</td><td class="pme-key-1">
+    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+</td></tr>
+<tr><td title="if no, don't need Soap::Lite modules" class="menu">multiregistry??</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="multiregistry?" size="60" value="$$fieldsref{multiregistry?}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+</td></tr>
+<tr><td title="not used directly but can be included in custom шаблоны" class="pme-key-title">поддержка почты</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="used to send mail and log in to SMTP-сервер, set up in cpanel, if necessary, first" class="menu">системы почтовый адрес</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="used to switch on Net::SMTP for notifications etc. this is preferred and will be the only option in the future, 0 or 1" class="menu">NET smtp??</td><td >
+    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+</td></tr>
+
+
+
+<tr><td title="password for logging on to system email address within SMTP-сервер" class="menu">системный пароль почты</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+</td></tr>
+<tr><td title="reply address for generated emails, often a do-not-reply" class="pme-key-title">адрес ответа системы электронной почты</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td></tr>
+<tr><td title="path for template files used for the web interface, nothing much will work if this is wrong!" class="menu">шаблоны</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="шаблоны" size="60" value="$$fieldsref{шаблоны}">
+</td></tr>
+
+<!-- section dealing with batch files -->
+
+<tr><td title="base output path for activity charts under web root, registry name is added to this path" class="pme-key-title">Диаграмма каталог</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+</td></tr>
+
+<tr><td title="will require perl rss modules for generating rss, if yes" class="pme-key-title">userss</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="base upload path for batch transactions, should not be under web root" class="pme-key-title">Каталог CSV</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td></tr>
+
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">входящие SMS</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+</td></tr>
+
+<tr><td title="inbox for mail, old method replaced by pop mail in each registry" class="pme-key-title">Каталог readmail.pl</td><td class="pme-key-1">
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+</td></tr>
+
+<tr><td title="base output path for csv transactions under web root" class="pme-key-title">CSV из</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+</td></tr>
+
+
+
+<tr><td title="base output path for printed material under web root, registry name and язык is added to this path" class="pme-key-title">способ печати</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+</td></tr>
+
+<tr><td title="base output path for rss, registry name and язык is added to this path" class="pme-key-title">база кормить каталог</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+</td></tr>
+
+<tr><td title="base out directory for gammu results, not required for http sms gateways" class="pme-key-title">SMS из</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+</td></tr>
+
+<tr><td title="gammu input processed местныеly if 1, otherwise this uses soap to process remotely" class="pme-key-title">местные sms?</td><td class="pme-key-1">
+<input type="text"  readonly="1" class="required" name="smsместные" size="1" value="$$fieldsref{smsместные}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="path to Log4perl configuration file" class="pme-key-title">путь к конфигурации ведения журнала</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+</td></tr>
+
+<tr><td ctitle="current cclite Версия" lass="pme-key-title">Версия</td><td class="pme-key-1">
+    <input type="text" class="required" class="grey" readonly="1" name="Версия" size="5" value="$$fieldsref{Версия}">
+
+</td></tr>
+ <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" value="Update" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" value="Clear" type="reset">
+ </td>
+            </tr>
+</tbody></table>
+</form>

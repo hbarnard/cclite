@@ -781,6 +781,8 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...
 
 It does need to distinguish between multdimensional and flat
 
+FIXME: This probably needs replacing by the JSON modules in the medium term...
+
 For example, transactions:
 
 {"registry":"ccliekh_dalston","table": "om_trades", "message":"OK",
@@ -842,22 +844,27 @@ sub deliver_remote_data {
                 $json .=
                   "\"$field_name\":\"$hash_ref->{$id}->{$field_name}\",\n";
             }
-            $json =~ s/\,$//
+            $json =~ s/\,\s*$//
               ;    # snip off the last comma in the record, ugly but simple...
             $json .= "},\n";
         }
         $json =~
-          s/\,$//;   # snip off the last comma in the record, ugly but simple...
+          s/\,\s*$//;   # snip off the last comma in the record, ugly but simple...
     } else {
         for my $id ( keys %$hash_ref ) {
 
+            # remove tags, mainly <br>
+            $hash_ref->{$id} =~ s/<[^>]+>/ /g ;
+            $hash_ref->{$id} =~ s/[^\w^\s]+/ /g ;
             # misteak corrected 20.05.2011, was $id, for the value as well
             $json .= "\n{\"$id\": \"$hash_ref->{$id}\",\n ";
-            $json =~ s/\,$//
+            
+            $json =~ s/\,\s*$//
               ;      # snip off the last comma in the record, ugly but simple...
             $json .= "},\n";
         }
-
+       $json =~
+          s/\,\s*$//;   # snip off the last comma in the record, ugly but simple...
     }
 
     $json = <<EOT;
@@ -865,7 +872,8 @@ sub deliver_remote_data {
 EOT
 
     ###$log->debug("json is: $json") ;
-
+    
+    ###print "json is $json\n" ;
     ###return ( 0, "", $error, $html, $template, "" );
     return $json;
 

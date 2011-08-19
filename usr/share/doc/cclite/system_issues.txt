@@ -5,6 +5,7 @@ Issues:
 26/05/2006
 27/06/2007
 12/12/2009
+15/08/2011
 
 
 1.  Duplicated getdateandtime() in Cclitedb, scope problem
@@ -143,7 +144,20 @@ soap attempts made...
 15.Make update_config2 display values for cut and paste too...
 
 
+15/08/2011
+to be fixed:
 
+1. silent turn off for log4perl
+2. test languages and language changes
+3. test and check out graphs
+4. add tests for REST interface
+5. manager link missing in user menu, for manager?
+6. make full/simple select work in install, remove alert
+7. something wrong with tagsuggest again
+8. GD sparklines problem
+9. registry partner creation isn't checked for bd registries?
+10. graph and clean up 'use' pragmas
+11. Make a nice offline page for installer
 
 
 
