@@ -272,7 +272,7 @@ transactions=transactions
 cclitecfinsecure=cclite.cf is writable, this is very insecure, please change
 ccinstallinsecure=ccinstall.cgi present and executable, this is very insecure, please remove
 ccsoapserverinsecure=ccserver.cgi present and executable, this is insecure, please remove unless used
-# javascript
+# javascript literals
 js-lgoff=Logoff
 js-user=Cclite user
 js-admin=Cclite admin
@@ -287,9 +287,23 @@ js-batchfileprobs=Batch files or directories below have problems, put mouse over
 js-erroris=Error is
 js-uploadedfile=File Uploaded
 js-fileprocessed=File processed
-
-
-
+#
+js-english=English
+js-french=French
+js-german=German
+js-dutch=Dutch
+js-russian=Russian
+js-thai=Thai
+js-chinese=Chinese
+js-portugese=Portugese
+js-italian=Italian
+js-japanese=Japanese
+js-greek=Greek
+js-arabic=Arabic
+js-spanish=Spanish
+js-searchusers=Search Users
+js-searchads=Search Ads
+js-searchtrades=Search Trades
 
 
 

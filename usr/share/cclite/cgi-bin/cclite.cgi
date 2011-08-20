@@ -283,7 +283,15 @@ $fields{logontype} ||= 'form';
 # note that widgets can't have cookies...at least in Opera 12/2009
 #FIXME: this is becoming a disgrace, move to a gatekeeper function in Ccsecurity.pm
 my %allowed_actions =
-  qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes lang yes);
+  qw(logon yes
+     forgotpassword yes 
+     os_commerce_pay yes 
+     confirmuser yes 
+     adduser yes 
+     requesttoken yes 
+     accesstoken yes 
+     lang yes 
+     readmessages yes);
 
 if (
        ( !length( $cookieref->{'token'} ) )

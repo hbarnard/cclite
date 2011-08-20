@@ -1,4 +1,22 @@
- function stripe() {
+/* controlling statistics, mail transactions and csv file transactions
+  for the system, the intervals must be set here for the moment
+*/
+
+
+// window.loadFirebugConsole() ;
+ 
+ stats_interval_id = 0;
+ mail_interval_id = 0;
+ gpg_mail_interval_id = 0;
+ csv_interval_id = 0;
+ rss_interval_id = 0;
+ gammu_interval_id = 0 ;
+ message_data = '' ;
+ messages = new Hashtable();
+ 
+
+
+function stripe() {
      striper('tbody', 'stripy', 'tr', 'odd,even');
  }
 
@@ -27,21 +45,6 @@
  }
 
 
-/* controlling statistics, mail transactions and csv file transactions
-  for the system, the intervals must be set here for the moment
-*/
-
-
- window.loadFirebugConsole() ;
- 
- stats_interval_id = 0;
- mail_interval_id = 0;
- gpg_mail_interval_id = 0;
- csv_interval_id = 0;
- rss_interval_id = 0;
- gammu_interval_id = 0 ;
- message_data = '' ;
- messages = new Hashtable();
 
  /* multilingual messages 
  these are js- prefixed messages in the 'normal' literals
@@ -54,6 +57,7 @@
              method: 'get',
              url: '/cgi-bin/cclite.cgi?action=readmessages',
              dataType:'json',
+             async: false,
              success: function (data) {
                 
                  $.each(data.data, function(i, value) {
@@ -63,7 +67,7 @@
                     //console.log( 'test patt key:' + key.search(patt) + ':' + key ) ;
                     if ( key.search(patt) == 0 ) {   // found js at start...
                         newkey = key.replace(/^js-/,'')  ;     // strip off js-    
-                        console.log( newkey + ':' + value[key] ) ;
+                        // console.log( newkey + ':' + value[key] ) ;
                         messages.put(newkey,value[key]) ;
                        //return( false );
                     } // endif
@@ -72,7 +76,52 @@
            }} //end success function
          ); // end ajax
 
-   return messages ;  
+
+  return messages ;  
+
+ }
+
+ /*   build selects for language choice at top and also userLang  in
+ correct language  08/2011  */
+
+ function build_language_selects (messages) {
+
+ 
+
+var language_keys = new Array(
+"english-en",
+"french-fr",
+"german-de",
+"dutch-nl",
+"russian-ru",
+"thai-th",
+"chinese-zh",
+"portugese-pt",
+"italian-it",
+"japanese-ja",
+"greek-el",
+"arabic-ar",
+"spanish-es" ) ;
+
+$.each(language_keys, function(index,value)
+{   
+     var literal = value.split('-') ;
+     console.log(literal[0] + ':' + literal[1] ) ;
+     $('#language_value').
+          append($("<option></option>").
+          attr("value",literal[1]).
+          text(messages.get(literal[0]))); 
+ });  
+
+
+  $.each(language_keys, function(index, value)
+ {   
+     $('#userLang').
+          append($("<option></option>").
+          attr("value",value).
+          text(messages.get(value))); 
+ });
+
  }
 
 
@@ -313,8 +362,11 @@ can be used to transmit errors from the script into the page */
 
  $(document).ready(function () {
 
-     // new style
+     // new style messages from literals.<language-code>
      messages = readmessages();
+
+    // language selects in target language from literals
+     build_language_selects(messages) ;
 
      hide_installation_options () ;
 
