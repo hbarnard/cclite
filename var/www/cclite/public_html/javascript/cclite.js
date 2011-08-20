@@ -43,9 +43,12 @@
  message_data = '' ;
  messages = new Hashtable();
 
- /* multilingual messages */
+ /* multilingual messages 
+ these are js- prefixed messages in the 'normal' literals
+ file. Later all this will go into the database....
+ */
 
- function read_message_file() {
+ function readmessages() {
 
       $.ajax({
              method: 'get',
@@ -58,7 +61,7 @@
                    for (var key in value) {
                     var patt = /js/;
                     //console.log( 'test patt key:' + key.search(patt) + ':' + key ) ;
-                    if ( key.search(patt) == 0 ) {  
+                    if ( key.search(patt) == 0 ) {   // found js at start...
                         newkey = key.replace(/^js-/,'')  ;     // strip off js-    
                         console.log( newkey + ':' + value[key] ) ;
                         messages.put(newkey,value[key]) ;
@@ -69,39 +72,8 @@
            }} //end success function
          ); // end ajax
 
-  
+   return messages ;  
  }
-
- function readmessages (message_data) {
-   
-      
-   
-
-     if ($.cookie('language') == 'en') {
-    
-
-
-     } else if ($.cookie('language') == 'es') {
-         messages.put("lgoff", "Cierre de sesión");
-         messages.put("user", "Usario Cclite");
-         messages.put("admin", "Administrador Cclite");
-         messages.put("stopped", "Detenido");
-         messages.put("started", "Comenzó");
-         messages.put("waiting", "Esperando");
-         messages.put("processing", "Tratamiento");
-         messages.put("running", "ejecutando");
-         messages.put("adminmenu", "Menú Admin");
-         messages.put("mustbecsv","Error: debe ser un fichero csv") ;
-         messages.put("batchfileprobs","Archivos por lotes o por debajo de los directorios tienen problemas, puesto puntero del ratón sobre para examinar") ;
-         messages.put("erroris", "De error es");
-         messages.put("uploadedfile", "Fichero subido");
-         messages.put("fileprocessed", "Fichero es procesado");
-
-     }
-
-     return messages;
- }
-
 
 
 /*
@@ -233,7 +205,7 @@ changed into milliseconds here */
 
  function control_task(type, minutes) {
 
-     messages = readmessages();
+     
      // alert((type + ' ' + minutes)) ;
      stopped = messages.get("stopped");
      started = messages.get("started");
@@ -296,7 +268,7 @@ can be used to transmit errors from the script into the page */
      //alert('batch path ' + batch_path) ;
      try {
 
-         messages = readmessages();
+         
          processing = messages.get("processing");
          waiting = messages.get("waiting");
 
@@ -341,9 +313,8 @@ can be used to transmit errors from the script into the page */
 
  $(document).ready(function () {
 
+     // new style
      messages = readmessages();
-
-     read_message_file() ;
 
      hide_installation_options () ;
 

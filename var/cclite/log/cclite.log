@@ -15,3 +15,4 @@
 2011/08/16 19:43:08 WARN> Cclite.pm:367 Cclite::logon_user - 登录失败 test2 在 dalston : password failed
 2011/08/16 20:46:15 DEBUG> Cclite.pm:916 Cclite::change_language - update is userLang|es|userId|6
 2011/08/16 20:46:50 DEBUG> Cclite.pm:916 Cclite::change_language - update is userLang|el|userId|6
+2011/08/20 08:22:53 WARN> Cclite.pm:367 Cclite::logon_user - Ошибка входа test2 на dalston : password failed
