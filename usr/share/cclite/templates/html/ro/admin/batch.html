@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="cclite community currency system" />
+<meta name="keywords" content="VĂ PERMITE SĂ C" />
+<meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+ 
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+<link rel="alternate" type="application/rss+xml" title="Link-ul cclite experimentale" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>  
+
+<title>Cclite $$fieldsref{versiunea} Admin</title>
+
+!$$fieldsref{jscript}
+
+
+<script src="/javascript/prototype.js"></script>
+<script src="/javascript/scriptaculous.js"></script>
+
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+<div id="toptabs">
+<a 
+ class="toptab" title="Forgot Your Parola?"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">Forgotten Parola?</a>
+
+
+<a class="toptabstrikethrough" title="Deutsch"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;limba=de">Deutsch</a>
+
+<a 
+ class="toptabstrikethrough" title="Schimba-franceză"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;limba=fr">Fran</a>
+$$fieldsref{youare} $$fieldsref{atregistry} 
+<p>
+<a class="toptab" title="Cont nou" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">Cont nou</a><span class="hide"> | </span>
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">Log off $$fieldsref{user} </a><span class="hide"> | </span>
+<a class="toptab" title="Spate to Utilizator Menu" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">Utilizator Menu</a><span class="hide"> | </span>
+</p>
+
+
+
+</div>
+
+<div id="container">
+<h1>Cclite $$fieldsref{versiunea} Administration</h1>
+
+
+<div id="navitabs">
+<a class="showpartnersresulthtml" title="Arată partener registrele" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Partenerii Arată</a><span class="hide"> | </span>
+<a class="templatecurrencyhtml" title="Creaţi New Valută" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Creaţi moneda</a><span class="hide"> | </span>
+<a class="showcurrenciesresulthtml" title="Arată tranzactionate monede" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Arată monede</a><span class="hide"> | </span>
+<a class="templatecategoryhtml" title="Creaţi New Ad Categoria" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Creaţi Ad Categoria</a><span class="hide"> | </span>
+<a class="navitab" title="Modifica Utilizator Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">Change a Utilizator Account</a><span class="hide"> | </span>
+<br/>
+<br/>
+<a class="showbalvolresulthtml" title="Afişează solduri Registru" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Afişează solduri Registru</a><span class="hide"> | </span>
+<a class="navitab" title="Creare regulă sau limita de Credit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Creaţi Rule/Limita de credit</a><span class="hide"> | </span>
+<a class="navitab" title="Creaţi Registru Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Creaţi Registru Partner</a><span class="hide"> | </span>
+<a class="navitab" title="Încărcaţi Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">Încărcaţi Batch Files</a><span class="hide"> | </span>
+<br/>
+<br/>
+<a class="templateservicechghtml" title="Se aplică taxă de Service pentru toate conturile" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Se aplică taxă de Service</a><span class="hide"> | </span>
+<a class="navitab" title="Creaţi Deschise Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">Deschise Office Directory</a><span class="hide"> | </span>
+<a class="navitab" title="Modifica $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">Modifica $$fieldsref{registry}</a><span class="hide"> | </span>
+<a class="navitab" title="Registru şi configurare instalare" href="/cgi-bin/protected/ccinstall.cgi">Programul de instalare</a><span class="hide"> | </span>
+<a class="toptabstrikethrough" title="Sistemul de sănătate şi statistici" href="/">Sistemul de sănătate/statistici</a><span class="hide"> | </span>
+</div>
+
+
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+
+    
+<div id="footer">
+Cclite copyright &copy; 2005-2008 (Hugh Barnard). Design by <a href="http://andreasviklund.com">Andreas Viklund</a>.
+</div>
+
+</div>
+</body>
+</html>

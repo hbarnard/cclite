@@ -1,0 +1,204 @@
+<div class="failedcheck"> $$fieldsref{updatemessage}</div>
+
+
+<table><tbody class="stripy">
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+<option selected value="simple">Simplu</option>
+<option value="full">Toate opţiunile</option>
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="Actualizare configurare" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Creaţi Registru [Trading Group]">
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr><td title="Acest lucru este utilizatorul db pentru mysql" class="menu">dbuser</td><td class="pme-key-1">
+    <input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+</td></tr>
+<tr><td title="Aceasta este parola pentru mysql db" class="menu">dbpassword</td><td class="pme-key-1">
+    <input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td></tr>
+
+<tr><td title="experimental cPanel prefixul, use with care, uusally cpanel user name" class="menu">cPanel prefixul</td><td class="pme-key-1">
+    <input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+</td></tr>
+
+<tr><td title="afişare punct zecimal pentru monede" class="menu">Utilizaţi zecimale</td><td class="pme-key-1">
+    <input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+</td></tr>
+
+<tr><td title="utilizaţi forma liber Tag-uri pentru pagini aurii în loc de categorii fixe" class="menu">utiliza Tag-uri</td><td class="pme-key-1">
+    <input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+
+
+ 
+ 
+ 
+ </td></tr>
+
+
+<tr><td title="Acest lucru este un domeniu ca deduse din calea script-ul, trebuie să fie corecte pentru cookie-uri pentru a lucra" class="menu">domeniu</td><td class="pme-key-1">
+    <input type="text" readonly="1"  class="required" name="domeniu" size="60" value="$$fieldsref{domeniu}">
+</td></tr>
+<tr><td title="this is the serverul SMTP for mail, for cpanel usually same as domeniu name, localhost or ip for internal servers" class="menu">serverul SMTP</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+</td></tr>
+
+<tr><td title="principalul utilizator de script pentru cclite" class="menu">Prima pagina</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required"  name="Prima pagina" size="60" value="$$fieldsref{uhome}">
+</td></tr>
+
+<tr><td title="Acesta este tipul haşiş utilizate pentru parolă şi calculele simbolică, sha2 este de preferat, nu poate fi schimbat/amestecat instituit o dată" class="menu">haşiş tip</td><td class="pme-key-1">
+    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td></tr>
+
+<tr><td title="HTML, rss, fişierele de ieşire şi diagrame, deduse din rădăcina documentului în cadrul serverului" class="menu">htmlpath</td><td class="pme-key-1">
+    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+</td></tr>
+<tr><td title="starea inițială a o plată efectuată, dacă aşteptare vor necesita și confirmarea prin primirea utilizator" class="pme-key-title">starea plăţii iniţiale</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td></tr>
+<tr><td title="starea inițială a unui utilizator, dacă neconfirmate vor necesita și confirmarea prin e-mail utilizator" class="pme-key-title">statutul de utilizator inițială</td><td class="pme-key-1">
+    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+</td></tr>
+<tr><td title="limba implicită pentru mesaje şi şabloane" class="pme-key-title">limba</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="limba" size="60" value="$$fieldsref{limba}">
+</td></tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr><td title="numărul de linii de ecran pentru rapoarte tabelare" class="pme-key-title">linii pe pagină</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+</td></tr>
+<tr><td title="calea către fişierul de mesaje, nimic nu va funcţiona dacă acest lucru este greşit!" class="menu">calea pentru mesaje</td><td class="pme-key-1">
+    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+</td></tr>
+<tr><td title="Dacă nu, nu nevoie Soap::Lite module" class="menu">multiregistry??</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="multiregistry?" size="60" value="$$fieldsref{multiregistry?}">
+</td></tr>
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+</td></tr>
+<tr><td title="neutilizate direct, dar pot fi incluse în şabloane particularizate" class="pme-key-title">suport corespondenţă</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="used to send mail and log in to serverul SMTP, set up in cpanel, if necessary, first" class="menu">adresă de sistem</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+</td></tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+<tr><td title="utilizat pentru a comuta pe Net::SMTP pentru notificări etc. aceasta este preferată şi va fi singura opţiune în viitor, 0 sau 1" class="menu">smtp netă??</td><td >
+    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+</td></tr>
+
+
+
+<tr><td title="password for logging on to system email address within serverul SMTP" class="menu">sistem de corespondenţă parola</td><td >
+    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+</td></tr>
+<tr><td title="adresă de răspuns pentru poştă electronică generat, adesea un face-nu-răspuns" class="pme-key-title">adresă de răspuns sistem</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td></tr>
+<tr><td title="calea pentru fişierele şablon utilizat pentru interfaţa web, nimic de mult va funcţiona dacă acest lucru este greşit!" class="menu">şabloane</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="şabloane" size="60" value="$$fieldsref{şabloane}">
+</td></tr>
+
+<!-- section dealing with batch files -->
+
+<tr><td title="bază de ieşire calea pentru diagrame activitatea sub web rădăcină, registru nume este adăugat la această cale" class="pme-key-title">diagramă director</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+</td></tr>
+
+<tr><td title="va necesita perl rss module pentru generarea rss, dacă da" class="pme-key-title">userss</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="bază încărcaţi calea pentru tranzacţii pe loturi, nu trebuie să fie sub web rădăcină" class="pme-key-title">CSV director</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td></tr>
+
+<tr><td title="Inbox pentru gammu a primit sms, nu e necesară pentru http sms gateway-uri" class="pme-key-title">SMS inbox</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+</td></tr>
+
+<tr><td title="Inbox pentru corespondenţă, metoda veche înlocuit prin poștă pop în fiecare registru" class="pme-key-title">Director readmail.pl</td><td class="pme-key-1">
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+</td></tr>
+
+<tr><td title="ieşire bază calea pentru csv tranzacțiile la rădăcină web" class="pme-key-title">CSV la</td><td class="pme-key-1">
+    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+</td></tr>
+
+
+
+<tr><td title="producția de bază calea pentru materialul tipărit în web rădăcină, registru nume şi limba se adaugă la această cale" class="pme-key-title">calea de imprimare</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+</td></tr>
+
+<tr><td title="producția de bază calea pentru rss, registru nume şi limba se adaugă la această cale" class="pme-key-title">director de alimentare de bază</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+</td></tr>
+
+<tr><td title="de bază la directorul pentru gammu rezultate, nu e necesară pentru http sms gateway-uri" class="pme-key-title">SMS la</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+</td></tr>
+
+<tr><td title="intrare gammu prelucrate pe plan local în cazul în care 1, în caz contrar acesta utilizează săpun pentru a procesa la distanţă" class="pme-key-title">locale sms?</td><td class="pme-key-1">
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+</td></tr>
+
+<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
+</td></tr>
+
+<tr><td title="calea către fişierul de configurare Log4perl" class="pme-key-title">Logger config calea</td><td class="pme-key-1">
+    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+</td></tr>
+
+<tr><td ctitle="current cclite versiunea" lass="pme-key-title">versiunea</td><td class="pme-key-1">
+    <input type="text" class="required" class="grey" readonly="1" name="versiunea" size="5" value="$$fieldsref{versiunea}">
+
+</td></tr>
+ <tr class="pme-navigation">
+              <td class="pme-buttons"> <input class="pme-save"
+ name="saveadd" data-simple="yes" value="Actualizare" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Clear" type="reset">
+ </td>
+            </tr>
+</tbody></table>
+</form>

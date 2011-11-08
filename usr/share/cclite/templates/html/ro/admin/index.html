@@ -1,0 +1,184 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<title>Cclite $$fieldsref{versiunea} Administratorul</title>
+
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<meta name="description" content="cclite community currency system" />
+	<meta name="keywords" content="VĂ PERMITE SĂ C finance currency" />
+	<meta name="author" content="hugh barnard" />
+$$fieldsref{metarefresh}
+
+	<!-- stylesheets -->
+	<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+	<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{limba}/all.rdf"/>
+	<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+	<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
+	
+
+	<!-- javascript libraries, need to subsitute compressed versions -->
+	<!-- jquery items -->
+	<script src="/javascript/jquery-1.3.2.js"></script>
+	<script src="/javascript/jquery-validation-1.5.5.js"></script>
+	<script src="/javascript/jquery-cookies.js"></script>
+	<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
+	<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
+	<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>
+	<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
+
+	<!-- others non jquery -->
+	<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
+	<script src="/javascript/jquery-tagsuggest.js"></script>
+	<script src="/javascript/json_parse.js" type="text/javascript"></script>
+    <script type='text/javascript' src='/javascript/ajax.upload.js'></script>
+       
+        <!-- graphing -->
+        <script  src="/javascript/raphael.js" type="text/javascript" ></script>
+        <script  src="/javascript/ico.js" type="text/javascript" ></script>
+
+
+	<!-- specific, is cookies necessary now? -->
+	<script src="/javascript/cookies.js" type="text/javascript"></script>
+	<script src="/javascript/striper.js" type="text/javascript"></script>
+	<script src="/javascript/cclite.js" type="text/javascript"></script>
+
+	<!-- all forms have the same name 'form', avoids complexity here -->
+
+    <style type="text/css" media="screen">
+
+
+
+
+    </style>
+
+
+</head>
+
+<body>
+
+
+        <!-- this switch turns on/off the decimal point stuff -->
+        <div id="usedecimals" class="hidden">$$fieldsref{usedecimals}</div>
+        
+<div class="topbar">
+    
+	<a title="Acasă" href="/cgi-bin/cclite.cgi"><span class="titletext">Cclite</span></a>
+
+ 
+<!-- search for users,trades, ads -->
+        
+       <div class="adsearch">
+		<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+			<input name="action" value="find" type="hidden">
+			<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+			<select id="search_type" class="small" name="search_type">
+					<option selected value='trade'>Tranzacţii</option>
+					<option value='user'>Utilizatorii</option>
+					<option value='ad'>Anunţuri</option>
+	        </select>	
+	        <input value="Du-te" class="small" type="submit" title="Look for trades, ads or users">								
+		</form>
+	  </div>
+
+<!-- end of autocomplete search box -->
+       
+			<!-- limba selector versiunea 1  -->
+				<select id="language_value" class="small" onchange="change_language(this);" name="limba">
+					<option value='en'>Engleză</option>
+					<option value='ar'>Arabă</option>
+					<option value='zh'>Chineză</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Olandeză</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greacă</option>
+					<option value='ja'>Japoneză</option>
+					<option value='ko'>Coreeană</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Română</option>
+					<option value='ru'>Rusă</option>
+					<option value='th'>Thai</option>
+					<option value='vi'>Vietnameză</option>
+				</select>
+			<!--  limba selector versiunea 1 end  -->
+
+   <span id="logoninfo">$$fieldsref{youare} $$fieldsref{atregistry}
+      <span ><a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+             <span id="logoff"></span></a></span></span>	
+</div> <!-- end of logo -->
+
+  
+
+
+<!--- this bit needs replacing by the specific admin and install menus --> 
+
+<div class="topbar">	
+<a class="bodytext" href="/cgi-bin/cclite.cgi">Utilizator Menu</a> 
+<a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">Modificare stare of $$fieldsref{registry}</a>
+<a class="bodytext" title="Arată legat partener registrele" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Parteneri</a>
+<a class="bodytext" title="Creaţi a New Valută" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Creaţi moneda</a>
+<a class="bodytext" title="Arată monede în" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Arată monede</a>
+<a class="bodytext"title="Creaţi New Ad Categoria" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Creaţi Ad Categoria</a>
+$$fieldsref{installer_link}
+
+</div> <!-- end of topbar -->
+		
+<div class="topbar" >
+    
+    
+	
+<a  title="Afişează solduri Registru for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Registru Soldurile</a>
+<a title="Creare regulă sau limita de Credit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Limita de credit</a>
+
+<a title="Creaţi Remote or Locale Registru Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Creaţi Registru Partner</a>
+<a title="Se aplică taxă de Service pentru toate conturile" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Se aplică taxă de Service</a>
+<a title="Creaţi Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">Creaţi Batch Dirs</a>
+<a title="Modifica values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">Modifica $$fieldsref{registry}</a>
+	
+  
+<!-- end of menu bit that needs replacing for admin and install -->	   
+                               
+ 
+</div> <!-- end of menu -->		
+ 
+	
+
+<div class="content" align="center">
+	
+			
+<div class="contentleft">
+
+<div>   				
+!$$fieldsref{pagename}
+</div>
+    
+
+</div> <!-- end of contentleft: left hand side-->
+
+<div class="contentright" >
+ 
+<span class="news">$$fieldsref{latest_news}</span>	<br/>			
+ 
+ $$fieldsref{righthandside}
+ 
+ <div class="panel" >
+	
+   
+ </div> <!-- end of panel -->		
+ 
+</div> <!-- end of righthandcontent --> 
+  
+</div> <!-- end of content -->
+                
+		<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+			<a href="/cgi-bin/cclite.cgi">Acasă</a> | <a href="#">Contactati-ne</a><br />
+			Cclite &copy; Hugh Barnard 2003-2011
+		</div>
+		
+	
+	
+</body>
+</html>

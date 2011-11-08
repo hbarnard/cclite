@@ -1,0 +1,149 @@
+<form id="form">
+<table>
+
+<tr>
+<td title="începe script-ul grafice">
+Graphing
+</td>
+<td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
+E-mail input 
+</td>
+<!--
+<td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
+<del>GPG E-mail input</del> 
+</td>
+-->
+
+
+<td title="începe producătoare de feed-uri rss pentru anunţurile de mici pagini aurii">
+RSS Feed    
+</td>
+<td title="start accepting input via gammu from a locale mobile phone">
+Gammu input
+</td>
+
+<td title="procesul de încărcare şi tranzacţii pe loturi">
+Încărcaţi/process Batch Tranzacţii
+</td>
+
+
+</tr>
+
+<tr>
+
+<td>
+   <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+	<option value="0"> Stop Stats</option>
+	<option value="5">Fiecare 5 min</option>
+	<option value="10">Fiecare 10 min</option>
+	<option value="30">Fiecare 30 min</option>
+</select>
+   
+    </td>
+
+
+
+
+<td>
+    <select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+	<option value="0"> Stop Corespondenţă</option>
+	<option value="5">Fiecare 5 min</option>
+	<option value="10">Fiecare 10 min</option>
+	<option value="30">Fiecare 30 min</option>
+</select>
+
+    
+    </td>
+<!--
+<td>
+    <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
+	<option value="0"> Stop GPG Corespondenţă</option>
+	<option value="5">Fiecare 5 min</option>
+	<option value="10">Fiecare 10 min</option>
+	<option value="30">Fiecare 30 min</option>
+</select>
+
+    
+    </td>
+-->
+
+
+<td>
+    <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+	<option value="0"> Stop Rss</option>
+	<option value="5">Fiecare 5 min</option>
+	<option value="10">Fiecare 10 min</option>
+	<option value="30">Fiecare 30 min</option>
+</select>
+    
+    </td>
+
+
+
+<td>
+    <select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+	<option value="0"> Stop SMS</option>
+	<option value="5">Fiecare 5 min</option>
+	<option value="10">Fiecare 10 min</option>
+	<option value="30">Fiecare 30 min</option>
+</select>
+  </td>
+
+<td>
+<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button" value="Obţine lot fişier CSV"> 	
+</td>
+
+</tr>
+
+
+<tr>
+    <td><span id="stats">aşteaptă</span></td>
+    <td><span id="mail">aşteaptă</span></td>
+    <td><span id="gpg_mail">aşteaptă</span></td>
+    <td><span id="rss">aşteaptă</span></td> 
+    <td><span id="gammu">aşteaptă</span></td>
+   <td></td>
+</tr>    
+
+
+<tr>
+    <td><span id="statements"><a title="imprimare odt extrase bancare" href="/cgi-bin/protected/batch/print_statements.pl">Instrucţiuni imprimare</a></span></td>
+    <td><span id="yellowpages"><a title="odt imprimare pagini aurii" href="/cgi-bin/protected/batch/print_yellowpages.pl">Yellowpages imprimare</a></span></td>
+    <td><span id=""></span></td>
+    <td><span id=""></span></td> 
+    <td><span id=""></span></td>
+   <td></td>
+</tr>
+
+
+
+
+</table>
+</form>
+
+<div id="stats_status"></div>
+<div id="gpg_mail_status"></div>
+<div id="mail_status"></div>
+<div id="csv_status"></div>
+<div id="rss_status"></div>
+<div id="gammu_status"></div><br/>
+
+<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<br/>
+
+        
+<div id="stats_summary">Acest lucru este dimensiunea medie tranzacţie <span id="average_sparkline" class="sparkline"></span> and this <span id="volumes_sparkbar" class="sparkbar"></span> is the average volume.</div>
+
+<table> 
+ <tr>
+  <td>
+   <h4><span id="transaction_vol_title"></span> <span id="update_date1"></span> </h4>
+    <div id="volumes_bargraph" class="linegraph"></div>
+  </td>
+  <td>
+   <h4><span id="averages_title"></span> <span id="update_date2"></span> </h4>
+   <div id="average_bargraph" class="linegraph"></div>
+  </td>
+ </tr>
+</table>
+
