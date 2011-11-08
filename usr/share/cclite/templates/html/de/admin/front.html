@@ -1,135 +1,309 @@
+
 <form id="form">
+
 <table>
 
 <tr>
+
 <td title="Starten Sie das Grafik-Skript">
-Graphing
+Grafische Darstellung
 </td>
+
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-E-E-Mail input 
+E-Mail-Eingang
 </td>
+
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG E-E-Mail input</del> 
+<del>GPG Email input</del> 
 </td>
 -->
 
-
-<td title="Herstellung von Rss-Feeds für Kleinanzeigen Gelben Seiten starten">
-RSS Feed    
+<td title="produzieren Sie Rss-Feeds für die Gelben Seiten-Kleinanzeigen">
+RSS-Feed
 </td>
-<td title="start accepting input via gammu from a lokale mobile phone">
-Gammu input
+
+<td title="Starten Sie akzeptieren Eingang über Gammu von einem lokalen Mobiltelefon">
+Gammu-Eingang
 </td>
 
 <td title="Upload und Prozess Batchtransaktionen">
-Upload/process Batch Transaktionen
+Upload-Vorgang Batchtransaktionen
 </td>
-
 
 </tr>
 
 <tr>
 
 <td>
-   <select onchange="on_select_change('stats');" id="stats_value" >
-	<option value="0"> Stop Stats</option>
-	<option value="5">Alle 5 min</option>
-	<option value="10">Alle 10 min</option>
-	<option value="30">Alle 30 min.</option>
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+Statistiken zu stoppen
+</option>
+
+<option value="5">
+Alle 5 min.
+</option>
+
+<option value="10">
+Alle 10 min.
+</option>
+
+<option value="30">
+Alle 30 min.
+</option>
+
 </select>
-   
-    </td>
 
-
-
+</td>
 
 <td>
-    <select onchange="on_select_change('mail');" id="mail_value" >
-	<option value="0"> Stop E-Mail</option>
-	<option value="5">Alle 5 min</option>
-	<option value="10">Alle 10 min</option>
-	<option value="30">Alle 30 min.</option>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+Mail beenden
+</option>
+
+<option value="5">
+Alle 5 min.
+</option>
+
+<option value="10">
+Alle 10 min.
+</option>
+
+<option value="30">
+Alle 30 min.
+</option>
+
 </select>
 
-    
-    </td>
+</td>
+
 <!--
 <td>
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
-	<option value="0"> Stop GPG E-Mail</option>
-	<option value="5">Alle 5 min</option>
-	<option value="10">Alle 10 min</option>
-	<option value="30">Alle 30 min.</option>
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
 </select>
 
     
     </td>
 -->
 
-
 <td>
-    <select onchange="on_select_change('rss');" id="rss_value" >
-	<option value="0"> Stop Rss</option>
-	<option value="5">Alle 5 min</option>
-	<option value="10">Alle 10 min</option>
-	<option value="30">Alle 30 min.</option>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+Stop Rss
+</option>
+
+<option value="5">
+Alle 5 min.
+</option>
+
+<option value="10">
+Alle 10 min.
+</option>
+
+<option value="30">
+Alle 30 min.
+</option>
+
 </select>
-    
-    </td>
 
-
+</td>
 
 <td>
-    <select onchange="on_select_change('gammu');" id="gammu_value" >
-	<option value="0"> Stop SMS</option>
-	<option value="5">Alle 5 min</option>
-	<option value="10">Alle 10 min</option>
-	<option value="30">Alle 30 min.</option>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+SMS stoppen
+</option>
+
+<option value="5">
+Alle 5 min.
+</option>
+
+<option value="10">
+Alle 10 min.
+</option>
+
+<option value="30">
+Alle 30 min.
+</option>
+
 </select>
-  </td>
+
+</td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="Upload Batch Transaktionen"> 	
+
+<input title="Batchtransaktionen als Csv-Datei zu erhalten: Dokumentation" type="submit" class="small" id="upload_button" value="Batch-CSV-Datei zu erhalten">
+
 </td>
 
 </tr>
 
-
 <tr>
-    <td><span id="stats">Warten</span></td>
-    <td><span id="mail">Warten</span></td>
-    <td><span id="gpg_mail">Warten</span></td>
-    <td><span id="rss">Warten</span></td> 
-    <td><span id="gammu">Warten</span></td>
-   <td></td>
-</tr>    
 
+<td>
+<span id="stats">
+Warten
+</span>
+</td>
 
-<tr>
-    <td><span id="statements"><a title="Odt Bankauszügen drucken" href="/cgi-bin/protected/batch/print_statements.pl">Anweisungen drucken</a></span></td>
-    <td><span id="yellowpages"><a title="Odt GelbeSeiten drucken" href="/cgi-bin/protected/batch/print_yellowpages.pl">Gelbe Seiten drucken</a></span></td>
-    <td><span id=""></span></td>
-    <td><span id=""></span></td> 
-    <td><span id=""></span></td>
-   <td></td>
+<td>
+<span id="mail">
+Warten
+</span>
+</td>
+
+<td>
+<span id="gpg_mail">
+Warten
+</span>
+</td>
+
+<td>
+<span id="rss">
+Warten
+</span>
+</td>
+
+<td>
+<span id="gammu">
+Warten
+</span>
+</td>
+
+<td>
+</td>
+
 </tr>
 
+<tr>
 
+<td>
+<span id="statements">
+<a title="Odt Kontoauszüge drucken" href="/cgi-bin/protected/batch/print_statements.pl">
+Print-Anweisungen
+</a>
+</span>
+</td>
 
+<td>
+<span id="yellowpages">
+<a title="Odt GelbeSeiten drucken" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+Gelbe Seiten drucken
+</a>
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
 
 </table>
+
 </form>
 
-<div id="stats_status"></div>
-<div id="gpg_mail_status"></div>
-<div id="mail_status"></div>
-<div id="csv_status"></div>
-<div id="rss_status"></div>
-<div id="gammu_status"></div><br/>
+<div id="stats_status">
+</div>
 
-<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
 <br/>
 
-<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
-<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<div id="stats_summary">
+Dies ist der durchschnittliche Transaktionsgrösse
+<span id="average_sparkline" class="sparkline">
+</span>
+und dies
+<span id="volumes_sparkbar" class="sparkbar">
+</span>
+ist das durchschnittliche Volumen.
+</div>
+
+<table>
+
+<tr>
+
+<td>
+
+<h4>
+<span id="transaction_vol_title">
+</span>
+
+<span id="update_date1">
+</span>
+
+</h4>
+
+<div id="volumes_bargraph" class="linegraph">
+</div>
+
+</td>
+
+<td>
+
+<h4>
+<span id="averages_title">
+</span>
+
+<span id="update_date2">
+</span>
+
+</h4>
+
+<div id="average_bargraph" class="linegraph">
+</div>
+
+</td>
+
+</tr>
+
+</table>

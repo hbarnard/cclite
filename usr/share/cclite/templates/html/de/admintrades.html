@@ -1,87 +1,198 @@
-       <table> 
-       <tbody class="stripy">
-     <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
- name="fromregistry" value="$$fieldsref{registry}" type="hidden"> <input
- name="action" value="transaction" type="hidden"> <input
+
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden">
+
+<input
+ name="action" value="transaction" type="hidden">
+
+<input
  name="subaction" value="om_trades" type="hidden">
- <input id="tradeStatus" "name="tradeStatus" value="" type="hidden">
-            <tr>
-              <td class="pme-key-1">Datum</td>
-              <td class="pme-value-1"> <input class="grey"
- name="tradeDatum" size="11"  readonly="readonly" value="$$fieldsref{date}"
- type="text"></td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">Von Konto<br>
-              </td>
-              <td class="pme-value-1">
-                
+
+<input id="tradeStatus" "name="tradeStatus" value="" type="hidden">
+
+<tr>
+
+<td class="pme-key-1">
+Datum
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeDate" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Von Konto
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
 <input class="required" type="text" name="tradeSource" id="tradeSource" autocomplete="off"/>
 
- </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">An Account<br>
-              </td>
-              <td class="pme-value-1">
 
+</td>
 
+</tr>
 
+<tr>
+
+<td class="pme-key-0">
+Konto
+<br>
+
+</td>
+
+<td class="pme-value-1">
 
 <input class="required" type="text" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
 
 
-</td></tr><tr>
-<td><span class="pme-key-0">Registrierung</span></td><td> 
+</td>
+</tr>
+<tr>
+
+<td>
+<span class="pme-key-0">
+Registrierung
+</span>
+</td>
+<td>
 $$fieldsref{selectpartners}
 </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">Währung</td>
-              <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
-<span class="pme-key-0"> Betrag </span>
-<input class="required"
- name="tradeBetrag" size="11" maxlength="11" type="text">
 
-</td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-0"></td>
-              <td class="pme-value-1"> 
-</td>
-            </tr>
+</tr>
 
 <tr>
-              <td class="pme-key-0">Element Typ<br>
-              </td>
-              <td class="pme-value-0">
- 
-<select id="tradeElement" class="required" onchange="on_trade_change('tradeElement');" name="tradeElement">
- <option value="goods">Waren</option>
- <option value="services">Dienstleistungen</option>
- <option value="cashout">Auszahlen</option>
- <option value="cashin">In Bar</option>
- <option value="other">Andere</option>
+
+<td class="pme-key-0">
+Währung
+</td>
+
+<td nowrap class="pme-value-0">
+$$fieldsref{selectcurrency}
+<span class="pme-key-0">
+Betrag
+</span>
+
+<input class="required"
+ name="tradeAmount" size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+</td>
+
+<td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Elementtyp
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select id="tradeItem" class="required" onchange="on_trade_change('tradeItem');" name="tradeItem">
+
+<option value="goods">
+Waren
+</option>
+
+<option value="services">
+Dienstleistungen
+</option>
+
+<option value="cashout">
+Auszahlen
+</option>
+
+<option value="cashin">
+Kassenbestand
+</option>
+
+<option value="other">
+Andere
+</option>
+
 </select>
 
-</td></tr><tr><td>
-<span class="pme-key-0"> Element Titel</span></td><td> <input class="required"
- name="tradeTitel" size="50" maxlength="255" value="" type="text">
 </td>
-            </tr>
-            <tr>
-              <td class="pme-key-1">Artikelbeschreibung</td>
-              <td class="pme-value-1"> <textarea class="required"
- name="tradeBeschreibung" rows="3" cols="60"></textarea></td>
-            </tr>
-        <table class="pme-navigation">
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Machen Transfer" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-  
-      </form>
-      </table>
- </tbody>
+</tr>
+<tr>
+<td>
+
+<span class="pme-key-0">
+Artikelbezeichnung
+</span>
+</td>
+<td>
+
+<input class="required"
+ name="tradeTitle" size="50" maxlength="255" value="" type="text">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Artikelbeschreibung
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required"
+ name="tradeDescription" rows="3" cols="60">
+</textarea>
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Machen Transfer" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Klar" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
 </table>

@@ -1,88 +1,227 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="PERMITE C" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
 <meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
- 
+
+
 <link type="text/css" href="/styles/cc.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
-<link rel="alternate" type="application/rss+xml" title="Link experimental cclite" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>  
 
-<title>Cclite $$fieldsref{Versão} Admin</title>
 
+<link rel="alternate" type="application/rss+xml" title="Link experimental cclite" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $$ {versão} Admin
+</title>
 !$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
 
-
-<script src="/javascript/prototype.js"></script>
-<script src="/javascript/scriptaculous.js"></script>
-
+<script src="/javascript/scriptaculous.js">
+</script>
 
 </head>
 
 <body id="$$fieldsref{action}$$fieldsref{substyle}">
-<div id="toptabs">
-<a 
- class="toptab" title="Forgot Your Senha?"
- href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">Forgotten Senha?</a>
 
+<div id="toptabs">
+
+<a 
+ class="toptab" title="Esqueceu sua senha??"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Esqueceu a senha?
+</a>
 
 <a class="toptabstrikethrough" title="Deutsch"
- href="/cgi-bin/cclite.cgi?action=lang&amp;idioma=de">Deutsch</a>
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+Deutsch
+</a>
 
 <a 
- class="toptabstrikethrough" title="Mudar para o francês"
- href="/cgi-bin/cclite.cgi?action=lang&amp;idioma=fr">Fran</a>
-$$fieldsref{youare} $$fieldsref{atregistry} 
+ class="toptabstrikethrough" title="Alterar para francês"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+Fran
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
 <p>
-<a class="toptab" title="Nãova conta" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">Nãova conta</a><span class="hide"> | </span>
-<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">Log off $$fieldsref{user} </a><span class="hide"> | </span>
-<a class="toptab" title="Voltar to Usuário Menu" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">Usuário Menu</a><span class="hide"> | </span>
+
+<a class="toptab" title="Nova conta" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Nova conta
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+Faça logoff fieldsref $$ {usuário}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Voltar ao Menu de usuário" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+Menu de usuário
+</a>
+<span class="hide">
+|
+</span>
+
 </p>
-
-
 
 </div>
 
 <div id="container">
-<h1>Cclite $$fieldsref{Versão} Administration</h1>
 
+<h1>
+Cclite $$ {versão} administração
+</h1>
 
 <div id="navitabs">
-<a class="showpartnersresulthtml" title="Mostrar registos de parceiro" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Mostrar parceiros</a><span class="hide"> | </span>
-<a class="templatecurrencyhtml" title="Criar New Moeda" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Criar moeda</a><span class="hide"> | </span>
-<a class="showcurrenciesresulthtml" title="Mostrar moedas negociadas" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Mostrar moedas</a><span class="hide"> | </span>
-<a class="templatecategoryhtml" title="Criar New Ad Categoria" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Criar Ad Categoria</a><span class="hide"> | </span>
-<a class="navitab" title="Modificar Usuário Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">Change a Usuário Account</a><span class="hide"> | </span>
+
+<a class="showpartnersresulthtml" title="Mostrar os registos de parceiro" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Mostrar parceiros
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="Criar nova moeda" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Criar moeda
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="Mostrar moedas negociadas" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Mostrar moedas
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="Criar nova categoria Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Criar a categoria Ad
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modificar a conta de usuário" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+Alterar uma conta de usuário
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="showbalvolresulthtml" title="Visualizar registro saldos" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Visualizar registro saldos</a><span class="hide"> | </span>
-<a class="navitab" title="Criar regra ou limite de crédito" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Criar Rule/Limite de crédito</a><span class="hide"> | </span>
-<a class="navitab" title="Criar Registro Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Criar Registro Partner</a><span class="hide"> | </span>
-<a class="navitab" title="Carregar Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">Carregar Batch Files</a><span class="hide"> | </span>
+
+
+<a class="showbalvolresulthtml" title="Visualizar registro saldos" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Visualizar registro saldos
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Criar regra ou limite de crédito" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Criar limite de regra/crédito.
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Criar parceiro de registro" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Criar parceiro de registro
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Upload de arquivo em lotes" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+Fazer upload de arquivos em lote
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="modeloservicechghtml" title="Apply Serviço Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply Serviço Charge</a><span class="hide"> | </span>
-<a class="navitab" title="Criar Aberto Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">Aberto Office Directory</a><span class="hide"> | </span>
-<a class="navitab" title="Modificar $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">Modificar $$fieldsref{registry}</a><span class="hide"> | </span>
-<a class="navitab" title="Instalador de configuração e registro" href="/cgi-bin/protected/ccinstall.cgi">Instalador</a><span class="hide"> | </span>
-<a class="toptabstrikethrough" title="Estatísticas e integridade do sistema" href="/">Estatísticas da saúde sistema</a><span class="hide"> | </span>
+
+
+<a class="templateservicechghtml" title="Aplicar a taxa de serviço para todas as contas" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Aplicar a taxa de serviço
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Criar diretório para impressão de escritório aberto" href="/cgi-bin/protected/ccdirectory.cgi">
+Diretório de escritório aberto
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+Modificar o $$ {registro}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Instalador de configuração e registro" href="/cgi-bin/protected/ccinstall.cgi">
+Instalador
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="Estatísticas e integridade do sistema" href="/">
+Estatísticas da saúde sistema
+</a>
+<span class="hide">
+|
+</span>
+
 </div>
 
-<hr>    
 <div id="main">
 !$$fieldsref{pagename}
 </div>
 
-
-    
 <div id="footer">
-Cclite copyright &copy; 2005-2008 (Hugh Barnard). Design by <a href="http://andreasviklund.com">Andreas Viklund</a>.
+Copyright Cclite
+<a href="http://andreasviklund.com">
+Andreas Viklund
+</a>
+.
 </div>
 
 </div>
+
 </body>
+
 </html>

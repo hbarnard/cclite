@@ -1,157 +1,343 @@
-      <form name="newuser" class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
- name="action" value="adduser" type="hidden"> <input name="subaction"
+
+
+<form name="newuser" class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="action" value="adduser" type="hidden">
+
+<input name="subaction"
  value="om_users" type="hidden">
-        <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
 
-           <tr>
-              <td class="pme-key-0"><br>
-              </td>
-              <td style="vertical-align: top;"><span class="errors">$$fields{errors}</span>
-              </td>
-            </tr>
+<table class="pme-main" summary="om_users">
 
-            <tr>
-              <td class="pme-key-0">Reg-Name<br>
-              </td>
-              <td style="vertical-align: top;">
+<tbody class="stripy">
+
+<tr>
+
+<td class="pme-key-0">
+<br>
+
+</td>
+
+<td style="vertical-align: top;">
+<span class="errors">
+$$fields{errors}
+</span>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Reg-Name
+<br>
+
+</td>
+
+<td style="vertical-align: top;">
+
 <!-- note explicit path value in cookie setting, otherwise path is set for cgi-bin -->
+
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
-              </td>
-            </tr>
-            <tr class="pme-row-1">
-              <td title="Mehr als 3 Zeichen, Buchstaben, Zahlen und _ nur sein muss" class="pme-key-0">Account-Name<br>
-              </td>
-              <td class="pme-value-1"> <input 
- name="nuserLogin" id="nuserLogin" class="required" value="$$fieldsref{userLogin}" size="60" maxlength="255" value="" type="text">
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Kennwort</td>
-        <td class="pme-value-0"> <input 
- name="userKennwort" class="required" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm Kennwort</td>
-        <td class="pme-value-0"> <input 
- name="cuserKennwort" class="required" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-0">E-Mail</td>
-              <td class="pme-value-1"> <input 
- name="userE-Mail" id="nuserE-Mail" class="required email" size="50" maxlength="50" value="$$fieldsref{userE-Mail}" type="text">
-</td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Anzahl/Haus-Name</td>
-              <td class="pme-value-1"> <input 
+
+<td title="Mehr als 3 Zeichen, Buchstaben, Zahlen und _ nur sein muss" class="pme-key-0">
+Kontoname
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="nuserLogin" id="nuserLogin" class="required" value="$$fieldsref{userLogin}" size="60" maxlength="255" value="" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Passwort
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="userPassword" class="required" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Kennwort bestätigen
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="cuserPassword" class="required" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+E-Mail
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userEmail" id="nuserEmail" class="required email" size="50" maxlength="50" value="$$fieldsref{userEmail}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Anzahl/Haus-Name
+</td>
+
+<td class="pme-value-1">
+
+<input 
  name="userNameornumber" class="required" value="$$fieldsref{userNameornumber}" size="30" maxlength="30" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Straßenname</td>
-              <td class="pme-value-1"> <input 
+
+<td class="pme-key-0">
+Straßennamen
+</td>
+
+<td class="pme-value-1">
+
+<input 
  name="userStreet" size="40" class="required" maxlength="40" value="$$fieldsref{userStreet}" type="text">
 
 </td>
-            </tr>
+
+</tr>
+
 <tr class="pme-row-1">
-              <td class="pme-key-0">Stadt</td>
-              <td class="pme-value-1"> <input 
- name="userStadt" class="required" size="40" maxlength="40" value="$$fieldsref{userStadt}" type="text">
+
+<td class="pme-key-0">
+Stadt
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userTown" class="required" size="40" maxlength="40" value="$$fieldsref{userTown}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Grafschaft/Staat</td>
-              <td class="pme-value-1"> <input 
+
+<td class="pme-key-0">
+County/Staat
+</td>
+
+<td class="pme-value-1">
+
+<input 
  name="userArea" class="required" size="40" maxlength="40" value="$$fieldsref{userArea}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Postleitzahl</td>
-              <td class="pme-value-1"> <input 
- name="userPostleitzahl" class="required" size="10" maxlength="10" value="$$fieldsref{userPostleitzahl}" type="text">
+
+<td class="pme-key-0">
+Postleitzahl
 </td>
-            </tr>
 
+<td class="pme-value-1">
 
-<tr class="pme-row-1">
-              <td class="pme-key-0">Festen Telefon</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userTelephone" size="20" maxlength="20" value="$$fieldsref{userTelephone}" type="text"></td>
-            </tr>
+<input 
+ name="userPostcode" class="required" size="10" maxlength="10" value="$$fieldsref{userPostcode}" type="text">
 
-            <tr class="pme-row-1">
-              <td  class="pme-key-0">Mobiltelefon</td>
-              <td class="pme-value-1"> <input title="Bitte tippen Sie diese Nummer im internationalen Format 44777766666" class="pme-input-1"
- name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">Pin for Mobiltelefon Transaktionen</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPin" size="6" maxlength="6" value="$$fieldsref{userPin}" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">Confirm Pin for Mobiltelefon Transaktionen</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="cuserPin" size="6" maxlength="6" value="$$fieldsref{cuserPin}" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">SMS-Zahlungseingänge</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userSmsreceipt" type="checkbox"></td>
-            </tr>
-
-
-<tr class="pme-row-1">
-              <td title="Dies ist der öffentliche Schlüssel Id verschlüsselte Transaktionen" class="pme-key-0">Öffentliche Schlüssel-Id</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
-            </tr>
-
-            <tr class="pme-row-1">
-              <td class="pme-key-0">Sprache</td>
-              <td class="pme-value-1"> 
-                 <select class="required" name="userLang">
-                   <option value=""></option>
-                   <option selected value="en">Englisch</option>
-                   <option value="de">Deutsch</option>                   
-                   <option value="fr">Fran</option>
-                 </select>
 </td>
-            </tr>
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">Vollständiger Name</td>
-              <td class="pme-value-0"> <input 
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Festnetz
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTelephone" size="20" maxlength="20" value="$$fieldsref{userTelephone}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td  class="pme-key-0">
+Handy
+</td>
+
+<td class="pme-value-1">
+
+<input title="Bitte tippen Sie diese Nummer im internationalen Format 44777766666" class="pme-input-1"
+ name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+PIN für Handy-Transaktionen
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="$$fieldsref{userPin}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Pin für Handy-Transaktionen zu bestätigen
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="$$fieldsref{cuserPin}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+SMS-Zahlungseingängen
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userSmsreceipt" type="checkbox">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="Dies ist die öffentlichen Schlüssel-Id für verschlüsselte Transaktionen" class="pme-key-0">
+Öffentlichen Schlüssel-Id
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Sprache
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="userLang">
+
+<option value="">
+</option>
+
+<option selected value="en">
+Englisch
+</option>
+
+<option value="de">
+English
+</option>
+
+<option value="fr">
+Fran
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Vollständiger Name
+</td>
+
+<td class="pme-value-0">
+
+<input 
  name="userName" size="60" class="required" maxlength="255" value="$$fieldsref{userName}" type="text">
 
 </td>
-            </tr>
-          </tbody>
-        </table>
-        <hr class="pme-hr">
-        <table class="pme-navigation">
-          <tbody>
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> 
-<!-- we erase the registry cookie here, otherwise it'll prevent a clean logon later -->
-<input class="pme-save"
- name="saveadd" value="Erstellen" onClick="eraseCookie('registry');" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
 
+</tr>
+
+</tbody>
+
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<!-- we erase the registry cookie here, otherwise it'll prevent a clean logon later -->
+
+<input class="pme-save"
+ name="saveadd" value="Erstellen" onClick="eraseCookie('registry');" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Klar" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

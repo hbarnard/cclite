@@ -1,27 +1,59 @@
+
 <table>
- <tbody class="stripy"> 
-     <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
- name="fromregistry" value="$$fieldsref{registry}" type="hidden"> <input
- name="action" value="splittransaction" type="hidden"> <input
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden">
+
+<input
+ name="action" value="splittransaction" type="hidden">
+
+<input
  name="subaction" value="om_trades" type="hidden">
 
-            <tr>
-              <td class="pme-key-1">Data</td>
-              <td class="pme-value-1"> <input class="grey"
- name="tradeData" size="11"  readonly="readonly" value="$$fieldsref{date}"
- type="text"></td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">Da conta<br>
-              </td>
-              <td class="pme-value-1"> <input class="grey"
+<tr>
+
+<td class="pme-key-1">
+Data
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeDate" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Da conta
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
  name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
- </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">Para Account<br>
-              </td>
-              <td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+A conta
+<br>
+
+</td>
+
+<td class="pme-value-1">
 
 <!--
 
@@ -32,80 +64,143 @@
 -->
 
 <input type="text" class="required" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
-<div  class="autocomplete" id="suggestionBox" ></div>
+
+
+<div  class="autocomplete" id="suggestionBox" >
+</div>
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-		// <![CDATA[
+// <![CDATA[
   var myAutoCompleter = new Ajax.Autocompleter('tradeDestination', 'suggestionBox', '/cgi-bin/ccsuggest.cgi', {});
 		// ]]>
 </script>
 
+<span class="pme-key-0">
+Registro
+</span>
+$$fieldsref{selectpartners}
+</td>
 
+</tr>
 
-<span class="pme-key-0">Registro</span> $$fieldsref{selectpartners}
+<tr>
+
+<td class="pme-key-0">
+Moeda
+</td>
+
+<td nowrap class="pme-value-0">
+$$fieldsref{selectcurrency}
+<span class="pme-key-0">
+Montante
+</span>
+
+<input class="required" id="tradeAmount" onChange="validatedecimals(this,this.value);" name="tradeAmount" size="11" maxlength="11" type="text">
 
 </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">Moeda</td>
-              <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
 
-<span class="pme-key-0"> Montante </span>
-<input class="required" id="tradeMontante" onChange="validatedecimals(this,this.value);" name="tradeMontante" size="11" maxlength="11" type="text">
+</tr>
 
+<tr>
 
-</td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">
-<tr class="pme-row-0">
-              <td class="pme-key-0">Secondary Moeda</td>
-              <td class="pme-value-0"> $$fieldsref{sselectcurrency}
-
-<span class="pme-key-0">Secondary Montante
-<input class="required" name="stradeMontante" id="stradeMontante"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
-
-</td>
-            </tr>
-
-
-
-</td>
-              <td class="pme-value-1"> 
-</td>
-            </tr>
+<td class="pme-key-0">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">Item Tipo<br>
-              </td>
-              <td class="pme-value-0">
- 
+
+<td class="pme-key-0">
+Moeda secundária
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{sselectcurrency}
+<span class="pme-key-0">
+Valor secundário
+<input class="required" name="stradeAmount" id="stradeAmount"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+</td>
+
+<td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Tipo de item
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
 <select class="required" name="tradeItem">
- <option value="goods">Mercadorias</option>
- <option value="services">Serviços</option>
- <option value="other">Outros</option>
+
+<option value="goods">
+Mercadorias
+</option>
+
+<option value="services">
+Serviços
+</option>
+
+<option value="other">
+Outros
+</option>
+
 </select>
 
+<span class="pme-key-0">
+Título do item
+</span>
 
-
-<span class="pme-key-0"> Item Título</span> <input class="required"
- name="tradeTítulo" size="60" maxlength="255" value="" type="text">
+<input class="required"
+ name="tradeTitle" size="60" maxlength="255" value="" type="text">
 
 </td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-1">Descrição do item</td>
-              <td class="pme-value-1"> <textarea class="required"
- name="tradeDescrição" rows="3" cols="60"></textarea></td>
-            </tr>
 
-        <table class="pme-navigation">
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd"  value="Fazer transferência" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-      </form>
-   </table>
- </tbody>
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Descrição do item
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required"
+ name="tradeDescription" rows="3" cols="60">
+</textarea>
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd"  value="Fazer transferência" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Clara" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
 </table>

@@ -1,107 +1,246 @@
 
+
 <table>
+
 <tbody class="stripy">
+
 <form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
 
 <input name="subaction" value="om_yellowpages" type="hidden">
+
 <input name="action" value="addyellow" type="hidden">
 
+<tr>
 
-<tr>
-<td class="pme-key-0">Do usuário</td>
-<td class="pme-value-0">
-<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text"></td>
-</tr>
-<tr>
-<td class="pme-key-1">Tipo</td>
-<td class="pme-value-1">
-              <select class="required" name="type">
-              <option value="offered" selected="selected">Oferta</option>
-              <option value="wanted">Queria</option>
-              <option value="other">Outros</option>
-              </select>
+<td class="pme-key-0">
+De usuário
 </td>
-</tr>
-<tr>
-<td class="pme-key-1">Major classe</td>
-<td class="pme-value-1">
-              <select class="required" name="majorclass">
-              <option value="service" selected="selected">Serviço</option>
-              <option value="goods">Mercadorias</option>
-              <option value="other">Outros</option>
-              </select>
-</td>
-</tr>
 
-<tr>
-<td class="pme-key-1">Classificação</td>
-<td class="pme-value-1">
-$$fieldsref{selectclassification}</td>
-</tr>
-
-<tr>
-<td class="pme-key-1">Marcas (autocomplete)</td>
-<td class="pme-value-1">
-<span id="tagmatches" class="tagmatches"><input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}"></span></td>
-</tr>
-
-<tr>
-<td class="pme-key-0">Assunto</td>
 <td class="pme-value-0">
-<input class="required" name="subject" size="30" maxlength="30" value="" type="text"></td>
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
 </tr>
+
 <tr>
-<td class="pme-key-1">Descrição</td>
+
+<td class="pme-key-1">
+Tipo
+</td>
+
 <td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+Oferta
+</option>
+
+<option value="wanted">
+Queria
+</option>
+
+<option value="other">
+Outros
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Major classe
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+Serviço
+</option>
+
+<option value="goods">
+Mercadorias
+</option>
+
+<option value="other">
+Outros
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Classificação
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Tags (AutoCompletar)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Assunto
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Descrição
+</td>
+
+<td class="pme-value-1">
+
 <textarea class="required" name="description" rows="5" columns="50">
-$$fieldsref{description}</textarea>
+$$fieldsref{description}
+</textarea>
+
 </td>
+
 </tr>
+
 <tr>
-<td class="pme-key-0">Preço</td>
+
+<td class="pme-key-0">
+Preço
+</td>
+
 <td class="pme-value-0">
-<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
 </tr>
+
 <tr class="pme-row-1">
-<td class="pme-key-1">Moeda</td>
+
+<td class="pme-key-1">
+Moeda
+</td>
+
 <td class="pme-value-1">
 $$fieldsref{selectcurrency}
 <input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
 </td>
+
 </tr>
 
 <tr>
-<td class="pme-key-1">Per unit (services only)</td>
-<td class="pme-value-1">
-              <select class="pme-input-1" name="unit">
-              <option value="" ></option>
-              <option value="hour" >por hora</option>
-              <option value="day" >por dia</option>
-              <option value="week" >por semana</option>
-              <option value="month" >por mês</option>
-              </select>
+
+<td class="pme-key-1">
+Por unidade (somente para serviços)
 </td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+por hora
+</option>
+
+<option value="day" >
+por dia
+</option>
+
+<option value="week" >
+por semana
+</option>
+
+<option value="month" >
+por mês
+</option>
+
+</select>
+
+</td>
+
 </tr>
 
 <tr>
-<td class="pme-key-1">Pagamento completo em moeda permite??</td>
-<td class="pme-value-1">
-              <select class="pme-input-1" name="truelets">
-              <option value="yes" >Sim</option>
-              <option value="no">Não</option>
-              </select>
+
+<td class="pme-key-1">
+Pagamento completo em moeda permite?
 </td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+Sim
+</option>
+
+<option value="no">
+Não
+</option>
+
+</select>
+
+</td>
+
 </tr>
 
 <table class="pme-navigation">
+
 <tr class="pme-navigation">
+
 <td class="pme-buttons">
+
 <input class="pme-save"
- name="saveadd" value="Fazer página" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
+ name="saveadd" value="Verifique a página" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Clara" type="reset">
+
+</td>
+
 </tr>
+
 </form>
- </table>
-</tbody>
+
 </table>
 
+</tbody>
+
+</table>

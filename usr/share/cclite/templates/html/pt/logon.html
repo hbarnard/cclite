@@ -1,96 +1,184 @@
-<span class="errors">$$fieldsref{errors}</span>
-      <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
-<input name="action" value="logon" type="hidden"> 
+
+<div class="errors">
+$$fieldsref{errors}
+</div>
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="logon" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="logontype" value="form" type="hidden">
-        <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
-            <tr>
-              <td nowrap >Nome do registro<br>
-              </td>
-              <td style="vertical-align: top;"><input class="required" name="registry">
 
-<span class="pme-key-1"><!-- Use <i>dalston</i> for the test logins..see below!</span> -->
-              </td>
-            </tr>
-            <tr >
-              <td nowrap >Nãome da conta<br>
-              </td>
-              <td > <input class="required"
+<table  class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr>
+
+<td nowrap >
+Nome do registro
+<br>
+
+</td>
+
+<td>
+<input class="required" name="registry">
+
+<span class="pme-key-1">
+<!-- Use <i>dalston</i> for the test logins..see below!</span> -->
+
+</td>
+
+</tr>
+
+<tr >
+
+<td nowrap >
+Nome da conta
+<br>
+
+</td>
+
+<td >
+
+<input class="required"
  name="userLogin" autocomplete="off"
- size="50" maxlength="50" value="" type="text"></td>
-            </tr>
-            <tr >
-              <td ">Senha</td>
-              <td > <input class="required"
+ size="50" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr >
+
+<td ">
+Senha
+</td>
+
+<td >
+
+<input class="required"
  name="userPassword" size="32" maxlength="32" value="" type="password">
-</td>
-            </tr>
-            
-            
 
-          </tbody>
-        </table>
-        <br/><br/>
-        <hr class="pme-hr">
-  
-        <table >
-          <tbody>
-            <tr >
-              <td > <input type="submit" value="Início de sessão">&nbsp;<input 
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-      <form id="form" class="pme-form" method="POST" action="/cgi-bin/ccopenid.cgi">
-        <br/><br/>
-              Open Id Início de sessão (experimental)  
-        <span class="errors">$$fieldsref{openiderrors}</span>
-        <table>
-             <tr>
-              <td nowrap >Nome do registro<br>
-              </td>
-            <!--  onfocus="$.cookie('registry1', null);" onblur="$.cookie('registry1', this.value);" -->
-              <td style="vertical-align: top;"><input class="required"  name="registry">
-
-<span class="pme-key-1"><!-- Use <i>dalston</i> for the test logins..see below!</span> -->
-              </td>
-            </tr>
-                  <tr >
-              <td ">Open Id</td>
-              <td > <input class="required"
- name="identifier" size="70" maxlength="120" value="$$fieldsref{identifier}" type="text">
 </td>
-            </tr>
-        </table>
-        <hr class="pme-hr">
-        <table >
-          <tbody>
-            <tr >
-              <td > <input type="submit" value="Início de sessão">&nbsp;<input 
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>  
-      
-      
+
+</tr>
+
+<tr >
+
+<td >
+
+<input type="submit" value="Início de sessão">
+&nbsp;
+<input 
+ name="cancel" value="Clara" type="reset">
+
+</form>
+
+</td>
+<td>
+</td>
+
+</tr>
+
+<td colspan="2">
+<h3>
+Aberto Id de Logon (experimental)
+</h3>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<span class="errors">
+$$fieldsref{openiderrors}
+</span>
+
+<table >
+
+<tr>
+
+<td nowrap >
+Nome do registro
+<br>
+
+</td>
+
+<!--  onfocus="$.cookie('registry1', null);" onblur="$.cookie('registry1', this.value);" -->
+
+<td style="vertical-align: top;">
+
+<form id="form" class="pme-form" method="POST" action="/cgi-bin/ccopenid.cgi">
+
+<input class="required"  name="registry">
+
+<span class="pme-key-1">
+<!-- Use <i>dalston</i> for the test logins..see below!</span> -->
+
+</td>
+
+</tr>
+
+<tr >
+
+<td>
+Open Id
+</td>
+
+<td >
+
+<input class="required"
+ name="identifier" size="50" maxlength="120" value="$$fieldsref{identifier}" type="text">
+
+</td>
+
+</tr>
+
+</table>
+
+<table >
+
+<tbody>
+
+<tr >
+
+<td >
+
+<input type="submit" value="Início de sessão">
+&nbsp;
+<input 
+ name="cancel" value="Clara" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>
+
 <!--
 
 Put your own explanation here and remove the comment tags!
 
 Welcome to the test version of cclite. Until you've logged in, you can't do very much! Use a test account or create your own...<br/><br/>
 
-You can use the Nome do registro: <i>dalston</i> and Nãome da conta: <i>ddawg</i> or <i>mmouse</i> both with Senha: <i>test</i>. The currency <i>ducket</i> is set up for this registry.
+You can use the Registry Name: <i>dalston</i> and Account Name: <i>ddawg</i> or <i>mmouse</i> both with Password: <i>test</i>. The currency <i>ducket</i> is set up for this registry.
 <br/><br/>
-Also you can use Nãome da conta: <i>manager</i> with a Senha: <i>manager</i> at dalston to access the Management Menu.<br/><br/>
+Also you can use Account Name: <i>manager</i> with a Password: <i>manager</i> at dalston to access the Management Menu.<br/><br/>
 You can add new registries and currencies with this. When you are logged in to dalston that currency will be added to dalston, for example.
 <br/><br/>
 
-Criar a new account, if you like. It will need a valid email address to mail you an account confirmation link. Then click on that link to make the account active.<br/><br/>
+Create a new account, if you like. It will need a valid email address to mail you an account confirmation link. Then click on that link to make the account active.<br/><br/>
 
 There are plenty of rough edges, but all comments are welcome. I'm also putting news of progress into 
 <a href="http://blog.bigwaveheuristics.com/index.php?cat=10">my blog</a>.
 
---> 
+-->
