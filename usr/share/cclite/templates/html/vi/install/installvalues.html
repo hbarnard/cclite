@@ -1,0 +1,481 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Đơn giản
+</option>
+
+<option value="full">
+Tất cả tùy chọn
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="Cập Nhật cấu hình" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="Đây là người sử dụng db cho mysql" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Điều này là mật khẩu db cho mysql" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="tiền tố thực nghiệm cpanel, sử dụng với việc chăm sóc, tên người dùng uusally cpanel" class="menu">
+tiền tố cPanel
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="hiển thị dấu thập phân cho các loại tiền tệ" class="menu">
+sử dụng thập phân
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sử dụng các hình thức miễn phí thẻ cho nghiệp thay vì của thể loại cố định" class="menu">
+sử dụng thẻ
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Đây là tên miền như suy luận từ đường dẫn tập lệnh, cần phải được chính xác cho cookie để làm việc" class="menu">
+tên miền
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Đây là máy chủ smtp cho thư, cho cpanel thường tương tự như tên miền, localhost hoặc ip cho máy chủ nội bộ" class="menu">
+hệ phục vụ SMTP
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="chính người dùng script cho cclite" class="menu">
+Trang chủ
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Đây là kiểu băm được sử dụng cho mật khẩu và tính toán mã thông báo, sha2 được ưa thích, không thể được thay đổi/hỗn hợp một lần thiết lập" class="menu">
+kiểu băm
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="HTML, rss, tập tin đầu ra và bảng xếp hạng, suy luận từ tài liệu gốc trong máy chủ" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="tình trạng ban đầu của một khoản thanh toán được thực hiện, nếu chờ đợi sẽ yêu cầu xác nhận bởi nhận người dùng" class="pme-key-title">
+tình trạng thanh toán ban đầu
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="tình trạng ban đầu của một người sử dụng, nếu chưa được xác nhận sẽ yêu cầu xác nhận của người sử dụng thư điện tử" class="pme-key-title">
+trạng thái người dùng ban đầu
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ngôn ngữ mặc định cho tin nhắn và các mẫu" class="pme-key-title">
+ngôn ngữ
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="số lượng các màn hình dòng cho bảng báo cáo" class="pme-key-title">
+dòng trên một trang
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="đường dẫn đến tệp tin nhắn, không có gì sẽ làm việc nếu điều này là sai!" class="menu">
+đường dẫn thư
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="Nếu không có, không cần mô-đun Soap::Lite" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="không được sử dụng trực tiếp, nhưng có thể được bao gồm trong các tùy chỉnh mẫu" class="pme-key-title">
+hỗ trợ thư
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+
+<tr>
+<td title="được sử dụng để gửi thư và đăng nhập vào hệ phục vụ smtp, thiết lập trong cpanel, nếu cần thiết, đầu tiên" class="menu">
+Địa chỉ thư hệ thống
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+
+<tr>
+<td title="được sử dụng để chuyển đổi trên Net::SMTP cho các thông báo vv này được ưa thích và sẽ là lựa chọn duy nhất trong tương lai, 0 hay 1" class="menu">
+smtp ròng?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="mật khẩu để đăng nhập vào hệ thống địa chỉ email trong hệ phục vụ smtp" class="menu">
+hệ thống mail mật khẩu
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Địa chỉ trả lời cho tạo email, thường một làm-không phải trả-lời" class="pme-key-title">
+Địa chỉ hệ thống thư trả lời
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="đường dẫn cho các tập tin mẫu được sử dụng cho giao diện web, không có gì nhiều sẽ làm việc nếu điều này là sai!" class="menu">
+mẫu
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- section dealing with batch files -->
+
+<tr>
+<td title="cơ sở sản lượng đường dẫn cho các biểu đồ hoạt động dưới web gốc, cơ quan đăng ký tên sẽ được thêm vào đường dẫn này" class="pme-key-title">
+bảng xếp hạng mục
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sẽ yêu cầu mô-đun rss perl để tạo ra các rss, nếu có" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base tải lên đường dẫn cho các giao dịch hàng loạt, không phải là dưới web gốc" class="pme-key-title">
+thư mục CSV
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="hộp thư đến để tin nhắn sms gammu đã nhận được, không cần thiết cho http tin nhắn sms Gateway" class="pme-key-title">
+Hoäp thö ñeán SMS
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="hộp thư đến cho thư, phương pháp cũ được thay thế bằng nhạc pop thư trong sổ đăng ký mỗi" class="pme-key-title">
+thư mục readmail.pl
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="cơ sở sản lượng đường dẫn cho các giao dịch csv dưới web gốc" class="pme-key-title">
+CSV ra
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="căn cứ đầu ra con đường cho tài liệu in dưới web gốc, cơ quan đăng ký tên và ngôn ngữ sẽ được thêm vào đường dẫn này" class="pme-key-title">
+in đường dẫn
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="căn cứ đầu ra con đường cho rss, đăng ký tên và ngôn ngữ sẽ được thêm vào đường dẫn này" class="pme-key-title">
+Base nguồn cấp dữ liệu thư mục
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="căn cứ trong thư mục cho gammu kết quả, không cần thiết cho http tin nhắn sms Gateway" class="pme-key-title">
+tin nhắn SMS trong
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu đầu vào xử lý tại địa phương nếu 1, nếu không này sử dụng xà phòng để xử lý từ xa" class="pme-key-title">
+địa phương tin nhắn sms?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="đường dẫn đến tập tin cấu hình Log4perl" class="pme-key-title">
+đường dẫn cấu hình Logger
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+Phiên bản
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="Cập Nhật" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Rõ ràng" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

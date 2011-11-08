@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="공백 없이 한 단어로 무역 그룹을 정의 하는 데이터베이스의 이름" class="pme-key-0">
+레지스트리 이름
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="트레이딩 그룹의 짧은 설명" class="pme-key-0">
+레지스트리 설명
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="주소 및이 그룹에 대 한 공식 이메일을 보내는 데 사용 하는 계정" class="pme-row-0">
+
+<td class="pme-key-0">
+관리자 이메일
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="관리자 이메일 계정의 암호" class="pme-key-0">
+관리자 이메일 비밀 번호
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="이메일 트랜잭션을 수신 됩니다 계정 관리자 같은 수 있습니다." class="pme-row-1">
+
+<td class="pme-key-1">
+일괄 트랜잭션에 대 한 이메일
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="일괄 이메일 계정의 암호" class="pme-key-0">
+일괄 이메일 비밀 번호
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="현재 사용 하지 않지만 거래 모델 정의" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+시스템 충전 모델
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+같음
+</option>
+<option selected value="market">
+시장 금리
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="현재 사용 하지 않지만 위원회 모델 정의" class="pme-row-1">
+
+<td class="pme-key-1">
+시스템 위원회 모델
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+아니 수수료
+</option>
+
+<option value="yes">
+위원회 레지스트리 기반
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="현재 사용 하지 않지만 구독 모델 정의" class="pme-row-1">
+
+<td class="pme-key-1">
+구독 모델
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+아니 구독
+</option>
+
+<option value="yes">
+기반으로 하는 구독
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="이 레지스트리 모든 통화에 대 한 헌신 제한 정의" class="pme-row-1">
+
+<td class="pme-key-1">
+글로벌 헌신 제한
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="사용 하는 키 서버: 현재에 대 한 이메일 거래만이 레지스트리에 대 한 공용 키 id" class="pme-row-1">
+
+<td class="pme-key-1">
+키 서버: 공개 키 id
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="현재 사용 하지 않지만 정의 여부 지리적 지역 또는 특별 한 관심"  class="pme-row-1">
+
+<td class="pme-key-1">
+커버 지역?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+예
+</option>
+
+<option value="no">
+아니
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="현재 사용 아니지 공용 레지스트리 geocoded 및 매핑된 수 있도록 게시물 또는 우편 번호를 정의" class="pme-row-1">
+
+<td class="pme-key-1">
+우편번호 또는 위도, 경도
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="elgg, drupal 및 os 상거래 커넥터에 대 한 상인 키를 제공 하는 데 사용" class="pme-row-1">
+
+<td class="pme-key-1">
+가맹점 키
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="커넥터 쉽게 아마 스푸핑 하는 특정 ip 제한 하는 원칙에서 사용" class="pme-row-1">
+
+<td class="pme-key-1">
+IP 주소에서 가맹점을 허용
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- this is an experiment, will turn the config link red, if db password is wrong -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="이동" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="취소"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

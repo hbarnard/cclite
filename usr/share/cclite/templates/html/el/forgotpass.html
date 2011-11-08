@@ -1,41 +1,72 @@
-      <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
-<input name="action" value="forgotpassword" type="hidden"> 
-<input name="subaction" value="om_users" type="hidden">
-<input name="logontype" value="form" type="hidden">
-        <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
-            <tr>
-              <td nowrap class="pme-key-1">Το όνομα του μητρώου<br>
-              </td>
-              <td style="vertical-align: top;"><input class="required" name="registry">
-              </td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td nowrap class="pme-key-1">Διεύθυνση ηλεκτρονικού ταχυδρομείου<br>
-              </td>
-              <td class="pme-value-1"> <input class="required email"
- name="userEmail" size="50" maxlength="50" value="" type="text"></td>
-            </tr>
-<!--
-            <tr class="pme-row-0">
-              <td class="pme-key-0">Security Answer</td>
-              <td class="pme-value-0"> <input class="pme-input-0" name="userPassword" size="32" maxlength="32" value="" type="password">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="forgotpassword" type="hidden">
+
+<input name="subaction" value="om_users" type="hidden">
+
+<input name="logontype" value="form" type="hidden">
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr>
+
+<td nowrap class="pme-key-1">
+Το όνομα του μητρώου
+<br>
 
 </td>
-            </tr>
--->
-          </tbody>
-        </table>
-        <hr class="pme-hr">
-        <table class="pme-navigation">
-          <tbody class="stripy">
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd"  value="Λάβετε τον κωδικό πρόσβασης" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
 
+<td style="vertical-align: top;">
+<input class="required" name="registry">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Διεύθυνση ηλεκτρονικού ταχυδρομείου
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="required email"
+ name="userEmail" size="50" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody class="stripy">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd"  value="Λάβετε τον κωδικό πρόσβασης" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Σαφής" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

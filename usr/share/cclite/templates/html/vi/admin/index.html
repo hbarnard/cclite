@@ -1,0 +1,357 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<title>
+Cclite $$ {Phiên bản} người quản trị
+</title>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
+<meta name="author" content="hugh barnard" />
+
+$$fieldsref{metarefresh}
+<!-- stylesheets -->
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
+
+
+<!-- javascript libraries, need to subsitute compressed versions -->
+
+<!-- jquery items -->
+
+<script src="/javascript/jquery-1.3.2.js">
+</script>
+
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
+
+<script src="/javascript/jquery-cookies.js">
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!-- others non jquery -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<script type='text/javascript' src='/javascript/ajax.upload.js'>
+</script>
+
+<!-- graphing -->
+
+<script  src="/javascript/raphael.js" type="text/javascript" >
+</script>
+
+<script  src="/javascript/ico.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
+
+<!-- all forms have the same name 'form', avoids complexity here -->
+
+<style type="text/css" media="screen">
+
+</style>
+
+</head>
+
+<body>
+
+<!-- this switch turns on/off the decimal point stuff -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
+<div class="topbar">
+
+<a title="Trang chủ" href="/cgi-bin/cclite.cgi">
+<span class="titletext">
+Cclite
+</span>
+</a>
+
+<!-- search for users,trades, ads -->
+
+<div class="adsearch">
+
+<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="find" type="hidden">
+
+<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+
+<select id="search_type" class="small" name="search_type">
+
+<option selected value='trade'>
+Các giao dịch
+</option>
+
+<option value='user'>
+Người dùng
+</option>
+
+<option value='ad'>
+Quảng cáo
+</option>
+
+</select>
+
+<input value="Đi" class="small" type="submit" title="Tìm các ngành nghề, quảng cáo hoặc người dùng">
+
+</form>
+
+</div>
+
+<!-- end of autocomplete search box -->
+
+<!-- language selector version 1  -->
+
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
+
+<option value='en'>
+Tiếng Anh
+</option>
+
+<option value='ar'>
+Tiếng ả Rập
+</option>
+
+<option value='zh'>
+Tiếng Trung Quốc
+</option>
+
+<option value='de'>
+Deutsch
+</option>
+
+<option value='nl'>
+Tiếng Hà Lan
+</option>
+
+<option value='fr'>
+Francais
+</option>
+
+<option value='es'>
+Espagnol
+</option>
+
+<option value='it'>
+Italiano
+</option>
+
+<option value='el'>
+Hy Lạp
+</option>
+
+<option value='ja'>
+Tiếng Nhật
+</option>
+
+<option value='ko'>
+Hàn Quốc
+</option>
+
+<option value='pt'>
+Tiếng Bồ Đào Nha
+</option>
+
+<option value='ro'>
+Romania
+</option>
+
+<option value='ru'>
+Nga
+</option>
+
+<option value='th'>
+Tiếng Thái
+</option>
+
+<option value='vi'>
+Tiếng Việt
+</option>
+
+</select>
+
+<!--  language selector version 1 end  -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
+</span>
+</span>
+
+</div>
+
+<!-- end of logo -->
+
+<!--- this bit needs replacing by the specific admin and install menus -->
+
+<div class="topbar">
+
+<a class="bodytext" href="/cgi-bin/cclite.cgi">
+Dùng Menu
+</a>
+
+<a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
+Thay đổi trạng thái của $$ {registry}
+</a>
+
+<a class="bodytext" title="Hiển thị các liên kết đối tác đăng ký" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Đối tác
+</a>
+
+<a class="bodytext" title="Tạo ra một đồng tiền mới" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Tạo tiền tệ
+</a>
+
+<a class="bodytext" title="Hiển thị các loại tiền tệ trong" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Hiển thị các loại tiền tệ
+</a>
+
+<a class="bodytext"title="Tạo thể loại quảng cáo mới" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Tạo ra thể loại quảng cáo
+</a>
+$$fieldsref{installer_link}
+</div>
+
+<!-- end of topbar -->
+
+<div class="topbar" >
+
+<a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Cơ quan đăng ký số dư
+</a>
+
+<a title="Tạo quy tắc hoặc hạn mức tín dụng" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Hạn mức tín dụng
+</a>
+
+<a title="Tạo từ xa hoặc địa phương đăng ký đối tác" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Tạo ra cơ quan đăng ký đối tác
+</a>
+
+<a title="Áp dụng phí phục vụ cho tất cả tài khoản" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Áp dụng phí dịch vụ
+</a>
+
+<a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
+Tạo lô Dirs
+</a>
+
+<a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
+Sửa đổi $$ {registry}
+</a>
+
+<!-- end of menu bit that needs replacing for admin and install -->
+
+</div>
+
+<!-- end of menu -->
+
+<div class="content" align="center">
+
+<div class="contentleft">
+
+<div>
+!$$fieldsref{pagename}
+</div>
+
+</div>
+
+<!-- end of contentleft: left hand side-->
+
+<div class="contentright" >
+
+<span class="news">
+$$fieldsref{latest_news}
+</span>
+
+<br/>
+
+$$fieldsref{righthandside}
+<div class="panel" >
+
+</div>
+
+<!-- end of panel -->
+
+</div>
+
+<!-- end of righthandcontent -->
+
+</div>
+
+<!-- end of content -->
+
+<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+
+<a href="/cgi-bin/cclite.cgi">
+Trang chủ
+</a>
+|
+<a href="#">
+Liên hệ
+</a>
+<br />
+
+Cclite
+</div>
+
+</body>
+
+</html>

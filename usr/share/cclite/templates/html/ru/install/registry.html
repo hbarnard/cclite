@@ -1,147 +1,297 @@
-      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
-      <span class="error">$$fieldsref{error}</span>  
-       <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
-            <tr class="pme-row-0">
-              <td title="name of database defining trading group, one word without spaces" class="pme-key-0">Имя реестра<br>
-              </td>
-              <td class="pme-value-0"> 
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="имя базы данных, определение торговой группы, одно слово без пробелов" class="pme-key-0">
+Имя реестра
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
 <input type="hidden" name="action" value="addregistry">
-   
-<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
 
-            </tr>
-
-            <tr class="pme-row-0">
-              <td title="short description of trading group" class="pme-key-0">Реестр Описание<br>
-              </td>
-<td class="pme-value-0"> 
-<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
-            </tr>
-
-<tr title="address and account used to send official emails for this group" class="pme-row-0">
-              <td class="pme-key-0">Диспетчер электронной почты<br>
-              </td>
-<td class="pme-value-0"> 
-<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
-            </tr>
-
-<td title="password for admin email account" class="pme-key-0">Диспетчер электронной почты Пароль<br>
-              </td>
-<td class="pme-value-0"> 
-<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
-            </tr>
-
-<tr title="account where emails transactions are received can be the same as admin" class="pme-row-1">
-              <td class="pme-key-1">Отправить по электронной почте for Batch Операции<br>
-              </td>
-<td class="pme-value-1"> 
-<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
-            </tr>
-
-
-<td title="password for batch email account" class="pme-key-0">Batch Отправить по электронной почте Пароль<br>
-              </td>
-<td class="pme-value-0"> 
-<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
-            </tr>
-
-<tr title="not used currently but defines trading model" class="pme-row-1">
-              <td nowrap class="pme-key-1">Модель системы зарядки
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="chargetype"><option value="equaltime">Равенство</option><option selected value="market">Рыночные курсы</option></select></td>
-            </tr>
-
-<tr title="not used currently but defines commission model" class="pme-row-1">
-              <td class="pme-key-1">Модель системы Комиссии
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="commission">
-<option selected value="no">Комиссия не взимается</option>
-<option value="yes">Commission Based Реестр</option>
-</select></td>
-            </tr>
-
-
-<tr title="not used currently but defines subscription model" class="pme-row-1">
-              <td class="pme-key-1">Модель подписки
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="subscription">
-<option selected value="no">Нет подписки</option>
-<option value="yes">На основе подписки</option>
-</select></td>
-            </tr>
-
-<tr title="defines commitment limit for all currencies in this registry" class="pme-row-1">
-              <td class="pme-key-1">Глобальное ограничение обязательств<br>
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
-            </tr>
-
-<tr title="key server used:public key id for this registry currently for email transactions only" class="pme-row-1">
-              <td class="pme-key-1">Ключ сервера: общественности ключевые id<br>
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
-            </tr>
-
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
 
 </tr>
-<tr title="not used currently but defines whether geographic area or special interest"  class="pme-row-1">
-              <td class="pme-key-1">Охватывает географический район??
-              </td>
-<td class="pme-value-1"> 
+
+<tr class="pme-row-0">
+
+<td title="Краткое описание торговой группы" class="pme-key-0">
+Описание реестра
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="адрес и учетная запись, используемая для отправки официальных писем для этой группы" class="pme-row-0">
+
+<td class="pme-key-0">
+Диспетчер электронной почты
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="пароль для учетной записи электронной почты администратора" class="pme-key-0">
+Диспетчер электронной почты пароль
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="Учетная запись, когда поступают сообщения транзакций может быть таким же, как admin" class="pme-row-1">
+
+<td class="pme-key-1">
+Электронная почта для пакетных операций
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="пароль для учетной записи электронной почты пакетный" class="pme-key-0">
+Пароль пакета электронной почты
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="в настоящее время не используется, но определяет торговая модель" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Модель системы зарядки
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Равенство
+</option>
+<option selected value="market">
+Рыночные курсы
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="в настоящее время не используется, но определяет модель Комиссии" class="pme-row-1">
+
+<td class="pme-key-1">
+Модель системы Комиссии
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Комиссия не взимается
+</option>
+
+<option value="yes">
+Комиссии на основе реестра
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="в настоящее время не используется, но определяет модель подписки" class="pme-row-1">
+
+<td class="pme-key-1">
+Модель подписки
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Нет подписки
+</option>
+
+<option value="yes">
+На основе подписки
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="Определяет ограничение обязательства для всех валют в этот реестр" class="pme-row-1">
+
+<td class="pme-key-1">
+Глобальное ограничение обязательств
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="используемый сервер ключей: открытый ключевой идентификатор для этого реестра в настоящее время электронной почты только для сделок" class="pme-row-1">
+
+<td class="pme-key-1">
+Ключ сервера: общественности ключевой идентификатор
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="в настоящее время не используется, но определяет ли географического района или особый интерес"  class="pme-row-1">
+
+<td class="pme-key-1">
+Охватывает географический район?
+</td>
+
+<td class="pme-value-1">
+
 <select class="pme-input-1" name="geographic">
-<option selected value="yes">Да</option>
-<option value="no">No</option>
-</select></td>
-            </tr>
 
-<tr title="not used currently but defines posts or zip codes so that public registries can be geocoded and mapped" class="pme-row-1">
-              <td class="pme-key-1">Почтовый индексs or Latitude,Longitude
-              </td>
-<td class="pme-value-1"> 
+<option selected value="yes">
+Да
+</option>
+
+<option value="no">
+No
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="не используется в настоящее время но определяет должности или почтовые индексы, чтобы государственные реестры могут быть геокодированных и сопоставленные" class="pme-row-1">
+
+<td class="pme-key-1">
+Почтовые коды или широта, долгота
+</td>
+
+<td class="pme-value-1">
+
 <input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
-</td>
- </tr>
 
-<tr title="used to provide merchant key for elgg, drupal and os-commerce connectors" class="pme-row-1">
-              <td class="pme-key-1">Торговых ключ
-              </td>
-<td class="pme-value-1"> 
+</td>
+
+</tr>
+
+<tr title="используется для обеспечения торгового ключ для elgg, drupal и ОС коммерция разъемы" class="pme-row-1">
+
+<td class="pme-key-1">
+Торговец ключ
+</td>
+
+<td class="pme-value-1">
+
 <input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
-</td>
- </tr>
 
-<tr title="used, in principle to limit connectors to certain ips, easily spoofed probably" class="pme-row-1">
-              <td class="pme-key-1">Разрешить купец из IP-адреса
-              </td>
-<td class="pme-value-1"> 
+</td>
+
+</tr>
+
+<tr title="используется в принципе ограничить разъемы для определенных IP-адресов, легко подделать вероятно" class="pme-row-1">
+
+<td class="pme-key-1">
+Разрешить купец из IP-адреса
+</td>
+
+<td class="pme-value-1">
+
 <input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
 </td>
- </tr>
 
+</tr>
 
+</tbody>
 
+</table>
 
+<!-- this is an experiment, will turn the config link red, if db password is wrong -->
+$$fieldsref{script}
+<hr class="pme-hr">
 
-          </tbody>
-        </table>
-  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
-  $$fieldsref{script}  
-        <hr class="pme-hr">
-        <hr class="pme-hr">
-        <table class="pme-navigation">
-          <tbody>
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Go" type="submit">&nbsp;<input
- class="pme-cancel" name="cancel" value="Cancel"
-type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Перейти" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Отмена"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

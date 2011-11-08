@@ -1,107 +1,246 @@
 
+
 <table>
+
 <tbody class="stripy">
+
 <form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
 
 <input name="subaction" value="om_yellowpages" type="hidden">
+
 <input name="action" value="addyellow" type="hidden">
 
+<tr>
 
-<tr>
-<td class="pme-key-0">От пользователя</td>
-<td class="pme-value-0">
-<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text"></td>
-</tr>
-<tr>
-<td class="pme-key-1">Тип</td>
-<td class="pme-value-1">
-              <select class="required" name="type">
-              <option value="offered" selected="selected">Предложение</option>
-              <option value="wanted">Хотел</option>
-              <option value="other">Другие</option>
-              </select>
+<td class="pme-key-0">
+От пользователя
 </td>
-</tr>
-<tr>
-<td class="pme-key-1">Майор класс</td>
-<td class="pme-value-1">
-              <select class="required" name="majorclass">
-              <option value="service" selected="selected">Служба</option>
-              <option value="goods">Товары</option>
-              <option value="other">Другие</option>
-              </select>
-</td>
-</tr>
 
-<tr>
-<td class="pme-key-1">Классификация</td>
-<td class="pme-value-1">
-$$fieldsref{selectclassification}</td>
-</tr>
-
-<tr>
-<td class="pme-key-1">Теги (autocomplete)</td>
-<td class="pme-value-1">
-<span id="tagmatches" class="tagmatches"><input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}"></span></td>
-</tr>
-
-<tr>
-<td class="pme-key-0">Тема</td>
 <td class="pme-value-0">
-<input class="required" name="subject" size="30" maxlength="30" value="" type="text"></td>
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
 </tr>
+
 <tr>
-<td class="pme-key-1">Описание</td>
+
+<td class="pme-key-1">
+Тип
+</td>
+
 <td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+Предложение
+</option>
+
+<option value="wanted">
+Хотел
+</option>
+
+<option value="other">
+Другие
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Основной класс
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+Служба
+</option>
+
+<option value="goods">
+Товары
+</option>
+
+<option value="other">
+Другие
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Классификация
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Теги (автозаполнение)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Тема
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Описание
+</td>
+
+<td class="pme-value-1">
+
 <textarea class="required" name="description" rows="5" columns="50">
-$$fieldsref{description}</textarea>
+$$fieldsref{description}
+</textarea>
+
 </td>
+
 </tr>
+
 <tr>
-<td class="pme-key-0">Цена</td>
+
+<td class="pme-key-0">
+Цена
+</td>
+
 <td class="pme-value-0">
-<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
 </tr>
+
 <tr class="pme-row-1">
-<td class="pme-key-1">Валюта</td>
+
+<td class="pme-key-1">
+Валюта
+</td>
+
 <td class="pme-value-1">
 $$fieldsref{selectcurrency}
 <input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
 </td>
+
 </tr>
 
 <tr>
-<td class="pme-key-1">Per unit (services only)</td>
-<td class="pme-value-1">
-              <select class="pme-input-1" name="unit">
-              <option value="" ></option>
-              <option value="hour" >в час</option>
-              <option value="day" >в день</option>
-              <option value="week" >за неделю</option>
-              <option value="month" >в месяц</option>
-              </select>
+
+<td class="pme-key-1">
+На единицу (только службы)
 </td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+в час
+</option>
+
+<option value="day" >
+в день
+</option>
+
+<option value="week" >
+за неделю
+</option>
+
+<option value="month" >
+в месяц
+</option>
+
+</select>
+
+</td>
+
 </tr>
 
 <tr>
-<td class="pme-key-1">Полная оплата в валюте позволяет??</td>
-<td class="pme-value-1">
-              <select class="pme-input-1" name="truelets">
-              <option value="yes" >Да</option>
-              <option value="no">No</option>
-              </select>
+
+<td class="pme-key-1">
+Полная оплата в валюте позволяет?
 </td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+Да
+</option>
+
+<option value="no">
+No
+</option>
+
+</select>
+
+</td>
+
 </tr>
 
 <table class="pme-navigation">
+
 <tr class="pme-navigation">
+
 <td class="pme-buttons">
+
 <input class="pme-save"
- name="saveadd" value="Make Page" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
+ name="saveadd" value="Сделать страницу" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Ясно" type="reset">
+
+</td>
+
 </tr>
+
 </form>
- </table>
-</tbody>
+
 </table>
 
+</tbody>
+
+</table>

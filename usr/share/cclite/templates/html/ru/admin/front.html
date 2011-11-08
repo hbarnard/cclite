@@ -1,135 +1,309 @@
+
 <form id="form">
+
 <table>
 
 <tr>
-<td title="start the graphing script">
-Graphing
+
+<td title="Запустите графический сценарий">
+Построение графа
 </td>
+
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-Отправить по электронной почте input 
+Электронная почта вход
 </td>
+
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG Отправить по электронной почте input</del> 
+<del>GPG Email input</del> 
 </td>
 -->
 
-
-<td title="start producing rss feeds for yellow pages small ads">
-RSS Feed    
-</td>
-<td title="start accepting input via gammu from a местные mobile phone">
-Gammu input
+<td title="Начните производство rss каналы для желтые страницы небольшие объявления">
+RSS-канал
 </td>
 
-<td title="upload and process batch transactions">
-Upload/process Batch Операции
+<td title="Начните принимать входные данные через gammu от местного мобильного телефона">
+Gammu ввода
 </td>
 
+<td title="Загрузка и процесса пакетной операции">
+Загрузить/процесса пакетной операции
+</td>
 
 </tr>
 
 <tr>
 
 <td>
-   <select onchange="on_select_change('stats');" id="stats_value" >
-	<option value="0"> Stop Stats</option>
-	<option value="5">Каждые 5 мин</option>
-	<option value="10">Каждые 10 мин</option>
-	<option value="30">Каждые 30 мин</option>
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+Остановить статистика
+</option>
+
+<option value="5">
+Каждые 5 мин
+</option>
+
+<option value="10">
+Каждые 10 мин
+</option>
+
+<option value="30">
+Каждые 30 мин
+</option>
+
 </select>
-   
-    </td>
 
-
-
+</td>
 
 <td>
-    <select onchange="on_select_change('mail');" id="mail_value" >
-	<option value="0"> Stop Почта</option>
-	<option value="5">Каждые 5 мин</option>
-	<option value="10">Каждые 10 мин</option>
-	<option value="30">Каждые 30 мин</option>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+Остановить почты
+</option>
+
+<option value="5">
+Каждые 5 мин
+</option>
+
+<option value="10">
+Каждые 10 мин
+</option>
+
+<option value="30">
+Каждые 30 мин
+</option>
+
 </select>
 
-    
-    </td>
+</td>
+
 <!--
 <td>
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
-	<option value="0"> Stop GPG Почта</option>
-	<option value="5">Каждые 5 мин</option>
-	<option value="10">Каждые 10 мин</option>
-	<option value="30">Каждые 30 мин</option>
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
 </select>
 
     
     </td>
 -->
 
-
 <td>
-    <select onchange="on_select_change('rss');" id="rss_value" >
-	<option value="0"> Stop Rss</option>
-	<option value="5">Каждые 5 мин</option>
-	<option value="10">Каждые 10 мин</option>
-	<option value="30">Каждые 30 мин</option>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+Остановить Rss
+</option>
+
+<option value="5">
+Каждые 5 мин
+</option>
+
+<option value="10">
+Каждые 10 мин
+</option>
+
+<option value="30">
+Каждые 30 мин
+</option>
+
 </select>
-    
-    </td>
 
-
+</td>
 
 <td>
-    <select onchange="on_select_change('gammu');" id="gammu_value" >
-	<option value="0"> Stop SMS</option>
-	<option value="5">Каждые 5 мин</option>
-	<option value="10">Каждые 10 мин</option>
-	<option value="30">Каждые 30 мин</option>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+Остановить SMS
+</option>
+
+<option value="5">
+Каждые 5 мин
+</option>
+
+<option value="10">
+Каждые 10 мин
+</option>
+
+<option value="30">
+Каждые 30 мин
+</option>
+
 </select>
-  </td>
+
+</td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="Upload Batch Операции"> 	
+
+<input title="Получить пакетных операций в CSV-файла: смотрите руководство" type="submit" class="small" id="upload_button" value="Получить пакет CSV-файла">
+
 </td>
 
 </tr>
 
-
 <tr>
-    <td><span id="stats">Подождать</span></td>
-    <td><span id="mail">Подождать</span></td>
-    <td><span id="gpg_mail">Подождать</span></td>
-    <td><span id="rss">Подождать</span></td> 
-    <td><span id="gammu">Подождать</span></td>
-   <td></td>
-</tr>    
 
+<td>
+<span id="stats">
+Подождать
+</span>
+</td>
 
-<tr>
-    <td><span id="statements"><a title="print odt bank statements" href="/cgi-bin/protected/batch/print_statements.pl">Печать заявлений</a></span></td>
-    <td><span id="yellowpages"><a title="print odt yellow pages" href="/cgi-bin/protected/batch/print_yellowpages.pl">Печать Yellowpages</a></span></td>
-    <td><span id=""></span></td>
-    <td><span id=""></span></td> 
-    <td><span id=""></span></td>
-   <td></td>
+<td>
+<span id="mail">
+Подождать
+</span>
+</td>
+
+<td>
+<span id="gpg_mail">
+Подождать
+</span>
+</td>
+
+<td>
+<span id="rss">
+Подождать
+</span>
+</td>
+
+<td>
+<span id="gammu">
+Подождать
+</span>
+</td>
+
+<td>
+</td>
+
 </tr>
 
+<tr>
 
+<td>
+<span id="statements">
+<a title="Печать odt банковских выписок" href="/cgi-bin/protected/batch/print_statements.pl">
+Печать заявлений
+</a>
+</span>
+</td>
 
+<td>
+<span id="yellowpages">
+<a title="Печать odt желтые страницы" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+Печать Yellowpages
+</a>
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
 
 </table>
+
 </form>
 
-<div id="stats_status"></div>
-<div id="gpg_mail_status"></div>
-<div id="mail_status"></div>
-<div id="csv_status"></div>
-<div id="rss_status"></div>
-<div id="gammu_status"></div><br/>
+<div id="stats_status">
+</div>
 
-<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
 <br/>
 
-<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
-<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<div id="stats_summary">
+Это Средняя сделка размер
+<span id="average_sparkline" class="sparkline">
+</span>
+и это
+<span id="volumes_sparkbar" class="sparkbar">
+</span>
+Это средний объем.
+</div>
+
+<table>
+
+<tr>
+
+<td>
+
+<h4>
+<span id="transaction_vol_title">
+</span>
+
+<span id="update_date1">
+</span>
+
+</h4>
+
+<div id="volumes_bargraph" class="linegraph">
+</div>
+
+</td>
+
+<td>
+
+<h4>
+<span id="averages_title">
+</span>
+
+<span id="update_date2">
+</span>
+
+</h4>
+
+<div id="average_bargraph" class="linegraph">
+</div>
+
+</td>
+
+</tr>
+
+</table>

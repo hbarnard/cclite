@@ -1,0 +1,208 @@
+
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_registry">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+레지스트리 이름
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="update">
+
+<input type="hidden" name="subaction" value="om_registry">
+
+<input type="hidden" name="id" value="$$fieldsref{id}">
+
+<input type="hidden" name="name" value="$$fieldsref{name}">
+
+<input class="grey" readonly="true" name="registry" size="32" maxlength="32" value="$$fieldsref{registry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+레지스트리 설명
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input name="description" size="50" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+관리자 이메일
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  name="admemail" size="60" maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="관리자 이메일 계정의 암호" class="pme-key-0">
+관리자 이메일 비밀 번호
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0" class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+일괄 트랜잭션에 대 한 이메일
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="일괄 이메일 계정의 암호" class="pme-key-0">
+일괄 이메일 비밀 번호
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0" class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+글로벌 헌신 제한
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="사용 하는 키 서버:이 레지스트리에 대 한 공용 키 id" class="pme-row-1">
+
+<td class="pme-key-1">
+키 서버: 공개 키 id
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+가맹점 키
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="50" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+가맹점 (공백으로 구분 된 목록) IP 주소에서 허용
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="50" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+최신 뉴스 업데이트
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="latest_news" size="50" maxlength="80" value="$$fieldsref{latest_news}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="이동"  type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="취소"
+  type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

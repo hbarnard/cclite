@@ -1,0 +1,98 @@
+
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<input name="action" value="servicecharge" type="hidden">
+
+<span class="errors">
+$$fieldsref{errors}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Tiền tệ
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{selectcurrency}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Giá trị
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="value" size="10" maxlength="10" id="schagvalue" onChange="validatedecimals(this,this.value);" value="$$fieldsref{value}" type="text">
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Tiêu đề
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="title" size="60" maxlength="60" value="$$fieldsref{title}" type="text">
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Mô tả
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="description" size="60" maxlength="60" value="$$fieldsref{description}" type="text">
+
+</tr>
+
+</tbody>
+
+</table>
+Điều này sẽ áp dụng giá trị nhất định cho tất cả tài khoản ngoại trừ sysaccount và admin tài khoản
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Đi" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Rõ ràng" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

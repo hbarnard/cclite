@@ -1,0 +1,276 @@
+
+<form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="update" type="hidden">
+
+<input name="subaction" value="om_users" type="hidden">
+
+<input name="userId" value="$$fields{userId}" type="hidden">
+
+<table class="pme-main" summary="om_users">
+
+<tbody>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td "pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Mật khẩu người dùng
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Xác nhận mật khẩu
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userEmail" size="60" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Số/nhà tên
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Tên đường phố
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Thị xã
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Quận/nhà nước
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Điện thoại di động
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Ngôn ngữ
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLang">
+
+<option value="de">
+Deutsch
+</option>
+
+<option selected value="en">
+Tiếng Anh
+</option>
+
+<option value="fr">
+Fran
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Tên người dùng
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userName" size="60" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Kỳ nghỉ hoặc đang hoạt động
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+Hoạt động
+</option>
+
+<option value="holiday">
+Ngày nghỉ
+</option>
+
+<option value="unconfirmed">
+Chưa được xác nhận
+</option>
+
+<option value="predelete">
+Pre xóa
+</option>
+
+<option value="suspended">
+Đình chỉ
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Cấp độ người dùng
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLevel">
+
+<option selected value="user">
+Người sử dụng
+</option>
+
+<option value="admin">
+Người quản trị
+</option>
+
+<option value="sysaccount">
+Trương mục hệ thống
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="Tiết kiệm" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

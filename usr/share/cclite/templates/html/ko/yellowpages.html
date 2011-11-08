@@ -1,0 +1,246 @@
+
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+
+<input name="action" value="addyellow" type="hidden">
+
+<tr>
+
+<td class="pme-key-0">
+사용자 로부터
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Type
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+제공
+</option>
+
+<option value="wanted">
+싶 었 어 요
+</option>
+
+<option value="other">
+다른
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+주요 클래스
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+서비스
+</option>
+
+<option value="goods">
+상품
+</option>
+
+<option value="other">
+다른
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+분류
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+태그 (자동 완성)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+제목
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+설명
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}
+</textarea>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+가격
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+통화
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+단위 (서비스에만 해당)
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+시간 당
+</option>
+
+<option value="day" >
+하루
+</option>
+
+<option value="week" >
+주 당
+</option>
+
+<option value="month" >
+달 당
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+완료 하면 통화 지불?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+예
+</option>
+
+<option value="no">
+아니
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="페이지 만들기" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="지우기" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
+</table>

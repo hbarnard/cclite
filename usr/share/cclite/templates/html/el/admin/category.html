@@ -1,41 +1,91 @@
-      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
-        <table class="pme-main" summary="om_categories">
-          <tbody class="stripy">
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">Κατηγορία Όνομα<br>
-              </td>
-              <td class="pme-value-0"> 
-<input type="hidden" name="action" value="addcategory">
-<input type="hidden" name="subaction" value="om_categories">
-<input class="required" name="description" size="50" maxlength="80" value="" type="text"></td>
-            </tr>
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">Μητρική κατηγορία<br>
-              </td>
-<td class="pme-value-0"> 
-$$fieldsref{selectparent}</td>
-            </tr>
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<table class="pme-main" summary="om_categories">
+
+<tbody class="stripy">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">Κατάσταση<br>
-              </td>
-<td class="pme-value-0"> 
+
+<td class="pme-key-0">
+Όνομα κατηγορίας
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addcategory">
+
+<input type="hidden" name="subaction" value="om_categories">
+
+<input class="required" name="description" size="50" maxlength="80" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Μητρική κατηγορία
+<br>
+
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{selectparent}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Κατάσταση
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
 <select class="required" name="status">
-<option selected value=""> </option>
-<option value="ενεργό">Ενεργό</option>
-<option value="inενεργό">Inενεργό</option>
+
+<option selected value="">
+
+</option>
+
+<option value="active">
+Ενεργό
+</option>
+
+<option value="inactive">
+Ανενεργή
+</option>
+
 </select>
-            </tr>
+
+</tr>
 
 <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Δημιουργία Κατηγορία"  type="submit">&nbsp; </td>
-<td><input
- class="pme-cancel" name="cancel" value="Cancel"
-  type="reset"></td>
-            </tr>
-       </tbody>
-        </table>
-      </form>
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Δημιουργία κατηγορίας"  type="submit">
+&nbsp;
+</td>
+
+<td>
+<input
+ class="pme-cancel" name="cancel" value="Άκυρο"
+  type="reset">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

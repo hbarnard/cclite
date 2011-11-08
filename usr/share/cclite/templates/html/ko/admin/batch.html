@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
+<meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="alternate" type="application/rss+xml" title="실험 cclite 링크" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $$ {버전} 관리자
+</title>
+!$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
+
+<script src="/javascript/scriptaculous.js">
+</script>
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+
+<div id="toptabs">
+
+<a 
+ class="toptab" title="암호를 잊으셨나요??"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+암호를 잊으셨습니까?
+</a>
+
+<a class="toptabstrikethrough" title="독일어"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+독일어
+</a>
+
+<a 
+ class="toptabstrikethrough" title="프랑스어로 변경"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+프랜
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
+<p>
+
+<a class="toptab" title="새 계정" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+새 계정
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+로그 오프 $$ {사용자}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="사용자 메뉴로 다시" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+사용자 메뉴
+</a>
+<span class="hide">
+|
+</span>
+
+</p>
+
+</div>
+
+<div id="container">
+
+<h1>
+Cclite $$ {버전} 관리
+</h1>
+
+<div id="navitabs">
+
+<a class="showpartnersresulthtml" title="파트너 레지스트리 표시" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+파트너 표시
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="새로운 통화를 만들기" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+통화를 만들기
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="거래 통화 표시" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+통화 표시
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="새 광고 범주 만들기" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+광고 범주 만들기
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="사용자 계정 수정" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+사용자 계정 변경
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="showbalvolresulthtml" title="레지스트리 잔액 표시" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+레지스트리 잔액 표시
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="규칙을 만들거나 신용 한도" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+규칙/신용 한도 만들
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="레지스트리 파트너 만들기" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+레지스트리 파트너 만들기
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="일괄 파일 업로드" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+일괄 파일 업로드
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="templateservicechghtml" title="모든 계정에 서비스 요금을 적용" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+서비스 요금 적용
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="오픈 오피스 인쇄용 디렉터리 만들기" href="/cgi-bin/protected/ccdirectory.cgi">
+열기 Office 디렉터리
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+$$ Fieldsref {레지스트리} 수정
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="레지스트리 및 구성 설치" href="/cgi-bin/protected/ccinstall.cgi">
+설치 프로그램
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="시스템 상태 및 통계" href="/">
+시스템 건강/통계
+</a>
+<span class="hide">
+|
+</span>
+
+</div>
+
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+<div id="footer">
+Cclite 저작권
+<a href="http://andreasviklund.com">
+안드레아스 Viklund
+</a>
+.
+</div>
+
+</div>
+
+</body>
+
+</html>

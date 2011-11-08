@@ -1,0 +1,276 @@
+
+<form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="update" type="hidden">
+
+<input name="subaction" value="om_users" type="hidden">
+
+<input name="userId" value="$$fields{userId}" type="hidden">
+
+<table class="pme-main" summary="om_users">
+
+<tbody>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td "pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+사용자 암호
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+암호 확인
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userEmail" size="60" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+번호/집 이름
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+거리 이름
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+마을
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+카운티/주
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+휴대 전화
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+언어
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLang">
+
+<option value="de">
+독일어
+</option>
+
+<option selected value="en">
+영어
+</option>
+
+<option value="fr">
+프랜
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+사용자 이름
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userName" size="60" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+휴일 또는 활성
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+활성
+</option>
+
+<option value="holiday">
+휴가
+</option>
+
+<option value="unconfirmed">
+미확인
+</option>
+
+<option value="predelete">
+사전 삭제
+</option>
+
+<option value="suspended">
+일시 중단
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+사용자 수준
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLevel">
+
+<option selected value="user">
+사용자
+</option>
+
+<option value="admin">
+관리자
+</option>
+
+<option value="sysaccount">
+시스템 계정
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="저장" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

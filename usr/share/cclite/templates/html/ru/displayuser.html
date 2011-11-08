@@ -1,41 +1,94 @@
+
 <table class="pme-main" summary="om_users">
-    <tbody class="stripy">
-      <tr class="pme-row-1">
-        <td class="pme-key-title">UserLogin</td>
-        <!-- duserLogin is used to distinguish from userLogin, processed generally -->
-        <td class="pme-value-0"> $$fields{duserLogin}</td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-title">UserОтправить по электронной почте</td>
-        <td class="pme-value-1">$$fields{userОтправить по электронной почте}</td>
-      </tr>
+
+<tbody class="stripy">
 
 <tr class="pme-row-1">
-              <td class="pme-key-title">Улица</td>
-              <td class="pme-value-1">$$fields{userИмяornumber} $$fields{userУлица}
+
+<td class="pme-key-title">
+UserLogin
 </td>
-            </tr>
+
+<!-- duserLogin is used to distinguish from userLogin, processed generally -->
+
+<td class="pme-value-0">
+$$fields{duserLogin}
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-title">Город/County</td>
-              <td class="pme-value-1">$$fields{userГород} $$fields{userArea}
-</td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-title">Мобильный телефон</td>
-              <td class="pme-value-1"> $$fields{userMobile} </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-title">Имя</td>
-        <td class="pme-value-0">$$fields{userИмя}</td>
-      </tr>
+<td class="pme-key-title">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+$$fields{userEmail}
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-title">Праздник или активных</td>
-        <td class="pme-value-1">$$fieldsref{userСтатус} 
-</td>
-      </tr>
- </tbody>
-  </table>
 
+<td class="pme-key-title">
+Улица
+</td>
+
+<td class="pme-value-1">
+$$fields{userNameornumber} $$fields{userStreet}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+Город/уезд
+</td>
+
+<td class="pme-value-1">
+$$fields{userTown} $$fields{userArea}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+Мобильный телефон
+</td>
+
+<td class="pme-value-1">
+$$fields{userMobile}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-title">
+Имя
+</td>
+
+<td class="pme-value-0">
+$$fields{userName}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+Праздник или активных
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{userStatus}
+</td>
+
+</tr>
+
+</tbody>
+
+</table>

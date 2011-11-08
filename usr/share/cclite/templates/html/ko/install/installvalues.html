@@ -1,0 +1,481 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+간단한
+</option>
+
+<option value="full">
+모든 옵션
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="업데이트 구성" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="이것은 mysql의 db 사용자" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="이것은 mysql의 db 암호" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="실험적인 cpanel 접두사, 케어, uusally cpanel 사용자 이름 사용" class="menu">
+cpanel 접두사
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="통화의 소수점 표시" class="menu">
+소수 사용
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="무료 양식 태그를 사용 하 여 고정된 카테고리 대신 옐로우 페이지에 대 한" class="menu">
+태그 사용
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="이 도메인은 스크립트 경로에서 추론, 작동 하는 쿠키에 대 한 올바른 될 필요가" class="menu">
+도메인
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="이 cpanel에 대 한 메일의 smtp 서버는 일반적으로 도메인 이름, localhost 또는 내부 서버에 대 한 ip와 같은" class="menu">
+smtp 서버
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="cclite의 주요 사용자 스크립트" class="menu">
+홈
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="이 암호 및 토큰 계산에 사용 되는 해시 종류, sha2 좋습니다, 그리고 수 변경 혼합 한 번 설정할 수 없습니다." class="menu">
+해시 종류
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="html, rss, 출력 파일 및 문서 루트 서버 내에서 추론 하는 차트" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="대기 사용자를 수신 하 여 확인 해야 하는 경우 만든 지불의 초기 상태" class="pme-key-title">
+초기 지불 상태
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="사용자 일 경우 미확인의 초기 상태는 사용자 이메일로 확인을 요구할 것 이다" class="pme-key-title">
+초기 사용자 상태
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="메시지 및 템플릿에 대 한 기본 언어" class="pme-key-title">
+언어
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="테이블 형식 보고서에 대 한 화면 줄 수" class="pme-key-title">
+페이지 당 줄
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="메시지 파일의 경로, 아무것도 잘못 된 경우 작동!" class="menu">
+메시지에 대 한 경로
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="아니, 만약 Soap::Lite 모듈을 필요 하지 마십시오" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="하지 직접 사용 하지만 사용자 지정 서식 파일에 포함 될 수 있습니다" class="pme-key-title">
+메일 지원
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+
+<tr>
+<td title="메일을 보내는 첫 번째 cpanel, 설정 필요한 경우 smtp 서버에 로그인 하는 데 사용" class="menu">
+시스템 메일 주소
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+
+<tr>
+<td title="0 또는 1 알림 등이 선호 되며 옵션만 미래에 있을 것입니다 net::smtp에 전환 하는 데 사용" class="menu">
+net smtp?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="smtp 서버 내 이메일 주소를 시스템에 로그온 암호" class="menu">
+시스템 메일 암호
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="생성 된 이메일을 자주 할-아니-응답에 대 한 회신 주소" class="pme-key-title">
+시스템 메일 회신 주소
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="웹 인터페이스를 사용 하는 서식 파일에 대 한 경로, 아무것도 훨씬 작동 합니다이 잘못 된 경우!" class="menu">
+서식 파일
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- section dealing with batch files -->
+
+<tr>
+<td title="자료 출력 웹 루트 아래 활동 차트에 대 한 경로, 레지스트리 이름이이 경로에 추가 됩니다." class="pme-key-title">
+차트 디렉터리
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="그렇다면 rss를 생성 하기 위한 perl rss 모듈을 요구할 것 이다" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="자료 업로드 일괄 트랜잭션에 대 한 경로, 웹 루트 아래 해서는 안" class="pme-key-title">
+csv 디렉터리
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="받은 편지함에서 받은 gammu sms, http sms 게이트웨이 대 한 필요 하지 않습니다" class="pme-key-title">
+sms 받은 편지함
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="받은 편지함에서 메일을 각 레지스트리에서 pop 메일을 교체 하는 오래 된 메서드" class="pme-key-title">
+readmail.pl 디렉터리
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="웹 루트 아래 csv 거래에 대 한 기본 출력 경로" class="pme-key-title">
+csv 개
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="출력을 기본 웹 루트, 레지스트리 이름 및 언어에서 인쇄물에 대 한 경로이 경로에 추가 됩니다" class="pme-key-title">
+경로 인쇄
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="출력을 기본 rss, 레지스트리 이름 및 언어에 대 한 경로이 경로에 추가 됩니다" class="pme-key-title">
+자료 디렉토리를 피드
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu 결과 http sms 게이트웨이 대 한 필요 하지 않습니다에 대 한 디렉터리 기반" class="pme-key-title">
+sms 개
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="1 경우 로컬로 처리 하는 gammu 입력, 그렇지 않으면이 soap를 사용 하 여 원격으로 처리" class="pme-key-title">
+로컬 sms?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Log4perl 구성 파일의 경로를" class="pme-key-title">
+로 거 구성 경로
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+버전
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="업데이트" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="지우기" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="tên của cơ sở dữ liệu xác định kinh doanh nhóm, một trong những từ mà không có dấu cách" class="pme-key-0">
+Cơ quan đăng ký tên
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="mô tả ngắn về thương mại nhóm" class="pme-key-0">
+Cơ quan đăng ký mô tả
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="Địa chỉ và tài khoản được sử dụng để gửi email chính thức cho nhóm này" class="pme-row-0">
+
+<td class="pme-key-0">
+Quản lý Email
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="mật khẩu cho tài khoản email admin" class="pme-key-0">
+Quản lý mật khẩu Email
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="tài khoản nơi nhận được email các giao dịch có thể giống như admin" class="pme-row-1">
+
+<td class="pme-key-1">
+Thư điện tử cho các giao dịch hàng loạt
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="mật khẩu cho tài khoản email lô" class="pme-key-0">
+Mật khẩu Email lô
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="không được sử dụng hiện nay nhưng xác định mô hình kinh doanh" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Hệ thống tính phí mẫu
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Bình đẳng
+</option>
+<option selected value="market">
+Giá thị trường
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="không được sử dụng hiện nay nhưng xác định mô hình hoa hồng" class="pme-row-1">
+
+<td class="pme-key-1">
+Hệ thống Ủy ban mẫu
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Không có hoa hồng
+</option>
+
+<option value="yes">
+Hoa hồng dựa Registry
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="không được sử dụng hiện nay nhưng xác định mô hình đăng ký" class="pme-row-1">
+
+<td class="pme-key-1">
+Mô hình đăng ký
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Không có đăng ký
+</option>
+
+<option value="yes">
+Đăng ký dựa
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="định nghĩa giới hạn cam kết cho tất cả các loại tiền tệ trong sổ đăng ký này" class="pme-row-1">
+
+<td class="pme-key-1">
+Giới hạn cam kết toàn cầu
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="hệ phục vụ chính được sử dụng: công cộng quan trọng id cho này đăng ký hiện thời cho các giao dịch thư điện tử" class="pme-row-1">
+
+<td class="pme-key-1">
+Key Server: công chúng chìa khóa id
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="không được sử dụng hiện nay nhưng định nghĩa cho dù địa lý khu vực hoặc sở thích đặc biệt"  class="pme-row-1">
+
+<td class="pme-key-1">
+Nằm trên một khu vực địa lý?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+Có
+</option>
+
+<option value="no">
+Không
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="không được sử dụng hiện nay nhưng định nghĩa bài viết hoặc mã bưu điện để cho đăng ký công cộng có thể geocoded và được ánh xạ" class="pme-row-1">
+
+<td class="pme-key-1">
+PostCodes hoặc vĩ độ, kinh độ
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="được sử dụng để cung cấp thương gia khóa cho elgg, drupal và hệ điều hành thương mại kết nối" class="pme-row-1">
+
+<td class="pme-key-1">
+Thương mại Key
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="được sử dụng, về nguyên tắc để giới hạn kết nối đến một số IP, dễ dàng lừa đảo có lẽ" class="pme-row-1">
+
+<td class="pme-key-1">
+Cho phép các thương gia từ địa chỉ IP
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- this is an experiment, will turn the config link red, if db password is wrong -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Đi" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Hủy bỏ"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

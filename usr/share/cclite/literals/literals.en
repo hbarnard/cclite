@@ -282,6 +282,7 @@ js-waiting=Waiting
 js-processing=Processing
 js-running=Running
 js-adminmenu=Admin Menu
+js-admintab=Admin Tab
 js-mustbecsv=Error must be csv type file
 js-batchfileprobs=Batch files or directories below have problems, put mouse over to examine
 js-erroris=Error is

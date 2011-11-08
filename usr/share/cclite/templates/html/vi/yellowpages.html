@@ -1,0 +1,246 @@
+
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+
+<input name="action" value="addyellow" type="hidden">
+
+<tr>
+
+<td class="pme-key-0">
+Từ người dùng
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Loại
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+Cung cấp
+</option>
+
+<option value="wanted">
+Muốn
+</option>
+
+<option value="other">
+Khác
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Major Class
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+Dịch vụ
+</option>
+
+<option value="goods">
+Hàng hóa
+</option>
+
+<option value="other">
+Khác
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Phân loại
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Tags (autocomplete)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Chủ đề
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Mô tả
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}
+</textarea>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Giá
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Tiền tệ
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Cho mỗi đơn vị (dịch vụ)
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+mỗi giờ
+</option>
+
+<option value="day" >
+mỗi ngày
+</option>
+
+<option value="week" >
+mỗi tuần
+</option>
+
+<option value="month" >
+mỗi tháng
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Thanh toán đầy đủ cho phép tiền tệ?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+Có
+</option>
+
+<option value="no">
+Không
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Làm cho trang" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Rõ ràng" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
+</table>

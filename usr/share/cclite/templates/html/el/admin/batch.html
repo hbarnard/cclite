@@ -1,88 +1,227 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="ΣΑΣ ΕΠΙΤΡΈΠΕΙ ΝΑ C" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
 <meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
- 
+
+
 <link type="text/css" href="/styles/cc.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
-<link rel="alternate" type="application/rss+xml" title="Πειραματική cclite σύνδεση" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>  
 
-<title>Cclite $$fieldsref{έκδοση} Admin</title>
 
+<link rel="alternate" type="application/rss+xml" title="Πειραματικές cclite σύνδεση" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $$ {έκδοση} Admin
+</title>
 !$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
 
-
-<script src="/javascript/prototype.js"></script>
-<script src="/javascript/scriptaculous.js"></script>
-
+<script src="/javascript/scriptaculous.js">
+</script>
 
 </head>
 
 <body id="$$fieldsref{action}$$fieldsref{substyle}">
-<div id="toptabs">
-<a 
- class="toptab" title="Forgot Your Κωδικός πρόσβασης?"
- href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">Forgotten Κωδικός πρόσβασης?</a>
 
+<div id="toptabs">
+
+<a 
+ class="toptab" title="Ξέχασες τον κωδικό πρόσβασης??"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Ξεχάσατε τον κωδικό?
+</a>
 
 <a class="toptabstrikethrough" title="Deutsch"
- href="/cgi-bin/cclite.cgi?action=lang&amp;γλώσσα=de">Deutsch</a>
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+Deutsch
+</a>
 
 <a 
- class="toptabstrikethrough" title="Αλλαγή σε γαλλικά"
- href="/cgi-bin/cclite.cgi?action=lang&amp;γλώσσα=fr">Fran</a>
-$$fieldsref{youare} $$fieldsref{atregistry} 
+ class="toptabstrikethrough" title="Αλλαγή στα γαλλικά"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+Fran
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
 <p>
-<a class="toptab" title="Νέο λογαριασμό" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">Νέο λογαριασμό</a><span class="hide"> | </span>
-<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">Log off $$fieldsref{user} </a><span class="hide"> | </span>
-<a class="toptab" title="Πίσω to Χρήστης Menu" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">Χρήστης Menu</a><span class="hide"> | </span>
+
+<a class="toptab" title="Νέο λογαριασμό" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Νέο λογαριασμό
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+Αποσυνδεθείτε από $$ {user}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Πίσω στο χρήστη μενού" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+Μενού χρήστη
+</a>
+<span class="hide">
+|
+</span>
+
 </p>
-
-
 
 </div>
 
 <div id="container">
-<h1>Cclite $$fieldsref{έκδοση} Administration</h1>
 
+<h1>
+Cclite $$ {έκδοση} διοίκησης
+</h1>
 
 <div id="navitabs">
-<a class="showpartnersresulthtml" title="Εμφάνιση εταίρος γραμματείες" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Εμφάνιση εταίρους</a><span class="hide"> | </span>
-<a class="templatecurrencyhtml" title="Δημιουργία New Νόμισμα" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Δημιουργία νόμισμα</a><span class="hide"> | </span>
-<a class="showcurrenciesresulthtml" title="Εμφάνιση εμπορεύσιμα νομίσματα" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Δείξε ισοτιμίες</a><span class="hide"> | </span>
-<a class="templatecategoryhtml" title="Δημιουργία New Ad Κατηγορία" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Δημιουργία Ad Κατηγορία</a><span class="hide"> | </span>
-<a class="navitab" title="Τροποποίηση Χρήστης Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">Change a Χρήστης Account</a><span class="hide"> | </span>
+
+<a class="showpartnersresulthtml" title="Εμφάνιση εταίρος γραμματείες" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Εμφάνιση εταίρους
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="Δημιουργία νέου νομίσματος" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Δημιουργία νόμισμα
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="Εμφάνιση εμπορεύσιμα νομίσματα" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Δείξε ισοτιμίες
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="Δημιουργήστε νέα κατηγορία Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Δημιουργία κατηγορίας Ad
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Τροποποίηση λογαριασμού χρήστη" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+Αλλάξετε ένα λογαριασμό χρήστη
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="showbalvolresulthtml" title="Εμφάνιση των υπολοίπων μητρώου" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Εμφάνιση των υπολοίπων μητρώου</a><span class="hide"> | </span>
-<a class="navitab" title="Δημιουργία κανόνα ή πιστωτικό όριο" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Δημιουργία Rule/Πιστωτικό όριο</a><span class="hide"> | </span>
-<a class="navitab" title="Δημιουργία Μητρώου Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Δημιουργία Μητρώου Partner</a><span class="hide"> | </span>
-<a class="navitab" title="Αποστολή Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">Αποστολή Batch Files</a><span class="hide"> | </span>
+
+
+<a class="showbalvolresulthtml" title="Εμφάνιση των υπολοίπων μητρώου" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Εμφάνιση των υπολοίπων μητρώου
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Δημιουργία κανόνα ή πιστωτικό όριο" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Δημιουργία κανόνα/πιστωτικό όριο
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Δημιουργία μητρώου εταίρος" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Δημιουργία μητρώου εταίρος
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Ανεβάστε το αρχείο δέσμης" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+Ανεβάσετε αρχεία δέσμης
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="πρότυπαervicechghtml" title="Apply Υπηρεσία Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply Υπηρεσία Charge</a><span class="hide"> | </span>
-<a class="navitab" title="Δημιουργία Άνοιγμα Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">Άνοιγμα Office Directory</a><span class="hide"> | </span>
-<a class="navitab" title="Τροποποίηση $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">Τροποποίηση $$fieldsref{registry}</a><span class="hide"> | </span>
-<a class="navitab" title="Μητρώου και ρυθμίσεις παραμέτρων Installer" href="/cgi-bin/protected/ccinstall.cgi">Installer</a><span class="hide"> | </span>
-<a class="toptabstrikethrough" title="Σύστημα υγείας και στατιστικά στοιχεία" href="/">Υγεία/στατιστικά στοιχεία του συστήματος</a><span class="hide"> | </span>
+
+
+<a class="templateservicechghtml" title="Ισχύουν επιπλέον χρέωση υπηρεσιών για όλους τους λογαριασμούς" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Εφαρμόζεται επιπλέον χρέωση υπηρεσιών
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Δημιουργία Open Office εκτυπώσιμη καταλόγου" href="/cgi-bin/protected/ccdirectory.cgi">
+Open Office Directory
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+Τροποποιήσετε $$ {μητρώου}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Μητρώου και ρυθμίσεις παραμέτρων Installer" href="/cgi-bin/protected/ccinstall.cgi">
+Installer
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="Σύστημα υγείας και στατιστικά στοιχεία" href="/">
+Υγεία/στατιστικά στοιχεία του συστήματος
+</a>
+<span class="hide">
+|
+</span>
+
 </div>
 
-<hr>    
 <div id="main">
 !$$fieldsref{pagename}
 </div>
 
-
-    
 <div id="footer">
-Cclite copyright &copy; 2005-2008 (Hugh Barnard). Design by <a href="http://andreasviklund.com">Andreas Viklund</a>.
+Cclite πνευματικά δικαιώματα
+<a href="http://andreasviklund.com">
+Andreas Viklund
+</a>
+.
 </div>
 
 </div>
+
 </body>
+
 </html>

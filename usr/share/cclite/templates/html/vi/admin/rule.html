@@ -1,0 +1,110 @@
+
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<input type="hidden" name="action" value="insert">
+
+<input type="hidden" name="subaction" value="om_rules">
+
+<table class="pme-main" summary="om_rules">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Mô tả quy tắc
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="description" size="40" maxlength="40" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Quy tắc cấp *
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select name="event">
+<option value="creditlimit" selected>
+Hạn mức tín dụng
+</option>
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Áp dụng cho tiền tệ
+<br>
+
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{selectcurrency}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Hạn mức tín dụng
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="rulevalue" size="10" maxlength="10" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+* Only per currency credit limits are supported at present
+</td>
+
+<td class="pme-value-0">
+
+</td>
+
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Tạo quy tắc" type="submit">
+&nbsp;
+</td>
+
+<td>
+<input
+ class="pme-cancel" name="cancel" value="Hủy bỏ"
+ type="reset">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

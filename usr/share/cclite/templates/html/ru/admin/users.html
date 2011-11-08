@@ -1,115 +1,276 @@
+
 <form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+
 <input name="action" value="update" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="userId" value="$$fields{userId}" type="hidden">
-  <table class="pme-main" summary="om_users">
-    <tbody>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">ПользовательLogin</td>
-        <td "pme-value-0"> <input class="grey"
- name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Пользователь Пароль</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userПароль" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm Пароль</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="confirmПароль" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">ПользовательОтправить по электронной почте</td>
-        <td class="pme-value-1"> <input class="pme-input-1"
- name="userОтправить по электронной почте" size="60" maxlength="255" value="$$fields{userОтправить по электронной почте}" type="text"></td>
-      </tr>
+
+<table class="pme-main" summary="om_users">
+
+<tbody>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Номер/дом имя</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userИмяornumber" size="30" maxlength="30" value="$$fields{userИмяornumber}" type="text">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td "pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Пароль пользователя
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Подтверждение пароля
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userEmail" size="60" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Номер/дом имя
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Название улицы</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userУлица" size="40" maxlength="40" value="$$fields{userУлица}" type="text">
+
+<td class="pme-key-0">
+Название улицы
 </td>
-            </tr>
-<tr class="pme-row-1">
-              <td class="pme-key-0">Комуwn</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userКомуwn" size="40" maxlength="40" value="$$fields{userКомуwn}" type="text">
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Округ/государство</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
+
+<td class="pme-key-0">
+Город
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Округ/состояние
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
-</td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-0">Мобильный телефон</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-0">Язык</td>
-              <td class="pme-value-1"> 
-                 <select name="userLang">
-                   <option value="de">Дойч</option>
-                   <option selected value="en">английский</option>
-                   <option value="fr">Fran</option>
-                 </select>
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">ПользовательИмя</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userИмя" size="60" maxlength="255" value="$$fields{userИмя}" type="text"></td>
-      </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or Активные</td>
-        <td class="pme-value-1"> 
-                 <select name="userСтатус">
-                   <option selected value="активные">Активные</option>
-                   <option value="holiday">На праздник</option>
-                   <option value="unconfirmed">Не подтверждено</option>
-                   <option value="predelete">Удаление pre</option>
-                  <option value="приостановитьed">Приостановлено</option>
-                 </select>
-</td>
-      </tr>
 
+<td class="pme-key-0">
+Мобильный телефон
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Уровень пользователя</td>
-        <td class="pme-value-1"> 
-                 <select name="userLevel">
-                   <option selected value="user">Пользователь</option>
-                   <option value="admin">Администратор</option>
-                   <option value="sysaccount">Системная учетная запись</option>
-                 </select>
+
+<td class="pme-key-0">
+Язык
 </td>
-      </tr>
 
+<td class="pme-value-1">
 
-    </tbody>
-  </table>
-  <hr class="pme-hr">
-  <table class="pme-navigation">
-    <tbody>
-      <tr class="pme-navigation">
-        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="Save" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
-      </tr>
-    </tbody>
-  </table>
+<select name="userLang">
+
+<option value="de">
+Дойч
+</option>
+
+<option selected value="en">
+английский
+</option>
+
+<option value="fr">
+Fran
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Имя пользователя
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userName" size="60" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Праздник или активных
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+Активные
+</option>
+
+<option value="holiday">
+На праздник
+</option>
+
+<option value="unconfirmed">
+Неподтвержденные
+</option>
+
+<option value="predelete">
+Удаление pre
+</option>
+
+<option value="suspended">
+Приостановлено
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Уровень пользователя
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLevel">
+
+<option selected value="user">
+Пользователь
+</option>
+
+<option value="admin">
+Администратор
+</option>
+
+<option value="sysaccount">
+Системная учетная запись
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="Сохранить" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </form>

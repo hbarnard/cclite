@@ -1,147 +1,297 @@
-      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
-      <span class="error">$$fieldsref{error}</span>  
-       <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
-            <tr class="pme-row-0">
-              <td title="όνομα της βάσης δεδομένων, τον ορισμό των εμπορικών ομάδα, μια λέξη χωρίς κενά διαστήματα" class="pme-key-0">Το όνομα του μητρώου<br>
-              </td>
-              <td class="pme-value-0"> 
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="όνομα της βάσης δεδομένων, τον ορισμό των εμπορικών ομάδα, μια λέξη χωρίς κενά διαστήματα" class="pme-key-0">
+Το όνομα του μητρώου
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
 <input type="hidden" name="action" value="addregistry">
-   
-<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
 
-            </tr>
-
-            <tr class="pme-row-0">
-              <td title="σύντομη περιγραφή της διαπραγμάτευσης ομάδα" class="pme-key-0">Μητρώου Περιγραφή<br>
-              </td>
-<td class="pme-value-0"> 
-<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
-            </tr>
-
-<tr title="διεύθυνση και το λογαριασμό που χρησιμοποιείται για την αποστολή επίσημων μηνύματα ηλεκτρονικού ταχυδρομείου για αυτήν την ομάδα" class="pme-row-0">
-              <td class="pme-key-0">Διαχείριση ηλεκτρονικού ταχυδρομείου<br>
-              </td>
-<td class="pme-value-0"> 
-<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
-            </tr>
-
-<td title="κωδικός πρόσβασης για το λογαριασμό ηλεκτρονικού ταχυδρομείου admin" class="pme-key-0">Διαχείριση ηλεκτρονικού ταχυδρομείου Κωδικός πρόσβασης<br>
-              </td>
-<td class="pme-value-0"> 
-<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
-            </tr>
-
-<tr title="λογαριασμός όπου λαμβάνονται οι συναλλαγές μηνύματα ηλεκτρονικού ταχυδρομείου μπορεί να είναι το ίδιο ως "διαχειριστής"" class="pme-row-1">
-              <td class="pme-key-1">Ηλεκτρονικό ταχυδρομείο for Batch Συναλλαγές<br>
-              </td>
-<td class="pme-value-1"> 
-<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
-            </tr>
-
-
-<td title="κωδικός πρόσβασης για το λογαριασμό ηλεκτρονικού ταχυδρομείου μαζική" class="pme-key-0">Batch Ηλεκτρονικό ταχυδρομείο Κωδικός πρόσβασης<br>
-              </td>
-<td class="pme-value-0"> 
-<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
-            </tr>
-
-<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει συναλλαγών μοντέλο" class="pme-row-1">
-              <td nowrap class="pme-key-1">Μοντέλο του συστήματος χρέωσης
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="chargetype"><option value="equaltime">Ισότητα</option><option selected value="market">Επιτόκια αγοράς</option></select></td>
-            </tr>
-
-<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει Επιτροπή μοντέλο" class="pme-row-1">
-              <td class="pme-key-1">Μοντέλο Επιτροπής συστήματος
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="commission">
-<option selected value="no">Όχι Commission</option>
-<option value="yes">Commission Based Μητρώου</option>
-</select></td>
-            </tr>
-
-
-<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει τη συνδρομή μοντέλο" class="pme-row-1">
-              <td class="pme-key-1">Εγγραφή μοντέλου
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="subscription">
-<option selected value="no">Όχι Subscription</option>
-<option value="yes">Με βάση τη συνδρομή</option>
-</select></td>
-            </tr>
-
-<tr title="Καθορίζει το όριο δέσμευση για όλα τα νομίσματα σε αυτό το μητρώο" class="pme-row-1">
-              <td class="pme-key-1">Παγκόσμια δέσμευση όριο<br>
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
-            </tr>
-
-<tr title="κλειδί διακομιστή που χρησιμοποιείται: δημόσιου κλειδιού αναγνωριστικό για το εν λόγω μητρώο currently for email transactions only" class="pme-row-1">
-              <td class="pme-key-1">Κλειδί Server: δημόσιου κλειδιού αναγνωριστικό<br>
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
-            </tr>
-
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
 
 </tr>
-<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει αν γεωγραφική περιοχή ή ειδικού ενδιαφέροντος"  class="pme-row-1">
-              <td class="pme-key-1">Καλύπτει γεωγραφική περιοχή;?
-              </td>
-<td class="pme-value-1"> 
+
+<tr class="pme-row-0">
+
+<td title="σύντομη περιγραφή της διαπραγμάτευσης ομάδα" class="pme-key-0">
+Περιγραφή του μητρώου
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="διεύθυνση και ο λογαριασμός που χρησιμοποιείται για την αποστολή επίσημων μηνύματα ηλεκτρονικού ταχυδρομείου για αυτήν την ομάδα" class="pme-row-0">
+
+<td class="pme-key-0">
+Διαχείριση ηλεκτρονικού ταχυδρομείου
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="κωδικός πρόσβασης για το λογαριασμό "διαχειριστής" email" class="pme-key-0">
+Email κωδικού πρόσβασης διαχειριστή
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="λογαριασμός όπου λαμβάνονται οι συναλλαγές μηνύματα ηλεκτρονικού ταχυδρομείου μπορεί να είναι το ίδιο ως "διαχειριστής"" class="pme-row-1">
+
+<td class="pme-key-1">
+Email για μαζική συναλλαγές
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="κωδικός πρόσβασης για το λογαριασμό ηλεκτρονικού ταχυδρομείου μαζική" class="pme-key-0">
+Κωδικό πρόσβασης ηλεκτρονικού ταχυδρομείου μαζική
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει συναλλαγών μοντέλο" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Μοντέλο του συστήματος χρέωσης
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Ισότητα
+</option>
+<option selected value="market">
+Επιτόκια της αγοράς
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει Επιτροπή μοντέλο" class="pme-row-1">
+
+<td class="pme-key-1">
+Μοντέλο Επιτροπής συστήματος
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Η Επιτροπή δεν
+</option>
+
+<option value="yes">
+Επιτροπή βάσει μητρώου
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει τη συνδρομή μοντέλο" class="pme-row-1">
+
+<td class="pme-key-1">
+Εγγραφή μοντέλου
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Καμία εγγραφή
+</option>
+
+<option value="yes">
+Συνδρομητικές
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="Καθορίζει το όριο δέσμευση για όλα τα νομίσματα στο μητρώο αυτό" class="pme-row-1">
+
+<td class="pme-key-1">
+Παγκόσμια δέσμευση όριο
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="βασικό διακομιστή που χρησιμοποιείται: δημόσιου κλειδιού αναγνωριστικό για το εν λόγω μητρώο σήμερα για ηλεκτρονικό ταχυδρομείο συναλλαγές μόνο" class="pme-row-1">
+
+<td class="pme-key-1">
+Κλειδί Server: δημόσιου κλειδιού αναγνωριστικό
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά προσδιορίζει κατά πόσο η γεωγραφική περιοχή ή ειδικού ενδιαφέροντος"  class="pme-row-1">
+
+<td class="pme-key-1">
+Γεωγραφική περιοχή που καλύπτει;
+</td>
+
+<td class="pme-value-1">
+
 <select class="pme-input-1" name="geographic">
-<option selected value="yes">Ναι</option>
-<option value="no">Όχι</option>
-</select></td>
-            </tr>
+
+<option selected value="yes">
+Ναι
+</option>
+
+<option value="no">
+Όχι
+</option>
+
+</select>
+</td>
+
+</tr>
 
 <tr title="δεν χρησιμοποιείται αυτήν τη στιγμή, αλλά ορίζει δημοσιεύσεις ή ταχυδρομικούς κώδικες, έτσι ώστε να μπορεί να είναι δημόσια μητρώα, geocoded και αντιστοιχισμένες" class="pme-row-1">
-              <td class="pme-key-1">Ταχυδρομικός κώδικαςs or Latitude,Longitude
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+<td class="pme-key-1">
+Postcodes ή γεωγραφικό πλάτος, γεωγραφικό μήκος
 </td>
- </tr>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
 
 <tr title="χρησιμοποιείται για την παροχή εμπορικών κλειδί για elgg, drupal και σύνδεσμοι os-εμπόριο" class="pme-row-1">
-              <td class="pme-key-1">Εμπορικά κλειδί
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+<td class="pme-key-1">
+Εμπορικά κλειδί
 </td>
- </tr>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
 
 <tr title="χρησιμοποιούνται, καταρχήν για να περιορίσετε τις γραμμές σύνδεσης σε ορισμένες ips, εύκολα πλαστογραφημένη πιθανώς" class="pme-row-1">
-              <td class="pme-key-1">Επιτρέψει έμποροι από διευθύνσεις IP
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+<td class="pme-key-1">
+Επιτρέψει έμποροι από διευθύνσεις IP
 </td>
- </tr>
 
+<td class="pme-value-1">
 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
 
+</td>
 
+</tr>
 
-          </tbody>
-        </table>
-  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
-  $$fieldsref{script}  
-        <hr class="pme-hr">
-        <hr class="pme-hr">
-        <table class="pme-navigation">
-          <tbody>
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Μετάβαση" type="submit">&nbsp;<input
- class="pme-cancel" name="cancel" value="Cancel"
-type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+</tbody>
+
+</table>
+
+<!-- this is an experiment, will turn the config link red, if db password is wrong -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Go" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Άκυρο"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

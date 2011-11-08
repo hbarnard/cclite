@@ -1,132 +1,309 @@
+
 <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+
 <input name="action" value="update" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="userId" value="$$fields{userId}" type="hidden">
-  <table class="pme-main" summary="om_users">
-    <tbody class="stripy">
-      <tr class="pme-row-1">
-        <td class="pme-key-1">UserLogin</td>
-        <td class="pme-value-0"> <input class="grey"
- name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">User Пароль</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userПароль" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm Пароль</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="confirmПароль" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">UserОтправить по электронной почте</td>
-        <td class="pme-value-1"> <input class="required email"
- name="userОтправить по электронной почте" size="40" maxlength="255" value="$$fields{userОтправить по электронной почте}" type="text"></td>
-      </tr>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Номер/дом имя</td>
-              <td class="pme-value-1"> <input class="required"
- name="userИмяornumber" size="30" maxlength="30" value="$$fields{userИмяornumber}" type="text">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Пароль пользователя
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Подтверждение пароля
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="required email"
+ name="userEmail" size="40" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Номер/дом имя
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Улица Имя</td>
-              <td class="pme-value-1"> <input class="required"
- name="userУлица" size="40" maxlength="40" value="$$fields{userУлица}" type="text">
+
+<td class="pme-key-0">
+Название улицы
 </td>
-            </tr>
-<tr class="pme-row-1">
-              <td class="pme-key-0">Город</td>
-              <td class="pme-value-1"> <input class="required"
- name="userГород" size="40" maxlength="40" value="$$fields{userГород}" type="text">
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Округ/государство</td>
-              <td class="pme-value-1"> <input class="required"
+
+<td class="pme-key-0">
+Город
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Округ/состояние
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Почтовый индекс</td>
-              <td class="pme-value-1"> <input class="required"
- name="userПочтовый индекс" size="10" maxlength="10" value="$$fieldsref{userПочтовый индекс}" type="text">
+
+<td class="pme-key-0">
+Почтовый индекс
 </td>
-            </tr>
 
+<td class="pme-value-1">
 
-            <tr class="pme-row-1">
-              <td class="pme-key-0">Мобильный телефон</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
-            </tr>
+<input class="required"
+ name="userPostcode" size="10" maxlength="10" value="$$fieldsref{userPostcode}" type="text">
 
-<tr class="pme-row-1">
-              <td class="pme-key-0">Pin for Мобильный телефон Операции</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPin" size="6" maxlength="6" value="" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">Confirm Pin for Мобильный телефон Операции</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">SMS платежных квитанций</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td title="this is the public key id for encrypted transactions" class="pme-key-0">Открытый ключ идентификатор</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
-            </tr>
-
-
-            <tr class="pme-row-1">
-              <td class="pme-key-0">Язык</td>
-              <td class="pme-value-1"> 
-                 <select name="userLang">
-                   <option value="de">Дойч</option>
-                   <option selected value="en">английский</option>
-                   <option value="fr">Fran</option>
-                 </select>
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Имя пользователя</td>
-        <td class="pme-value-0"> <input class="required"
- name="userИмя" size="40" maxlength="255" value="$$fields{userИмя}" type="text"></td>
-      </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or Активные</td>
-        <td class="pme-value-1"> 
-                 <select name="userСтатус">
-                   <option selected value="active">Активные</option>
-                   <option value="holiday">На праздник</option>
-                 </select>
+
+<td class="pme-key-0">
+Мобильный телефон
 </td>
-      </tr>
-    </tbody>
-  </table>
-  <hr class="pme-hr">
-  <table class="pme-navigation">
-    <tbody>
-      <tr class="pme-navigation">
-        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="Save" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel"  type="reset"> </td>
-      </tr>
-    </tbody>
-  </table>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+PIN-код для мобильного телефона сделок
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Подтвердите ПИН для мобильного телефона сделок
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+SMS оплата квитанций
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="Это идентификатор публичных ключей для зашифрованных сделок" class="pme-key-0">
+Открытый ключ идентификатор
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Язык
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLang">
+
+<option value="de">
+Дойч
+</option>
+
+<option selected value="en">
+английский
+</option>
+
+<option value="fr">
+Fran
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Имя пользователя
+</td>
+
+<td class="pme-value-0">
+
+<input class="required"
+ name="userName" size="40" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Праздник или активных
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+Активные
+</option>
+
+<option value="holiday">
+На праздник
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="Сохранить" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Отмена"  type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </form>

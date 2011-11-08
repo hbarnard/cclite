@@ -1,64 +1,174 @@
-<div class="failedcheck"> $$fieldsref{updatemessage}</div>
-<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
-<table><tbody class="stripy">
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
 <form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
-<select name="install_type" id="install_type" onchange="change_install();">
-<option selected value="simple">Απλή</option>
-<option value="full">Όλες οι επιλογές</option>
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Απλή
+</option>
+
+<option value="full">
+Όλες οι επιλογές
+</option>
+
 </select>
-<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> Μητρώου">
-<input name="action" value="updateconfig2" type="hidden">
 
-<tr><td title="Αυτό είναι το χρήστη db για mysql" class="menu">dbuser</td><td class="pme-key-1">
-    <input id="dbuser" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
-</td></tr>
-<tr><td title="Πρόκειται για τον κωδικό πρόσβασης db για mysql" class="menu">DBPASSWORD</td><td class="pme-key-1">
-    <input id="DBPASSWORD" type="password"  class="required" name="DBPASSWORD" size="60" value="$$fieldsref{DBPASSWORD}">
+<input class="small"
+ name="saveadd" data-simple="yes" value="Ενημέρωση ρύθμισης παραμέτρων" type="submit">
 
-</td></tr>
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
-<tr><td title="experimental cPanel πρόθεμα, use with care, uusally cpanel user name" class="menu">cPanel πρόθεμα</td><td class="pme-key-1">
-    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
-</td></tr>
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
-<tr><td title="Εμφάνιση δεκαδικού σημείου για νομίσματα" class="menu">Χρησιμοποιήστε δεκαδικά ψηφία</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
-</td></tr>
+<tr>
+<td title="Αυτό είναι ο χρήστης db για mysql" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
 
-<tr><td title="χρησιμοποιήσετε τις ετικέτες ελεύθερης μορφής για Κίτρινες σελίδες αντί των σταθερών κατηγορίες" class="menu">χρησιμοποιήσετε τις ετικέτες</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
-</td></tr>
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
 
+</td>
+</tr>
 
-<tr><td title="Αυτός είναι ο τομέας, όπως προκύπτει από τη διαδρομή δέσμης ενεργειών, πρέπει να είναι σωστό για τα cookies για να" class="menu">τομέα</td><td class="pme-key-1">
-    <input type="text" readonly="1"  class="required" name="τομέα" size="60" value="$$fieldsref{τομέα}">
-</td></tr>
-<tr><td title="this is the διακομιστής SMTP for mail, for cpanel usually same as τομέα name, τοπικόhost or ip for internal servers" class="menu">διακομιστής SMTP</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
-</td></tr>
+<tr>
+<td title="Πρόκειται για τον κωδικό πρόσβασης db για mysql" class="menu">
+DBPASSWORD
+</td>
+<td class="pme-key-1">
 
-<tr><td title="δέσμη ενεργειών για την κύρια χρήστη για cclite" class="menu">Αρχική σελίδα</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required"  name="Αρχική σελίδα" size="60" value="$$fieldsref{uΑρχική σελίδα}">
-</td></tr>
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
 
-<tr><td title="Αυτός είναι ο τύπος κλειδιού κατακερματισμού που χρησιμοποιούνται για τον κωδικό πρόσβασης και διακριτικό υπολογισμούς, προτιμάται η sha2, δεν είναι δυνατό να αλλάξει/μεικτή μέχρι τη στιγμή που" class="menu">ο τύπος κλειδιού κατακερματισμού</td><td class="pme-key-1">
-    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+</td>
+</tr>
 
-</td></tr>
+<tr>
+<td title="πειραματική cpanel πρόθεμα, χρήση με προσοχή, όνομα χρήστη cpanel uusally" class="menu">
+πρόθεμα cPanel
+</td>
+<td class="pme-key-1">
 
-<tr><td title="HTML, rss, αρχεία εξόδου και γραφήματα, συναχθούν από ρίζα εγγράφου στο διακομιστή" class="menu">htmlpath</td><td class="pme-key-1">
-    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
-</td></tr>
-<tr><td title="αρχική κατάσταση του πληρωμή που πραγματοποιείται, αν αναμονής θα απαιτούν επιβεβαίωση από την παραλαβή του χρήστη" class="pme-key-title">Αρχική πληρωμή κατάστασης</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
 
-</td></tr>
-<tr><td title="αρχική κατάσταση ενός χρήστη, εάν δεν έχει επιβεβαιωθεί θα απαιτείται επιβεβαίωση μέσω ηλεκτρονικού ταχυδρομείου του χρήστη" class="pme-key-title">κατάσταση αρχικό χρήστη</td><td class="pme-key-1">
-    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
-</td></tr>
-<tr><td title="προεπιλεγμένη γλώσσα για μηνύματα και πρότυπα" class="pme-key-title">γλώσσα</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="γλώσσα" size="60" value="$$fieldsref{γλώσσα}">
-</td></tr>
+</td>
+</tr>
+
+<tr>
+<td title="Εμφάνιση δεκαδικού σημείου για νομίσματα" class="menu">
+Χρησιμοποιήστε δεκαδικά ψηφία
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="χρησιμοποιήσετε τις ετικέτες ελεύθερης μορφής για Κίτρινες σελίδες αντί των σταθερών κατηγορίες" class="menu">
+χρησιμοποιήσετε τις ετικέτες
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Αυτό είναι ο τομέας, όπως προκύπτει από τη διαδρομή δέσμης ενεργειών, πρέπει να είναι σωστό για τα cookies για να" class="menu">
+τομέα
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Αυτός είναι ο διακομιστής smtp για την αλληλογραφία, για cpanel συνήθως ισχύει το ίδιο με το όνομα τομέα, localhost ή ip για εσωτερικούς διακομιστές" class="menu">
+διακομιστής SMTP
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="δέσμη ενεργειών για την κύρια χρήστη για cclite" class="menu">
+Αρχική σελίδα
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Αυτός είναι ο τύπος κλειδιού κατακερματισμού που χρησιμοποιούνται για τον κωδικό πρόσβασης και διακριτικό υπολογισμούς, προτιμάται η sha2, δεν είναι δυνατό να αλλάξει/μεικτή μέχρι τη στιγμή που" class="menu">
+ο τύπος κλειδιού κατακερματισμού
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="HTML, rss, αρχεία εξόδου και γραφήματα, από τη ρίζα εγγράφου στο διακομιστή" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="αρχική κατάσταση του μια πληρωμή, εάν αναμονής θα απαιτείται επιβεβαίωση από την παραλαβή του χρήστη" class="pme-key-title">
+Αρχική πληρωμή κατάστασης
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="αρχική κατάσταση ενός χρήστη, εάν δεν έχει επιβεβαιωθεί θα απαιτείται επιβεβαίωση μέσω ηλεκτρονικού ταχυδρομείου του χρήστη" class="pme-key-title">
+κατάσταση αρχικό χρήστη
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="προεπιλεγμένη γλώσσα για μηνύματα και πρότυπα" class="pme-key-title">
+γλώσσα
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
 
 <!-- now hardcoded as relative within all scripts 
 <tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
@@ -66,20 +176,47 @@
 </td></tr>
 -->
 
-<tr><td title="αριθμός γραμμών οθόνης για τις εκθέσεις σε μορφή πίνακα" class="pme-key-title">γραμμές ανά σελίδα</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
-</td></tr>
-<tr><td title="διαδρομή για το αρχείο μηνύματα, τίποτα δεν θα λειτουργεί, αν αυτό είναι λάθος!" class="menu">διαδρομή για μηνύματα</td><td class="pme-key-1">
-    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
-</td></tr>
+<tr>
+<td title="αριθμός γραμμών οθόνης για τις εκθέσεις σε μορφή πίνακα" class="pme-key-title">
+γραμμές ανά σελίδα
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="διαδρομή αρχείου μηνυμάτων, τίποτα δεν θα λειτουργεί, αν αυτό είναι λάθος!" class="menu">
+διαδρομή για μηνύματα
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
 -->
-</td></tr>
-<tr><td title="Εάν όχι, δεν χρειάζεται Soap::Lite λειτουργικές μονάδες" class="menu">multiregistry;?</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="multiregistry;" size="60" value="$$fieldsref{multiregistry;}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="Εάν όχι, δεν χρειάζεται Soap::Lite λειτουργικές μονάδες" class="menu">
+multiregistry;
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
@@ -96,98 +233,249 @@
 <tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
     <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
 -->
-</td></tr>
-<tr><td title="δεν χρησιμοποιείται άμεσα, αλλά μπορούν να συμπεριληφθούν σε προσαρμοσμένα πρότυπα" class="pme-key-title">υποστήριξη αλληλογραφίας</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="δεν χρησιμοποιείται άμεσα, αλλά μπορούν να συμπεριληφθούν σε προσαρμοσμένα πρότυπα" class="pme-key-title">
+υποστήριξη αλληλογραφίας
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="used to send mail and log in to διακομιστής SMTP, set up in cpanel, if necessary, first" class="menu">Διεύθυνση αλληλογραφίας συστήματος</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
-</td></tr>
+
+<tr>
+<td title="χρησιμοποιείται για την αποστολή αλληλογραφίας και να συνδεθείτε στο διακομιστή smtp, που έχει συσταθεί στο cpanel, εάν είναι απαραίτητο, πρώτο" class="menu">
+Διεύθυνση αλληλογραφίας συστήματος
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="χρησιμοποιείται για να μεταβείτε στο Net::SMTP για τις ειδοποιήσεις κ.λπ. αυτό είναι προτιμώμενη και θα είναι στο μέλλον, η μόνη επιλογή 0 ή 1" class="menu">καθαρή smtp;?</td><td >
-    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
-</td></tr>
 
+<tr>
+<td title="χρησιμοποιείται για να μεταβείτε στο Net::SMTP για τις ειδοποιήσεις κ.λπ. αυτό προτιμάται, και θα είναι στο μέλλον, η μόνη επιλογή 0 ή 1" class="menu">
+καθαρή smtp;
+</td>
+<td >
 
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
 
-<tr><td title="password for logging on to system email address within διακομιστής SMTP" class="menu">σύστημα αλληλογραφίας κωδικός πρόσβασης</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
-</td></tr>
-<tr><td title="διεύθυνση απάντησης για generated μηνύματα ηλεκτρονικού ταχυδρομείου, συχνά κάνει-να μη-απάντηση" class="pme-key-title">σύστημα αλληλογραφίας απάντηση διεύθυνση</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+</td>
+</tr>
 
-</td></tr>
-<tr><td title="διαδρομή για τα αρχεία προτύπου που χρησιμοποιείται για τη διασύνδεση web, τίποτα δεν πολύ θα λειτουργεί, αν αυτό είναι λάθος!" class="menu">πρότυπα</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="πρότυπα" size="60" value="$$fieldsref{πρότυπα}">
-</td></tr>
+<tr>
+<td title="κωδικό πρόσβασης για σύνδεση με διεύθυνση ηλεκτρονικού ταχυδρομείου του συστήματος στο πλαίσιο Διακομιστής smtp" class="menu">
+σύστημα αλληλογραφίας κωδικός πρόσβασης
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Διεύθυνση απαντήσεων για generated μηνύματα ηλεκτρονικού ταχυδρομείου, συχνά-μη-απάντηση" class="pme-key-title">
+Διεύθυνση απαντήσεων σύστημα αλληλογραφίας
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="διαδρομή για τα αρχεία προτύπου που χρησιμοποιείται για τη διασύνδεση web, τίποτα δεν πολύ θα λειτουργεί, αν αυτό είναι λάθος!" class="menu">
+πρότυπα
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
 
 <!-- section dealing with batch files -->
 
-<tr><td title="βάσης εξόδου διαδρομή για γραφήματα δραστηριότητα υπό web ρίζας, το όνομα του μητρώου προστίθεται σε αυτήν τη διαδρομή" class="pme-key-title">γράφημα καταλόγου</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
-</td></tr>
+<tr>
+<td title="βάση εξόδου διαδρομή για γραφήματα δραστηριότητα υπό web ρίζας, το όνομα του μητρώου προστίθεται σε αυτήν τη διαδρομή" class="pme-key-title">
+γράφημα καταλόγου
+</td>
+<td class="pme-key-1">
 
-<tr><td title="θα απαιτήσει πακέτων από perl modules rss για τη δημιουργία rss, αν ναι" class="pme-key-title">userss</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
-</td></tr>
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="βάση αποστολή διαδρομής για μαζική συναλλαγές, δεν πρέπει να είναι υπό web ρίζας" class="pme-key-title">CSV καταλόγου</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+<tr>
+<td title="θα απαιτήσει την perl rss modules για τη δημιουργία rss, αν ναι" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
 
-</td></tr>
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
 
-<tr><td title="Εισερχόμενα για το sms gammu που παραλήφθηκαν, δεν απαιτείται για http sms πύλες" class="pme-key-title">SMS "Εισερχόμενα"</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="βάση αποστολή διαδρομής για μαζική συναλλαγές, δεν πρέπει να είναι υπό web ρίζας" class="pme-key-title">
+CSV καταλόγου
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Εισερχόμενα για το sms gammu έλαβε, δεν απαιτείται για http sms πύλες" class="pme-key-title">
+SMS "Εισερχόμενα"
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-</td></tr>
 
-<tr><td title="Εισερχόμενα για το ταχυδρομείο, παλαιά μέθοδος αντικαθίστανται από ΠΟΠ αλληλογραφίας σε κάθε μητρώο" class="pme-key-title">Κατάλογος readmail.pl</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td title="Εισερχόμενα για το ταχυδρομείο, παλαιά μέθοδος αντικαθίστανται από pop mail στο κάθε μητρώου" class="pme-key-title">
+Κατάλογος readmail.pl
+</td>
+<td class="pme-key-1">
+
 <input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
-</td></tr>
 
-<tr><td title="διαδρομή βάσης εξόδου για συναλλαγές csv περιοχή web ρίζας" class="pme-key-title">csv που</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
-</td></tr>
+</td>
+</tr>
 
+<tr>
+<td title="διαδρομή βάσης εξόδου για συναλλαγές csv περιοχή web ρίζας" class="pme-key-title">
+csv που
+</td>
+<td class="pme-key-1">
 
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
 
-<tr><td title="Βασίστε εξόδου διαδρομή για έντυπο υλικό υπό web ρίζας, το όνομα του μητρώου και γλώσσα προστίθεται σε αυτήν τη διαδρομή" class="pme-key-title">εκτύπωση διαδρομή</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="Βασίστε εξόδου διαδρομή για rss, το όνομα του μητρώου και γλώσσα προστίθεται σε αυτήν τη διαδρομή" class="pme-key-title">βάσης ζωοτροφών καταλόγου</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
-</td></tr>
+<tr>
+<td title="Βασίστε εξόδου διαδρομή για έντυπο υλικό υπό web ρίζας, το όνομα του μητρώου και γλώσσα προστίθεται σε αυτήν τη διαδρομή" class="pme-key-title">
+εκτύπωση διαδρομή
+</td>
+<td class="pme-key-1">
 
-<tr><td title="βάσης που καταλόγου για gammu αποτελέσματα, δεν απαιτείται για http sms πύλες" class="pme-key-title">SMS που</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Βασίστε εξόδου διαδρομή rss, το όνομα του μητρώου και γλώσσα προστίθεται σε αυτήν τη διαδρομή" class="pme-key-title">
+βάσης της τροφοδότησης καταλόγου
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="βάση του καταλόγου για gammu αποτελέσματα, δεν απαιτείται για http sms πύλες" class="pme-key-title">
+SMS που
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
-</td></tr>
 
-<tr><td title="gammu input processed τοπικόly if 1, otherwise this uses soap to process remotely" class="pme-key-title">τοπικό sms?</td><td class="pme-key-1">
-<input type="text"  readonly="1" class="required" name="smsτοπικό" size="1" value="$$fieldsref{smsτοπικό}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+<tr>
+<td title="gammu input επεξεργασία τοπικά, εάν είναι 1, διαφορετικά αυτό χρησιμοποιεί soap για την επεξεργασία από απόσταση" class="pme-key-title">
+τοπικό sms;
+</td>
+<td class="pme-key-1">
 
-<tr><td title="διαδρομή στο αρχείο ρύθμισης παραμέτρων Log4perl" class="pme-key-title">πρόγραμμα καταγραφής config διαδρομή</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
-</td></tr>
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
 
-<tr><td ctitle="current cclite έκδοση" lass="pme-key-title">έκδοση</td><td class="pme-key-1">
-    <input type="text" class="required" class="grey" readonly="1" name="έκδοση" size="5" value="$$fieldsref{έκδοση}">
+</td>
+</tr>
 
-</td></tr>
- <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Ενημερωμένη έκδοση" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset">
- </td>
-            </tr>
-</tbody></table>
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="διαδρομή στο αρχείο ρύθμισης παραμέτρων Log4perl" class="pme-key-title">
+διαδρομή ρύθμισης παραμέτρων καταγραφής
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+έκδοση
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="Ενημερωμένη έκδοση" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Σαφής" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
 </form>
