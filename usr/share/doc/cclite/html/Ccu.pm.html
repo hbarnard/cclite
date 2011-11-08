@@ -576,9 +576,9 @@ depending on the package or installation type:</p>
 <a name="readmessages-"></a><span class="k">sub </span><span class="m">readmessages</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$language</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    
+
     <span class="c">#FIXME: this is called in several places....</span>
-    <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> ! <span class="k">length</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$language</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># deals with various directory structures</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> =
@@ -608,7 +608,7 @@ depending on the package or installation type:</p>
             <span class="i">$value</span> = <span class="q">&quot;&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="i">pretty_caller</span><span class="s">(</span><span class="n">3</span><span class="s">)</span> <span class="sc">;</span>
+        <span class="i">pretty_caller</span><span class="s">(</span><span class="n">3</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">error</span><span class="s">(</span>
             <span class="i">$language</span><span class="cm">,</span>
 <span class="q">&quot;Cannot find messages file:$error $messfile for $language may be missing?&quot;</span><span class="cm">,</span>
@@ -702,12 +702,12 @@ configuration should work...</p>
     <span class="c"># in /usr/share/cclite</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;ubuntu&#39;</span> || <span class="i">$distribution</span> <span class="k">eq</span> <span class="q">&#39;debian&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$checkdir</span>     = <span class="q">&#39;/usr/share/cclite&#39;</span> <span class="sc">;</span>
-    <span class="k">if</span> <span class="s">(</span><span class="k">-e</span> <span class="i">$checkdir</span><span class="s">)</span> <span class="s">{</span>
-        <span class="i">$package_type</span> = <span class="n">2</span> <span class="sc">;</span>    <span class="c"># 2 is debian and derivatives</span>
-    <span class="s">}</span> <span class="k">else</span>  <span class="s">{</span>
-        <span class="i">$package_type</span> = <span class="n">3</span> <span class="sc">;</span>    <span class="c"># debian/ubuntu but unpackaged</span>
-     <span class="s">}</span>    
+        <span class="i">$checkdir</span> = <span class="q">&#39;/usr/share/cclite&#39;</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$checkdir</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$package_type</span> = <span class="n">2</span><span class="sc">;</span>    <span class="c"># 2 is debian and derivatives</span>
+        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+            <span class="i">$package_type</span> = <span class="n">3</span><span class="sc">;</span>    <span class="c"># debian/ubuntu but unpackaged</span>
+        <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="c"># guessing at cpanel because the whole thing is under the document root</span>
@@ -778,7 +778,7 @@ part</p>
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$field_name</span> <span class="s">(</span><span class="i">@field_names</span><span class="s">)</span> <span class="s">{</span>
         <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$field_name</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$row_contents</span> .=
-<span class="q">&quot;&lt;td align=\&quot;right\&quot; style=\&quot;padding:5px 5px;\&quot; class=\&quot;pme-key-1\&quot;&gt;$hash_ref-&gt;{$field_name}&lt;/td&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;&lt;td align=\&quot;right\&quot; class=\&quot;pme-key-1\&quot;&gt;$hash_ref-&gt;{$field_name}&lt;/td&gt;&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>    <span class="c"># end of pack up row contents</span>
 
@@ -821,8 +821,8 @@ part</p>
           ? <span class="s">(</span> <span class="i">$row_style</span> = <span class="q">&quot;odd&quot;</span> <span class="s">)</span>
           <span class="co">:</span> <span class="s">(</span> <span class="i">$row_style</span> = <span class="q">&quot;even&quot;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">$html</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">        &lt;tr class=&quot;$row_style&quot;&gt;&lt;td align=\&quot;right\&quot; style=\&quot;padding:5px 5px;\&quot; class=\&quot;pme-key-1\&quot;&gt;\u$key&lt;/td&gt;</span>
-<span class="hh">            &lt;td align=\&quot;right\&quot; style=\&quot;padding:5px 5px;\&quot; class=\&quot;pme-key-1\&quot;&gt;$total_balance_ref-&gt;{$key}&lt;/td&gt;</span>
+<span class="hh">        &lt;tr class=&quot;$row_style&quot;&gt;&lt;td align=\&quot;right\&quot; class=\&quot;pme-key-1\&quot;&gt;\u$key&lt;/td&gt;</span>
+<span class="hh">            &lt;td align=\&quot;right\&quot; class=\&quot;pme-key-1\&quot;&gt;$total_balance_ref-&gt;{$key}&lt;/td&gt;</span>
 <span class="hh">        &lt;/tr&gt;</span>
 <span class="h">EOT</span>
         <span class="i">$record_counter</span>++<span class="sc">;</span>
@@ -852,6 +852,7 @@ to remote gateways such as Drupal, Elgg, Joomla and Tiki-Wiki</p>
 a pragmatic one that preserves some consistency of access and
 delivery and doesn't break a lot of fairly useful things in the legacy part...</p>
 <p>It does need to distinguish between multdimensional and flat</p>
+<p>FIXME: This probably needs replacing by the JSON modules in the medium term...</p>
 <p>For example, transactions:</p>
 <p>{&quot;registry&quot;:&quot;ccliekh_dalston&quot;,&quot;table&quot;: &quot;om_trades&quot;, &quot;message&quot;:&quot;OK&quot;,
 &quot;data&quot;: [
@@ -907,22 +908,27 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
                 <span class="i">$json</span> .=
                   <span class="q">&quot;\&quot;$field_name\&quot;:\&quot;$hash_ref-&gt;{$id}-&gt;{$field_name}\&quot;,\n&quot;</span><span class="sc">;</span>
             <span class="s">}</span>
-            <span class="i">$json</span> =~ <span class="q">s/\,$//</span>
+            <span class="i">$json</span> =~ <span class="q">s/\,\s*$//</span>
               <span class="sc">;</span>    <span class="c"># snip off the last comma in the record, ugly but simple...</span>
             <span class="i">$json</span> .= <span class="q">&quot;},\n&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
         <span class="i">$json</span> =~
-          <span class="q">s/\,$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
+          <span class="q">s/\,\s*$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">for</span> <span class="k">my</span> <span class="i">$id</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
 
+            <span class="c"># remove tags, mainly &lt;br&gt;</span>
+            <span class="i">$hash_ref</span>-&gt;{<span class="i">$id</span>} =~ <span class="q">s/&lt;[^&gt;]+&gt;/ /g</span> <span class="sc">;</span>
+            <span class="i">$hash_ref</span>-&gt;{<span class="i">$id</span>} =~ <span class="q">s/[^\w^\s]+/ /g</span> <span class="sc">;</span>
             <span class="c"># misteak corrected 20.05.2011, was $id, for the value as well</span>
             <span class="i">$json</span> .= <span class="q">&quot;\n{\&quot;$id\&quot;: \&quot;$hash_ref-&gt;{$id}\&quot;,\n &quot;</span><span class="sc">;</span>
-            <span class="i">$json</span> =~ <span class="q">s/\,$//</span>
+            
+            <span class="i">$json</span> =~ <span class="q">s/\,\s*$//</span>
               <span class="sc">;</span>      <span class="c"># snip off the last comma in the record, ugly but simple...</span>
             <span class="i">$json</span> .= <span class="q">&quot;},\n&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
-
+       <span class="i">$json</span> =~
+          <span class="q">s/\,\s*$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
     <span class="s">}</span>
 
     <span class="i">$json</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
@@ -930,7 +936,8 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
 <span class="h">EOT</span>
 
     <span class="c">###$log-&gt;debug(&quot;json is: $json&quot;) ;</span>
-
+    
+    <span class="c">###print &quot;json is $json\n&quot; ;</span>
     <span class="c">###return ( 0, &quot;&quot;, $error, $html, $template, &quot;&quot; );</span>
     <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
 
@@ -949,9 +956,6 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
     <span class="k">return</span> <span class="i">$timestamp</span><span class="sc">;</span>
 <span class="s">}</span>
 
-
-
-
 </pre><p></p>
 <h3><a name="decide_language">decide_language</a></h3>
 <p>Now we're going multilingual need to deal with this in a non-hardcoded fashion
@@ -961,27 +965,27 @@ This decides the language:
 3. base cclite.cf language if not 1 and 2, because single country based, usually
 4. engleesh if not 1,2,3</p>
 <pre>
-
 <a name="decide_language-"></a><span class="k">sub </span><span class="m">decide_language</span> <span class="s">{</span>
 
-<span class="k">my</span> <span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
-<span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span>  <span class="sc">;</span>
-<span class="c">#</span>
-<span class="c">#---------------------------------------------------------------------------</span>
-<span class="c"># change the language default here, languages should be ISO 639 lower case</span>
-<span class="c">#</span>
-<span class="k">my</span> <span class="i">$language</span> =
-     <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
-  || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
-  || <span class="i">$configuration</span>{<span class="q">&#39;language&#39;</span>}
-  || <span class="q">&#39;en&#39;</span> <span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span>   = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$cookieref</span>     = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c">#</span>
+    <span class="c">#---------------------------------------------------------------------------</span>
+    <span class="c"># change the language default here, languages should be ISO 639 lower case</span>
+    <span class="c">#</span>
+    <span class="k">my</span> <span class="i">$language</span> =
+         <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
+      || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
+      || <span class="i">$configuration</span>{<span class="q">&#39;language&#39;</span>}
+      || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
 
     <span class="c">#FIXME: remove garbage at end of cookie, probably OK 08/2011&quot;en&quot;</span>
-    <span class="i">$language</span> =~ <span class="q">s/[^\w]+$//</span> <span class="sc">;</span>
+    <span class="i">$language</span> =~ <span class="q">s/[^\w]+$//</span><span class="sc">;</span>
 
-
-<span class="k">return</span> <span class="i">$language</span> <span class="sc">;</span>
+    <span class="k">return</span> <span class="i">$language</span><span class="sc">;</span>
 
 <span class="s">}</span>
 

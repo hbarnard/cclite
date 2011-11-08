@@ -184,6 +184,7 @@ to change these, just substitute a translated hash</p>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>       <span class="c"># new style configuration</span>
 
 <span class="k">use</span> <span class="w">Ccadmin</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccchecker</span> <span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
@@ -195,11 +196,11 @@ to change these, just substitute a translated hash</p>
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$configref</span>     = \<span class="i">%configuration</span><span class="sc">;</span>
 
-<span class="c"># message language now decided by decide_language 08/2011 </span>
+<span class="c"># message language now decided by decide_language 08/2011</span>
 <span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="k">my</span> <span class="i">%fields</span>        = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$offset</span>        = <span class="i">$fields</span>{<span class="w">offset</span>}<span class="sc">;</span>
+<span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$offset</span> = <span class="i">$fields</span>{<span class="w">offset</span>}<span class="sc">;</span>
 
 <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccadmin&quot;</span><span class="s">)</span><span class="sc">;</span>
@@ -249,8 +250,7 @@ to change these, just substitute a translated hash</p>
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c"># change the language default here, languages should be ISO 639 lower case</span>
 <span class="c">#</span>
-<span class="k">my</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span> <span class="sc">;</span>
-
+<span class="k">my</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$pagename</span> = <span class="i">$fields</span>{<span class="w">name</span>} || <span class="q">&quot;front.html&quot;</span><span class="sc">;</span>    <span class="c"># default is the index page</span>
 
@@ -259,7 +259,8 @@ to change these, just substitute a translated hash</p>
 <span class="k">my</span> <span class="i">$db</span>     = <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>} || <span class="i">$fields</span>{<span class="w">registry</span>}<span class="sc">;</span>
 
 <span class="c"># A template object referencing a particular directory</span>
-<span class="k">my</span> <span class="i">$pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;../../templates/html/$language/admin&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$template_path</span> = <span class="q">&quot;../../templates/html/$language/admin&quot;</span> <span class="sc">;</span>
+<span class="k">my</span> <span class="i">$pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="i">$template_path</span><span class="s">)</span> <span class="sc">;</span>
 <span class="k">my</span> <span class="i">$user_pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;../../templates/html/$language&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># FIXME:</span>
@@ -285,13 +286,15 @@ to change these, just substitute a translated hash</p>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>
 
-<span class="c"># grumble about installer etc.</span>
-<span class="i">$fields</span>{<span class="w">errors</span>} = <span class="i">install_grumble</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="w">librarypath</span>} <span class="s">)</span><span class="sc">;</span>
-
 <span class="c"># just to give upper case display for admin menu</span>
 <span class="i">$fields</span>{<span class="w">registrytitle</span>} = <span class="q">&quot;\u$fieldsref-&gt;{name}&quot;</span><span class="sc">;</span>
 
 <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
+
+<span class="c"># grumble about installer etc.</span>
+ <span class="s">(</span><span class="k">my</span> <span class="i">$installer_present</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;errors&#39;</span>}<span class="s">)</span> = <span class="i">install_grumble</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+  <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;installer_link&#39;</span>} = <span class="i">get_installer_link</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span><span class="i">$installer_present</span><span class="s">)</span> <span class="sc">;</span>
+
 
 <span class="c"># display fields and status for all the batch file paths</span>
 <span class="k">my</span> <span class="s">(</span> <span class="i">$errors</span><span class="cm">,</span> <span class="i">$report_ref</span><span class="cm">,</span> <span class="i">$file_ref</span> <span class="s">)</span> =
@@ -380,6 +383,24 @@ to change these, just substitute a translated hash</p>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
+<span class="c"># shutdown for maintenance</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;offline&quot;</span> <span class="s">)</span>
+  &amp;&amp; <span class="s">(</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
+    <span class="i">go_offline</span><span class="s">(</span>
+        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span>
+    <span class="s">)</span>
+  <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># bring up after maintenance</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;online&quot;</span> <span class="s">)</span>
+  &amp;&amp; <span class="s">(</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
+    <span class="i">go_online</span><span class="s">(</span>
+        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span>
+    <span class="s">)</span>
+  <span class="s">)</span> <span class="sc">;</span>
+
 <span class="c"># add a registry partner either local or soap proxy</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;addpartner&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
@@ -437,6 +458,7 @@ to change these, just substitute a translated hash</p>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
+
 <span class="c"># build batch files for registry, used principally to fix problems and for cpanel</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;setbatchdirs&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="i">get_set_batch_files</span><span class="s">(</span> <span class="q">&#39;set&#39;</span><span class="cm">,</span> <span class="i">$configref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
@@ -461,7 +483,7 @@ to change these, just substitute a translated hash</p>
         <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>     <span class="i">$html</span><span class="cm">,</span>
         <span class="i">$pages</span><span class="cm">,</span>   <span class="i">$pagename</span><span class="cm">,</span>    <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span>
     <span class="s">)</span>
-    = <span class="i">change_language</span><span class="s">(</span><span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
+    = <span class="i">change_language</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># show balance and volume</span>

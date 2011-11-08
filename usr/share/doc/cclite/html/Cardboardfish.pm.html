@@ -167,8 +167,6 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 
 =cut</pre>
 <pre>
-
-
 <a name="package-Ccsms::Cardboardfish-"></a><span class="k">package </span><span class="i">Ccsms::Cardboardfish</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
@@ -210,9 +208,8 @@ to change these, just substitute a translated hash</p>
 
 <span class="c"># messages will now use decide_language to get language, in Ccu.pm 08/2011</span>
 <span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">%configuration</span>     = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">%sms_configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;../../config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
-
 
 <span class="c"># this is a little unnecessary, but can stay for a while</span>
 <span class="k">our</span> <span class="i">$registry</span>     = <span class="i">$sms_configuration</span>{<span class="q">&#39;registry&#39;</span>}<span class="sc">;</span>

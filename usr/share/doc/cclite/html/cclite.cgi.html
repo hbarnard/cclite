@@ -133,7 +133,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 </pre><pre>
 <span class="k">BEGIN</span> <span class="s">{</span>
 
-   <span class="c"># krystal hosting only stuff</span>
+    <span class="c"># krystal hosting only stuff</span>
     <span class="k">my</span> <span class="i">$base_module_dir</span> = <span class="s">(</span>
         <span class="k">-d</span> <span class="q">&#39;/home/ccliekh/perl&#39;</span>
         ? <span class="q">&#39;/home/ccliekh/perl&#39;</span>
@@ -173,7 +173,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="i">$templatename</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># for the moment</span>
 
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-
 
 <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&#39;cclite&#39;</span><span class="s">)</span><span class="sc">;</span>
@@ -220,7 +219,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c"># change the language default here, languages should be ISO 639 lower case</span>
 <span class="c">#</span>
-<span class="k">my</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span> <span class="sc">;</span>
+<span class="k">my</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">###print &quot;language = $language\n&quot; ;</span>
 
@@ -345,7 +344,17 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c"># note that widgets can&#39;t have cookies...at least in Opera 12/2009</span>
 <span class="c">#FIXME: this is becoming a disgrace, move to a gatekeeper function in Ccsecurity.pm</span>
 <span class="k">my</span> <span class="i">%allowed_actions</span> =
-  <span class="q">qw(logon yes forgotpassword yes os_commerce_pay yes confirmuser yes adduser yes requesttoken yes accesstoken yes lang yes)</span><span class="sc">;</span>
+  <span class="q">qw(logon yes</span>
+     <span class="q">forgotpassword yes </span>
+     <span class="q">os_commerce_pay yes </span>
+     <span class="q">confirmuser yes </span>
+     <span class="q">adduser yes </span>
+     <span class="q">requesttoken yes </span>
+     <span class="q">accesstoken yes </span>
+     <span class="q">lang yes </span>
+     <span class="q">readmessages yes</span>
+     <span class="q">getstats yes)</span>
+     <span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span>
        <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
@@ -361,7 +370,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="s">{</span>
 
     <span class="c"># grumble about installer and security problems etc.</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;errors&#39;</span>} = <span class="i">install_grumble</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="w">templates</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span><span class="k">my</span> <span class="i">$installer_present</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;errors&#39;</span>}<span class="s">)</span> = <span class="i">install_grumble</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="i">display_template</span><span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="q">&quot;logon.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span><span class="cm">,</span>
         <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
@@ -420,6 +429,24 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <span class="s">}</span>
     <span class="s">}</span>
 <span class="s">}</span>
+
+
+<span class="c"># get registry status to see whether closing</span>
+<span class="k">my</span> <span class="i">$registry_status</span> = <span class="i">get_registry_status</span><span class="s">(</span><span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_private_value</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span><span class="s">)</span> <span class="sc">;</span> 
+
+<span class="k">if</span> <span class="s">(</span><span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;down&#39;</span><span class="s">)</span> <span class="s">{</span>
+	<span class="c"># display an action result, all actions are consumed</span>
+
+<span class="i">display_template</span><span class="s">(</span>
+    <span class="i">$refresh</span><span class="cm">,</span>  <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>   <span class="i">$html</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
+    <span class="q">&#39;down.html&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>   <span class="i">$cookies</span><span class="cm">,</span> <span class="i">$token</span>
+<span class="s">)</span><span class="sc">;</span> 
+
+<span class="k">exit</span> <span class="n">0</span> <span class="sc">;</span>
+<span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span><span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;closing&#39;</span><span class="s">)</span> <span class="s">{</span>
+ <span class="i">$fieldsref</span>-&gt;{<span class="w">status_message</span>} = <span class="q">&#39;Closing Down Soon: Please logoff&#39;</span> <span class="sc">;</span>		
+<span class="s">}</span>
+
 
 <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 
@@ -500,7 +527,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c">#         = delete_trade(&#39;local&#39;,$db,&#39;om_trades&#39;,$fieldsref,   $pages,$token)) ;</span>
 <span class="c"># this is now replaced by canceltrade, which modifies tradeStatus to cancelled</span>
 
-<span class="c"># this mainly only modifies the status field</span>
+<span class="c"># these actions only modify the status field</span>
 <span class="c"># other parts of the trade should always remain integral</span>
 <span class="c"># actually the hash should change at this point?!</span>
 
@@ -515,6 +542,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;canceltrade&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">modify_trade</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+
 
 <span class="c"># show my yellow pages entries</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showmyyellow&#39;</span> <span class="s">)</span>
@@ -668,8 +697,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
         <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>     <span class="i">$html</span><span class="cm">,</span>
         <span class="i">$pages</span><span class="cm">,</span>   <span class="i">$pagename</span><span class="cm">,</span>    <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span>
     <span class="s">)</span>
-    = <span class="i">change_language</span><span class="s">(</span><span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>
-        <span class="i">$configuration</span>{<span class="w">templates</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span>
+    = <span class="i">change_language</span><span class="s">(</span>
+        <span class="q">&#39;local&#39;</span><span class="cm">,</span>    <span class="i">$db</span><span class="cm">,</span>        <span class="i">$configuration</span>{<span class="w">templates</span>}<span class="cm">,</span>
+        <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
@@ -678,8 +708,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">show_tag_cloud</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-
-<span class="c"># beginning of oauth </span>
+<span class="c"># beginning of oauth</span>
 
 <span class="c"># get requestoken for remote oauth users</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;requesttoken&#39;</span> <span class="s">)</span>
@@ -691,9 +720,27 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">do_oauth</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
+<span class="c"># get messages and deliver as json for ajax: insecure but is this a problem?</span>
+<span class="k">if</span>  <span class="s">(</span><span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;readmessages&#39;</span> <span class="s">)</span> <span class="s">{</span>
+   <span class="k">my</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span>
+   <span class="i">$messages</span>{<span class="q">&#39;message&#39;</span>} = <span class="q">&#39;ok&#39;</span> <span class="sc">;</span>
+   <span class="c"># json is delivered current as &#39;abuse&#39; of refresh field in display_template</span>
+   <span class="i">$refresh</span>             = <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;none&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> \<span class="i">%messages</span><span class="cm">,</span><span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+   <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} = <span class="q">&#39;json&#39;</span> <span class="sc">;</span>
+   
+ <span class="s">}</span>   
+ 
+ 
+ <span class="c"># get messages and deliver as json for ajax: insecure but is this a problem?</span>
+<span class="k">if</span>  <span class="s">(</span><span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;getstats&#39;</span> <span class="s">)</span> <span class="s">{</span>
+   <span class="c"># json is delivered current as &#39;abuse&#39; of refresh field in display_template</span>
+<span class="s">(</span> <span class="i">$refresh</span> <span class="s">)</span> =
+    <span class="i">get_stats</span><span class="s">(</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;hours_back&#39;</span>}<span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;type&#39;</span>}<span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="s">)</span> <span class="s">)</span> <span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} = <span class="q">&#39;json&#39;</span> <span class="sc">;</span>  
+ <span class="s">}</span> 
 
 <span class="c"># only get news if there&#39;s a defined registry containing it 08/2011</span>
-<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;news&#39;</span>} = <span class="i">get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span><span class="s">)</span> <span class="sc">;</span>
+<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;news&#39;</span>} = <span class="i">get_news</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#FIXME: Probably only to be done when logged on?</span>
 <span class="c"># but nice to show a few &#39;public&#39; listings....</span>

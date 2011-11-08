@@ -47,6 +47,10 @@ pre { color: #000000;
 
 <ul>
 
+	<li><a href="#graph_pl">graph.pl</a></li>
+	<li><a href="#synopsis">SYNOPSIS</a></li>
+	<li><a href="#description">DESCRIPTION</a></li>
+	<li><a href="#copyright">COPYRIGHT</a></li>
 	<ul>
 
 		<ul>
@@ -77,24 +81,6 @@ pre { color: #000000;
 
 <pre>#!/usr/bin/perl 
 
-<span class="c">#---------------------------------------------------------------------------</span>
-<span class="c">#THE cclite SOFTWARE IS PROVIDED TO YOU &quot;AS IS,&quot; AND WE MAKE NO EXPRESS</span>
-<span class="c">#OR IMPLIED WARRANTIES WHATSOEVER WITH RESPECT TO ITS FUNCTIONALITY,</span>
-<span class="c">#OPERABILITY, OR USE, INCLUDING, WITHOUT LIMITATION,</span>
-<span class="c">#ANY IMPLIED WARRANTIES OF MERCHANTABILITY,</span>
-<span class="c">#FITNESS FOR A PARTICULAR PURPOSE, OR INFRINGEMENT.</span>
-<span class="c">#WE EXPRESSLY DISCLAIM ANY LIABILITY WHATSOEVER FOR ANY DIRECT,</span>
-<span class="c">#INDIRECT, CONSEQUENTIAL, INCIDENTAL OR SPECIAL DAMAGES,</span>
-<span class="c">#INCLUDING, WITHOUT LIMITATION, LOST REVENUES, LOST PROFITS,</span>
-<span class="c">#LOSSES RESULTING FROM BUSINESS INTERRUPTION OR LOSS OF DATA,</span>
-<span class="c">#REGARDLESS OF THE FORM OF ACTION OR LEGAL THEORY UNDER</span>
-<span class="c">#WHICH THE LIABILITY MAY BE ASSERTED,</span>
-<span class="c">#EVEN IF ADVISED OF THE POSSIBILITY OR LIKELIHOOD OF SUCH DAMAGES.</span>
-<span class="c">#---------------------------------------------------------------------------</span>
-<span class="c">#</span>
-<span class="c"># these batch scripts are kept as eval, if they fail they print their problems</span>
-<span class="c"># onto the status web page</span>
-
 <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
 <span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
@@ -105,8 +91,48 @@ pre { color: #000000;
 <a name="__END__-"></a><span class="k">__END__</span>
 
 
-
 </pre><p></p>
+<hr />
+<h1><a name="graph_pl">graph.pl</a></h1>
+<p>Simple graphing for cclite</p>
+<p>---------------------------------------------------------------------------
+THE cclite SOFTWARE IS PROVIDED TO YOU &quot;AS IS,&quot; AND WE MAKE NO EXPRESS
+OR IMPLIED WARRANTIES WHATSOEVER WITH RESPECT TO ITS FUNCTIONALITY,
+OPERABILITY, OR USE, INCLUDING, WITHOUT LIMITATION,
+ANY IMPLIED WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, OR INFRINGEMENT.
+WE EXPRESSLY DISCLAIM ANY LIABILITY WHATSOEVER FOR ANY DIRECT,
+INDIRECT, CONSEQUENTIAL, INCIDENTAL OR SPECIAL DAMAGES,
+INCLUDING, WITHOUT LIMITATION, LOST REVENUES, LOST PROFITS,
+LOSSES RESULTING FROM BUSINESS INTERRUPTION OR LOSS OF DATA,
+REGARDLESS OF THE FORM OF ACTION OR LEGAL THEORY UNDER
+WHICH THE LIABILITY MAY BE ASSERTED,
+EVEN IF ADVISED OF THE POSSIBILITY OR LIKELIHOOD OF SUCH DAMAGES.
+---------------------------------------------------------------------------</p>
+<p>these batch scripts are kept as eval &lt;whole-of-script&gt;, if they fail they print their problems
+onto the status web page</p>
+<p>
+</p>
+<hr />
+<h1><a name="synopsis">SYNOPSIS</a></h1>
+<p>
+</p>
+<hr />
+<h1><a name="description">DESCRIPTION</a></h1>
+<p>This is a simple graph of transaction size an volumes for a given
+registry, it is run as a time job within the admin menu</p>
+<p>
+</p>
+<hr />
+<h1><a name="copyright">COPYRIGHT</a></h1>
+<p>Copyright 2005 -2011 Hugh Barnard.</p>
+<p>Permission is granted to copy, distribute and/or modify this 
+document under the terms of the GNU Free Documentation 
+License, Version 1.2 or any later version published by the 
+Free Software Foundation; with no Invariant Sections, with 
+no Front-Cover Texts, and with no Back-Cover Texts.</p>
+<p>
+</p>
 <h3><a name="get_volumes">get_volumes</a></h3>
 <p>Get trade volumes and deliver to make a GD Graph chart
 This probably also gets delivered into cut down temporary
@@ -122,19 +148,22 @@ tradeStamp(6,2) is month</p>
 <span class="q">    my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;</span>
 <span class="q">    my @times;</span>
 <span class="q">    my @volumes;</span>
+<span class="q">    my $sql_string ;</span>
 <span class="q">    my $movement = 0 ; # flag that indicates whether there is a volume for this period</span>
 <span class="q">    my $seconds = $from_x_hours_back * 60 * 60 ;</span>
 <span class="q">    my %types = (&#39;minutes&#39;,&#39;15,2&#39;,&#39;hours&#39;,&#39;12,2&#39;,&#39;days&#39;,&#39;9,2&#39;,&#39;month&#39;,&#39;6,2&#39; )  ;</span>
 <span class="q">    my $slice = $types{$type} ;</span>
-<span class="q">    my $sqlstring = &lt;&lt;EOT;</span>
+    
+<span class="q">    my $sql_string = &lt;&lt;EOT;</span>
 <span class="q">SELECT substr(tradeStamp,12,5), count(*) FROM om_trades o  </span>
 <span class="q">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
 <span class="q">   group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;</span>
 <span class="q">EOT</span>
 
+
 <span class="q">    my $max_quantity = undef;    # used to scale the graph</span>
 <span class="q">    my ( $registry_error, $array_ref ) =</span>
-<span class="q">      sqlraw_return_array( $class, $db, $sqlstring, undef, $token );</span>
+<span class="q">      sqlraw_return_array( $class, $db, $sql_string, undef, $token );</span>
 
 <span class="q">    foreach my $row (@$array_ref)  {</span>
 <span class="q">      # this is because there is a debit and credit for each movement, so that the system balances</span>
@@ -162,25 +191,39 @@ tables too...</p>
 tradeStamp(12,2) is hours
 tradeStamp(9,2) is days
 tradeStamp(6,2) is month</p>
+<p>Modified 08/2011 to deal with usedecimals...</p>
 <pre>
+
 <span class="q">sub get_average_transaction_size {</span>
 
 <span class="q">    my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;</span>
 <span class="q">    my @times;</span>
 <span class="q">    my @averages;</span>
+<span class="q">    my $sql_string ;</span>
 <span class="q">    my $movement = 0 ; # indicate whether there are any values for the period</span>
 <span class="q">    my $seconds = $from_x_hours_back * 60 * 60 ;</span>
 <span class="q">    my %types = (&#39;minutes&#39;,&#39;15,2&#39;,&#39;hours&#39;,&#39;12,2&#39;,&#39;days&#39;,&#39;9,2&#39;,&#39;month&#39;,&#39;6,2&#39; )  ;</span>
 <span class="q">    my $slice = $types{$type} ;</span>
-<span class="q">    my $sqlstring = &lt;&lt;EOT;</span>
+
+   
+<span class="q">    if ($configuration{&#39;usedecimals&#39;} eq &#39;yes&#39;) {</span>
+<span class="q">    $sql_string = &lt;&lt;EOT;</span>
+<span class="q">SELECT substr(tradeStamp,12,5), avg(tradeAmount)/100 FROM om_trades o  </span>
+<span class="q">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
+<span class="q">   group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;</span>
+<span class="q">EOT</span>
+<span class="q">    } else {</span>
+<span class="q">  $sql_string = &lt;&lt;EOT;    </span>
 <span class="q">SELECT substr(tradeStamp,12,5), avg(tradeAmount) FROM om_trades o  </span>
 <span class="q">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
 <span class="q">   group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;</span>
 <span class="q">EOT</span>
+         
+<span class="q">    }  </span>
 
 <span class="q">    my $max_quantity = undef;    # used to scale the graph</span>
 <span class="q">    my ( $registry_error, $array_ref ) =</span>
-<span class="q">      sqlraw_return_array( $class, $db, $sqlstring, undef, $token );</span>
+<span class="q">      sqlraw_return_array( $class, $db, $sql_string, undef, $token );</span>
 
 <span class="q">    foreach my $row (@$array_ref)  {</span>
 <span class="q">      $max_quantity = $$row[1]</span>
@@ -251,14 +294,14 @@ really ugly...</p>
 <span class="q">  my $timestamp = sql_timestamp() ;</span>
 <span class="q">  my $graph ;</span>
 <span class="q">  my $title = &quot;Last updated at $timestamp&quot; ;</span>
+<span class="q">  print &quot;format is $format &quot; ;</span>
 <span class="q">  if ($format eq &#39;sparklines&#39;) {</span>
 <span class="q">   $title = &quot;&quot; ;</span>
 <span class="q">   $graph = new GD::Graph::sparklines(300,180);</span>
 <span class="q">  } else {</span>
 <span class="q">   $graph = new GD::Graph::lines(300,180);</span>
 <span class="q">  }</span>
-<span class="q">   $graph = new GD::Graph::sparklines(300,180);</span>
-<span class="q">  ####my $graph = new GD::Graph::bars(400,240);</span>
+
 <span class="q"> $graph-&gt;set( </span>
 <span class="q">#	x_label =&gt; $xlabel,</span>
 <span class="q">	y_label =&gt; $ylabel,</span>
@@ -312,14 +355,19 @@ happening. A little crude at present</p>
    
 <span class="q">}</span>
 
-
+<span class="q">#=============================================================================================</span>
 <span class="q"># Main part of script....</span>
+<span class="q">#=============================================================================================</span>
+
+
+<span class="q">use strict ;</span>
 
 <span class="q">my %configuration;</span>
 
 <span class="q">use lib &#39;../../../lib&#39;;</span>
 
 <span class="q">use Log::Log4perl;</span>
+<span class="q">use Test::More qw(no_plan) ;</span>
 
 <span class="q">use Ccadmin ;</span>
 <span class="q">use Cccookie ;</span>
@@ -330,19 +378,21 @@ happening. A little crude at present</p>
 <span class="q">use GD ;</span>
 <span class="q">use Cclitedb;</span>
 
-<span class="q">my $format = &#39;sparklines&#39; ;</span>
-<span class="q">eval {</span>
-<span class="q">   use GD::Graph::sparklines;</span>
-<span class="q">} ;</span>
-<span class="q"># no sparklines...</span>
-<span class="q">if(@$) {</span>
+<span class="q">my $format ;</span>
+<span class="q">my $ok ;</span>
+
+<span class="q">if ($ok = sprint(use_ok(&#39;GD::Graph::sparklines&#39;)) ) {</span>
+<span class="q">  my $format = &#39;sparklines&#39; ;</span>
+<span class="q">} else {</span>
 <span class="q">   $format = &#39;lines&#39; ;</span>
 <span class="q">   use GD::Graph::lines;</span>
 <span class="q">}</span>
 
+<span class="q">print &quot;error: @$ $format&quot; ;</span>
+
 <span class="q">use GD::Text;</span>
 
-<span class="q">%configuration = readconfiguration();</span>
+<span class="q">our %configuration = readconfiguration();</span>
 
 <span class="q">Log::Log4perl-&gt;init($configuration{&#39;loggerconfig&#39;});</span>
 <span class="q">our $log = Log::Log4perl-&gt;get_logger(&quot;graph&quot;);</span>
