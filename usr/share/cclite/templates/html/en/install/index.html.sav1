@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 
-	<title>Cclite $$fieldsref{version} Administrator</title>
+	<title>Cclite $$fieldsref{version} Installer</title>
 
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<meta name="description" content="cclite community currency system" />
@@ -20,29 +20,28 @@ $$fieldsref{metarefresh}
 
 	<!-- javascript libraries, need to subsitute compressed versions -->
 	<!-- jquery items -->
-	<script src="/javascript/jquery-1.3.2.js"></script>
-	<script src="/javascript/jquery-validation-1.5.5.js"></script>
-	<script src="/javascript/jquery-cookies.js"></script>
+	<script type='text/javascript' src="/javascript/jquery-1.3.2.js"></script>
+	<script type='text/javascript' src="/javascript/jquery-validation-1.5.5.js"></script>
+	<script type='text/javascript' src="/javascript/jquery-cookies.js"></script>
 	<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
 	<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
 	<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>
 	<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
+    <script type='text/javascript' src='/javascript/jquery-regex.js'></script>
 
 	<!-- others non jquery -->
 	<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
-	<script src="/javascript/jquery-tagsuggest.js"></script>
-	<script src="/javascript/json_parse.js" type="text/javascript"></script>
-    <script type='text/javascript' src='/javascript/ajax.upload.js'></script>
+	<script type='text/javascript' src="/javascript/jquery-tagsuggest.js"></script>
+	<script type='text/javascript' src="/javascript/json_parse.js"></script>
        
-        <!-- graphing -->
-        <script  src="/javascript/raphael.js" type="text/javascript" ></script>
-        <script  src="/javascript/ico.js" type="text/javascript" ></script>
-
-
+    <!-- graphing -->
+    <script  src="/javascript/raphael.js" type="text/javascript" ></script>
+    <script  src="/javascript/ico.js" type="text/javascript" ></script>
+    
 	<!-- specific, is cookies necessary now? -->
-	<script src="/javascript/cookies.js" type="text/javascript"></script>
-	<script src="/javascript/striper.js" type="text/javascript"></script>
-	<script src="/javascript/cclite.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/javascript/cookies.js" ></script>
+	<script type="text/javascript" src="/javascript/striper.js" ></script>
+	<script type="text/javascript" src="/javascript/cclite.js" ></script>
 
 	<!-- all forms have the same name 'form', avoids complexity here -->
 
@@ -61,13 +60,13 @@ $$fieldsref{metarefresh}
 
         <!-- this switch turns on/off the decimal point stuff -->
         <div id="usedecimals" class="hidden">$$fieldsref{usedecimals}</div>
+
         
-<div class="topbar">
-    
-	<a title="Home" href="/cgi-bin/cclite.cgi"><span class="titletext">Cclite</span></a>
+  <div id="logo">
+		<a style="text-decoration: none;" title="Home" href="/cgi-bin/cclite.cgi"><span class="titletext">Cclite</span></a>
 
  
-<!-- search for users,trades, ads -->
+     <!-- search for users,trades, ads -->
         
        <div class="adsearch">
 		<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
@@ -81,8 +80,8 @@ $$fieldsref{metarefresh}
 	        <input value="Go" class="small" type="submit" title="Look for trades, ads or users">								
 		</form>
 	  </div>
-
-<!-- end of autocomplete search box -->
+  
+       <!-- end of autocomplete search box -->
        
 			<!-- language selector version 1  -->
 				<select id="language_value" class="small" onchange="change_language(this);" name="language">
@@ -96,89 +95,86 @@ $$fieldsref{metarefresh}
 					<option value='it'>Italiano</option>
 					<option value='el'>Greek</option>
 					<option value='ja'>Japanese</option>
-					<option value='ko'>Korean</option>
 					<option value='pt'>Portugese</option>
-					<option value='ro'>Romanian</option>
-					<option value='ru'>Russian</option>
 					<option value='th'>Thai</option>
-					<option value='vi'>Vietnamese</option>
 				</select>
 			<!--  language selector version 1 end  -->
 
    <span id="logoninfo">$$fieldsref{youare} $$fieldsref{atregistry}
       <span ><a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
              <span id="logoff"></span></a></span></span>	
-</div> <!-- end of logo -->
-
-  
-
-
+   </div> <!-- end of logo -->   
+   
 <!--- this bit needs replacing by the specific admin and install menus --> 
 
-<div class="topbar">	
-<a class="bodytext" href="/cgi-bin/cclite.cgi">User Menu</a> 
-<a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">Change Status of $$fieldsref{registry}</a>
-<a class="bodytext" title="Show Linked Partner Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Partners</a>
-<a class="bodytext" title="Create a New Currency" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Create Currency</a>
-<a class="bodytext" title="Show Currencies in " href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Show Currencies</a>
-<a class="bodytext"title="Create New Ad Category" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Create Ad Category</a>
-$$fieldsref{installer_link}
+		<div id="topbar">
+<a title="Google group for support" href="http://groups.google.co.uk/group/cclite?hl=en">Want Help?</a> 
+<a title="Admin Menu" href="/cgi-bin/protected/ccadmin.cgi">Admin Menu</a>
+<a title="User Menu" href="/cgi-bin/cclite.cgi">User Menu</a>
 
-</div> <!-- end of topbar -->
+
 		
-<div class="topbar" >
-    
-    
+    <div id="menu" >
 	
-<a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Registry Balances</a>
-<a title="Create Rule or Credit Limit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Credit Limit</a>
 
-<a title="Create Remote or Local Registry Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Create Registry Partner</a>
-<a title="Apply Service Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply Service Charge</a>
-<a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">Create Batch Dirs</a>
-<a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">Modify $$fieldsref{registry}</a>
+<a id="updateconfig" title="Update conifguration stored in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">Update Configuration</a>
+<a id="newregistry" title="Create New Registry" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">Create New Registry</a>
+<a id="showregistry" title="Show Current Cclite Registries" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">Show Registries</a>
+<a id="installcheck" title="Run the Install Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">Check Install Requirements</a>
+
 	
   
 <!-- end of menu bit that needs replacing for admin and install -->	   
-                               
+                              
+ 	</div> <!--  end of menu -->
  
-</div> <!-- end of menu -->		
- 
-	
+</div> <!-- end of topbar -->
 
-<div class="content" align="center">
+
+<div id="content" align="center">
 	
 			
-<div class="contentleft">
-
-<div>   				
-!$$fieldsref{pagename}
-</div>
-    
-
-</div> <!-- end of contentleft: left hand side-->
-
-<div class="contentright" >
- 
-<span class="news">$$fieldsref{latest_news}</span>	<br/>			
- 
- $$fieldsref{righthandside}
- 
- <div class="panel" >
-	
-   
- </div> <!-- end of panel -->		
- 
-</div> <!-- end of righthandcontent --> 
+  <div id="contenttext">
   
-</div> <!-- end of content -->
+    <div class="bodytext" style="padding:12px;" align="left">
+				
+!$$fieldsref{pagename}
+
+    </div> <!-- end of bodytext -->
+
+    <div class="panel" >
+		
+
+   
+   </div> <!-- end of panel -->		
+ 
+
+
+ </div> <!-- end of contenttext: left hand side-->
+
+ <div id="contentright" >
+<div id="news" ><span class="news">$$fieldsref{latest_news}</span>  </div>	<br/>			
+<ul>    
+<li class="system">operating system is $$fieldsref{os}</li>
+<li class="system">package type is $$fieldsref{package_type}</li> 
+<li class="system">distribution is $$fieldsref{distribution}</li>	
+</ul>
+<hr/>
+$$fieldsref{diagnosis}
+
+
+
+
+<div class="panel" >
+</div> <!-- end of panel -->		
+ 
+</div> <!-- end of righthand --> 
+  
                 
 		<div id="footer" style="float:bottom" class="smallgraytext" align="center">
 			<a href="/cgi-bin/cclite.cgi">Home</a> | <a href="#">Contact Us</a><br />
 			Cclite &copy; Hugh Barnard 2003-2011
 		</div>
-		
-	
-	
+	</div>
 </body>
 </html>

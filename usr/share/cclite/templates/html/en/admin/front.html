@@ -32,7 +32,7 @@ Upload/process Batch Transactions
 <tr>
 
 <td>
-   <select onchange="on_select_change('stats');" id="stats_value" >
+   <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 	<option value="0"> Stop Stats</option>
 	<option value="5">Every 5min</option>
 	<option value="10">Every 10min</option>
@@ -45,7 +45,7 @@ Upload/process Batch Transactions
 
 
 <td>
-    <select onchange="on_select_change('mail');" id="mail_value" >
+    <select class="small"  onchange="on_select_change('mail');" id="mail_value" >
 	<option value="0"> Stop Mail</option>
 	<option value="5">Every 5min</option>
 	<option value="10">Every 10min</option>
@@ -69,7 +69,7 @@ Upload/process Batch Transactions
 
 
 <td>
-    <select onchange="on_select_change('rss');" id="rss_value" >
+    <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
 	<option value="0"> Stop Rss</option>
 	<option value="5">Every 5min</option>
 	<option value="10">Every 10min</option>
@@ -81,7 +81,7 @@ Upload/process Batch Transactions
 
 
 <td>
-    <select onchange="on_select_change('gammu');" id="gammu_value" >
+    <select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
 	<option value="0"> Stop SMS</option>
 	<option value="5">Every 5min</option>
 	<option value="10">Every 10min</option>
@@ -90,7 +90,7 @@ Upload/process Batch Transactions
   </td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="Upload Batch Transactions"> 	
+<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button" value="Get Batch CSV File"> 	
 </td>
 
 </tr>
@@ -131,5 +131,19 @@ Upload/process Batch Transactions
 <div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
 <br/>
 
-<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
-<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
+        
+<div id="stats_summary">This is the average transaction size <span id="average_sparkline" class="sparkline"></span> and this <span id="volumes_sparkbar" class="sparkbar"></span> is the average volume.</div>
+
+<table> 
+ <tr>
+  <td>
+   <h4><span id="transaction_vol_title"></span> <span id="update_date1"></span> </h4>
+    <div id="volumes_bargraph" class="linegraph"></div>
+  </td>
+  <td>
+   <h4><span id="averages_title"></span> <span id="update_date2"></span> </h4>
+   <div id="average_bargraph" class="linegraph"></div>
+  </td>
+ </tr>
+</table>
+

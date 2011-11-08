@@ -1,33 +1,44 @@
 <div class="failedcheck"> $$fieldsref{updatemessage}</div>
-<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
+
+
 <table><tbody class="stripy">
 <form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
-<select name="install_type" id="install_type" onchange="change_install();">
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
 <option selected value="simple">Simple</option>
 <option value="full">All Options</option>
 </select>
-<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> Registry">
-<input name="action" value="updateconfig2" type="hidden">
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="Update Configuration" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
 <tr><td title="this is the db user for mysql" class="menu">dbuser</td><td class="pme-key-1">
-    <input id="dbuser" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+    <input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
 </td></tr>
 <tr><td title="this is the db password for mysql" class="menu">dbpassword</td><td class="pme-key-1">
-    <input id="dbpassword" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+    <input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
 
 </td></tr>
 
 <tr><td title="experimental cpanel prefix, use with care, uusally cpanel user name" class="menu">cpanel prefix</td><td class="pme-key-1">
-    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+    <input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
 </td></tr>
 
 <tr><td title="decimal point display for currencies" class="menu">use decimals</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+    <input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
 </td></tr>
 
 <tr><td title="use free form tags for yellow pages instead of fixed categories" class="menu">use tags</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
-</td></tr>
+    <input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+
+
+ 
+ 
+ 
+ </td></tr>
 
 
 <tr><td title="this is the domain as deduced from the script path, needs to be correct for cookies to work" class="menu">domain</td><td class="pme-key-1">
@@ -185,8 +196,8 @@
 </td></tr>
  <tr class="pme-navigation">
               <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Update" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset">
+ name="saveadd" data-simple="yes" value="Update" type="submit">&nbsp;<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Clear" type="reset">
  </td>
             </tr>
 </tbody></table>

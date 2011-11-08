@@ -1,76 +1,43 @@
 <div class="errors">$$fieldsref{errors}</div>
       <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
-<input name="action" value="logon" type="hidden"> 
-<input name="subaction" value="om_users" type="hidden">
-<input name="logontype" value="form" type="hidden">
+<input name="action" value="offline" type="hidden"> 
+<input name="offline" value="form" type="hidden">
         <table  class="pme-main" summary="om_users">
           <tbody class="stripy">
-            <tr>
+         <!--   <tr>
+            
               <td nowrap >Registry Name<br>
               </td>
               <td><input class="required" name="registry">
 
-<span class="pme-key-1"><!-- Use <i>dalston</i> for the test logins..see below!</span> -->
+
+              </td>
+            </tr>
+            <tr >  -->
+            
+              <td nowrap >Change Registry Status<br>
+              </td>
+              <td > 
+              <select value="action">
+               <option selected value="online">Online</option>
+               <option value="offline">Offline</option>             
+              </select>
               </td>
             </tr>
             <tr >
-              <td nowrap >Account Name<br>
-              </td>
-              <td > <input class="required"
- name="userLogin" autocomplete="off"
- size="50" maxlength="50" value="" type="text"></td>
-            </tr>
-            <tr >
-              <td ">Password</td>
+            <!-- may require this later
+              <td>Password</td>
               <td > <input class="required"
  name="userPassword" size="32" maxlength="32" value="" type="password">
-</td>
+</td> -->
             </tr>
             
         <tr >
-              <td > <input type="submit" value="Logon">&nbsp;<input 
+              <td > <input type="submit" value="Change Status">&nbsp;<input 
  name="cancel" value="Clear" type="reset">
  </form> </td><td></td>
             </tr>     
- <td colspan="2"><h3> Open Id Logon (experimental)</h3> </td>
-            </tr>
-          </tbody>
-        </table>
-      
-  
-       
-      
-       
-    
-      
-            
-        <span class="errors">$$fieldsref{openiderrors}</span>
-        <table >
-             <tr>
-              <td nowrap >Registry Name<br>
-              </td>
-            <!--  onfocus="$.cookie('registry1', null);" onblur="$.cookie('registry1', this.value);" -->
-              <td style="vertical-align: top;">
-                <form id="form" class="pme-form" method="POST" action="/cgi-bin/ccopenid.cgi">
-              <input class="required"  name="registry">
-
-<span class="pme-key-1"><!-- Use <i>dalston</i> for the test logins..see below!</span> -->
-              </td>
-            </tr>
-                  <tr >
-              <td>Open Id</td>
-              <td > <input class="required"
- name="identifier" size="50" maxlength="120" value="$$fieldsref{identifier}" type="text">
-</td>
-            </tr>
-        </table>
-    
-        <table >
-          <tbody>
-            <tr >
-              <td > <input type="submit" value="Logon">&nbsp;<input 
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
+ 
           </tbody>
         </table>
       </form>  

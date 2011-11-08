@@ -37,16 +37,19 @@ $$fieldsref{metarefresh}
         <script  src="/javascript/raphael.js" type="text/javascript" ></script>
         <script  src="/javascript/ico.js" type="text/javascript" ></script>
 
+
 	<!-- specific, is cookies necessary now? -->
 	<script src="/javascript/cookies.js" type="text/javascript"></script>
 	<script src="/javascript/striper.js" type="text/javascript"></script>
-	<script src="/javascript/cclite.js" type="text/javascript"></script>    
+	<script src="/javascript/cclite.js" type="text/javascript"></script>
 
-    <!-- this is the script that logs users out when the system is being brought down -->
-    <script type="text/javascript">
-     $$fieldsref{logout_script}
-    </script>
+	<!-- all forms have the same name 'form', avoids complexity here -->
+
     <style type="text/css" media="screen">
+
+
+
+
     </style>
 
 
@@ -54,13 +57,11 @@ $$fieldsref{metarefresh}
 
 <body>
 
-
+<div id="page" >
         <!-- this switch turns on/off the decimal point stuff -->
         <div id="usedecimals" class="hidden">$$fieldsref{usedecimals}</div>
-        
-<div class="topbar">
-    
-	<a title="Home" href="/cgi-bin/cclite.cgi"><span class="titletext">Cclite</span></a>
+<div id="logo">
+		<a style="text-decoration: none;" title="Home" href="/cgi-bin/cclite.cgi"><span class="titletext">Cclite</span></a>
 
  
 <!-- search for users,trades, ads -->
@@ -79,7 +80,6 @@ $$fieldsref{metarefresh}
 	  </div>
 
 <!-- end of autocomplete search box -->
-       <span id="status_message">$$fieldsref{status_message}</span>
        
 			<!-- language selector version 1  -->
 				<select id="language_value" class="small" onchange="change_language(this);" name="language">
@@ -93,12 +93,8 @@ $$fieldsref{metarefresh}
 					<option value='it'>Italiano</option>
 					<option value='el'>Greek</option>
 					<option value='ja'>Japanese</option>
-					<option value='ko'>Korean</option>
 					<option value='pt'>Portugese</option>
-					<option value='ro'>Romanian</option>
-					<option value='ru'>Russian</option>
 					<option value='th'>Thai</option>
-					<option value='vi'>Vietnamese</option>
 				</select>
 			<!--  language selector version 1 end  -->
 
@@ -112,7 +108,7 @@ $$fieldsref{metarefresh}
 
 <!--- this bit needs replacing by the specific admin and install menus --> 
 
-<div class="topbar">	
+	<div id="topbar">	
 		      <a id="adminlinkhref" title="Administration menu" href="/cgi-bin/protected/ccadmin.cgi">
                          <span id="adminlink"></span>
                       </a>
@@ -128,15 +124,15 @@ $$fieldsref{metarefresh}
 			<a class="bodytext" title="Create a New Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">New Account</a> 
 			<a class="bodytext" title="Modify Your Account Details" href="/cgi-bin/cclite.cgi?action=modifyuser">Modify Account</a>
 
-</div> <!-- end of topbar -->
+ 
 		
-<div class="topbar" >
+    <div id="menu" >
     
     
 	<span id="linksmenu" align="center">
 		<a title="Transfer Currency or Hours" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">Payment</a>
-		<a title="Split Payment for Goods or Services" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">Split Payment</a>		
-		<a title="Show My Transactions" href="/cgi-bin/cclite.cgi?action=showtrans">Transactions</a>		
+		<a title="Split Payment for Goods or Services" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">Split Payment</a>
+		<a title="Show My Transactions" href="/cgi-bin/cclite.cgi?action=showtrans">Transactions</a>
 		<a title="Show My Balances" href="/cgi-bin/cclite.cgi?action=showbalvol">Balances</a>
 		<a title="Show the Goods and Services Directory" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">Goods/Services</a>
 		<a title="Show My Ads in the Goods and Services Directory" href="/cgi-bin/cclite.cgi?action=showmyyellow">My Ads</a>
@@ -146,43 +142,46 @@ $$fieldsref{metarefresh}
 <!-- end of menu bit that needs replacing for admin and install -->	   
                                
  
-</div> <!-- end of menu -->		
+ </div> <!-- end of menu -->		
  
-	
+	</div> <!-- end of topbar -->
 
-<div class="content" align="center">
+<div id="content" align="center">
 	
 			
-<div class="contentleft">
-
-<div>   				
+  <div id="contenttext">
+    <div class="bodytext" style="padding:12px;" align="left">
+				
 !$$fieldsref{pagename}
-</div>
-    
 
-</div> <!-- end of contentleft: left hand side-->
+    </div> <!-- end of bodytext -->
 
-<div class="contentright" >
- 
-<span class="news">$$fieldsref{latest_news}</span>	<br/>			
- 
- $$fieldsref{righthandside}
- 
- <div class="panel" >
-	
+    <div class="panel" >
+		
+$$fieldsref{righthandside}
    
- </div> <!-- end of panel -->		
+   </div> <!-- end of panel -->		
  
-</div> <!-- end of righthandcontent --> 
+
+
+ </div> <!-- end of contenttext: left hand side-->
+
+ <div id="contentright" >
+<span class="news">$$fieldsref{latest_news}</span>	<br/>			
+   <!-- <div class="panel" >
+	panel should be elsewhere probably..
+   
+   </div> 
+    end of panel -->		
+ 
+</div> <!-- end of righthand --> 
   
-</div> <!-- end of content -->
+</div>
                 
 		<div id="footer" style="float:bottom" class="smallgraytext" align="center">
 			<a href="/cgi-bin/cclite.cgi">Home</a> | <a href="#">Contact Us</a><br />
 			Cclite &copy; Hugh Barnard 2003-2011
 		</div>
-		
-	
-	
+	</div>
 </body>
 </html>
