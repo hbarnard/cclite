@@ -65,9 +65,11 @@ sub Display
 
   
 		# ?$ShowImage
+		
+		
 		if (/^\?\$(\S+)/)	# Simple if clause
 	      	{
-                        ###print "found if $1" ;                     
+                  ###  eval{print "found if $1"} ;                     
 			if (!$ifstate[0])
 			{
 				$blockelse++;
@@ -98,10 +100,13 @@ sub Display
 			my $cond=$1; 	# the condition
 
 			$cond=~s/\$(\w+)/\$\{\$bundle\}\{$1\}/g;
+			
 					# interpolate string
-				
+			
+			###print "cond is $cond" ;	
 			if(eval($cond))
 			{
+				
 				unshift @ifstate,1 ;
 			} else {
 				unshift @ifstate,0 ;

@@ -67,7 +67,10 @@ my $VERSION = 1.00;
   do_delete_currency
   add_registry
   add_partner
+  get_installer_link
   get_set_batch_files
+  go_offline
+  go_online
   show_registries
   do_modify_registry
   do_delete_registry
@@ -686,8 +689,7 @@ sub show_registries {
 
     # note, no database name, that's in $fieldsref ;
     # odbc must be defined afterwards for Windows
-    # this has a look in all the dbs to find ones with om_ named tables
-    # probably not the cleverest algorithm
+    # looks in all the dbs to find ones with om_ currency table
 
     my ( $class, $db, $table, $fieldsref, $mode, $token ) = @_;
     my $structure;
@@ -695,30 +697,31 @@ sub show_registries {
     my $return_url     = $fieldsref->{home};    # that is ccinstall.cgi
     my $registry_count = 0;
 
-    #FIXME: what's wrong with this message?
     my $message = "$messages{noregistriesfound}";
+
+    # need this for cpanelprefix manipulation
+    my %configuration = &main::readconfiguration();
 
     # registry connect is not generally exposed...
     # connect to server and create db
     my ( $registry_error, $db_array ) =
       sqlraw_return_array( $class, $db, "show databases", "", $token );
 
-    ###print "to here  $registry_error $db"  ;
-    ###exit 0 ;
-
     if ( length($registry_error) ) {
         $table = $registry_error;
     } else {
         foreach my $db_rec (@$db_array) {
 
-            my $table_array =
-              sqlraw_return_array( $class, $$db_rec[0], "show tables", "",
+            #FIXME: remove cpanel prefix added twice, if it exists
+            $db_rec->[0] =~ s/$configuration{'cpanelprefix'}\_//;
+            my ( $registry_error, $table_array ) =
+              sqlraw_return_array( $class, $db_rec->[0], "show tables", "",
                 $token );
-            my $table_rec;
-            foreach $table_rec (@$table_array) {
-                if ( $$table_rec[0] =~ /om_currencies/ ) {
+
+            foreach my $table_rec (@$table_array) {
+                if ( $table_rec->[0] =~ /om_currencies/ ) {
                     $registry_count++;
-                    push @registries, $$db_rec[0];
+                    push @registries, $db_rec->[0];
                     last;
                 }
             }
@@ -732,6 +735,7 @@ sub show_registries {
             # make a table for the registries
 
             foreach my $registry (@registries) {
+
                 $table .= <<EOT;
 <tr><td><a title="logon to $registry" href="/cgi-bin/cclite.cgi">$registry</a></td></tr>
 EOT
@@ -759,7 +763,7 @@ EOT
 Add a partner to the partner table
 $class added to some routines for cclite web services access
 
-FIXME: no test on existence of local partner or remoter partner...
+FIXME: no test on existence of local partner or remote partner...
 
 =cut
 
@@ -1038,6 +1042,53 @@ EOT
 
     return ( $error, \%report, \%file );
 
+}
+
+=head2 go_offline
+
+Bring down one registry, move registry record into state 'down'
+
+=cut
+
+sub go_offline {
+    my ( $class, $db, $table, $useid, $fieldsref, $language, $token ) = @_;
+
+    $fieldsref = { 'status' => 'closing' };
+    update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
+        $language, $token );
+
+    return;
+}
+
+=head2 go_online
+
+Bring up one registry, move registry record into state 'open'
+
+=cut
+
+sub go_online {
+    my ( $class, $db, $table, $useid, $fieldsref, $language, $token ) = @_;
+
+    $fieldsref = { 'status' => 'open' };
+    update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
+        $language, $token );
+
+    return;
+}
+
+=head2 get_installer_link
+
+Get the menu link for the installer, for ccadmin.cgi, not displayed if not present
+
+=cut
+
+sub get_installer_link {
+
+    my $link = <<EOT;
+<a class="bodytext" title="Registry and Configuration Installer" href="/cgi-bin/protected/ccinstall.cgi">Installer</a>
+EOT
+
+    return $link;
 }
 
 1;

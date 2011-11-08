@@ -410,14 +410,16 @@ sub random_password {
 grumble about installer present and writable files etc.
 mainly installer for the present
 
+Added $installer_present to get menu link in ccadmin.cgi
+
 =cut
 
 sub install_grumble {
-    my ($templatepath) = @_;
 
-    # strip back to base path for cclite
-    $templatepath =~ s/templates\/html//;
-    my $base_path = $templatepath;
+    my $base_path = $0;
+    $base_path =~ s/^(.*?)\/cgi-bin.*$/$1/;
+
+    my $installer_present = 0;
 
     my @grumbles;
     my $configfile = "$base_path/config/cclite.cf";
@@ -427,6 +429,7 @@ sub install_grumble {
     my $cgiinstall = "$base_path/cgi-bin/protected/ccinstall.cgi";
     if ( -e $cgiinstall && -x $cgiinstall ) {
         push @grumbles, $messages{'ccinstallinsecure'};
+        $installer_present = 1;
     }
 
     # grumble about soap server also insecure
@@ -443,7 +446,7 @@ sub install_grumble {
     my ( $os, $distribution, $package_type ) = get_os_and_distribution();
     my $grumbling;
     $grumbling = join( "<br/>", @grumbles ) if ( $os ne 'windows' );
-    return $grumbling;
+    return ( $installer_present, $grumbling );
 }
 
 =head3 is_admin

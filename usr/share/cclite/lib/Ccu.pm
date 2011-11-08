@@ -702,7 +702,7 @@ sub make_html_row_contents {
     foreach my $field_name (@field_names) {
         if ( length( $hash_ref->{$field_name} ) ) {
             $row_contents .=
-"<td align=\"right\" style=\"padding:5px 5px;\" class=\"pme-key-1\">$hash_ref->{$field_name}</td>";
+"<td align=\"right\" class=\"pme-key-1\">$hash_ref->{$field_name}</td>";
         }
     }    # end of pack up row contents
 
@@ -747,8 +747,8 @@ sub make_html_transaction_totals {
           ? ( $row_style = "odd" )
           : ( $row_style = "even" );
         $html .= <<EOT;
-        <tr class="$row_style"><td align=\"right\" style=\"padding:5px 5px;\" class=\"pme-key-1\">\u$key</td>
-            <td align=\"right\" style=\"padding:5px 5px;\" class=\"pme-key-1\">$total_balance_ref->{$key}</td>
+        <tr class="$row_style"><td align=\"right\" class=\"pme-key-1\">\u$key</td>
+            <td align=\"right\" class=\"pme-key-1\">$total_balance_ref->{$key}</td>
         </tr>
 EOT
         $record_counter++;
@@ -848,23 +848,24 @@ sub deliver_remote_data {
               ;    # snip off the last comma in the record, ugly but simple...
             $json .= "},\n";
         }
-        $json =~
-          s/\,\s*$//;   # snip off the last comma in the record, ugly but simple...
+        $json =~ s/\,\s*$//
+          ;        # snip off the last comma in the record, ugly but simple...
     } else {
         for my $id ( keys %$hash_ref ) {
 
             # remove tags, mainly <br>
-            $hash_ref->{$id} =~ s/<[^>]+>/ /g ;
-            $hash_ref->{$id} =~ s/[^\w^\s]+/ /g ;
+            $hash_ref->{$id} =~ s/<[^>]+>/ /g;
+            $hash_ref->{$id} =~ s/[^\w^\s]+/ /g;
+
             # misteak corrected 20.05.2011, was $id, for the value as well
             $json .= "\n{\"$id\": \"$hash_ref->{$id}\",\n ";
-            
+
             $json =~ s/\,\s*$//
-              ;      # snip off the last comma in the record, ugly but simple...
+              ;    # snip off the last comma in the record, ugly but simple...
             $json .= "},\n";
         }
-       $json =~
-          s/\,\s*$//;   # snip off the last comma in the record, ugly but simple...
+        $json =~ s/\,\s*$//
+          ;        # snip off the last comma in the record, ugly but simple...
     }
 
     $json = <<EOT;
@@ -872,7 +873,7 @@ sub deliver_remote_data {
 EOT
 
     ###$log->debug("json is: $json") ;
-    
+
     ###print "json is $json\n" ;
     ###return ( 0, "", $error, $html, $template, "" );
     return $json;

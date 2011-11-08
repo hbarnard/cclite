@@ -282,16 +282,16 @@ $fields{logontype} ||= 'form';
 # actions allowed without logon, yes etc. for fine grained security later
 # note that widgets can't have cookies...at least in Opera 12/2009
 #FIXME: this is becoming a disgrace, move to a gatekeeper function in Ccsecurity.pm
-my %allowed_actions =
-  qw(logon yes
-     forgotpassword yes 
-     os_commerce_pay yes 
-     confirmuser yes 
-     adduser yes 
-     requesttoken yes 
-     accesstoken yes 
-     lang yes 
-     readmessages yes);
+my %allowed_actions = qw(logon yes
+  forgotpassword yes
+  os_commerce_pay yes
+  confirmuser yes
+  adduser yes
+  requesttoken yes
+  accesstoken yes
+  lang yes
+  readmessages yes
+  getstats yes);
 
 if (
        ( !length( $cookieref->{'token'} ) )
@@ -307,7 +307,7 @@ if (
 {
 
     # grumble about installer and security problems etc.
-    $fieldsref->{'errors'} = install_grumble( $configuration{templates} );
+    ( my $installer_present, $fieldsref->{'errors'} ) = install_grumble();
     display_template( 0, "", "", "", $pages, "logon.html", $fieldsref, $cookies,
         $token );
     exit 0;
@@ -365,6 +365,26 @@ if (
             $action = 'logoff';
         }
     }
+}
+
+# get registry status to see whether closing
+my $registry_status =
+  get_registry_status( 'local', $db, 'om_registry', $fieldsref,
+    $registry_private_value )
+  if ( length($db) );
+
+if ( $registry_status eq 'down' ) {
+
+    # display an action result, all actions are consumed
+
+    display_template(
+        $refresh,    $metarefresh, $error,   $html, $pages,
+        'down.html', $fieldsref,   $cookies, $token
+    );
+
+    exit 0;
+} elsif ( $registry_status eq 'closing' ) {
+    $fieldsref->{status_message} = 'Closing Down Soon: Please logoff';
 }
 
 my $fieldsref = \%fields;
@@ -446,7 +466,7 @@ my $fieldsref = \%fields;
 #         = delete_trade('local',$db,'om_trades',$fieldsref,   $pages,$token)) ;
 # this is now replaced by canceltrade, which modifies tradeStatus to cancelled
 
-# this mainly only modifies the status field
+# these actions only modify the status field
 # other parts of the trade should always remain integral
 # actually the hash should change at this point?!
 
@@ -638,14 +658,25 @@ my $fieldsref = \%fields;
     do_oauth( 'local', $db, $fieldsref, $token ) );
 
 # get messages and deliver as json for ajax: insecure but is this a problem?
-if  ($action eq 'readmessages' ) {
-   my %messages = readmessages() ;
-   $messages{'message'} = 'ok' ;
-   # json is delivered current as 'abuse' of refresh field in display_template
-   $refresh             = deliver_remote_data( $db, 'none', '', \%messages,'' );
-   $fieldsref->{'mode'} = 'json' ;
-   
- }   
+if ( $action eq 'readmessages' ) {
+    my %messages = readmessages();
+    $messages{'message'} = 'ok';
+
+    # json is delivered current as 'abuse' of refresh field in display_template
+    $refresh = deliver_remote_data( $db, 'none', '', \%messages, '' );
+    $fieldsref->{'mode'} = 'json';
+
+}
+
+# get messages and deliver as json for ajax: insecure but is this a problem?
+if ( $action eq 'getstats' ) {
+
+    # json is delivered current as 'abuse' of refresh field in display_template
+    ($refresh) = get_stats(
+        ( 'local', $db, $fieldsref->{'hours_back'}, $fieldsref->{'type'}, '' )
+    );
+    $fieldsref->{'mode'} = 'json';
+}
 
 # only get news if there's a defined registry containing it 08/2011
 $fieldsref->{'news'} = get_news( 'local', $db, $token ) if ( length($db) );

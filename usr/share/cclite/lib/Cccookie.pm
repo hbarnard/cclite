@@ -168,7 +168,7 @@ sub delete_cookies {
     my $header;
 
     foreach my $key ( keys %cookie ) {
-        undef $cookie{$key
+        undef $cookie{ $key
           }; #undefines cookie so if you call set_cookie, it doesn't reset the cookie.
         $header .=
           "Set-Cookie: $key=deleted; expires=Thu, 01-Jan-1970 00:00:00 GMT;\n";

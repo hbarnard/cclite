@@ -40,6 +40,7 @@ use Exporter;
 use DBI;
 use Ccsecure;
 use Ccconfiguration;
+use Data::Dumper;
 
 ###DBI->trace( 4, '../debug/debug.dbi' );      # Database abstraction
 ###DBI->trace( 2, '/home/hbarnard/trunk/var/cclite/log/debug.dbi.log' );
@@ -67,10 +68,12 @@ our $log = Log::Log4perl->get_logger("Cclitedb");
   sqlget
   sqlgetall
   sqlcount
+  get_average_transaction_size
   get_check_tag_sql
   get_id_name
   get_suggest_sql
   get_table_fields
+  get_raw_stats_data
   get_where
   get_where_multiple
   get_transaction_totals
@@ -404,7 +407,7 @@ sub find_database_records {
 
     # make a massive where statement for all textual columns
     foreach my $column (@columns) {
-        $column = "$column LIKE \'%$$fieldsref{string}%\'";
+        $column = "$column LIKE \'%$fieldsref->{'string'}%\'";
     }
     $like = join( " or ", @columns );
 
@@ -533,7 +536,7 @@ EOT
             $sql = <<EOT;
 SELECT tradeTitle,tradeStatus FROM `om_trades` 
          WHERE (tradeTitle LIKE \'\%$query_string\%\' 
-                OR tradeHash LIKE \'\%$$query_string\%\' 
+                OR tradeHash LIKE \'\%$query_string\%\' 
                 OR tradeStatus LIKE \'\%$query_string\%\') 
 LIMIT 0 , 10 ;
  
@@ -1101,7 +1104,7 @@ sub _registry_connect {
 
     my ( $db, $token ) = @_;
 
-    my %configuration = readconfiguration() if ( $0 !~ /ccinstall/ );
+    my %configuration = readconfiguration();
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 
@@ -1128,7 +1131,7 @@ This is for the future with persistent database handles in mono-registry
 
 sub registry_connect {
 
-    my %configuration = readconfiguration() if ( $0 !~ /ccinstall/ );
+    my %configuration = readconfiguration();
     our $dbuser     = $configuration{dbuser};
     our $dbpassword = $configuration{dbpassword};
 
@@ -1519,6 +1522,10 @@ EOT
     }
 
     if ( !$senddetected ) {
+
+        #FIXME: class isn't picked up somewhere in this...
+
+        $class ||= 'small';
         $formfields .= <<EOT;
  <input type="hidden" name="subaction" value="$table">
  <input type="hidden" name="action" value="$action">
@@ -1637,6 +1644,158 @@ EOT
     }
 
     return $template;
+}
+
+# stats and graphing transactions
+
+=head3 get_raw_stats_data
+
+
+Get trade volumes and averages and deliver to make a javascript Graph chart
+This probably also gets delivered into cut down temporary
+tables too...
+
+1970-01-01 00:00:01'
+
+tradeStamp(15,2) is minutes
+tradeStamp(12,2) is hours
+tradeStamp(9,2) is days
+tradeStamp(6,2) is month
+
+=cut
+
+sub _format_number {
+    my ($number) = @_;
+
+    length($number) == 1 ? ( $number = "0$number" ) : ( $number = $number );
+    return $number;
+}
+
+sub get_raw_stats_data {
+
+    my ( $class, $db, $from_x_hours_back, $graph_type, $type, $token ) = @_;
+
+    my %configuration = readconfiguration();
+
+    # signals whether empty set of values is delivered
+    my $are_there_values = 0;    # returned as 0 or 1
+
+    my @times;
+    my @values;
+
+    my %types =
+      ( 'minutes', '1,16', 'hours', '1,13', 'days', '1,10', 'month', '1,7' );
+    my %axis =
+      ( 'minutes', '1,16', 'hours', '9,5', 'days', '1,10', 'month', '1,7' );
+
+    my %configuration = readconfiguration();
+
+    # default is previous two days in hourly increments ;
+    $from_x_hours_back ||= 48;
+    $type              ||= 'hours';
+
+    # fill the 'missing' sql_string variables
+    my $slice   = $types{$type};
+    my $x_axis  = $axis{$type};
+    my $seconds = $from_x_hours_back * 60 * 60;
+
+    my $sql_string;
+
+    if ( $graph_type eq 'average' ) {
+        if ( $configuration{'usedecimals'} eq 'yes' ) {
+            $sql_string = <<EOT;
+ SELECT tradeStamp, unix_timestamp(tradeStamp), format((avg(tradeAmount)/100),2), substr(tradeStamp,$slice) FROM om_trades o  
+   where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
+   group by substr(tradeStamp,$slice) ORDER BY tradeStamp ;
+EOT
+        } else {
+            $sql_string = <<EOT;
+ SELECT tradeStamp, unix_timestamp(tradeStamp), format(avg(tradeAmount),2), substr(tradeStamp,$slice) FROM om_trades o  
+   where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
+   group by substr(tradeStamp,$slice) ORDER BY tradeStamp ;
+EOT
+
+        }
+    } elsif ( $graph_type = 'volume' ) {
+
+        $sql_string = <<EOT;
+SELECT tradeStamp, unix_timestamp(tradeStamp), count(*), substr(tradeStamp,$slice) FROM om_trades o  
+   where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
+   group by substr(tradeStamp,$slice) ORDER BY tradeStamp  ;
+EOT
+
+    }
+
+    $log->debug("sqlstring is: $sql_string");
+    my $max_quantity = undef;    # used to scale the graph
+    my ( $registry_error, $array_ref ) =
+      sqlraw_return_array( $class, $db, $sql_string, undef, $token );
+
+    my $previous_hour;
+    my $previous_slice;
+    my $counter = 0;
+
+    foreach my $row (@$array_ref) {
+
+        # tradestamp format 2011-08-10 13:25:11
+        my $hours_difference;
+
+        # fill in blanks in arrays, if no activity...
+        if ( length($previous_hour) ) {
+            my $seconds_difference = abs( $$row[1] - $previous_hour );
+            $hours_difference = int( $seconds_difference / 3600 ) - 2;
+        }
+
+        if ( $hours_difference > 0 && length($previous_hour) ) {
+            my $x;
+
+            my ( $year, $month, $day, $hours ) =
+              ( $previous_slice =~ /^(\d{4})\-(\d{2})\-(\d{2})\s+(\d{2})/ );
+            ### $log->debug("$year,$month,$day,$hours r:$$row[3]") ;
+            for ( $x = $counter ;
+                $x <= ( $counter + $hours_difference ) ; $x++ )
+            {
+                my $mark = '';
+                $hours == 24 ? ( $hours = 1 ) : $hours++;
+                $hours = _format_number($hours);
+
+                $mark = '--' if ( $hours == 24 );
+                $times[$x] =
+                  "\"$mark $hours\"";    # fill in blanks, 0 for the moment
+                $values[$x] = 0;         # fill in blanks 0 for the moment
+            }    #end for
+
+            $counter = $counter + $hours_difference + 1;
+
+        }    #end if real hours difference
+
+        my $this_value;
+
+# this is because there is a debit and credit for each movement, so that the system balances
+# therefore transaction volume equals sum of entries/2
+        ( $graph_type eq 'volume' )
+          ? ( $this_value = int( $row->[2] / 2 ) )
+          : ( $this_value = $row->[2] );
+
+        $max_quantity = $this_value
+          if ( $this_value > $max_quantity );
+
+        $values[$counter] = $this_value;
+
+        # some value has been recorded...
+        $are_there_values = 1 if ( $this_value > 0 );
+
+        $times[$counter] = "\"$$row[3]\"";
+        $previous_hour =
+          $$row[1];  # for unix seconds comparison and insertion of empty points
+        $previous_slice =
+          $$row[3];  # for unix seconds comparison and insertion of empty points
+        $counter++;
+
+    }    # end foreach
+
+    #
+    return ( \@times, \@values, $max_quantity, $are_there_values );
 }
 
 1;

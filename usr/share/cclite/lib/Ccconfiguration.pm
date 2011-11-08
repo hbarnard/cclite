@@ -94,6 +94,8 @@ sub readconfiguration {
             $key   = "";
             $value = "";
         }
+    } elsif ( !-e $configfile && $0 =~ /ccinstall/ ) {
+        return;
     } else {
         my $message = _dying_message($configfile);
         die $message;

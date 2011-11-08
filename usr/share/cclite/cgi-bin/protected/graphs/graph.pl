@@ -1,23 +1,5 @@
 #!/usr/bin/perl 
 
-#---------------------------------------------------------------------------
-#THE cclite SOFTWARE IS PROVIDED TO YOU "AS IS," AND WE MAKE NO EXPRESS
-#OR IMPLIED WARRANTIES WHATSOEVER WITH RESPECT TO ITS FUNCTIONALITY,
-#OPERABILITY, OR USE, INCLUDING, WITHOUT LIMITATION,
-#ANY IMPLIED WARRANTIES OF MERCHANTABILITY,
-#FITNESS FOR A PARTICULAR PURPOSE, OR INFRINGEMENT.
-#WE EXPRESSLY DISCLAIM ANY LIABILITY WHATSOEVER FOR ANY DIRECT,
-#INDIRECT, CONSEQUENTIAL, INCIDENTAL OR SPECIAL DAMAGES,
-#INCLUDING, WITHOUT LIMITATION, LOST REVENUES, LOST PROFITS,
-#LOSSES RESULTING FROM BUSINESS INTERRUPTION OR LOSS OF DATA,
-#REGARDLESS OF THE FORM OF ACTION OR LEGAL THEORY UNDER
-#WHICH THE LIABILITY MAY BE ASSERTED,
-#EVEN IF ADVISED OF THE POSSIBILITY OR LIKELIHOOD OF SUCH DAMAGES.
-#---------------------------------------------------------------------------
-#
-# these batch scripts are kept as eval, if they fail they print their problems
-# onto the status web page
-
 print STDOUT "Content-type: text/html\n\n";
 my $data = join( '', <DATA> );
 eval $data;
@@ -26,6 +8,53 @@ if ($@) {
     exit 1;
 }
 __END__
+
+
+=head1 graph.pl
+
+Simple graphing for cclite
+
+---------------------------------------------------------------------------
+THE cclite SOFTWARE IS PROVIDED TO YOU "AS IS," AND WE MAKE NO EXPRESS
+OR IMPLIED WARRANTIES WHATSOEVER WITH RESPECT TO ITS FUNCTIONALITY,
+OPERABILITY, OR USE, INCLUDING, WITHOUT LIMITATION,
+ANY IMPLIED WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE, OR INFRINGEMENT.
+WE EXPRESSLY DISCLAIM ANY LIABILITY WHATSOEVER FOR ANY DIRECT,
+INDIRECT, CONSEQUENTIAL, INCIDENTAL OR SPECIAL DAMAGES,
+INCLUDING, WITHOUT LIMITATION, LOST REVENUES, LOST PROFITS,
+LOSSES RESULTING FROM BUSINESS INTERRUPTION OR LOSS OF DATA,
+REGARDLESS OF THE FORM OF ACTION OR LEGAL THEORY UNDER
+WHICH THE LIABILITY MAY BE ASSERTED,
+EVEN IF ADVISED OF THE POSSIBILITY OR LIKELIHOOD OF SUCH DAMAGES.
+---------------------------------------------------------------------------
+
+these batch scripts are kept as eval <whole-of-script>, if they fail they print their problems
+onto the status web page
+
+=head1 SYNOPSIS
+
+
+=head1 DESCRIPTION
+
+This is a simple graph of transaction size an volumes for a given
+registry, it is run as a time job within the admin menu
+
+
+
+=head1 COPYRIGHT
+
+Copyright 2005 -2011 Hugh Barnard.
+
+Permission is granted to copy, distribute and/or modify this 
+document under the terms of the GNU Free Documentation 
+License, Version 1.2 or any later version published by the 
+Free Software Foundation; with no Invariant Sections, with 
+no Front-Cover Texts, and with no Back-Cover Texts.
+
+=cut
+
+
 
 
 
@@ -50,19 +79,22 @@ sub get_volumes {
     my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;
     my @times;
     my @volumes;
+    my $sql_string ;
     my $movement = 0 ; # flag that indicates whether there is a volume for this period
     my $seconds = $from_x_hours_back * 60 * 60 ;
     my %types = ('minutes','15,2','hours','12,2','days','9,2','month','6,2' )  ;
     my $slice = $types{$type} ;
-    my $sqlstring = <<EOT;
+    
+    my $sql_string = <<EOT;
 SELECT substr(tradeStamp,12,5), count(*) FROM om_trades o  
    where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
    group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;
 EOT
 
+
     my $max_quantity = undef;    # used to scale the graph
     my ( $registry_error, $array_ref ) =
-      sqlraw_return_array( $class, $db, $sqlstring, undef, $token );
+      sqlraw_return_array( $class, $db, $sql_string, undef, $token );
 
     foreach my $row (@$array_ref)  {
       # this is because there is a debit and credit for each movement, so that the system balances
@@ -93,26 +125,41 @@ tradeStamp(12,2) is hours
 tradeStamp(9,2) is days
 tradeStamp(6,2) is month
 
+Modified 08/2011 to deal with usedecimals...
+
 =cut
+
 
 sub get_average_transaction_size {
 
     my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;
     my @times;
     my @averages;
+    my $sql_string ;
     my $movement = 0 ; # indicate whether there are any values for the period
     my $seconds = $from_x_hours_back * 60 * 60 ;
     my %types = ('minutes','15,2','hours','12,2','days','9,2','month','6,2' )  ;
     my $slice = $types{$type} ;
-    my $sqlstring = <<EOT;
+
+   
+    if ($configuration{'usedecimals'} eq 'yes') {
+    $sql_string = <<EOT;
+SELECT substr(tradeStamp,12,5), avg(tradeAmount)/100 FROM om_trades o  
+   where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
+   group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;
+EOT
+    } else {
+  $sql_string = <<EOT;    
 SELECT substr(tradeStamp,12,5), avg(tradeAmount) FROM om_trades o  
    where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
    group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;
 EOT
+         
+    }  
 
     my $max_quantity = undef;    # used to scale the graph
     my ( $registry_error, $array_ref ) =
-      sqlraw_return_array( $class, $db, $sqlstring, undef, $token );
+      sqlraw_return_array( $class, $db, $sql_string, undef, $token );
 
     foreach my $row (@$array_ref)  {
       $max_quantity = $$row[1]
@@ -190,14 +237,14 @@ sub make_graph {
   my $timestamp = sql_timestamp() ;
   my $graph ;
   my $title = "Last updated at $timestamp" ;
+  print "format is $format " ;
   if ($format eq 'sparklines') {
    $title = "" ;
    $graph = new GD::Graph::sparklines(300,180);
   } else {
    $graph = new GD::Graph::lines(300,180);
   }
-   $graph = new GD::Graph::sparklines(300,180);
-  ####my $graph = new GD::Graph::bars(400,240);
+
  $graph->set( 
 #	x_label => $xlabel,
 	y_label => $ylabel,
@@ -253,14 +300,19 @@ close BLANK ;
    
 }
 
-
+#=============================================================================================
 # Main part of script....
+#=============================================================================================
+
+
+use strict ;
 
 my %configuration;
 
 use lib '../../../lib';
 
 use Log::Log4perl;
+use Test::More qw(no_plan) ;
 
 use Ccadmin ;
 use Cccookie ;
@@ -271,19 +323,21 @@ use strict ;
 use GD ;
 use Cclitedb;
 
-my $format = 'sparklines' ;
-eval {
-   use GD::Graph::sparklines;
-} ;
-# no sparklines...
-if(@$) {
+my $format ;
+my $ok ;
+
+if ($ok = sprint(use_ok('GD::Graph::sparklines')) ) {
+  my $format = 'sparklines' ;
+} else {
    $format = 'lines' ;
    use GD::Graph::lines;
 }
 
+print "error: @$ $format" ;
+
 use GD::Text;
 
-%configuration = readconfiguration();
+our %configuration = readconfiguration();
 
 Log::Log4perl->init($configuration{'loggerconfig'});
 our $log = Log::Log4perl->get_logger("graph");

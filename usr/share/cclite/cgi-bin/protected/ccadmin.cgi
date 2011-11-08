@@ -108,6 +108,7 @@ use Cclite;                # use the main motor
 use Ccconfiguration;       # new style configuration
 
 use Ccadmin;
+use Ccchecker;
 use Ccsecure;
 use strict;
 use locale;
@@ -182,8 +183,9 @@ my $table  = $fields{subaction};
 my $db     = $cookieref->{registry} || $fields{registry};
 
 # A template object referencing a particular directory
-my $pages = new HTML::SimpleTemplate("../../templates/html/$language/admin");
-my $user_pages = new HTML::SimpleTemplate("../../templates/html/$language");
+my $template_path = "../../templates/html/$language/admin";
+my $pages         = new HTML::SimpleTemplate($template_path);
+my $user_pages    = new HTML::SimpleTemplate("../../templates/html/$language");
 
 # FIXME:
 # this sequence deals with the security of admin actions, probably
@@ -208,13 +210,14 @@ if ( length( $cookieref->{userLevel} )
     exit 0;
 }
 
-# grumble about installer etc.
-$fields{errors} = install_grumble( $configuration{librarypath} );
-
 # just to give upper case display for admin menu
 $fields{registrytitle} = "\u$fieldsref->{name}";
 
 $fieldsref = \%fields;
+
+# grumble about installer etc.
+( my $installer_present, $fieldsref->{'errors'} ) = install_grumble();
+$fieldsref->{'installer_link'} = get_installer_link() if ($installer_present);
 
 # display fields and status for all the batch file paths
 my ( $errors, $report_ref, $file_ref ) =
@@ -302,6 +305,16 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
         'local', $db, $table, 1, $fieldsref, $language, $token
     )
   );
+
+# shutdown for maintenance
+( $action eq "offline" )
+  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
+    go_offline( 'local', $db, '', 1, '', $language, $token ) );
+
+# bring up after maintenance
+( $action eq "online" )
+  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
+    go_online( 'local', $db, '', 1, '', $language, $token ) );
 
 # add a registry partner either local or soap proxy
 ( $action eq "addpartner" )

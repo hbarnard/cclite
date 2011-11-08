@@ -76,6 +76,8 @@ my $VERSION = 1.00;
   collect_items
   get_user
   get_news
+  get_registry_status
+  get_stats
   get_trades
   delete_trade
   find_and_delete_trade
@@ -303,6 +305,16 @@ sub logon_user {
     my $fail = 0;    # set to 1 if logon failure, for better refresh experience
          # get the user record from the database, depending on login type
     my ( $status, $userref );
+
+    # FIXME: needs to deliver json etc...
+    my $registry_status = get_registry_status(
+        ( $class, $db, 'om_registry', $fieldsref, $registry_private_value ) );
+
+    # registry is closed or closing...
+    if ( $registry_status eq 'down' || $registry_status eq 'closing' ) {
+        return ( "0", '', $error, $html, "down.html", $fieldsref,
+            $cookieheader );
+    }
 
     # merchant key delivered as cookie
     my $cookieref = get_cookie();
@@ -630,9 +642,16 @@ sub find_records {
     my ( $html, @row, $home );
     my $allow_changes = 0;    # used only to avoid repeating a complex test
 
+    # only one search box now, no hidden table field, so this translates
+    my %type_to_table = qw(ad om_yellowpages user om_users trade om_trades);
+    ( length( $fieldsref->{'search_type'} ) > 0 )
+      ? ( $table = $type_to_table{ $fieldsref->{'search_type'} } )
+      : '';
+
     # these come from Ajax search boxes
     $fieldsref->{'string'} =
-         $fieldsref->{'string1'}
+         $fieldsref->{'search_string'}
+      || $fieldsref->{'string1'}
       || $fieldsref->{'string2'}
       || $fieldsref->{'string3'};
 
@@ -665,7 +684,7 @@ sub find_records {
         my $display_action = $display_actions{$table} || 'display';
 
         $display_button =
-          makebutton( $messages{show}, '', $display_action, $db, $table,
+          makebutton( $messages{show}, 'small', $display_action, $db, $table,
             $hash_ref->{$key}, $fieldsref, $token );
 
         # add a modify and delete button if a yellow pages record belongs to
@@ -685,7 +704,7 @@ sub find_records {
 
             if ( $table ne "om_trades" ) {
                 $delete_button =
-                  makebutton( $messages{delete}, '', "delete", $db, $table,
+                  makebutton( $messages{delete}, 'small', "delete", $db, $table,
                     $hash_ref->{$key}, $fieldsref, $token );
 
             } else {
@@ -694,13 +713,13 @@ sub find_records {
                 # 'modify the status to cancel'
 
                 $delete_button =
-                  makebutton( $messages{cancel}, '', "canceltrade", $db, $table,
-                    $hash_ref->{$key}, $fieldsref, $token );
+                  makebutton( $messages{cancel}, 'small', "canceltrade", $db,
+                    $table, $hash_ref->{$key}, $fieldsref, $token );
 
             }
 
             $modify_button =
-              makebutton( $messages{modify}, '', "template", $db, $table,
+              makebutton( $messages{modify}, 'small', "template", $db, $table,
                 $hash_ref->{$key}, $fieldsref, $token );
 
         }
@@ -902,8 +921,8 @@ om_users and send only language cookie with expiry of around six months
 sub change_language {
     my ( $class, $db, $template_dir, $fieldsref, $cookieref, $token ) = @_;
     my $domain = $configuration{'domain'};
-    my $registry_error ;
-    my $path   = "/";
+    my $registry_error;
+    my $path = "/";
 
     my %cookie;
     $cookie{language} = $fieldsref->{language};
@@ -912,19 +931,19 @@ sub change_language {
 
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
-          
+
     # update om_users for language change for this user, if someone is logged on
     if ( length($db) ) {
         my %new_language = (
             'userId',   $cookieref->{'userId'},
             'userLang', $fieldsref->{'language'}
         );
- 
+
         update_database_record( $class, $db, 'om_users', 1, \%new_language,
             undef, $token );
     }
 
-    # only refresh is [mis]used to carry json payload if json is being returned 2/2011
+# only refresh is [mis]used to carry json payload if json is being returned 2/2011
     if ( $fieldsref->{'mode'} eq 'json' ) {
         my ($json) =
           deliver_remote_data( $db, 'om_users', $registry_error, $fieldsref,
@@ -1998,7 +2017,7 @@ sub get_many_items {
         my $display_action = $display_actions{$table} || 'display';
 
         $display_button =
-          makebutton( $messages{show}, '', $display_action, $db, $table,
+          makebutton( $messages{show}, 'small', $display_action, $db, $table,
             $hash_ref->{$key}, $fieldsref, $token );
 
 #FIXME: this is a weak piece of code, in that , if the script is the admin script
@@ -2030,7 +2049,7 @@ sub get_many_items {
 
             if ( $table ne "om_trades" ) {
                 $delete_button =
-                  makebutton( $messages{delete}, '', "delete", $db, $table,
+                  makebutton( $messages{delete}, 'small', "delete", $db, $table,
                     $hash_ref->{$key}, $fieldsref, $token );
 
             } else {
@@ -2040,13 +2059,13 @@ sub get_many_items {
 
                 $fieldsref->{tradeStatus} = "cancelled";
                 $delete_button =
-                  makebutton( $messages{modify}, '', "template", $db, $table,
-                    $hash_ref->{$key}, $fieldsref, $token );
+                  makebutton( $messages{modify}, 'small', "template", $db,
+                    $table, $hash_ref->{$key}, $fieldsref, $token );
 
             }
 
             $modify_button =
-              makebutton( $messages{modify}, '', "template", $db, $table,
+              makebutton( $messages{modify}, 'small', "template", $db, $table,
                 $hash_ref->{$key}, $fieldsref, $token );
 
         }    # end of buttons
@@ -2059,18 +2078,18 @@ sub get_many_items {
             && $hash_ref->{$key}->{'tradeStatus'} eq "waiting" )
         {
             $confirm_button =
-              makebutton( $messages{ok}, '', "confirmtrade", $db, $table,
+              makebutton( $messages{ok}, 'small', "confirmtrade", $db, $table,
                 $hash_ref->{$key}, $fieldsref, $token );
 
             $decline_button =
-              makebutton( $messages{reject}, '', "declinetrade", $db, $table,
-                $hash_ref->{$key}, $fieldsref, $token );
+              makebutton( $messages{reject}, 'small', "declinetrade", $db,
+                $table, $hash_ref->{$key}, $fieldsref, $token );
         }    # end of trades buttons
 
         #FIXME: this is a weakness and should be coded out 05/2007
 
         $modify_button =
-          makebutton( $messages{modify}, '', "template", $db, $table,
+          makebutton( $messages{modify}, 'small', "template", $db, $table,
             $hash_ref->{$key}, $fieldsref, $token )
           if ( $table eq 'om_currencies' );
 
@@ -2089,16 +2108,16 @@ sub get_many_items {
         if ( $fieldsref->{mode} ne 'csv' ) {
             if ( $table eq "om_trades" ) {
                 $buttons = <<EOT;
-          <td class="pme-key-1">$display_button</td>
-          <td class="pme-key-1">$confirm_button</td>
-          <td class="pme-key-1">$decline_button</td>
+          <td class="small">$display_button</td>
+          <td class="small">$confirm_button</td>
+          <td class="small">$decline_button</td>
 EOT
 
             } else {
                 $buttons = <<EOT;
-          <td class="pme-key-1">$display_button</td>
-          <td class="pme-key-1">$modify_button</td>
-          <td class="pme-key-1">$delete_button</td>
+          <td class="small">$display_button</td>
+          <td class="small">$modify_button</td>
+          <td class="small">$delete_button</td>
 EOT
             }    # end of unshift for buttons
         }
@@ -2127,7 +2146,7 @@ EOT
     my $table_title = $messages{$table};
 
     my $table_title = $messages{$table};
-    my $thisspan    = $colspan + 1;
+    my $thisspan    = $colspan + 3;
     my $header;
 
     # if there's more than one page and not csv show paging
@@ -2173,7 +2192,7 @@ EOT
 
         $header .= <<EOT;
       <tr>
-         <td class="pme-key-1" colspan="$colspan">$messages{'found'} $total_count $type_literal $messages{'in'} $table_title</td>
+         <td class="pme-key-1" colspan="$thisspan">$messages{'found'} $total_count $type_literal $messages{'in'} $table_title</td>
      </tr>
 EOT
 
@@ -2223,28 +2242,46 @@ sub get_trades {
 )
 EOT
 
-        # then refine for various status types and append to sql statement
-        if ( $type eq "active" ) {
-            $sqlstring .= <<EOT;
+    }
+
+    # then refine for various status types and append to sql statement
+    if ( $type eq 'active' ) {
+        $sqlstring .= <<EOT;
 and (tradeStatus = 'waiting' or tradeStatus = 'accepted')
 EOT
 
-        } elsif ( $type eq "accepted" ) {
-            $sqlstring .= <<EOT;
+    } elsif ( $type eq 'accepted' ) {
+        $sqlstring .= <<EOT;
 and (tradeStatus = 'accepted')
 EOT
 
-        } elsif ( $type eq "not_accepted" ) {
-            $sqlstring .= <<EOT;
+    } elsif ( $type eq 'not_accepted' ) {
+        $sqlstring .= <<EOT;
 and (tradeStatus = 'declined' or tradeStatus = 'cancelled')
 EOT
 
-        } elsif ( $type eq "error" ) {
-            $sqlstring .= <<EOT;
+    } elsif ( $type eq 'error' ) {
+        $sqlstring .= <<EOT;
 and (tradeStatus = 'rejected' or tradeStatus = 'timedout')
 EOT
 
-        }
+    } elsif ( $type eq "thismonth" ) {
+        $sqlstring .= <<EOT;
+and (month(tradeDate) = month(current_date()))
+and (tradeStatus = 'waiting' or tradeStatus = 'accepted')
+EOT
+
+    } elsif ( $type eq 'thisquarter' ) {
+        $sqlstring .= <<EOT;
+and (tradeDate >= date_sub(current_date(),interval 1 quarter))           
+and (tradeStatus = 'waiting' or tradeStatus = 'accepted')
+EOT
+
+    } elsif ( $type eq 'thisyear' ) {
+        $sqlstring .= <<EOT;
+and (tradeDate >= date_sub(current_date(),interval 1 year))           
+and (tradeStatus = 'waiting' or tradeStatus = 'accepted')
+EOT
 
     } elsif ( is_admin() && $type eq "all" ) {
         $sqlstring = 1;
@@ -2254,7 +2291,7 @@ EOT
     }
 
     my $sqlcount = <<EOT;
-$sqlstring 
+$sqlstring
 EOT
 
     # count the whole set
@@ -2925,6 +2962,84 @@ EOT
     }
 
     # }
+
+}
+
+=head3 get_registry_status
+
+Get registry status open, closed, down, closing
+Closing is to give people time to log off
+
+=cut
+
+sub get_registry_status {
+    my ( $class, $db, $table, $fieldsref, $registry_private_value ) = @_;
+
+    my ( $status, $registry_ref ) =
+      get_where( $class, $db, $table, '*', 'id', '1', $registry_private_value,
+        '', '' );
+
+# test registry record, can't logon if registry status is down or in closing process
+    if ( length($status) ) {
+        my $message =
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : registry record not found";
+        $log->warn($message);
+        return $message;
+    } else {
+        return $registry_ref->{'status'};
+    }
+}
+
+=head3 get_stats
+
+Get statistics data for new style jquery etc.
+statistics
+
+If there's no movement in either, they are empty, this is signalled in $status
+otherwise the Ico.js will error out when trying to build graphs...
+
+=cut
+
+sub get_stats {
+
+    my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;
+
+    my $json;
+
+    my ( $stimes_array_ref, $averages_array_ref, $max_quantity, $avg_exists ) =
+      get_raw_stats_data( $class, $db, $from_x_hours_back, 'average', $type,
+        $token );
+    my ( $vtimes_array_ref, $volumes_array_ref, $max_quantity, $vol_exists ) =
+      get_raw_stats_data( $class, $db, $from_x_hours_back, 'volume', $type,
+        $token );
+
+    my %ref = (
+        'stimes', $stimes_array_ref, 'avg',  $averages_array_ref,
+        'vtimes', $vtimes_array_ref, 'vols', $volumes_array_ref
+    );
+
+    my $status = 'empty';    # either 'ok' or 'empty'
+
+    foreach my $key ( keys %ref ) {
+        my $array_ref = $ref{$key};
+        my $x = join( ',', @$array_ref );
+        $x = "{\"$key\":[$x]}";
+        $json .= ",$x";
+    }
+    $json =~ s/^\,//;
+
+    # tested in javascript before trying to build graphs
+    if ( $avg_exists && $vol_exists ) {
+        $status = 'ok';
+    }
+
+    $json = <<EOT;
+  {\"registry"\:\"$db\",\"table\": \"om_trades\", \"message":\"$status\",\n\"data\": [$json]} 
+EOT
+
+###$log->debug("json is $json") ;
+
+    return $json;
 
 }
 
