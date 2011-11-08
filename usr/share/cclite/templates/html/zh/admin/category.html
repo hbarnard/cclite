@@ -1,41 +1,91 @@
-      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
-        <table class="pme-main" summary="om_categories">
-          <tbody class="stripy">
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">类别 名称<br>
-              </td>
-              <td class="pme-value-0"> 
-<input type="hidden" name="action" value="addcategory">
-<input type="hidden" name="subaction" value="om_categories">
-<input class="required" name="description" size="50" maxlength="80" value="" type="text"></td>
-            </tr>
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">类别父<br>
-              </td>
-<td class="pme-value-0"> 
-$$fieldsref{selectparent}</td>
-            </tr>
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<table class="pme-main" summary="om_categories">
+
+<tbody class="stripy">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">状态<br>
-              </td>
-<td class="pme-value-0"> 
+
+<td class="pme-key-0">
+类别名称
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addcategory">
+
+<input type="hidden" name="subaction" value="om_categories">
+
+<input class="required" name="description" size="50" maxlength="80" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+父类别
+<br>
+
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{selectparent}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+状态
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
 <select class="required" name="status">
-<option selected value=""> </option>
-<option value="活动">活动</option>
-<option value="in活动">In活动</option>
+
+<option selected value="">
+
+</option>
+
+<option value="active">
+活动
+</option>
+
+<option value="inactive">
+处于非活动状态
+</option>
+
 </select>
-            </tr>
+
+</tr>
 
 <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="创建 类别"  type="submit">&nbsp; </td>
-<td><input
- class="pme-cancel" name="cancel" value="Cancel"
-  type="reset"></td>
-            </tr>
-       </tbody>
-        </table>
-      </form>
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="创建类别"  type="submit">
+&nbsp;
+</td>
+
+<td>
+<input
+ class="pme-cancel" name="cancel" value="取消"
+  type="reset">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

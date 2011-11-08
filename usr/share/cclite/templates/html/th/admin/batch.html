@@ -1,88 +1,227 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="ยอมให้ C" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
 <meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
- 
+
+
 <link type="text/css" href="/styles/cc.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
-<link rel="alternate" type="application/rss+xml" title="Cclite ทดลองการเชื่อมโยง" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>  
 
-<title>Cclite $$fieldsref{เวอร์ชัน} Admin</title>
 
+<link rel="alternate" type="application/rss+xml" title="Cclite ทดลองการเชื่อมโยง" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $ fieldsref{รุ่น} Admin
+</title>
 !$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
 
-
-<script src="/javascript/prototype.js"></script>
-<script src="/javascript/scriptaculous.js"></script>
-
+<script src="/javascript/scriptaculous.js">
+</script>
 
 </head>
 
 <body id="$$fieldsref{action}$$fieldsref{substyle}">
-<div id="toptabs">
-<a 
- class="toptab" title="Forgot Your รหัสผ่าน?"
- href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">Forgotten รหัสผ่าน?</a>
 
+<div id="toptabs">
+
+<a 
+ class="toptab" title="ลืมรหัสผ่านของคุณ?"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+ลืมรหัสผ่าน
+</a>
 
 <a class="toptabstrikethrough" title="Deutsch"
- href="/cgi-bin/cclite.cgi?action=lang&amp;ภาษา=de">Deutsch</a>
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+Deutsch
+</a>
 
 <a 
  class="toptabstrikethrough" title="เปลี่ยนเป็นภาษาฝรั่งเศส"
- href="/cgi-bin/cclite.cgi?action=lang&amp;ภาษา=fr">Fran</a>
-$$fieldsref{youare} $$fieldsref{atregistry} 
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+Fran
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
 <p>
-<a class="toptab" title="บัญชีผู้ใช้ใหม่" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">บัญชีผู้ใช้ใหม่</a><span class="hide"> | </span>
-<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">Log off $$fieldsref{user} </a><span class="hide"> | </span>
-<a class="toptab" title="ย้อนกลับ to ผู้ใช้ Menu" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">ผู้ใช้ Menu</a><span class="hide"> | </span>
+
+<a class="toptab" title="บัญชีผู้ใช้ใหม่" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+บัญชีผู้ใช้ใหม่
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+ออกจาก$ fieldsref{ผู้ใช้}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="กลับไปยังผู้ใช้เมนู" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+เมนูผู้ใช้
+</a>
+<span class="hide">
+|
+</span>
+
 </p>
-
-
 
 </div>
 
 <div id="container">
-<h1>Cclite $$fieldsref{เวอร์ชัน} Administration</h1>
 
+<h1>
+Cclite $ fieldsref{รุ่น} ดูแล
+</h1>
 
 <div id="navitabs">
-<a class="showpartnersresulthtml" title="แสดงคู่ค้า Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">แสดงคู่ค้า</a><span class="hide"> | </span>
-<a class="templatecurrencyhtml" title="สร้าง New สกุลเงิน" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">สร้างสกุลเงิน</a><span class="hide"> | </span>
-<a class="showcurrenciesresulthtml" title="การแสดงการซื้อขายสกุลเงิน" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">แสดงสกุลเงิน</a><span class="hide"> | </span>
-<a class="templatecategoryhtml" title="สร้าง New Ad ประเภท" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">สร้าง Ad ประเภท</a><span class="hide"> | </span>
-<a class="navitab" title="ปรับเปลี่ยน ผู้ใช้ Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">Change a ผู้ใช้ Account</a><span class="hide"> | </span>
+
+<a class="showpartnersresulthtml" title="แสดงจิสทรีคู่ค้า" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+แสดงคู่ค้า
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="สร้างสกุลเงินใหม่" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+สร้างสกุลเงิน
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="การแสดงการซื้อขายสกุลเงิน" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+แสดงสกุลเงิน
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="สร้างประเภทใหม่ที่โฆษณา" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+สร้างการโฆษณาประเภท
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="ปรับเปลี่ยนบัญชีผู้ใช้" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+เปลี่ยนบัญชีผู้ใช้
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="showbalvolresulthtml" title="แสดงยอดดุลของรีจิสทรี" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">แสดงยอดดุลของรีจิสทรี</a><span class="hide"> | </span>
-<a class="navitab" title="สร้างกฎหรือวงเงินสินเชื่อ" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">สร้าง Rule/วงเงินสินเชื่อ</a><span class="hide"> | </span>
-<a class="navitab" title="สร้าง รีจิสทรี Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">สร้าง รีจิสทรี Partner</a><span class="hide"> | </span>
-<a class="navitab" title="การอัปโหลด Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">การอัปโหลด Batch Files</a><span class="hide"> | </span>
+
+
+<a class="showbalvolresulthtml" title="แสดงยอดดุลของรีจิสทรี" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+แสดงยอดดุลของรีจิสทรี
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="สร้างกฎหรือวงเงินสินเชื่อ" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+สร้างกฎการสินเชื่อวงเงิน
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="สร้างหุ้นส่วนของรีจิสทรี" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+สร้างหุ้นส่วนของรีจิสทรี
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="อัปโหลดแฟ้มแบตช์" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+อัปโหลดแฟ้มชุด
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="แม่แบบervicechghtml" title="Apply บริการ Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply บริการ Charge</a><span class="hide"> | </span>
-<a class="navitab" title="สร้าง เปิด Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">เปิด Office Directory</a><span class="hide"> | </span>
-<a class="navitab" title="ปรับเปลี่ยน $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">ปรับเปลี่ยน $$fieldsref{registry}</a><span class="hide"> | </span>
-<a class="navitab" title="รีจิสทรีและการตั้งค่าคอนฟิกโปรแกรมติดตั้ง" href="/cgi-bin/protected/ccinstall.cgi">โปรแกรมติดตั้ง</a><span class="hide"> | </span>
-<a class="toptabstrikethrough" title="ระบบสุขภาพและสถิติ" href="/">ระบบสุขภาพสถิติ</a><span class="hide"> | </span>
+
+
+<a class="templateservicechghtml" title="ค่าธรรมเนียมการบริการกับบัญชีทั้งหมด" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+ใช้ค่าธรรมเนียมบริการ
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="สร้าง Office เปิดไดเรกทอรีสำหรับพิมพ์" href="/cgi-bin/protected/ccdirectory.cgi">
+ไดเรกทอรี Office เปิด
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+ปรับเปลี่ยน$ fieldsref{รีจิสทรี}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="รีจิสทรีและโปรแกรมติดตั้งกำหนดค่า" href="/cgi-bin/protected/ccinstall.cgi">
+โปรแกรมติดตั้ง
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="ระบบสุขภาพและสถิติ" href="/">
+ระบบสุขภาพ/สถิติ
+</a>
+<span class="hide">
+|
+</span>
+
 </div>
 
-<hr>    
 <div id="main">
 !$$fieldsref{pagename}
 </div>
 
-
-    
 <div id="footer">
-Cclite copyright &copy; 2005-2008 (Hugh Barnard). Design by <a href="http://andreasviklund.com">Andreas Viklund</a>.
+Cclite ลิขสิทธิ์
+<a href="http://andreasviklund.com">
+Andreas Viklund
+</a>
+.
 </div>
 
 </div>
+
 </body>
+
 </html>

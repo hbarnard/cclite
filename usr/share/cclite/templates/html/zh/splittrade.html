@@ -1,27 +1,59 @@
+
 <table>
- <tbody class="stripy"> 
-     <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
- name="fromregistry" value="$$fieldsref{registry}" type="hidden"> <input
- name="action" value="splittransaction" type="hidden"> <input
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden">
+
+<input
+ name="action" value="splittransaction" type="hidden">
+
+<input
  name="subaction" value="om_trades" type="hidden">
 
-            <tr>
-              <td class="pme-key-1">日期</td>
-              <td class="pme-value-1"> <input class="grey"
- name="trade日期" size="11"  readonly="readonly" value="$$fieldsref{date}"
- type="text"></td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">从帐户<br>
-              </td>
-              <td class="pme-value-1"> <input class="grey"
+<tr>
+
+<td class="pme-key-1">
+日期
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeDate" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+从帐户
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
  name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
- </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">自 Account<br>
-              </td>
-              <td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+帐户
+<br>
+
+</td>
+
+<td class="pme-value-1">
 
 <!--
 
@@ -32,80 +64,143 @@
 -->
 
 <input type="text" class="required" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
-<div  class="autocomplete" id="suggestionBox" ></div>
+
+
+<div  class="autocomplete" id="suggestionBox" >
+</div>
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-		// <![CDATA[
+// <![CDATA[
   var myAutoCompleter = new Ajax.Autocompleter('tradeDestination', 'suggestionBox', '/cgi-bin/ccsuggest.cgi', {});
 		// ]]>
 </script>
 
+<span class="pme-key-0">
+注册表
+</span>
+$$fieldsref{selectpartners}
+</td>
 
+</tr>
 
-<span class="pme-key-0">注册表</span> $$fieldsref{selectpartners}
+<tr>
+
+<td class="pme-key-0">
+货币
+</td>
+
+<td nowrap class="pme-value-0">
+$$fieldsref{selectcurrency}
+<span class="pme-key-0">
+金额
+</span>
+
+<input class="required" id="tradeAmount" onChange="validatedecimals(this,this.value);" name="tradeAmount" size="11" maxlength="11" type="text">
 
 </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">货币</td>
-              <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
 
-<span class="pme-key-0"> 金额 </span>
-<input class="required" id="trade金额" onChange="validatedecimals(this,this.value);" name="trade金额" size="11" maxlength="11" type="text">
+</tr>
 
+<tr>
 
-</td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">
-<tr class="pme-row-0">
-              <td class="pme-key-0">Secondary 货币</td>
-              <td class="pme-value-0"> $$fieldsref{sselectcurrency}
-
-<span class="pme-key-0">Secondary 金额
-<input class="required" name="strade金额" id="strade金额"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
-
-</td>
-            </tr>
-
-
-
-</td>
-              <td class="pme-value-1"> 
-</td>
-            </tr>
+<td class="pme-key-0">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">项目 类型<br>
-              </td>
-              <td class="pme-value-0">
- 
-<select class="required" name="trade项目">
- <option value="goods">货物</option>
- <option value="services">服务s</option>
- <option value="other">其他</option>
+
+<td class="pme-key-0">
+第二币种
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{sselectcurrency}
+<span class="pme-key-0">
+二次量
+<input class="required" name="stradeAmount" id="stradeAmount"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+</td>
+
+<td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+项目类型
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select class="required" name="tradeItem">
+
+<option value="goods">
+货物
+</option>
+
+<option value="services">
+服务
+</option>
+
+<option value="other">
+其他
+</option>
+
 </select>
 
+<span class="pme-key-0">
+项目名称
+</span>
 
-
-<span class="pme-key-0"> 项目 标题</span> <input class="required"
- name="trade标题" size="60" maxlength="255" value="" type="text">
+<input class="required"
+ name="tradeTitle" size="60" maxlength="255" value="" type="text">
 
 </td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-1">项目说明</td>
-              <td class="pme-value-1"> <textarea class="required"
- name="trade说明" rows="3" cols="60"></textarea></td>
-            </tr>
 
-        <table class="pme-navigation">
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd"  value="使转让" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-      </form>
-   </table>
- </tbody>
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+项目说明
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required"
+ name="tradeDescription" rows="3" cols="60">
+</textarea>
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd"  value="使转让" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="明确" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
 </table>

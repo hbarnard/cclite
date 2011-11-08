@@ -1,64 +1,174 @@
-<div class="failedcheck"> $$fieldsref{updatemessage}</div>
-<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
-<table><tbody class="stripy">
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
 <form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
-<select name="install_type" id="install_type" onchange="change_install();">
-<option selected value="simple">بسيطة</option>
-<option value="full">جميع الخيارات</option>
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+بسيطة
+</option>
+
+<option value="full">
+جميع الخيارات
+</option>
+
 </select>
-<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> التسجيل">
-<input name="action" value="updateconfig2" type="hidden">
 
-<tr><td title="هذا المستخدم قاعدة بيانات mysql" class="menu">[دبوسر]</td><td class="pme-key-1">
-    <input id="[دبوسر]" type="text" class="required" name="[دبوسر]" size="60" value="$$fieldsref{[دبوسر]}">
-</td></tr>
-<tr><td title="هذا هو كلمة مرور قاعدة بيانات mysql" class="menu">دببسوورد</td><td class="pme-key-1">
-    <input id="دببسوورد" type="password"  class="required" name="دببسوورد" size="60" value="$$fieldsref{دببسوورد}">
+<input class="small"
+ name="saveadd" data-simple="yes" value="تحديث التكوين" type="submit">
 
-</td></tr>
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
-<tr><td title="experimental بادئة cpanel, use with care, uusally cpanel user name" class="menu">بادئة cpanel</td><td class="pme-key-1">
-    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
-</td></tr>
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
-<tr><td title="عرض النقطة العشرية للعملات" class="menu">استخدام الأرقام العشرية</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
-</td></tr>
+<tr>
+<td title="هذا المستخدم قاعدة بيانات mysql" class="menu">
+دبوسر]
+</td>
+<td class="pme-key-1">
 
-<tr><td title="استخدام علامات form الحرة للصفحات الصفراء بدلاً من فئات محددة" class="menu">استخدام العلامات</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
-</td></tr>
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
 
+</td>
+</tr>
 
-<tr><td title="هذا المجال كما يستنتج من مسار البرنامج النصي، يجب أن يكون صحيحة بالنسبة لملفات تعريف الارتباط للعمل" class="menu">المجال</td><td class="pme-key-1">
-    <input type="text" readonly="1"  class="required" name="المجال" size="60" value="$$fieldsref{المجال}">
-</td></tr>
-<tr><td title="this is the ملقم smtp for mail, for cpanel usually same as المجال name, المحليةhost or ip for internal servers" class="menu">ملقم smtp</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
-</td></tr>
+<tr>
+<td title="هذه هي كلمة مرور قاعدة بيانات mysql" class="menu">
+ورقة
+</td>
+<td class="pme-key-1">
 
-<tr><td title="البرنامج النصي للمستخدم الرئيسي ككليتي" class="menu">الصفحة الرئيسية</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required"  name="الصفحة الرئيسية" size="60" value="$$fieldsref{uالصفحة الرئيسية}">
-</td></tr>
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
 
-<tr><td title="هذا هو نوع تجزئة يستخدم كلمة المرور وحسابات رمزية، sha2 المفضل، لا يمكن تغيير مختلطة مرة تقام" class="menu">نوع التجزئة</td><td class="pme-key-1">
-    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+</td>
+</tr>
 
-</td></tr>
+<tr>
+<td title="بادئة cpanel التجريبية، الاستخدام بعناية، اسم المستخدم cpanel أووسالي" class="menu">
+بادئة cpanel
+</td>
+<td class="pme-key-1">
 
-<tr><td title="html rss وملفات الإخراج والرسوم البيانية، يستنتج من جذر المستند ضمن الملقم" class="menu">هتملباث</td><td class="pme-key-1">
-    <input type="text"  readonly="1" lass="required"  name="هتملباث" size="60" value="$$fieldsref{هتملباث}">
-</td></tr>
-<tr><td title="الحالة الأولية للدفع بها، إذا يتطلب انتظار تأكيد باستقبال المستخدم" class="pme-key-title">حالة الدفع الأولى</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
 
-</td></tr>
-<tr><td title="الحالة الأولى خاصة بالمستخدم، إذا كان غير مؤكدة وسوف يتطلب تأكيدا عبر البريد الإلكتروني المستخدم" class="pme-key-title">حالة المستخدم الأولية</td><td class="pme-key-1">
-    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
-</td></tr>
-<tr><td title="اللغة الافتراضية للرسائل والقوالب" class="pme-key-title">لغة</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="لغة" size="60" value="$$fieldsref{لغة}">
-</td></tr>
+</td>
+</tr>
+
+<tr>
+<td title="عرض النقطة العشرية للعملات" class="menu">
+استخدام الأرقام العشرية
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="استخدام علامات form الحرة للصفحات الصفراء بدلاً من الفئات الثابتة" class="menu">
+استخدام العلامات
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="وهذا هو المجال كما يستنتج من مسار البرنامج النصي، تحتاج أن تكون صحيحة بالنسبة لملفات تعريف الارتباط العمل" class="menu">
+المجال
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="هذا هو الملقم smtp للبريد ل cpanel عادة نفس اسم المجال أو localhost أو ip لملقمات الداخلية" class="menu">
+ملقم smtp
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="البرنامج النصي للمستخدم الرئيسي ككليتي" class="menu">
+الصفحة الرئيسية
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="هذا هو نوع تجزئة يستخدم كلمة المرور وحسابات رمزية، sha2 المفضل، لا يمكن تغيير مختلطة مرة تقام" class="menu">
+نوع التجزئة
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="html rss وملفات الإخراج والرسوم البيانية، يستنتج من جذر المستند ضمن الملقم" class="menu">
+هتملباث
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="الوضع الأولى للدفع بها، إذا يتطلب انتظار تأكيد باستقبال المستخدم" class="pme-key-title">
+حالة الدفع الأولى
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="الحالة الأولى خاصة بالمستخدم، إذا كان غير مؤكدة وسوف يتطلب تأكيدا عبر البريد الإلكتروني المستخدم" class="pme-key-title">
+حالة المستخدم الأولية
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="اللغة الافتراضية للرسائل وقوالب" class="pme-key-title">
+لغة
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
 
 <!-- now hardcoded as relative within all scripts 
 <tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
@@ -66,20 +176,47 @@
 </td></tr>
 -->
 
-<tr><td title="عدد من خطوط الشاشة لتقارير جدولية" class="pme-key-title">الأسطر لكل صفحة</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
-</td></tr>
-<tr><td title="المسار إلى ملف الرسائل، لا شيء لن تنجح إذا هذا الخطأ!" class="menu">المسار للرسائل</td><td class="pme-key-1">
-    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
-</td></tr>
+<tr>
+<td title="عدد من خطوط الشاشة لتقارير جدولية" class="pme-key-title">
+الأسطر لكل صفحة
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="المسار إلى ملف الرسائل، لا شيء ستعمل إذا كان هذا الخطأ!" class="menu">
+المسار للرسائل
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
 -->
-</td></tr>
-<tr><td title="إذا كان الجواب لا، لست بحاجة إلى وحدات Soap::Lite" class="menu">مولتيريجيستري؟?</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="مولتيريجيستري؟" size="60" value="$$fieldsref{مولتيريجيستري؟}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="إذا كان الجواب لا، لست بحاجة إلى وحدات Soap::Lite" class="menu">
+مولتيريجيستري؟
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
@@ -96,98 +233,249 @@
 <tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
     <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
 -->
-</td></tr>
-<tr><td title="لا تستخدم مباشرة ولكن يمكن تضمينها في قوالب مخصصة" class="pme-key-title">دعم البريد</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="لا تستخدم مباشرة ولكن يمكن تضمينها في قوالب مخصصة" class="pme-key-title">
+دعم البريد
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="used to send mail and log in to ملقم smtp, set up in cpanel, if necessary, first" class="menu">عنوان بريد النظام</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
-</td></tr>
+
+<tr>
+<td title="يستخدم لإرسال البريد وتسجيل الدخول إلى ملقم smtp، أنشئت في cpanel، إذا لزم الأمر، اﻷول" class="menu">
+عنوان بريد النظام
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="تستخدم للتبديل على Net::SMTP للإخطارات إلخ وهذا هو المفضل، وسيكون الخيار الوحيد في المستقبل، 0 أو 1" class="menu">smtp الصافية؟?</td><td >
-    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
-</td></tr>
 
+<tr>
+<td title="تستخدم للتبديل على Net::SMTP للإخطارات إلخ وهذا هو المفضل وسيكون الخيار الوحيد المتاح في المستقبل، 0 أو 1" class="menu">
+smtp الصافية؟
+</td>
+<td >
 
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
 
-<tr><td title="password for logging on to system email address within ملقم smtp" class="menu">نظام البريد كلمة المرور</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
-</td></tr>
-<tr><td title="عنوان الرد على رسائل البريد الإلكتروني الذي تم إنشاؤه، كثيرا ما فعله-عدم-رد" class="pme-key-title">عنوان الرد بريد النظام</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+</td>
+</tr>
 
-</td></tr>
-<tr><td title="المسار من أجل ملفات القالب المستخدم لواجهة ويب، لا شيء كثير لن تنجح إذا هذا الخطأ!" class="menu">قوالب</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="قوالب" size="60" value="$$fieldsref{قوالب}">
-</td></tr>
+<tr>
+<td title="كلمة المرور لتسجيل الدخول إلى عنوان بريدك الإلكتروني نظام ضمن ملقم smtp" class="menu">
+نظام البريد كلمة المرور
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="عنوان الرد على البريد الإلكتروني الذي تم إنشاؤه، كثيرا ما فعله-عدم-رد" class="pme-key-title">
+عنوان الرد بريد النظام
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="المسار من أجل ملفات القالب المستخدم لواجهة ويب، لا شيء كثير ستعمل إذا كان هذا الخطأ!" class="menu">
+قوالب
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
 
 <!-- section dealing with batch files -->
 
-<tr><td title="إخراج قاعدة مسار للمخططات النشاط تحت جذر ويب، تتم إضافة اسم التسجيل إلى هذا المسار" class="pme-key-title">دليل تخطيط</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
-</td></tr>
+<tr>
+<td title="إخراج قاعدة مسار للمخططات النشاط تحت جذر ويب، تتم إضافة اسم التسجيل إلى هذا المسار" class="pme-key-title">
+دليل تخطيط
+</td>
+<td class="pme-key-1">
 
-<tr><td title="سيتطلب بيرل rss وحدات لتوليد آر إس إس، إذا كان الجواب نعم" class="pme-key-title">أوسيرس</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="أوسيرس" size="60" value="$$fieldsref{أوسيرس}">
-</td></tr>
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="قاعدة تحميل مسار العمليات الدفعية، ينبغي أن لا تكون تحت جذر ويب" class="pme-key-title">دليل csv</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+<tr>
+<td title="وسيتطلب بيرل rss وحدات لتوليد آر إس إس، إذا كان الجواب نعم" class="pme-key-title">
+أوسيرس
+</td>
+<td class="pme-key-1">
 
-</td></tr>
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
 
-<tr><td title="علبة الوارد لجامو وتلقى الرسائل القصيرة، غير مطلوب للعبارات sms http" class="pme-key-title">علبة sms</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="قاعدة تحميل مسار العمليات الدفعية، ينبغي إلا يكون تحت جذر ويب" class="pme-key-title">
+دليل csv
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="علبة الوارد لجامو وتلقى الرسائل القصيرة، غير مطلوب للعبارات sms http" class="pme-key-title">
+sms علبة الوارد
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-</td></tr>
 
-<tr><td title="علبة بريد، الأسلوب القديم الاستعاضة عن بريد البوب في كل سجل" class="pme-key-title">دليل readmail.pl</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td title="علبة بريد، الأسلوب القديم الاستعاضة عن بريد البوب في كل سجل" class="pme-key-title">
+دليل readmail.pl
+</td>
+<td class="pme-key-1">
+
 <input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
-</td></tr>
 
-<tr><td title="مسار الإخراج الأساسي للمعاملات csv تحت جذر ويب" class="pme-key-title">csv خارج</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
-</td></tr>
+</td>
+</tr>
 
+<tr>
+<td title="مسار الإخراج الأساسي للمعاملات csv تحت جذر ويب" class="pme-key-title">
+csv خارج
+</td>
+<td class="pme-key-1">
 
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
 
-<tr><td title="قاعدة الإنتاج تتم إضافة مسار للمواد المطبوعة تحت جذر ويب، واسم التسجيل واللغة إلى هذا المسار" class="pme-key-title">مسار الطباعة</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="قاعدة الإنتاج تتم إضافة مسار rss واسم التسجيل واللغة إلى هذا المسار" class="pme-key-title">تغذية قاعدة الدليل</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
-</td></tr>
+<tr>
+<td title="قاعدة الإنتاج تتم إضافة مسار للمواد المطبوعة تحت جذر ويب، واسم التسجيل واللغة إلى هذا المسار" class="pme-key-title">
+مسار الطباعة
+</td>
+<td class="pme-key-1">
 
-<tr><td title="قاعدة خارج الدليل لنتائج جامو، لا تحتاج إليها عبارات sms http" class="pme-key-title">sms خارج</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="قاعدة الإنتاج تتم إضافة مسار rss واسم التسجيل واللغة إلى هذا المسار" class="pme-key-title">
+تغذية قاعدة الدليل
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="قاعدة خارج الدليل لنتائج جامو، لا تحتاج إليها عبارات sms http" class="pme-key-title">
+sms خارج
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
-</td></tr>
 
-<tr><td title="gammu input processed المحليةly if 1, otherwise this uses soap to process remotely" class="pme-key-title">المحلية sms?</td><td class="pme-key-1">
-<input type="text"  readonly="1" class="required" name="smsالمحلية" size="1" value="$$fieldsref{smsالمحلية}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+<tr>
+<td title="معالجتها محلياً إذا 1 مدخلات جامو، إلا هذا يستخدم الصابون للعملية عن بعد" class="pme-key-title">
+الرسالة القصيرة المحلية؟
+</td>
+<td class="pme-key-1">
 
-<tr><td title="المسار إلى ملف التكوين Log4perl" class="pme-key-title">مسار التكوين مسجل</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
-</td></tr>
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
 
-<tr><td ctitle="current cclite الإصدار" lass="pme-key-title">الإصدار</td><td class="pme-key-1">
-    <input type="text" class="required" class="grey" readonly="1" name="الإصدار" size="5" value="$$fieldsref{الإصدار}">
+</td>
+</tr>
 
-</td></tr>
- <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="التحديث" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="جlear" type="reset">
- </td>
-            </tr>
-</tbody></table>
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="المسار إلى ملف التكوين Log4perl" class="pme-key-title">
+مسار التكوين مسجل
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+الإصدار
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="التحديث" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="واضحة" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
 </form>

@@ -1,64 +1,174 @@
-<div class="failedcheck"> $$fieldsref{updatemessage}</div>
-<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
-<table><tbody class="stripy">
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
 <form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
-<select name="install_type" id="install_type" onchange="change_install();">
-<option selected value="simple">単純です</option>
-<option value="full">すべてのオプション</option>
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+単純です
+</option>
+
+<option value="full">
+すべてのオプション
+</option>
+
 </select>
-<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> レジストリ">
-<input name="action" value="updateconfig2" type="hidden">
 
-<tr><td title="これは mysql の db ユーザーです。" class="menu">dbuser</td><td class="pme-key-1">
-    <input id="dbuser" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
-</td></tr>
-<tr><td title="これは mysql の db パスワードです。" class="menu">dbpassword</td><td class="pme-key-1">
-    <input id="dbpassword" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+<input class="small"
+ name="saveadd" data-simple="yes" value="更新の構成" type="submit">
 
-</td></tr>
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
-<tr><td title="experimental cpanel のプレフィックス, use with care, uusally cpanel user name" class="menu">cpanel のプレフィックス</td><td class="pme-key-1">
-    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
-</td></tr>
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
-<tr><td title="通貨の小数点表示" class="menu">小数を使用します。</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
-</td></tr>
+<tr>
+<td title="これは mysql の db ユーザーです。" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
 
-<tr><td title="フリー フォーム タグ イエロー ページ固定カテゴリの代わりに使用します。" class="menu">タグを使用します。</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
-</td></tr>
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
 
+</td>
+</tr>
 
-<tr><td title="これは、ドメインからのスクリプトのパスを推測で、作業するためのクッキーを正しいする必要があります。" class="menu">ドメイン</td><td class="pme-key-1">
-    <input type="text" readonly="1"  class="required" name="ドメイン" size="60" value="$$fieldsref{ドメイン}">
-</td></tr>
-<tr><td title="this is the smtp サーバー for mail, for cpanel usually same as ドメイン name, ローカルhost or ip for internal servers" class="menu">smtp サーバー</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
-</td></tr>
+<tr>
+<td title="これは mysql の db パスワードです。" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
 
-<tr><td title="cclite の主なユーザー スクリプト" class="menu">ホーム</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required"  name="ホーム" size="60" value="$$fieldsref{uホーム}">
-</td></tr>
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
 
-<tr><td title="これはパスワードとトークンの計算に使用されるハッシュ タイプです、sha2 優先、変更混合一度セットアップすることはできません。" class="menu">ハッシュ型</td><td class="pme-key-1">
-    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+</td>
+</tr>
 
-</td></tr>
+<tr>
+<td title="実験的 cpanel プレフィックス、ケア、uusally cpanel のユーザー名を使用します。" class="menu">
+cpanel のプレフィックス
+</td>
+<td class="pme-key-1">
 
-<tr><td title="html、rss、出力ファイルとサーバー内のドキュメント ルートからグラフ、" class="menu">htmlpath</td><td class="pme-key-1">
-    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
-</td></tr>
-<tr><td title="初期状態のユーザーを受信確認待っている必要とする場合、支払" class="pme-key-title">最初の支払ステータス</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
 
-</td></tr>
-<tr><td title="初期状態の場合は確認する必要がありますユーザー メールで未確認のユーザー" class="pme-key-title">初期のユーザー ステータス</td><td class="pme-key-1">
-    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
-</td></tr>
-<tr><td title="既定の言語のメッセージとテンプレート" class="pme-key-title">言語</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="言語" size="60" value="$$fieldsref{言語}">
-</td></tr>
+</td>
+</tr>
+
+<tr>
+<td title="通貨の小数点表示" class="menu">
+小数を使用します。
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="フリー フォーム タグ イエロー ページ固定カテゴリの代わりに使用します。" class="menu">
+タグを使用します。
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="このドメインからのスクリプトのパスを推測は、cookie の動作を正しくする必要があります。" class="menu">
+ドメイン
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="この smtp サーバーのメール、cpanel は通常はドメイン名、ローカル ホストまたは内部サーバーの ip と同じ" class="menu">
+smtp サーバー
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="cclite の主なユーザー スクリプト" class="menu">
+ホーム
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="このパスワードとトークンの計算に使用されるハッシュ型 sha2 優先は、変更混合一度セットアップすることはできません。" class="menu">
+ハッシュ型
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="html、rss、出力ファイルとサーバー内のドキュメント ルートからグラフ、" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="初期状態のユーザーを受信確認待っている必要とする場合、支払" class="pme-key-title">
+最初の支払ステータス
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="初期の状態確認を必要とするユーザーの電子メールで未確認の場合、ユーザーの" class="pme-key-title">
+初期のユーザー ステータス
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="既定の言語のメッセージとテンプレート" class="pme-key-title">
+言語
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
 
 <!-- now hardcoded as relative within all scripts 
 <tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
@@ -66,20 +176,47 @@
 </td></tr>
 -->
 
-<tr><td title="表形式のレポートのスクリーン線数" class="pme-key-title">ページあたりの行数</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
-</td></tr>
-<tr><td title="これは間違っている場合メッセージ ファイルへのパス、何も動作します ！" class="menu">メッセージのパス</td><td class="pme-key-1">
-    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
-</td></tr>
+<tr>
+<td title="表形式のレポートのスクリーン線数" class="pme-key-title">
+ページあたりの行数
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="これは間違っている場合メッセージ ファイルへのパス、何も動作します ！" class="menu">
+メッセージのパス
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
 -->
-</td></tr>
-<tr><td title="ない場合は、soap::lite モジュールが必要はありません。" class="menu">multiregistry ですか？?</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="multiregistry ですか？" size="60" value="$$fieldsref{multiregistry ですか？}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="ない場合は、soap::lite モジュールが必要はありません。" class="menu">
+multiregistry？
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
@@ -96,98 +233,249 @@
 <tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
     <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
 -->
-</td></tr>
-<tr><td title="直接使用せずにカスタム テンプレートを含めることができます" class="pme-key-title">メールをサポートします。</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="直接使用せずにカスタム テンプレートを含めることができます" class="pme-key-title">
+メールによるサポート
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="used to send mail and log in to smtp サーバー, set up in cpanel, if necessary, first" class="menu">システム メール アドレス</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
-</td></tr>
+
+<tr>
+<td title="メールを送信し、最初の cpanel は、必要に応じて、設定、smtp サーバーへのログインに使用" class="menu">
+システムのメール アドレス
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="0 または 1 これをお勧めされ、唯一のオプションは将来的には、通知などの Net::SMTP を切り替えるために使用" class="menu">純 smtp ですか？?</td><td >
-    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
-</td></tr>
 
+<tr>
+<td title="これをお勧めされ、唯一のオプションは将来的には、通知などの 0 または 1 で Net::SMTP を切り替えるために使用" class="menu">
+純 smtp ですか？
+</td>
+<td >
 
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
 
-<tr><td title="password for logging on to system email address within smtp サーバー" class="menu">システム メール パスワード</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
-</td></tr>
-<tr><td title="生成されたメールを多くの場合は-ない-返信に対する返信先アドレス" class="pme-key-title">システム メール返信アドレス</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+</td>
+</tr>
 
-</td></tr>
-<tr><td title="これは間違っている場合の web インターフェイスを使用するテンプレート ファイルのパス、何も多くの仕事が ！" class="menu">テンプレート</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="テンプレート" size="60" value="$$fieldsref{テンプレート}">
-</td></tr>
+<tr>
+<td title="システム メール アドレスに smtp サーバーへのログオン パスワード" class="menu">
+システム メール パスワード
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="生成される電子メール、多くの場合は-ない-返信に対する返信先アドレス" class="pme-key-title">
+システム メール返信アドレス
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="これは間違っている場合の web インターフェイスを使用するテンプレート ファイルのパス、何も多くの仕事が ！" class="menu">
+テンプレート
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
 
 <!-- section dealing with batch files -->
 
-<tr><td title="基本出力アクティビティ グラフ web ルートの下のパス、レジストリの名前がこのパスに追加されます。" class="pme-key-title">グラフのディレクトリ</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
-</td></tr>
+<tr>
+<td title="ベース アクティビティ グラフ web ルートの下のパスを出力、レジストリの名前がこのパスに追加されます。" class="pme-key-title">
+グラフのディレクトリ
+</td>
+<td class="pme-key-1">
 
-<tr><td title="perl rss モジュール rss を生成するためはい場合必要があります。" class="pme-key-title">userss</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
-</td></tr>
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="ベース パスのバッチ トランザクションをアップロード、web ルートの下でべきでないです。" class="pme-key-title">csv ディレクトリ</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+<tr>
+<td title="perl モジュールを rss rss を生成するためはい場合必要があります。" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
 
-</td></tr>
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
 
-<tr><td title="受信トレイの受信 gammu sms、http sms ゲートウェイには不要" class="pme-key-title">sms 受信トレイ</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="ベース パス バッチ トランザクションのアップロード、web ルートの下でべきでないです。" class="pme-key-title">
+csv ディレクトリ
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="受信トレイの受信 gammu sms、http sms ゲートウェイには不要" class="pme-key-title">
+sms 受信トレイ
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-</td></tr>
 
-<tr><td title="受信トレイのメール、古いメソッドの各レジストリのポップのメールに置き換え" class="pme-key-title">readmail.pl ディレクトリ</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td title="受信トレイのメール、古いメソッドの各レジストリのポップのメールに置き換え" class="pme-key-title">
+readmail.pl ディレクトリ
+</td>
+<td class="pme-key-1">
+
 <input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
-</td></tr>
 
-<tr><td title="csv トランザクション web ルートの下の基本出力パス" class="pme-key-title">csv</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
-</td></tr>
+</td>
+</tr>
 
+<tr>
+<td title="csv トランザクション web ルートの下の基本出力パス" class="pme-key-title">
+csv
+</td>
+<td class="pme-key-1">
 
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
 
-<tr><td title="基本出力印刷物 web ルート、レジストリの名前と言語の下のパスはこのパスに追加" class="pme-key-title">印刷パス</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="基本出力の rss、レジストリの名前および言語パスはこのパスに追加" class="pme-key-title">ベース ディレクトリのフィード</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
-</td></tr>
+<tr>
+<td title="基本出力印刷物 web ルート、レジストリの名前と言語の下のパスはこのパスに追加" class="pme-key-title">
+印刷パス
+</td>
+<td class="pme-key-1">
 
-<tr><td title="gammu 結果、http sms ゲートウェイには不要のためのディレクトリをベースします。" class="pme-key-title">sms</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="基本出力の rss、レジストリの名前および言語パスはこのパスに追加" class="pme-key-title">
+ベース ディレクトリのフィード
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu が、http の sms ゲートウェイを必要ありませんディレクトリ ベースします。" class="pme-key-title">
+sms
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
-</td></tr>
 
-<tr><td title="gammu input processed ローカルly if 1, otherwise this uses soap to process remotely" class="pme-key-title">ローカル sms?</td><td class="pme-key-1">
-<input type="text"  readonly="1" class="required" name="smsローカル" size="1" value="$$fieldsref{smsローカル}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+<tr>
+<td title="gammu 入力の場合は 1 をローカルで処理、それ以外の場合この soap リモート処理に使用します。" class="pme-key-title">
+ローカルの sms ですか？
+</td>
+<td class="pme-key-1">
 
-<tr><td title="Log4perl 構成ファイルへのパス" class="pme-key-title">ロガー設定パス</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
-</td></tr>
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
 
-<tr><td ctitle="current cclite バージョン" lass="pme-key-title">バージョン</td><td class="pme-key-1">
-    <input type="text" class="required" class="grey" readonly="1" name="バージョン" size="5" value="$$fieldsref{バージョン}">
+</td>
+</tr>
 
-</td></tr>
- <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="更新プログラム" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset">
- </td>
-            </tr>
-</tbody></table>
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Log4perl 構成ファイルへのパス" class="pme-key-title">
+ロガー設定パス
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+バージョン
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="更新プログラム" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="クリア" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
 </form>

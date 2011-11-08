@@ -1,64 +1,174 @@
-<div class="failedcheck"> $$fieldsref{updatemessage}</div>
-<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
-<table><tbody class="stripy">
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
 <form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
-<select name="install_type" id="install_type" onchange="change_install();">
-<option selected value="simple">วิ</option>
-<option value="full">ตัวเลือกทั้งหมด</option>
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+วิ
+</option>
+
+<option value="full">
+ตัวเลือกทั้งหมด
+</option>
+
 </select>
-<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> รีจิสทรี">
-<input name="action" value="updateconfig2" type="hidden">
 
-<tr><td title="นี้คือผู้ใช้ db mysql" class="menu">dbuser</td><td class="pme-key-1">
-    <input id="dbuser" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
-</td></tr>
-<tr><td title="นี่คือรหัสผ่านสำหรับ mysql db" class="menu">dbpassword</td><td class="pme-key-1">
-    <input id="dbpassword" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+<input class="small"
+ name="saveadd" data-simple="yes" value="การปรับปรุงการตั้งค่าคอนฟิก" type="submit">
 
-</td></tr>
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
-<tr><td title="experimental คำนำหน้า cpanel, use with care, uusally cpanel user name" class="menu">คำนำหน้า cpanel</td><td class="pme-key-1">
-    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
-</td></tr>
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
-<tr><td title="แสดงจุดทศนิยมสำหรับสกุลเงิน" class="menu">ใช้ทศนิยม</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
-</td></tr>
+<tr>
+<td title="นี้คือผู้ใช้ db สำหรับ mysql" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
 
-<tr><td title="ใช้แบบฟอร์มฟรีแท็กสำหรับแทนที่เป็นประเภทถาวรของสมุดหน้าเหลือง" class="menu">ใช้แท็ก</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
-</td></tr>
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
 
+</td>
+</tr>
 
-<tr><td title="นี้เป็นโดเมนเป็น deduced จากเส้นทางสคริปต์ จำเป็นต้องถูกต้องสำหรับคุกกี้ในการทำงาน" class="menu">โดเมน</td><td class="pme-key-1">
-    <input type="text" readonly="1"  class="required" name="โดเมน" size="60" value="$$fieldsref{โดเมน}">
-</td></tr>
-<tr><td title="this is the เซิร์ฟเวอร์ smtp for mail, for cpanel usually same as โดเมน name, ท้องถิ่นhost or ip for internal servers" class="menu">เซิร์ฟเวอร์ smtp</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
-</td></tr>
+<tr>
+<td title="นี่คือรหัสผ่าน db mysql" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
 
-<tr><td title="สคริปต์ผู้ใช้หลักสำหรับ cclite" class="menu">หน้าหลัก</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required"  name="หน้าหลัก" size="60" value="$$fieldsref{uหน้าหลัก}">
-</td></tr>
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
 
-<tr><td title="นี้เป็นชนิดแฮที่ใช้สำหรับรหัสผ่านและการคำนวณโทเค็น sha2 ถูกต้อง ไม่สามารถถูกเปลี่ยนแปลง/ผสมเมื่อตั้ง" class="menu">ชนิดของแฮช</td><td class="pme-key-1">
-    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+</td>
+</tr>
 
-</td></tr>
+<tr>
+<td title="นำหน้าทดลอง cpanel ใช้ ด้วยความระมัดระวัง uusally cpanel ชื่อผู้ใช้" class="menu">
+คำนำหน้า cpanel
+</td>
+<td class="pme-key-1">
 
-<tr><td title="html, rss แฟ้มผลลัพธ์ และแผน ภูมิ deduced จากรากของเอกสารภายในเซิร์ฟเวอร์" class="menu">htmlpath</td><td class="pme-key-1">
-    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
-</td></tr>
-<tr><td title="สถานะเริ่มต้นของการทำ ถ้ารอจะต้องการการยืนยัน โดยผู้ใช้ที่ได้รับการชำระเงิน" class="pme-key-title">สถานะการชำระเงินเริ่มต้น</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
 
-</td></tr>
-<tr><td title="สถานะเริ่มต้นของผู้ใช้ ถ้า unconfirmed จะต้องยืนยันทางอีเมล์ของผู้ใช้" class="pme-key-title">สถานะของผู้ใช้เริ่มต้น</td><td class="pme-key-1">
-    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
-</td></tr>
-<tr><td title="ภาษาเริ่มต้นสำหรับข้อความและแม่แบบ" class="pme-key-title">ภาษา</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="ภาษา" size="60" value="$$fieldsref{ภาษา}">
-</td></tr>
+</td>
+</tr>
+
+<tr>
+<td title="แสดงจุดทศนิยมสำหรับสกุลเงิน" class="menu">
+ใช้ทศนิยม
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ใช้แบบฟอร์มฟรีแท็กสำหรับสมุดหน้าเหลืองแทนของประเภทถาวร" class="menu">
+ใช้แท็ก
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="นี้คือ โดเมนเป็น deduced จากเส้นทางสคริปต์ จำเป็นต้องถูกต้องสำหรับคุกกี้ในการทำงาน" class="menu">
+โดเมน
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="นี่คือเซิร์ฟเวอร์ smtp สำหรับจดหมาย สำหรับ cpanel เดียวกันมักจะเป็นชื่อโดเมน localhost หรือ ip สำหรับเซิร์ฟเวอร์ภายใน" class="menu">
+เซิร์ฟเวอร์ smtp
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="สคริปต์ผู้ใช้หลักสำหรับ cclite" class="menu">
+หน้าหลัก
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="นี่คือชนิดแฮที่ใช้สำหรับรหัสผ่านและการคำนวณโทเค็น sha2 เป็นที่ต้องการ ไม่สามารถเปลี่ยนแปลง/ผสมกันตั้ง" class="menu">
+ชนิดของแฮช
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="html, rss แฟ้มผลลัพธ์ และแผน ภูมิ deduced จากเอกสารหลักภายในเซิร์ฟเวอร์" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="สถานะเริ่มต้นของการชำระเงินที่ทำ ถ้ารอจะต้องการการยืนยัน โดยผู้ใช้ที่ได้รับ" class="pme-key-title">
+สถานะการชำระเงินเริ่มต้น
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="สถานะเริ่มต้นของผู้ใช้ ถ้า unconfirmed จะต้องยืนยันทางอีเมล์ของผู้ใช้" class="pme-key-title">
+สถานะของผู้ใช้เริ่มต้น
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ภาษาเริ่มต้นสำหรับข้อความและแม่แบบ" class="pme-key-title">
+ภาษา
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
 
 <!-- now hardcoded as relative within all scripts 
 <tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
@@ -66,20 +176,47 @@
 </td></tr>
 -->
 
-<tr><td title="จำนวนบรรทัดที่หน้าจอสำหรับตารางรายงาน" class="pme-key-title">บรรทัดต่อหน้า</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
-</td></tr>
-<tr><td title="เส้นทางไปยังแฟ้มข้อความ ไม่มีอะไรที่จะทำงานนี้จะไม่ถูกต้อง" class="menu">เส้นทางของข้อความ</td><td class="pme-key-1">
-    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
-</td></tr>
+<tr>
+<td title="จำนวนบรรทัดที่หน้าจอสำหรับตารางรายงาน" class="pme-key-title">
+บรรทัดต่อหน้า
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="เส้นทางไปยังแฟ้มข้อความ ไม่มีอะไรที่จะทำงานนี้จะไม่ถูกต้อง" class="menu">
+เส้นทางของข้อความ
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
 -->
-</td></tr>
-<tr><td title="ถ้าไม่มี ไม่จำเป็นโมดูล Soap::Lite" class="menu">multiregistry?</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="ถ้าไม่มี ไม่ต้องโมดู Soap::Lite" class="menu">
+multiregistry
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
@@ -96,98 +233,249 @@
 <tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
     <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
 -->
-</td></tr>
-<tr><td title="ไม่ใช้โดยตรง แต่สามารถรวมไว้ในแม่แบบแบบกำหนดเอง" class="pme-key-title">รองรับจดหมาย</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="ไม่ใช้โดยตรง แต่สามารถรวมอยู่ในแม่แบบแบบกำหนดเอง" class="pme-key-title">
+รองรับจดหมาย
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="used to send mail and log in to เซิร์ฟเวอร์ smtp, set up in cpanel, if necessary, first" class="menu">ระบบเมล์แอดเดรส</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
-</td></tr>
+
+<tr>
+<td title="ใช้ในการส่งจดหมาย และล็อกอินเข้าสู่เซิร์ฟเวอร์ smtp เซ็ตอัพใน cpanel ถ้าจำเป็น แรก" class="menu">
+ระบบเมล์แอดเดรส
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="ใช้ในการสลับบน Net::SMTP สำหรับการแจ้งเตือนฯลฯ นี้เป็นที่ต้องการ และจะมีตัวเลือกเดียวเท่านั้นในอนาคต 0 หรือ 1" class="menu">สุทธิ smtp?</td><td >
-    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
-</td></tr>
 
+<tr>
+<td title="ใช้การสลับบน Net::SMTP สำหรับการแจ้งเตือนฯลฯ นี้เป็นที่ต้องการ และจะเป็นตัวเลือกเดียวเท่านั้นในอนาคต 0 หรือ 1" class="menu">
+สุทธิ smtp
+</td>
+<td >
 
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
 
-<tr><td title="password for logging on to system email address within เซิร์ฟเวอร์ smtp" class="menu">รหัสผ่านของระบบ mail</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
-</td></tr>
-<tr><td title="ข้อความตอบกลับที่อยู่สำหรับการสร้างอีเมล์ ข้อความมักจะทำไม่ตอบกลับ" class="pme-key-title">ระบบจดหมายตอบกลับอยู่</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+</td>
+</tr>
 
-</td></tr>
-<tr><td title="เส้นทางสำหรับแฟ้มแม่แบบที่ใช้สำหรับอินเทอร์เฟซของเว็บ ไม่มีอะไรมากจะทำงานนี้จะไม่ถูกต้อง" class="menu">แม่แบบ</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="แม่แบบ" size="60" value="$$fieldsref{แม่แบบ}">
-</td></tr>
+<tr>
+<td title="รหัสผ่านสำหรับล็อกออนเข้าระบบอีเมล์ภายในเซิร์ฟเวอร์ smtp" class="menu">
+รหัสผ่านของระบบจดหมาย
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ที่อยู่ของข้อความตอบกลับสำหรับการสร้างอีเมล์ ข้อความมักจะทำไม่ตอบกลับ" class="pme-key-title">
+ระบบจดหมายตอบกลับอยู่
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="เส้นทางสำหรับแฟ้มแม่แบบที่ใช้สำหรับอินเทอร์เฟซของเว็บ ไม่มีอะไรมากจะทำงานนี้จะไม่ถูกต้อง" class="menu">
+แม่แบบ
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
 
 <!-- section dealing with batch files -->
 
-<tr><td title="base แสดงผลเส้นทางสำหรับแผนภูมิของกิจกรรมภายใต้เว็บหลัก ชื่อของรีจิสทรีจะถูกเพิ่มไปยังเส้นทางนี้" class="pme-key-title">ไดเรกทอรีของแผนภูมิ</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
-</td></tr>
+<tr>
+<td title="ฐานผลเส้นทางสำหรับแผนภูมิกิจกรรมภายใต้เว็บราก ชื่อของรีจิสทรีจะถูกเพิ่มไปยังเส้นทางนี้" class="pme-key-title">
+ไดเรกทอรีของแผนภูมิ
+</td>
+<td class="pme-key-1">
 
-<tr><td title="ต้องใช้โมดูล rss perl สำหรับสร้าง rss ถ้าใช่" class="pme-key-title">userss</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
-</td></tr>
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="base อัปโหลดเส้นทางสำหรับธุรกรรมการชุด ไม่ควรภายใต้เว็บราก" class="pme-key-title">ไดเรกทอรี csv</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+<tr>
+<td title="ต้องจะให้ภาษาเพิร์ล rss โมดูลสำหรับการสร้าง rss ถ้าใช่" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
 
-</td></tr>
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
 
-<tr><td title="กล่องขาเข้าสำหรับ gammu รับ sms ไม่จำเป็นสำหรับเกตเวย์ sms http" class="pme-key-title">กล่องขาเข้าของ sms</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="ฐานอัปโหลดเส้นทางสำหรับธุรกรรมการชุด ไม่ควรภายใต้เว็บราก" class="pme-key-title">
+ไดเรกทอรี csv
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="กล่องขาเข้าสำหรับ gammu รับ sms ไม่จำเป็นสำหรับเกตเวย์ sms http" class="pme-key-title">
+sms กล่องขาเข้า
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-</td></tr>
 
-<tr><td title="กล่องขาเข้าสำหรับ mail วิธีเก่าที่ถูกแทนที่ ด้วยจดหมายที่ยอดนิยมในรีจิสทรีแต่ละ" class="pme-key-title">ไดเรกทอรี readmail.pl</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td title="กล่องขาเข้าสำหรับจดหมาย วิธีเก่าที่ถูกแทนที่ ด้วยจดหมายที่ยอดนิยมในรีจิสทรีแต่ละ" class="pme-key-title">
+ไดเรกทอรี readmail.pl
+</td>
+<td class="pme-key-1">
+
 <input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
-</td></tr>
 
-<tr><td title="เส้นทางฐานผลลัพธ์สำหรับธุรกรรม csv ภายใต้เว็บราก" class="pme-key-title">csv ออก</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
-</td></tr>
+</td>
+</tr>
 
+<tr>
+<td title="เส้นทางฐานผลลัพธ์สำหรับธุรกรรม csv ภายใต้เว็บราก" class="pme-key-title">
+csv ออก
+</td>
+<td class="pme-key-1">
 
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
 
-<tr><td title="พื้นฐานการแสดงผลเส้นทางสำหรับการพิมพ์วัสดุภายใต้เว็บราก ชื่อของรีจิสทรี และภาษาจะถูกเพิ่มไปยังเส้นทางนี้" class="pme-key-title">พิมพ์เส้นทาง</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="พื้นฐานการแสดงผลเส้นทางสำหรับ rss ชื่อของรีจิสทรี และภาษาจะถูกเพิ่มไปยังเส้นทางนี้" class="pme-key-title">การดึงข้อมูลฐานไดเรกทอรี</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
-</td></tr>
+<tr>
+<td title="พื้นฐานการแสดงผลเส้นทางสำหรับการพิมพ์วัสดุภายใต้เว็บราก ชื่อของรีจิสทรี และภาษาจะถูกเพิ่มไปยังเส้นทางนี้" class="pme-key-title">
+พิมพ์เส้นทาง
+</td>
+<td class="pme-key-1">
 
-<tr><td title="พื้นฐานออกจากไดเรกทอรีสำหรับผลลัพธ์ gammu ไม่จำเป็นสำหรับเกตเวย์ sms http" class="pme-key-title">sms ออก</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="พื้นฐานการแสดงผลเส้นทางสำหรับ rss ชื่อของรีจิสทรี และภาษาจะถูกเพิ่มไปยังเส้นทางนี้" class="pme-key-title">
+ฐานที่ดึงข้อมูลไดเรกทอรี
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="พื้นฐานออกจากไดเรกทอรีสำหรับผลลัพธ์ gammu ไม่จำเป็นสำหรับเกตเวย์ sms http" class="pme-key-title">
+sms ออก
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
-</td></tr>
 
-<tr><td title="gammu input processed ท้องถิ่นly if 1, otherwise this uses soap to process remotely" class="pme-key-title">ท้องถิ่น sms?</td><td class="pme-key-1">
-<input type="text"  readonly="1" class="required" name="smsท้องถิ่น" size="1" value="$$fieldsref{smsท้องถิ่น}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+<tr>
+<td title="ป้อนข้อมูล gammu ที่ประมวลผลภายในถ้า 1 มิฉะนั้นนี้ใช้สบู่การประมวลผลจากระยะไกล" class="pme-key-title">
+sms ภายในเครื่องหรือไม่
+</td>
+<td class="pme-key-1">
 
-<tr><td title="เส้นทางไปยังแฟ้มการกำหนดค่า Log4perl" class="pme-key-title">เส้นทางที่สามารถ config</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
-</td></tr>
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
 
-<tr><td ctitle="current cclite เวอร์ชัน" lass="pme-key-title">เวอร์ชัน</td><td class="pme-key-1">
-    <input type="text" class="required" class="grey" readonly="1" name="เวอร์ชัน" size="5" value="$$fieldsref{เวอร์ชัน}">
+</td>
+</tr>
 
-</td></tr>
- <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="โปรแกรมปรับปรุง" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset">
- </td>
-            </tr>
-</tbody></table>
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="เส้นทางไปยังแฟ้มการกำหนดค่า Log4perl" class="pme-key-title">
+สามารถกำหนดเส้นทาง
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+เวอร์ชัน
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="โปรแกรมปรับปรุง" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="ล้าง" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
 </form>

@@ -1,132 +1,309 @@
+
 <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+
 <input name="action" value="update" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="userId" value="$$fields{userId}" type="hidden">
-  <table class="pme-main" summary="om_users">
-    <tbody class="stripy">
-      <tr class="pme-row-1">
-        <td class="pme-key-1">UserLogin</td>
-        <td class="pme-value-0"> <input class="grey"
- name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">User パスワード</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userパスワード" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm パスワード</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="confirmパスワード" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">User電子メール</td>
-        <td class="pme-value-1"> <input class="required email"
- name="user電子メール" size="40" maxlength="255" value="$$fields{user電子メール}" type="text"></td>
-      </tr>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">数・名前を家</td>
-              <td class="pme-value-1"> <input class="required"
- name="user名前ornumber" size="30" maxlength="30" value="$$fields{user名前ornumber}" type="text">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ユーザー パスワード
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+パスワードの確認入力します。
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="required email"
+ name="userEmail" size="40" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+ハウス番号名前
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">通りの名前</td>
-              <td class="pme-value-1"> <input class="required"
- name="userストリート" size="40" maxlength="40" value="$$fields{userストリート}" type="text">
+
+<td class="pme-key-0">
+通りの名前
 </td>
-            </tr>
-<tr class="pme-row-1">
-              <td class="pme-key-0">町</td>
-              <td class="pme-value-1"> <input class="required"
- name="user町" size="40" maxlength="40" value="$$fields{user町}" type="text">
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">郡/州</td>
-              <td class="pme-value-1"> <input class="required"
+
+<td class="pme-key-0">
+町
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+郡/州
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">郵便番号</td>
-              <td class="pme-value-1"> <input class="required"
- name="user郵便番号" size="10" maxlength="10" value="$$fieldsref{user郵便番号}" type="text">
+
+<td class="pme-key-0">
+郵便番号
 </td>
-            </tr>
 
+<td class="pme-value-1">
 
-            <tr class="pme-row-1">
-              <td class="pme-key-0">携帯電話</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
-            </tr>
+<input class="required"
+ name="userPostcode" size="10" maxlength="10" value="$$fieldsref{userPostcode}" type="text">
 
-<tr class="pme-row-1">
-              <td class="pme-key-0">Pin for 携帯電話 トランザクション</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPin" size="6" maxlength="6" value="" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">Confirm Pin for 携帯電話 トランザクション</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">SMS のお支払いの領収書</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td title="これはパブリック キー id の暗号化されたトランザクションです。" class="pme-key-0">パブリック キー Id</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
-            </tr>
-
-
-            <tr class="pme-row-1">
-              <td class="pme-key-0">言語</td>
-              <td class="pme-value-1"> 
-                 <select name="userLang">
-                   <option value="de">ドイツ</option>
-                   <option selected value="en">英語</option>
-                   <option value="fr">フラン</option>
-                 </select>
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">ユーザー名</td>
-        <td class="pme-value-0"> <input class="required"
- name="user名前" size="40" maxlength="255" value="$$fields{user名前}" type="text"></td>
-      </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or アクティブ</td>
-        <td class="pme-value-1"> 
-                 <select name="userステータス">
-                   <option selected value="active">アクティブ</option>
-                   <option value="holiday">休日に</option>
-                 </select>
+
+<td class="pme-key-0">
+携帯電話
 </td>
-      </tr>
-    </tbody>
-  </table>
-  <hr class="pme-hr">
-  <table class="pme-navigation">
-    <tbody>
-      <tr class="pme-navigation">
-        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="保存" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel"  type="reset"> </td>
-      </tr>
-    </tbody>
-  </table>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+携帯電話取引用暗証番号
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+携帯電話取引のピンを確認します。
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+SMS のお支払いの領収書
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="この暗号化されたトランザクションはパブリック キー id です。" class="pme-key-0">
+パブリック キー Id
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+言語
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLang">
+
+<option value="de">
+ドイツ
+</option>
+
+<option selected value="en">
+英語
+</option>
+
+<option value="fr">
+フラン
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ユーザー名
+</td>
+
+<td class="pme-value-0">
+
+<input class="required"
+ name="userName" size="40" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+休日またはアクティブ
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+アクティブ
+</option>
+
+<option value="holiday">
+休日に
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="保存" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="キャンセル"  type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </form>

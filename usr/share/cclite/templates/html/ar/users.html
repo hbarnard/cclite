@@ -1,132 +1,309 @@
+
 <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+
 <input name="action" value="update" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="userId" value="$$fields{userId}" type="hidden">
-  <table class="pme-main" summary="om_users">
-    <tbody class="stripy">
-      <tr class="pme-row-1">
-        <td class="pme-key-1">أوسيرلوجين</td>
-        <td class="pme-value-0"> <input class="grey"
- name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">User كلمة المرور</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userكلمة المرور" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm كلمة المرور</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="confirmكلمة المرور" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">Userالبريد الإلكتروني</td>
-        <td class="pme-value-1"> <input class="required email"
- name="userالبريد الإلكتروني" size="40" maxlength="255" value="$$fields{userالبريد الإلكتروني}" type="text"></td>
-      </tr>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">العدد/البيت اسم</td>
-              <td class="pme-value-1"> <input class="required"
- name="userاسمornumber" size="30" maxlength="30" value="$$fields{userاسمornumber}" type="text">
+
+<td class="pme-key-1">
+أوسيرلوجين
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="40" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+كلمة مرور المستخدم
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+تأكيد كلمة المرور
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="required email"
+ name="userEmail" size="40" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+اسم عدد/مجلس النواب
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">اسم الشارع</td>
-              <td class="pme-value-1"> <input class="required"
- name="userشارع" size="40" maxlength="40" value="$$fields{userشارع}" type="text">
+
+<td class="pme-key-0">
+اسم الشارع
 </td>
-            </tr>
-<tr class="pme-row-1">
-              <td class="pme-key-0">مدينة</td>
-              <td class="pme-value-1"> <input class="required"
- name="userمدينة" size="40" maxlength="40" value="$$fields{userمدينة}" type="text">
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">مقاطعة/الدولة</td>
-              <td class="pme-value-1"> <input class="required"
+
+<td class="pme-key-0">
+مدينة
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+مقاطعة/الدولة
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">الرمز البريدي</td>
-              <td class="pme-value-1"> <input class="required"
- name="userالرمز البريدي" size="10" maxlength="10" value="$$fieldsref{userالرمز البريدي}" type="text">
+
+<td class="pme-key-0">
+الرمز البريدي
 </td>
-            </tr>
 
+<td class="pme-value-1">
 
-            <tr class="pme-row-1">
-              <td class="pme-key-0">الهاتف المحمول</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
-            </tr>
+<input class="required"
+ name="userPostcode" size="10" maxlength="10" value="$$fieldsref{userPostcode}" type="text">
 
-<tr class="pme-row-1">
-              <td class="pme-key-0">Pin for الهاتف المحمول المعاملات</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPin" size="6" maxlength="6" value="" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">Confirm Pin for الهاتف المحمول المعاملات</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="cuserPin" size="6" maxlength="6" value="" type="password"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td class="pme-key-0">إيصالات الدفع SMS</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox"></td>
-            </tr>
-
-<tr class="pme-row-1">
-              <td title="هذا هو معرف المفتاح العام للمعاملات المشفرة" class="pme-key-0">معرف المفتاح العام</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text"></td>
-            </tr>
-
-
-            <tr class="pme-row-1">
-              <td class="pme-key-0">لغة</td>
-              <td class="pme-value-1"> 
-                 <select name="userLang">
-                   <option value="de">دوتش</option>
-                   <option selected value="en">الإنكليزية</option>
-                   <option value="fr">فران</option>
-                 </select>
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">اسم المستخدم</td>
-        <td class="pme-value-0"> <input class="required"
- name="userاسم" size="40" maxlength="255" value="$$fields{userاسم}" type="text"></td>
-      </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or نشط</td>
-        <td class="pme-value-1"> 
-                 <select name="userمركز">
-                   <option selected value="active">نشط</option>
-                   <option value="holiday">في عطلة</option>
-                 </select>
+
+<td class="pme-key-0">
+الهواتف النقالة
 </td>
-      </tr>
-    </tbody>
-  </table>
-  <hr class="pme-hr">
-  <table class="pme-navigation">
-    <tbody>
-      <tr class="pme-navigation">
-        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="حفظ" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel"  type="reset"> </td>
-      </tr>
-    </tbody>
-  </table>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+رقم التعريف الشخصي لصفقات الهاتف المحمول
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+تأكيد رقم التعريف الشخصي لصفقات الهاتف المحمول
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+إيصالات الدفع SMS
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userSmsreceipt" value="$$fieldsref{userSmsreceipt}" type="checkbox">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="هذا هو معرف الرئيسية العامة للمعاملات المشفرة" class="pme-key-0">
+معرف المفتاح العام
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+لغة
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLang">
+
+<option value="de">
+دويتش
+</option>
+
+<option selected value="en">
+الإنكليزية
+</option>
+
+<option value="fr">
+فران
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+اسم المستخدم
+</td>
+
+<td class="pme-value-0">
+
+<input class="required"
+ name="userName" size="40" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+عطلة أو النشطة
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+نشط
+</option>
+
+<option value="holiday">
+في عطلة
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="حفظ" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="إلغاء الأمر"  type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </form>

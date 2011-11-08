@@ -1,107 +1,246 @@
 
+
 <table>
+
 <tbody class="stripy">
+
 <form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
 
 <input name="subaction" value="om_yellowpages" type="hidden">
+
 <input name="action" value="addyellow" type="hidden">
 
+<tr>
 
-<tr>
-<td class="pme-key-0">من المستخدم</td>
-<td class="pme-value-0">
-<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text"></td>
-</tr>
-<tr>
-<td class="pme-key-1">نوع</td>
-<td class="pme-value-1">
-              <select class="required" name="type">
-              <option value="offered" selected="selected">العرض</option>
-              <option value="wanted">يريد</option>
-              <option value="other">الأخرى</option>
-              </select>
+<td class="pme-key-0">
+من المستخدم
 </td>
-</tr>
-<tr>
-<td class="pme-key-1">الفئة الرئيسية</td>
-<td class="pme-value-1">
-              <select class="required" name="majorclass">
-              <option value="service" selected="selected">الخدمة</option>
-              <option value="goods">السلع</option>
-              <option value="other">الأخرى</option>
-              </select>
-</td>
-</tr>
 
-<tr>
-<td class="pme-key-1">تصنيف</td>
-<td class="pme-value-1">
-$$fieldsref{selectclassification}</td>
-</tr>
-
-<tr>
-<td class="pme-key-1">العلامات (autocomplete)</td>
-<td class="pme-value-1">
-<span id="tagmatches" class="tagmatches"><input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}"></span></td>
-</tr>
-
-<tr>
-<td class="pme-key-0">الموضوع</td>
 <td class="pme-value-0">
-<input class="required" name="subject" size="30" maxlength="30" value="" type="text"></td>
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
 </tr>
+
 <tr>
-<td class="pme-key-1">وصف</td>
+
+<td class="pme-key-1">
+نوع
+</td>
+
 <td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+العرض
+</option>
+
+<option value="wanted">
+يريد
+</option>
+
+<option value="other">
+الأخرى
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+الفئة الرئيسية
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+الخدمة
+</option>
+
+<option value="goods">
+السلع
+</option>
+
+<option value="other">
+الأخرى
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+تصنيف
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+العلامات (الإكمال التلقائي)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+الموضوع
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+وصف
+</td>
+
+<td class="pme-value-1">
+
 <textarea class="required" name="description" rows="5" columns="50">
-$$fieldsref{description}</textarea>
+$$fieldsref{description}
+</textarea>
+
 </td>
+
 </tr>
+
 <tr>
-<td class="pme-key-0">السعر</td>
+
+<td class="pme-key-0">
+السعر
+</td>
+
 <td class="pme-value-0">
-<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
 </tr>
+
 <tr class="pme-row-1">
-<td class="pme-key-1">العملة</td>
+
+<td class="pme-key-1">
+العملة
+</td>
+
 <td class="pme-value-1">
 $$fieldsref{selectcurrency}
 <input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
 </td>
+
 </tr>
 
 <tr>
-<td class="pme-key-1">Per unit (services only)</td>
-<td class="pme-value-1">
-              <select class="pme-input-1" name="unit">
-              <option value="" ></option>
-              <option value="hour" >كل ساعة</option>
-              <option value="day" >كل يوم</option>
-              <option value="week" >في الأسبوع</option>
-              <option value="month" >في الشهر</option>
-              </select>
+
+<td class="pme-key-1">
+كل وحدة (الخدمات فقط)
 </td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+كل ساعة
+</option>
+
+<option value="day" >
+كل يوم
+</option>
+
+<option value="week" >
+في الأسبوع
+</option>
+
+<option value="month" >
+في الشهر
+</option>
+
+</select>
+
+</td>
+
 </tr>
 
 <tr>
-<td class="pme-key-1">كاملة من الدفع بالعملة تسمح؟?</td>
-<td class="pme-value-1">
-              <select class="pme-input-1" name="truelets">
-              <option value="yes" >نعم</option>
-              <option value="no">لا توجد</option>
-              </select>
+
+<td class="pme-key-1">
+كاملة من الدفع بالعملة تسمح؟
 </td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+نعم
+</option>
+
+<option value="no">
+لا توجد
+</option>
+
+</select>
+
+</td>
+
 </tr>
 
 <table class="pme-navigation">
+
 <tr class="pme-navigation">
+
 <td class="pme-buttons">
+
 <input class="pme-save"
- name="saveadd" value="جعل صفحة" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
+ name="saveadd" value="جعل صفحة" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="واضحة" type="reset">
+
+</td>
+
 </tr>
+
 </form>
- </table>
-</tbody>
+
 </table>
 
+</tbody>
+
+</table>

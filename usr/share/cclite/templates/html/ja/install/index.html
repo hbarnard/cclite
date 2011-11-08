@@ -1,103 +1,334 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="ことができます。 C finance currency" />
-<meta name="author" content="hugh barnard" />
-$$fieldsref{metarefresh}
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet">
-	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<title>
+Cclite $ fieldsref{} インストーラーのバージョン
+</title>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
+<meta name="author" content="hugh barnard" />
+
+$$fieldsref{metarefresh}
+<!-- stylesheets -->
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
 
+
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
-<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
-
-<title>Cclite $$fieldsref{バージョン} インストーラー</title>
-
-<script src="/javascript/jquery-1.3.2.js"></script>
-<script src="/javascript/jquery-cookies.js"></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/thickbox-compressed.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
-
-<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
-<script src="/javascript/jquery-tagsuggest.js"></script>
-
-<script type='text/javascript' src='/javascript/jquery.event.drop-1.2/jquery.event.drop-1.2.js'></script>
-<script type='text/javascript' src='/javascript/jquery.event.drag-1.5/jquery.event.drag-1.5.js'></script>
-<script src="/javascript/jquery-validation-1.5.5.js"></script>
-<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.tooltip.js'></script>
-
-<script src="/javascript/cookies.js" type="text/javascript"></script>
-
-<script src="/javascript/striper.js" type="text/javascript"></script>
-<script src="/javascript/cclite.js" type="text/javascript"></script>
 
 
+<!-- javascript libraries, need to subsitute compressed versions -->
+
+<!-- jquery items -->
+
+<script src="/javascript/jquery-1.3.2.js">
+</script>
+
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
+
+<script src="/javascript/jquery-cookies.js">
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!-- others non jquery -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<!-- graphing -->
+
+<script  src="/javascript/raphael.js" type="text/javascript" >
+</script>
+
+<script  src="/javascript/ico.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
 
 <!-- all forms have the same name 'form', avoids complexity here -->
+
+<style type="text/css" media="screen">
+
+</style>
 
 </head>
 
 <body>
-	<div id="page" align="center">
-		<div id="toppage" align="center">
-			<div id="date">
-				<div class="smalltext" style="padding:13px;"></div>
-			</div>
-			<div id="topbar">
-				<div align="right" style="padding:12px;">
-<a class="bodytext" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff"><span id="logoff"><span></a>|
-<a title="行くogle group for support" href="http://groups.google.co.uk/group/cclite?hl=en">助けをしたいですか？?</a>| 
-<a target="blank" title="確認し、インストールを診断" href="/cgi-bin/protected/checkinstall.cgi">インストールを確認します。</a>|
-<a title="管理メニュー" href="/cgi-bin/protected/ccadmin.cgi">管理メニュー</a>|
-<a title="ユーザー Menu" href="/cgi-bin/cclite.cgi">ユーザー Menu</a>
+
+<!-- this switch turns on/off the decimal point stuff -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
+<div class="topbar">
+
+<a title="ホーム" href="/cgi-bin/cclite.cgi">
+<span class="titletext">
+Cclite
+</span>
+</a>
+
+<!-- search for users,trades, ads -->
+
+<div class="adsearch">
+
+<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="find" type="hidden">
+
+<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+
+<select id="search_type" class="small" name="search_type">
+
+<option selected value='trade'>
+トランザクション
+</option>
+
+<option value='user'>
+ユーザー
+</option>
+
+<option value='ad'>
+広告
+</option>
+
+</select>
+
+<input value="行く" class="small" type="submit" title="取引、広告やユーザーを探す">
+
+</form>
 
 </div>
-			</div>
-		</div>
-		<div id="header" align="center">
 
-			<div class="titletext" id="logo">
-Cclite
-                                 <div align="right" style="padding:12px;" class="smalltext">$$fieldsref{youare} $$fieldsref{atregistry}</div>
-                                 <div align="right" style="padding:12px;" class="contenttext"></div>
-				<div class="logotext" style="margin:30px"><span class="orangelogotext"></span></div> 
-			</div>
-			<div id="pagetitle">
-				<div id="title" class="titletext" align="right"></div>
-			</div>
-		</div>
-		<div id="content" align="center">
-			<div id="menu" align="right">
-				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
-				<div id="linksmenu" align="center">
-<a id="updateconfig" title="Cclite.cf に格納されている conifguration を更新します。" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">更新の構成</a>
-<a id="newregistry" title="作成します。 New レジストリ" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">作成します。 New レジストリ</a>
-<a id="showregistry" title="現在の Cclite レジストリを表示します。" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">レジストリを表示します。</a>
+<!-- end of autocomplete search box -->
 
+<!-- language selector version 1  -->
 
-				</div>
-				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_bottomshadow.gif" width="189" height="8" alt="mnubottomshadow" /></div>
-			</div>
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-		<div id="contenttext">
-			<div class="bodytext" style="padding:12px;" align="justify">
-				
+<option value='en'>
+英語
+</option>
+
+<option value='ar'>
+アラビア語
+</option>
+
+<option value='zh'>
+中国語
+</option>
+
+<option value='de'>
+ドイツ
+</option>
+
+<option value='nl'>
+オランダ語
+</option>
+
+<option value='fr'>
+フランス語
+</option>
+
+<option value='es'>
+ギニア
+</option>
+
+<option value='it'>
+イタリア語
+</option>
+
+<option value='el'>
+ギリシャ語
+</option>
+
+<option value='ja'>
+日本語
+</option>
+
+<option value='ko'>
+韓国語
+</option>
+
+<option value='pt'>
+ポルトガル語
+</option>
+
+<option value='ro'>
+ルーマニア語
+</option>
+
+<option value='ru'>
+ロシア語
+</option>
+
+<option value='th'>
+タイ語
+</option>
+
+<option value='vi'>
+ベトナム語
+</option>
+
+</select>
+
+<!--  language selector version 1 end  -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
+</span>
+</span>
+
+</div>
+
+<!-- end of logo -->
+
+<!--- this bit needs replacing by the specific admin and install menus -->
+
+<div class="topbar">
+
+<a title="Google グループのサポート" href="http://groups.google.co.uk/group/cclite?hl=en">
+助けをしたいですか？
+</a>
+
+<a title="管理メニュー" href="/cgi-bin/protected/ccadmin.cgi">
+管理メニュー
+</a>
+
+<a title="ユーザーのメニュー" href="/cgi-bin/cclite.cgi">
+ユーザーのメニュー
+</a>
+
+</div>
+
+<!-- end of topbar -->
+
+<div class="topbar" >
+
+<a id="updateconfig" title="Cclite.cf に格納されている conifguration を更新します。" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+更新の構成
+</a>
+
+<a id="newregistry" title="新しいレジストリを作成します。" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+新しいレジストリを作成します。
+</a>
+
+<a id="showregistry" title="現在の Cclite レジストリを表示します。" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+レジストリを表示します。
+</a>
+
+<a id="installcheck" title="インストール チェックを実行します。" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+インストール要件を確認します。
+</a>
+
+<!-- end of menu bit that needs replacing for admin and install -->
+
+</div>
+
+<!-- end of menu -->
+
+<div class="content" align="center">
+
+<div class="contentleft">
+
+<div>
 !$$fieldsref{pagename}
+</div>
 
-			</div>
+</div>
 
-			</div>
-		</div>
-		<div id="footer" class="smallgraytext" align="center">
-			<a title="Cclite ユーザー ログイン" href="/cgi-bin/cclite.cgi">ホーム</a> | <a title="行くogle group for support" href="http://groups.google.co.uk/group/cclite?hl=en">Cclite をヘルプします。</a><br />
-			Cclite &copy; Hugh Barnard 2003-2011<br />
+<!-- end of contentleft: left hand side-->
 
-		</div>
-	</div>
+<div class="contentright" >
+
+<span class="news">
+$$fieldsref{latest_news}
+</span>
+
+<br/>
+
+$$fieldsref{righthandside}
+<div class="panel" >
+
+</div>
+
+<!-- end of panel -->
+
+</div>
+
+<!-- end of righthandcontent -->
+
+</div>
+
+<!-- end of content -->
+
+<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+
+<a href="/cgi-bin/cclite.cgi">
+ホーム
+</a>
+|
+<a href="#">
+お問い合わせ
+</a>
+<br />
+
+Cclite
+</div>
+
 </body>
+
 </html>

@@ -1,41 +1,91 @@
-      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
-        <table class="pme-main" summary="om_categories">
-          <tbody class="stripy">
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">ประเภท ชื่อ<br>
-              </td>
-              <td class="pme-value-0"> 
-<input type="hidden" name="action" value="addcategory">
-<input type="hidden" name="subaction" value="om_categories">
-<input class="required" name="description" size="50" maxlength="80" value="" type="text"></td>
-            </tr>
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">ประเภทหลัก<br>
-              </td>
-<td class="pme-value-0"> 
-$$fieldsref{selectparent}</td>
-            </tr>
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<table class="pme-main" summary="om_categories">
+
+<tbody class="stripy">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">สถานะ<br>
-              </td>
-<td class="pme-value-0"> 
+
+<td class="pme-key-0">
+ชื่อประเภท
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addcategory">
+
+<input type="hidden" name="subaction" value="om_categories">
+
+<input class="required" name="description" size="50" maxlength="80" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ประเภทหลัก
+<br>
+
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{selectparent}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+สถานะ
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
 <select class="required" name="status">
-<option selected value=""> </option>
-<option value="ใช้งานอยู่">ใช้งานอยู่</option>
-<option value="inใช้งานอยู่">Inใช้งานอยู่</option>
+
+<option selected value="">
+
+</option>
+
+<option value="active">
+ใช้งานอยู่
+</option>
+
+<option value="inactive">
+ไม่ใช้งาน
+</option>
+
 </select>
-            </tr>
+
+</tr>
 
 <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="สร้าง ประเภท"  type="submit">&nbsp; </td>
-<td><input
- class="pme-cancel" name="cancel" value="Cancel"
-  type="reset"></td>
-            </tr>
-       </tbody>
-        </table>
-      </form>
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="สร้างประเภท"  type="submit">
+&nbsp;
+</td>
+
+<td>
+<input
+ class="pme-cancel" name="cancel" value="ยกเลิก"
+  type="reset">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

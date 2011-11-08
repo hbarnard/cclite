@@ -1,27 +1,59 @@
+
 <table>
- <tbody class="stripy"> 
-     <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
- name="fromregistry" value="$$fieldsref{registry}" type="hidden"> <input
- name="action" value="splittransaction" type="hidden"> <input
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden">
+
+<input
+ name="action" value="splittransaction" type="hidden">
+
+<input
  name="subaction" value="om_trades" type="hidden">
 
-            <tr>
-              <td class="pme-key-1">วัน</td>
-              <td class="pme-value-1"> <input class="grey"
- name="tradeวัน" size="11"  readonly="readonly" value="$$fieldsref{date}"
- type="text"></td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">จากบัญชีผู้ใช้<br>
-              </td>
-              <td class="pme-value-1"> <input class="grey"
+<tr>
+
+<td class="pme-key-1">
+วัน
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeDate" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+จากบัญชี
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
  name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
- </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">ถึง Account<br>
-              </td>
-              <td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+การบัญชี
+<br>
+
+</td>
+
+<td class="pme-value-1">
 
 <!--
 
@@ -32,80 +64,143 @@
 -->
 
 <input type="text" class="required" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
-<div  class="autocomplete" id="suggestionBox" ></div>
+
+
+<div  class="autocomplete" id="suggestionBox" >
+</div>
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-		// <![CDATA[
+// <![CDATA[
   var myAutoCompleter = new Ajax.Autocompleter('tradeDestination', 'suggestionBox', '/cgi-bin/ccsuggest.cgi', {});
 		// ]]>
 </script>
 
+<span class="pme-key-0">
+รีจิสทรี
+</span>
+$$fieldsref{selectpartners}
+</td>
 
+</tr>
 
-<span class="pme-key-0">รีจิสทรี</span> $$fieldsref{selectpartners}
+<tr>
+
+<td class="pme-key-0">
+สกุลเงิน
+</td>
+
+<td nowrap class="pme-value-0">
+$$fieldsref{selectcurrency}
+<span class="pme-key-0">
+ยอดเงิน
+</span>
+
+<input class="required" id="tradeAmount" onChange="validatedecimals(this,this.value);" name="tradeAmount" size="11" maxlength="11" type="text">
 
 </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">สกุลเงิน</td>
-              <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
 
-<span class="pme-key-0"> ยอดเงิน </span>
-<input class="required" id="tradeยอดเงิน" onChange="validatedecimals(this,this.value);" name="tradeยอดเงิน" size="11" maxlength="11" type="text">
+</tr>
 
+<tr>
 
-</td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">
-<tr class="pme-row-0">
-              <td class="pme-key-0">Secondary สกุลเงิน</td>
-              <td class="pme-value-0"> $$fieldsref{sselectcurrency}
-
-<span class="pme-key-0">Secondary ยอดเงิน
-<input class="required" name="stradeยอดเงิน" id="stradeยอดเงิน"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
-
-</td>
-            </tr>
-
-
-
-</td>
-              <td class="pme-value-1"> 
-</td>
-            </tr>
+<td class="pme-key-0">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">สินค้า ชนิด<br>
-              </td>
-              <td class="pme-value-0">
- 
-<select class="required" name="tradeสินค้า">
- <option value="goods">สินค้า</option>
- <option value="services">บริการs</option>
- <option value="other">อื่น ๆ</option>
+
+<td class="pme-key-0">
+สกุลเงินรอง
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{sselectcurrency}
+<span class="pme-key-0">
+ยอดเงินรอง
+<input class="required" name="stradeAmount" id="stradeAmount"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+</td>
+
+<td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ชนิดสินค้า
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select class="required" name="tradeItem">
+
+<option value="goods">
+สินค้า
+</option>
+
+<option value="services">
+บริการ
+</option>
+
+<option value="other">
+อื่น ๆ
+</option>
+
 </select>
 
+<span class="pme-key-0">
+ชื่อเรื่อง
+</span>
 
-
-<span class="pme-key-0"> สินค้า ชื่อเรื่อง</span> <input class="required"
- name="tradeชื่อเรื่อง" size="60" maxlength="255" value="" type="text">
+<input class="required"
+ name="tradeTitle" size="60" maxlength="255" value="" type="text">
 
 </td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-1">คำอธิบายสินค้า</td>
-              <td class="pme-value-1"> <textarea class="required"
- name="tradeคำอธิบาย" rows="3" cols="60"></textarea></td>
-            </tr>
 
-        <table class="pme-navigation">
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd"  value="ทำการโอนย้าย" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-      </form>
-   </table>
- </tbody>
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+คำอธิบายสินค้า
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required"
+ name="tradeDescription" rows="3" cols="60">
+</textarea>
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd"  value="ทำการโอนย้าย" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="ล้าง" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
 </table>

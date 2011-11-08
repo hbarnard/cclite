@@ -1,64 +1,174 @@
-<div class="failedcheck"> $$fieldsref{updatemessage}</div>
-<div class="failedcheck">operating system is $$fieldsref{os} package type is $$fieldsref{package_type} distribution is $$fieldsref{distribution}</div>
-<table><tbody class="stripy">
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
 <form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
-<select name="install_type" id="install_type" onchange="change_install();">
-<option selected value="simple">Eenvoudige</option>
-<option value="full">Alle opties</option>
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Eenvoudige
+</option>
+
+<option value="full">
+Alle opties
+</option>
+
 </select>
-<input id="installer2" name="installer2" class="pme-save" type="submit"  value=">> Register">
-<input name="action" value="updateconfig2" type="hidden">
 
-<tr><td title="Dit is de db gebruiker voor mysql" class="menu">dbuser</td><td class="pme-key-1">
-    <input id="dbuser" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
-</td></tr>
-<tr><td title="Dit is het db wachtwoord voor mysql" class="menu">dbpassword</td><td class="pme-key-1">
-    <input id="dbpassword" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+<input class="small"
+ name="saveadd" data-simple="yes" value="De configuratie-updates" type="submit">
 
-</td></tr>
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
-<tr><td title="experimental cPanel voorvoegsel, use with care, uusally cpanel user name" class="menu">cPanel voorvoegsel</td><td class="pme-key-1">
-    <input type="text" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
-</td></tr>
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
-<tr><td title="decimaalteken display voor valuta 's" class="menu">gebruiken decimalen</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
-</td></tr>
+<tr>
+<td title="Dit is de mysql db gebruiker" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
 
-<tr><td title="gebruik vrije vorm tags voor gele pagina's in plaats van vaste Categorieën" class="menu">Labels gebruiken</td><td class="pme-key-1">
-    <input type="text"  class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
-</td></tr>
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
 
+</td>
+</tr>
 
-<tr><td title="Dit is het domein zoals afgeleid uit de aanmeldingsscriptpad, moet kloppen voor cookies om te werken" class="menu">domein</td><td class="pme-key-1">
-    <input type="text" readonly="1"  class="required" name="domein" size="60" value="$$fieldsref{domein}">
-</td></tr>
-<tr><td title="this is the SMTP-server for mail, for cpanel usually same as domein name, lokalehost or ip for internal servers" class="menu">SMTP-server</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
-</td></tr>
+<tr>
+<td title="Dit is het db wachtwoord voor mysql" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
 
-<tr><td title="belangrijkste gebruiker script voor cclite" class="menu">Home</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required"  name="Home" size="60" value="$$fieldsref{uHome}">
-</td></tr>
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
 
-<tr><td title="Dit is het type van de hash gebruikt voor wachtwoord en token berekeningen, sha2 heeft de voorkeur, kan worden gewijzigd en gemengd eenmaal instellen" class="menu">Hash-type</td><td class="pme-key-1">
-    <input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+</td>
+</tr>
 
-</td></tr>
+<tr>
+<td title="experimentele cpanel voorvoegsel, gebruik zorvuldig, uusally cpanel gebruikersnaam" class="menu">
+cPanel voorvoegsel
+</td>
+<td class="pme-key-1">
 
-<tr><td title="HTML, rss, uitvoerbestanden en grafieken, afgeleid van de document root binnen server" class="menu">htmlpath</td><td class="pme-key-1">
-    <input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
-</td></tr>
-<tr><td title="aanvankelijke status van een betaling, als wachten bevestiging vergt door de ontvangende gebruiker" class="pme-key-title">eerste betalingsstatus</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
 
-</td></tr>
-<tr><td title="aanvankelijke status van een gebruiker, als onbevestigde vergt bevestiging per gebruiker e-mail" class="pme-key-title">eerste Gebruikersstatus</td><td class="pme-key-1">
-    <input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
-</td></tr>
-<tr><td title="standaardtaal voor berichten en sjablonen" class="pme-key-title">taal</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="taal" size="60" value="$$fieldsref{taal}">
-</td></tr>
+</td>
+</tr>
+
+<tr>
+<td title="decimaalteken display voor valuta 's" class="menu">
+decimalen gebruiken
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gebruik vrije vorm tags voor gele pagina's in plaats van vaste Categorieën" class="menu">
+Labels gebruiken
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Dit is het domein zoals afgeleid uit het pad van het script, moet worden juiste voor cookies om te werken" class="menu">
+domein
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Dit is de SMTP-server voor mail, voor cpanel meestal dezelfde als de domeinnaam, localhost of ip voor interne servers" class="menu">
+SMTP-server
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="belangrijkste gebruiker script voor cclite" class="menu">
+Home
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Dit is het type van de hash-gebruikt voor wachtwoord en symbolische berekeningen, sha2 heeft de voorkeur, kan worden gewijzigd/gemengd eenmaal instellen" class="menu">
+Hash-type
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="HTML, rss, uitvoerbestanden en grafieken, afgeleid van de document root binnen server" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="aanvankelijke status van een betaling, als wachten bevestiging vergt door het ontvangen van de gebruiker" class="pme-key-title">
+eerste betalingsstatus
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="aanvankelijke status van een gebruiker, als onbevestigde vergt bevestiging per e-mail van de gebruiker" class="pme-key-title">
+eerste Gebruikersstatus
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="standaardtaal voor berichten en sjablonen" class="pme-key-title">
+taal
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
 
 <!-- now hardcoded as relative within all scripts 
 <tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
@@ -66,20 +176,47 @@
 </td></tr>
 -->
 
-<tr><td title="aantal scherm regels voor tabelvorm rapporten" class="pme-key-title">regels per pagina</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
-</td></tr>
-<tr><td title="pad naar berichten bestand, niets zal werken als dit verkeerd is!" class="menu">pad voor berichten</td><td class="pme-key-1">
-    <input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
-</td></tr>
+<tr>
+<td title="aantal scherm regels voor tabelvorm rapporten" class="pme-key-title">
+regels per pagina
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="pad naar berichten bestand, niets zal werken als dit verkeerd is!" class="menu">
+pad voor berichten
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
 -->
-</td></tr>
-<tr><td title="Zo nee, hoeft niet Soap::Lite modules" class="menu">multiregistry??</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="multiregistry?" size="60" value="$$fieldsref{multiregistry?}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="Zo nee, hoeft niet Soap::Lite modules" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
 <!--
 <tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
     <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
@@ -96,98 +233,249 @@
 <tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
     <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
 -->
-</td></tr>
-<tr><td title="niet direct gebruikt, maar kunnen worden opgenomen in de aangepaste sjablonen" class="pme-key-title">ondersteuning e-mail</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
-</td></tr>
+
+</td>
+</tr>
+
+<tr>
+<td title="niet direct gebruikt, maar kunnen worden opgenomen in de aangepaste sjablonen" class="pme-key-title">
+ondersteuning e-mail
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="used to send mail and log in to SMTP-server, set up in cpanel, if necessary, first" class="menu">systeem mailadres</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
-</td></tr>
+
+<tr>
+<td title="gebruikt voor het verzenden van e-mail en meld u aan bij SMTP-server, ingesteld in cpanel, indien nodig, eerste" class="menu">
+systeem mailadres
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
 
 <!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
-<tr><td title="gebruikt om over te schakelen op Net::SMTP voor meldingen enz. Dit heeft de voorkeur en zullen in de toekomst, de enige optie 0 of 1" class="menu">netto smtp??</td><td >
-    <input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
-</td></tr>
 
+<tr>
+<td title="gebruikt om over te schakelen op Net::SMTP voor meldingen etc. Dit heeft de voorkeur en zullen in de toekomst, de enige optie 0 of 1" class="menu">
+netto smtp?
+</td>
+<td >
 
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
 
-<tr><td title="password for logging on to system email address within SMTP-server" class="menu">systeem mailwachtwoord</td><td >
-    <input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
-</td></tr>
-<tr><td title="antwoordadres voor gegenereerde e-mails, vaak een-niet-antwoord" class="pme-key-title">Postadres antwoord systeem</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+</td>
+</tr>
 
-</td></tr>
-<tr><td title="pad voor sjabloonbestanden gebruikt voor de web-interface, niets veel zal werken als dit verkeerd is!" class="menu">sjablonen</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="sjablonen" size="60" value="$$fieldsref{sjablonen}">
-</td></tr>
+<tr>
+<td title="wachtwoord voor aanmelding bij e-mail systeemadres binnen de SMTP-server" class="menu">
+systeem mailwachtwoord
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="antwoordadres voor gegenereerde e-mails, vaak een-niet-antwoord" class="pme-key-title">
+Postadres antwoord systeem
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="pad voor sjabloonbestanden die worden gebruikt voor de web-interface, niets veel zal werken als dit verkeerd is!" class="menu">
+sjablonen
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
 
 <!-- section dealing with batch files -->
 
-<tr><td title="Base output pad voor activiteit grafieken onder web root, registernaam wordt toegevoegd aan dit pad" class="pme-key-title">grafiek directory</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
-</td></tr>
+<tr>
+<td title="honk output pad voor activiteit grafieken onder web root, registernaam wordt toegevoegd aan dit pad" class="pme-key-title">
+grafiek directory
+</td>
+<td class="pme-key-1">
 
-<tr><td title="vergt perl rss modules voor het genereren van rss, zo ja" class="pme-key-title">userss</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
-</td></tr>
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="Base upload-pad voor batchtransacties, mag niet onder web root" class="pme-key-title">CSV-directory</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+<tr>
+<td title="vergt perl rss modules voor het genereren van rss, zo ja" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
 
-</td></tr>
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
 
-<tr><td title="Postvak in voor gammu ontvangen sms, niet vereist voor http sms-gateways" class="pme-key-title">SMS inbox</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base upload-pad voor batchtransacties, mag niet onder web root" class="pme-key-title">
+CSV-directory
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Postvak in voor gammu ontvangen sms, niet vereist voor http sms-gateways" class="pme-key-title">
+SMS inbox
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-</td></tr>
 
-<tr><td title="Postvak in voor e-mail, oude methode vervangen door pop mail in elk register" class="pme-key-title">readmail.pl directory</td><td class="pme-key-1">
+</td>
+</tr>
+
+<tr>
+<td title="Postvak in voor e-mail, oude methode vervangen door pop mail in elk register" class="pme-key-title">
+readmail.pl map
+</td>
+<td class="pme-key-1">
+
 <input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
-</td></tr>
 
-<tr><td title="Base output pad voor CSV-transacties onder web root" class="pme-key-title">CSV uit</td><td class="pme-key-1">
-    <input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
-</td></tr>
+</td>
+</tr>
 
+<tr>
+<td title="Base output pad voor CSV-transacties onder web root" class="pme-key-title">
+CSV uit
+</td>
+<td class="pme-key-1">
 
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
 
-<tr><td title="baseren output pad voor gedrukt materiaal onder web root, registernaam en taal is toegevoegd aan dit pad" class="pme-key-title">Print path</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td title="baseren output pad voor rss, registratiekantoor naamwoord en taal is toegevoegd aan dit pad" class="pme-key-title">Base feed directory</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
-</td></tr>
+<tr>
+<td title="baseren output pad voor gedrukt materiaal onder web root, registernaam en taal is toegevoegd aan dit pad" class="pme-key-title">
+afdrukken van pad
+</td>
+<td class="pme-key-1">
 
-<tr><td title="base directory voor gammu resultaten, niet vereist voor http sms-gateways" class="pme-key-title">SMS uit</td><td class="pme-key-1">
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="baseren output pad voor rss, registernaam en taal is toegevoegd aan dit pad" class="pme-key-title">
+Base feed directory
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="base directory voor gammu resultaten, niet vereist voor http sms-gateways" class="pme-key-title">
+SMS uit
+</td>
+<td class="pme-key-1">
+
 <input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
-</td></tr>
 
-<tr><td title="gammu input processed lokalely if 1, otherwise this uses soap to process remotely" class="pme-key-title">lokale sms?</td><td class="pme-key-1">
-<input type="text"  readonly="1" class="required" name="smslokale" size="1" value="$$fieldsref{smslokale}">
-</td></tr>
+</td>
+</tr>
 
-<tr><td colspan="2" class="pme-key-title"><hr/></td><td class="pme-key-1">
-</td></tr>
+<tr>
+<td title="gammu input lokaal verwerkt als dit 1 is, anders gebruikt dit zeep voor het verwerken van op afstand" class="pme-key-title">
+lokale sms?
+</td>
+<td class="pme-key-1">
 
-<tr><td title="pad naar Log4perl configuratiebestand" class="pme-key-title">logger config pad</td><td class="pme-key-1">
-    <input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
-</td></tr>
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
 
-<tr><td ctitle="current cclite Versie" lass="pme-key-title">Versie</td><td class="pme-key-1">
-    <input type="text" class="required" class="grey" readonly="1" name="Versie" size="5" value="$$fieldsref{Versie}">
+</td>
+</tr>
 
-</td></tr>
- <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Update" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset">
- </td>
-            </tr>
-</tbody></table>
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="pad naar Log4perl configuratiebestand" class="pme-key-title">
+logger config pad
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+Versie
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="Update" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Duidelijk" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
 </form>

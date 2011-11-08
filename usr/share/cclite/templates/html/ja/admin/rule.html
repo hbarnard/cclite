@@ -1,62 +1,110 @@
-      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
-       <input type="hidden" name="action" value="insert">
-       <input type="hidden" name="subaction" value="om_rules">
-        <table class="pme-main" summary="om_rules">
-          <tbody class="stripy">
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">ルールの説明<br>
-              </td>
-              <td class="pme-value-0"> 
 
-<input class="required" name="description" size="40" maxlength="40" value="" type="text"></td>
-            </tr>
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">ルール レベル **<br>
-              </td>
-<td class="pme-value-0">
-<select name="event"><option value="creditlimit" selected>与信限度額</option></select> 
-</td>
-            </tr>
+<input type="hidden" name="action" value="insert">
+
+<input type="hidden" name="subaction" value="om_rules">
+
+<table class="pme-main" summary="om_rules">
+
+<tbody class="stripy">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">Applies to 通貨<br>
-              </td>
+
+<td class="pme-key-0">
+ルールの説明
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="description" size="40" maxlength="40" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ルール レベル *
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select name="event">
+<option value="creditlimit" selected>
+与信限度額
+</option>
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+通貨に適用されます。
+<br>
+
+</td>
+
 <td class="pme-value-0">
 $$fieldsref{selectcurrency}
 </td>
-            </tr>
 
-
-
-<tr class="pme-row-0">
-              <td class="pme-key-0">与信限度額<br>
-              </td>
-<td class="pme-value-0"> 
-<input class="required" name="rulevalue" size="10" maxlength="10" value="" type="text"></td>
-
-
-            </tr>
+</tr>
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">
-              * Only per currency credit limits are supported at present
-              </td>
-<td class="pme-value-0"> 
+
+<td class="pme-key-0">
+与信限度額
+<br>
+
 </td>
 
+<td class="pme-value-0">
 
-            </tr>
+<input class="required" name="rulevalue" size="10" maxlength="10" value="" type="text">
+</td>
 
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+* Only per currency credit limits are supported at present
+</td>
+
+<td class="pme-value-0">
+
+</td>
+
+</tr>
 
 <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="作成します。 Rule" type="submit">&nbsp; </td>
-<td><input
- class="pme-cancel" name="cancel" value="Cancel"
- type="reset"></td>
-            </tr>
-       </tbody>
-        </table>
-      </form>
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="ルールを作成します。" type="submit">
+&nbsp;
+</td>
+
+<td>
+<input
+ class="pme-cancel" name="cancel" value="キャンセル"
+ type="reset">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

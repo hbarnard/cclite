@@ -1,147 +1,297 @@
-      <form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
-      <span class="error">$$fieldsref{error}</span>  
-       <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
-            <tr class="pme-row-0">
-              <td title="naam van database definiëren handel groep, één woord zonder spaties" class="pme-key-0">Registernaam<br>
-              </td>
-              <td class="pme-value-0"> 
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="naam van database definiëren handel groep, één woord zonder spaties" class="pme-key-0">
+Registernaam
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
 <input type="hidden" name="action" value="addregistry">
-   
-<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text"></td>
 
-            </tr>
-
-            <tr class="pme-row-0">
-              <td title="korte beschrijving van de handel groep" class="pme-key-0">Register Beschrijving<br>
-              </td>
-<td class="pme-value-0"> 
-<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text"></td>
-            </tr>
-
-<tr title="adres en rekeningnummer gebruikt voor het verzenden van officiële e-mails voor deze groep" class="pme-row-0">
-              <td class="pme-key-0">Manager E-mail<br>
-              </td>
-<td class="pme-value-0"> 
-<input  class="required email" name="admemail" size="60"  maxlength="60" value="$$fieldsref{admemail}" type="text"></td>
-            </tr>
-
-<td title="wachtwoord voor admin e-mail account" class="pme-key-0">Manager E-mail Wachtwoord<br>
-              </td>
-<td class="pme-value-0"> 
-<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password"></td>
-            </tr>
-
-<tr title="rekening waar e-mails transacties worden ontvangen kan worden hetzelfde als admin" class="pme-row-1">
-              <td class="pme-key-1">E-mail for Batch Transacties<br>
-              </td>
-<td class="pme-value-1"> 
-<input  class="required email" name="postemail" size="60" maxlength="60" value="$$fieldsref{postemail}" type="text"></td>
-            </tr>
-
-
-<td title="wachtwoord voor batch-e-mailaccount" class="pme-key-0">Batch E-mail Wachtwoord<br>
-              </td>
-<td class="pme-value-0"> 
-<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password"></td>
-            </tr>
-
-<tr title="niet momenteel gebruikt maar definieert handel model" class="pme-row-1">
-              <td nowrap class="pme-key-1">Opladen systeemmodel
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="chargetype"><option value="equaltime">Gelijkheid</option><option selected value="market">Marktrente</option></select></td>
-            </tr>
-
-<tr title="niet momenteel gebruikt maar definieert Commissie model" class="pme-row-1">
-              <td class="pme-key-1">Commissie systeemmodel
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="commission">
-<option selected value="no">Geen Commissie</option>
-<option value="yes">Commission Based Register</option>
-</select></td>
-            </tr>
-
-
-<tr title="niet momenteel gebruikt maar definieert abonnementsmodel" class="pme-row-1">
-              <td class="pme-key-1">Abonnement-Model
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="subscription">
-<option selected value="no">Geen abonnement</option>
-<option value="yes">Abonnement op basis</option>
-</select></td>
-            </tr>
-
-<tr title="inzet limiet voor alle valuta's definieert in dit register" class="pme-row-1">
-              <td class="pme-key-1">Wereldwijde inzet limiet<br>
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text"></td>
-            </tr>
-
-<tr title="sleutelserver gebruikt: openbare sleutel-id voor deze registersleutel currently for email transactions only" class="pme-row-1">
-              <td class="pme-key-1">Sleutel Server: publieke sleutel-id<br>
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text"></td>
-            </tr>
-
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
 
 </tr>
-<tr title="niet momenteel gebruikt maar definieert of geografische gebied of special interest"  class="pme-row-1">
-              <td class="pme-key-1">Covers geografisch gebied??
-              </td>
-<td class="pme-value-1"> 
-<select class="pme-input-1" name="geographic">
-<option selected value="yes">Ja</option>
-<option value="no">No</option>
-</select></td>
-            </tr>
 
-<tr title="niet momenteel gebruikt maar definieert berichten of zip-codes zodat openbare registers Geocode en toegewezen kunnen" class="pme-row-1">
-              <td class="pme-key-1">Postcode of Latitude, Longitude
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+<tr class="pme-row-0">
+
+<td title="korte beschrijving van de handel groep" class="pme-key-0">
+Beschrijving van het register
+<br>
+
 </td>
- </tr>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="adres en account die wordt gebruikt om e-mail te verzenden officiële voor deze groep" class="pme-row-0">
+
+<td class="pme-key-0">
+E-mail manager
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="wachtwoord voor admin e-mail account" class="pme-key-0">
+Manager E-mail wachtwoord
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="rekening waar e-mails transacties worden ontvangen kan worden hetzelfde als admin" class="pme-row-1">
+
+<td class="pme-key-1">
+E-mail voor batchtransacties
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="wachtwoord voor batch-e-mailaccount" class="pme-key-0">
+Batch E-mail wachtwoord
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="niet momenteel gebruikt maar handel model definieert" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Opladen systeemmodel
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Gelijkheid
+</option>
+<option selected value="market">
+Marktrente
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="niet momenteel gebruikt maar Commissie model definieert" class="pme-row-1">
+
+<td class="pme-key-1">
+Commissie systeemmodel
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Geen Commissie
+</option>
+
+<option value="yes">
+Commissie gebaseerd register
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="niet momenteel gebruikt maar definieert abonnementsmodel" class="pme-row-1">
+
+<td class="pme-key-1">
+Abonnementsmodel
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Geen abonnement
+</option>
+
+<option value="yes">
+Abonnement op basis
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="inzet limiet voor alle valuta's definieert in dit register" class="pme-row-1">
+
+<td class="pme-key-1">
+Wereldwijde inzet limiet
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="sleutelserver gebruikt: openbare sleutel-id voor deze registersleutel momenteel voor e-mail transacties alleen" class="pme-row-1">
+
+<td class="pme-key-1">
+Sleutel Server: publieke sleutel-id
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="niet momenteel gebruikt maar definieert of geografische gebied of special interest"  class="pme-row-1">
+
+<td class="pme-key-1">
+Covers geografisch gebied?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+Ja
+</option>
+
+<option value="no">
+No
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="niet momenteel gebruikt maar definieert berichten of zip-codes, zodat de openbare registers kunnen Geocode en toegewezen" class="pme-row-1">
+
+<td class="pme-key-1">
+Postcode of Latitude, Longitude
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
 
 <tr title="gebruikt om zakelijke sleutel voor elgg, drupal en os-commerce verbindingslijnen" class="pme-row-1">
-              <td class="pme-key-1">Merchant sleutel
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+<td class="pme-key-1">
+Merchant sleutel
 </td>
- </tr>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
 
 <tr title="gebruikt, in principe te beperken verbindingslijnen naar bepaalde IP-adressen, waarschijnlijk gemakkelijk vervalst" class="pme-row-1">
-              <td class="pme-key-1">Merchant van IP-adressen toestaan
-              </td>
-<td class="pme-value-1"> 
-<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+<td class="pme-key-1">
+Merchant van IP-adressen toestaan
 </td>
- </tr>
 
+<td class="pme-value-1">
 
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
 
+</td>
 
+</tr>
 
-          </tbody>
-        </table>
-  <!-- this is an experiment, will turn the config link red, if db password is wrong -->     
-  $$fieldsref{script}  
-        <hr class="pme-hr">
-        <hr class="pme-hr">
-        <table class="pme-navigation">
-          <tbody>
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Gaan" type="submit">&nbsp;<input
- class="pme-cancel" name="cancel" value="Cancel"
-type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+</tbody>
+
+</table>
+
+<!-- this is an experiment, will turn the config link red, if db password is wrong -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Gaan" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Annuleren"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

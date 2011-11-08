@@ -1,115 +1,276 @@
+
 <form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+
 <input name="action" value="update" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="userId" value="$$fields{userId}" type="hidden">
-  <table class="pme-main" summary="om_users">
-    <tbody>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">GebruikerLogin</td>
-        <td "pme-value-0"> <input class="grey"
- name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Gebruiker Wachtwoord</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userWachtwoord" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm Wachtwoord</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="confirmWachtwoord" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">GebruikerE-mail</td>
-        <td class="pme-value-1"> <input class="pme-input-1"
- name="userE-mail" size="60" maxlength="255" value="$$fields{userE-mail}" type="text"></td>
-      </tr>
+
+<table class="pme-main" summary="om_users">
+
+<tbody>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Nummer/naam</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userNaamornumber" size="30" maxlength="30" value="$$fields{userNaamornumber}" type="text">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td "pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Gebruikerswachtwoord
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Bevestig wachtwoord
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail tonen
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userEmail" size="60" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Nummer/naam
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">Straatnaam</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userStraat" size="40" maxlength="40" value="$$fields{userStraat}" type="text">
+
+<td class="pme-key-0">
+Straatnaam
 </td>
-            </tr>
-<tr class="pme-row-1">
-              <td class="pme-key-0">Aanwn</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userAanwn" size="40" maxlength="40" value="$$fields{userAanwn}" type="text">
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">County/staat</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
+
+<td class="pme-key-0">
+Stad
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Powiat/staat
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
-</td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-0">Mobiele telefoon</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-0">Taal</td>
-              <td class="pme-value-1"> 
-                 <select name="userLang">
-                   <option value="de">Deutsch</option>
-                   <option selected value="en">Engels</option>
-                   <option value="fr">Fran</option>
-                 </select>
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">GebruikerNaam</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userNaam" size="60" maxlength="255" value="$$fields{userNaam}" type="text"></td>
-      </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or Actieve</td>
-        <td class="pme-value-1"> 
-                 <select name="userStatus">
-                   <option selected value="actieve">Actieve</option>
-                   <option value="holiday">Op vakantie</option>
-                   <option value="unconfirmed">Onbevestigde</option>
-                   <option value="predelete">Pre-verwijdering</option>
-                  <option value="schortened">Geschorst</option>
-                 </select>
-</td>
-      </tr>
 
+<td class="pme-key-0">
+Mobiele telefoon
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Gebruikersniveau</td>
-        <td class="pme-value-1"> 
-                 <select name="userLevel">
-                   <option selected value="user">Gebruiker</option>
-                   <option value="admin">Beheerder</option>
-                   <option value="sysaccount">Systeemaccount</option>
-                 </select>
+
+<td class="pme-key-0">
+Taal
 </td>
-      </tr>
 
+<td class="pme-value-1">
 
-    </tbody>
-  </table>
-  <hr class="pme-hr">
-  <table class="pme-navigation">
-    <tbody>
-      <tr class="pme-navigation">
-        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="Opslaan" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
-      </tr>
-    </tbody>
-  </table>
+<select name="userLang">
+
+<option value="de">
+Deutsch
+</option>
+
+<option selected value="en">
+Engels
+</option>
+
+<option value="fr">
+Fran
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Gebruikersnaam
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userName" size="60" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Vakantie of actieve
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+Actieve
+</option>
+
+<option value="holiday">
+Op vakantie
+</option>
+
+<option value="unconfirmed">
+Onbevestigde
+</option>
+
+<option value="predelete">
+Pre-verwijdering
+</option>
+
+<option value="suspended">
+Geschorst
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Gebruikersniveau
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLevel">
+
+<option selected value="user">
+Gebruiker
+</option>
+
+<option value="admin">
+Beheerder
+</option>
+
+<option value="sysaccount">
+Systeemaccount
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="Opslaan" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </form>

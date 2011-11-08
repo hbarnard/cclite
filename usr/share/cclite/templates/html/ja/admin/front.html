@@ -1,135 +1,309 @@
+
 <form id="form">
+
 <table>
 
 <tr>
-<td title="グラフ作成のスクリプトを開始します。">
-Graphing
+
+<td title="グラフのスクリプトを開始します。">
+グラフの作成
 </td>
+
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-電子メール input 
+メール入力
 </td>
+
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG 電子メール input</del> 
+<del>GPG Email input</del> 
 </td>
 -->
 
-
 <td title="rss フィードのイエロー ページの小さな広告を生産開始します。">
-RSS Feed    
+RSS フィード
 </td>
-<td title="start accepting input via gammu from a ローカル mobile phone">
-Gammu input
+
+<td title="gammu を介してローカル携帯電話からの入力の受け付けを開始します。">
+Gammu 入力
 </td>
 
 <td title="アップロードとプロセスのバッチ トランザクション">
-アップロード/process Batch トランザクション
+アップロード ・ トランザクションのバッチ処理
 </td>
-
 
 </tr>
 
 <tr>
 
 <td>
-   <select onchange="on_select_change('stats');" id="stats_value" >
-	<option value="0"> Stop Stats</option>
-	<option value="5">すべて 5 分</option>
-	<option value="10">すべて 10 分</option>
-	<option value="30">配車間隔 30 分</option>
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+統計を停止します。
+</option>
+
+<option value="5">
+すべて 5 分
+</option>
+
+<option value="10">
+10 分毎
+</option>
+
+<option value="30">
+30 分毎
+</option>
+
 </select>
-   
-    </td>
 
-
-
+</td>
 
 <td>
-    <select onchange="on_select_change('mail');" id="mail_value" >
-	<option value="0"> Stop メール</option>
-	<option value="5">すべて 5 分</option>
-	<option value="10">すべて 10 分</option>
-	<option value="30">配車間隔 30 分</option>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+メールを停止します。
+</option>
+
+<option value="5">
+すべて 5 分
+</option>
+
+<option value="10">
+10 分毎
+</option>
+
+<option value="30">
+30 分毎
+</option>
+
 </select>
 
-    
-    </td>
+</td>
+
 <!--
 <td>
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
-	<option value="0"> Stop GPG メール</option>
-	<option value="5">すべて 5 分</option>
-	<option value="10">すべて 10 分</option>
-	<option value="30">配車間隔 30 分</option>
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
 </select>
 
     
     </td>
 -->
 
-
 <td>
-    <select onchange="on_select_change('rss');" id="rss_value" >
-	<option value="0"> Stop Rss</option>
-	<option value="5">すべて 5 分</option>
-	<option value="10">すべて 10 分</option>
-	<option value="30">配車間隔 30 分</option>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+Rss を停止します。
+</option>
+
+<option value="5">
+すべて 5 分
+</option>
+
+<option value="10">
+10 分毎
+</option>
+
+<option value="30">
+30 分毎
+</option>
+
 </select>
-    
-    </td>
 
-
+</td>
 
 <td>
-    <select onchange="on_select_change('gammu');" id="gammu_value" >
-	<option value="0"> Stop SMS</option>
-	<option value="5">すべて 5 分</option>
-	<option value="10">すべて 10 分</option>
-	<option value="30">配車間隔 30 分</option>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+SMS を停止します。
+</option>
+
+<option value="5">
+すべて 5 分
+</option>
+
+<option value="10">
+10 分毎
+</option>
+
+<option value="30">
+30 分毎
+</option>
+
 </select>
-  </td>
+
+</td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="アップロード Batch トランザクション"> 	
+
+<input title="バッチ トランザクションを csv ファイルとして取得: マニュアルを参照してください。" type="submit" class="small" id="upload_button" value="バッチの CSV ファイルを取得します。">
+
 </td>
 
 </tr>
 
-
 <tr>
-    <td><span id="stats">待機</span></td>
-    <td><span id="mail">待機</span></td>
-    <td><span id="gpg_mail">待機</span></td>
-    <td><span id="rss">待機</span></td> 
-    <td><span id="gammu">待機</span></td>
-   <td></td>
-</tr>    
 
+<td>
+<span id="stats">
+待機
+</span>
+</td>
 
-<tr>
-    <td><span id="statements"><a title="odt の銀行のステートメントを印刷します。" href="/cgi-bin/protected/batch/print_statements.pl">ステートメントを印刷します。</a></span></td>
-    <td><span id="yellowpages"><a title="odt イエロー ページを印刷します。" href="/cgi-bin/protected/batch/print_yellowpages.pl">Yellowpages 利用を印刷します。</a></span></td>
-    <td><span id=""></span></td>
-    <td><span id=""></span></td> 
-    <td><span id=""></span></td>
-   <td></td>
+<td>
+<span id="mail">
+待機
+</span>
+</td>
+
+<td>
+<span id="gpg_mail">
+待機
+</span>
+</td>
+
+<td>
+<span id="rss">
+待機
+</span>
+</td>
+
+<td>
+<span id="gammu">
+待機
+</span>
+</td>
+
+<td>
+</td>
+
 </tr>
 
+<tr>
 
+<td>
+<span id="statements">
+<a title="odt の銀行のステートメントを印刷します。" href="/cgi-bin/protected/batch/print_statements.pl">
+Print ステートメント
+</a>
+</span>
+</td>
 
+<td>
+<span id="yellowpages">
+<a title="odt イエロー ページを印刷します。" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+印刷 yellowpages の利用
+</a>
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
 
 </table>
+
 </form>
 
-<div id="stats_status"></div>
-<div id="gpg_mail_status"></div>
-<div id="mail_status"></div>
-<div id="csv_status"></div>
-<div id="rss_status"></div>
-<div id="gammu_status"></div><br/>
+<div id="stats_status">
+</div>
 
-<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
 <br/>
 
-<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
-<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<div id="stats_summary">
+トランザクションの平均サイズです。
+<span id="average_sparkline" class="sparkline">
+</span>
+この
+<span id="volumes_sparkbar" class="sparkbar">
+</span>
+平均のボリュームです。
+</div>
+
+<table>
+
+<tr>
+
+<td>
+
+<h4>
+<span id="transaction_vol_title">
+</span>
+
+<span id="update_date1">
+</span>
+
+</h4>
+
+<div id="volumes_bargraph" class="linegraph">
+</div>
+
+</td>
+
+<td>
+
+<h4>
+<span id="averages_title">
+</span>
+
+<span id="update_date2">
+</span>
+
+</h4>
+
+<div id="average_bargraph" class="linegraph">
+</div>
+
+</td>
+
+</tr>
+
+</table>

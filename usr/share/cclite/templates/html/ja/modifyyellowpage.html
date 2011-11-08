@@ -1,106 +1,254 @@
+
 <form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="modifyyellowpages">
+
 <!-- modifyyellowpage.html template for modifying yellow pages -->
+
 <input name="subaction" value="om_yellowpages" type="hidden">
+
 <input name="action" value="update" type="hidden">
+
 <input name="id" value="$$fieldsref{id}" type="hidden">
+
 <table class="pme-main" summary="om_yellowpages">
+
 <tbody class="stripy">
+
 <tr class="pme-row-0">
-<td class="pme-key-0">Fromuserid</td>
+
+<td class="pme-key-0">
+Fromuserid
+</td>
+
 <td class="pme-value-0">
-<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{fromuserid}" type="text"></td>
-</tr>
-<tr class="pme-row-1">
-<td class="pme-key-1">タイプ</td>
-<td class="pme-value-1">
-              <select class="required" name="type">
-              <option value="offered" selected="selected">提供します。</option>
-              <option value="wanted">思った</option>
-              <option value="other">その他</option>
-              </select>
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{fromuserid}" type="text">
 </td>
-</tr>
-<tr class="pme-row-1">
-<td class="pme-key-1">主要なクラス</td>
-<td class="pme-value-1">
-              <select class="required" name="majorclass">
-              <option value="service" selected="selected">サービス</option>
-              <option value="goods">商品</option>
-              <option value="other">その他</option>
-              </select>
-</td>
+
 </tr>
 
 <tr class="pme-row-1">
-<td class="pme-key-1">分類</td>
+
+<td class="pme-key-1">
+タイプ
+</td>
+
 <td class="pme-value-1">
-$$fieldsref{selectclassification}</td>
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+提供します。
+</option>
+
+<option value="wanted">
+思った
+</option>
+
+<option value="other">
+その他
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+主要なクラス
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+サービス
+</option>
+
+<option value="goods">
+商品
+</option>
+
+<option value="other">
+その他
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+分類
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
 <input type="hidden" name="r_classification" value="Need a classification for the item or service please">
+
 </tr>
 
 <tr>
-<td class="pme-key-1">タグ</td>
-<td class="pme-value-1">
-<input id="yellowtags" name="yellowtags" size="30" maxlength="60" value="$$fieldsref{yellowtags}"></td>
-</tr>
 
-
-<tr class="pme-row-0">
-<td class="pme-key-0">件名</td>
-<td class="pme-value-0">
-<input class="required" value="$$fieldsref{subject}" name="subject" size="30" maxlength="30" value="" type="text"></td>
-</tr>
-<tr class="pme-row-1">
-<td class="pme-key-1">説明</td>
-<td class="pme-value-1">
-<textarea class="required" name="description" rows="5" columns="50">
-$$fieldsref{description}</textarea>
+<td class="pme-key-1">
+タグ
 </td>
+
+<td class="pme-value-1">
+
+<input id="yellowtags" name="yellowtags" size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</td>
+
 </tr>
+
 <tr class="pme-row-0">
-<td class="pme-key-0">価格</td>
+
+<td class="pme-key-0">
+件名
+</td>
+
 <td class="pme-value-0">
-<input class="required" name="price" id="price" onChange="validatedecimals(this,this.value);"  size="10" maxlength="10" value="$$fieldsref{price}" type="text"></td>
+
+<input class="required" value="$$fieldsref{subject}" name="subject" size="30" maxlength="30" value="" type="text">
+</td>
+
 </tr>
+
 <tr class="pme-row-1">
-<td class="pme-key-1">通貨</td>
+
+<td class="pme-key-1">
+説明
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}
+</textarea>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+価格
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="price" id="price" onChange="validatedecimals(this,this.value);"  size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+通貨
+</td>
+
 <td class="pme-value-1">
 $$fieldsref{selectcurrency}
 </td>
+
 </tr>
 
 <tr class="pme-row-1">
-<td class="pme-key-1">Per unit (services only)</td>
-<td class="pme-value-1">
-              <select class="pme-input-1" name="unit">
-              <option value="" ></option>
-              <option value="hour" >1 時間</option>
-              <option value="day" >1 日</option>
-              <option value="week" >1 週間</option>
-              <option value="month" >1 ヶ月</option>
-              </select>
+
+<td class="pme-key-1">
+単位 (サービスのみ)
 </td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+1 時間あたり
+</option>
+
+<option value="day" >
+1 日
+</option>
+
+<option value="week" >
+週あたり
+</option>
+
+<option value="month" >
+1 ヶ月
+</option>
+
+</select>
+
+</td>
+
 </tr>
+
 </tbody>
 
 <tr class="pme-row-1">
-<td class="pme-key-1">完全な支払の代替通貨ですか？?</td>
-<td class="pme-value-1">
-              <select class="required" name="truelets">
-              <option value="yes" >はい</option>
-              <option value="no">なし</option>
-              </select>
+
+<td class="pme-key-1">
+完全な支払の代替通貨ですか？
 </td>
+
+<td class="pme-value-1">
+
+<select class="required" name="truelets">
+
+<option value="yes" >
+はい
+</option>
+
+<option value="no">
+なし
+</option>
+
+</select>
+
+</td>
+
 </tr>
-</tbody></table>
+
+</tbody>
+</table>
 
 <hr class="pme-hr">
+
 <table class="pme-navigation">
-<tbody><tr class="pme-navigation">
+
+<tbody>
+<tr class="pme-navigation">
+
 <td class="pme-buttons">
+
 <input class="pme-save"
- name="saveadd" value="変更" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-</tr></tbody></table>
+ name="saveadd" value="変更" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="クリア" type="reset">
+
+</td>
+
+</tr>
+</tbody>
+</table>
+
 </form>
-</body></html>
+
+</body>
+</html>

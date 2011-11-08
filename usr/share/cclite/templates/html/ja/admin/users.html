@@ -1,115 +1,276 @@
+
 <form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+
 <input name="action" value="update" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="userId" value="$$fields{userId}" type="hidden">
-  <table class="pme-main" summary="om_users">
-    <tbody>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">ユーザーLogin</td>
-        <td "pme-value-0"> <input class="grey"
- name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">ユーザー パスワード</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userパスワード" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm パスワード</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="confirmパスワード" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">ユーザー電子メール</td>
-        <td class="pme-value-1"> <input class="pme-input-1"
- name="user電子メール" size="60" maxlength="255" value="$$fields{user電子メール}" type="text"></td>
-      </tr>
+
+<table class="pme-main" summary="om_users">
+
+<tbody>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">数・名前を家</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="user名前ornumber" size="30" maxlength="30" value="$$fields{user名前ornumber}" type="text">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td "pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ユーザー パスワード
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+パスワードの確認入力します。
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userEmail" size="60" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+ハウス番号名前
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">通りの名前</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userストリート" size="40" maxlength="40" value="$$fields{userストリート}" type="text">
+
+<td class="pme-key-0">
+通りの名前
 </td>
-            </tr>
-<tr class="pme-row-1">
-              <td class="pme-key-0">宛先wn</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="user宛先wn" size="40" maxlength="40" value="$$fields{user宛先wn}" type="text">
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">郡/州</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
+
+<td class="pme-key-0">
+町
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+郡/州
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
-</td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-0">携帯電話</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-0">言語</td>
-              <td class="pme-value-1"> 
-                 <select name="userLang">
-                   <option value="de">ドイツ</option>
-                   <option selected value="en">英語</option>
-                   <option value="fr">フラン</option>
-                 </select>
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">ユーザー名前</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="user名前" size="60" maxlength="255" value="$$fields{user名前}" type="text"></td>
-      </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or アクティブ</td>
-        <td class="pme-value-1"> 
-                 <select name="userステータス">
-                   <option selected value="アクティブ">アクティブ</option>
-                   <option value="holiday">休日に</option>
-                   <option value="unconfirmed">未確認</option>
-                   <option value="predelete">前の削除</option>
-                  <option value="中断ed">中断</option>
-                 </select>
-</td>
-      </tr>
 
+<td class="pme-key-0">
+携帯電話
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">ユーザー レベル</td>
-        <td class="pme-value-1"> 
-                 <select name="userLevel">
-                   <option selected value="user">ユーザー</option>
-                   <option value="admin">管理者</option>
-                   <option value="sysaccount">システム アカウント</option>
-                 </select>
+
+<td class="pme-key-0">
+言語
 </td>
-      </tr>
 
+<td class="pme-value-1">
 
-    </tbody>
-  </table>
-  <hr class="pme-hr">
-  <table class="pme-navigation">
-    <tbody>
-      <tr class="pme-navigation">
-        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="保存" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
-      </tr>
-    </tbody>
-  </table>
+<select name="userLang">
+
+<option value="de">
+ドイツ
+</option>
+
+<option selected value="en">
+英語
+</option>
+
+<option value="fr">
+フラン
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ユーザー名
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userName" size="60" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+休日またはアクティブ
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+アクティブ
+</option>
+
+<option value="holiday">
+休日に
+</option>
+
+<option value="unconfirmed">
+未確認
+</option>
+
+<option value="predelete">
+前の削除
+</option>
+
+<option value="suspended">
+中断
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+ユーザー レベル
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLevel">
+
+<option selected value="user">
+ユーザー
+</option>
+
+<option value="admin">
+管理者
+</option>
+
+<option value="sysaccount">
+システム アカウント
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="保存" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </form>

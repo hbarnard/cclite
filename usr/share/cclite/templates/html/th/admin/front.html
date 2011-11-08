@@ -1,135 +1,309 @@
+
 <form id="form">
+
 <table>
 
 <tr>
+
 <td title="เริ่มการทำงานของสคริปต์สร้างกราฟ">
-Graphing
+สร้างกราฟ
 </td>
+
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-อีเมล input 
+ป้อนข้อมูลอีเมล์
 </td>
+
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG อีเมล input</del> 
+<del>GPG Email input</del> 
 </td>
 -->
 
-
-<td title="เริ่มผลิตตัวดึงข้อมูล rss สำหรับโฆษณาขนาดเล็กของสมุดหน้าเหลือง">
-RSS Feed    
+<td title="เริ่มผลิต rss ฟีดสำหรับโฆษณาขนาดเล็กของสมุดหน้าเหลือง">
+ตัวดึงข้อมูล RSS
 </td>
-<td title="start accepting input via gammu from a ท้องถิ่น mobile phone">
-Gammu input
+
+<td title="เริ่มยอมรับการป้อนข้อมูลผ่าน gammu จากโทรศัพท์มือถือในเครื่อง">
+ป้อนข้อมูล Gammu
 </td>
 
 <td title="ธุรกรรมชุดอัปโหลดและกระบวนการ">
-การอัปโหลด/process Batch ธุรกรรม
+อัปโหลด/ประมวลผลชุดงานธุรกรรม
 </td>
-
 
 </tr>
 
 <tr>
 
 <td>
-   <select onchange="on_select_change('stats');" id="stats_value" >
-	<option value="0"> Stop Stats</option>
-	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาที</option>
-	<option value="30">ทุก 30 นาที</option>
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+หยุดสถิติ
+</option>
+
+<option value="5">
+ทุก 5 นาที
+</option>
+
+<option value="10">
+ทุก 10 นาที
+</option>
+
+<option value="30">
+ทุก 30 นาที
+</option>
+
 </select>
-   
-    </td>
 
-
-
+</td>
 
 <td>
-    <select onchange="on_select_change('mail');" id="mail_value" >
-	<option value="0"> Stop จดหมาย</option>
-	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาที</option>
-	<option value="30">ทุก 30 นาที</option>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+หยุดการจดหมาย
+</option>
+
+<option value="5">
+ทุก 5 นาที
+</option>
+
+<option value="10">
+ทุก 10 นาที
+</option>
+
+<option value="30">
+ทุก 30 นาที
+</option>
+
 </select>
 
-    
-    </td>
+</td>
+
 <!--
 <td>
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
-	<option value="0"> Stop GPG จดหมาย</option>
-	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาที</option>
-	<option value="30">ทุก 30 นาที</option>
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
 </select>
 
     
     </td>
 -->
 
-
 <td>
-    <select onchange="on_select_change('rss');" id="rss_value" >
-	<option value="0"> Stop Rss</option>
-	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาที</option>
-	<option value="30">ทุก 30 นาที</option>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+หยุด Rss
+</option>
+
+<option value="5">
+ทุก 5 นาที
+</option>
+
+<option value="10">
+ทุก 10 นาที
+</option>
+
+<option value="30">
+ทุก 30 นาที
+</option>
+
 </select>
-    
-    </td>
 
-
+</td>
 
 <td>
-    <select onchange="on_select_change('gammu');" id="gammu_value" >
-	<option value="0"> Stop SMS</option>
-	<option value="5">ทุก 5 นาที</option>
-	<option value="10">ทุก 10 นาที</option>
-	<option value="30">ทุก 30 นาที</option>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+หยุด SMS
+</option>
+
+<option value="5">
+ทุก 5 นาที
+</option>
+
+<option value="10">
+ทุก 10 นาที
+</option>
+
+<option value="30">
+ทุก 30 นาที
+</option>
+
 </select>
-  </td>
+
+</td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="การอัปโหลด Batch ธุรกรรม"> 	
+
+<input title="รับชุดธุรกรรมเป็นไฟล์ csv: เห็นด้วยตนเอง" type="submit" class="small" id="upload_button" value="รับชุดไฟล์ CSV">
+
 </td>
 
 </tr>
 
-
 <tr>
-    <td><span id="stats">รอสักครู่</span></td>
-    <td><span id="mail">รอสักครู่</span></td>
-    <td><span id="gpg_mail">รอสักครู่</span></td>
-    <td><span id="rss">รอสักครู่</span></td> 
-    <td><span id="gammu">รอสักครู่</span></td>
-   <td></td>
-</tr>    
 
+<td>
+<span id="stats">
+รอสักครู่
+</span>
+</td>
 
-<tr>
-    <td><span id="statements"><a title="พิมพ์คำสั่งธนาคาร odt" href="/cgi-bin/protected/batch/print_statements.pl">พิมพ์คำสั่ง</a></span></td>
-    <td><span id="yellowpages"><a title="พิมพ์สมุดหน้าเหลือง odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">พิมพ์ Yellowpages</a></span></td>
-    <td><span id=""></span></td>
-    <td><span id=""></span></td> 
-    <td><span id=""></span></td>
-   <td></td>
+<td>
+<span id="mail">
+รอสักครู่
+</span>
+</td>
+
+<td>
+<span id="gpg_mail">
+รอสักครู่
+</span>
+</td>
+
+<td>
+<span id="rss">
+รอสักครู่
+</span>
+</td>
+
+<td>
+<span id="gammu">
+รอสักครู่
+</span>
+</td>
+
+<td>
+</td>
+
 </tr>
 
+<tr>
 
+<td>
+<span id="statements">
+<a title="พิมพ์งบการเงินธนาคาร odt" href="/cgi-bin/protected/batch/print_statements.pl">
+พิมพ์งบการเงิน
+</a>
+</span>
+</td>
 
+<td>
+<span id="yellowpages">
+<a title="พิมพ์สมุดหน้าเหลือง odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+พิมพ์ Yellowpages
+</a>
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
 
 </table>
+
 </form>
 
-<div id="stats_status"></div>
-<div id="gpg_mail_status"></div>
-<div id="mail_status"></div>
-<div id="csv_status"></div>
-<div id="rss_status"></div>
-<div id="gammu_status"></div><br/>
+<div id="stats_status">
+</div>
 
-<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
 <br/>
 
-<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
-<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<div id="stats_summary">
+นี่คือขนาดธุรกรรมโดยเฉลี่ย
+<span id="average_sparkline" class="sparkline">
+</span>
+และนี้
+<span id="volumes_sparkbar" class="sparkbar">
+</span>
+เป็นระดับเสียงเฉลี่ย
+</div>
+
+<table>
+
+<tr>
+
+<td>
+
+<h4>
+<span id="transaction_vol_title">
+</span>
+
+<span id="update_date1">
+</span>
+
+</h4>
+
+<div id="volumes_bargraph" class="linegraph">
+</div>
+
+</td>
+
+<td>
+
+<h4>
+<span id="averages_title">
+</span>
+
+<span id="update_date2">
+</span>
+
+</h4>
+
+<div id="average_bargraph" class="linegraph">
+</div>
+
+</td>
+
+</tr>
+
+</table>

@@ -1,41 +1,94 @@
+
 <table class="pme-main" summary="om_users">
-    <tbody class="stripy">
-      <tr class="pme-row-1">
-        <td class="pme-key-title">UserLogin</td>
-        <!-- duserLogin is used to distinguish from userLogin, processed generally -->
-        <td class="pme-value-0"> $$fields{duserLogin}</td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-title">User电子邮件</td>
-        <td class="pme-value-1">$$fields{user电子邮件}</td>
-      </tr>
+
+<tbody class="stripy">
 
 <tr class="pme-row-1">
-              <td class="pme-key-title">街</td>
-              <td class="pme-value-1">$$fields{user名称ornumber} $$fields{user街}
+
+<td class="pme-key-title">
+UserLogin
 </td>
-            </tr>
+
+<!-- duserLogin is used to distinguish from userLogin, processed generally -->
+
+<td class="pme-value-0">
+$$fields{duserLogin}
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-title">镇/County</td>
-              <td class="pme-value-1">$$fields{user镇} $$fields{userArea}
-</td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-title">移动电话</td>
-              <td class="pme-value-1"> $$fields{userMobile} </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-title">名称</td>
-        <td class="pme-value-0">$$fields{user名称}</td>
-      </tr>
+<td class="pme-key-title">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+$$fields{userEmail}
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-title">假日或活动</td>
-        <td class="pme-value-1">$$fieldsref{user状态} 
-</td>
-      </tr>
- </tbody>
-  </table>
 
+<td class="pme-key-title">
+街
+</td>
+
+<td class="pme-value-1">
+$$fields{userNameornumber} $$fields{userStreet}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+城市/县
+</td>
+
+<td class="pme-value-1">
+$$fields{userTown} $$fields{userArea}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+移动电话
+</td>
+
+<td class="pme-value-1">
+$$fields{userMobile}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-title">
+名称
+</td>
+
+<td class="pme-value-0">
+$$fields{userName}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+假日或活动
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{userStatus}
+</td>
+
+</tr>
+
+</tbody>
+
+</table>

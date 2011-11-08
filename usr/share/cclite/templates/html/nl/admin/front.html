@@ -1,135 +1,309 @@
+
 <form id="form">
+
 <table>
 
 <tr>
+
 <td title="Start het grafische script">
 Graphing
 </td>
+
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-E-mail input 
+E-mail input
 </td>
+
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG E-mail input</del> 
+<del>GPG Email input</del> 
 </td>
 -->
 
-
-<td title="beginnen met het produceren van rss-feeds voor yellow pages zoekertjes">
-RSS Feed    
+<td title="beginnen met het produceren van rss-feeds voor gele pagina's kleine advertenties">
+RSS-Feed
 </td>
-<td title="start accepting input via gammu from a lokale mobile phone">
+
+<td title="gaan accepteren via gammu ingang aan een lokale mobiele telefoon">
 Gammu input
 </td>
 
 <td title="Upload en proces batchtransacties">
-Upload/process Batch Transacties
+Uploadproces batchtransacties
 </td>
-
 
 </tr>
 
 <tr>
 
 <td>
-   <select onchange="on_select_change('stats');" id="stats_value" >
-	<option value="0"> Stop Stats</option>
-	<option value="5">Elke 5 minuten</option>
-	<option value="10">Elke 10 min</option>
-	<option value="30">Elke 30 min</option>
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+Stop Stats
+</option>
+
+<option value="5">
+Elke 5 minuten
+</option>
+
+<option value="10">
+Elke 10 min
+</option>
+
+<option value="30">
+Elke 30 min
+</option>
+
 </select>
-   
-    </td>
 
-
-
+</td>
 
 <td>
-    <select onchange="on_select_change('mail');" id="mail_value" >
-	<option value="0"> Stop Mail</option>
-	<option value="5">Elke 5 minuten</option>
-	<option value="10">Elke 10 min</option>
-	<option value="30">Elke 30 min</option>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+E-mail stoppen
+</option>
+
+<option value="5">
+Elke 5 minuten
+</option>
+
+<option value="10">
+Elke 10 min
+</option>
+
+<option value="30">
+Elke 30 min
+</option>
+
 </select>
 
-    
-    </td>
+</td>
+
 <!--
 <td>
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
 	<option value="0"> Stop GPG Mail</option>
-	<option value="5">Elke 5 minuten</option>
-	<option value="10">Elke 10 min</option>
-	<option value="30">Elke 30 min</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
 </select>
 
     
     </td>
 -->
 
-
 <td>
-    <select onchange="on_select_change('rss');" id="rss_value" >
-	<option value="0"> Stop Rss</option>
-	<option value="5">Elke 5 minuten</option>
-	<option value="10">Elke 10 min</option>
-	<option value="30">Elke 30 min</option>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+Stoppen met Rss
+</option>
+
+<option value="5">
+Elke 5 minuten
+</option>
+
+<option value="10">
+Elke 10 min
+</option>
+
+<option value="30">
+Elke 30 min
+</option>
+
 </select>
-    
-    </td>
 
-
+</td>
 
 <td>
-    <select onchange="on_select_change('gammu');" id="gammu_value" >
-	<option value="0"> Stop SMS</option>
-	<option value="5">Elke 5 minuten</option>
-	<option value="10">Elke 10 min</option>
-	<option value="30">Elke 30 min</option>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+Stoppen met SMS
+</option>
+
+<option value="5">
+Elke 5 minuten
+</option>
+
+<option value="10">
+Elke 10 min
+</option>
+
+<option value="30">
+Elke 30 min
+</option>
+
 </select>
-  </td>
+
+</td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="Upload Batch Transacties"> 	
+
+<input title="Batchtransacties krijgen als een CSV-bestand: Raadpleeg de handleiding van" type="submit" class="small" id="upload_button" value="Krijgen Batch CSV-bestand">
+
 </td>
 
 </tr>
 
-
 <tr>
-    <td><span id="stats">Wachten</span></td>
-    <td><span id="mail">Wachten</span></td>
-    <td><span id="gpg_mail">Wachten</span></td>
-    <td><span id="rss">Wachten</span></td> 
-    <td><span id="gammu">Wachten</span></td>
-   <td></td>
-</tr>    
 
+<td>
+<span id="stats">
+Wachten
+</span>
+</td>
 
-<tr>
-    <td><span id="statements"><a title="afdrukken van bankafschriften odt" href="/cgi-bin/protected/batch/print_statements.pl">Afdrukken van verklaringen</a></span></td>
-    <td><span id="yellowpages"><a title="odt gele pagina's afdrukken" href="/cgi-bin/protected/batch/print_yellowpages.pl">Yellowpages afdrukken</a></span></td>
-    <td><span id=""></span></td>
-    <td><span id=""></span></td> 
-    <td><span id=""></span></td>
-   <td></td>
+<td>
+<span id="mail">
+Wachten
+</span>
+</td>
+
+<td>
+<span id="gpg_mail">
+Wachten
+</span>
+</td>
+
+<td>
+<span id="rss">
+Wachten
+</span>
+</td>
+
+<td>
+<span id="gammu">
+Wachten
+</span>
+</td>
+
+<td>
+</td>
+
 </tr>
 
+<tr>
 
+<td>
+<span id="statements">
+<a title="afdrukken van bankafschriften odt" href="/cgi-bin/protected/batch/print_statements.pl">
+Print verklaringen
+</a>
+</span>
+</td>
 
+<td>
+<span id="yellowpages">
+<a title="odt gele pagina's afdrukken" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+Yellowpages afdrukken
+</a>
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
 
 </table>
+
 </form>
 
-<div id="stats_status"></div>
-<div id="gpg_mail_status"></div>
-<div id="mail_status"></div>
-<div id="csv_status"></div>
-<div id="rss_status"></div>
-<div id="gammu_status"></div><br/>
+<div id="stats_status">
+</div>
 
-<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
 <br/>
 
-<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
-<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<div id="stats_summary">
+Dit is de gemiddelde transactie grootte
+<span id="average_sparkline" class="sparkline">
+</span>
+en dit
+<span id="volumes_sparkbar" class="sparkbar">
+</span>
+is het gemiddelde volume.
+</div>
+
+<table>
+
+<tr>
+
+<td>
+
+<h4>
+<span id="transaction_vol_title">
+</span>
+
+<span id="update_date1">
+</span>
+
+</h4>
+
+<div id="volumes_bargraph" class="linegraph">
+</div>
+
+</td>
+
+<td>
+
+<h4>
+<span id="averages_title">
+</span>
+
+<span id="update_date2">
+</span>
+
+</h4>
+
+<div id="average_bargraph" class="linegraph">
+</div>
+
+</td>
+
+</tr>
+
+</table>

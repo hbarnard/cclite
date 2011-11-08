@@ -1,82 +1,195 @@
-      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
-        <input name="subaction" value="om_currencies" type="hidden">
-        <input name="action" value="addcurrency" type="hidden"> 
-        <table class="pme-main" summary="om_currencies">
-          <tbody class="stripy">
-<tr class="pme-row-1">
-              <td class="pme-key-1"></td>
-              <td class="pme-value-1"><span class="errors">$$fieldsref{errors}</span>
-</td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-1">اسم</td>
-              <td class="pme-value-1"> <input class="required"
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<input name="subaction" value="om_currencies" type="hidden">
+
+<input name="action" value="addcurrency" type="hidden">
+
+<table class="pme-main" summary="om_currencies">
+
+<tbody class="stripy">
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+</td>
+
+<td class="pme-value-1">
+<span class="errors">
+$$fieldsref{errors}
+</span>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+اسم
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
  name="cname" size="30" maxlength="30" value="$$fieldsref{cname}" type="text">
 
 </td>
-            </tr>
- <tr class="pme-row-1">
-              <td class="pme-key-1">التعليمات البرمجية</td>
-              <td class="pme-value-1"> <input class="required"
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+التعليمات البرمجية
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
  name="code" size="3" maxlength="3" value="$$fieldsref{code}" type="text">
 
 </td>
-            </tr>
 
-            <tr class="pme-row-0">
-              <td class="pme-key-0">وصف</td>
-              <td class="pme-value-0"> <input class="required"
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+وصف
+</td>
+
+<td class="pme-value-0">
+
+<input class="required"
  name="description" size="30" maxlength="30" value="$$fieldsref{description}" type="text">
-</td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-1">مركز</td>
-              <td class="pme-value-1">
-              <select class="required" name="status">
-              <option value="نشط" selected="selected">نشط</option>
-              <option value="تعليقed">تعليقed</option>
-              <option value="بريديليتي">بريديليتي</option>
-              </select>
-              </td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-1">نوع</td>
-              <td class="pme-value-1">
-              <select class="required" name="type">
-              <option value="lets" selected="selected">يتيح</option>
-              <option value="المحلية">المحلية</option>
-              <option value="hours">ساعات</option>
-              <option value="demurrage">غرامات التأخير</option>
-              </select>
-              </td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-1">عضوية</td>
-              <td class="pme-value-1">
-              <select class="pme-input-1" name="membership">
-              <option value="open" selected="selected">فتح</option>
-              <option value="closed">جlosed</option>
-              </select>
-              </td>
-            </tr>
-            <tr class="pme-row-0">
-              <td class="pme-key-0">البريد</td>
-              <td class="pme-value-0"> <input class="required email"
- name="mail" size="30" maxlength="30" value="$$fieldsref{mail}" type="text">
 </td>
-            </tr>
-          </tbody>
-        </table>
-        <hr class="pme-hr">
-        <table class="pme-navigation">
-          <tbody>
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> 
-<input class="pme-save" name="saveadd" value="إنشاء" type="submit">&nbsp;
-<input class="pme-cancel" name="cancel" value="جancel" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+مركز
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="status">
+
+<option value="active" selected="selected">
+نشط
+</option>
+
+<option value="suspended">
+تعليق
+</option>
+
+<option value="predelete">
+بريديليتي
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+نوع
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="lets" selected="selected">
+يتيح
+</option>
+
+<option value="local">
+المحلية
+</option>
+
+<option value="hours">
+ساعات
+</option>
+
+<option value="demurrage">
+غرامات التأخير
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+عضوية
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="membership">
+
+<option value="open" selected="selected">
+مفتوحة
+</option>
+
+<option value="closed">
+إغلاق
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+البريد
+</td>
+
+<td class="pme-value-0">
+
+<input class="required email"
+ name="mail" size="30" maxlength="30" value="$$fieldsref{mail}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd" value="إنشاء" type="submit">
+&nbsp;
+<input class="pme-cancel" name="cancel" value="إلغاء الأمر" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

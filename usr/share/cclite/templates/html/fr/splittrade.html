@@ -1,27 +1,59 @@
+
 <table>
- <tbody class="stripy"> 
-     <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post"><input
- name="fromregistry" value="$$fieldsref{registry}" type="hidden"> <input
- name="action" value="splittransaction" type="hidden"> <input
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden">
+
+<input
+ name="action" value="splittransaction" type="hidden">
+
+<input
  name="subaction" value="om_trades" type="hidden">
 
-            <tr>
-              <td class="pme-key-1">Date de</td>
-              <td class="pme-value-1"> <input class="grey"
- name="tradeDate de" size="11"  readonly="readonly" value="$$fieldsref{date}"
- type="text"></td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">Du compte<br>
-              </td>
-              <td class="pme-value-1"> <input class="grey"
+<tr>
+
+<td class="pme-key-1">
+Date de
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeDate" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Du compte
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
  name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
- </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">À Account<br>
-              </td>
-              <td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Afin de tenir compte
+<br>
+
+</td>
+
+<td class="pme-value-1">
 
 <!--
 
@@ -32,80 +64,143 @@
 -->
 
 <input type="text" class="required" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
-<div  class="autocomplete" id="suggestionBox" ></div>
+
+
+<div  class="autocomplete" id="suggestionBox" >
+</div>
 
 <script type="text/javascript" language="javascript" charset="utf-8">
-		// <![CDATA[
+// <![CDATA[
   var myAutoCompleter = new Ajax.Autocompleter('tradeDestination', 'suggestionBox', '/cgi-bin/ccsuggest.cgi', {});
 		// ]]>
 </script>
 
+<span class="pme-key-0">
+Registre
+</span>
+$$fieldsref{selectpartners}
+</td>
 
+</tr>
 
-<span class="pme-key-0">Registre</span> $$fieldsref{selectpartners}
+<tr>
+
+<td class="pme-key-0">
+Monnaie
+</td>
+
+<td nowrap class="pme-value-0">
+$$fieldsref{selectcurrency}
+<span class="pme-key-0">
+Montant
+</span>
+
+<input class="required" id="tradeAmount" onChange="validatedecimals(this,this.value);" name="tradeAmount" size="11" maxlength="11" type="text">
 
 </td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">Monnaie</td>
-              <td nowrap class="pme-value-0"> $$fieldsref{selectcurrency}
 
-<span class="pme-key-0"> Montant </span>
-<input class="required" id="tradeMontant" onChange="validatedecimals(this,this.value);" name="tradeMontant" size="11" maxlength="11" type="text">
+</tr>
 
+<tr>
 
-</td>
-            </tr>
-            <tr>
-              <td class="pme-key-0">
-<tr class="pme-row-0">
-              <td class="pme-key-0">Secondary Monnaie</td>
-              <td class="pme-value-0"> $$fieldsref{sselectcurrency}
-
-<span class="pme-key-0">Secondary Montant
-<input class="required" name="stradeMontant" id="stradeMontant"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
-
-</td>
-            </tr>
-
-
-
-</td>
-              <td class="pme-value-1"> 
-</td>
-            </tr>
+<td class="pme-key-0">
 
 <tr class="pme-row-0">
-              <td class="pme-key-0">Élément Type<br>
-              </td>
-              <td class="pme-value-0">
- 
-<select class="required" name="tradeÉlément">
- <option value="goods">Marchandises</option>
- <option value="services">Services</option>
- <option value="other">Autres</option>
+
+<td class="pme-key-0">
+Monnaie secondaire
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{sselectcurrency}
+<span class="pme-key-0">
+Montant secondaire
+<input class="required" name="stradeAmount" id="stradeAmount"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+</td>
+
+<td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Type d'élément
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select class="required" name="tradeItem">
+
+<option value="goods">
+Marchandises
+</option>
+
+<option value="services">
+Services
+</option>
+
+<option value="other">
+Autres
+</option>
+
 </select>
 
+<span class="pme-key-0">
+Titre de l'objet
+</span>
 
-
-<span class="pme-key-0"> Élément Titre</span> <input class="required"
- name="tradeTitre" size="60" maxlength="255" value="" type="text">
+<input class="required"
+ name="tradeTitle" size="60" maxlength="255" value="" type="text">
 
 </td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-1">Description de l'élément</td>
-              <td class="pme-value-1"> <textarea class="required"
- name="tradeDescription" rows="3" cols="60"></textarea></td>
-            </tr>
 
-        <table class="pme-navigation">
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd"  value="Faire des transferts" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-      </form>
-   </table>
- </tbody>
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Description de l'élément
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required"
+ name="tradeDescription" rows="3" cols="60">
+</textarea>
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd"  value="Faire des transferts" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Claire" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
 </table>

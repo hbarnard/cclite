@@ -1,115 +1,276 @@
+
 <form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+
 <input name="action" value="update" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="userId" value="$$fields{userId}" type="hidden">
-  <table class="pme-main" summary="om_users">
-    <tbody>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">ผู้ใช้Login</td>
-        <td "pme-value-0"> <input class="grey"
- name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">ผู้ใช้ รหัสผ่าน</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userรหัสผ่าน" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">Confirm รหัสผ่าน</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="confirmรหัสผ่าน" size="32" maxlength="32" value="" type="password"></td>
-      </tr>
-      <tr class="pme-row-1">
-        <td class="pme-key-1">ผู้ใช้อีเมล</td>
-        <td class="pme-value-1"> <input class="pme-input-1"
- name="userอีเมล" size="60" maxlength="255" value="$$fields{userอีเมล}" type="text"></td>
-      </tr>
+
+<table class="pme-main" summary="om_users">
+
+<tbody>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">หมายเลข/บ้านชื่อ</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userชื่อornumber" size="30" maxlength="30" value="$$fields{userชื่อornumber}" type="text">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td "pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+รหัสผ่านของผู้ใช้
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ยืนยันรหัสผ่าน
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userEmail" size="60" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+หมายเลข/บ้านชื่อ
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
 
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">ชื่อถนน</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userถนน" size="40" maxlength="40" value="$$fields{userถนน}" type="text">
+
+<td class="pme-key-0">
+ชื่อถนน
 </td>
-            </tr>
-<tr class="pme-row-1">
-              <td class="pme-key-0">ถึงwn</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userถึงwn" size="40" maxlength="40" value="$$fields{userถึงwn}" type="text">
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
 </td>
-            </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-              <td class="pme-key-0">ประเทศ</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
+
+<td class="pme-key-0">
+เมือง
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+ประเทศ
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
  name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
-</td>
-            </tr>
 
-            <tr class="pme-row-1">
-              <td class="pme-key-0">โทรศัพท์มือถือ</td>
-              <td class="pme-value-1"> <input class="pme-input-1"
- name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text"></td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-0">ภาษา</td>
-              <td class="pme-value-1"> 
-                 <select name="userLang">
-                   <option value="de">Deutsch</option>
-                   <option selected value="en">อังกฤษ</option>
-                   <option value="fr">Fran</option>
-                 </select>
 </td>
-            </tr>
-      <tr class="pme-row-0">
-        <td class="pme-key-0">ผู้ใช้ชื่อ</td>
-        <td class="pme-value-0"> <input class="pme-input-0"
- name="userชื่อ" size="60" maxlength="255" value="$$fields{userชื่อ}" type="text"></td>
-      </tr>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">Holiday or ใช้งานอยู่</td>
-        <td class="pme-value-1"> 
-                 <select name="userสถานะ">
-                   <option selected value="ใช้งานอยู่">ใช้งานอยู่</option>
-                   <option value="holiday">ในวันหยุด</option>
-                   <option value="unconfirmed">ผู้</option>
-                   <option value="predelete">Pre ลบ</option>
-                  <option value="การหยุดชั่วคราวed">หยุดชั่วคราว</option>
-                 </select>
-</td>
-      </tr>
 
+<td class="pme-key-0">
+โทรศัพท์มือถือ
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
 
 <tr class="pme-row-1">
-        <td class="pme-key-1">ระดับผู้ใช้</td>
-        <td class="pme-value-1"> 
-                 <select name="userLevel">
-                   <option selected value="user">ผู้ใช้</option>
-                   <option value="admin">ผู้ดูแล</option>
-                   <option value="sysaccount">บัญชีของระบบ</option>
-                 </select>
+
+<td class="pme-key-0">
+ภาษา
 </td>
-      </tr>
 
+<td class="pme-value-1">
 
-    </tbody>
-  </table>
-  <hr class="pme-hr">
-  <table class="pme-navigation">
-    <tbody>
-      <tr class="pme-navigation">
-        <td class="pme-buttons"> <input class="pme-save" name="saveadd"
- value="บันทึก" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Cancel" onclick="form.submit();" type="button"> </td>
-      </tr>
-    </tbody>
-  </table>
+<select name="userLang">
+
+<option value="de">
+Deutsch
+</option>
+
+<option selected value="en">
+อังกฤษ
+</option>
+
+<option value="fr">
+Fran
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+ชื่อผู้ใช้
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userName" size="60" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+วันหยุดหรือทำงานอยู่
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+ใช้งานอยู่
+</option>
+
+<option value="holiday">
+ในวันหยุด
+</option>
+
+<option value="unconfirmed">
+ผู้
+</option>
+
+<option value="predelete">
+Pre ลบ
+</option>
+
+<option value="suspended">
+หยุดชั่วคราว
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+ระดับผู้ใช้
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLevel">
+
+<option selected value="user">
+ผู้ใช้
+</option>
+
+<option value="admin">
+ผู้ดูแล
+</option>
+
+<option value="sysaccount">
+ระบบบัญชี
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="บันทึก" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
 </form>

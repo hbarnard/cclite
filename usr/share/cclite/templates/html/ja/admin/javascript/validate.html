@@ -1,171 +1,485 @@
-<title>Javascript ãã©ã¼ã ã®ããªãã¼ã·ã§ã³</title></head>
 
-
+<title>
+Javascript ãã©ã¼ã ã®ããªãã¼ã·ã§ã³
+</title>
+</head>
 
 <body bgcolor="white">
 
-<table border="0" width="625"><tbody><tr><td rowspan="6" bgcolor="#408080" width="10"><img src="clear.gif" height="1" width="10"></td>
+<table border="0" width="625">
+<tbody>
+<tr>
+<td rowspan="6" bgcolor="#408080" width="10">
+<img src="clear.gif" height="1" width="10">
+</td>
+
 <td bgcolor="#b6dada">
-<font size="+3">Javascript ãã©ã¼ã ã®ããªãã¼ã·ã§ã³ å®åol</font> <font size="+1">ver 2.5</font></td></tr>
-<tr><td>
-<font size="-1">Artswork ã§ </font><br>
-<font color="#ff0000" size="2">ç§ã¯å®éãç§ã¯è¬ç½ªããå¿è¦ãããã¾ãããã¯ãã©ãã ããç§ã®ã¹ã¯ãªããã«ã¤ãã¦ã®è³ªåã®ã¡ã¼ã«ãåãå¥ãããã¨ãã§ãã¾ãããã®ã¢ã¸ã¥ã¼ã«ãæ­£ããçµ±åã®äººã ãæ¯æ´ããå¤ãã®æéãä¸ããã¨æ¸ãã ãã§ãã®ããã®ä»ã®é ç®ãããããã®ã¡ã¼ã«ãçºçãã¾ãã2003 å¹´ 8 æã®ã¯ã¼ã æ·±å»ãªè¡¨ç¤ºãããã¡ã¼ã« ã¢ãã¬ã¹ãå±éºã«ãããããã§ã¯ä½åãã®èª¤ã£ãã«å¯¾å¦ããªããã°ãªããªãã£ãã«æ»æã¡ã¼ã«ã¯ 1 æ¥ãè¿ãã¾ããç§ã¯å®æçã«æå¹ã«ãããã¨ãã¦å¯è½æ§ãããã¾ãã®ã§ãè¿ãããã»ããä¸æ®µè½ããå¾åè©¦è¡ãã¦ãã ãããç§ã¯ã¾ãç¶æããå¿è¦ãããã¾ããã©ã®ããã«ç§ãã¡ã®è½åãæã¤äººã ãå°ç¡ãã«ãããã¨ãã§ããä¿¡ããããªãã»ã©ã®ã¢ã¤ãã¢ãªã©ãã¤ã³ã¿ã¼ãããã¨ã®éä¿¡ãä¸­å·ã§ããç§ã¯å¤ãã®å¹´ã®è©¦ã¿è²¢ç®åº¦ä»ã®äººã«ããã«åãçµãã§èªåã®æåãè¿ãä¸­ããã¹ã¦ã®é¢å¿ã«æè¬ãåãã¦ãã¾ãã</font><hr size="1">
-This form validation tool can check for <b>å¿è¦ãªæ´æ°ãé»å­ã¡ã¼ã«ãããã³æ¥ä»ã®ãã£ã¼ã«ã</b>
-in your forms.
-It is easily portable to all your forms and will help save server side
-resources from form field validation
-and page reloads. All the messages are customized in the hidden form
-element where you also select the validation requirement. You can mix
-the required element with any of the other elements.
-This code is completely portable and can be used with any form by just
-adding your hidden elements appropriately and adding the onClick
-command to a button.<br><br>
-</td></tr>
-<tr><td bgcolor="#b6dada"><font size="+2">æ¬¡ã®ã«ã¼ã«ã</font></td></tr>
-<tr><td>
-<b>1)</b> å®å set a required field use your existing field name and add
-an r_ to the beginning of the field name and create a hidden element.<br>
-<b>ä¾:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
-&lt;input type="hidden" name="r_your_fieldname" value="Required error message goes here"&gt;<p>
-<b>2)</b> å®å set an integer field use your existing field name and add
-an i_ to the beginning of the field name and create a hidden element.<br>
-<b>ä¾:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
-&lt;input type="hidden" name="i_your_fieldname" value="Integer error message goes here"&gt;</p><p>
-<b>3)</b> å®å set a date field use your existing field name and add an
-d_ to the beginning of the field name and create a hidden element. This
-date field only accepts the format MM/DD/YY or M/D/YY.<br>
-<b>ä¾:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
-&lt;input type="hidden" name="d_your_fieldname" value="æ¥ä» error message goes here"&gt;<br><br>
 
-<b>4)</b> å®å validate an email field use your existing field name and
-add an e_ to the beginning of the field name and create a hidden
-element.<br>
-<b>ä¾:</b><br>&lt;input type="text" name="your_fieldname"&gt;<br>
-&lt;input type="hidden" name="e_your_fieldname" value="The email address format is incorrect"&gt;<br><br>
+<font size="+3">
+Javascript ãã©ã¼ã æ¤è¨¼ãã¼ã«
+</font>
 
-</p></td></tr>
-<tr><td bgcolor="#b6dada">
-<font size="+2">ã¹ã¯ãªããã®åæåãã¾ãã</font></td></tr>
-<tr><td>
-You MUST use the type="button" NOT THE type="submit" for your SUBMIT button, the javascript sends the submit for you.<br>
-<font size="-1"><b>ä¾:</b><br>&lt;input type=button å¤="Button Message Here" onclick="check(form,form.elements.length)"&gt;</font>
-<br><br><hr size="1">
+<font size="+1">
+ver 2.5
+</font>
+</td>
+</tr>
 
-<font size="+2">ãã®ãµã³ãã«ã§ã¯ããã¹ã¦ã® 3 ã¤ã®æ¤è¨¼ãã¼ã«ã®çµã¿åããã§å©ç¨ãã¦ãã¾ãã</font><p>
-</p><form action="thanks.html">
+<tr>
+<td>
+
+<font size="-1">
+Artswork ã§
+</font>
+<br>
+
+<font color="#ff0000" size="2">
+ç§ã¯å®éãç§ã¯è¬ç½ªããå¿è¦ãããã¾ãããã¯ãã©ãã ããç§ã®ã¹ã¯ãªããã«ã¤ãã¦ã®è³ªåã®ã¡ã¼ã«ãåãå¥ãããã¨ãã®ã¢ã¸ã¥ã¼ã«ãæ­£ããçµ±åããäººã ãæ¯æ´ããå¤ãã®æéãä¸ããã¨æ¸ãã ãã§ãã®ããã®ä»ã®é ç®ãããããã®ã¡ã¼ã«ãçºçãã¾ãã2003 å¹´ 8 æã®ã¯ã¼ã æ·±å»ãªç§ã®é»å­ã¡ã¼ã« ã¢ãã¬ã¹ãè¡¨ç¤ºãå±éºã«ãããããã§ã¯ä½åãã®èª¤ã£ãã«å¯¾å¦ããªããã°ãªããªãã£ãã«æ»æã¡ã¼ã«ã¯ 1 æ¥ãè¿ãã¾ããç§ã¯å®æçã«æå¹ã«ãããã¨ãã¦å¯è½æ§ãããã¾ãã®ã§ãã ããæ»ãã¾ãã¯ãã»ããä¸æ®µè½ããå¾ãããä¸åº¦ããç´ãã¦ãã ãããç§ã¯ã¾ãç¶æããå¿è¦ãããã¾ããã©ã®ããã«ç§ãã¡ã®è½åãæã¤äººã ãå°ç¡ãã«ãããã¨ãã§ããä¿¡ããããªãã»ã©ã®ã¢ã¤ãã¢ãªã©ãã¤ã³ã¿ã¼ãããã®éä¿¡ãä¸­å·ãã¾ããç§ã¯å¤ãã®å¹´ã®è©¦ã¿ããã«åãçµãã§èªåã®æåãä»ã®äººã«è²¢ç®ãè¿ãä¸­ããã¹ã¦ã®é¢å¿ã«æè¬ãåãã¦ãã¾ãã
+</font>
+<hr size="1">
+ãã®ãã©ã¼ã ã®æ¤è¨¼ãã¼ã«ãç¢ºèªãããã¨ãã§ãã¾ãã
+<b>
+å¿è¦ãªæ´æ°ãé»å­ã¡ã¼ã«ãããã³æ¥ä»ã®ãã£ã¼ã«ã
+</b>
+ããªãã®ãã©ã¼ã ã§ã¯ãããã¯ããªãã®ãã¹ã¦ã®ãã©ã¼ã ã«ç°¡åã«ç§»æ¤ã¨ãµã¼ãã¼å´ã®ä¿å­ã«å½¹ç«ã¤ãã©ã¼ã  ãã£ã¼ã«ãã®æ¤è¨¼ããã®ãªã½ã¼ã¹ãã¼ã¸ãåèª­ã¿è¾¼ã¿ãã¾ãããã¹ã¦ã®ã¡ãã»ã¼ã¸ããéè¡¨ç¤ºã®ãã©ã¼ã ã®ã«ã¹ã¿ãã¤ãºããã¾ãããã¾ããæ¤è¨¼ã®è¦ä»¶ãé¸æè¦ç´ ãããã¯ã¹ãããã¨ãã§ãã¾ããä»»æã®ä»ã®è¦ç´ ãæã¤å¿è¦ãªè¦ç´ ããã®ã³ã¼ãã¯å®å¨ã«ç§»æ¤ãããä»»æã®ãã©ã¼ã ã§ã ãä½¿ç¨ã§ãã¾ããããªãã®é ãããè¦ç´ ãé©åã«è¿½å ãã¦ãonClick ãè¿½å ã³ãã³ã ãã¿ã³ã«ã¯ã
+<br>
+<br>
+
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+<font size="+2">
+æ¬¡ã®ã«ã¼ã«ã
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+1ï¼
+</b>
+å¿è¦ãªãã£ã¼ã«ãã®ä½¿ç¨ãæ¢å­ã®ãã£ã¼ã«ãåãè¨­å®ããè¿½å ããã«ã¯r _ ãã£ã¼ã«ãã®åé ­ã«ååãéè¡¨ç¤ºã®è¦ç´ ãä½æãã¾ãã
+<br>
+
+<b>
+ä¾:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="r_your_fieldname" value="Required error message goes here"&gt;
+<p>
+
+<b>
+2ï¼
+</b>
+æ´æ°ãè¨­å®ããã«ã¯ããã£ã¼ã«ããæ¢å­ã®ãã£ã¼ã«ãåãä½¿ç¨ãã¦è¿½å i _ ãã£ã¼ã«ãã®åé ­ã«ååãä»ããéè¡¨ç¤ºã®è¦ç´ ãä½æãã¾ãã
+<br>
+
+<b>
+ä¾:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="i_your_fieldname" value="Integer error message goes here"&gt;
+</p>
+<p>
+
+<b>
+3ï¼
+</b>
+æ¥ä»ãã£ã¼ã«ãã®ä½¿ç¨ãããæ¢å­ã®ãã£ã¼ã«ãåãè¨­å®ããè¿½å ãããd _ ãã£ã¼ã«ãã®åé ­ã«ååãä»ããéè¡¨ç¤ºã®è¦ç´ ãä½æãã¾ããããã¯ãæ¥ä»ãã£ã¼ã«ãã¯ãM/D/YY å½¢å¼ MMãDDãYY ã«ã®ã¿ã
+<br>
+
+<b>
+ä¾:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="d_your_fieldname" value="Date error message goes here"&gt;
+<br>
+<br>
+
+<b>
+4ï¼
+</b>
+æ¤è¨¼ããã¡ã¼ã« ãã£ã¼ã«ããæ¢å­ã®ãã£ã¼ã«ãåãä½¿ç¨ãã¦e_ããã£ã¼ã«ãåã®åé ­ã«è¿½å ããéè¡¨ç¤ºãä½æãã¾ããè¦ç´ ã
+<br>
+
+<b>
+ä¾:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="e_your_fieldname" value="The email address format is incorrect"&gt;
+<br>
+<br>
+
+</p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+
+<font size="+2">
+ã¹ã¯ãªããã®åæåãã¾ãã
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+åãä½¿ç¨ããå¿è¦ãããã¾ãããã¿ã³ãåã§ã¯ãªã = submit] = éä¿¡ãã¿ã³ã¯ãjavascript ã«éä¿¡ãéä¿¡ã
+<br>
+
+<font size="-1">
+<b>
+ä¾:
+</b>
+<br>
+&lt;input type=button Value="Button Message Here" onclick="check(form,form.elements.length)"&gt;
+</font>
+
+<br>
+<br>
+<hr size="1">
+
+<font size="+2">
+ãã®ãµã³ãã«ã§ã¯ããã¹ã¦ã® 3 ã¤ã®æ¤è¨¼ãã¼ã«ã®çµã¿åããã§å©ç¨ãã¦ãã¾ãã
+</font>
+<p>
+
+</p>
+<form action="thanks.html">
+
 <table border="0" width="575">
-<tbody><tr><td>
-<b>é»å­ã¡ã¼ã« Address:</b>
-</td>
+
+<tbody>
+<tr>
 <td>
+
+<b>
+é»å­ã¡ã¼ã« ã¢ãã¬ã¹:
+</b>
+
+</td>
+
+<td>
+
 <input name="email" type="text">
-<input name="e_email" value="é»å­ã¡ã¼ã« address format is incorrect" type="hidden">
-<input name="r_email" value="é»å­ã¡ã¼ã« address is required" type="hidden">
-</td><td><font size="-1">(required and email validation)</font></td></tr>
 
-<tr><td>
-<b>First åå:</b>
+<input name="e_email" value="Email address format is incorrect" type="hidden">
+
+<input name="r_email" value="Email address is required" type="hidden">
+
 </td>
 <td>
+<font size="-1">
+(required and email validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+æåã®ååï¼
+</b>
+
+</td>
+
+<td>
+
 <input name="fname" type="text">
-<input name="r_fname" value="First name is required" type="hidden">
-</td><td><font size="-1">(required validation)</font></td></tr>
-<tr><td>
-<b>æå¾ã®ååï¼</b>
-</td>
-<td>
-<input name="lname" type="text">
-<input name="r_lname" value="Last name is required" type="hidden">
-</td><td><font size="-1">(required validation)</font></td></tr>
-<tr><td>
-<b>ã¢ãã¬ã¹ 1:</b>
-</td>
-<td>
-<input name="address1" type="text">
-<input name="r_address1" value="Address is required" type="hidden">
-</td><td><font size="-1">(required validation)</font></td></tr>
-<tr><td>
-<b>ã¢ãã¬ã¹ 2:</b>
-</td>
-<td>
-<input name="address2" type="text"> 
-</td><td><font size="-1">(no validation)</font></td></tr>
-<tr><td>
-<b>ããªãã¯ä½æ­³ã§ããï¼</b>
-</td>
-<td>
-<input name="age" type="text">
-<input name="r_age" value="Age is required" type="hidden">
-<input name="i_age" value="Age must be a valid integer" type="hidden">
-</td><td><font size="-1">(required and integer validation)</font></td></tr>
-<tr><td>
-<b>å¹´ãã¹ã¯ãªããããã¦ãã¾ãã</b>
-</td>
-<td>
-<input name="scripting" type="text">
-<!--- <input type="hidden" name="r_scripting" value="Years scripting required"> --->
-<input name="i_scripting" value="Years scripting must be a valid integer" type="hidden">
-</td><td><font size="-1">(integer validation)</font></td></tr>
-<tr><td>
-<b>ä»æ¥ã®æ¥ä»ã¨ã¯ä½ã§ãï¼</b> <font size="-1">(mm/dd/yy)</font>
-</td>
-<td>
-<input name="todays_dt" type="text">
-<!--- <input type="hidden" name="r_todays_dt" value="å®åday's date is required"> --->
-<input name="d_todays_dt" value="The date is not valid or the format is incorrect. Please format mm/dd/yy." type="hidden">
-</td><td><font size="-1">(date validation)</font></td></tr>
-<tr><td>
-<b>ä»¶åãé¸æãã¾ãã</b>
-</td>
-<td>
-<select name="subject"><option value="">1 ã¤ãé¸æãã¾ãã
-</option><option value="Javascript">Javascript
-</option><option value="C">C
-</option><option value="C++">C++
-</option><option value="Visual Basic">Visual Basic
-</option></select>
-<input name="r_subject" value="You must select a subject" type="hidden">
-</td><td><font size="-1">(required validation)</font></td></tr>
-<tr><td>
-<b>ã©ã¸ãª ãã¿ã³ãé¸æãã¾ãã</b>
-</td>
-<td>
-<input name="test" value="1" type="radio">ãã¹ã 1
-<input name="test" value="2" type="radio">ãã¹ã 2
-<input name="test" value="3" type="radio">ãã¹ã 3
 
+<input name="r_fname" value="First name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+æå¾ã®ååï¼
+</b>
+
+</td>
+
+<td>
+
+<input name="lname" type="text">
+
+<input name="r_lname" value="Last name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ã¢ãã¬ã¹ 1:
+</b>
+
+</td>
+
+<td>
+
+<input name="address1" type="text">
+
+<input name="r_address1" value="Address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ã¢ãã¬ã¹ 2:
+</b>
+
+</td>
+
+<td>
+
+<input name="address2" type="text">
+
+</td>
+<td>
+<font size="-1">
+(no validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ããªãã¯ä½æ­³ã§ããï¼
+</b>
+
+</td>
+
+<td>
+
+<input name="age" type="text">
+
+<input name="r_age" value="Age is required" type="hidden">
+
+<input name="i_age" value="Age must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+å¹´ãã¹ã¯ãªããããã¦ãã¾ãã
+</b>
+
+</td>
+
+<td>
+
+<input name="scripting" type="text">
+
+<!--- <input type="hidden" name="r_scripting" value="Years scripting required"> --->
+
+<input name="i_scripting" value="Years scripting must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ä»æ¥ã®æ¥ä»ã¨ã¯ä½ã§ãï¼
+</b>
+
+<font size="-1">
+(mm/dd/yy)
+</font>
+
+</td>
+
+<td>
+
+<input name="todays_dt" type="text">
+
+<!--- <input type="hidden" name="r_todays_dt" value="Today's date is required"> --->
+
+<input name="d_todays_dt" value="The date is not valid or the format is incorrect. Please format mm/dd/yy." type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(date validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ä»¶åãé¸æãã¾ãã
+</b>
+
+</td>
+
+<td>
+
+<select name="subject">
+<option value="">
+1 ã¤ãé¸æãã¾ãã
+</option>
+<option value="Javascript">
+Javascript
+</option>
+<option value="C">
+C
+</option>
+<option value="C++">
+C
+</option>
+<option value="Visual Basic">
+Visual Basic
+</option>
+</select>
+
+<input name="r_subject" value="You must select a subject" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ã©ã¸ãª ãã¿ã³ãé¸æãã¾ãã
+</b>
+
+</td>
+
+<td>
+
+<input name="test" value="1" type="radio">
+ãã¹ã 1
+<input name="test" value="2" type="radio">
+ãã¹ã 2
+<input name="test" value="3" type="radio">
+ãã¹ã 3
 <input name="r_test" value="Please select a radio button 1, 2 or 3" type="hidden">
 
-</td><td><font size="-1">(required validation)</font></td></tr>
-
-<tr><td>
-<b>ãã¹ã¦é©ç¨ãé¸æãã¾ãã</b>
 </td>
 <td>
-<input name="test1" value="1" type="checkbox">ãã¹ã 1
-<input name="r_test1" value="You must select checkbox ãã¹ã 1" type="hidden">
-<input name="test2" value="2" type="checkbox">ãã¹ã 2
-<input name="test3" value="3" type="checkbox">ãã¹ã 3
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
 
+<tr>
+<td>
 
+<b>
+ãã¹ã¦ã«é©ç¨ãé¸æãã¾ãã
+</b>
 
-</td><td><font size="-1">(required validation on box 1)</font></td></tr>
+</td>
 
+<td>
 
-<tr><td colspan="3">
+<input name="test1" value="1" type="checkbox">
+ãã¹ã 1
+<input name="r_test1" value="You must select checkbox test 1" type="hidden">
+
+<input name="test2" value="2" type="checkbox">
+ãã¹ã 2
+<input name="test3" value="3" type="checkbox">
+ãã¹ã 3
+</td>
+<td>
+<font size="-1">
+(required validation on box 1)
+</font>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+
 <input value="Submit this form for validation" onclick="check(form,form.elements.length)" type="button">
-</td></tr>
 
-</tbody></table>
+</td>
+</tr>
+
+</tbody>
+</table>
+
 </form>
 
 <hr size="1">
-<center><font size="-1">� 2004 Artswork</font><p>
+
+<center>
+<font size="-1">
+� 2004 Artswork
+</font>
+<p>
 
 <img src="/cgi-bin/counter?perflunk">
 
-</p></center>
+</p>
+</center>
 
-</td></tr></tbody></table>
+</td>
+</tr>
+</tbody>
+</table>
 
-</body></html>
+</body>
+</html>

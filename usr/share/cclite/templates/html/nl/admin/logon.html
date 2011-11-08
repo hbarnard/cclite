@@ -1,39 +1,88 @@
-      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post"><input
- name="action" value="logon" type="hidden"> <input name="subaction"
+
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+<input
+ name="action" value="logon" type="hidden">
+
+<input name="subaction"
  value="om_users" type="hidden">
-        <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
-            <tr>
-              <td class="pme-key-1">Reg Naam<br>
-              </td>
-              <td style="vertical-align: top;"><input class="required" name="registry">
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr>
+
+<td class="pme-key-1">
+Reg naam
 <br>
-              </td>
-            </tr>
-            <tr class="pme-row-1">
-              <td class="pme-key-1">Account Naam<br>
-              </td>
-              <td class="pme-value-1"> <input class="required"
- name="userLogin" autocomplete="off"
- size="60" maxlength="255" value="" type="text">
-            </tr>
-            <tr class="pme-row-0">
-              <td class="pme-key-0">Wachtwoord</td>
-              <td class="pme-value-0"> <input class="required"
- name="userWachtwoord" size="32" maxlength="32" value="" type="password">
 
 </td>
-            </tr>
-          </tbody>
-        </table>
-        <hr class="pme-hr">
-        <table class="pme-navigation">
-          <tbody>
-            <tr class="pme-navigation">
-              <td class="pme-buttons"> <input class="pme-save"
- name="saveadd" value="Gaan" type="submit">&nbsp;<input class="pme-cancel"
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
+
+<td style="vertical-align: top;">
+<input class="required" name="registry">
+
+<br>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Accountnaam
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="userLogin" autocomplete="off"
+ size="60" maxlength="255" value="" type="text">
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Wachtwoord
+</td>
+
+<td class="pme-value-0">
+
+<input class="required"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Gaan" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Duidelijk" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

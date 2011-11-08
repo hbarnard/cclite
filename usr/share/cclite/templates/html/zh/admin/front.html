@@ -1,135 +1,309 @@
+
 <form id="form">
+
 <table>
 
 <tr>
-<td title="启动图形的脚本">
-Graphing
+
+<td title="启动该图形的脚本">
+图形
 </td>
+
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-电子邮件 input 
+输入的电子邮件
 </td>
+
 <!--
 <td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
-<del>GPG 电子邮件 input</del> 
+<del>GPG Email input</del> 
 </td>
 -->
 
-
 <td title="开始生产黄页小广告的 rss 源">
-RSS Feed    
+Rss 订阅源
 </td>
-<td title="start accepting input via gammu from a 本地 mobile phone">
-Gammu input
+
+<td title="开始接受来自本地流动电话 gammu 通过输入">
+Gammu 输入
 </td>
 
 <td title="上载和过程的批处理事务">
-上传/process Batch 交易
+上传/批事务处理过程
 </td>
-
 
 </tr>
 
 <tr>
 
 <td>
-   <select onchange="on_select_change('stats');" id="stats_value" >
-	<option value="0"> Stop Stats</option>
-	<option value="5">每 5 分钟</option>
-	<option value="10">每 10 分钟</option>
-	<option value="30">每 30 分钟</option>
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+停止统计信息
+</option>
+
+<option value="5">
+每 5 分钟
+</option>
+
+<option value="10">
+每 10 分钟
+</option>
+
+<option value="30">
+每 30 分钟
+</option>
+
 </select>
-   
-    </td>
 
-
-
+</td>
 
 <td>
-    <select onchange="on_select_change('mail');" id="mail_value" >
-	<option value="0"> Stop 邮件</option>
-	<option value="5">每 5 分钟</option>
-	<option value="10">每 10 分钟</option>
-	<option value="30">每 30 分钟</option>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+停止邮件
+</option>
+
+<option value="5">
+每 5 分钟
+</option>
+
+<option value="10">
+每 10 分钟
+</option>
+
+<option value="30">
+每 30 分钟
+</option>
+
 </select>
 
-    
-    </td>
+</td>
+
 <!--
 <td>
     <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
-	<option value="0"> Stop GPG 邮件</option>
-	<option value="5">每 5 分钟</option>
-	<option value="10">每 10 分钟</option>
-	<option value="30">每 30 分钟</option>
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
 </select>
 
     
     </td>
 -->
 
-
 <td>
-    <select onchange="on_select_change('rss');" id="rss_value" >
-	<option value="0"> Stop Rss</option>
-	<option value="5">每 5 分钟</option>
-	<option value="10">每 10 分钟</option>
-	<option value="30">每 30 分钟</option>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+停止 Rss
+</option>
+
+<option value="5">
+每 5 分钟
+</option>
+
+<option value="10">
+每 10 分钟
+</option>
+
+<option value="30">
+每 30 分钟
+</option>
+
 </select>
-    
-    </td>
 
-
+</td>
 
 <td>
-    <select onchange="on_select_change('gammu');" id="gammu_value" >
-	<option value="0"> Stop SMS</option>
-	<option value="5">每 5 分钟</option>
-	<option value="10">每 10 分钟</option>
-	<option value="30">每 30 分钟</option>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+停止短信
+</option>
+
+<option value="5">
+每 5 分钟
+</option>
+
+<option value="10">
+每 10 分钟
+</option>
+
+<option value="30">
+每 30 分钟
+</option>
+
 </select>
-  </td>
+
+</td>
 
 <td>
-<input type="submit" class="smalltext" id="upload_button" value="上传 Batch 交易"> 	
+
+<input title="获取批量交易为 csv 文件： 请参阅手册" type="submit" class="small" id="upload_button" value="获取 CSV 文件批处理">
+
 </td>
 
 </tr>
 
-
 <tr>
-    <td><span id="stats">等待</span></td>
-    <td><span id="mail">等待</span></td>
-    <td><span id="gpg_mail">等待</span></td>
-    <td><span id="rss">等待</span></td> 
-    <td><span id="gammu">等待</span></td>
-   <td></td>
-</tr>    
 
+<td>
+<span id="stats">
+等待
+</span>
+</td>
 
-<tr>
-    <td><span id="statements"><a title="打印 odt 银行对账单" href="/cgi-bin/protected/batch/print_statements.pl">打印报表</a></span></td>
-    <td><span id="yellowpages"><a title="打印 odt 黄页" href="/cgi-bin/protected/batch/print_yellowpages.pl">打印黄页</a></span></td>
-    <td><span id=""></span></td>
-    <td><span id=""></span></td> 
-    <td><span id=""></span></td>
-   <td></td>
+<td>
+<span id="mail">
+等待
+</span>
+</td>
+
+<td>
+<span id="gpg_mail">
+等待
+</span>
+</td>
+
+<td>
+<span id="rss">
+等待
+</span>
+</td>
+
+<td>
+<span id="gammu">
+等待
+</span>
+</td>
+
+<td>
+</td>
+
 </tr>
 
+<tr>
 
+<td>
+<span id="statements">
+<a title="打印 odt 银行对账单" href="/cgi-bin/protected/batch/print_statements.pl">
+打印报表
+</a>
+</span>
+</td>
 
+<td>
+<span id="yellowpages">
+<a title="打印 odt 黄页" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+打印的黄页
+</a>
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
 
 </table>
+
 </form>
 
-<div id="stats_status"></div>
-<div id="gpg_mail_status"></div>
-<div id="mail_status"></div>
-<div id="csv_status"></div>
-<div id="rss_status"></div>
-<div id="gammu_status"></div><br/>
+<div id="stats_status">
+</div>
 
-<div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
 <br/>
 
-<img id="transactions" src="/images/charts/$$fieldsref{registry}/transaction.gif" />
-<img id="volumes" src="/images/charts/$$fieldsref{registry}/volumes.gif" />
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<div id="stats_summary">
+这是平均事务的大小
+<span id="average_sparkline" class="sparkline">
+</span>
+与此
+<span id="volumes_sparkbar" class="sparkbar">
+</span>
+是平均量。
+</div>
+
+<table>
+
+<tr>
+
+<td>
+
+<h4>
+<span id="transaction_vol_title">
+</span>
+
+<span id="update_date1">
+</span>
+
+</h4>
+
+<div id="volumes_bargraph" class="linegraph">
+</div>
+
+</td>
+
+<td>
+
+<h4>
+<span id="averages_title">
+</span>
+
+<span id="update_date2">
+</span>
+
+</h4>
+
+<div id="average_bargraph" class="linegraph">
+</div>
+
+</td>
+
+</tr>
+
+</table>

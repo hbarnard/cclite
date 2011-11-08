@@ -1,88 +1,227 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
 <head>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="允许 C" />
-<meta name="author" content="hugh barnard  / Original design: 安德烈亚斯 · 维克隆德 - http://andreasviklund.com/" />
- 
+
+
+<meta name="keywords" content="LETS CC" />
+
+
+<meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+
+
 <link type="text/css" href="/styles/cc.css" rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
-<link rel="alternate" type="application/rss+xml" title="实验 cclite 链接" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>  
 
-<title>Cclite $$fieldsref{版本} Admin</title>
 
+<link rel="alternate" type="application/rss+xml" title="实验 cclite 链接" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $$ 的版本 {} 管理员
+</title>
 !$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
 
-
-<script src="/javascript/prototype.js"></script>
-<script src="/javascript/scriptaculous.js"></script>
-
+<script src="/javascript/scriptaculous.js">
+</script>
 
 </head>
 
 <body id="$$fieldsref{action}$$fieldsref{substyle}">
-<div id="toptabs">
-<a 
- class="toptab" title="Forgot Your 密码?"
- href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">Forgotten 密码?</a>
 
+<div id="toptabs">
+
+<a 
+ class="toptab" title="忘记了密码吗？?"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+忘记了密码吗？
+</a>
 
 <a class="toptabstrikethrough" title="多伊奇"
- href="/cgi-bin/cclite.cgi?action=lang&amp;语言=de">多伊奇</a>
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+多伊奇
+</a>
 
 <a 
  class="toptabstrikethrough" title="更改为法语"
- href="/cgi-bin/cclite.cgi?action=lang&amp;语言=fr">弗朗索瓦</a>
-$$fieldsref{youare} $$fieldsref{atregistry} 
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+弗朗索瓦
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
 <p>
-<a class="toptab" title="新帐户" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">新帐户</a><span class="hide"> | </span>
-<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">Log off $$fieldsref{user} </a><span class="hide"> | </span>
-<a class="toptab" title="返回 to 用户 Menu" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">用户 Menu</a><span class="hide"> | </span>
+
+<a class="toptab" title="新帐户" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+新帐户
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+注销 $$ {用户}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="返回到用户菜单" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+用户菜单
+</a>
+<span class="hide">
+|
+</span>
+
 </p>
-
-
 
 </div>
 
 <div id="container">
-<h1>Cclite $$fieldsref{版本} Administration</h1>
 
+<h1>
+Cclite $$ 的版本 {} 管理
+</h1>
 
 <div id="navitabs">
-<a class="showpartnersresulthtml" title="显示合作伙伴登记册" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">显示合作伙伴</a><span class="hide"> | </span>
-<a class="templatecurrencyhtml" title="创建 New 货币" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">创建货币</a><span class="hide"> | </span>
-<a class="showcurrenciesresulthtml" title="显示交易的货币" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">显示货币</a><span class="hide"> | </span>
-<a class="templatecategoryhtml" title="创建 New Ad 类别" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">创建 Ad 类别</a><span class="hide"> | </span>
-<a class="navitab" title="修改 用户 Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">Change a 用户 Account</a><span class="hide"> | </span>
+
+<a class="showpartnersresulthtml" title="显示合作伙伴登记册" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+显示合作伙伴
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="创建新的货币" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+创建货币
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="展示交易的货币" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+显示货币
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="创建新广告类别" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+创建广告类别
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="修改用户帐户" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+更改用户帐户
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="showbalvolresulthtml" title="显示注册表结余" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">显示注册表结余</a><span class="hide"> | </span>
-<a class="navitab" title="创建规则或信用额度" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">创建 Rule/信用额度</a><span class="hide"> | </span>
-<a class="navitab" title="创建 注册表 Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">创建 注册表 Partner</a><span class="hide"> | </span>
-<a class="navitab" title="上传 Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">上传 Batch Files</a><span class="hide"> | </span>
+
+
+<a class="showbalvolresulthtml" title="显示注册表余额" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+显示注册表余额
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="创建规则或信用额度" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+创建规则/信贷限额
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="创建注册表合作伙伴" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+创建注册表合作伙伴
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="上传的批处理文件" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+批处理文件上传
+</a>
+<span class="hide">
+|
+</span>
+
 <br/>
+
+
 <br/>
-<a class="模板ervicechghtml" title="Apply 服务 Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply 服务 Charge</a><span class="hide"> | </span>
-<a class="navitab" title="创建 开放 Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">开放 Office Directory</a><span class="hide"> | </span>
-<a class="navitab" title="修改 $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">修改 $$fieldsref{registry}</a><span class="hide"> | </span>
-<a class="navitab" title="注册表和配置安装程序" href="/cgi-bin/protected/ccinstall.cgi">安装程序</a><span class="hide"> | </span>
-<a class="toptabstrikethrough" title="系统健康和统计信息" href="/">系统健康/统计信息</a><span class="hide"> | </span>
+
+
+<a class="templateservicechghtml" title="适用于所有账户的服务费" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+应用服务收费
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="创建开放的办公打印目录" href="/cgi-bin/protected/ccdirectory.cgi">
+开放式办公室目录
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+修改 $$ {注册表}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="注册表和配置安装程序" href="/cgi-bin/protected/ccinstall.cgi">
+安装程序
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="系统健康和统计信息" href="/">
+系统健康/统计信息
+</a>
+<span class="hide">
+|
+</span>
+
 </div>
 
-<hr>    
 <div id="main">
 !$$fieldsref{pagename}
 </div>
 
-
-    
 <div id="footer">
-Cclite copyright &copy; 2005-2008 (Hugh Barnard). Design by <a href="http://andreasviklund.com">安德烈亚斯 · 维克隆德</a>.
+Cclite 版权所有
+<a href="http://andreasviklund.com">
+安德烈亚斯 · 维克隆德
+</a>
+.
 </div>
 
 </div>
+
 </body>
+
 </html>
