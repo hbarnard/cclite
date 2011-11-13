@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="স্পেস ব্যতীত ডেটাবেস defining বাণিজ্য শ্রেণী, এক শব্দের নাম" class="pme-key-0">
+রেজিস্ট্রী নাম
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="বাণিজ্য শ্রেণীর ছোট বর্ণনা" class="pme-key-0">
+রেজিস্ট্রী বর্ণনা
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="ঠিকানা এবং অ্যাকাউন্ট এই শ্রেণীটির জন্য সরকারী ই-মেইল পাঠাতে ব্যবহার করেছিল" class="pme-row-0">
+
+<td class="pme-key-0">
+ম্যানেজার ই-মেইল
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="অ্যাডমিন ই-মেইল অ্যাকাউন্টের জন্য শব্দচাবি" class="pme-key-0">
+ম্যানেজার ই-মেইল পাসওয়ার্ড
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="অ্যাকাউন্ট যেখানে ই-মেইল লেনদেন অ্যাডমিন হিসেবে একই গ্রহন কর" class="pme-row-1">
+
+<td class="pme-key-1">
+ব্যাচ লেনদেনের জন্য ই-মেইল
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="ব্যাচ ই-মেইল অ্যাকাউন্টের জন্য শব্দচাবি" class="pme-key-0">
+ব্যাচ ই-মেইল পাসওয়ার্ড
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="ব্যবহৃত বর্তমানে না কিন্তু বাণিজ্য মডেল সংজ্ঞায়িত করে" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+সিস্টেম Charging মডেল
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Equality
+</option>
+<option selected value="market">
+বাজার হার
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="ব্যবহৃত বর্তমানে না কিন্তু কমিশন মডেল সংজ্ঞায়িত করে" class="pme-row-1">
+
+<td class="pme-key-1">
+সিস্টেম কমিশন মডেল
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+কোনও কমিশন না
+</option>
+
+<option value="yes">
+কমিশন রেজিস্ট্রী ভিত্তি করেছিল
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="ব্যবহৃত বর্তমানে না কিন্তু subscription মডেল সংজ্ঞায়িত করে" class="pme-row-1">
+
+<td class="pme-key-1">
+Subscription মডেল
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+কোনও Subscription না
+</option>
+
+<option value="yes">
+Subscription ভিত্তি করেছিল
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="এই রেজিস্ট্রীটিতে সমস্ত টাকার জন্য commitment সীমা সংজ্ঞায়িত করে" class="pme-row-1">
+
+<td class="pme-key-1">
+সার্বিক Commitment সীমাবদ্ধ করে
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="মূখ্য সার্ভার ব্যবহার করেছিল: ই-মেইল লেনদেন কেবলের জন্য এই রেজিস্ট্রীটি বর্তমানের জন্য জনগণ মূখ্য আই.ডি." class="pme-row-1">
+
+<td class="pme-key-1">
+চাবি সার্ভার: জনগণ মূখ্য আই.ডি.
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="ব্যবহৃত বর্তমানে না কিন্তু geographic ক্ষেত্র অথবা বিশেষ আগ্রহ সংজ্ঞায়িত করে কিনা"  class="pme-row-1">
+
+<td class="pme-key-1">
+কভার Geographic ক্ষেত্র?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+হ্যাঁ
+</option>
+
+<option value="no">
+কোনও না
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="ব্যবহৃত বর্তমানে না কিন্তু পোষ্ট অথবা zip কোড সংজ্ঞায়িত করে সুতরাং যে জনগণ রেজিস্ট্রী এবং ম্যাপকৃত geocodedা যাবে" class="pme-row-1">
+
+<td class="pme-key-1">
+Postcodes অথবা অক্ষাংশ, দ্রাঘিমাংশ
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="elgg, ড্রুপাল এবং os-commerce connectorsএর জন্য ব্যবসায়ী মূখ্য জোগান দিতে ব্যবহৃত" class="pme-row-1">
+
+<td class="pme-key-1">
+ব্যবসায়ী চাবি
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="নিশ্চিত ipsতে connectors সীমাবদ্ধ করতে নীতিতে ব্যবহৃত,, সহজভাবে সম্ভবত spoofedেছিল" class="pme-row-1">
+
+<td class="pme-key-1">
+আই.পি. ঠিকানা থেকে ব্যবসায়ী অনুমোদন করুন
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- এইটি একটি পরীক্ষা, কনফিগ সংযোগ লাল বদলাবে, যদি ডিবি শব্দচাবি ভূল -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="যান" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="বাতিল করুন"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

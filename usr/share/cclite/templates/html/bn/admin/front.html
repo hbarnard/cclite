@@ -1,0 +1,309 @@
+
+<form id="form">
+
+<table>
+
+<tr>
+
+<td title="graphing লিপি শুরু করুন">
+Graphingচ্ছে
+</td>
+
+<td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
+ই-মেইল ইনপুট
+</td>
+
+<!--
+<td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
+<del>GPG Email input</del> 
+</td>
+-->
+
+<td title="হলদে পাতাগুলো ক্ষুদ্র adsএর জন্য producing আর.এস.এস. শুরু করুন জোগান দিন">
+আর.এস.এস. জোগান দেয়
+</td>
+
+<td title="একটি স্থানীয় মোবাইল ফোন থেকে gammu হয়ে accepting ইনপুট শুরু করুন">
+Gammu ইনপুট
+</td>
+
+<td title="এবং পদ্ধতি ব্যাচ লেনদেন আপলোড করুন">
+Upload/process ব্যাচ লেনদেন
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+পরিসংখ্যান থামেন
+</option>
+
+<option value="5">
+প্রতি ৫min
+</option>
+
+<option value="10">
+প্রতি ১০min
+</option>
+
+<option value="30">
+প্রতি ৩০min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+মেইল থামেন
+</option>
+
+<option value="5">
+প্রতি ৫min
+</option>
+
+<option value="10">
+প্রতি ১০min
+</option>
+
+<option value="30">
+প্রতি ৩০min
+</option>
+
+</select>
+
+</td>
+
+<!--
+<td>
+    <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
+</select>
+
+    
+    </td>
+-->
+
+<td>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+আর.এস.এস. থামেন
+</option>
+
+<option value="5">
+প্রতি ৫min
+</option>
+
+<option value="10">
+প্রতি ১০min
+</option>
+
+<option value="30">
+প্রতি ৩০min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+এসএমএস থামেন
+</option>
+
+<option value="5">
+প্রতি ৫min
+</option>
+
+<option value="10">
+প্রতি ১০min
+</option>
+
+<option value="30">
+প্রতি ৩০min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<input title="একটি csv ফাইল হিসেবে ব্যাচ লেনদেন পান: নিজে হাতে দেখুন" type="submit" class="small" id="upload_button" value="ব্যাচ CSV ফাইল পান">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+<span id="stats">
+অপেক্ষা করুন
+</span>
+</td>
+
+<td>
+<span id="mail">
+অপেক্ষা করুন
+</span>
+</td>
+
+<td>
+<span id="gpg_mail">
+অপেক্ষা করুন
+</span>
+</td>
+
+<td>
+<span id="rss">
+অপেক্ষা করুন
+</span>
+</td>
+
+<td>
+<span id="gammu">
+অপেক্ষা করুন
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+<span id="statements">
+<a title="প্রিন্ট odt ব্যাঙ্ক বক্তব্য" href="/cgi-bin/protected/batch/print_statements.pl">
+বক্তব্য প্রিন্ট করুন
+</a>
+</span>
+</td>
+
+<td>
+<span id="yellowpages">
+<a title="প্রিন্ট odt হলদে পাতাগুলো" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+Yellowpages প্রিন্ট করুন
+</a>
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
+
+</table>
+
+</form>
+
+<div id="stats_status">
+</div>
+
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
+<br/>
+
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<div id="stats_summary">
+এইটি গড়পড়তা লেনদেন মাপ
+<span id="average_sparkline" class="sparkline">
+</span>
+এবং এইটি
+<span id="volumes_sparkbar" class="sparkbar">
+</span>
+গড়পড়তা ভলিউম কি।
+</div>
+
+<table>
+
+<tr>
+
+<td>
+
+<h4>
+<span id="transaction_vol_title">
+</span>
+
+<span id="update_date1">
+</span>
+
+</h4>
+
+<div id="volumes_bargraph" class="linegraph">
+</div>
+
+</td>
+
+<td>
+
+<h4>
+<span id="averages_title">
+</span>
+
+<span id="update_date2">
+</span>
+
+</h4>
+
+<div id="average_bargraph" class="linegraph">
+</div>
+
+</td>
+
+</tr>
+
+</table>

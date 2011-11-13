@@ -1,0 +1,481 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" "name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+সহজ
+</option>
+
+<option value="full">
+সমস্ত অপশনস
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="সাম্প্রতিকীকরন কনফিগারেশন" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="এইটি মাই-এস-কিউ-এলের জন্য ডিবি ব্যবহারকারী" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="এইটি মাই-এস-কিউ-এলের জন্য ডিবি শব্দচাবি" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="পরীক্ষামূলক cpanel উপপদ, যত্ন, uusally cpanel ব্যবহারকারী নামের সঙ্গে ব্যবহার করুন" class="menu">
+cpanel উপপদ
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="টাকার জন্য দশমিক বিন্দু প্রদর্শন করা" class="menu">
+দশমিক ব্যবহার করুন
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="অপরিবর্তনীয় শ্রেণীবিভাগের পরিবর্তে হলদে পাতাগুলোর জন্য মুক্ত আকার ট্যাগ ব্যবহার করুন" class="menu">
+ট্যাগ ব্যবহার করুন
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<tr>
+<td title="এইটি লিপি রাস্তা থেকে অনুমিত হিসেবে ডোমেন, কাজ করতে কুকির জন্য সঠিক হতে প্রয়োজন বোধ করে" class="menu">
+ডোমেন
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="এইটি মেইলের জন্য smtp সার্ভার, অভ্যন্তরীণ সার্ভারের জন্য ডোমেন নাম, লোকালহোস্ট অথবা অাই.পি. হিসেবে cpanel সাধারণত একইের জন্য" class="menu">
+smtp সার্ভার
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ccliteএর জন্য প্রধান ব্যবহারকারী লিপি" class="menu">
+বাড়ি
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="এইটি শব্দচাবি এবং প্রতীক গণনার জন্য হ্যাশ ধরন ব্যবহার করে, sha২ পছন্দের, একবার সেট উপর changed/mixedা যাবে না" class="menu">
+হ্যাশ ধরন
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="এইচটিএমএল, আর.এস.এস., আউটপুট ফাইল এবং তালিকা, সার্ভারের মধ্যে ডকুমেন্ট মূল থেকে অনুমান করেছিল" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="একটি অর্থপ্রদানের প্রাথমিক অবস্থা, তৈরি করেছিল যদি will অপেক্ষা কর ব্যবহারকারী গ্রহন করার মধ্যে অনুমোদন প্রয়োজন বোধ কর" class="pme-key-title">
+প্রাথমিক অর্থপ্রদান অবস্থা
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="একটি ব্যবহারকারী,এর প্রাথমিক অবস্থা যদি unconfirmed will ব্যবহারকারী ই-মেইলের মধ্যে অনুমোদন প্রয়োজন বোধ কর" class="pme-key-title">
+প্রাথমিক ব্যবহারকারী অবস্থা
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="বার্তার জন্য ডিফল্ট ভাষা এবং templatesয়" class="pme-key-title">
+ভাষা
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="tabular প্রতিবেদনের জন্য পর্দা লাইনের সংখ্যা" class="pme-key-title">
+লাইন প্রতি পাতা
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="বার্তাতে রাস্তা দাখিল করে, কিছুইনা কাজ করবে যদি এইটি ভূল!" class="menu">
+বার্তার জন্য রাস্তা
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="if no, don't need Soap::Lite modules" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="ব্যবহৃত কিন্তু সরাসরিভাবে স্বনির্বাচিতে অন্তর্ভুক্ত করা যাবে templatesওয়া হয় না" class="pme-key-title">
+মেইল সমর্থন করুন
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+
+<tr>
+<td title="সার্ভার smtpের দিকে মেইল এবং কার্যবিবরণী পাঠাতে ব্যবহৃত, cpanel,তে স্থাপন করেছিল যদি প্রয়োজনীয়, প্রথম" class="menu">
+সিস্টেম মেইল ঠিকানা
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- this isn't necessarily a valid email address, can be just an internal user to log onto the mail server -->
+
+<tr>
+<td title="নেটে পরিবর্তন করতে ব্যবহৃত:: বিজ্ঞপ্তি ইত্যাদি এইের জন্য SMTPটি পছন্দের এবং ভবিষ্যৎ, অথবা ১তে কেবল অপশন কি হবে" class="menu">
+নেট smtp?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="smtp সার্ভারের মধ্যে সিস্টেম ই-মেইল ঠিকানার ওপর লগ লেখার জন্য শব্দচাবি" class="menu">
+সিস্টেম মেইল শব্দচাবি
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="generated ই-মেইল, একটি প্রায়শই do-not-replyএর জন্য উত্তর ঠিকানা" class="pme-key-title">
+সিস্টেম মেইল উত্তর ঠিকানা
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ছাঁদ ফাইলের জন্য রাস্তা ওয়েব ইন্টারফেসের জন্য ব্যবহার করেছিল, কিছুইনা অধিক কাজ করবে যদি এইটি ভূল!" class="menu">
+templatesয়
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- ব্যাচ ফাইলের সঙ্গে বিভাগ dealing -->
+
+<tr>
+<td title="ওয়েব মূলের অধীনে ক্রিয়াকর্ম তালিকার জন্য ভিত্তি আউটপুট রাস্তা, রেজিস্ট্রী নাম এই রাস্তাটিতে যোগ করা হয়" class="pme-key-title">
+তালিকা ডিরেক্টরী
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="আর.এস.এস., উৎ‍পাদন করার জন্য perl কি আর.এস.এস. মডিউল প্রয়োজন বোধ করবে যদি হ্যাঁ" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="ব্যাচ লেনদেনের জন্য ভিত্তি আপলোড রাস্তা,ের ওয়েব মূলের অধীনে না" class="pme-key-title">
+csv ডিরেক্টরী
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammuএর জন্য ইনবক্স এস-এম-এস গ্রহন করেছিল, এইচটিটিপি এস-এম-এস গেটওয়ের জন্য প্রয়োজন বোধ করেনি" class="pme-key-title">
+এস-এম-এস ইনবক্সয়
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="মেইলের জন্য ইনবক্স, পুরনো পন্থা প্রত্যেক রেজিস্ট্রীতে পপ মেইলের মধ্যে প্রতিস্থাপন করেছিল" class="pme-key-title">
+readmail pl ডিরেক্টরী
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ওয়েব মূলের অধীনে csv লেনদেনের জন্য ভিত্তি আউটপুট রাস্তা" class="pme-key-title">
+csv বাইরে
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ওয়েব মূল, রেজিস্ট্রী নাম এবং ভাষার অধীনে ছাপা সামগ্রীর জন্য ভিত্তি আউটপুট রাস্তা এই রাস্তাটিতে যোগ করা হয়" class="pme-key-title">
+প্রিন্ট রাস্তা
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="আর.এস.এস., রেজিস্ট্রী নাম এবং ভাষার জন্য ভিত্তি আউটপুট রাস্তা এই রাস্তাটিতে যোগ করা হয়" class="pme-key-title">
+ভিত্তি feed ডিরেক্টরী
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu ফলাফলের জন্য ভিত্তি out ডিরেক্টরী, এইচটিটিপি এস-এম-এস গেটওয়ের জন্য প্রয়োজন বোধ করেনি" class="pme-key-title">
+এস-এম-এস বাইরে
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu ইনপুট স্থানীয়ভাবে প্রসেস করেছিল যদি ১, এই অন্যথায়টি remotely প্রসেস করতে সাবান ব্যবহার করে" class="pme-key-title">
+স্থানীয় এস-এম-এস?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Log4perl কনফিগারেশন ফাইলে রাস্তা" class="pme-key-title">
+logger কনফিগ রাস্তা
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+সংস্করণ
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="সাম্প্রতিকীকরন" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="পরিষ্কার" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

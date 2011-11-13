@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
+<meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="alternate" type="application/rss+xml" title="পরীক্ষামূলক cclite সংযোগ" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite  $$fieldsref{version} অ্যাডমিন
+</title>
+!$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
+
+<script src="/javascript/scriptaculous.js">
+</script>
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+
+<div id="toptabs">
+
+<a 
+ class="toptab" title="Forgot আপনার পাসওয়ার্ড??"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+ভুলে যাওয়া পাসওয়ার্ড?
+</a>
+
+<a class="toptabstrikethrough" title="Deutsch"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+Deutsch
+</a>
+
+<a 
+ class="toptabstrikethrough" title="ফরাসীতে পরিবর্তন"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+Fran
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
+<p>
+
+<a class="toptab" title="নতুন অ্যাকাউন্ট" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+নতুন অ্যাকাউন্ট
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+কার্যবিবরণী বন্ধ  $$fieldsref{user}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="ব্যবহারকারী মেনুতে পিছনে" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+ব্যবহারকারী মেনু
+</a>
+<span class="hide">
+|
+</span>
+
+</p>
+
+</div>
+
+<div id="container">
+
+<h1>
+Cclite  $$fieldsref{version} প্রশাসন
+</h1>
+
+<div id="navitabs">
+
+<a class="showpartnersresulthtml" title="Partner Registries দেখান" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Partners দেখান
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="নতুন টাকা তৈরি করুন" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+টাকা তৈরি করুন
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="Traded Currencies দেখান" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Currencies দেখান
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="নতুন Ad শ্রেণীবিভাগ তৈরি করুন" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Ad শ্রেণীবিভাগ তৈরি করুন
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="ব্যবহারকারী অ্যাকাউন্ট পরিবর্তন করুন" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+পরিবর্তন একটি ব্যবহারকারী অ্যাকাউন্ট
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="showbalvolresulthtml" title="রেজিস্ট্রী Balances দেখান" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+রেজিস্ট্রী Balances দেখান
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="নিয়ম তৈরি করুন অথবা ধার সীমাবদ্ধ করে" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Rule/Credit তৈরি করুন সীমাবদ্ধ করুন
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="রেজিস্ট্রী Partner তৈরি করুন" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+রেজিস্ট্রী Partner তৈরি করুন
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="ব্যাচ ফাইল আপলোড করুন" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+ব্যাচ ফাইল আপলোড করুন
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="templateservicechghtml" title="সমস্ত অ্যাকাউন্টে পরিষেবা আধান প্রয়োগ" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+পরিষেবা আধান প্রয়োগ
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="খোলা অফিস ছাপার যোগ্য ডিরেক্টরী তৈরি করুন" href="/cgi-bin/protected/ccdirectory.cgi">
+খোলা অফিস ডিরেক্টরী
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+ $$fieldsref{registry}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="রেজিস্ট্রী এবং কনফিগারেশন ইনস্টলার" href="/cgi-bin/protected/ccinstall.cgi">
+ইনস্টলার
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="সিস্টেম স্বাস্থ্য এবং পরিসংখ্যান" href="/">
+সিস্টেম Health/Statistics
+</a>
+<span class="hide">
+|
+</span>
+
+</div>
+
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+<div id="footer">
+Cclite copyright &copy; 2005-2008 (Hugh Barnard). Design by
+<a href="http://andreasviklund.com">
+আন্দ্রেয়াস Viklund
+</a>
+.
+</div>
+
+</div>
+
+</body>
+
+</html>

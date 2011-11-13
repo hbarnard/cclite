@@ -1,0 +1,344 @@
+
+
+<form name="newuser" class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="action" value="adduser" type="hidden">
+
+<input name="subaction"
+ value="om_users" type="hidden">
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr>
+
+<td class="pme-key-0">
+<br>
+
+</td>
+
+<td style="vertical-align: top;">
+<span class="errors">
+$$fields{errors}
+</span>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Reg নাম
+<br>
+
+</td>
+
+<td style="vertical-align: top;">
+
+<!-- cookie মানসমূহে নোট সুনির্দিষ্ট রাস্তা মূল্য, অন্যথা রাস্তা cgi-binএর জন্য নিযুক্ত করা হয় -->
+
+<input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="হতে প্রয়োজন ৩ অক্ষর, চিঠি, সংখ্যা এবং _ কেবলের চেয়ে আরও বেশি" class="pme-key-0">
+অ্যাকাউন্ট নাম
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="nuserLogin" id="nuserLogin" class="required" value="$$fieldsref{userLogin}" size="60" maxlength="255" value="" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+পাসওয়ার্ড
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="userPassword" class="required" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+পাসওয়ার্ড দৃঢ়তরভাবে প্রতিপন্ন করুন
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="cuserPassword" class="required" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+ই-মেইল
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userEmail" id="nuserEmail" class="required email" size="50" maxlength="50" value="$$fieldsref{userEmail}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Number/House নাম
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userNameornumber" class="required" value="$$fieldsref{userNameornumber}" size="30" maxlength="30" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+রাস্তা নাম
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userStreet" size="40" class="required" maxlength="40" value="$$fieldsref{userStreet}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+শহর
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userTown" class="required" size="40" maxlength="40" value="$$fieldsref{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+County/State
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userArea" class="required" size="40" maxlength="40" value="$$fieldsref{userArea}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Postcode
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userPostcode" class="required" size="10" maxlength="10" value="$$fieldsref{userPostcode}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+অপরিবর্তনীয় ফোন
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTelephone" size="20" maxlength="20" value="$$fieldsref{userTelephone}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td  class="pme-key-0">
+মোবাইল ফোন
+</td>
+
+<td class="pme-value-1">
+
+<input title="দয়া করে আন্তর্জাতিক ফরম্যাট ৪৪৭৭৭৭৬৬৬৬৬তে তে এই সংখ্যাটি রাখেন" class="pme-input-1"
+ name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+মোবাইল ফোন লেনদেনের জন্য pinন
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="$$fieldsref{userPin}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+মোবাইল ফোন লেনদেনের জন্য দৃঢ়তরভাবে প্রতিপন্ন করুন pinন
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="$$fieldsref{cuserPin}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+এস-এম-এস অর্থপ্রদান Receipts
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userSmsreceipt" type="checkbox">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="এইটি এনক্রিপ্টকৃত লেনদেনের জন্য জনগণ মূখ্য আই.ডি." class="pme-key-0">
+জনগণ চাবি আই.ডি.
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+ভাষা
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="userLang">
+
+<option value="">
+</option>
+
+<option selected value="en">
+ইংরেজী
+</option>
+
+<option value="de">
+Deutsch
+</option>
+
+<option value="fr">
+Fran
+
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+পুরো নাম
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="userName" size="60" class="required" maxlength="255" value="$$fieldsref{userName}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<!-- we erase the registry cookie here, otherwise it'll prevent a clean logon later -->
+
+<input class="pme-save"
+ name="saveadd" value="তৈরি করুন" onClick="eraseCookie('registry');" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="পরিষ্কার" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

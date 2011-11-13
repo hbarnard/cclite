@@ -1,0 +1,338 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<title>
+Cclite  $$fieldsref{version} ইনস্টলার
+</title>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
+<meta name="author" content="hugh barnard" />
+
+$$fieldsref{metarefresh}
+<!-- stylesheets -->
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
+
+
+<!-- সঙ্কুচিত সংস্করণ subsituteতে জাভাস্ক্রীপ্ট লাইব্রেরী, প্রয়োজন -->
+
+<!-- jquery পদগুলো -->
+
+<script src="/javascript/jquery-1.3.2.js">
+</script>
+
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
+
+<script src="/javascript/jquery-cookies.js">
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!-- অন্যান্য non jquery -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<!-- graphingচ্ছে -->
+
+<script  src="/javascript/raphael.js" type="text/javascript" >
+</script>
+
+<script  src="/javascript/ico.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
+
+<!-- সমস্ত রূপের একই নাম আকার রয়েছে, জটিলতা এখানে এড়িয়ে চলে -->
+
+<style type="text/css" media="screen">
+
+</style>
+
+</head>
+
+<body>
+
+<!-- এই সুইচটি on/off দশমিক বিন্দু stuff বদলায় -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
+<div class="topbar">
+
+<a title="বাড়ি" href="/cgi-bin/cclite.cgi">
+<span class="titletext">
+Cclite
+</span>
+</a>
+
+<!-- ব্যবহারকারী, বাণিজ্য, adsএর জন্য অনুসন্ধান -->
+
+<div class="adsearch">
+
+<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="find" type="hidden">
+
+<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+
+<select id="search_type" class="small" name="search_type">
+
+<option selected value='trade'>
+লেনদেন
+</option>
+
+<option value='user'>
+ব্যবহারকারী
+</option>
+
+<option value='ad'>
+Adverts
+</option>
+
+</select>
+
+<input value="যান" class="small" type="submit" title="বাণিজ্য, ads অথবা ব্যবহারকারীর জন্য দেখুন">
+
+</form>
+
+</div>
+
+<!-- autocomplete অনুসন্ধান বাক্সের প্রান্ত -->
+
+<!-- ভাষা নির্বাচক সংস্করণ ১ -->
+
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
+
+<option value='en'>
+ইংরেজী
+</option>
+
+<option value='ar'>
+আরবী
+</option>
+
+<option value='bn'>
+বাংলা [আংশিক]
+</option>
+
+<option value='zh'>
+চীনা
+</option>
+
+<option value='de'>
+Deutsch
+</option>
+
+<option value='nl'>
+ওলন্দাজ
+</option>
+
+<option value='fr'>
+Francais
+</option>
+
+<option value='es'>
+Espagnol
+</option>
+
+<option value='it'>
+Italiano
+</option>
+
+<option value='el'>
+গ্রিক
+</option>
+
+<option value='ja'>
+জাপানী
+</option>
+
+<option value='ko'>
+কোরিয়
+</option>
+
+<option value='pt'>
+Portugese
+</option>
+
+<option value='ro'>
+Romanian
+</option>
+
+<option value='ru'>
+রুশ
+</option>
+
+<option value='th'>
+থাই
+</option>
+
+<option value='vi'>
+Vietnamese
+</option>
+
+</select>
+
+<!-- ভাষা নির্বাচক সংস্করণ ১ প্রান্ত -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
+</span>
+</span>
+
+</div>
+
+<!-- লোগোর প্রান্ত -->
+
+<!--- this bit needs replacing by the specific admin and install menus -->
+
+<div class="topbar">
+
+<a title="সমর্থনের জন্য গুগল শ্রেণী" href="http://groups.google.co.uk/group/cclite?hl=en">
+সাহায্য চান?
+</a>
+
+<a title="অ্যাডমিন মেনু" href="/cgi-bin/protected/ccadmin.cgi">
+অ্যাডমিন মেনু
+</a>
+
+<a title="ব্যবহারকারী মেনু" href="/cgi-bin/cclite.cgi">
+ব্যবহারকারী মেনু
+</a>
+
+</div>
+
+<!-- topbarএর প্রান্ত -->
+
+<div class="topbar" >
+
+<a id="updateconfig" title="সাম্প্রতিকীকরন conifguration cclite cfতে সংরক্ষণ করেছিল" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+সাম্প্রতিকীকরন কনফিগারেশন
+</a>
+
+<a id="newregistry" title="নতুন রেজিস্ট্রী তৈরি করুন" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+নতুন রেজিস্ট্রী তৈরি করুন
+</a>
+
+<a id="showregistry" title="বর্তমান Cclite Registries দেখান" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+Registries দেখান
+</a>
+
+<a id="installcheck" title="চল পরীক্ষক ইনস্টল করে" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+প্রয়োজনীয় পরীক্ষা করুন ইনস্টল করুন
+</a>
+
+<!-- মেনু বিটের প্রান্ত যে অ্যাডমিনের জন্য replacing প্রয়োজন বোধ করে এবং ইনস্টল করুন -->
+
+</div>
+
+<!-- মেনুর প্রান্ত -->
+
+<div class="content" align="center">
+
+<div class="contentleft">
+
+<div>
+!$$fieldsref{pagename}
+</div>
+
+</div>
+
+<!-- contentleftএর প্রান্ত: হাত পাশ ছেড়ে চলে গিয়েছিল -->
+
+<div class="contentright" >
+
+<span class="news">
+$$fieldsref{latest_news}
+</span>
+
+<br/>
+
+$$fieldsref{righthandside}
+<div class="panel" >
+
+</div>
+
+<!-- প্যানেলের প্রান্ত -->
+
+</div>
+
+<!-- righthandcontentএর প্রান্ত -->
+
+</div>
+
+<!-- ভিতরের উপাদানের প্রান্ত -->
+
+<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+
+<a href="/cgi-bin/cclite.cgi">
+বাড়ি
+</a>
+|
+<a href="#">
+যোগাযোগ যুক্তরাষ্ট্র
+</a>
+<br />
+
+Cclite
+</div>
+
+</body>
+
+</html>
