@@ -1,1 +1,0 @@
-statusUnknown database 'myregistry' 
