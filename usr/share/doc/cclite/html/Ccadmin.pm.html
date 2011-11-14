@@ -791,30 +791,29 @@ This is a heavy and somewhat clumsy operation.</p>
     <span class="k">my</span> <span class="i">@registries</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$return_url</span>     = <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="sc">;</span>    <span class="c"># that is ccinstall.cgi</span>
     <span class="k">my</span> <span class="i">$registry_count</span> = <span class="n">0</span><span class="sc">;</span>
-    
+
     <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;$messages{noregistriesfound}&quot;</span><span class="sc">;</span>
 
     <span class="c"># need this for cpanelprefix manipulation</span>
     <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">&amp;main::readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    
+
     <span class="c"># registry connect is not generally exposed...</span>
     <span class="c"># connect to server and create db</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$db_array</span> <span class="s">)</span> =
       <span class="i">sqlraw_return_array</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;show databases&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$registry_error</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$table</span> = <span class="i">$registry_error</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">foreach</span> <span class="k">my</span> <span class="i">$db_rec</span> <span class="s">(</span><span class="i">@$db_array</span><span class="s">)</span> <span class="s">{</span>
-            
-            <span class="c">#FIXME: remove cpanel prefix added twice, if it exists </span>
-            <span class="i">$db_rec</span>-&gt;[<span class="n">0</span>] =~ <span class="q">s/$configuration{&#39;cpanelprefix&#39;}\_//</span> <span class="sc">;</span>
-            <span class="k">my</span> <span class="s">(</span><span class="i">$registry_error</span><span class="cm">,</span><span class="i">$table_array</span><span class="s">)</span> =
+
+            <span class="c">#FIXME: remove cpanel prefix added twice, if it exists</span>
+            <span class="i">$db_rec</span>-&gt;[<span class="n">0</span>] =~ <span class="q">s/$configuration{&#39;cpanelprefix&#39;}\_//</span><span class="sc">;</span>
+            <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$table_array</span> <span class="s">)</span> =
               <span class="i">sqlraw_return_array</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db_rec</span>-&gt;[<span class="n">0</span>]<span class="cm">,</span> <span class="q">&quot;show tables&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span>
                 <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$table_rec</span> <span class="s">(</span><span class="i">@$table_array</span><span class="s">)</span> <span class="s">{</span>				
+            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$table_rec</span> <span class="s">(</span><span class="i">@$table_array</span><span class="s">)</span> <span class="s">{</span>
                 <span class="k">if</span> <span class="s">(</span> <span class="i">$table_rec</span>-&gt;[<span class="n">0</span>] =~ <span class="q">/om_currencies/</span> <span class="s">)</span> <span class="s">{</span>
                     <span class="i">$registry_count</span>++<span class="sc">;</span>
                     <span class="k">push</span> <span class="i">@registries</span><span class="cm">,</span> <span class="i">$db_rec</span>-&gt;[<span class="n">0</span>]<span class="sc">;</span>
@@ -823,7 +822,7 @@ This is a heavy and somewhat clumsy operation.</p>
             <span class="s">}</span>
         <span class="s">}</span>
     <span class="s">}</span>
-    
+
     <span class="k">if</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">eq</span> <span class="q">&#39;html&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$table</span><span class="sc">;</span>
         <span class="k">if</span> <span class="s">(</span> <span class="i">$registry_count</span> &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
@@ -831,7 +830,7 @@ This is a heavy and somewhat clumsy operation.</p>
             <span class="c"># make a table for the registries</span>
 
             <span class="k">foreach</span> <span class="k">my</span> <span class="i">$registry</span> <span class="s">(</span><span class="i">@registries</span><span class="s">)</span> <span class="s">{</span>
-				
+
                 <span class="i">$table</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">&lt;tr&gt;&lt;td&gt;&lt;a title=&quot;logon to $registry&quot; href=&quot;/cgi-bin/cclite.cgi&quot;&gt;$registry&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;</span>
 <span class="h">EOT</span>
@@ -1130,29 +1129,27 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
 <p>Bring down one registry, move registry record into state 'down'</p>
 <pre>
 <a name="go_offline-"></a><span class="k">sub </span><span class="m">go_offline</span> <span class="s">{</span>
- <span class="k">my</span>	 <span class="s">(</span><span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
- 
- <span class="i">$fieldsref</span> = <span class="s">{</span><span class="q">&#39;status&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;closing&#39;</span><span class="s">}</span> <span class="sc">;</span> 	
- <span class="i">update_database_record</span><span class="s">(</span>
-        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span>
-    <span class="s">)</span> <span class="sc">;</span>	
-	
-<span class="k">return</span> <span class="sc">;</span>	
-<span class="s">}</span>	
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="i">$fieldsref</span> = <span class="s">{</span> <span class="q">&#39;status&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;closing&#39;</span> <span class="s">}</span><span class="sc">;</span>
+    <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+        <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span><span class="sc">;</span>
+<span class="s">}</span>
 
 </pre><p></p>
 <h2><a name="go_online">go_online</a></h2>
 <p>Bring up one registry, move registry record into state 'open'</p>
 <pre>
 <a name="go_online-"></a><span class="k">sub </span><span class="m">go_online</span> <span class="s">{</span>
-	<span class="k">my</span>	 <span class="s">(</span><span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
-	
-	<span class="i">$fieldsref</span> = <span class="s">{</span><span class="q">&#39;status&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;open&#39;</span><span class="s">}</span> <span class="sc">;</span>
-	 <span class="i">update_database_record</span><span class="s">(</span>
-        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span>
-    <span class="s">)</span> <span class="sc">;</span>
-	
-<span class="k">return</span> <span class="sc">;</span>		
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="i">$fieldsref</span> = <span class="s">{</span> <span class="q">&#39;status&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;open&#39;</span> <span class="s">}</span><span class="sc">;</span>
+    <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+        <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
 
 </pre><p></p>
@@ -1160,15 +1157,14 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
 <p>Get the menu link for the installer, for ccadmin.cgi, not displayed if not present</p>
 
 <pre>
-
 <a name="get_installer_link-"></a><span class="k">sub </span><span class="m">get_installer_link</span> <span class="s">{</span>
 
-<span class="k">my</span> <span class="i">$link</span> =<span class="h">&lt;&lt;EOT</span><span class="sc">;</span>	
+    <span class="k">my</span> <span class="i">$link</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">&lt;a class=&quot;bodytext&quot; title=&quot;Registry and Configuration Installer&quot; href=&quot;/cgi-bin/protected/ccinstall.cgi&quot;&gt;Installer&lt;/a&gt;</span>
 <span class="h">EOT</span>
 
-<span class="k">return</span> <span class="i">$link</span> <span class="sc">;</span>
-<span class="s">}</span>	
+    <span class="k">return</span> <span class="i">$link</span><span class="sc">;</span>
+<span class="s">}</span>
 
 <span class="n">1</span><span class="sc">;</span>
 

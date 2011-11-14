@@ -204,7 +204,7 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
 <span class="k">use</span> <span class="w">DBI</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Data::Dumper</span> <span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
 <span class="c">###DBI-&gt;trace( 4, &#39;../debug/debug.dbi&#39; );      # Database abstraction</span>
 <span class="c">###DBI-&gt;trace( 2, &#39;/home/hbarnard/trunk/var/cclite/log/debug.dbi.log&#39; );</span>
@@ -666,7 +666,6 @@ All this depends on cclite.js which fires various bits of jquery</p>
 
     <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;trade&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
-      
         <span class="c"># admin can search for any trade</span>
         <span class="k">if</span> <span class="s">(</span> <span class="i">$level</span> <span class="k">eq</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$sql</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
@@ -1202,7 +1201,7 @@ probably refactor this as a mode of get_table_columns?</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbuser</span>     = <span class="i">$configuration</span>{<span class="w">dbuser</span>}<span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbpassword</span> = <span class="i">$configuration</span>{<span class="w">dbpassword</span>}<span class="sc">;</span>
 
@@ -1226,7 +1225,7 @@ probably refactor this as a mode of get_table_columns?</p>
 <pre>
 <a name="registry_connect-"></a><span class="k">sub </span><span class="m">registry_connect</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbuser</span>     = <span class="i">$configuration</span>{<span class="w">dbuser</span>}<span class="sc">;</span>
     <span class="k">our</span> <span class="i">$dbpassword</span> = <span class="i">$configuration</span>{<span class="w">dbpassword</span>}<span class="sc">;</span>
 
@@ -1599,9 +1598,10 @@ of the action in the controller.</p>
     <span class="s">}</span>
 
     <span class="k">if</span> <span class="s">(</span> !<span class="i">$senddetected</span> <span class="s">)</span> <span class="s">{</span>
-	<span class="c">#FIXME: class isn&#39;t picked up somewhere in this...	</span>
-	
-		<span class="i">$class</span> ||= <span class="q">&#39;small&#39;</span> <span class="sc">;</span>
+
+        <span class="c">#FIXME: class isn&#39;t picked up somewhere in this...</span>
+
+        <span class="i">$class</span> ||= <span class="q">&#39;small&#39;</span><span class="sc">;</span>
         <span class="i">$formfields</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh"> &lt;input type=&quot;hidden&quot; name=&quot;subaction&quot; value=&quot;$table&quot;&gt;</span>
 <span class="hh"> &lt;input type=&quot;hidden&quot; name=&quot;action&quot; value=&quot;$action&quot;&gt;</span>
@@ -1616,8 +1616,7 @@ of the action in the controller.</p>
     <span class="s">{</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>} =~ <span class="q">s/cclite.cgi/\/protected\/ccadmin.cgi/</span><span class="sc">;</span>
     <span class="s">}</span>
-    
-    
+
     <span class="k">my</span> <span class="i">$button</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">&lt;form id=&quot;form&quot; class=&quot;pme-form&quot; action=&quot;$fieldsref-&gt;{home}&quot; method=&quot;POST&quot;&gt;</span>
 <span class="hh">$formfields</span>
@@ -1732,130 +1731,138 @@ tradeStamp(6,2) is month</p>
 
 <pre>
 <a name="_format_number-"></a><span class="k">sub </span><span class="m">_format_number</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span><span class="i">$number</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
-    
-    <span class="k">length</span><span class="s">(</span><span class="i">$number</span><span class="s">)</span> == <span class="n">1</span> ? <span class="s">(</span><span class="i">$number</span> = <span class="q">&quot;0$number&quot;</span><span class="s">)</span> <span class="co">:</span> <span class="s">(</span><span class="i">$number</span> = <span class="i">$number</span><span class="s">)</span> <span class="sc">;</span>
-    <span class="k">return</span> <span class="i">$number</span> <span class="sc">;</span>
-<span class="s">}</span>    
+    <span class="k">my</span> <span class="s">(</span><span class="i">$number</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">length</span><span class="s">(</span><span class="i">$number</span><span class="s">)</span> == <span class="n">1</span> ? <span class="s">(</span> <span class="i">$number</span> = <span class="q">&quot;0$number&quot;</span> <span class="s">)</span> <span class="co">:</span> <span class="s">(</span> <span class="i">$number</span> = <span class="i">$number</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="i">$number</span><span class="sc">;</span>
+<span class="s">}</span>
 
 <a name="get_raw_stats_data-"></a><span class="k">sub </span><span class="m">get_raw_stats_data</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$from_x_hours_back</span><span class="cm">,</span> <span class="i">$graph_type</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span>
-    
-    <span class="c"># signals whether empty set of values is delivered </span>
-    <span class="k">my</span> <span class="i">$are_there_values</span> = <span class="n">0</span> <span class="sc">;</span> <span class="c"># returned as 0 or 1</span>
-    
+
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="c"># signals whether empty set of values is delivered</span>
+    <span class="k">my</span> <span class="i">$are_there_values</span> = <span class="n">0</span><span class="sc">;</span>    <span class="c"># returned as 0 or 1</span>
+
     <span class="k">my</span> <span class="i">@times</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">@values</span><span class="sc">;</span>
-      
-    <span class="k">my</span> <span class="i">%types</span> = <span class="s">(</span><span class="q">&#39;minutes&#39;</span><span class="cm">,</span><span class="q">&#39;1,16&#39;</span><span class="cm">,</span><span class="q">&#39;hours&#39;</span><span class="cm">,</span><span class="q">&#39;1,13&#39;</span><span class="cm">,</span><span class="q">&#39;days&#39;</span><span class="cm">,</span><span class="q">&#39;1,10&#39;</span><span class="cm">,</span><span class="q">&#39;month&#39;</span><span class="cm">,</span><span class="q">&#39;1,7&#39;</span> <span class="s">)</span>  <span class="sc">;</span>
-    <span class="k">my</span> <span class="i">%axis</span> = <span class="s">(</span><span class="q">&#39;minutes&#39;</span><span class="cm">,</span><span class="q">&#39;1,16&#39;</span><span class="cm">,</span><span class="q">&#39;hours&#39;</span><span class="cm">,</span><span class="q">&#39;9,5&#39;</span><span class="cm">,</span><span class="q">&#39;days&#39;</span><span class="cm">,</span><span class="q">&#39;1,10&#39;</span><span class="cm">,</span><span class="q">&#39;month&#39;</span><span class="cm">,</span><span class="q">&#39;1,7&#39;</span> <span class="s">)</span>  <span class="sc">;</span>
-         
-    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span>
-    
+
+    <span class="k">my</span> <span class="i">%types</span> =
+      <span class="s">(</span> <span class="q">&#39;minutes&#39;</span><span class="cm">,</span> <span class="q">&#39;1,16&#39;</span><span class="cm">,</span> <span class="q">&#39;hours&#39;</span><span class="cm">,</span> <span class="q">&#39;1,13&#39;</span><span class="cm">,</span> <span class="q">&#39;days&#39;</span><span class="cm">,</span> <span class="q">&#39;1,10&#39;</span><span class="cm">,</span> <span class="q">&#39;month&#39;</span><span class="cm">,</span> <span class="q">&#39;1,7&#39;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%axis</span> =
+      <span class="s">(</span> <span class="q">&#39;minutes&#39;</span><span class="cm">,</span> <span class="q">&#39;1,16&#39;</span><span class="cm">,</span> <span class="q">&#39;hours&#39;</span><span class="cm">,</span> <span class="q">&#39;9,5&#39;</span><span class="cm">,</span> <span class="q">&#39;days&#39;</span><span class="cm">,</span> <span class="q">&#39;1,10&#39;</span><span class="cm">,</span> <span class="q">&#39;month&#39;</span><span class="cm">,</span> <span class="q">&#39;1,7&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
     <span class="c"># default is previous two days in hourly increments ;</span>
-    <span class="i">$from_x_hours_back</span> ||= <span class="n">48</span> <span class="sc">;</span>
-    <span class="i">$type</span> ||= <span class="q">&#39;hours&#39;</span> <span class="sc">;</span>
-    
+    <span class="i">$from_x_hours_back</span> ||= <span class="n">48</span><span class="sc">;</span>
+    <span class="i">$type</span>              ||= <span class="q">&#39;hours&#39;</span><span class="sc">;</span>
+
     <span class="c"># fill the &#39;missing&#39; sql_string variables</span>
-    <span class="k">my</span> <span class="i">$slice</span> = <span class="i">$types</span>{<span class="i">$type</span>} <span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$x_axis</span> = <span class="i">$axis</span>{<span class="i">$type</span>} <span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$seconds</span> = <span class="i">$from_x_hours_back</span> * <span class="n">60</span> * <span class="n">60</span> <span class="sc">;</span>
-    
-    <span class="k">my</span> <span class="i">$sql_string</span> <span class="sc">;</span>
-    
-<span class="k">if</span> <span class="s">(</span><span class="i">$graph_type</span> <span class="k">eq</span> <span class="q">&#39;average&#39;</span><span class="s">)</span> <span class="s">{</span>    
- <span class="k">if</span> <span class="s">(</span><span class="i">$configuration</span>{<span class="q">&#39;usedecimals&#39;</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span><span class="s">)</span> <span class="s">{</span>
-    <span class="i">$sql_string</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$slice</span>   = <span class="i">$types</span>{<span class="i">$type</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$x_axis</span>  = <span class="i">$axis</span>{<span class="i">$type</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$seconds</span> = <span class="i">$from_x_hours_back</span> * <span class="n">60</span> * <span class="n">60</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$sql_string</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$graph_type</span> <span class="k">eq</span> <span class="q">&#39;average&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;usedecimals&#39;</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$sql_string</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh"> SELECT tradeStamp, unix_timestamp(tradeStamp), format((avg(tradeAmount)/100),2), substr(tradeStamp,$slice) FROM om_trades o  </span>
 <span class="hh">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
 <span class="hh">   group by substr(tradeStamp,$slice) ORDER BY tradeStamp ;</span>
 <span class="h">EOT</span>
-    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-  <span class="i">$sql_string</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>    
+        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+            <span class="i">$sql_string</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh"> SELECT tradeStamp, unix_timestamp(tradeStamp), format(avg(tradeAmount),2), substr(tradeStamp,$slice) FROM om_trades o  </span>
 <span class="hh">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
 <span class="hh">   group by substr(tradeStamp,$slice) ORDER BY tradeStamp ;</span>
 <span class="h">EOT</span>
 
- <span class="s">}</span>
-<span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span><span class="i">$graph_type</span> = <span class="q">&#39;volume&#39;</span><span class="s">)</span> <span class="s">{</span>
+        <span class="s">}</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$graph_type</span> = <span class="q">&#39;volume&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
- <span class="i">$sql_string</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+        <span class="i">$sql_string</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">SELECT tradeStamp, unix_timestamp(tradeStamp), count(*), substr(tradeStamp,$slice) FROM om_trades o  </span>
 <span class="hh">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
 <span class="hh">   group by substr(tradeStamp,$slice) ORDER BY tradeStamp  ;</span>
 <span class="h">EOT</span>
 
-<span class="s">}</span>    
-    
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;sqlstring is: $sql_string&quot;</span><span class="s">)</span> <span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;sqlstring is: $sql_string&quot;</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$max_quantity</span> = <span class="k">undef</span><span class="sc">;</span>    <span class="c"># used to scale the graph</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span> =
       <span class="i">sqlraw_return_array</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sql_string</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-   <span class="k">my</span> <span class="i">$previous_hour</span> <span class="sc">;</span>
-   <span class="k">my</span> <span class="i">$previous_slice</span> <span class="sc">;</span>
-   <span class="k">my</span> <span class="i">$counter</span>  = <span class="n">0</span> <span class="sc">;</span>
-    
-   <span class="k">foreach</span> <span class="k">my</span> <span class="i">$row</span> <span class="s">(</span><span class="i">@$array_ref</span><span class="s">)</span>  <span class="s">{</span>
+    <span class="k">my</span> <span class="i">$previous_hour</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$previous_slice</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$counter</span> = <span class="n">0</span><span class="sc">;</span>
 
-      <span class="c"># tradestamp format 2011-08-10 13:25:11      </span>
-      <span class="k">my</span> <span class="i">$hours_difference</span> <span class="sc">;</span>
-      
-      <span class="c"># fill in blanks in arrays, if no activity...</span>
-       <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$previous_hour</span><span class="s">)</span><span class="s">)</span> <span class="s">{</span>
-           <span class="k">my</span> <span class="i">$seconds_difference</span> = <span class="k">abs</span><span class="s">(</span><span class="i">$$row</span>[<span class="n">1</span>] - <span class="i">$previous_hour</span><span class="s">)</span> <span class="sc">;</span>
-           <span class="i">$hours_difference</span> = <span class="k">int</span><span class="s">(</span><span class="i">$seconds_difference</span>/<span class="n">3600</span><span class="s">)</span> - <span class="n">2</span> <span class="sc">;</span>
-       <span class="s">}</span>    
-       
-       <span class="k">if</span> <span class="s">(</span><span class="i">$hours_difference</span> &gt; <span class="n">0</span> &amp;&amp; <span class="k">length</span><span class="s">(</span><span class="i">$previous_hour</span><span class="s">)</span><span class="s">)</span> <span class="s">{</span>
-           <span class="k">my</span> <span class="i">$x</span> <span class="sc">;</span>
-           
-           <span class="k">my</span> <span class="s">(</span><span class="i">$year</span><span class="cm">,</span><span class="i">$month</span><span class="cm">,</span><span class="i">$day</span><span class="cm">,</span><span class="i">$hours</span><span class="s">)</span> = <span class="s">(</span><span class="i">$previous_slice</span> =~ <span class="q">/^(\d{4})\-(\d{2})\-(\d{2})\s+(\d{2})/</span><span class="s">)</span> <span class="sc">;</span>
-           <span class="c">### $log-&gt;debug(&quot;$year,$month,$day,$hours r:$$row[3]&quot;) ;    </span>
-           <span class="k">for</span> <span class="s">(</span><span class="i">$x</span> = <span class="i">$counter</span><span class="sc">;</span> <span class="i">$x</span> &lt;= <span class="s">(</span><span class="i">$counter</span>  + <span class="i">$hours_difference</span><span class="s">)</span> <span class="sc">;</span> <span class="i">$x</span>++<span class="s">)</span> <span class="s">{</span>
-             <span class="k">my</span> <span class="i">$mark</span> = <span class="q">&#39;&#39;</span> <span class="sc">;</span>
-             <span class="i">$hours</span> == <span class="n">24</span> ? <span class="s">(</span><span class="i">$hours</span> = <span class="n">1</span><span class="s">)</span> <span class="co">:</span> <span class="i">$hours</span>++ <span class="sc">;</span>
-             <span class="i">$hours</span> =  <span class="i">_format_number</span><span class="s">(</span><span class="i">$hours</span><span class="s">)</span>  <span class="sc">;</span>
-             
-             <span class="i">$mark</span> = <span class="q">&#39;--&#39;</span> <span class="k">if</span> <span class="s">(</span><span class="i">$hours</span> == <span class="n">24</span><span class="s">)</span> <span class="sc">;</span>
-             <span class="i">$times</span>[<span class="i">$x</span>] = <span class="q">&quot;\&quot;$mark $hours\&quot;&quot;</span> <span class="sc">;</span> <span class="c"># fill in blanks, 0 for the moment              </span>
-             <span class="i">$values</span>[<span class="i">$x</span>] =  <span class="n">0</span> <span class="sc">;</span>  <span class="c"># fill in blanks 0 for the moment     </span>
-           <span class="s">}</span> <span class="c">#end for </span>
-           
-           <span class="i">$counter</span> = <span class="i">$counter</span> + <span class="i">$hours_difference</span> + <span class="n">1</span> <span class="sc">;</span> 
-                                
-       <span class="s">}</span> <span class="c">#end if real hours difference</span>
-      
-      <span class="k">my</span> <span class="i">$this_value</span> <span class="sc">;</span>    
-      
-      <span class="c"># this is because there is a debit and credit for each movement, so that the system balances</span>
-      <span class="c"># therefore transaction volume equals sum of entries/2</span>
-      <span class="s">(</span><span class="i">$graph_type</span> <span class="k">eq</span> <span class="q">&#39;volume&#39;</span><span class="s">)</span> ? <span class="s">(</span><span class="i">$this_value</span> = <span class="k">int</span><span class="s">(</span><span class="i">$row</span>-&gt;[<span class="n">2</span>]/<span class="n">2</span><span class="s">)</span><span class="s">)</span> <span class="co">:</span> <span class="s">(</span><span class="i">$this_value</span> = <span class="i">$row</span>-&gt;[<span class="n">2</span>]<span class="s">)</span> <span class="sc">;</span>
-      
-      <span class="i">$max_quantity</span> = <span class="i">$this_value</span>
-          <span class="k">if</span> <span class="s">(</span><span class="i">$this_value</span>  &gt; <span class="i">$max_quantity</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$row</span> <span class="s">(</span><span class="i">@$array_ref</span><span class="s">)</span> <span class="s">{</span>
 
-      <span class="i">$values</span>[<span class="i">$counter</span>] = <span class="i">$this_value</span> <span class="sc">;</span>   
-      <span class="c"># some value has been recorded...</span>
-      <span class="i">$are_there_values</span> = <span class="n">1</span> <span class="k">if</span> <span class="s">(</span><span class="i">$this_value</span> &gt; <span class="n">0</span><span class="s">)</span> <span class="sc">;</span>
-       
-      <span class="i">$times</span>[<span class="i">$counter</span>]   = <span class="q">&quot;\&quot;$$row[3]\&quot;&quot;</span> <span class="sc">;</span>
-      <span class="i">$previous_hour</span> = <span class="i">$$row</span>[<span class="n">1</span>] <span class="sc">;</span> <span class="c"># for unix seconds comparison and insertion of empty points</span>
-      <span class="i">$previous_slice</span> = <span class="i">$$row</span>[<span class="n">3</span>] <span class="sc">;</span> <span class="c"># for unix seconds comparison and insertion of empty points</span>
-      <span class="i">$counter</span>++ <span class="sc">;</span>    
-          
-          
-      <span class="s">}</span>     <span class="c"># end foreach</span>
-           
+        <span class="c"># tradestamp format 2011-08-10 13:25:11</span>
+        <span class="k">my</span> <span class="i">$hours_difference</span><span class="sc">;</span>
+
+        <span class="c"># fill in blanks in arrays, if no activity...</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$previous_hour</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">my</span> <span class="i">$seconds_difference</span> = <span class="k">abs</span><span class="s">(</span> <span class="i">$$row</span>[<span class="n">1</span>] - <span class="i">$previous_hour</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="i">$hours_difference</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$seconds_difference</span> / <span class="n">3600</span> <span class="s">)</span> - <span class="n">2</span><span class="sc">;</span>
+        <span class="s">}</span>
+
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$hours_difference</span> &gt; <span class="n">0</span> &amp;&amp; <span class="k">length</span><span class="s">(</span><span class="i">$previous_hour</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">my</span> <span class="i">$x</span><span class="sc">;</span>
+
+            <span class="k">my</span> <span class="s">(</span> <span class="i">$year</span><span class="cm">,</span> <span class="i">$month</span><span class="cm">,</span> <span class="i">$day</span><span class="cm">,</span> <span class="i">$hours</span> <span class="s">)</span> =
+              <span class="s">(</span> <span class="i">$previous_slice</span> =~ <span class="q">/^(\d{4})\-(\d{2})\-(\d{2})\s+(\d{2})/</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="c">### $log-&gt;debug(&quot;$year,$month,$day,$hours r:$$row[3]&quot;) ;</span>
+            <span class="k">for</span> <span class="s">(</span> <span class="i">$x</span> = <span class="i">$counter</span> <span class="sc">;</span>
+                <span class="i">$x</span> &lt;= <span class="s">(</span> <span class="i">$counter</span> + <span class="i">$hours_difference</span> <span class="s">)</span> <span class="sc">;</span> <span class="i">$x</span>++ <span class="s">)</span>
+            <span class="s">{</span>
+                <span class="k">my</span> <span class="i">$mark</span> = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+                <span class="i">$hours</span> == <span class="n">24</span> ? <span class="s">(</span> <span class="i">$hours</span> = <span class="n">1</span> <span class="s">)</span> <span class="co">:</span> <span class="i">$hours</span>++<span class="sc">;</span>
+                <span class="i">$hours</span> = <span class="i">_format_number</span><span class="s">(</span><span class="i">$hours</span><span class="s">)</span><span class="sc">;</span>
+
+                <span class="i">$mark</span> = <span class="q">&#39;--&#39;</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$hours</span> == <span class="n">24</span> <span class="s">)</span><span class="sc">;</span>
+                <span class="i">$times</span>[<span class="i">$x</span>] =
+                  <span class="q">&quot;\&quot;$mark $hours\&quot;&quot;</span><span class="sc">;</span>    <span class="c"># fill in blanks, 0 for the moment</span>
+                <span class="i">$values</span>[<span class="i">$x</span>] = <span class="n">0</span><span class="sc">;</span>         <span class="c"># fill in blanks 0 for the moment</span>
+            <span class="s">}</span>    <span class="c">#end for</span>
+
+            <span class="i">$counter</span> = <span class="i">$counter</span> + <span class="i">$hours_difference</span> + <span class="n">1</span><span class="sc">;</span>
+
+        <span class="s">}</span>    <span class="c">#end if real hours difference</span>
+
+        <span class="k">my</span> <span class="i">$this_value</span><span class="sc">;</span>
+
+<span class="c"># this is because there is a debit and credit for each movement, so that the system balances</span>
+<span class="c"># therefore transaction volume equals sum of entries/2</span>
+        <span class="s">(</span> <span class="i">$graph_type</span> <span class="k">eq</span> <span class="q">&#39;volume&#39;</span> <span class="s">)</span>
+          ? <span class="s">(</span> <span class="i">$this_value</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$row</span>-&gt;[<span class="n">2</span>] / <span class="n">2</span> <span class="s">)</span> <span class="s">)</span>
+          <span class="co">:</span> <span class="s">(</span> <span class="i">$this_value</span> = <span class="i">$row</span>-&gt;[<span class="n">2</span>] <span class="s">)</span><span class="sc">;</span>
+
+        <span class="i">$max_quantity</span> = <span class="i">$this_value</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$this_value</span> &gt; <span class="i">$max_quantity</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="i">$values</span>[<span class="i">$counter</span>] = <span class="i">$this_value</span><span class="sc">;</span>
+
+        <span class="c"># some value has been recorded...</span>
+        <span class="i">$are_there_values</span> = <span class="n">1</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$this_value</span> &gt; <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="i">$times</span>[<span class="i">$counter</span>] = <span class="q">&quot;\&quot;$$row[3]\&quot;&quot;</span><span class="sc">;</span>
+        <span class="i">$previous_hour</span> =
+          <span class="i">$$row</span>[<span class="n">1</span>]<span class="sc">;</span>  <span class="c"># for unix seconds comparison and insertion of empty points</span>
+        <span class="i">$previous_slice</span> =
+          <span class="i">$$row</span>[<span class="n">3</span>]<span class="sc">;</span>  <span class="c"># for unix seconds comparison and insertion of empty points</span>
+        <span class="i">$counter</span>++<span class="sc">;</span>
+
+    <span class="s">}</span>    <span class="c"># end foreach</span>
+
     <span class="c">#</span>
-    <span class="k">return</span> <span class="s">(</span>\<span class="i">@times</span><span class="cm">,</span> \<span class="i">@values</span><span class="cm">,</span> <span class="i">$max_quantity</span><span class="cm">,</span> <span class="i">$are_there_values</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> \<span class="i">@times</span><span class="cm">,</span> \<span class="i">@values</span><span class="cm">,</span> <span class="i">$max_quantity</span><span class="cm">,</span> <span class="i">$are_there_values</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
-
-
 
 <span class="n">1</span><span class="sc">;</span>
 

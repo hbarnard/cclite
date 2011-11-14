@@ -349,7 +349,7 @@ sub show_tag_cloud {
 
         #FIXME: scale factor of 200 shouldn't be hardcoded
         my $size = int( $keyword_count{$tag} / $total_count * 200 );
-        
+
         $cloud .= <<EOT;
     <span class="$keyword_type{$tag}" style="font-size:$size%"><a title="get listing by category: $messages{'count'} $keyword_count{$tag}: $messages{$keyword_type{$tag}}" href="/cgi-bin/cclite.cgi?action=showyellowbycat&string1=$tag">
          $tag</a></span> 

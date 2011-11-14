@@ -437,13 +437,15 @@ start page via print Location. 10/2009</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$userref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># FIXME: needs to deliver json etc...</span>
-    <span class="k">my</span> <span class="i">$registry_status</span> = <span class="i">get_registry_status</span><span class="s">(</span><span class="s">(</span><span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_private_value</span><span class="s">)</span><span class="s">)</span> <span class="sc">;</span>
-	<span class="c"># registry is closed or closing...</span>
-	<span class="k">if</span> <span class="s">(</span><span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;down&#39;</span> || <span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;closing&#39;</span><span class="s">)</span> <span class="s">{</span>
-		 <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;down.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+    <span class="k">my</span> <span class="i">$registry_status</span> = <span class="i">get_registry_status</span><span class="s">(</span>
+        <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c"># registry is closed or closing...</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;down&#39;</span> || <span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;closing&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;down.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
             <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
-		
+
     <span class="c"># merchant key delivered as cookie</span>
     <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
@@ -758,18 +760,17 @@ some way to go though...</p>
     <span class="k">my</span> <span class="i">$allow_changes</span> = <span class="n">0</span><span class="sc">;</span>    <span class="c"># used only to avoid repeating a complex test</span>
 
     <span class="c"># only one search box now, no hidden table field, so this translates</span>
-    <span class="k">my</span> <span class="i">%type_to_table</span> = <span class="q">qw(ad om_yellowpages user om_users trade om_trades)</span> <span class="sc">;</span>
-    <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;search_type&#39;</span>}<span class="s">)</span> &gt; <span class="n">0</span> <span class="s">)</span> ? <span class="s">(</span><span class="i">$table</span> = <span class="i">$type_to_table</span>{<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;search_type&#39;</span>}}<span class="s">)</span> <span class="co">:</span> <span class="q">&#39;&#39;</span> <span class="sc">;</span>
-    
-    
+    <span class="k">my</span> <span class="i">%type_to_table</span> = <span class="q">qw(ad om_yellowpages user om_users trade om_trades)</span><span class="sc">;</span>
+    <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;search_type&#39;</span>} <span class="s">)</span> &gt; <span class="n">0</span> <span class="s">)</span>
+      ? <span class="s">(</span> <span class="i">$table</span> = <span class="i">$type_to_table</span>{ <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;search_type&#39;</span>} } <span class="s">)</span>
+      <span class="co">:</span> <span class="q">&#39;&#39;</span><span class="sc">;</span>
+
     <span class="c"># these come from Ajax search boxes</span>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string&#39;</span>} =
          <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;search_string&#39;</span>}
       || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string1&#39;</span>}
       || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string2&#39;</span>}
       || <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;string3&#39;</span>}<span class="sc">;</span>
-      
-      
 
     <span class="c"># no * after $fieldsref, forces use of the allowed fields list</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$column_array_ref</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> = <span class="i">find_database_records</span><span class="s">(</span>
@@ -829,8 +830,8 @@ some way to go though...</p>
                 <span class="c"># &#39;modify the status to cancel&#39;</span>
 
                 <span class="i">$delete_button</span> =
-                  <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">cancel</span>}<span class="cm">,</span> <span class="q">&#39;small&#39;</span><span class="cm">,</span> <span class="q">&quot;canceltrade&quot;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span>
-                    <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+                  <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">cancel</span>}<span class="cm">,</span> <span class="q">&#39;small&#39;</span><span class="cm">,</span> <span class="q">&quot;canceltrade&quot;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>
+                    <span class="i">$table</span><span class="cm">,</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
             <span class="s">}</span>
 
@@ -1031,8 +1032,8 @@ om_users and send only language cookie with expiry of around six months</p>
 <a name="change_language-"></a><span class="k">sub </span><span class="m">change_language</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$template_dir</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$domain</span> = <span class="i">$configuration</span>{<span class="q">&#39;domain&#39;</span>}<span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$registry_error</span> <span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$path</span>   = <span class="q">&quot;/&quot;</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$registry_error</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$path</span> = <span class="q">&quot;/&quot;</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">%cookie</span><span class="sc">;</span>
     <span class="i">$cookie</span>{<span class="w">language</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">language</span>}<span class="sc">;</span>
@@ -1041,19 +1042,19 @@ om_users and send only language cookie with expiry of around six months</p>
 
     <span class="k">my</span> <span class="i">$pages</span> =
       <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;$template_dir/$fieldsref-&gt;{language}&quot;</span><span class="s">)</span><span class="sc">;</span>
-          
+
     <span class="c"># update om_users for language change for this user, if someone is logged on</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">%new_language</span> = <span class="s">(</span>
             <span class="q">&#39;userId&#39;</span><span class="cm">,</span>   <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="cm">,</span>
             <span class="q">&#39;userLang&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;language&#39;</span>}
         <span class="s">)</span><span class="sc">;</span>
- 
+
         <span class="i">update_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> \<span class="i">%new_language</span><span class="cm">,</span>
             <span class="k">undef</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="c"># only refresh is [mis]used to carry json payload if json is being returned 2/2011</span>
+<span class="c"># only refresh is [mis]used to carry json payload if json is being returned 2/2011</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$json</span><span class="s">)</span> =
           <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
@@ -2075,7 +2076,6 @@ xx/2008: get_trades added to start to unscramble...</p>
         <span class="k">my</span> <span class="i">%display_actions</span> = <span class="q">qw(om_yellowpages showyellow om_users showuser)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$display_action</span> = <span class="i">$display_actions</span>{<span class="i">$table</span>} || <span class="q">&#39;display&#39;</span><span class="sc">;</span>
 
-
         <span class="i">$display_button</span> =
           <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">show</span>}<span class="cm">,</span> <span class="q">&#39;small&#39;</span><span class="cm">,</span> <span class="i">$display_action</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span>
             <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
@@ -2119,8 +2119,8 @@ xx/2008: get_trades added to start to unscramble...</p>
 
                 <span class="i">$fieldsref</span>-&gt;{<span class="w">tradeStatus</span>} = <span class="q">&quot;cancelled&quot;</span><span class="sc">;</span>
                 <span class="i">$delete_button</span> =
-                  <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">modify</span>}<span class="cm">,</span> <span class="q">&#39;small&#39;</span><span class="cm">,</span> <span class="q">&quot;template&quot;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span>
-                    <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+                  <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">modify</span>}<span class="cm">,</span> <span class="q">&#39;small&#39;</span><span class="cm">,</span> <span class="q">&quot;template&quot;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>
+                    <span class="i">$table</span><span class="cm">,</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
             <span class="s">}</span>
 
@@ -2142,8 +2142,8 @@ xx/2008: get_trades added to start to unscramble...</p>
                 <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
             <span class="i">$decline_button</span> =
-              <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">reject</span>}<span class="cm">,</span> <span class="q">&#39;small&#39;</span><span class="cm">,</span> <span class="q">&quot;declinetrade&quot;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span>
-                <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+              <span class="i">makebutton</span><span class="s">(</span> <span class="i">$messages</span>{<span class="w">reject</span>}<span class="cm">,</span> <span class="q">&#39;small&#39;</span><span class="cm">,</span> <span class="q">&quot;declinetrade&quot;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>
+                <span class="i">$table</span><span class="cm">,</span> <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}<span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>    <span class="c"># end of trades buttons</span>
 
         <span class="c">#FIXME: this is a weakness and should be coded out 05/2007</span>
@@ -2295,48 +2295,47 @@ enum('waiting', 'rejected', 'timedout', 'accepted', 'cleared', 'declined', 'canc
 <span class="hh">)</span>
 <span class="h">EOT</span>
 
-<span class="s">}</span>
+    <span class="s">}</span>
 
-        <span class="c"># then refine for various status types and append to sql statement</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="c"># then refine for various status types and append to sql statement</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">and (tradeStatus = &#39;waiting&#39; or tradeStatus = &#39;accepted&#39;)</span>
 <span class="h">EOT</span>
 
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;accepted&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;accepted&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">and (tradeStatus = &#39;accepted&#39;)</span>
 <span class="h">EOT</span>
 
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;not_accepted&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;not_accepted&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">and (tradeStatus = &#39;declined&#39; or tradeStatus = &#39;cancelled&#39;)</span>
 <span class="h">EOT</span>
 
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;error&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;error&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">and (tradeStatus = &#39;rejected&#39; or tradeStatus = &#39;timedout&#39;)</span>
 <span class="h">EOT</span>
 
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span><span class="i">$type</span> <span class="k">eq</span> <span class="q">&quot;thismonth&quot;</span><span class="s">)</span> <span class="s">{</span>
-		  <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>	
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&quot;thismonth&quot;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">and (month(tradeDate) = month(current_date()))</span>
 <span class="hh">and (tradeStatus = &#39;waiting&#39; or tradeStatus = &#39;accepted&#39;)</span>
 <span class="h">EOT</span>
-           
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span><span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;thisquarter&#39;</span><span class="s">)</span>    <span class="s">{</span>
-		  <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>	
+
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;thisquarter&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">and (tradeDate &gt;= date_sub(current_date(),interval 1 quarter))           </span>
 <span class="hh">and (tradeStatus = &#39;waiting&#39; or tradeStatus = &#39;accepted&#39;)</span>
 <span class="h">EOT</span>
- 
-           
-        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span><span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;thisyear&#39;</span><span class="s">)</span> <span class="s">{</span>
-		  <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>	
+
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;thisyear&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$sqlstring</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">and (tradeDate &gt;= date_sub(current_date(),interval 1 year))           </span>
 <span class="hh">and (tradeStatus = &#39;waiting&#39; or tradeStatus = &#39;accepted&#39;)</span>
 <span class="h">EOT</span>
-               
+
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">is_admin</span><span class="s">(</span><span class="s">)</span> &amp;&amp; <span class="i">$type</span> <span class="k">eq</span> <span class="q">&quot;all&quot;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$sqlstring</span> = <span class="n">1</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
@@ -2998,28 +2997,23 @@ Some html remains for the moment...</p>
 <p>Get registry status open, closed, down, closing
 Closing is to give people time to log off</p>
 <pre>
-
 <a name="get_registry_status-"></a><span class="k">sub </span><span class="m">get_registry_status</span> <span class="s">{</span>
-	<span class="k">my</span> <span class="s">(</span><span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_private_value</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
-   
-   <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$registry_ref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
-            <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>
-            <span class="i">$table</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;id&#39;</span><span class="cm">,</span> <span class="q">&#39;1&#39;</span><span class="cm">,</span>
-            <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span>
-     <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="c"># test registry record, can&#39;t logon if registry status is down or in closing process</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$registry_ref</span> <span class="s">)</span> =
+      <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;id&#39;</span><span class="cm">,</span> <span class="q">&#39;1&#39;</span><span class="cm">,</span> <span class="i">$registry_private_value</span><span class="cm">,</span>
+        <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># test registry record, can&#39;t logon if registry status is down or in closing process</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-		<span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry} : registry record not found&quot;</span> <span class="sc">;</span>
-		 <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="i">$message</span><span class="s">)</span><span class="sc">;</span>
-		 <span class="k">return</span> <span class="i">$message</span> <span class="sc">;</span>
-	<span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-	   <span class="k">return</span> <span class="i">$registry_ref</span>-&gt;{<span class="q">&#39;status&#39;</span>} <span class="sc">;</span>
-	<span class="s">}</span>			
-<span class="s">}</span>	
-
-
-
+        <span class="k">my</span> <span class="i">$message</span> =
+<span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry} : registry record not found&quot;</span><span class="sc">;</span>
+        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="i">$message</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="i">$message</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="i">$registry_ref</span>-&gt;{<span class="q">&#39;status&#39;</span>}<span class="sc">;</span>
+    <span class="s">}</span>
+<span class="s">}</span>
 
 </pre>
 <p>
@@ -3031,48 +3025,48 @@ statistics</p>
 otherwise the Ico.js will error out when trying to build graphs...</p>
 
 <pre>
-
 <a name="get_stats-"></a><span class="k">sub </span><span class="m">get_stats</span> <span class="s">{</span>
-    
-   <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$from_x_hours_back</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
-    
-  <span class="k">my</span> <span class="i">$json</span> <span class="sc">;</span>
-  
-  <span class="k">my</span> <span class="s">(</span><span class="i">$stimes_array_ref</span><span class="cm">,</span> <span class="i">$averages_array_ref</span><span class="cm">,</span> <span class="i">$max_quantity</span><span class="cm">,</span> <span class="i">$avg_exists</span><span class="s">)</span> = <span class="w">get_raw_stats_data</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$from_x_hours_back</span><span class="cm">,</span> <span class="q">&#39;average&#39;</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="sc">;</span>
-  <span class="k">my</span> <span class="s">(</span><span class="i">$vtimes_array_ref</span><span class="cm">,</span> <span class="i">$volumes_array_ref</span><span class="cm">,</span> <span class="i">$max_quantity</span><span class="cm">,</span> <span class="i">$vol_exists</span><span class="s">)</span> = <span class="w">get_raw_stats_data</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$from_x_hours_back</span><span class="cm">,</span> <span class="q">&#39;volume&#39;</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="sc">;</span>
-    
-  <span class="k">my</span> <span class="i">%ref</span> =   <span class="s">(</span><span class="q">&#39;stimes&#39;</span><span class="cm">,</span><span class="i">$stimes_array_ref</span><span class="cm">,</span><span class="q">&#39;avg&#39;</span><span class="cm">,</span> <span class="i">$averages_array_ref</span><span class="cm">,</span><span class="q">&#39;vtimes&#39;</span><span class="cm">,</span> <span class="i">$vtimes_array_ref</span><span class="cm">,</span><span class="q">&#39;vols&#39;</span><span class="cm">,</span> <span class="i">$volumes_array_ref</span><span class="s">)</span> <span class="sc">;</span>
-  
-  <span class="k">my</span> <span class="i">$status</span> = <span class="q">&#39;empty&#39;</span> <span class="sc">;</span>  <span class="c"># either &#39;ok&#39; or &#39;empty&#39;</span>
-    
-  <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span><span class="k">keys</span> <span class="i">%ref</span><span class="s">)</span> <span class="s">{</span>
-  <span class="k">my</span> <span class="i">$array_ref</span>  =  <span class="i">$ref</span>{<span class="i">$key</span>} <span class="sc">;</span> 
-  <span class="k">my</span> <span class="i">$x</span> =  <span class="k">join</span><span class="s">(</span><span class="q">&#39;,&#39;</span><span class="cm">,</span><span class="i">@$array_ref</span><span class="s">)</span> <span class="sc">;</span>     
-     <span class="i">$x</span> = <span class="q">&quot;{\&quot;$key\&quot;:[$x]}&quot;</span> <span class="sc">;</span>
-     <span class="i">$json</span> .= <span class="q">&quot;,$x&quot;</span>  <span class="sc">;</span>      
-  <span class="s">}</span>      
-    <span class="i">$json</span> =~<span class="q">s/^\,//</span> <span class="sc">;</span>
- 
-  <span class="c"># tested in javascript before trying to build graphs</span>
-  <span class="k">if</span> <span class="s">(</span><span class="i">$avg_exists</span> &amp;&amp; <span class="i">$vol_exists</span><span class="s">)</span> <span class="s">{</span>
-	<span class="i">$status</span> = <span class="q">&#39;ok&#39;</span>  
-  <span class="s">}</span> 
-    
-  <span class="i">$json</span> =<span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$from_x_hours_back</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$json</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$stimes_array_ref</span><span class="cm">,</span> <span class="i">$averages_array_ref</span><span class="cm">,</span> <span class="i">$max_quantity</span><span class="cm">,</span> <span class="i">$avg_exists</span> <span class="s">)</span> =
+      <span class="i">get_raw_stats_data</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$from_x_hours_back</span><span class="cm">,</span> <span class="q">&#39;average&#39;</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span>
+        <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$vtimes_array_ref</span><span class="cm">,</span> <span class="i">$volumes_array_ref</span><span class="cm">,</span> <span class="i">$max_quantity</span><span class="cm">,</span> <span class="i">$vol_exists</span> <span class="s">)</span> =
+      <span class="i">get_raw_stats_data</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$from_x_hours_back</span><span class="cm">,</span> <span class="q">&#39;volume&#39;</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span>
+        <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">%ref</span> = <span class="s">(</span>
+        <span class="q">&#39;stimes&#39;</span><span class="cm">,</span> <span class="i">$stimes_array_ref</span><span class="cm">,</span> <span class="q">&#39;avg&#39;</span><span class="cm">,</span>  <span class="i">$averages_array_ref</span><span class="cm">,</span>
+        <span class="q">&#39;vtimes&#39;</span><span class="cm">,</span> <span class="i">$vtimes_array_ref</span><span class="cm">,</span> <span class="q">&#39;vols&#39;</span><span class="cm">,</span> <span class="i">$volumes_array_ref</span>
+    <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$status</span> = <span class="q">&#39;empty&#39;</span><span class="sc">;</span>    <span class="c"># either &#39;ok&#39; or &#39;empty&#39;</span>
+
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%ref</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">$array_ref</span> = <span class="i">$ref</span>{<span class="i">$key</span>}<span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$x</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;,&#39;</span><span class="cm">,</span> <span class="i">@$array_ref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$x</span> = <span class="q">&quot;{\&quot;$key\&quot;:[$x]}&quot;</span><span class="sc">;</span>
+        <span class="i">$json</span> .= <span class="q">&quot;,$x&quot;</span><span class="sc">;</span>
+    <span class="s">}</span>
+    <span class="i">$json</span> =~ <span class="q">s/^\,//</span><span class="sc">;</span>
+
+    <span class="c"># tested in javascript before trying to build graphs</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$avg_exists</span> &amp;&amp; <span class="i">$vol_exists</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$status</span> = <span class="q">&#39;ok&#39;</span><span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="i">$json</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">  {\&quot;registry&quot;\:\&quot;$db\&quot;,\&quot;table\&quot;: \&quot;om_trades\&quot;, \&quot;message&quot;:\&quot;$status\&quot;,\n\&quot;data\&quot;: [$json]} </span>
 <span class="h">EOT</span>
 
- 
 <span class="c">###$log-&gt;debug(&quot;json is $json&quot;) ;</span>
- 
-<span class="k">return</span> <span class="i">$json</span> <span class="sc">;</span>    
-    
-<span class="s">}</span> 
 
+    <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
 
-
-
-
+<span class="s">}</span>
 
 <a name="_debug_hash_contents-"></a><span class="k">sub </span><span class="m">_debug_hash_contents</span> <span class="s">{</span>
 

@@ -1,5 +1,20 @@
-/* controlling statistics, mail transactions and csv file transactions
-  for the system, the intervals must be set here for the moment
+/* 
+   Main tailor made javascript for cclite, uses jquery and hashtable. Converted
+   to be multilingual and use part [js- prefixed] of the main literals file in 06/2011
+
+   It conttols the following items:
+   * statistics
+   * mail and csv transactions
+   * gammu messages pickup
+   * batch upload
+   * logon/logoff messages at top
+   * various search autocompletes [these are due for upgrade]
+
+  Note that if you use log.console and firebug is switched off the javascript
+  will block. So comment out...
+
+  Hugh Barnard August 2011
+
 */
 
 
@@ -16,13 +31,40 @@
  
 
 
+
+/* blink the status message, used for bringing system down */
+
+function blinktext() {                               
+                   if  ($('#status_message').css('color') != 'red') {
+                       $('#status_message').css('color','red') ;
+                       $('#status_message').css('background-color','white') ;
+                       
+				   } else {
+                        $('#status_message').css('color','white') ;
+                         $('#status_message').css('background-color','red') ;
+              }
+              return ;
+}
+
+/*  logout users before bringing system down  */
+
+function auto_logout() {
+location.href= '/cgi-bin/cclite.cgi?action=logoff' ;	
+return ;		
+}	
+	
+function call_auto_logout () {
+$('#status_message').text('Registry going off-line now') ;		
+var t=setTimeout("auto_logout()",360000);		
+}	
+
 function stripe() {
      striper('tbody', 'stripy', 'tr', 'odd,even');
  }
 
  /* decimal tradeamounts etc. if decimals are switched on  */
 
- function validatedecimals(id, amount) {
+function validatedecimals(id, amount) {
 
 
      // see whether we are using decimal point
@@ -48,7 +90,9 @@ function stripe() {
 
  /* multilingual messages 
  these are js- prefixed messages in the 'normal' literals
- file. Later all this will go into the database....
+ file. Later all this will go into the database....this is async
+ because various things were trying to use the message values
+ -before- they were loaded...
  */
 
  function readmessages() {
@@ -61,13 +105,11 @@ function stripe() {
              success: function (data) {
                 
                  $.each(data.data, function(i, value) {
-                   // console.log( value) ;
+                   ;
                    for (var key in value) {
                     var patt = /js/;
-                    //console.log( 'test patt key:' + key.search(patt) + ':' + key ) ;
                     if ( key.search(patt) == 0 ) {   // found js at start...
                         newkey = key.replace(/^js-/,'')  ;     // strip off js-    
-                        // console.log( newkey + ':' + value[key] ) ;
                         messages.put(newkey,value[key]) ;
                        //return( false );
                     } // endif
@@ -81,12 +123,87 @@ function stripe() {
 
  }
 
- /*   build selects for language choice at top and also userLang  in
- correct language  08/2011  */
 
- function build_language_selects (messages) {
+
+/* 
+get statistics for graphs....
+
+ */
+
+var stats ;
+
+function getstats() {
+
+
+   $.ajax({
+             method: 'get',
+             url: '/cgi-bin/cclite.cgi?action=getstats',
+             dataType:'json',
+             async: false,
+             success: function (stats) {
+                date = new Date() ;
+                date_string = date.toLocaleString() ;
+
+                // show the sparklines...
+                $('#stats_summary').show() ;
+
+                // clear out the last one
+                $('#volumes_bargraph').html('') ;
+                $('#average_bargraph').html('') ;
+                $('#volumes_sparkbar').html('') ;
+                $('#average_sparkline').html('') ;
+
+                // give some height
+                $('#volumes_bargraph').height(600) ;
+                $('#average_bargraph').height(600) ;
+
+                $('#transaction_vol_title').html('Transaction Volume');
+                $('#averages_title').html('Average Transaction Size');
+
+	      
+                if (stats.message == 'ok') {
+                 new Ico.SparkLine(document.getElementById('average_sparkline'), stats.data[1].avg , { width: 30, height: 14, background_colour: '#ccc' });
+                 new Ico.SparkBar(document.getElementById( 'volumes_sparkbar'), stats.data[3].vols, { width: 30, height: 14, background_colour: '#ccc' });
+                 new Ico.HorizontalBarGraph(document.getElementById('volumes_bargraph'), stats.data[3].vols, { labels: stats.data[0].vtimes });
+                 new Ico.HorizontalBarGraph(document.getElementById('average_bargraph'), stats.data[1].avg, { labels: stats.data[2].stimes });
+			   
+			   } else {
+				$('#volumes_bargraph').html('No data for this period')  ;
+				$('#average_bargraph').html('No data for this period')  ;
+			   }
+
+               
+                 $('#update_date1').html(date_string);
+                 $('#update_date2').html(date_string);
+
+           }} //end success function
+         ); // end ajax
+
+//new Ico.SparkLine($('sparkline'), [21, 41, 32, 1, 10, 5, 32, 10, 23], { width: 30, height: 14, background_colour: '#ccc' });
+
+// new Ico.SparkBar($('sparkline_2'), [1, 5, 10, 15, 20, 15, 10, 15, 30, 15, 10], { width: 30, height: 14, background_colour: '#ccc' });
+//new Ico.SparkLine($('sparkline_3'), [10, 1, 12, 3, 4, 8, 5], { width: 60, height: 14, highlight: { colour: '#ff0000' }, acceptable_range: [5, 9], background_colour: '#ccc' });
+
+/* bargraph for volumes */
+//new Ico.BarGraph($('bargraph_6'), [2, 5, 1, 10, 15, 33, 20, 25, 1], { labels: ['label one', 'label two', 'label three', 'label four', 'label five', 'label six', 'label seven', 'label eight', 'label nine'] });
+
+/* line graph for comparative plots */
+//new Ico.LineGraph($('linegraph'), { one: [30, 5, 1, 10, 15, 18, 20, 25, 1], two: [10, 9, 3, 30, 1, 10, 5, 33, 33], three: [5, 4, 10, 1, 30, 11, 33, 12, 22]}, { markers: 'circle', colours: { one: '#990000', two: '#009900', three: '#000099'}, labels: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'], meanline: true, grid: true});
+
+} // end of getstats
+
 
  
+
+ /*   build selects for language choice at top an
+
+do also userLang  in
+ correct language, not used currently because of character set display
+problems in drop down, chinese, arabic etc.  08/2011  
+
+*/
+
+function build_language_selects (messages) {
 
 var language_keys = new Array(
 "english-en",
@@ -106,7 +223,6 @@ var language_keys = new Array(
 $.each(language_keys, function(index,value)
 {   
      var literal = value.split('-') ;
-     console.log(literal[0] + ':' + literal[1] ) ;
      $('#language_value').
           append($("<option></option>").
           attr("value",literal[1]).
@@ -144,56 +260,54 @@ function show_registries () {
 */
 
 
- function change_install(id) {
+function change_install(id) {
 
      selector = '#' + eval("id");
      var selected = $('install_type' + " option:selected").index();
-    // hide_installation_options () ;
-    alert('selected is ' + selected) ;
-     if (selected.val() == 'full') {
-         $('#installer2').attr('disabled', '1');
+    
+     if ($("#install_type").val() == 'full') {
+         // $('#installer2').attr('disabled', '1');
+          
          $("input").each(function (i) {
-             //  alert('! ' + i) ;
-             // if ($(this).attr('readonly') == "1") {
+            
              $(this).removeAttr('readonly');
              $(this).parent().parent().show();
-             //  $(this).css('background-color', 'red');
-             //  } 
+              $(this).css('color', 'black');
+             
+            
          });
 
      } else {
-         hide_installation_options () ;
+        
          $('#installer2').removeAttr('disabled');
          $("input").each(function (i) {
-             //  alert('! ' + i) ;
-             if ($(this).attr('name') != "dbuser" && $(this).attr('name') != "dbpassword") {
-                 if ($(this).attr('readonly')) {
-                 $(this).parent().parent().hide();
-                 }
-                // $(this).css('background-color', 'red');
-             }
+         // custom attribute, firefox OK
+           if ($(this).attr('data-simple') != 'yes' ) {
+            if ($(this).attr('readonly') == 0) {
+               $(this).attr('readonly','1');
+               $(this).css('color', 'white');
+            } 
+           }
          });
 
      }
 
 
- }
-
+}
 
  /* hide all the complex options, first of all */
 
- function hide_installation_options () {
-
-  // alert('in here') ;
-
-   $("input").each(function (i) {
-             //  alert('! ' + i) ;
-             if ($(this).attr('readonly') == 1 ) {
-                 $(this).parent().parent().hide();
-               // $(this).css('background-color', 'red');
-             }
-   });
-
+ function hide_full_installation_options () {
+                 
+     if ($("#install_type").val() != 'full') {
+        $("input").each(function (i) {
+         // custom attribute, firefox OK
+           if ($(this).attr('data-simple') != 'yes' ) {
+               $(this).attr('readonly','1');
+               $(this).css('color', 'white');             
+           }
+         });
+     }
  }
 
 
@@ -284,7 +398,9 @@ changed into milliseconds here */
              // window[interval_id] = setInterval( "do_task('type', 'batch_path')", window[interval]) ;
              // this ugly thing is something to do with scoping in setInterval, go figure, I can't!
              if (type == 'stats') {
-                 window[interval_id] = setInterval("do_task( 'stats', '/cgi-bin/protected/graphs/graph.pl')", window[interval]);
+                 // now changed to the Ico/Javascript based getstats! 09/2011, do stats straight away...
+                 getstats() ;
+                 window[interval_id] = setInterval("do_task( 'stats', '')", window[interval]);
              } else if (type == 'rss') {
                  window[interval_id] = setInterval("do_task( 'rss', '/cgi-bin/protected/batch/writerss.pl')", window[interval]);
              } else if (type == 'mail') {
@@ -325,22 +441,28 @@ can be used to transmit errors from the script into the page */
          status_selector = '#' + eval("type") + '_status';
          $(selector).html(processing + ' ' + type);
          $(selector).css('background-color', 'green');
-         $.ajax({
-             method: 'get',
-             url: batch_path,
-             dataType: 'text',
-             success: function (data) {
-                 $(selector).html(messages.get("running") + ' ' + type);
-                 $(status_selector).html(data);
+
+         // stats has its own function now...
+         if (type != 'stats') {
+          $.ajax({
+              method: 'get',
+              url: batch_path,
+              dataType: 'text',
+              success: function (data) {
+                  $(selector).html(messages.get("running") + ' ' + type);
+                   $(status_selector).html(data);
              }
-         });
+          });
+         }
          // reload graphs for stats only
          if (type == 'stats') {
              // why doesn't jquery selection work here? sigh   
+             /*
              vol = document.getElementById('volumes').src;
              trans = document.getElementById('transactions').src;
              document.getElementById('volumes').src = vol + '?' + (new Date()).getTime();
-             document.getElementById('transactions').src = trans + '?' + (new Date()).getTime();
+             document.getElementById('transactions').src = trans + '?' + (new Date()).getTime(); */
+             getstats() ;
          }
 
          $(selector).html(waiting + ' ' + type);
@@ -349,7 +471,7 @@ can be used to transmit errors from the script into the page */
      }
  }
 
- var newwindow;
+ 
 
  function poptastic(url) {
      newwindow = window.open(url, '_blank', '');
@@ -362,13 +484,19 @@ can be used to transmit errors from the script into the page */
 
  $(document).ready(function () {
 
-     // new style messages from literals.<language-code>
-     messages = readmessages();
-
+    // new style messages from literals.<language-code>
+    messages = readmessages();
+    
+    setInterval('blinktext()',10000) ;
+    
+    // searchbox_helper_strings (messages) ;
     // language selects in target language from literals
-     build_language_selects(messages) ;
+    build_language_selects(messages) ;
 
-     hide_installation_options () ;
+    // hide fields omly if in the installer
+    if ($("#install_type").length > 0){
+       hide_full_installation_options () ;
+    } 
 
      $("#form").validate();
      // balloon help via qtip plugin, turned off at present
@@ -384,8 +512,12 @@ can be used to transmit errors from the script into the page */
 
      // show admin menu link, if administrator
      if ($.cookie('userLevel') == 'admin') {
-         $("#adminlink").html(messages.get("adminmenu"));
-         $("#adminlinknewtab").html("*");
+         $("#adminlinkhref").html(messages.get("adminmenu"));
+         $("#adminlinknewtab").html(messages.get("admintab"));
+         $("#adminlink").toggle() ;
+         $("#adminlinknewtab").toggle() ;
+         $("#adminlinkhref").toggle() ;
+         $("#adminlinkhrefnt").toggle() ;
      }
      //alert($("#fileproblems").length) ;
      if ($("#fileproblems").length > 1) {
@@ -407,16 +539,17 @@ can be used to transmit errors from the script into the page */
      $('#gammu').css('color', 'white');
 
 
-
-
      // check smsreceipt box if necessary
      if ($('[name=userSmsreceipt]').val() == 1) {
          $('input[name=userSmsreceipt]').attr('checked', true);
      }
 
-
      // autocompletes, depending on the field used, the 'type' of lookup is decided and this
      // is passed in to ccsuggest.cgi  
+					
+
+
+
 
 
      $("#tradeDestination").autocomplete("/cgi-bin/ccsuggest.cgi", {
@@ -453,6 +586,18 @@ can be used to transmit errors from the script into the page */
 }); 
 */
 
+    $("#search_string").autocomplete("/cgi-bin/ccsuggest.cgi",
+
+     {
+         extraParams: {
+             type: function () {
+                 return $("#search_type").val() ;
+             }
+         }
+
+     });
+
+/*
 
      $("#string1").autocomplete("/cgi-bin/ccsuggest.cgi",
 
@@ -465,6 +610,7 @@ can be used to transmit errors from the script into the page */
 
      });
 
+*/
 
      $("#nuserLogin").autocomplete("/cgi-bin/ccsuggest.cgi",
 
@@ -510,36 +656,11 @@ can be used to transmit errors from the script into the page */
      });
 
 
-     $("#string2").autocomplete("/cgi-bin/ccsuggest.cgi", {
-         extraParams: {
-             type: function () {
-                 return 'ad';
-             }
-         }
-
-
-     });
-
-     $("#string3").autocomplete("/cgi-bin/ccsuggest.cgi",
-
-     {
-         extraParams: {
-             type: function () {
-                 return 'trade';
-             }
-         }
-
-     });
-
-
      var path = document.location.pathname;
-     //path = path.replace(/\//gi, "");
-     //path = path.replace(/%20/gi, " ");
-     //path = path.replace(/\\/gi, "\/");
-     //alert (path);
-     //var path = document.location.pathname;
-     if ($('#upload_button').length) {
+     
+     if ($('#upload_button').val()) {
          // batch file uploader
+        // alert('here') ;
          new AjaxUpload('#upload_button', {
              // Location of the server-side upload script
              // NOTE: You are not allowed to upload files to another domain
@@ -602,3 +723,5 @@ can be used to transmit errors from the script into the page */
 
 
  });
+
+

@@ -1,0 +1,848 @@
+/* CSS Document */
+/* 800px moved to 1000px in toppage, header, content, topbar to be exapnded perhaps? */
+/*PAGE LAYOUT*/
+body {
+
+	background-repeat: repeat-x;
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	
+	margin-bottom: 0px;
+ 
+}
+
+#page {
+ margin-top: 20px ;
+ margin-left: 20px;
+ margin-right: 40px;
+ font-family: Courier ;
+ border:solid 1px #999999;
+}
+
+
+
+#adminlink {
+   display: none ;
+   padding: 5px ;
+  	font-family:  Courier;
+        font-size: small ;
+        padding: 5px ;
+	color: #666666;
+
+}
+
+#adminlinkewtab {
+   display: none ;
+   padding: 5px ;
+   	font-family:  Courier;
+        font-size: small ;
+        padding: 5px ;
+	color: #666666;
+
+}
+
+#adminlinkhref {
+   display: none ;
+   	font-family:  Courier;
+        font-size: small ;
+        padding: 5px ;
+	color: #666666;
+
+}
+
+#adminlinkhrefnt {
+   display: none ;
+   	font-family:  Courier;
+        font-size: small ;
+        padding: 5px ;
+	color: #666666;
+
+}
+
+#topbar{
+	    float:left;
+        padding: 5px ;
+        width: 80% ;
+        background-color: lightblue ;
+        min-height:50px;
+        border:solid 1px #999999;
+}
+
+
+#topbar a{
+
+	font-size: small;
+    
+        font-family: Courier ;
+        text-decoration: none ;
+        
+}
+
+
+#topbar a:hover{
+
+        padding: 5px ;
+        background-color: #8FD8FF ;
+        text-decoration: none ;
+       border:solid 1px #999999; 
+       
+}
+
+
+
+
+#linksmenu a{
+	float:left; 
+    background-color:lightblue ;
+	font-family: Courier;
+	font-size: small;
+	color: #0000ff;
+	text-decoration:none;
+    padding: 5px ;
+        
+      
+}
+#linksmenu a:hover{
+    background-color: #8FD8FF ;
+	float:left; 
+	font-family: Courier;
+	font-size: small;
+	color: #0000ff;
+	text-decoration:none;
+	padding: 5px ;
+        
+}
+
+#content{
+border:solid 1px #999999; 
+}
+
+#contenttext{
+	float:left; 
+	background-color:#F7F7F0; 
+        min-width:600px;
+        border:solid 1px #999999; 
+
+}
+
+#contentright{
+	float: left; 
+	background-color:#F7F7F0; 
+    //    max-width:400px;
+	// min-height:400px; 
+
+}
+
+#logo{
+
+       //  margin-left: 20px ;
+       width: 80% ;
+        border-left:solid 1px #999999; 
+	background-image:url(/images/cclite.png);
+        background-repeat: no-repeat;
+}
+
+#logoninfo {
+float: right ;
+font-size: small;
+padding-right:40px; 
+}
+
+
+#news {
+
+padding-right:30px; 
+	font-family: Courier;
+	font-size:32px;
+	font-weight:bold;
+	color: #CCCCCC;
+
+}
+
+
+#pagetitle{
+        float:right; 
+        border:solid 2px #ff0000; 
+       }
+
+#title{
+}
+
+#menu{
+	float:left;
+}
+
+#footer{
+
+        left:0; position:fixed; text-align:center; bottom:0; width:100%; 
+}
+
+
+.adsearch {
+color:#004d9c;
+ float: right ;
+ 
+background-color: lightblue ;
+font-size:small;
+border:1px solid #888;
+text-decoration:none;
+ padding-bottom: 5px;
+}
+
+#language_value {
+float: right ;
+margin-right : 10px ;
+}
+
+input.search {
+
+margin-left: 20px;
+
+}
+
+.searchform {
+
+}
+
+
+/*GRAY PANEL*/
+.panel{
+        
+	background-color:#EEEEEE;
+	margin:10px;
+	min-height:120px;
+
+}
+
+.bigpanel{
+	padding:12px;
+	background-color:#EEEEEE;
+	margin:10px;
+	padding:10px;
+	width:550px;
+}
+
+/*TEXT STYLES*/
+.bodytext {
+	font-family:  Courier;
+        font-size: small ;
+        padding: 5px ;
+	color: #00;
+}
+.smalltext {
+	font-family: Courier;
+	font-size: small;
+	color: #666666;
+}
+.smallwhitetext {
+	font-family: Courier;
+	font-size: 11px;
+	font-weight:bold;
+	color: #FFFFFF;
+}
+.smallwhitetext a{
+	font-family: Courier;
+	font-size: 11px;
+	font-weight:bold;
+	color: #FFFFFF;
+	text-decoration:none;
+}
+.smallwhitetext a:hover{
+	text-decoration:underline;
+}
+.smallgraytext {
+	font-family: Courier;
+	font-size: 11px;
+	font-weight:bold;
+	color:#CCCCCC;
+}
+.smallgraytext a{
+	font-family: Courier;
+	font-size: 11px;
+	font-weight:bold;
+/* was cccccc */
+	color:#000000;
+	text-decoration:none;
+}
+
+
+
+.smallgraytext a:hover{
+	text-decoration:underline;
+}
+.titletext {
+	font-family: Courier;
+	font-size:36px;
+	font-weight:bold;
+	color: #CCCCCC;
+}
+.logotext {
+	font-family: Courier;
+	font-size:32px;
+	font-weight:bold;
+	color: #999999;
+}
+.orangelogotext {
+	font-family:  Courier;
+	font-size:36px;
+	font-weight:bold;
+	color:#FF9900;
+	
+}
+.orangetitle {
+	font-family: Courier;
+	font-size:24px;
+	font-weight:bold;
+	color:#FF9900;
+}
+
+
+
+/* from previous release */
+
+/* Please look at the child selector header hack before changing all this! */
+
+
+
+div.autocomplete {
+position:absolute;
+width:250px;
+background-color:#FFF;
+border:1px solid #888;
+font-size:80%;
+margin:0;
+padding:0;
+}
+
+div.autocomplete ul {
+list-style-type:none;
+margin:0;
+padding:0;
+}
+
+div.autocomplete ul li.selected {
+background-color:#ffb;
+text-align: left;
+font-size:80%;
+}
+
+div.autocomplete ul li {
+list-style-type:none;
+display:block;
+height:15px;
+font-size:80%;
+text-align: left;
+cursor:pointer;
+margin:0;
+padding:1px;
+}
+
+
+
+.clearhack {
+display:inline;
+}
+
+
+a:hover {
+color:#333;
+}
+
+a:active {
+
+color:#000;
+}
+
+p {
+line-height:140%;
+}
+
+h1,h2 {
+font-family:trebuchet ms;
+font-weight:700;
+color:#333;
+}
+
+h1 {
+font-size:180%;
+margin:0;
+}
+
+h1 a {
+text-decoration:none;
+color:#333;
+}
+
+h1 a:hover {
+border-bottom:1px dotted #666;
+color:#000;
+}
+
+h2 {
+font-size:140%;
+padding-bottom:2px;
+border-bottom:1px solid #CCC;
+margin:0;
+}
+
+td, td.pme-key-1 {
+font-family:Courier;
+font-size:90%;
+/*line-height:130%;*/
+margin-top:0;
+/*padding: 1px; */
+}
+
+td.results {
+background:#9f9;
+border:solid;
+font-family:Courier;
+line-height:130%;
+margin-top:0;
+border-width:1px;
+/*padding:4px;*/
+}
+
+span.wanted,td.wanted {
+/* background:#9f0; */
+background:#ffd700 ;
+background-color:#d0f0c0;
+border-right-width:thin;
+border-style: shadow ;
+padding-right: 4px ;
+font-family:Courier;
+font-size:80%;
+
+margin-top:0;
+/*padding:4px;*/
+}
+
+
+/*matched small ads */
+
+span.matched,td.matched {
+/* background:#9f0; */
+background:#ffd700 ;
+border-right-width:thin;
+border-style: shadow ;
+padding-right: 4px ;
+font-family:Courier;
+/*font-size:80%;
+line-height:130%; */
+margin-top:0;
+/*padding:4px;*/
+}
+
+
+
+
+
+span.offered, td.offered {
+/* background:#9f9; */
+background:#CBC55C ;
+background:#edf3fe;
+font-family:Courier;
+/* font-size:80%; */
+padding-right: 4px ;
+/* line-height:130%;*/
+margin-top:0;
+/*padding:4px;*/
+
+}
+
+span.pme-key-0 {
+padding:3px;
+
+}
+
+span.news {
+/*border:solid;*/
+float:right;
+margin-right:10px;
+font-size:60%;
+border:1px dotted;
+background:#edf3fe;
+color:#BDB76B;
+padding:2px;
+}
+
+span.back {
+float:left;
+display:inline;
+margin-left:5px;
+color:#06C;
+}
+
+p.note {
+background:#EEE;
+font-family:tahoma;
+font-size:85%;
+line-height:130%;
+margin-top:0;
+padding:4px;
+}
+
+sub.spaced,sup.spaced {
+line-height:0;
+font-size:70%;
+color:red;
+}
+
+tr.odd {
+border:1px dotted;
+background:#fff;
+}
+
+tr.even {
+background:#edf3fe;
+}
+
+td.odd {
+border:1px dotted;
+padding:4px;
+}
+
+td.even {
+border:1px dotted;
+padding:4px;
+
+}
+
+td.menu {
+background-color:#6cf;
+border:1px dotted;
+padding:3px;
+}
+
+table.menutable {
+width:180px;
+background-color:#6cf;
+border:1px dotted;
+padding:3px;
+}
+
+th.pme-header {
+vertical-align:bottom;
+}
+
+/* these styles system, failedcheck, optional, extra and do checked are mainly for the install process */
+
+li.system, div.system, span.system {
+color:green;
+font-size: 12px;
+font-family:Courier;
+text-align:left
+}
+
+li.failedcheck, div.failedcheck, span.failedcheck {
+color:red;
+font-size: 12px;
+font-family:Courier;
+text-align:left
+}
+
+li.optional, div.optional, span.optional {
+color: blue;
+font-size: 12px;
+font-family:Courier;
+text-align:left
+}
+
+li.extra, div.extra, span.extra {
+color:grey;
+font-size: 12px;
+font-family:Courier;
+text-align:left
+}
+
+
+
+div.docheck, span.docheck {
+color:#000;
+font-size: 12px;
+font-family:Courier;
+}
+
+
+td.pme-key-2 {
+background-color:#0c0c0c;
+border:1px solid;
+padding:3px;
+}
+
+td.pme-key-d {
+color:#004d9c;
+background-color:#ADD8E6;
+border:1px solid;
+padding:3px;
+}
+
+hr.divider {
+background:#004d9c;
+border:5px solid;
+border-top-width:1px;
+height:5px;
+margin:0;
+padding:0;
+}
+
+input.grey {
+color:#004d9c;
+background-color:#e0e0e0;
+border:1px solid;
+font-size:8pt;
+text-decoration:none;
+padding:3px;
+}
+
+input.greydisabled {
+color:#004d9c;
+background-color:#e0e0e0;
+border:1px solid;
+font-size:8pt;
+text-decoration:line-through;
+padding:3px;
+}
+
+/* does small buttons in lists */
+
+input.small {
+color:#004d9c;
+background-color:#e0e0e0;
+border:1px solid;
+font-size:8pt;
+text-decoration:none;
+padding:3px;
+}
+
+
+
+
+
+/* language drop down, for example */
+
+select.small {
+color:#004d9c;
+background-color:#e0e0e0;
+border:1px solid;
+font-size:10pt;
+text-decoration:none;
+padding:3px;
+}
+
+
+
+input.greysmalldisabled {
+color:#004d9c;
+background-color:#e0e0e0;
+border:1px solid;
+font-size:6pt;
+text-decoration:none;
+padding:3px;
+}
+
+
+input#tradeAmount {
+background-color:#e0e0e0;
+}
+
+
+
+textarea {
+overflow:auto;
+color:#004d9c;
+background-color:#fff;
+border:1px solid;
+font-size:8pt;
+padding:3px;
+}
+
+a.big {
+background-color:#6cf;
+color:#004d9c;
+font-size:10pt;
+text-decoration:none;
+}
+
+/*
+a.menu:hover {
+background-color:#fff;
+text-decoration:none;
+}
+
+a.menu:active {
+background-color:#f60;
+text-decoration:none;
+}
+
+*/
+
+
+a.grey {
+background-color:#e0e0e0;
+color:silver;
+text-decoration:none;
+}
+
+td.pme-key-debit {
+color:red;
+}
+
+td.pme-key-rejected {
+color: #c8c8c8 ;
+}
+
+td.pme-key-split {
+color: #ff6600 ;
+}
+
+
+a.pagelink {
+  padding: 0 4px ;
+ color: #000 ;
+}
+
+
+span.currentlink {
+ border-style: dotted ;
+ border-width: 1px ;
+ padding: 0 4px ;
+ background:#edf3fe;
+}
+
+span.errors {
+ color: #f00;
+ background:#edf3fe;
+}
+
+
+jquery.error {  
+        font: normal 10px arial;  
+        padding: 3px;  
+        margin: 3px;  
+        background-color: #ffc;  
+        border: 1px solid #c00;  
+}  
+
+
+span.pme-key-1,a.pme-key-1 {
+color:#004d9c;
+background-color:#0f0;
+}
+
+span.pme-key-debit,a.pme-key-debit {
+color:#000;
+font-size:8pt;
+background-color:red;
+}
+
+span.pme-key-sale,a.pme-key-sale {
+color:#000;
+font-size:8pt;
+background-color:#ffc;
+}
+
+/* jquery and autocomplete */
+ { font-family: Courier; font-size: small; }
+ 
+label { width: 10em; float: left; }
+label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+p { clear: both; }
+.submit { margin-left: 12em; }
+em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+
+/* jquery and dragging */
+.str { color: #00A; }
+.kwd { color: #808; }
+.com { color: #777; }
+.typ { color: #088; }
+.lit { color: #800; }
+.pun { color: #000; }
+.pln { color: #002; }
+.tag { color: #008; }
+.atn { color: #606; }
+.atv { color: #080; }
+.dec { color: #606; }
+
+.box {
+	position: absolute;
+	height: 98px;
+	width: 98px;
+	background: #CCF;
+	border: 1px solid #AAD;
+	text-align: center;
+	font-size: 10px;
+	}
+.handle {
+	cursor: move;
+	}
+
+
+.point {
+	position: absolute;
+	height: 4px;
+	width: 4px; 
+	margin: -2px 0 0 -2px;
+	background: #A00;
+	}
+
+.drop {
+	height: 202px;
+	width: 202px;
+	float: left;
+	border: 1px solid #AAA;
+	background: #CCC;
+	margin: 10px;
+	padding: 10px;
+	overflow: auto;	
+	}	
+
+/* experimental text align for decimal point */
+
+.dp { text-align: "." } 
+
+/* to hide the switch for decimal points */
+
+.hidden {
+visibility:hidden;
+}
+
+
+/* yellowpags tagging */
+
+     span.tagmatches {
+   
+ 
+      }
+      
+      span.tagmatches span {
+          padding: 2px;
+          margin-right: 4px;
+          background-color: #0000AB;
+          color: #fff;
+          cursor: pointer;
+      }
+
+
+/*  stats graph styles    */
+
+/* p { margin: 1em 0; }
+p.example { color: #555; }  */
+
+.sparkline { display: inline-block; height: 30px; margin: 0 4px }
+.sparkline div { display: inline-block; }
+
+.sparkbar { display: inline-block; height: 30px; margin: 0 4px }
+.sparkbar div { display: inline-block; }
+
+.stats_summary {display: none }
+
+.highlight { color: red; }
+
+ .linegraph, .linegraph_dark, .linegraph_small { width: 500px;  background-color: #fff; margin-bottom: 20px; } 
+.linegraph, .linegraph_dark, .linegraph_small {  background-color: #fff; margin-bottom: 20px; }
+.linegraph_dark { background-color: #999; }
+.linegraph_small { width: 400px; height: 200px; }
+
+.hidden {display: none} 

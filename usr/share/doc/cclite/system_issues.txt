@@ -70,7 +70,7 @@ Issues:
 10. add category creation still needs improvement
 11. need better message for no ads in directory
 12. update and delete messages need general improvement
-13. flip to admin menu needs to be one-shot not two shot
+13. 
 14. empty table rows in directory display when small directory
 15. directory page ad should flip back to directory
 16. modify user needs better feedback
@@ -103,12 +103,12 @@ soap attempts made...
 10.Make sure dates in tables get update upon update...userPinchanged etc.
 12.Add smsemulation tests...turn off read permission in tarball
 16.Document the change registry and currency at the top of Ccsmsgateway.pm
-20.Make sure 0.7.0 is everywhere...put in guess configuration?
+20.
 24.New way of doing lib path put in release notes
 26.Make sure batch scripts are tokened and authorised, otherwise they exit, now they are on the web...
 27.remove extra var directory (cpanel style) from repository and from trunk...make sure gone
 28.check cclite.cf not included into packages...
-31.New way of doing configuration put in release notes
+31.
 34.Tidy up/upgrade notify_by_mail, from configuration instead of messy parameters
 35.SHA1 or SHA2 by registry? By install rather than automagic...
 38.Loan accounts storage of value, capital formation (not done)
@@ -134,7 +134,7 @@ soap attempts made...
 73.check on validation for cpanel style registries ccliekh_xxxxxxx etc.
 75.make comments in manual etc. about mkdir for windows
 77.Make sure that rdf link now points in the valid direction (sort of, for all yellow pages)
-80.tooltips on install items
+80.
 
 2.Make user/yellow page display clearer/nicer this is showuser transaction
 4.When releasing have a look at Debian control file etc. update version number, for example...
@@ -147,17 +147,40 @@ soap attempts made...
 15/08/2011
 to be fixed:
 
-1. silent turn off for log4perl
-2. test languages and language changes
-3. test and check out graphs
+1. silent turn off for log4perl or use Log::Message
+2. 
+3. test and check out graphs [being converted to Ico]
 4. add tests for REST interface
-5. manager link missing in user menu, for manager?
-6. make full/simple select work in install, remove alert
-7. something wrong with tagsuggest again
-8. GD sparklines problem
-9. registry partner creation isn't checked for bd registries?
+5. 
+6. 
+7. 
+8. 
+9. 
 10. graph and clean up 'use' pragmas
-11. Make a nice offline page for installer
+11. Make a nice offline page for installer/main page
+12. 
+13. module checker doesn't deliver correct usability result
+14. check language changing and language templates, fairly thoroughly
+15. 
+16. Show registries needs a better message for non-logged in users
+17. Remove <hr> from admin templates and check them
+18. Upload batch doesn't work properly at present
+19. 
+20. Decimal display doesn't work in transaction table summary?!
+21. Direct user add needs protection otherwise very spammy
+22. Direct user add needs feedback, probably json
+23. Consider all status codes and return codes currently, see list
+24. REST /summary doesn't work properly for csv and delivers two bits of json
+25. Shorten months to three characters in balance and volume output
+26. Provide example configuration files with name.cf.example
+27. Tidy up user page for displaying adverts
+28. Put tag cloud at right everywhere in user side
+29. Add session table...
+30. 
+
+
+
+
 
 
 
@@ -171,6 +194,7 @@ to be fixed:
 
  
  
+
 
 
 

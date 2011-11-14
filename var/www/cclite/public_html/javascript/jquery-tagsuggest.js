@@ -147,7 +147,6 @@
 
             function setSelection() {
                 var v = tagsElm.val();
-
                 // tweak for hintted elements
                 // http://remysharp.com/2007/01/25/jquery-tutorial-text-box-hints/
                 if (v == tagsElm.attr('title') && tagsElm.is('.hint')) v = '';

@@ -912,23 +912,24 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
               <span class="sc">;</span>    <span class="c"># snip off the last comma in the record, ugly but simple...</span>
             <span class="i">$json</span> .= <span class="q">&quot;},\n&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
-        <span class="i">$json</span> =~
-          <span class="q">s/\,\s*$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
+        <span class="i">$json</span> =~ <span class="q">s/\,\s*$//</span>
+          <span class="sc">;</span>        <span class="c"># snip off the last comma in the record, ugly but simple...</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">for</span> <span class="k">my</span> <span class="i">$id</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
 
             <span class="c"># remove tags, mainly &lt;br&gt;</span>
-            <span class="i">$hash_ref</span>-&gt;{<span class="i">$id</span>} =~ <span class="q">s/&lt;[^&gt;]+&gt;/ /g</span> <span class="sc">;</span>
-            <span class="i">$hash_ref</span>-&gt;{<span class="i">$id</span>} =~ <span class="q">s/[^\w^\s]+/ /g</span> <span class="sc">;</span>
+            <span class="i">$hash_ref</span>-&gt;{<span class="i">$id</span>} =~ <span class="q">s/&lt;[^&gt;]+&gt;/ /g</span><span class="sc">;</span>
+            <span class="i">$hash_ref</span>-&gt;{<span class="i">$id</span>} =~ <span class="q">s/[^\w^\s]+/ /g</span><span class="sc">;</span>
+
             <span class="c"># misteak corrected 20.05.2011, was $id, for the value as well</span>
             <span class="i">$json</span> .= <span class="q">&quot;\n{\&quot;$id\&quot;: \&quot;$hash_ref-&gt;{$id}\&quot;,\n &quot;</span><span class="sc">;</span>
-            
+
             <span class="i">$json</span> =~ <span class="q">s/\,\s*$//</span>
-              <span class="sc">;</span>      <span class="c"># snip off the last comma in the record, ugly but simple...</span>
+              <span class="sc">;</span>    <span class="c"># snip off the last comma in the record, ugly but simple...</span>
             <span class="i">$json</span> .= <span class="q">&quot;},\n&quot;</span><span class="sc">;</span>
         <span class="s">}</span>
-       <span class="i">$json</span> =~
-          <span class="q">s/\,\s*$//</span><span class="sc">;</span>   <span class="c"># snip off the last comma in the record, ugly but simple...</span>
+        <span class="i">$json</span> =~ <span class="q">s/\,\s*$//</span>
+          <span class="sc">;</span>        <span class="c"># snip off the last comma in the record, ugly but simple...</span>
     <span class="s">}</span>
 
     <span class="i">$json</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
@@ -936,7 +937,7 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
 <span class="h">EOT</span>
 
     <span class="c">###$log-&gt;debug(&quot;json is: $json&quot;) ;</span>
-    
+
     <span class="c">###print &quot;json is $json\n&quot; ;</span>
     <span class="c">###return ( 0, &quot;&quot;, $error, $html, $template, &quot;&quot; );</span>
     <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>

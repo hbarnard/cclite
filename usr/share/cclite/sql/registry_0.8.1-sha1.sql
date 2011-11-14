@@ -329,7 +329,7 @@ CREATE TABLE IF NOT EXISTS `om_registry` (
   `merchant_key` varchar(255) default NULL,
   `allow_ip_list` varchar(60) NOT NULL,
   `latest_news` text NOT NULL,
-  `status` enum('open','closed','down') default 'open',
+  `status` enum('open','closed','closing','down') default 'open',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1  ;
 
@@ -448,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `om_trades` (
 CREATE TABLE IF NOT EXISTS `om_users` (
   `userId` int(11) NOT NULL auto_increment,
   `userLogin` varchar(30) NOT NULL default '',
-  `userLang` enum('en','ar','zh','de','nl','fr','es','it','el','ja','pt','th') NOT NULL default 'en',
+  `userLang` enum('en','ar','zh','de','nl','fr','es','it','el','ja','pt','ru','th','ro','vi','ko','bn') NOT NULL default 'en',
   `userPassword` varchar(128) NOT NULL default '',
   `userPublickeyid` varchar(20),
   `userEmail` varchar(120) NOT NULL default '',

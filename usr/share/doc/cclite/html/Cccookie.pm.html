@@ -248,7 +248,7 @@ Set-cookie etc.</p>
     <span class="k">my</span> <span class="i">$header</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%cookie</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">undef</span> <span class="i">$cookie</span>{<span class="i">$key</span>
+        <span class="k">undef</span> <span class="i">$cookie</span>{ <span class="i">$key</span>
           }<span class="sc">;</span> <span class="c">#undefines cookie so if you call set_cookie, it doesn&#39;t reset the cookie.</span>
         <span class="i">$header</span> .=
           <span class="q">&quot;Set-Cookie: $key=deleted; expires=Thu, 01-Jan-1970 00:00:00 GMT;\n&quot;</span><span class="sc">;</span>

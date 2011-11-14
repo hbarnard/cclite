@@ -1,0 +1,16 @@
+server=jabber.org.uk
+username=jrandom
+password=very-secret
+temp_directory=/home/temp/jabber-pay
+message=message.txt
+reformat=reformat.txt
+decrypt=decrypt.txt
+encrypted=encrypted.txt
+logfile=logfile.txt
+trace=trace.txt
+sleep=1
+passphrase=my secret passphrase
+debug=1
+hardcoded_registry=myregistry
+
+

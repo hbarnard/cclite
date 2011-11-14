@@ -492,10 +492,10 @@ mainly installer for the present</p>
 <a name="install_grumble-"></a><span class="k">sub </span><span class="m">install_grumble</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="i">$base_path</span> = <span class="i">$0</span><span class="sc">;</span>
-    <span class="i">$base_path</span> =~ <span class="q">s/^(.*?)\/cgi-bin.*$/$1/</span> <span class="sc">;</span>
-    
-    <span class="k">my</span> <span class="i">$installer_present</span>  = <span class="n">0</span> <span class="sc">;</span>
-    
+    <span class="i">$base_path</span> =~ <span class="q">s/^(.*?)\/cgi-bin.*$/$1/</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$installer_present</span> = <span class="n">0</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="i">@grumbles</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$configfile</span> = <span class="q">&quot;$base_path/config/cclite.cf&quot;</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$configfile</span> &amp;&amp; <span class="k">-w</span> <span class="i">$configfile</span> <span class="s">)</span> <span class="s">{</span>
@@ -504,10 +504,9 @@ mainly installer for the present</p>
     <span class="k">my</span> <span class="i">$cgiinstall</span> = <span class="q">&quot;$base_path/cgi-bin/protected/ccinstall.cgi&quot;</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$cgiinstall</span> &amp;&amp; <span class="k">-x</span> <span class="i">$cgiinstall</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">push</span> <span class="i">@grumbles</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;ccinstallinsecure&#39;</span>}<span class="sc">;</span>
-        <span class="i">$installer_present</span> = <span class="n">1</span> <span class="sc">;</span>
+        <span class="i">$installer_present</span> = <span class="n">1</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    
     <span class="c"># grumble about soap server also insecure</span>
     <span class="k">my</span> <span class="i">$soapserver</span> = <span class="q">&quot;$base_path/cgi-bin/ccserver.cgi/&quot;</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$soapserver</span> &amp;&amp; <span class="k">-x</span> <span class="i">$soapserver</span> <span class="s">)</span> <span class="s">{</span>
@@ -522,7 +521,7 @@ mainly installer for the present</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$grumbling</span><span class="sc">;</span>
     <span class="i">$grumbling</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;&quot;</span><span class="cm">,</span> <span class="i">@grumbles</span> <span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span><span class="i">$installer_present</span><span class="cm">,</span> <span class="i">$grumbling</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$installer_present</span><span class="cm">,</span> <span class="i">$grumbling</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
 </pre><p></p>

@@ -417,9 +417,9 @@ is to make the yellow pages more flexible and multilingual.</p>
         <span class="i">$tag</span> =~ <span class="q">s/\s+$//g</span><span class="sc">;</span>
         <span class="i">$keyword_index</span>{<span class="i">$tag</span>} =~ <span class="q">s/\,$//</span><span class="sc">;</span>
 
-        <span class="k">my</span> <span class="i">$size</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$keyword_count</span>{<span class="i">$tag</span>} / <span class="i">$total_count</span> * <span class="n">100</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="c">### print &quot;$keyword_count{$tag} $total_count $size&lt;br/&gt;&quot; ;</span>
-        <span class="i">$size</span> = <span class="n">50</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$size</span> &lt; <span class="n">50</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="c">#FIXME: scale factor of 200 shouldn&#39;t be hardcoded</span>
+        <span class="k">my</span> <span class="i">$size</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$keyword_count</span>{<span class="i">$tag</span>} / <span class="i">$total_count</span> * <span class="n">200</span> <span class="s">)</span><span class="sc">;</span>
+        
         <span class="i">$cloud</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">    &lt;span class=&quot;$keyword_type{$tag}&quot; style=&quot;font-size:$size%&quot;&gt;&lt;a title=&quot;get listing by category: $messages{&#39;count&#39;} $keyword_count{$tag}: $messages{$keyword_type{$tag}}&quot; href=&quot;/cgi-bin/cclite.cgi?action=showyellowbycat&amp;string1=$tag&quot;&gt;</span>
 <span class="hh">         $tag&lt;/a&gt;&lt;/span&gt; </span>

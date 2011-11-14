@@ -76,7 +76,8 @@ RewriteRule   summary\.json		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2
 # show logged on user trade summary
 # changed mode to csv for the moment: 12/8/2009
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   summary		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2&mode=csv [R]
+RewriteRule   summary		     /cgi-bin/cclite.cgi?action=showbalvol&token=%2
+
 
 #---------------------------------------------------------------------------------------------------------
 # these are all OAuth functions related to the current elgg experiment...
@@ -121,12 +122,12 @@ RewriteRule logon/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=logon&subaction=om_u
 # direct/adduser/dalston/test1/email@dddd/
 # this is to add an active stub user, for use with drupal.elgg etc, doesn't require login
 # adds Auto_created into description
-RewriteRule direct/adduser/(\S+)/(\S+)/(\S+)\b    /cgi-bin/cclite.cgi?action=adduser&subaction=om_users&registry=$1&nuserLogin=$2&userEmail=$3&logontype=api&userStatus=active&userPin=1234&userDescription=Auto_created [R]
+RewriteRule direct/adduser/(\S+)/(\S+)/(\S+)\b    /cgi-bin/cclite.cgi?action=adduser&subaction=om_users&registry=$1&nuserLogin=$2&userEmail=$3&logontype=api&userStatus=active&userPin=1234&userDescription=Auto_created
 
 # direct/modifyuser/dalston/test1/email/
 # this is to modify an active stub user, for use with drupal.elgg etc
 RewriteCond   %{HTTP_COOKIE}	merchant_key_hash=(\S+)\b 
-RewriteRule direct/modifyuser/(\S+)/(\S+)/(\S+)\b    /cgi-bin/cclite.cgi?action=modifyuser&subaction=om_users&registry=$1&userLogin=$2&userEmail=$3&logontype=api [R]
+RewriteRule direct/modifyuser/(\S+)/(\S+)/(\S+)\b    /cgi-bin/cclite.cgi?action=modifyuser&subaction=om_users&registry=$1&userLogin=$2&userEmail=$3&logontype=api 
 
 # /logoff
 # note this is pretty insecure should probably be done only under https

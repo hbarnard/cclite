@@ -114,7 +114,6 @@ pre { color: #000000;
 <span class="s">}</span>
 <span class="c">###__END__</span>
 
-
 </pre><p></p>
 <hr />
 <h1><a name="name">NAME</a></h1>
@@ -277,8 +276,6 @@ configuration should work...</p>
     <span class="k">return</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
-
-
 </pre><p></p>
 <h3><a name="_format_base_directory">_format_base_directory</a></h3>
 <p>Internal routine, avoid ugly code repetition</p>
@@ -296,12 +293,10 @@ configuration should work...</p>
 
 <span class="s">}</span>
 
-
 </pre><p></p>
 <h3><a name="write_log_config">write_log_config</a></h3>
 <p>Write the logging configuration file</p>
 <pre>
-
 <a name="write_log_config-"></a><span class="k">sub </span><span class="m">write_log_config</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
@@ -362,7 +357,6 @@ configuration should work...</p>
 
 <span class="s">}</span>
 
-
 </pre><p></p>
 <h3><a name="show_problems">show_problems</a></h3>
 <p>Print out detected problems for the install
@@ -419,11 +413,6 @@ been found at this stage...</p>
 
     <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
-
-
-
-
-
 
 </pre><p></p>
 <h3><a name="check_template_path">check_template_path</a></h3>
@@ -534,8 +523,6 @@ FIXME: Needs test in test suite</p>
     <span class="k">return</span> <span class="i">$message</span><span class="sc">;</span>
 <span class="s">}</span>
 
-
-
 </pre><p></p>
 <h3><a name="check_log_path">check_log_path</a></h3>
 <p>test whether the log path is present and writable
@@ -618,9 +605,6 @@ and general extra flexibility</p>
 
 <span class="s">}</span>
 
-
-
-
 <span class="c">#===================================================================</span>
 
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
@@ -635,8 +619,8 @@ and general extra flexibility</p>
 <span class="k">my</span> <span class="i">$hash_type</span><span class="sc">;</span>    <span class="c"># contains the hash type used for hashing</span>
 
 <span class="k">BEGIN</span> <span class="s">{</span>
-	<span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../../lib&#39;</span><span class="sc">;</span>
-	<span class="k">use</span> <span class="w">Ccchecker</span> <span class="sc">;</span>
+    <span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../../lib&#39;</span><span class="sc">;</span>
+    <span class="k">use</span> <span class="w">Ccchecker</span><span class="sc">;</span>
     <span class="k">use</span> <span class="w">CGI::Carp</span> <span class="q">qw(fatalsToBrowser set_message)</span><span class="sc">;</span>
     <span class="k">use</span> <span class="w">Cwd</span><span class="sc">;</span>
     <span class="i">set_message</span><span class="s">(</span>
@@ -647,13 +631,15 @@ and general extra flexibility</p>
 
     <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
-    <span class="s">(</span> <span class="i">$messages</span>[<span class="n">0</span>]<span class="cm">,</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$libpath</span> <span class="s">)</span> = <span class="i">check_paths</span><span class="s">(</span><span class="i">$package_type</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># check libraries exist</span>
+    <span class="s">(</span> <span class="i">$messages</span>[<span class="n">0</span>]<span class="cm">,</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$libpath</span> <span class="s">)</span> =
+      <span class="i">check_paths</span><span class="s">(</span><span class="i">$package_type</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># check libraries exist</span>
 
     <span class="c"># make an informed guess at the config file path if not explictly supplied</span>
     <span class="c"># for ccinstall this needs to be the cclite config</span>
     <span class="i">$default_config</span> = <span class="q">&quot;$dir/config/cclite.cf&quot;</span><span class="sc">;</span>
+
     <span class="c">#FIXME: duplicate slash somewhere in this....</span>
-    <span class="i">$default_config</span> =~ <span class="q">s/\/\//\//g</span> <span class="sc">;</span>
+    <span class="i">$default_config</span> =~ <span class="q">s/\/\//\//g</span><span class="sc">;</span>
 
     <span class="i">%configuration</span> = <span class="i">main::readconfiguration</span><span class="s">(</span><span class="i">$default_config</span><span class="s">)</span><span class="sc">;</span>
 
@@ -697,8 +683,6 @@ and general extra flexibility</p>
 
 <span class="s">}</span>
 
-
-
 <span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
 
 <span class="c"># must remain hardcoded the config file may not exist yet...</span>
@@ -720,7 +704,7 @@ and general extra flexibility</p>
 <span class="k">use</span> <span class="w">Ccadmin</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>              <span class="c"># probably should be via Cclite.pm only, not directly</span>
-<span class="k">use</span> <span class="w">Ccchecker</span> <span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccchecker</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$offset</span> = <span class="i">$fields</span>{<span class="w">offset</span>}<span class="sc">;</span>
@@ -759,6 +743,7 @@ and general extra flexibility</p>
 <span class="k">my</span> <span class="i">$user_pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;$dir/templates/html/$language&quot;</span><span class="s">)</span><span class="sc">;</span>
 <span class="i">$token</span> = <span class="i">$registry_private_value</span> =
   <span class="q">&quot;testtoken&quot;</span><span class="sc">;</span>    <span class="c"># for the moment, calculated later</span>
+
 <span class="c">#</span>
 <span class="i">$fields</span>{<span class="w">os</span>}           = <span class="i">$os</span><span class="sc">;</span>
 <span class="i">$fields</span>{<span class="w">package_type</span>} = <span class="i">$package_type</span><span class="sc">;</span>
@@ -766,7 +751,7 @@ and general extra flexibility</p>
 
 <span class="c">#</span>
 <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
-   
+
 <span class="c"># there may or may not be cookies at this stage, used by add registry to create batch paths, if present</span>
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
@@ -782,8 +767,7 @@ and general extra flexibility</p>
         <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>        <span class="i">$token</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
-  
-  
+
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;showregistries&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
@@ -792,41 +776,32 @@ and general extra flexibility</p>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
-
-<span class="k">if</span> <span class="s">(</span><span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;checkinstall&quot;</span> <span class="s">)</span> <span class="s">{</span>
-  <span class="k">my</span>  <span class="s">(</span> <span class="i">$usable</span><span class="cm">,</span> <span class="i">$diagnosis</span> <span class="s">)</span> =
-    <span class="i">check_cclite_preinstall</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span>
-  <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;righthandside&#39;</span>} = <span class="i">$usable</span> . <span class="q">&#39;&lt;br/&gt;&#39;</span> . <span class="i">$diagnosis</span> <span class="sc">;</span>  
-    <span class="i">$pagename</span> = <span class="q">&#39;result.html&#39;</span> <span class="sc">;</span>
+<span class="k">if</span> <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;checkinstall&quot;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$usable</span><span class="cm">,</span> <span class="i">$diagnosis</span> <span class="s">)</span> = <span class="i">check_cclite_preinstall</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;righthandside&#39;</span>} = <span class="i">$usable</span> . <span class="q">&#39;&lt;br/&gt;&#39;</span> . <span class="i">$diagnosis</span><span class="sc">;</span>
+    <span class="i">$pagename</span> = <span class="q">&#39;result.html&#39;</span><span class="sc">;</span>
 <span class="s">}</span>
-
-
-
 
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;updateconfig2&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">update_config2</span><span class="s">(</span> <span class="i">$default_config</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
- 
- 
- <span class="c"># this will guess at values, if newinstall is signalled</span>
-<span class="k">if</span> <span class="s">(</span><span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;updateconfig1&quot;</span> <span class="s">)</span> <span class="s">{</span>
- 
 
-   
-    <span class="s">(</span><span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-    <span class="i">update_config1</span><span class="s">(</span>
-        <span class="i">$newinstall</span><span class="cm">,</span>     <span class="i">$default_config</span><span class="cm">,</span>    <span class="i">$fields</span>{<span class="w">home</span>}<span class="cm">,</span>
-        <span class="i">$fields</span>{<span class="w">domain</span>}<span class="cm">,</span> <span class="i">$fields</span>{<span class="w">hash_type</span>}<span class="cm">,</span> <span class="i">$dir</span><span class="s">)</span> <span class="sc">;</span>
-   
- <span class="c"># get the second set of fields, this is for display convenience... </span>
- <span class="i">$fieldsref</span>-&gt;{<span class="w">righthandside</span>} = <span class="i">$pages</span><span class="i">-&gt;Assemble</span><span class="s">(</span> <span class="q">&quot;installvalues_parttwo.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span><span class="sc">;</span>  
- <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;usable&#39;</span>}<span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;diagnosis&#39;</span>} <span class="s">)</span> =    <span class="i">check_cclite_preinstall</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span> 
+<span class="c"># this will guess at values, if newinstall is signalled</span>
+<span class="k">if</span> <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;updateconfig1&quot;</span> <span class="s">)</span> <span class="s">{</span>
+
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
+      <span class="i">update_config1</span><span class="s">(</span> <span class="i">$newinstall</span><span class="cm">,</span> <span class="i">$default_config</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="w">home</span>}<span class="cm">,</span>
+        <span class="i">$fields</span>{<span class="w">domain</span>}<span class="cm">,</span> <span class="i">$fields</span>{<span class="w">hash_type</span>}<span class="cm">,</span> <span class="i">$dir</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c"># get the second set of fields, this is for display convenience...</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="w">righthandside</span>} =
+      <span class="i">$pages</span><span class="i">-&gt;Assemble</span><span class="s">(</span> <span class="q">&quot;installvalues_parttwo.html&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;usable&#39;</span>}<span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;diagnosis&#39;</span>} <span class="s">)</span> =
+      <span class="i">check_cclite_preinstall</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
-
- 
 <span class="c"># display the a template, if requested</span>
 <span class="i">$action</span> =~ <span class="q">/template/</span>
   &amp;&amp; <span class="s">(</span>
