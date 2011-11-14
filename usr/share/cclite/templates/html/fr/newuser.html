@@ -37,7 +37,7 @@ Reg nom
 
 <td style="vertical-align: top;">
 
-<!-- note explicit path value in cookie setting, otherwise path is set for cgi-bin -->
+<!-- Note valeur explicite chemin cookie définissant, sinon chemin est définie pour cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -324,7 +324,7 @@ Nom complet
 
 <td class="pme-buttons">
 
-<!-- we erase the registry cookie here, otherwise it'll prevent a clean logon later -->
+<!-- Nous effacer le cookie de Registre ici, sinon il va empêcher une ouverture de session propre plus tard -->
 
 <input class="pme-save"
  name="saveadd" value="Créer" onClick="eraseCookie('registry');" type="submit">
