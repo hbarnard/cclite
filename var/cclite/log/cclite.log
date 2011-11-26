@@ -1196,3 +1196,25 @@
 2011/10/30 15:57:14 DEBUG> Cclitedb.pm:1729 Cclitedb::get_raw_stats_data - sqlstring is: SELECT tradeStamp, unix_timestamp(tradeStamp), count(*), substr(tradeStamp,1,13) FROM om_trades o  
    where unix_timestamp(tradeStamp) >= (unix_timestamp()-172800) 
    group by substr(tradeStamp,1,13) ORDER BY tradeStamp  ;
+2011/11/18 07:25:52 DEBUG> Ccdirectory.pm:178 Ccdirectory::show_yellow - Dumper(HASH(0xa341150),HASH(0x9e80d40))
+2011/11/18 07:29:50 DEBUG> Ccdirectory.pm:178 Ccdirectory::show_yellow - Dumper(HASH(0x9fa63b8),HASH(0x9aeb210))
+2011/11/21 19:48:01 DEBUG> (eval 1):113 main:: - in uploader
+2011/11/21 19:48:53 DEBUG> (eval 1):113 main:: - in uploader
+2011/11/21 19:49:44 DEBUG> (eval 1):113 main:: - in uploader
+2011/11/21 19:52:07 DEBUG> (eval 1):113 main:: - in uploader
+2011/11/21 19:57:38 DEBUG> (eval 1):129 main:: - ,  
+2011/11/21 19:58:09 DEBUG> (eval 1):129 main:: - ,  
+2011/11/21 20:00:29 DEBUG> (eval 1):129 main:: - ,  
+2011/11/22 19:44:11 DEBUG> (eval 1):113 main:: - , CGI=HASH(0x9cd04e8)->param('qqfile')
+2011/11/22 19:44:11 DEBUG> (eval 1):129 main:: - ,  
+2011/11/22 19:47:57 DEBUG> (eval 1):113 main:: - , CGI=HASH(0x96be660)->param('qqfile')
+2011/11/22 19:47:57 DEBUG> (eval 1):129 main:: - ,  
+2011/11/22 20:11:40 DEBUG> (eval 1):61 main:: - /home/hbarnard/cclite/var/cclite/batch/dalston
+2011/11/22 20:20:13 DEBUG> (eval 1):86 main:: - n:1321993213dalstoncsv
+2011/11/23 19:34:26 DEBUG> (eval 1):91 main:: - success
+2011/11/23 19:37:29 DEBUG> (eval 1):91 main:: - success
+2011/11/23 19:41:45 DEBUG> (eval 1):91 main:: - success
+2011/11/23 19:43:36 DEBUG> (eval 1):91 main:: - success
+2011/11/23 19:44:02 DEBUG> (eval 1):91 main:: - success
+2011/11/23 19:44:51 DEBUG> (eval 1):91 main:: - success
+2011/11/23 19:46:13 DEBUG> (eval 1):91 main:: - success

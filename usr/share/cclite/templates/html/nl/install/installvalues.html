@@ -21,14 +21,14 @@ Alle opties
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="De configuratie-updates" type="submit">
+ name="saveadd" data-simple="yes" value="Update configuratie" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
 <tr>
-<td title="Dit is de mysql db gebruiker" class="menu">
+<td title="Dit is de db gebruiker voor mysql" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -73,7 +73,7 @@ decimalen gebruiken
 
 <tr>
 <td title="gebruik vrije vorm tags voor gele pagina's in plaats van vaste Categorieën" class="menu">
-Labels gebruiken
+Gebruik tags
 </td>
 <td class="pme-key-1">
 
@@ -116,7 +116,7 @@ Home
 </tr>
 
 <tr>
-<td title="Dit is het type van de hash-gebruikt voor wachtwoord en symbolische berekeningen, sha2 heeft de voorkeur, kan worden gewijzigd/gemengd eenmaal instellen" class="menu">
+<td title="Dit is het type van de hash gebruikt voor wachtwoord en token berekeningen, sha2 heeft de voorkeur, kan niet worden gewijzigd/gemengd eenmaal instellen" class="menu">
 Hash-type
 </td>
 <td class="pme-key-1">
@@ -127,7 +127,7 @@ Hash-type
 </tr>
 
 <tr>
-<td title="HTML, rss, uitvoerbestanden en grafieken, afgeleid van de document root binnen server" class="menu">
+<td title="HTML, rss, uitvoerbestanden en grafieken, afgeleid uit de documenthoofdmap binnen server" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -138,7 +138,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="aanvankelijke status van een betaling, als wachten bevestiging vergt door het ontvangen van de gebruiker" class="pme-key-title">
+<td title="aanvankelijke status van een betaling, als wachten bevestiging vergt door de ontvangende gebruiker" class="pme-key-title">
 eerste betalingsstatus
 </td>
 <td class="pme-key-1">
@@ -149,7 +149,7 @@ eerste betalingsstatus
 </tr>
 
 <tr>
-<td title="aanvankelijke status van een gebruiker, als onbevestigde vergt bevestiging per e-mail van de gebruiker" class="pme-key-title">
+<td title="aanvankelijke status van een gebruiker, als onbevestigde vergt bevestiging per gebruiker e-mail" class="pme-key-title">
 eerste Gebruikersstatus
 </td>
 <td class="pme-key-1">
@@ -188,7 +188,7 @@ regels per pagina
 </tr>
 
 <tr>
-<td title="pad naar berichten bestand, niets zal werken als dit verkeerd is!" class="menu">
+<td title="pad naar bestand berichten, niets zal werken als dit verkeerd is!" class="menu">
 pad voor berichten
 </td>
 <td class="pme-key-1">
@@ -297,7 +297,7 @@ Postadres antwoord systeem
 </tr>
 
 <tr>
-<td title="pad voor sjabloonbestanden die worden gebruikt voor de web-interface, niets veel zal werken als dit verkeerd is!" class="menu">
+<td title="pad voor sjabloonbestanden gebruikt voor de web-interface, niets veel zal werken als dit verkeerd is!" class="menu">
 sjablonen
 </td>
 <td class="pme-key-1">
@@ -307,10 +307,10 @@ sjablonen
 </td>
 </tr>
 
-<!-- sectie omgaan met batch-bestanden -->
+<!-- sectie omgaan met batchbestanden -->
 
 <tr>
-<td title="honk output pad voor activiteit grafieken onder web root, registernaam wordt toegevoegd aan dit pad" class="pme-key-title">
+<td title="Base output pad voor activiteit grafieken onder web root, registernaam wordt toegevoegd aan dit pad" class="pme-key-title">
 grafiek directory
 </td>
 <td class="pme-key-1">
@@ -321,7 +321,7 @@ grafiek directory
 </tr>
 
 <tr>
-<td title="vergt perl rss modules voor het genereren van rss, zo ja" class="pme-key-title">
+<td title="perl rss modules vereist voor het genereren van rss, zo ja" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -342,7 +342,7 @@ userss
 </tr>
 
 <tr>
-<td title="Base upload-pad voor batchtransacties, mag niet onder web root" class="pme-key-title">
+<td title="Base upload pad voor batchtransacties, mag niet onder web root" class="pme-key-title">
 CSV-directory
 </td>
 <td class="pme-key-1">
@@ -365,7 +365,7 @@ SMS inbox
 
 <tr>
 <td title="Postvak in voor e-mail, oude methode vervangen door pop mail in elk register" class="pme-key-title">
-readmail.pl map
+readmail.pl directory
 </td>
 <td class="pme-key-1">
 
@@ -408,7 +408,7 @@ Base feed directory
 </tr>
 
 <tr>
-<td title="base directory voor gammu resultaten, niet vereist voor http sms-gateways" class="pme-key-title">
+<td title="baseren Directory voor gammu resultaten, niet vereist voor http sms-gateways" class="pme-key-title">
 SMS uit
 </td>
 <td class="pme-key-1">
@@ -419,7 +419,7 @@ SMS uit
 </tr>
 
 <tr>
-<td title="gammu input lokaal verwerkt als dit 1 is, anders gebruikt dit zeep voor het verwerken van op afstand" class="pme-key-title">
+<td title="gammu input lokaal verwerkt als 1, anders gebruikt dit zeep voor het verwerken van op afstand" class="pme-key-title">
 lokale sms?
 </td>
 <td class="pme-key-1">

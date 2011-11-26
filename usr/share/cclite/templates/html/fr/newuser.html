@@ -37,7 +37,7 @@ Reg nom
 
 <td style="vertical-align: top;">
 
-<!-- Note valeur explicite chemin cookie définissant, sinon chemin est définie pour cgi-bin -->
+<!-- valeur de chemin explicite de note dans le cookie définissant, sinon chemin est définie pour cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Reg nom
 
 <tr class="pme-row-1">
 
-<td title="Doit être de plus de 3 caractères, des lettres, des nombres et des _ seulement" class="pme-key-0">
+<td title="Doit être de plus de 3 caractères, des lettres, des chiffres et des _ seulement" class="pme-key-0">
 Nom du compte
 <br>
 
@@ -108,7 +108,7 @@ Messagerie
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Nombre/maison nom
+Nom de la maison et de la numéro
 </td>
 
 <td class="pme-value-1">

@@ -656,11 +656,28 @@ can be used to transmit errors from the script into the page */
      });
 
 
+     $("#muserEmail").autocomplete("/cgi-bin/ccsuggest.cgi",
+
+     {
+         //   selectFirst: false,
+         extraParams: {
+             type: function () {
+                 return 'newuseremail';
+             }
+
+
+         }
+
+     });
+
+
+
      var path = document.location.pathname;
      
-     if ($('#upload_button').val()) {
+/*
+    // if ($('#upload_button').val()) {
          // batch file uploader
-        // alert('here') ;
+     //   alert('here' + $('#upload_button').val() ) ;
          new AjaxUpload('#upload_button', {
              // Location of the server-side upload script
              // NOTE: You are not allowed to upload files to another domain
@@ -703,7 +720,7 @@ can be used to transmit errors from the script into the page */
              // read the file when it's uploaded
              onComplete: function (file, response) {
                  alert(messages.get('uploadedfile') + ' ' + file + ' started |CSV File input| to process');
-                 $.ajax({
+                 JQuery.ajax({
                      type: "POST",
                      url: "/cgi-bin/protected/batch/readcsv.pl",
                      data: "",
@@ -717,10 +734,57 @@ can be used to transmit errors from the script into the page */
              },
          });
 
+*/
+        function createUploader(){            
+            var uploader = new qq.FileUploader({
+                element: document.getElementById('upload_button'),
+                action: '/cgi-bin/protected/ccupload.cgi',
+                
+                // additional data to send, name-value pairs
+                //params: 
+                //{   userfile: 'batch.csv',
+                //},
+    
+               // validation    
+               allowedExtensions: ['csv'],        
+               // each file size limit in bytes
+               // this option isn't supported in all browsers
+               sizeLimit: 10000000, // max size   
+               minSizeLimit: 0, // min size    
+               // set to true to output server response to console
+               debug: false,
+    
+               // events         
+               // you can return false to abort submit
+                onSubmit: function(id, fileName){},
+                onProgress: function(id, file, loaded, total){},
+                onComplete: function(id, file, responseJSON ) {
+					
+			      // alert(messages.get('uploadedfile') + ' ' + file + ' started |CSV File input| to process');
+                 // alert(responseJSON) ;
+                   $.ajax({
+                     type: "POST",
+                     url: "/cgi-bin/protected/batch/readcsv.pl",
+                     serverfilename: 'batch.csv',
+                     success: function (file) {
+                         alert(messages.get('fileprocessed') + ' ' + file);
+                     },			
+					});
+ 			      return true ;
+                //onCancel: function(id, fileName){},
+               
+            },           
+        });
+        
+        // in your app create uploader as soon as the DOM is ready
+        // don't wait for the window to load  
+
+ 
+
 
      };
      // end of bath file uploader
-
+       window.onload = createUploader;   
 
  });
 

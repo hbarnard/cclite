@@ -167,71 +167,68 @@ sub add_user {
 
     my @status;
     my $hash       = "";                 # for the moment, needs sha1 afterwards
-    my $return_url = $fieldsref->{home};
+    my $return_url = $fieldsref->{'home'};
 
     # need nuserLogin field to make the autosuggest work in ccsuggest.cgi
     # but must put correct field into the database
 
     # lower case only screen names, as of 11/2008
-    $fieldsref->{nuserLogin} =~ s/\s+$//;
-    $fieldsref->{userLogin} = lc( $fieldsref->{nuserLogin} );
+    $fieldsref->{'nuserLogin'} =~ s/\s+$//;
+    $fieldsref->{'userLogin'} = lc( $fieldsref->{'nuserLogin'} );
 
     # api user creation gives non-validated stub records
-    if ( $fieldsref->{logontype} ne 'api' ) {
+    if ( $fieldsref->{'logontype'} ne 'api' ) {
         @status =
           validate_user( $class, $db, $fieldsref, $messagesref, $token, "",
             "" );
         if ( $status[0] == -1 ) {
             shift @status;
-            $fieldsref->{errors} = join( "<br/>", @status );
+            $fieldsref->{'errors'} = join( "<br/>", @status );
             return ( "0", "", "", $html, "newuser.html", "" );
         }
     }
 
-    # new users are set to initial status defined in cclite.cgi
-    $fieldsref->{userStatus} = $fieldsref->{initialUserStatus};
+    # new users are set to initial status defined in cclite.cf
+    $fieldsref->{'userStatus'} = $fieldsref->{'initialUserStatus'};
 
 #FIXME: boolean userSmsreceipt update, probably unnecessary but test, if removed
     length( $fieldsref->{'userSmsreceipt'} )
       ? ( $fieldsref->{'userSmsreceipt'} = 1 )
       : ( $fieldsref->{'userSmsreceipt'} = 0 );
-    ###$log->debug("sms receipt is $fieldsref->{'userSmsreceipt'}") ;
 
     # FIXME: These should not be hardcoded, 3 tries, not test yet + active
-    $fieldsref->{userPasswordTries}  = 3;
-    $fieldsref->{userPasswordStatus} = 'active';
+    $fieldsref->{'userPasswordTries'}  = 3;
+    $fieldsref->{'userPasswordStatus'} = 'active';
 
-    #
     my ( $date, $time ) = getdateandtime( time() );
-    $fieldsref->{userJoindate} = $date;
+    $fieldsref->{'userJoindate'} = $date;
 
-    #
-    $fieldsref->{userLevel}    = 'user';
-    $fieldsref->{userPassword} = $fieldsref->{userHash};
+    $fieldsref->{'userLevel'}    = 'user';
+    $fieldsref->{'userPassword'} = $fieldsref->{userHash};
 
 # mobile pin number is stored as hashed, status waiting, phone number reformatted
 # pin status is always waiting until a confirm sms, 3 tries then locked
 # FIXME: Most of these should not be hardcoded
-    $fieldsref->{userPin}       = text_to_hash( $fieldsref->{userPin} );
-    $fieldsref->{userPinStatus} = 'waiting';
-    $fieldsref->{userPinTries}  = 3;
+    $fieldsref->{'userPin'}       = text_to_hash( $fieldsref->{'userPin'} );
+    $fieldsref->{'userPinStatus'} = 'waiting';
+    $fieldsref->{'userPinTries'}  = 3;
 
     #FIXME: don't assume that all mobiles are UK based, drop  this..
-    $fieldsref->{userMobile} =
-      format_for_standard_mobile( $fieldsref->{userMobile} );
+    $fieldsref->{'userMobile'} =
+      format_for_standard_mobile( $fieldsref->{'userMobile'} );
 
     # add the user to the registry database
     my ( $rc, $rv, $record_id ) =
       add_database_record( $class, $db, $table, $fieldsref, $token );
 
     #
-    delete $fieldsref->{saveadd};
-    delete $fieldsref->{userPassword};
+    delete $fieldsref->{'saveadd'};
+    delete $fieldsref->{'userPassword'};
 
     #
-    $fieldsref->{action}     = "confirmuser";
-    $fieldsref->{userStatus} = "active";
-    $fieldsref->{Send}       = "$messages{confirm} $fieldsref->{userName}";
+    $fieldsref->{'action'}     = 'confirmuser';
+    $fieldsref->{'userStatus'} = 'active';
+    $fieldsref->{'Send'}       = "$messages{'confirm'} $fieldsref->{'userName'}";
 
 # make a hyperlink: many people will receive text-only email, therefore no buttons
     my $urlstring = <<EOT;
@@ -243,16 +240,16 @@ EOT
     # won't send email if user is intially active as default, saves an email!
     my $mail_return;
 
-    if ( $fieldsref->{initialUserStatus} ne 'active' ) {
+    if ( $fieldsref->{'initialUserStatus'} ne 'active' ) {
         $mail_return = notify_by_mail(
             $class,
             $db,
-            $fieldsref->{userName},
-            $fieldsref->{userEmail},
-            $fieldsref->{systemMailAddress},
-            $fieldsref->{systemMailReplyAddress},
-            $fieldsref->{userLogin},
-            $fieldsref->{smtp},
+            $fieldsref->{'userName'},
+            $fieldsref->{'userEmail'},
+            $fieldsref->{'systemMailAddress'},
+            $fieldsref->{'systemMailReplyAddress'},
+            $fieldsref->{'userLogin'},
+            $fieldsref->{'smtp'},
             $urlstring,
             undef,
             1,
@@ -260,9 +257,9 @@ EOT
         );
     }
 
-    return ( "1", $return_url, $error,
+    return ( 1, $return_url, $error,
         "$messages{useradded} <br/> $mail_return",
-        "result.html", "" );
+        'result.html', '' );
 }
 
 # make a user active in the database usually via reception
@@ -270,11 +267,13 @@ EOT
 
 sub confirm_user {
     my ( $class, $db, $table, $fieldsref, $token ) = @_;
+    
     update_database_record( $class, $db, $table, 2, $fieldsref,
-        $fieldsref->{language}, $token );
-    return ( "1", $fieldsref->{home}, "",
-        "$fieldsref->{userLogin} $messages{isnowactive}",
-        "result.html", $fieldsref, "" );
+        $fieldsref->{'language'}, $token );
+    
+    return ( '1', $fieldsref->{home}, '',
+        "$fieldsref->{'userLogin'} $messages{'isnowactive'}",
+        'result.html', $fieldsref, '' );
 }
 
 =head3 logon_user
@@ -312,7 +311,7 @@ sub logon_user {
 
     # registry is closed or closing...
     if ( $registry_status eq 'down' || $registry_status eq 'closing' ) {
-        return ( "0", '', $error, $html, "down.html", $fieldsref,
+        return ( 0, '', $error, $html, 'down.html', $fieldsref,
             $cookieheader );
     }
 
@@ -324,7 +323,7 @@ sub logon_user {
     {
         ( $status, $userref ) = get_where(
             $class, $fieldsref->{registry},
-            "om_users", '*', "userLogin", $fieldsref->{userLogin},
+            'om_users', '*', 'userLogin', $fieldsref->{'userLogin'},
             $registry_private_value, $offset, $limit
         );
 
@@ -338,31 +337,31 @@ sub logon_user {
             return ( "0", '', $error, $html, "result.html", $fieldsref,
                 $cookieheader );
         }
-    } elsif ( $fieldsref->{logontype} eq 'remote' ) {
-        ( $status, $userref ) = get_where( $class, $fieldsref->{registry},
+    } elsif ( $fieldsref->{'logontype'} eq 'remote' ) {
+        ( $status, $userref ) = get_where( $class, $fieldsref->{'registry'},
             "om_users", '*', "userLogin", $ENV{REMOTE_USER},
             $registry_private_value, $offset, $limit );
     }
 
     # cash, liquidity and sysaccount may not logon
-    if ( $userref->{userLevel} eq 'sysaccount' ) {
+    if ( $userref->{'userLevel'} eq 'sysaccount' ) {
         $html =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\"> $messages{notallowedsysaccount}";
 
-        return ( "0", '', $error, $html, "result.html", $fieldsref,
+        return ( 0, '', $error, $html, 'result.html', $fieldsref,
             $cookieheader );
 
     }
 
     # login failed here...need some industrial processing to deal with this
     # no user found
-    if ( !length( $userref->{userId} ) ) {
+    if ( !length( $userref->{'userId'} ) ) {
         $log->warn(
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found"
         );
         $html =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
-        return ( "0", '', $error, $html, "result.html", $fieldsref,
+        return ( 0, '', $error, $html, 'result.html', $fieldsref,
             $cookieheader );
 
     } elsif
@@ -384,32 +383,32 @@ sub logon_user {
         $userref->{userPasswordTries}--;
         if ( $userref->{'userPasswordTries'} <= 1 ) {
             $userref->{'userPasswordStatus'} = 'locked';
-            $userref->{userPasswordTries} = 0;
+            $userref->{'userPasswordTries'} = 0;
         }
 
         undef $userref
           ->{userPassword}; # remove this otherwise it's rehashed and re-updated
         my ( $a, $b, $c, $d ) =
-          update_database_record( 'local', $db, "om_users", 2, $userref,
+          update_database_record( 'local', $db, 'om_users', 2, $userref,
             $userref->{language}, $cookie{token} );
 
         $html =
 "$messages{passwordfailedfor} $fieldsref->{userLogin} $messages{at} $db <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
 
-        return ( "0", '', $error, $html, "result.html", $fieldsref,
+        return ( 0, '', $error, $html, 'result.html', $fieldsref,
             $cookieheader );
 
         # user not active
     } elsif ( $userref->{userStatus} ne 'active' ) {
         $html =
 "$fieldsref->{userLogin} $messages{at} $db $messages{isnotactive} <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
-        return ( "0", '', $error, $html, "result.html", $fieldsref,
+        return ( 0, '', $error, $html, 'result.html', $fieldsref,
             $cookieheader );
     } else {
 
         # login success, fill in cookie fields
-        my $path   = "/";
-        my $domain = $fieldsref->{domain};
+        my $path   = '/';
+        my $domain = $fieldsref->{'domain'};
 
         my $ip_address = $ENV{REMOTE_ADDR};
 
@@ -419,26 +418,26 @@ sub logon_user {
             $fieldsref, undef, $ip_address );
 
         # make cookie fields from the user table
-        $cookie{userLogin} = $userref->{userLogin};
-        $cookie{userId} =
-          $userref->{userId};    # not used yet, to replace userLogin
+        $cookie{'userLogin'} = $userref->{'userLogin'};
+        $cookie{'userId'} =
+          $userref->{'userId'};    # not used yet, to replace userLogin
 
         # language taken from cookie first, then user record
         #FIXME: duplicates decide_language, pretty much, fold in
-        $cookie{language} =
+        $cookie{'language'} =
              $cookieref->{'language'}
-          || $userref->{userLang}
-          || $configuration{language}
+          || $userref->{'userLang'}
+          || $configuration{'language'}
           || 'en';
 
   # avoid cumulation of registry cookie values, this is a browser problem though
-        $cookie{registry} ||= $fieldsref->{registry};
-        $cookie{userLevel} = $userref->{userLevel};
+        $cookie{'registry'} ||= $fieldsref->{'registry'};
+        $cookie{'userLevel'} = $userref->{'userLevel'};
 
         # make a cookie header, valid for session
         #FIXME: language cookie should have long expiry
         $cookieheader =
-          return_cookie_header( "-1", $domain, $path, "", %cookie );
+          return_cookie_header( -1, $domain, $path, '', %cookie );
 
         # calculate date and time stamp for om_users table
         # get date and timestamp
@@ -463,7 +462,6 @@ sub logon_user {
 
         print $cookieheader ;
         print "Location:$fieldsref->{home}\n\n";
-        ### print "Location:$ENV{SCRIPT_PATH}\n\n";
         exit 0;
 
     }
@@ -483,7 +481,7 @@ sub do_login {
 
     my %cookie;
 
-    $cookie{language} = $userref->{userLang};
+    $cookie{'language'} = $userref->{'userLang'};
 
     # cookie is produced this time, not checked
     ( $cookie{'token'}, $cookie{'token1'} ) =
@@ -491,30 +489,30 @@ sub do_login {
         $ENV{REMOTE_ADDR} );
 
     # make cookie fields from the user table
-    $cookie{userLogin} = $userref->{userLogin};
-    $cookie{userId} = $userref->{userId};   # not used yet, to replace userLogin
+    $cookie{'userLogin'} = $userref->{'userLogin'};
+    $cookie{'userId'} = $userref->{'userId'};   # not used yet, to replace userLogin
 
   # avoid cumulation of registry cookie values, this is a browser problem though
-    $cookie{registry} = $registry || $fieldsref->{registry};
+    $cookie{'registry'} = $registry || $fieldsref->{'registry'};
 
-    $cookie{userLevel} = $userref->{userLevel};
+    $cookie{'userLevel'} = $userref->{'userLevel'};
 
     # make a cookie header, valid for session
     my $cookieheader =
-      return_cookie_header( "-1", $fieldsref->{domain}, '/', "", %cookie );
+      return_cookie_header( -1, $fieldsref->{'domain'}, '/', '', %cookie );
 
     # calculate date and time stamp for om_users table
     # get date and timestamp
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
     $userref->{userLastLogin} = "$date$time";
     undef $userref
-      ->{userPassword};    # remove this otherwise it's rehashed and re-update
+      ->{'userPassword'};    # remove this otherwise it's rehashed and re-update
                            # mode 2 is where userLogin = value ;
         # use userref to update record, should strip all other fields...
         # throw away return codes for the present
     my ( $a, $b, $c, $d ) =
-      update_database_record( 'local', $cookie{registry}, "om_users", 2,
-        $userref, $userref->{language}, $cookie{token} );
+      update_database_record( 'local', $cookie{'registry'}, 'om_users', 2,
+        $userref, $userref->{'language'}, $cookie{'token'} );
 
     print $cookieheader ;
     print "Location:$fieldsref->{home}\n\n";
@@ -540,14 +538,14 @@ sub _compare_password_or_api_key {
         $compare_password = compare_password(
             $fieldsref->{'userHash'},
             $fieldsref->{'userPassword'},
-            $userref->{userPassword}
+            $userref->{'userPassword'}
         );
 
     }
 
     # password failed and it comes from the api key hash
     # first cut drupal and elgg etc. connections 08/2009
-    # FIXME: Replace with OAuth, real-soon-now 07/2011
+    # FIXME: Replace with OAuth2, real-soon-now 07/2011
     if ( $fieldsref->{'logontype'} eq 'api' ) {
 
         $compare_api_key = compare_api_key(
@@ -577,22 +575,22 @@ sub logoff_user {
 
     my $goodbye = "$messages{goodbye} $cookieref->{userLogin}";
 
-    $fieldsref->{'youare'} = "";
-    $fieldsref->{'at'}     = "";
-    $fieldsref->{'action'} = "";
+    $fieldsref->{'youare'} = '';
+    $fieldsref->{'at'}     = '';
+    $fieldsref->{'action'} = '';
 
     foreach my $key ( keys %$cookieref ) {
         $cookieref->{$key} = undef if ( $key ne 'language' );
     }
 
     my $cookieheader =
-      return_cookie_header( "-1", $fieldsref->{'domain'}, '/', "",
+      return_cookie_header( -1, $fieldsref->{'domain'}, '/', '',
         %$cookieref );
 
     display_template(
-        "1",    $fieldsref->{'home'}, "",         $goodbye,
-        $pages, "result.html",        $fieldsref, $cookieheader,
-        ""
+        1,    $fieldsref->{'home'}, '',         $goodbye,
+        $pages, 'result.html',        $fieldsref, $cookieheader,
+        ''
     );
     exit 0;
 }
@@ -648,7 +646,7 @@ sub find_records {
       ? ( $table = $type_to_table{ $fieldsref->{'search_type'} } )
       : '';
 
-    # these come from Ajax search boxes
+    # these come from Ajax search boxes, kept these for back-compatability
     $fieldsref->{'string'} =
          $fieldsref->{'search_string'}
       || $fieldsref->{'string1'}
@@ -674,9 +672,9 @@ sub find_records {
         # unhappily the id field used in each table is inconsistent
         my $id = get_id_name($table);
 
-        my $display_button = "&nbsp;";
-        my $delete_button  = "&nbsp;";
-        my $modify_button  = "&nbsp;";
+        my $display_button = '&nbsp;';
+        my $delete_button  = '&nbsp;';
+        my $modify_button  = '&nbsp;';
 
         # there's always a display button
         # display is this crudest default, the others are more tailored...
@@ -691,20 +689,20 @@ sub find_records {
         # the logged on user or the user is an administrator
 
         if (
-            $$cookieref{userLevel} eq "admin"
+            $$cookieref{userLevel} eq 'admin'
             || (
-                ( $table eq "om_yellowpages" )
+                ( $table eq 'om_yellowpages' )
                 && ( $hash_ref->{$key}->{'fromuserid'} eq
-                    $fieldsref->{userLogin} )
+                    $fieldsref->{'userLogin'} )
             )
           )
         {
 
             $allow_changes = 1;
 
-            if ( $table ne "om_trades" ) {
+            if ( $table ne 'om_trades' ) {
                 $delete_button =
-                  makebutton( $messages{delete}, 'small', "delete", $db, $table,
+                  makebutton( $messages{'delete'}, 'small', 'delete', $db, $table,
                     $hash_ref->{$key}, $fieldsref, $token );
 
             } else {
@@ -713,13 +711,13 @@ sub find_records {
                 # 'modify the status to cancel'
 
                 $delete_button =
-                  makebutton( $messages{cancel}, 'small', "canceltrade", $db,
+                  makebutton( $messages{'cancel'}, 'small', 'canceltrade', $db,
                     $table, $hash_ref->{$key}, $fieldsref, $token );
 
             }
 
             $modify_button =
-              makebutton( $messages{modify}, 'small', "template", $db, $table,
+              makebutton( $messages{'modify'}, 'small', 'template', $db, $table,
                 $hash_ref->{$key}, $fieldsref, $token );
 
         }
@@ -845,7 +843,7 @@ EOT
     # get balance and volume for user to show in table ;
     my ( $refresh, $metarefresh, $error1, $balv, $page, $c ) =
       show_balance_and_volume( $class, $db, $fieldsref->{'duserLogin'},
-        "", $token );
+        '', $token );
 
     my $first_pass = 1;
     my $counter    = 0;    # used for counting what goes on left and right
@@ -866,18 +864,18 @@ EOT
                 # colour code the advert summaries by changing the display class
                 # truelets is something that's paid at 100% in LETS
                 #
-                my $dclass = "pme-key-1";    # default case
-                $dclass = "pme-key-green"
-                  if ( $$hash_ref1{truelets} eq "yes"
-                    && $$hash_ref1{type} eq "offered" );
-                $dclass = "pme-key-1"
-                  if ( $$hash_ref1{truelets} ne "yes"
-                    && $$hash_ref1{type} eq "offered" );
-                $dclass = "pme-key-debit" if ( $$hash_ref1{type} eq "wanted" );
+                my $dclass = 'pme-key-1';    # default case
+                $dclass = 'pme-key-green'
+                  if ( $hash_ref1->{'truelets'} eq 'yes'
+                    && $hash_ref1->{'type'} eq 'offered' );
+                $dclass = 'pme-key-1'
+                  if ( $hash_ref1->{'truelets'} ne 'yes'
+                    && $hash_ref1->{'type'} eq 'offered' );
+                $dclass = 'pme-key-debit' if ( $hash_ref1->{'type'} eq 'wanted' );
 
                 # show 'per unit' price if unit is valid
-                my $per_unit = "$messages{per} $$hash_ref1{unit}"
-                  if ( length( $$hash_ref1{unit} )
+                my $per_unit = "$messages{per} $hash_ref1->{unit}"
+                  if ( length( $hash_ref1->{'unit'} )
                     && $$hash_ref1{unit} ne 'other' );
 
                 $html .= <<EOT;
@@ -894,27 +892,27 @@ EOT
        </tr>
 EOT
 
-                $save_subject = $ad_hash_ref->{$hash_key}->{subject};
+                $save_subject = $ad_hash_ref->{$hash_key}->{'subject'};
             }
 
         }    # this record
         $first_pass = 0;
         $counter++;
     }    # all records
+    
+    # change place marker into balance and volume string
     $userhtml =~ s/bal/$balv/;
 
     $html = "<table>$userhtml<tr><td colspan=\"3\"></td></tr>$html</table>";
-    return ( "", '', "", $html, "result.html", $fieldsref );
+    return ( '', '', '', $html, 'result.html', $fieldsref );
 }
 
 =head3 change_language
 
-Change the user language for the web interface
-never tested recently as of 4/2005, waiting until
-html is somewhat complete and in another language...
-
 Now in testing as of August 2011...modified to update
 om_users and send only language cookie with expiry of around six months
+Language can be changed without logging on, since the non-logged-on
+person may want the logon page or new user page in another language 
 
 =cut
 
@@ -925,9 +923,9 @@ sub change_language {
     my $path = "/";
 
     my %cookie;
-    $cookie{language} = $fieldsref->{language};
+    $cookie{'language'} = $fieldsref->{'language'};
     my $expires = 15552000 + time();    # six month expiry for language cookie
-    my $cookies = return_cookie_header( $expires, $domain, $path, "", %cookie );
+    my $cookies = return_cookie_header( $expires, $domain, $path, '', %cookie );
 
     my $pages =
       new HTML::SimpleTemplate("$template_dir/$fieldsref->{language}");
@@ -951,8 +949,8 @@ sub change_language {
         return $json;
     }
 
-    return ( "1", $fieldsref->{home}, "", $messages{languagechanged},
-        $pages, "result.html", $fieldsref, $cookies );
+    return ( 1, $fieldsref->{home}, '', $messages{languagechanged},
+        $pages, 'result.html', $fieldsref, $cookies );
 }
 
 =head3 modify_user
@@ -969,23 +967,23 @@ sub modify_user {
     my ( $class, $db, $table, $userlogin, $fieldsref, $pages, $token ) = @_;
     my ( $refresh, $error, $html );
     my @status;
-    my $hash       = "";
-    my $return_url = $fieldsref->{home};
+    my $hash       = '';
+    my $return_url = $fieldsref->{'home'};
 
     @status =
       validate_user( $class, $db, $fieldsref, $messagesref, $token, "", "" );
     if ( $status[0] == -1 ) {
         shift @status;
-        $html = join( "<br/>", @status );
+        $html = join( '<br/>', @status );
         return (
-            "0",        $return_url, "",
-            $html,      $pages,      "result.html",
-            $fieldsref, "",          $token
+            0,        $return_url, '',
+            $html,      $pages,      'result.html',
+            $fieldsref, '',          $token
         );
     }
 
     # mobile pin number is stored as hashed
-    $fieldsref->{userPin} = text_to_hash( $fieldsref->{userPin} );
+    $fieldsref->{'userPin'} = text_to_hash( $fieldsref->{'userPin'} );
 
     my (
         $refresh,  $metarefresh, $error,   $html, $pages,
@@ -1023,6 +1021,9 @@ proxy : http://subdomain.domain.tld/cgi-bin/ccserver.cgi
 
 If there is an explicit domain and proxy in the proxy registry record
 these are overridden
+
+This ia for SOAP endpoint and proxy, so it'll be steadily retired as
+of 10/2011
 
 =cut
 
@@ -1062,6 +1063,9 @@ will return if something wrong with remote user
 As of 06/2007 now returns keys for literals, so that messages
 can be translated into the initiating user's language with
 the transaction function
+
+This may be retired or integrated into REST parameters
+
 =cut
 
 sub check_user_and_add_trade {
@@ -1132,6 +1136,7 @@ a future version.
 
 
 FIXME: This is weak no error testing on the second bit, not atomic etc..
+
 =cut
 
 sub split_transaction {
@@ -1141,8 +1146,6 @@ sub split_transaction {
 # this is the primary transaction, we'd like to use this as an engine
 # FIXME: terrible confusion around modes and mode field at present, to be made restful
     $transaction_ref->{'mode'} = 'engine';
-
-    ###$log->debug("transaction ref is $transaction_ref") ;
 
     # comment the transaction as a split
     $transaction_ref->{'tradeTitle'} =
@@ -1183,7 +1186,7 @@ sub directpay {
         )
       )
     {
-        return "invalid merchant key";
+        return 'invalid merchant key';
     } else {
         ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
           transaction( 'local', $db, $table, $transaction_ref, $token );
@@ -1195,7 +1198,6 @@ sub directpay {
 
 Transaction part of the motor, buyer, seller etc.
 The journal part will be done in the future via the db journals
-
 
 fromid - initiating userid e.g. jsb
 from_regy - initiating registry e.g. nw.cov.uk
@@ -1261,7 +1263,6 @@ sub transaction {
      {"registry":"$transaction{fromregistry}","table": "om_trades", "message"
 EOT
 
-    # $log->warn("mode:$$transaction_ref{mode} \n ===============" );
     # this is somewhat more rational as of 06/2007
     my @remote_status;    # messages returned from remote registry
     my @local_status;     # messages returned from local registry
@@ -1278,20 +1279,20 @@ EOT
 # validate transaction, do everything we can to make sure it's valid
 # can't do a transaction with the same person as sender and receiver
 
-    if (   ( $transaction{fromregistry} eq $transaction{toregistry} )
-        && ( $transaction{tradeSource} eq $transaction{tradeDestination} ) )
+    if (   ( $transaction{'fromregistry'} eq $transaction{'toregistry'} )
+        && ( $transaction{'tradeSource'} eq $transaction{'tradeDestination'} ) )
     {
-        push @local_status, $messages{sameaccount};
+        push @local_status, $messages{'sameaccount'};
     }
 
     # no transaction source, can happen from rest interface
-    if ( !length( $transaction{tradeSource} ) ) {
-        push @local_status, $messages{nosource};
+    if ( !length( $transaction{'tradeSource'} ) ) {
+        push @local_status, $messages{'nosource'};
     }
 
     # cash must be credited to the cash account when issued
-    if (   $transaction{tradeItem} eq 'cash'
-        && $transaction{tradeDestination} ne 'cash' )
+    if (   $transaction{'tradeItem'} eq 'cash'
+        && $transaction{'tradeDestination'} ne 'cash' )
     {
         push @local_status, $messages{'mustgotocash'};
     }
@@ -1301,8 +1302,8 @@ EOT
 
     # now have a look at the commitmentlimit in the registry record
     my ( $status, $registry_ref ) = get_where(
-        $class, $transaction{fromregistry},
-        "om_registry", '*', "name", $transaction{fromregistry},
+        $class, $transaction{'fromregistry'},
+        'om_registry', '*', 'name', $transaction{'fromregistry'},
         $token, $offset, $limit
     );
 
@@ -1310,20 +1311,20 @@ EOT
 
     # test commitment, this can be zero for an issuance local currency
     # null means no commitlimit
-    my $commitment_limit = $$registry_ref{commitlimit};
+    my $commitment_limit = $registry_ref->{'commitlimit'};
     if ( defined($commitment_limit) ) {
 
         # html to return html, values to return raw balances and volumes
         # for each currency
         my ( $balance_ref, $volume_ref ) = show_balance_and_volume(
             'local',
-            $transaction{fromregistry},
-            $transaction{tradeSource},
+            $transaction{'fromregistry'},
+            $transaction{'tradeSource'},
             'values', $token,
         );
 
         # current balance for this particular currency
-        my $balance = $$balance_ref{ $transaction{tradeCurrency} };
+        my $balance = $$balance_ref{ $transaction{'tradeCurrency'} };
 
 # balances are negative in the sending side, need to subtract and make absolute
 # if more than commitment limit transaction does not proceed
@@ -1333,15 +1334,13 @@ EOT
         if (
             (
                 (
-                    ( $balance + $commitment_limit ) - $transaction{tradeAmount}
+                    ( $balance + $commitment_limit ) - $transaction{'tradeAmount'}
                 ) < 0
             )
-            && $transaction{tradeSource} ne 'sysaccount'
+            && $transaction{'tradeSource'} ne 'sysaccount'
           )
         {
-
-            ###$log->debug("exceeded b:$balance c:$commitment_limit  t:$transaction{tradeAmount}") ;
-            push @local_status, $messages{transactionlimitexceeded};
+            push @local_status, $messages{'transactionlimitexceeded'};
         }
     }
 
@@ -1350,7 +1349,7 @@ EOT
 
     my $debit_transaction_ref;
     ( $transaction_ref, $debit_transaction_ref ) =
-      create_transaction_mirror( $transaction{action}, %transaction );
+      create_transaction_mirror( $transaction{'action'}, %transaction );
     %transaction = %$transaction_ref;
     my %debit_transaction = %$debit_transaction_ref;
 
@@ -1363,17 +1362,17 @@ EOT
 
     my %registry;
 
-    if ( $transaction{fromregistry} eq $transaction{toregistry} ) {
-        $registry{type} = "local";
+    if ( $transaction{'fromregistry'} eq $transaction{'toregistry'} ) {
+        $registry{'type'} = 'local';
         $same_registry = 1;
     } else {
         my ( $status, $registry_ref ) = get_where(
-            $class, $transaction{fromregistry},
-            "om_partners", '*', "name", $transaction{toregistry},
+            $class, $transaction{'fromregistry'},
+            'om_partners', '*', 'name', $transaction{'toregistry'},
             $token, $offset, $limit
         );
         %registry = %$registry_ref;
-        push @local_status, "db2: $status" if length($status);
+        push @local_status, 'db2: $status' if length($status);
     }
 
     #   error code here
@@ -1382,64 +1381,64 @@ EOT
     # it's a registry that lives locally on this currency server
     # therefore this is done directly and not via soap calls
 
-    if ( $registry{type} eq "local" ) {
+    if ( $registry{type} eq 'local' ) {
 
         # check whether remote registry is still a partner
         # not necessary if partner is the same registry
         #
 
-        unless ( $transaction{fromregistry} eq $transaction{toregistry} ) {
+        unless ( $transaction{'fromregistry'} eq $transaction{'toregistry'} ) {
 
             my ( $status, $partnerref ) = get_where(
                 $class, $transaction{toregistry},
-                "om_partners",              '*', "name",
-                $transaction{fromregistry}, $token,
+                'om_partners',              '*', 'name',
+                $transaction{'fromregistry'}, $token,
                 $offset,                    $limit
 
             );
-            push @local_status, "db3: $status" if length($status);
+            push @local_status, 'db3: $status' if length($status);
             if ( !length( $partnerref->{'name'} ) ) {
-                push @local_status, $messages{noremotepartner};
+                push @local_status, $messages{'noremotepartner'};
             }
 
             # destination partner does exist but inactive
             if ( $partnerref->{'status'} ne "active" ) {
-                push @local_status, $messages{remotepartnerinactive};
+                push @local_status, $messages{'remotepartnerinactive'};
             }
         }
 
         # check facts about destination user
 
         my ( $status, $userref ) = get_where(
-            $class, $transaction{toregistry},
-            "om_users", '*', "userLogin", $transaction{tradeDestination},
+            $class, $transaction{'toregistry'},
+            "om_users", '*', "userLogin", $transaction{'tradeDestination'},
             $token, $offset, $limit
         );
         push @local_status, "db4: $status" if length($status);
 
         # destination user doesn't exist
         if ( !length( $userref->{'userLogin'} ) ) {
-            push @local_status, $messages{nonexist};
+            push @local_status, $messages{'nonexist'};
         }
 
         # destination user does exist but inactive
-        if ( $userref->{'userStatus'} ne "active" ) {
-            push @local_status, $messages{userinactive};
+        if ( $userref->{'userStatus'} ne 'active' ) {
+            push @local_status, $messages{'userinactive'};
         }
 
         # see if the currency exists in partner
         # 07/2011 make singular, where necessary for REST/json
         if ( $transaction{'mode'} eq 'json' ) {
-            $transaction{tradeCurrency} =~ s/ies$/y/i;    # dallies -> dally
-            $transaction{tradeCurrency} =~ s/s$//i;       # tpounds -> tpound
+            $transaction{'tradeCurrency'} =~ s/ies$/y/i;    # dallies -> dally
+            $transaction{'tradeCurrency'} =~ s/s$//i;       # tpounds -> tpound
         }
 
         my ( $status, $currencyref ) = get_where(
-            $class, $transaction{toregistry},
-            "om_currencies", '*', "name", $transaction{tradeCurrency},
+            $class, $transaction{'toregistry'},
+            'om_currencies', '*', 'name', $transaction{'tradeCurrency'},
             $token, $offset, $limit
         );
-        push @local_status, "db5: $status" if length($status);
+        push @local_status, 'db5: $status' if length($status);
 
         # no currency in remote registry
         if ( !length( $currencyref->{'name'} ) ) {
@@ -1452,8 +1451,8 @@ EOT
         }
 
         # no zero value transactions...
-        if ( $transaction{tradeAmount} == 0 ) {
-            push @local_status, $messages{zerovaluetransaction};
+        if ( $transaction{'tradeAmount'} == 0 ) {
+            push @local_status, $messages{'zerovaluetransaction'};
         }
 
       # since the remote is about to be rejected, reject the local one
@@ -1461,16 +1460,16 @@ EOT
       # processing changed 1/2009 to avoid storage of many rejected transactions
 
         if ( length( $local_status[0] ) ) {
-            push @local_status, $messages{transactionrejected};
-            $transaction{tradeStatus} = "rejected";
+            push @local_status, $messages{'transactionrejected'};
+            $transaction{'tradeStatus'} = 'rejected';
             my $output_message = join( $separator, @local_status );
-            ###       print "here $error, $output_message $currencyref->{'name'}" ;
+            
             # warn about rejections at this level in log
             ### $log->warn("rejected transaction: $output_message");
 
             if ( $transaction{'mode'} ne 'json' ) {
-                return ( "1", $$transaction_ref{home}, $error, $output_message,
-                    "result.html", "" );
+                return ( 1, $transaction_ref->{'home'}, $error, $output_message,
+                    'result.html', '' );
             } else {
 
                 # put quotes around the messages for json...
@@ -1488,24 +1487,24 @@ EOT
         ( $error, $record_id ) =
           add_database_record( $class, $transaction{toregistry},
             $transaction{subaction}, \%transaction, $token );
-        push @local_status, "db6: $error" if length($error);
+        push @local_status, 'db6: $error' if length($error);
 
     } else {
 
         # transaction in remote registry, this is one integrated sub-routine
         # reduces round-trip 'costs' and avoid soap hanging problems
 
-        if ( !length( $registry{uri} ) ) {
-            ( $registry{uri}, $registry{proxy} ) =
-              make_uri_and_proxy( $registry{domain} );
+        if ( !length( $registry{'uri'} ) ) {
+            ( $registry{'uri'}, $registry{'proxy'} ) =
+              make_uri_and_proxy( $registry{'domain'} );
         }
 
         # check remote user and add transaction to the remote registry
         # done as an integrated call to avoid xml to-and-fro
         #
         my $soap =
-          SOAP::Lite->uri( $registry{uri} )->proxy( $registry{proxy} )
-          ->check_user_and_add_trade( $transaction{toregistry},
+          SOAP::Lite->uri( $registry{'uri'} )->proxy( $registry{'proxy'} )
+          ->check_user_and_add_trade( $transaction{'toregistry'},
             'om_trades', \%transaction, $token );
         my $s = $soap->faultstring;
         die $soap->faultstring if $soap->fault;
@@ -1536,7 +1535,7 @@ EOT
     if ( length( $local_status[0] ) || length( $remote_status[0] ) ) {
         $debit_transaction{tradeDescription} =
           join( "\r\n", @local_status, @translated_remote_status );
-        $debit_transaction{tradeStatus} = "rejected";
+        $debit_transaction{'tradeStatus'} = 'rejected';
     }
 
     ( $error, $record_id ) =
@@ -1545,9 +1544,9 @@ EOT
 
     # since this can fail at local database attempt, at least there 'may'
     # be a screen display of this
-    push @local_status, "db7: $error" if length($error);
+    push @local_status, 'db7: $error' if length($error);
     if ( length( $local_status[0] ) || length( $remote_status[0] ) ) {
-        push @local_status, $messages{transactionrejected};
+        push @local_status, $messages{'transactionrejected'};
     } elsif ( $transaction_ref->{'mode'} ne 'json' ) {
         push @local_status,
 "$messages{transactionaccepted}<br/>Ref:&nbsp;$transaction{tradeHash}";
@@ -1571,8 +1570,6 @@ EOT
         );
 
     } elsif ( $transaction_ref->{'mode'} eq 'json' ) {
-
-        # $log->debug("\{$output_message\}");
         return "\{$output_message\}";
     } else {
         return $transaction_ref;
@@ -1598,36 +1595,36 @@ sub create_transaction_mirror {
     my %debit_transaction = %transaction;
 
     # get date and timestamp
-    my ( $date, $time ) = &Ccu::getdateandtime( time() );
+    my ( $date, $time ) = Ccu::getdateandtime( time() );
     my $timestamp = "$date$time";
 
     #
-    $transaction{tradeStamp}       = $timestamp if ( $action ne "delete" );
-    $debit_transaction{tradeStamp} = $timestamp if ( $action ne "delete" );
+    $transaction{'tradeStamp'}       = $timestamp if ( $action ne 'delete' );
+    $debit_transaction{'tradeStamp'} = $timestamp if ( $action ne 'delete' );
 
 # current date is inserted if no date suplied by transaction, batch values supply
 # date, for example
-    if ( !length( $transaction{tradeDate} ) ) {
-        $transaction{tradeDate} = $date;
+    if ( !length( $transaction{'tradeDate'} ) ) {
+        $transaction{'tradeDate'} = $date;
     }
-    $debit_transaction{tradeDate} = $transaction{tradeDate};
+    $debit_transaction{'tradeDate'} = $transaction{'tradeDate'};
 
     #
-    $transaction{tradeType}       = "credit";
-    $debit_transaction{tradeType} = "debit";
+    $transaction{'tradeType'}       = 'credit';
+    $debit_transaction{'tradeType'} = 'debit';
 
     # the initial payment status is usually waiting but can be 'accepted'
     # initial status is applied only if there's no current status
     # this deals with batch interfaces slightly better
 
-    $transaction{tradeStatus} = $transaction{tradeStatus}
-      || $transaction{initialPaymentStatus};
-    $debit_transaction{tradeStatus} = $transaction{tradeStatus};
+    $transaction{'tradeStatus'} = $transaction{'tradeStatus'}
+      || $transaction{'initialPaymentStatus'};
+    $debit_transaction{'tradeStatus'} = $transaction{'tradeStatus'};
 
    # the mirror ties both sides of a transaction to allow distributed registries
 
-    $debit_transaction{tradeMirror} = $transaction{toregistry};
-    $transaction{tradeMirror}       = $transaction{fromregistry};
+    $debit_transaction{'tradeMirror'} = $transaction{'toregistry'};
+    $transaction{'tradeMirror'}       = $transaction{'fromregistry'};
 
     # add tax flag to both sides
     $debit_transaction{tradeTaxflag} = $transaction{tradeTaxflag};
@@ -1636,26 +1633,26 @@ sub create_transaction_mirror {
     # the primary trade hash is -imposed-, if it exists, for split trades
     # in order to make a link between the two operations
 
-    if ( !length( $transaction{tradeHash} ) ) {
+    if ( !length( $transaction{'tradeHash'} ) ) {
 
         # tidied up as of 06/2007, only hashes core information
         # for transaction, not all template fields etc.
         # means that hash can be reproduced if necessary
         # next release should include token value
 
-        my $transaction_as_text = join( "",
-            $transaction{tradeStamp},       $transaction{tradeDate},
-            $transaction{tradeType},        $transaction{tradeSource},
-            $transaction{tradeDestination}, $transaction{tradeMirror},
-            $transaction{tradeTaxflag},     $transaction{tradeAmount},
-            $transaction{tradeCurrency} );
+        my $transaction_as_text = join( '',
+            $transaction{'tradeStamp'},       $transaction{'tradeDate'},
+            $transaction{'tradeType'},        $transaction{'tradeSource'},
+            $transaction{'tradeDestination'}, $transaction{'tradeMirror'},
+            $transaction{'tradeTaxflag'},     $transaction{'tradeAmount'},
+            $transaction{'tradeCurrency'} );
 
         #FIXME: Do we want URL Safe trade hashes? These are not they...
         my $hash_value = text_to_hash($transaction_as_text);
-        $transaction{tradeHash}       = $hash_value;
-        $debit_transaction{tradeHash} = $hash_value;
+        $transaction{'tradeHash'}       = $hash_value;
+        $debit_transaction{'tradeHash'} = $hash_value;
     } else {
-        $debit_transaction{tradeHash} = $transaction{tradeHash};
+        $debit_transaction{'tradeHash'} = $transaction{'tradeHash'};
     }
 
     return ( \%transaction, \%debit_transaction );
@@ -1804,17 +1801,17 @@ sub modify_trade {
     # tradeSource,tradeMirror, tradeId
 
     # change status for confirm
-    $$transaction_ref{tradeStatus} = "accepted"
-      if ( $$transaction_ref{action} eq "confirmtrade" );
+    $transaction_ref->{'tradeStatus'} = 'accepted'
+      if ( $transaction_ref->{'action'} eq 'confirmtrade' );
 
     # change status for confirm
-    $$transaction_ref{tradeStatus} = "declined"
-      if ( $$transaction_ref{action} eq "declinetrade" );
+    $transaction_ref->{'tradeStatus'} = 'declined'
+      if ( $transaction_ref->{'action'} eq 'declinetrade' );
 
     # change status for delete, does not delete record, only changes
     # status to cancelled 06/2007
-    $$transaction_ref{tradeStatus} = "cancelled"
-      if ( $$transaction_ref{action} eq "canceltrade" );
+    $transaction_ref->{'tradeStatus'} = 'cancelled'
+      if ( $transaction_ref->{'action'} eq 'canceltrade' );
 
     # if it's not any of these then the status is unchanged...
 
@@ -1824,18 +1821,18 @@ sub modify_trade {
 /tradeStamp|tradeStatus|tradeCurrency|tradeDestination|tradeSource|tradeMirror|tradeId|tradeDestination|home/
           )
         {
-            delete $$transaction_ref{$key};
+            delete $transaction_ref->{$key};
         }
     }
 
     # check whether local
     my ( %registry, $offset, $limit );
-    if ( $db eq $$transaction_ref{tradeMirror} ) {
-        $registry{type} = "local";
+    if ( $db eq $transaction_ref->{'tradeMirror'} ) {
+        $registry{'type'} = 'local';
     } else {
         my ( $status, $registry_ref ) =
-          get_where( $class, $db, "om_partners", '*', "name",
-            $$transaction_ref{tradeMirror},
+          get_where( $class, $db, 'om_partners', '*', 'name',
+            $transaction_ref->{'tradeMirror'},
             $token, $offset, $limit );
         %registry = %$registry_ref;
     }
@@ -1844,7 +1841,7 @@ sub modify_trade {
     if ( $registry{type} eq 'local' ) {
 
         # get where fromuser = user and timestamp = timestamp
-        find_and_modify_trade( 'local', $$transaction_ref{tradeMirror},
+        find_and_modify_trade( 'local', $transaction_ref->{'tradeMirror'},
             $table, $transaction_ref, $pages, $token );
     } else {
 
@@ -1860,7 +1857,7 @@ sub modify_trade {
         #
         my $soap =
           SOAP::Lite->uri( $registry{uri} )->proxy( $registry{proxy} )
-          ->find_and_modify_trade( $$transaction_ref{tradeMirror},
+          ->find_and_modify_trade( $transaction_ref->{'tradeMirror'},
             'om_trades', $transaction_ref, $token );
 
         die $soap->faultstring if $soap->fault;
@@ -1874,10 +1871,10 @@ sub modify_trade {
     # update local side trade
     update_database_record( $class, $db, $table, 1, $transaction_ref, undef,
         $token );
-    $html = "$messages{transactionstatusnow} $$transaction_ref{tradeStatus}";
+    $html = "$messages{transactionstatusnow} $transaction_ref->{tradeStatus}";
 
     # return to transaction list
-    return ( 1, "$$transaction_ref{home}?action=showtrans",
+    return ( 1, "$transaction_ref->{home}?action=showtrans",
         "", $html, "result.html", "" );
 }
 
@@ -1902,14 +1899,14 @@ sub find_and_modify_trade {
     my ( $class, $db, $table, $transaction_ref, $pages, $token ) = @_;
     my ( $offset, $limit, $order, $pagename );
     my $sqlstring = <<EOT;
-tradeStamp = '$$transaction_ref{tradeStamp}' and
-tradeCurrency = '$$transaction_ref{tradeCurrency}' and
-tradeSource = '$$transaction_ref{tradeSource}' and
-tradeId <> '$$transaction_ref{tradeId}'
+tradeStamp = '$transaction_ref->{tradeStamp}' and
+tradeCurrency = '$transaction_ref->{tradeCurrency}' and
+tradeSource = '$transaction_ref->{tradeSource}' and
+tradeId <> '$transaction_ref->{tradeId}'
 EOT
 
     # sqlfind timestamp and corresponding record
-    my ( $error, $hash_ref ) = sqlfind( $class, $$transaction_ref{tradeMirror},
+    my ( $error, $hash_ref ) = sqlfind( $class, $transaction_ref->{'tradeMirror'},
         'om_trades', $transaction_ref, '*', $sqlstring, $order, $token, $offset,
         $limit );
 
@@ -1917,10 +1914,9 @@ EOT
 
     # hash is just id field and status for modify at present
     # only operation allowed is to modify status value of transactions
-    my %fields;
     my %fields = (
         'tradeId',     $hash_ref->{ $keys[0] }->{'tradeId'},
-        'tradeStatus', "$$transaction_ref{tradeStatus}"
+        'tradeStatus', "$transaction_ref->{tradeStatus}"
     );    # just the id  and trade status in this hash
     my $fieldsref = \%fields;
 
@@ -1962,21 +1958,21 @@ sub get_many_items {
     # count total in set, as opposed to number delivered by limit
     # note that this is overwritten by get_trades, if finding trades
 
-    if (   $table ne "om_partners"
-        && $table ne "om_currencies"
-        && $table ne "om_trades" )
+    if (   $table ne 'om_partners'
+        && $table ne 'om_currencies'
+        && $table ne 'om_trades' )
     {
         $total_count =
-          sqlcount( $class, $db, $table, "", $fieldname, $name, $token );
-    } elsif ( $table ne "om_trades" ) {
-        $total_count = sqlcount( $class, $db, $table, "1", '', '', $token );
+          sqlcount( $class, $db, $table, '', $fieldname, $name, $token );
+    } elsif ( $table ne 'om_trades' ) {
+        $total_count = sqlcount( $class, $db, $table, 1, '', '', $token );
     }
     ;    # count them all
          # get the records
     my ( $registry_error, $hash_ref );
-    if ( $table eq "om_trades" ) {
+    if ( $table eq 'om_trades' ) {
         ( $registry_error, $total_count, $hash_ref ) =
-          get_trades( 'local', $db, $fieldsref->{userLogin},
+          get_trades( 'local', $db, $fieldsref->{'userLogin'},
             $trade_type, $token, $offset, $limit );
 
     } else {
@@ -1995,7 +1991,7 @@ sub get_many_items {
     # unhappily the id field used in each table is inconsistent
     my $id = get_id_name($table);
 
-# only refresh is [mis]used to carry json payload if json is being returned 2/2011
+    # only refresh is [mis]used to carry json payload if json is being returned 2/2011
     if ( $fieldsref->{'mode'} eq 'json' ) {
         my ($json) =
           deliver_remote_data( $db, $table, $registry_error, $hash_ref,
@@ -2005,11 +2001,11 @@ sub get_many_items {
 
     foreach my $key ( sort { $b <=> $a } keys( %{$hash_ref} ) ) {
 
-        my $modify_button  = "&nbsp;";
-        my $delete_button  = "&nbsp;";
-        my $display_button = "&nbsp;";
-        my $confirm_button = "&nbsp;";
-        my $decline_button = "&nbsp;";
+        my $modify_button  = '&nbsp;';
+        my $delete_button  = '&nbsp;';
+        my $display_button = '&nbsp;';
+        my $confirm_button = '&nbsp;';
+        my $decline_button = '&nbsp;';
 
         # there's always a display button
         # display is this crudest default, the others are more tailored...
@@ -2029,13 +2025,13 @@ sub get_many_items {
         if (
             (
                 (
-                    ( $table eq "om_yellowpages" )
+                    ( $table eq 'om_yellowpages' )
                     && ( $hash_ref->{$key}->{'fromuserid'} eq
                         $fieldsref->{userLogin} )
                 )
-                || ( ( $table ne "om_trades" ) && is_admin() )
-                || ( ( $table eq "om_openid" ) )
-                || ( ( $table eq "om_categories" ) )
+                || ( ( $table ne 'om_trades' ) && is_admin() )
+                || ( ( $table eq 'om_openid' ) )
+                || ( ( $table eq 'om_categories' ) )
 
             )
           )
@@ -2047,9 +2043,9 @@ sub get_many_items {
             # if the record is a trade, then the delete operation becomes
             # 'modify the status to cancel'
 
-            if ( $table ne "om_trades" ) {
+            if ( $table ne 'om_trades' ) {
                 $delete_button =
-                  makebutton( $messages{delete}, 'small', "delete", $db, $table,
+                  makebutton( $messages{delete}, 'small', 'delete', $db, $table,
                     $hash_ref->{$key}, $fieldsref, $token );
 
             } else {
@@ -2057,15 +2053,15 @@ sub get_many_items {
                 # if the record is a trade, then the delete operation becomes
                 # 'modify the status to cancel'
 
-                $fieldsref->{tradeStatus} = "cancelled";
+                $fieldsref->{'tradeStatus'} = 'cancelled';
                 $delete_button =
-                  makebutton( $messages{modify}, 'small', "template", $db,
+                  makebutton( $messages{'modify'}, 'small', 'template', $db,
                     $table, $hash_ref->{$key}, $fieldsref, $token );
 
             }
 
             $modify_button =
-              makebutton( $messages{modify}, 'small', "template", $db, $table,
+              makebutton( $messages{'modify'}, 'small', 'template', $db, $table,
                 $hash_ref->{$key}, $fieldsref, $token );
 
         }    # end of buttons
@@ -2075,21 +2071,21 @@ sub get_many_items {
 
         if (   $table eq 'om_trades'
             && $hash_ref->{$key}->{'tradeType'}   eq 'credit'
-            && $hash_ref->{$key}->{'tradeStatus'} eq "waiting" )
+            && $hash_ref->{$key}->{'tradeStatus'} eq 'waiting' )
         {
             $confirm_button =
-              makebutton( $messages{ok}, 'small', "confirmtrade", $db, $table,
+              makebutton( $messages{ok}, 'small', 'confirmtrade', $db, $table,
                 $hash_ref->{$key}, $fieldsref, $token );
 
             $decline_button =
-              makebutton( $messages{reject}, 'small', "declinetrade", $db,
+              makebutton( $messages{reject}, 'small', 'declinetrade', $db,
                 $table, $hash_ref->{$key}, $fieldsref, $token );
         }    # end of trades buttons
 
         #FIXME: this is a weakness and should be coded out 05/2007
 
         $modify_button =
-          makebutton( $messages{modify}, 'small', "template", $db, $table,
+          makebutton( $messages{modify}, 'small', 'template', $db, $table,
             $hash_ref->{$key}, $fieldsref, $token )
           if ( $table eq 'om_currencies' );
 
@@ -2106,7 +2102,7 @@ sub get_many_items {
         my $buttons;
 
         if ( $fieldsref->{mode} ne 'csv' ) {
-            if ( $table eq "om_trades" ) {
+            if ( $table eq 'om_trades' ) {
                 $buttons = <<EOT;
           <td class="small">$display_button</td>
           <td class="small">$confirm_button</td>
@@ -2133,7 +2129,7 @@ EOT
 
     }    # end of loop for records
 
-    my $template = "result.html"
+    my $template = 'result.html'
       if ( !length( $fieldsref->{resulttemplate} ) );
 
     # only do all the formatting, if there are some results returned
@@ -2168,12 +2164,12 @@ EOT
         # can accept or decline waiting trades. No buttons and no button
         # titles for passthrough to Drupal or Elgg
 
-        if ( $table ne "om_trades" ) {
+        if ( $table ne 'om_trades' ) {
             unshift @columns,
-              ( $messages{display}, $messages{modify}, $messages{delete} );
-        } elsif ( $fieldsref->{mode} ne 'csv' ) {
+              ( $messages{'display'}, $messages{'modify'}, $messages{'delete'} );
+        } elsif ( $fieldsref->{'mode'} ne 'csv' ) {
             unshift @columns,
-              ( $messages{display}, $messages{ok}, $messages{no} );
+              ( $messages{'display'}, $messages{'ok'}, $messages{'no'} );
         }    # end of unshift column titles
 
         my $row;
@@ -2283,7 +2279,7 @@ and (tradeDate >= date_sub(current_date(),interval 1 year))
 and (tradeStatus = 'waiting' or tradeStatus = 'accepted')
 EOT
 
-    } elsif ( is_admin() && $type eq "all" ) {
+    } elsif ( is_admin() && $type eq 'all' ) {
         $sqlstring = 1;
     } else {
 
@@ -2325,7 +2321,9 @@ This needs to be moved further to the top later
 
 Only select mode works at present Needs to be generalised so that it 
 only collects active items via 'status'. 
-This is hacked in for yellow page categories, at present.
+This is hacked in for yellow page categories, at present. As of 2011,
+the hardcoded categories will be dropped for self-defined tag clouds
+so this bit is correcting itself...
 
 Amended not to display closed or suspended currencies in 12/2005
 Amended in 2010 to use hashes, as with all the other listing functions
@@ -2426,15 +2424,15 @@ sub collect_items {
                     $option_string .=
                       "<option value=\"$item\">\u$item</option>\n";
                 }
-            } elsif ( $mode eq "checkbox" ) {
+            } elsif ( $mode eq 'checkbox' ) {
                 $name = "$item$x";
-                $checked = "checked" if ( defined $fieldsref->{$name} );
+                $checked = 'checked' if ( defined $fieldsref->{$name} );
                 $option_string .=
 "<input type=\"checkbox\" name=\"$name\" $checked value=\"$item\">\u$item &nbsp;";
                 undef $checked;
                 $x++;
             }
-            $duplicates{$item} = "y";
+            $duplicates{$item} = 'y';
         }
     }
     return $option_string;
@@ -2466,10 +2464,6 @@ sub notify_by_mail {
         $accountname, $smtp,             $urlstring,
         $text,        $notificationtype, $hash
     ) = @_;
-
-    ###$email = quotemeta($email) ;
-
-    # new style configuration read
 
     my ( $message, $from, $subject );
 
@@ -2717,143 +2711,17 @@ EOT
     }
 }
 
-=head3 show_balance_and_volume1
-
-Create and display balances. For a given user calculate volume of trade activity
-and current balance for each currency for which they participate
- 
-Necessary anyway for user, also for transaction fees and demurrage, perhaps
-Same signature as get many items
-
-This is the old version, will be removed in the next iteration 5/2010
-
-
-
-sub show_balance_and_volume1 {
-    my (
-        $class, $db,   $table, $fieldsref, $fieldname,
-        $name,  $mode, $token, $offset,    $limit
-    ) = @_;
-    
-
-    # find all transactions for a given name
-    my ( $error, $html );
-    my $type = "active";
-
-    # add up everything if user login
-    $type = "all" if ( is_admin() );
-
-    # hack for large limit clause...
-    my ( $registry_error, $total_count, $hash_ref ) =
-      get_trades( 'local', $db, $fieldsref->{userLogin}, $type, $token, 0,
-        99999999 );
-
-    my %balances;    #  hash of balances keyed on currency
-    my %volumes;     #  hash of volumes keyed on currency
-                     # phase one: accumulate
-
-    my $id = get_id_name($table) ;
-    
-    
-    foreach my $key ( keys (%{$hash_ref}) ) {
-      
-        my $month = substr( $hash_ref->{$key}->{'tradeDate'}, 5, 2 );   # month 
-        my $year  = substr( $hash_ref->{$key}->{'tradeDate'}, 0, 4 );   # year
-        
-        # now just adds everything in line with LETS received wisdom about volumes
-        # but the total balance for each currency is preserved, declined and cancelled are not counted
-        # don't count declined, cancelled or error trades in totals
-
-        if ( $hash_ref->{$key}->{'tradeType'} eq 'credit' ) {
-            $balances{ $hash_ref->{$key}->{'tradeCurrency'} } += $hash_ref->{$key}->{'tradeAmount'}; # add to the currency accumulator
-        } elsif ( $hash_ref->{$key}->{'tradeType'} eq 'debit' ) {
-            $balances{ $hash_ref->{$key}->{'tradeDate'} } -=
-              $hash_ref->{$key}->{'tradeAmount'};    # subtract from the currency accumulator
-        } elsif ( $hash_ref->{$key}->{'tradeType'} eq 'balance' ) {
-            $balances{ $hash_ref->{$key}->{'tradeDate'} } +=
-              $hash_ref->{$key}->{'tradeAmount'};    # add to the currency accumulator: signed
-        }
-
-# cumulate month also, add only, to give 'volume': abs is used because balances are signed
-        $balances{"$year-$month-$hash_ref->{$key}->{'tradeCurrency'}"} += abs( $hash_ref->{$key}->{'tradeAmount'} );
-        $volumes{ $hash_ref->{$key}->{'tradeCurrency'} }++;
-    }
-
-    # phase two accumulate trading history by month and report it
-    # these aren't really -all- currencies, they're various hash keys
-    # reverse sort, most recent entries first 2005 before 2004 etc.
-
-    # maxreport can be passed in to give a 'little' sidebar display
-    my $maxreport = $fieldsref->{maxreport} || 6;
-
-    my %counts;    # count history for each currency
-
-    foreach my $currency ( reverse sort keys %balances ) {
-        next if ( $currency !~ /^\d/ );    # not a month balance record, anyway
-        $currency =~ /(\d{4})-(\d{2})-(.*)/;  # parse 2005-04-ducket for example
-             # count and report only most recent maxreport months reported
-        if ( $counts{$3} < $maxreport ) {
-            $balances{"history-$3"} .=
-              "$balances{$currency} $messages{in} $2/$1 &nbsp;&nbsp;";
-            $counts{$3}++;
-        }
-        delete $balances{$currency};
-    }
-
-    # phase three: report
-    my $record_counter;
-    foreach my $currency ( sort keys %balances ) {
-        $currency =~ s/history\-// && next;
-        my $line = join(
-            "</td><td class=\"pme-key-1\">",
-            "\u$currency",       $balances{$currency},
-            $volumes{$currency}, $balances{"history-$currency"}
-        );
-
-# kludge for debits, only substitute first class because that's the -balance- report
-# volumes are, by their nature, unsigned, just add up everything...
-# make stripey styles
-        my $row_style;
-        if ( $record_counter % 2 ) {
-            $row_style = "odd";
-        } else {
-            $row_style = "even";
-        }
-
-        $line =~ s/key-1/key-debit/ if ( $balances{$currency} < 0 );
-        $html .=
-"<tr class=\"$row_style\"><td class=\"pme-key-title\">$line</td></tr>";
-        $record_counter++;
-    }
-    my $title .= <<EOT;
-
-<tr><td class=\"pme-key-title\">$messages{currency}</td>
-<td class=\"pme-key-title\">$messages{balance}</td>
-<td class=\"pme-key-title\">$messages{trades}</td>
-<td class=\"pme-key-title\">$messages{tradevolumes}</td></tr>
-EOT
-
-    $html = "<table><tbody class=\"stripy\">$title$html</tbody></table>";
-
-    # default behaviour is to return html
-    if ( $mode eq 'html' || !length($mode) ) {
-        my $template = "result.html"
-          if ( !length( $fieldsref->{resulttemplate} ) );
-        return ( 0, '', $error, $html, $template, '' );
-    } elsif ( $mode eq 'values' ) {
-        return ( \%balances, \%volumes );
-    }
-
-}
-
-=cut
 
 =head3 show_balance_and_volume
 
-New version, more heavy lifting done in sql, sql moved to Cclitedb
-Some html remains for the moment...
+New version as of 2010, html and sql largely removed, also
+json delivery added for use as engine.
+
+FIXME: months back to be introduced as an input parameter..
 
 =cut
+
+
 
 sub show_balance_and_volume {
 
@@ -2882,10 +2750,6 @@ sub show_balance_and_volume {
 
         $total_balance{ $balance_hash_ref->{$key}->{'currency'} } +=
           $balance_hash_ref->{$key}->{'sum'};
-
-        ###$log->debug("currency: $key = $balance_hash_ref->{$key}->{'currency'} ") ;
-        ###$log->debug("sum: $key = $balance_hash_ref->{$key}->{'sum'} ") ;
-        ###$log->debug("total: $balance_hash_ref->{$key}->{'currency'}  = $total_balance{ $balance_hash_ref->{$key}->{'currency'} } ") ;
 
         if ( ( $mode eq 'html' || !length($mode) )
             && $month_counter <= $months_back )
@@ -2938,11 +2802,7 @@ EOT
           make_html_transaction_totals( \%total_balance, \%total_count, '',
             \%messages );
 
-        my $volume_table = <<EOT;
-    <table>
-    $html
-    </table>
-EOT
+        my $volume_table = "<table>$html</table>" ;
 
         return ( 0, '', $registry_error,
             "$volume_table <br/> $html_totals<hr/>",
@@ -3043,22 +2903,6 @@ EOT
 
 }
 
-sub _debug_hash_contents {
-
-    my ($fields_ref) = @_;
-    my $x;
-
-    foreach my $hash_key ( keys %$fields_ref ) {
-        $x .= "$hash_key: $fields_ref->{$hash_key}\n";
-
-    }
-    my ( $package, $filename, $line ) = caller;
-    $log->debug("pack:$package file:$filename line:$line");
-
-    $log->debug("fields: $x");
-
-    return;
-}
 
 1;
 

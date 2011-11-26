@@ -762,7 +762,7 @@ EOT
     $html</table>
 EOT
 
-    $template ||= "result.html";
+    $template ||= "transtotals.html";
 
     return ( $html, $template );
 

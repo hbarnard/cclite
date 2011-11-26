@@ -37,7 +37,7 @@ Reg 名称
 
 <td style="vertical-align: top;">
 
-<!-- cgi-bin 设置 cookie 设置，否则为路径中的注意显式路径值 -->
+<!-- cookie 设置，则路径中的注意显式路径值设置为 cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -48,7 +48,7 @@ Reg 名称
 <tr class="pme-row-1">
 
 <td title="需要超过 3 个字符、 字母、 数字和 _ 只" class="pme-key-0">
-帐户名称
+帐户名
 <br>
 
 </td>
@@ -138,7 +138,7 @@ Reg 名称
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-小镇
+镇
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ Reg 名称
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-SMS 付款凭证
+SMS 付款收据
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ SMS 付款凭证
 
 <tr class="pme-row-1">
 
-<td title="这是的公共密钥加密事务 id" class="pme-key-0">
+<td title="这是加密事务的公共密钥 id" class="pme-key-0">
 公共密钥 Id
 </td>
 
@@ -324,7 +324,7 @@ SMS 付款凭证
 
 <td class="pme-buttons">
 
-<!-- 我们删除注册表 cookie 在这里，否则它会稍后防止清洁登录 -->
+<!-- 我们删除注册表 cookie 在这里，否则它会稍后防止清洁的登录 -->
 
 <input class="pme-save"
  name="saveadd" value="创建" onClick="eraseCookie('registry');" type="submit">

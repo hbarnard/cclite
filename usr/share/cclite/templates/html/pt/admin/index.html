@@ -72,7 +72,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<script type='text/javascript' src='/javascript/ajax.upload.js'>
+<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- representar graficamente -->
@@ -94,7 +96,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- todas as formas têm o mesmo nome 'formato', evita a complexidade aqui -->
+<!-- todas as formas têm o mesmo nome 'formulário', evita a complexidade aqui -->
 
 <style type="text/css" media="screen">
 
@@ -104,7 +106,7 @@ $$fieldsref{metarefresh}
 
 <body>
 
-<!-- Essa opção transforma ligar/desligar o material de ponto decimal -->
+<!-- Essa opção ativa de ligar/desligar o material de ponto decimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -162,6 +164,10 @@ Inglês
 
 <option value='ar'>
 Árabe
+</option>
+
+<option value='bn'>
+Bengali [parcial]
 </option>
 
 <option value='zh'>
@@ -251,7 +257,7 @@ Menu de usuário
 Alterar o Status de $$fieldsref{registry}
 </a>
 
-<a class="bodytext" title="Mostrar registos de parceiro vinculado" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Mostrar registos de parceiro vinculados" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Parceiros
 </a>
 
@@ -264,7 +270,7 @@ Mostrar moedas
 </a>
 
 <a class="bodytext"title="Criar nova categoria Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Criar a categoria Ad
+Criar categoria Ad
 </a>
 $$fieldsref{installer_link}
 </div>

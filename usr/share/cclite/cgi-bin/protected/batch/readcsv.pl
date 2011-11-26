@@ -57,13 +57,18 @@ my $registry = $$cookieref{registry} ;
 # timestamp output files so that they don't get confused
 my ($numeric_date,$time) = getdateandtime(time()) ;
 
+my $language = decide_language() ;
+
+# message language now decided by decide_language, within readmessages 08/2011
+my %messages = readmessages();
+
 
 # change these two, if necessary, note that as of 2009, files are by registry
 my $csv_dir = "$configuration{csvpath}/$registry" ;    # csv directory
 
 if (-e $csv_dir && -w $csv_dir) {
 } else {
-  print "$csv_dir does not exist or is not writable\n";
+  print "$csv_dir $messages{nocsvdir}\n";
   exit 1 ;
 }
 
@@ -75,8 +80,6 @@ while ( defined( $file = readdir(DIR) ) ) {
     
     my $csv_file = "$csv_dir\/$file";
     
-    ###$log->debug("csv file is $csv_file") ;
-  
     # registry and configuration passed into this now, paths per registry etc. 10/2009
     read_csv_transactions( 'local', $registry, 'om_trades', $csv_file, $file,
         \%configuration,
@@ -84,7 +87,7 @@ while ( defined( $file = readdir(DIR) ) ) {
 
     # give the input file a 'done' extension so that it doesn't get re-processed
     system("mv $csv_file $csv_file\056done\056$numeric_date$time");
-    print "just processed $csv_file\n" ;
+    print "$messages{justprocessed} $csv_file\n" ;
 }
 
 closedir(DIR);

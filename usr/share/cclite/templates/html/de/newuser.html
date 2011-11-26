@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Reg-Name
+Reg Name
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- explizite Pfad Notenwert in Cookie festlegen, andernfalls Pfad ist für Cgi-bin festlegen. -->
+<!-- explizite Pfad Notenwert in Cookie festlegen, andernfalls Pfad liegt für Cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -48,7 +48,7 @@ Reg-Name
 <tr class="pme-row-1">
 
 <td title="Mehr als 3 Zeichen, Buchstaben, Zahlen und _ nur sein muss" class="pme-key-0">
-Kontoname
+Account-Name
 <br>
 
 </td>
@@ -108,7 +108,7 @@ E-Mail
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Anzahl/Haus-Name
+Anzahl/Haus Name
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ PIN für Handy-Transaktionen
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Pin für Handy-Transaktionen zu bestätigen
+Pin für Handy Transaktionen bestätigen
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ Pin für Handy-Transaktionen zu bestätigen
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-SMS-Zahlungseingängen
+SMS Zahlungseingänge
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ SMS-Zahlungseingängen
 
 <tr class="pme-row-1">
 
-<td title="Dies ist die öffentlichen Schlüssel-Id für verschlüsselte Transaktionen" class="pme-key-0">
+<td title="Dies ist die öffentlichen Schlüssel Id für verschlüsselte Transaktionen" class="pme-key-0">
 Öffentlichen Schlüssel-Id
 </td>
 
@@ -324,7 +324,7 @@ Vollständiger Name
 
 <td class="pme-buttons">
 
-<!-- wir hier das Registrierung-Cookie löschen, andernfalls wird es eine saubere Anmeldung später verhindern -->
+<!-- Wir löschen des Registrierung Cookies hier, sonst werde es eine saubere Anmeldung später verhindern -->
 
 <input class="pme-save"
  name="saveadd" value="Erstellen" onClick="eraseCookie('registry');" type="submit">

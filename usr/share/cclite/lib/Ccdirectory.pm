@@ -37,6 +37,7 @@ use Cclitedb;
 use Cclite;
 use Ccvalidate;
 use Ccsecure;
+use Data::Dumper ;
 
 my $VERSION = 1.00;
 @ISA    = qw(Exporter);
@@ -155,12 +156,10 @@ sub show_yellow {
   y.fromuserid = u.userLogin AND y.id = '$fieldsref->{id}')
 EOT
 
-    ###$log->debug("sqlstring is $sqlstring") ;
     # get equi-joined table
     my ( $error, $hash_ref ) = sqlraw( $class, $db, $sqlstring, 'id', $token );
-    my %report;
-    my $html;
-    my $record_ref;
+    
+    my (%report, $html, $record_ref) ;
     foreach my $hash_key ( keys %$hash_ref ) {
 
         # decimal display, if configured
@@ -172,18 +171,23 @@ EOT
         $record_ref = $hash_ref->{$hash_key};
     }
 
-    my ( $r, $m, $error, $balvol, $templ, $c ) =
-      show_balance_and_volume( $class, $db, $record_ref->{'fromuserid'},
-        'html', $token );
-    $record_ref->{'balanceandvolume'} = $balvol;
+    #FIXME: result template used if result not supplied, should always be...
+    my $template = $fieldsref->{'resulttemplate'} || "result.html";
 
+    my ( undef, undef, $registry_error,$fieldsref, undef,undef )
+    =
+      show_balance_and_volume( $class, $db, $record_ref->{'fromuserid'}, 'html', $token );
+  
+    
+    $record_ref->{'balances'} = $fieldsref->{'balances'} ;
+    $record_ref->{'volumes'}  = $fieldsref->{'volumes'}  ;
+    
     $html = "<table>$html</table>";
 
 # part of the 'new deal' html returned as default but lots of other possibilities
     if ( $fieldsref->{'mode'} eq 'html' || !length( $fieldsref->{'mode'} ) ) {
 
-        #FIXME: result template used if result not supplied, should always be...
-        my $template = $fieldsref->{'resulttemplate'} || "result.html";
+ 
         return ( "", "", "", $html, $template, $record_ref );
     } elsif ( $fieldsref->{'mode'} eq 'print' ) {
 

@@ -36,7 +36,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- Javascript βιβλιοθήκες, πρέπει να αντικαταστήστε συμπιεσμένα εκδόσεις -->
+<!-- Javascript βιβλιοθήκες, χρειάζεται να αντικαταστήστε συμπιεσμένα εκδόσεις -->
 
 <!-- jQuery στοιχεία -->
 
@@ -72,7 +72,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<script type='text/javascript' src='/javascript/ajax.upload.js'>
+<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- γραφική απεικόνιση -->
@@ -104,7 +106,7 @@ $$fieldsref{metarefresh}
 
 <body>
 
-<!-- Αυτός ο διακόπτης απενεργοποιεί on/off το δεκαδικό σημείο stuff -->
+<!-- Αυτός ο διακόπτης απενεργοποιεί ενεργοποίηση/απενεργοποίηση της υποδιαστολής stuff -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -118,7 +120,7 @@ Cclite
 </span>
 </a>
 
-<!-- Αναζήτηση για χρήστες, τη διανομή, διαφημίσεις -->
+<!-- Αναζήτηση για χρήστες, εμπόριο, διαφημίσεις -->
 
 <div class="adsearch">
 
@@ -144,13 +146,13 @@ Cclite
 
 </select>
 
-<input value="Go" class="small" type="submit" title="Ψάξτε για τη διανομή, διαφημίσεις ή χρήστες">
+<input value="Μετάβαση" class="small" type="submit" title="Ψάξτε για επαγγέλματα, διαφημίσεις ή χρήστες">
 
 </form>
 
 </div>
 
-<!-- Τέλος, του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
+<!-- τέλος του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
 
 <!-- επιλογέας έκδοση 1 -->
 
@@ -162,6 +164,10 @@ Cclite
 
 <option value='ar'>
 Αραβικά
+</option>
+
+<option value='bn'>
+Βεγγάλι [μερική]
 </option>
 
 <option value='zh'>
@@ -281,7 +287,7 @@ $$fieldsref{installer_link}
 Πιστωτικό όριο
 </a>
 
-<a title="Δημιουργία απομακρυσμένης ή τοπικής μητρώου εταίρος" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Δημιουργία απομακρυσμένης ή τοπικής μητρώου συνεργάτη" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Δημιουργία μητρώου εταίρος
 </a>
 
@@ -297,7 +303,7 @@ $$fieldsref{installer_link}
 Τροποποιήσετε $$fieldsref{registry}
 </a>
 
-<!-- τέλος του μενού bit που χρειάζεται αντικατάσταση για admin και εγκαταστήστε -->
+<!-- τέλος του μενού bit που χρειάζεται αντικατάσταση για admin και εγκατάσταση -->
 
 </div>
 

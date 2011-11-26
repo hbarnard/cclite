@@ -146,7 +146,21 @@ Toutes les 30 min
 
 <td>
 
-<input title="Obtenez les mouvements en lot comme un fichier csv : voir le manuel" type="submit" class="small" id="upload_button" value="Obtenir le fichier CSV de lot">
+<div id="upload_button">
+
+<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->
+
+<noscript>
+
+<p>
+Veuillez activer JavaScript utiliser le téléchargeur de fichier.
+</p>
+
+<!-- ou mettre un formulaire simple pour le téléchargement ici -->
+
+</noscript>
+
+</div>
 
 </td>
 
@@ -193,7 +207,7 @@ Attendre
 
 <td>
 <span id="statements">
-<a title="imprimer les relevés bancaires odt" href="/cgi-bin/protected/batch/print_statements.pl">
+<a title="imprimer des relevés de comptes bancaires odt" href="/cgi-bin/protected/batch/print_statements.pl">
 Imprimer les déclarations
 </a>
 </span>
@@ -201,7 +215,7 @@ Imprimer les déclarations
 
 <td>
 <span id="yellowpages">
-<a title="imprimer les pages jaunes odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">
+<a title="imprimer les pages jaunes d'odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">
 Imprimez des pages jaunes
 </a>
 </span>

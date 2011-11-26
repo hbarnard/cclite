@@ -613,7 +613,7 @@ my $fieldsref = \%fields;
 # show balance and volume, changed to non-hardcoded mode 2/2011
 ( $action eq 'showbalvol' )
   && (
-    ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+    ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =
 
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume(

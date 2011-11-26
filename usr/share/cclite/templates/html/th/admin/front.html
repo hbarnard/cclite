@@ -5,7 +5,7 @@
 
 <tr>
 
-<td title="เริ่มการทำงานของสคริปต์สร้างกราฟ">
+<td title="เริ่มต้นสคริปต์สร้างกราฟ">
 สร้างกราฟ
 </td>
 
@@ -19,11 +19,11 @@
 </td>
 -->
 
-<td title="เริ่มผลิต rss ฟีดสำหรับโฆษณาขนาดเล็กของสมุดหน้าเหลือง">
+<td title="เริ่มผลิตตัวดึงข้อมูล rss สำหรับโฆษณาขนาดเล็กของสมุดหน้าเหลือง">
 ตัวดึงข้อมูล RSS
 </td>
 
-<td title="เริ่มยอมรับการป้อนข้อมูลผ่าน gammu จากโทรศัพท์มือถือในเครื่อง">
+<td title="เริ่มยอมรับการป้อนข้อมูลผ่านทาง gammu จากโทรศัพท์มือถือในเครื่อง">
 ป้อนข้อมูล Gammu
 </td>
 
@@ -40,7 +40,7 @@
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-หยุดสถิติ
+หยุด Stats
 </option>
 
 <option value="5">
@@ -64,7 +64,7 @@
 <select class="small"  onchange="on_select_change('mail');" id="mail_value" >
 
 <option value="0">
-หยุดการจดหมาย
+หยุด Mail
 </option>
 
 <option value="5">
@@ -146,7 +146,21 @@
 
 <td>
 
-<input title="รับชุดธุรกรรมเป็นไฟล์ csv: เห็นด้วยตนเอง" type="submit" class="small" id="upload_button" value="รับชุดไฟล์ CSV">
+<div id="upload_button">
+
+<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->
+
+<noscript>
+
+<p>
+Please enable JavaScript เพื่อใช้แฟ้ม uploader
+</p>
+
+<!-- หรือวางฟอร์มอย่างง่ายสำหรับการอัปโหลดที่นี่ -->
+
+</noscript>
+
+</div>
 
 </td>
 
@@ -265,7 +279,7 @@ $$fieldsref{displaybatchfiles}
 และนี้
 <span id="volumes_sparkbar" class="sparkbar">
 </span>
-เป็นระดับเสียงเฉลี่ย
+ระดับเสียงเฉลี่ยได้
 </div>
 
 <table>

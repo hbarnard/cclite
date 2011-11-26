@@ -146,7 +146,21 @@ SMS を停止します。
 
 <td>
 
-<input title="バッチ トランザクションを csv ファイルとして取得: マニュアルを参照してください。" type="submit" class="small" id="upload_button" value="バッチの CSV ファイルを取得します。">
+<div id="upload_button">
+
+<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->
+
+<noscript>
+
+<p>
+ファイルのアップローダーを使用して JavaScript を有効にしてください。
+</p>
+
+<!-- またはアップロードするための簡単なフォームをここに -->
+
+</noscript>
+
+</div>
 
 </td>
 
@@ -193,7 +207,7 @@ SMS を停止します。
 
 <td>
 <span id="statements">
-<a title="odt の銀行のステートメントを印刷します。" href="/cgi-bin/protected/batch/print_statements.pl">
+<a title="odt 銀行取引明細書を印刷します。" href="/cgi-bin/protected/batch/print_statements.pl">
 Print ステートメント
 </a>
 </span>

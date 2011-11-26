@@ -272,6 +272,15 @@ transactions=transactions
 cclitecfinsecure=cclite.cf is writable, this is very insecure, please change
 ccinstallinsecure=ccinstall.cgi present and executable, this is very insecure, please remove
 ccsoapserverinsecure=ccserver.cgi present and executable, this is insecure, please remove unless used
+
+# uploads etc. just converted to multilingual
+justprocessed=Just processed
+nocsvdir=does not exist or is not writable
+fileempty=File Empty
+filenotuploaded=File Not Uploaded
+filetoolarge=File is too large
+fileuploaded=File Uploaded
+
 # javascript literals
 js-lgoff=Logoff
 js-user=Cclite user
@@ -302,6 +311,8 @@ js-japanese=Japanese
 js-greek=Greek
 js-arabic=Arabic
 js-spanish=Spanish
+js-bengali=Bengali
+js-korean=Korean
 js-searchusers=Search Users
 js-searchads=Search Ads
 js-searchtrades=Search Trades

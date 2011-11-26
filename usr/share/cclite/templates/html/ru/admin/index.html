@@ -36,7 +36,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- JavaScript библиотеки, нужно обычную сжатые версии -->
+<!-- JavaScript библиотеки, необходимо обычную сжатые версии -->
 
 <!-- jQuery элементы -->
 
@@ -72,10 +72,12 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<script type='text/javascript' src='/javascript/ajax.upload.js'>
+<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
-<!-- Построение графа -->
+<!-- графический -->
 
 <script  src="/javascript/raphael.js" type="text/javascript" >
 </script>
@@ -131,7 +133,7 @@ Cclite
 <select id="search_type" class="small" name="search_type">
 
 <option selected value='trade'>
-Сделки
+Операции
 </option>
 
 <option value='user'>
@@ -144,15 +146,15 @@ Cclite
 
 </select>
 
-<input value="Перейти" class="small" type="submit" title="Ищите торгах, объявлений или пользователей">
+<input value="Го" class="small" type="submit" title="Ищите торгов, объявления или пользователей">
 
 </form>
 
 </div>
 
-<!-- конец поля Поиск Автозаполнение -->
+<!-- конец поля поиска автозаполнения -->
 
-<!-- язык селектор версии 1 -->
+<!-- Выбор версии 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -162,6 +164,10 @@ Cclite
 
 <option value='ar'>
 арабский
+</option>
+
+<option value='bn'>
+Бенгальский [частично]
 </option>
 
 <option value='zh'>
@@ -177,7 +183,7 @@ Cclite
 </option>
 
 <option value='fr'>
-Francais
+Французский
 </option>
 
 <option value='es'>
@@ -237,7 +243,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 </div>
 
-<!-- конец логотип -->
+<!-- конец логотипа -->
 
 <!--- this bit needs replacing by the specific admin and install menus -->
 
@@ -259,12 +265,12 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 Создать валюту
 </a>
 
-<a class="bodytext" title="Показать валюты в" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Показать валют
+<a class="bodytext" title="Показать валют" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Показать валюты
 </a>
 
 <a class="bodytext"title="Создать новую категорию Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Создайте объявление категории
+Создать объявление
 </a>
 $$fieldsref{installer_link}
 </div>
@@ -277,7 +283,7 @@ $$fieldsref{installer_link}
 Реестр остатков
 </a>
 
-<a title="Создайте правило или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+<a title="Создание правила или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Кредитный лимит
 </a>
 
@@ -285,8 +291,8 @@ $$fieldsref{installer_link}
 Создание реестра партнера
 </a>
 
-<a title="Применить сервисный сбор для всех учетных записей" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Применение плата за обслуживание
+<a title="Применить ко всем счетам плата за обслуживание" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Применяются услуги
 </a>
 
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
@@ -297,7 +303,7 @@ $$fieldsref{installer_link}
 Изменить $$fieldsref{registry}
 </a>
 
-<!-- конец меню бит, что требует замены для администратора и установить -->
+<!-- конец меню бит, который требует замены для администратора и установить -->
 
 </div>
 
@@ -313,7 +319,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- конец contentleft: левой стороне -->
+<!-- конец contentleft: левой -->
 
 <div class="contentright" >
 

@@ -72,7 +72,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<script type='text/javascript' src='/javascript/ajax.upload.js'>
+<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- rappresentazione grafica -->
@@ -118,7 +120,7 @@ Cclite
 </span>
 </a>
 
-<!-- ricerca per gli utenti, mestieri, annunci -->
+<!-- ricerca di utenti, mestieri, annunci -->
 
 <div class="adsearch">
 
@@ -162,6 +164,10 @@ Inglese
 
 <option value='ar'>
 Arabo
+</option>
+
+<option value='bn'>
+Bengali [partial]
 </option>
 
 <option value='zh'>
@@ -248,7 +254,7 @@ Menu utente
 </a>
 
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-Cambiare lo Status di $$fieldsref{registry}
+Cambiare Status di $$fieldsref{registry}
 </a>
 
 <a class="bodytext" title="Visualizza registri Partner collegato" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
@@ -285,7 +291,7 @@ Limite di credito
 Creare Partner del Registro di sistema
 </a>
 
-<a title="Applicare il costo del servizio per tutti gli account" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+<a title="Applicare il costo del servizio a tutti gli account" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 Applicare il costo del servizio
 </a>
 

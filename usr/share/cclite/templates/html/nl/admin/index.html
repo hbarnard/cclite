@@ -72,7 +72,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<script type='text/javascript' src='/javascript/ajax.upload.js'>
+<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- Graphing -->
@@ -112,7 +114,7 @@ $$fieldsref{usedecimals}
 
 <div class="topbar">
 
-<a title="Huis" href="/cgi-bin/cclite.cgi">
+<a title="Home" href="/cgi-bin/cclite.cgi">
 <span class="titletext">
 Cclite
 </span>
@@ -144,7 +146,7 @@ Advertenties
 
 </select>
 
-<input value="Gaan" class="small" type="submit" title="Kijk voor handel, advertenties of gebruikers">
+<input value="Gaan" class="small" type="submit" title="Zoek naar trades, advertenties of gebruikers">
 
 </form>
 
@@ -162,6 +164,10 @@ Engels
 
 <option value='ar'>
 Arabisch
+</option>
+
+<option value='bn'>
+Bengali [gedeeltelijke]
 </option>
 
 <option value='zh'>
@@ -255,7 +261,7 @@ Status van wijzigen $$fieldsref{registry}
 Partners
 </a>
 
-<a class="bodytext" title="Maken van een nieuwe munt" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+<a class="bodytext" title="Maak een nieuwe munt" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
 Valuta maken
 </a>
 
@@ -285,8 +291,8 @@ Kredietlimiet
 Register Partner maken
 </a>
 
-<a title="Administratiekosten van toepassing op alle Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Administratiekosten van toepassing
+<a title="Service Charge van toepassing op alle Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Servicekosten toepassen
 </a>
 
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
@@ -341,11 +347,11 @@ $$fieldsref{righthandside}
 <div id="footer" style="float:bottom" class="smallgraytext" align="center">
 
 <a href="/cgi-bin/cclite.cgi">
-Huis
+Home
 </a>
 |
 <a href="#">
-Neem contact op met ons
+Contacteer ons
 </a>
 <br />
 

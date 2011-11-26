@@ -36,7 +36,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- 자바 스크립트 라이브러리, subsitute 압축 버전 필요가 -->
+<!-- subsitute 압축 버전은 자바 스크립트 라이브러리, 비 추천 표 필요가. -->
 
 <!-- jquery 항목 -->
 
@@ -72,7 +72,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<script type='text/javascript' src='/javascript/ajax.upload.js'>
+<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- 그래프 -->
@@ -94,7 +96,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- 모든 양식 같은 이름 '양식', 여기에 복잡성을 피할 수 -->
+<!-- 모든 형태의 동일한 이름 '양식', 여기에 복잡성을 피할 수 -->
 
 <style type="text/css" media="screen">
 
@@ -104,7 +106,7 @@ $$fieldsref{metarefresh}
 
 <body>
 
-<!-- 이 스위치는 on/off 소수점 물건 설정 -->
+<!-- 이 스위치는 소수점 물건 켜거나 설정 -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -118,7 +120,7 @@ Cclite
 </span>
 </a>
 
-<!-- 사용자, 무역, 광고에 대 한 검색 -->
+<!-- 사용자, 무역, 광고 검색 -->
 
 <div class="adsearch">
 
@@ -131,7 +133,7 @@ Cclite
 <select id="search_type" class="small" name="search_type">
 
 <option selected value='trade'>
-거래
+트랜잭션
 </option>
 
 <option value='user'>
@@ -164,6 +166,10 @@ Cclite
 아랍어
 </option>
 
+<option value='bn'>
+벵골어 [부분]
+</option>
+
 <option value='zh'>
 중국어
 </option>
@@ -177,7 +183,7 @@ Cclite
 </option>
 
 <option value='fr'>
-프랑
+프랑 세
 </option>
 
 <option value='es'>
@@ -297,7 +303,7 @@ $$fieldsref{installer_link}
 수정 $$fieldsref{registry}
 </a>
 
-<!-- 관리자에 대 한 교체를 해야 하 고 설치 메뉴 비트의 끝 -->
+<!-- 관리자에 대 한 교체를 해야 하 고 설치 하는 메뉴 비트의 끝 -->
 
 </div>
 
