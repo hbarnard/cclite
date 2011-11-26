@@ -367,7 +367,7 @@ sub sqlraw_return_array {
 
     # remove all modification attempts!
     $sqlstring =~ s/delete|insert|update//gi;
-
+      
     my ( $registryerror, $dbh ) = _registry_connect( $db, $token );
 
     # cumulate any detail error with registry error 10/2009
@@ -1719,84 +1719,35 @@ EOT
     } elsif ( $graph_type = 'volume' ) {
 
         $sql_string = <<EOT;
-SELECT tradeStamp, unix_timestamp(tradeStamp), count(*), substr(tradeStamp,$slice) FROM om_trades o  
+SELECT tradeStamp, unix_timestamp(tradeStamp), count(*)/2, substr(tradeStamp,$slice) FROM om_trades o  
    where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
    group by substr(tradeStamp,$slice) ORDER BY tradeStamp  ;
 EOT
 
     }
 
-    $log->debug("sqlstring is: $sql_string");
-    my $max_quantity = undef;    # used to scale the graph
+   ###print "$sql_string $seconds $from_x_hours_back\n" ;
+
     my ( $registry_error, $array_ref ) =
       sqlraw_return_array( $class, $db, $sql_string, undef, $token );
 
-    my $previous_hour;
-    my $previous_slice;
-    my $counter = 0;
+    my @chart_array ;
 
     foreach my $row (@$array_ref) {
-
-        # tradestamp format 2011-08-10 13:25:11
-        my $hours_difference;
-
-        # fill in blanks in arrays, if no activity...
-        if ( length($previous_hour) ) {
-            my $seconds_difference = abs( $$row[1] - $previous_hour );
-            $hours_difference = int( $seconds_difference / 3600 ) - 2;
-        }
-
-        if ( $hours_difference > 0 && length($previous_hour) ) {
-            my $x;
-
-            my ( $year, $month, $day, $hours ) =
-              ( $previous_slice =~ /^(\d{4})\-(\d{2})\-(\d{2})\s+(\d{2})/ );
-            ### $log->debug("$year,$month,$day,$hours r:$$row[3]") ;
-            for ( $x = $counter ;
-                $x <= ( $counter + $hours_difference ) ; $x++ )
-            {
-                my $mark = '';
-                $hours == 24 ? ( $hours = 1 ) : $hours++;
-                $hours = _format_number($hours);
-
-                $mark = '--' if ( $hours == 24 );
-                $times[$x] =
-                  "\"$mark $hours\"";    # fill in blanks, 0 for the moment
-                $values[$x] = 0;         # fill in blanks 0 for the moment
-            }    #end for
-
-            $counter = $counter + $hours_difference + 1;
-
-        }    #end if real hours difference
-
-        my $this_value;
-
-# this is because there is a debit and credit for each movement, so that the system balances
-# therefore transaction volume equals sum of entries/2
-        ( $graph_type eq 'volume' )
-          ? ( $this_value = int( $row->[2] / 2 ) )
-          : ( $this_value = $row->[2] );
-
-        $max_quantity = $this_value
-          if ( $this_value > $max_quantity );
-
-        $values[$counter] = $this_value;
-
-        # some value has been recorded...
-        $are_there_values = 1 if ( $this_value > 0 );
-
-        $times[$counter] = "\"$$row[3]\"";
-        $previous_hour =
-          $$row[1];  # for unix seconds comparison and insertion of empty points
-        $previous_slice =
-          $$row[3];  # for unix seconds comparison and insertion of empty points
-        $counter++;
-
-    }    # end foreach
-
-    #
-    return ( \@times, \@values, $max_quantity, $are_there_values );
+		
+	    my $hash_ref = {
+                        time  => $row->[1],  # must be a unix time_t
+                        value => $row->[2],   # the data value
+                        color => 'ff0000',   # optional, used for this one point
+                       } ;
+       ###print "values: $row->[1] $row->[2] \n"  ;
+       push @chart_array, $hash_ref ;
+    }      
+    return \@chart_array ;
 }
+
+
+
 
 1;
 

@@ -140,18 +140,19 @@ Upload/process Batch Transactions
 <div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
 <br/>
 
-        
-<div id="stats_summary">This is the average transaction size <span id="average_sparkline" class="sparkline"></span> and this <span id="volumes_sparkbar" class="sparkbar"></span> is the average volume.</div>
+
 
 <table> 
  <tr>
   <td>
-   <h4><span id="transaction_vol_title"></span> <span id="update_date1"></span> </h4>
-    <div id="volumes_bargraph" class="linegraph"></div>
+   <h4><span id="transaction_vol_title"></span> <span id="update_date"></span> </h4>
+    <img src="/images/charts/$$fieldsref{registry}/transactions.png" id="transactions" />
   </td>
+ </tr>
+ <tr>  
   <td>
    <h4><span id="averages_title"></span> <span id="update_date2"></span> </h4>
-   <div id="average_bargraph" class="linegraph"></div>
+   <img src="/images/charts/$$fieldsref{registry}/volumes.png" id="volumes" />
   </td>
  </tr>
 </table>

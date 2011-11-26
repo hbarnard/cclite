@@ -1218,3 +1218,10 @@
 2011/11/23 19:44:02 DEBUG> (eval 1):91 main:: - success
 2011/11/23 19:44:51 DEBUG> (eval 1):91 main:: - success
 2011/11/23 19:46:13 DEBUG> (eval 1):91 main:: - success
+2011/11/26 06:50:43 WARN> Cclite.pm:2846 Cclite::get_registry_status - login failed for  at dddeet : registry record not found
+2011/11/26 06:51:56 DEBUG> Cclitedb.pm:1729 Cclitedb::get_raw_stats_data - sqlstring is:  SELECT tradeStamp, unix_timestamp(tradeStamp), format((avg(tradeAmount)/100),2), substr(tradeStamp,1,13) FROM om_trades o  
+   where unix_timestamp(tradeStamp) >= (unix_timestamp()-172800) 
+   group by substr(tradeStamp,1,13) ORDER BY tradeStamp ;
+2011/11/26 06:51:56 DEBUG> Cclitedb.pm:1729 Cclitedb::get_raw_stats_data - sqlstring is: SELECT tradeStamp, unix_timestamp(tradeStamp), count(*), substr(tradeStamp,1,13) FROM om_trades o  
+   where unix_timestamp(tradeStamp) >= (unix_timestamp()-172800) 
+   group by substr(tradeStamp,1,13) ORDER BY tradeStamp  ;

@@ -132,68 +132,6 @@ get statistics for graphs....
 
 var stats ;
 
-function getstats() {
-
-
-   $.ajax({
-             method: 'get',
-             url: '/cgi-bin/cclite.cgi?action=getstats',
-             dataType:'json',
-             async: false,
-             success: function (stats) {
-                date = new Date() ;
-                date_string = date.toLocaleString() ;
-
-                // show the sparklines...
-                $('#stats_summary').show() ;
-
-                // clear out the last one
-                $('#volumes_bargraph').html('') ;
-                $('#average_bargraph').html('') ;
-                $('#volumes_sparkbar').html('') ;
-                $('#average_sparkline').html('') ;
-
-                // give some height
-                $('#volumes_bargraph').height(600) ;
-                $('#average_bargraph').height(600) ;
-
-                $('#transaction_vol_title').html('Transaction Volume');
-                $('#averages_title').html('Average Transaction Size');
-
-	      
-                if (stats.message == 'ok') {
-                 new Ico.SparkLine(document.getElementById('average_sparkline'), stats.data[1].avg , { width: 30, height: 14, background_colour: '#ccc' });
-                 new Ico.SparkBar(document.getElementById( 'volumes_sparkbar'), stats.data[3].vols, { width: 30, height: 14, background_colour: '#ccc' });
-                 new Ico.HorizontalBarGraph(document.getElementById('volumes_bargraph'), stats.data[3].vols, { labels: stats.data[0].vtimes });
-                 new Ico.HorizontalBarGraph(document.getElementById('average_bargraph'), stats.data[1].avg, { labels: stats.data[2].stimes });
-			   
-			   } else {
-				$('#volumes_bargraph').html('No data for this period')  ;
-				$('#average_bargraph').html('No data for this period')  ;
-			   }
-
-               
-                 $('#update_date1').html(date_string);
-                 $('#update_date2').html(date_string);
-
-           }} //end success function
-         ); // end ajax
-
-//new Ico.SparkLine($('sparkline'), [21, 41, 32, 1, 10, 5, 32, 10, 23], { width: 30, height: 14, background_colour: '#ccc' });
-
-// new Ico.SparkBar($('sparkline_2'), [1, 5, 10, 15, 20, 15, 10, 15, 30, 15, 10], { width: 30, height: 14, background_colour: '#ccc' });
-//new Ico.SparkLine($('sparkline_3'), [10, 1, 12, 3, 4, 8, 5], { width: 60, height: 14, highlight: { colour: '#ff0000' }, acceptable_range: [5, 9], background_colour: '#ccc' });
-
-/* bargraph for volumes */
-//new Ico.BarGraph($('bargraph_6'), [2, 5, 1, 10, 15, 33, 20, 25, 1], { labels: ['label one', 'label two', 'label three', 'label four', 'label five', 'label six', 'label seven', 'label eight', 'label nine'] });
-
-/* line graph for comparative plots */
-//new Ico.LineGraph($('linegraph'), { one: [30, 5, 1, 10, 15, 18, 20, 25, 1], two: [10, 9, 3, 30, 1, 10, 5, 33, 33], three: [5, 4, 10, 1, 30, 11, 33, 12, 22]}, { markers: 'circle', colours: { one: '#990000', two: '#009900', three: '#000099'}, labels: ['one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'], meanline: true, grid: true});
-
-} // end of getstats
-
-
- 
 
  /*   build selects for language choice at top an
 
@@ -294,6 +232,46 @@ function change_install(id) {
 
 
 }
+
+/* get stats as this is somewhat specialised */
+
+function get_stats (type,batch_path) {
+	
+     //alert('batch path ' + batch_path) ;
+     try {
+         
+         processing = messages.get("processing");
+         waiting = messages.get("waiting");
+
+         selector = '#' + eval("type");
+         status_selector = '#' + eval("type") + '_status';
+         $(selector).html(processing + ' ' + type);
+         $(selector).css('background-color', 'green');
+
+          $.ajax({
+              method: 'get',
+              url: batch_path,
+              dataType: 'text',
+              success: function (data) {
+                  $(selector).html(messages.get("running") + ' ' + type);
+                   $(status_selector).html(data);
+             }
+          });
+  
+         $(selector).html(waiting + ' ' + type);
+     } catch (error) {
+         alert(messages.get('erroris') + ' ' + error) ;
+     }
+	         vol = document.getElementById('volumes').src;
+             trans = document.getElementById('transactions').src;
+             $("#volumes").attr("src", "vol?timestamp=" + new Date().getTime());
+             $("#transactions").attr("src", "trans?timestamp=" + new Date().getTime());
+
+             document.getElementById('volumes').src = vol + '?' + (new Date()).getTime();
+             document.getElementById('transactions').src = trans + '?' + (new Date()).getTime(); 	
+	
+}	
+
 
  /* hide all the complex options, first of all */
 
@@ -398,9 +376,7 @@ changed into milliseconds here */
              // window[interval_id] = setInterval( "do_task('type', 'batch_path')", window[interval]) ;
              // this ugly thing is something to do with scoping in setInterval, go figure, I can't!
              if (type == 'stats') {
-                 // now changed to the Ico/Javascript based getstats! 09/2011, do stats straight away...
-                 getstats() ;
-                 window[interval_id] = setInterval("do_task( 'stats', '')", window[interval]);
+                 window[interval_id] = setInterval("get_stats( 'stats', '/cgi-bin/protected/graphs/graph.pl')", window[interval]);
              } else if (type == 'rss') {
                  window[interval_id] = setInterval("do_task( 'rss', '/cgi-bin/protected/batch/writerss.pl')", window[interval]);
              } else if (type == 'mail') {
@@ -442,8 +418,6 @@ can be used to transmit errors from the script into the page */
          $(selector).html(processing + ' ' + type);
          $(selector).css('background-color', 'green');
 
-         // stats has its own function now...
-         if (type != 'stats') {
           $.ajax({
               method: 'get',
               url: batch_path,
@@ -453,16 +427,11 @@ can be used to transmit errors from the script into the page */
                    $(status_selector).html(data);
              }
           });
-         }
+       
          // reload graphs for stats only
          if (type == 'stats') {
-             // why doesn't jquery selection work here? sigh   
-             /*
-             vol = document.getElementById('volumes').src;
-             trans = document.getElementById('transactions').src;
-             document.getElementById('volumes').src = vol + '?' + (new Date()).getTime();
-             document.getElementById('transactions').src = trans + '?' + (new Date()).getTime(); */
-             getstats() ;
+  
+             
          }
 
          $(selector).html(waiting + ' ' + type);
@@ -488,6 +457,9 @@ can be used to transmit errors from the script into the page */
     messages = readmessages();
     
     setInterval('blinktext()',10000) ;
+    
+    // do stats as loading
+    get_stats( 'stats', '/cgi-bin/protected/graphs/graph.pl') ;
     
     // searchbox_helper_strings (messages) ;
     // language selects in target language from literals

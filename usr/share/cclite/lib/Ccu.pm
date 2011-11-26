@@ -32,6 +32,7 @@ use Cccookie;
 use Cwd;
 use vars qw(@ISA @EXPORT);
 use Exporter;
+use Log::Log4perl;
 
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
@@ -297,7 +298,7 @@ EOT
     # as of 07/2011 this is switched off, if free form tags are allowed
 
     if (   $pagename =~ /yellowpages/
-        && length( $cookieref->{'registry'} )
+        && length( $cookieref->{'ruse Log::Log4perl;egistry'} )
         && $configuration{'usetags'} ne 'yes' )
     {
 
