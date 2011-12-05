@@ -37,7 +37,6 @@ use Cclitedb;
 use Cclite;
 use Ccvalidate;
 use Ccsecure;
-use Data::Dumper ;
 
 my $VERSION = 1.00;
 @ISA    = qw(Exporter);
@@ -90,8 +89,6 @@ sub add_yellow {
 
         foreach my $tag (@tags) {
 
-            ###print "$tag<br/>\n" ;
-
             $tag = lc($tag);    # make canonical lower case...
 
             # free form tags are category 9999
@@ -114,7 +111,8 @@ sub add_yellow {
 
         }
 
-        # move tags to keywords field...
+        #FIXME: this isn't a great way of storing tags 
+        #       move tags to keywords field...
         $fieldsref->{'keywords'} = $fieldsref->{'yellowtags'};
         $fieldsref->{'category'} = '9999';
         undef $fieldsref->{'yellowtags'};
@@ -156,10 +154,12 @@ sub show_yellow {
   y.fromuserid = u.userLogin AND y.id = '$fieldsref->{id}')
 EOT
 
+    ###$log->debug("sqlstring is $sqlstring") ;
     # get equi-joined table
     my ( $error, $hash_ref ) = sqlraw( $class, $db, $sqlstring, 'id', $token );
-    
-    my (%report, $html, $record_ref) ;
+    my %report;
+    my $html;
+    my $record_ref;
     foreach my $hash_key ( keys %$hash_ref ) {
 
         # decimal display, if configured
@@ -171,23 +171,18 @@ EOT
         $record_ref = $hash_ref->{$hash_key};
     }
 
-    #FIXME: result template used if result not supplied, should always be...
-    my $template = $fieldsref->{'resulttemplate'} || "result.html";
+    my ( $r, $m, $error, $balvol, $templ, $c ) =
+      show_balance_and_volume( $class, $db, $record_ref->{'fromuserid'},
+        'html', $token );
+    $record_ref->{'balanceandvolume'} = $balvol;
 
-    my ( undef, undef, $registry_error,$fieldsref, undef,undef )
-    =
-      show_balance_and_volume( $class, $db, $record_ref->{'fromuserid'}, 'html', $token );
-  
-    
-    $record_ref->{'balances'} = $fieldsref->{'balances'} ;
-    $record_ref->{'volumes'}  = $fieldsref->{'volumes'}  ;
-    
     $html = "<table>$html</table>";
 
 # part of the 'new deal' html returned as default but lots of other possibilities
     if ( $fieldsref->{'mode'} eq 'html' || !length( $fieldsref->{'mode'} ) ) {
 
- 
+        #FIXME: result template used if result not supplied, should always be...
+        my $template = $fieldsref->{'resulttemplate'} || "result.html";
         return ( "", "", "", $html, $template, $record_ref );
     } elsif ( $fieldsref->{'mode'} eq 'print' ) {
 
@@ -308,6 +303,7 @@ sub show_tag_cloud {
     my $interval = 1;    # one week for displaying items as new...
     my $registry_error;
     my $width_count = 1;
+    my $status   ;  # blank entry used for delivering json
     my $max_depth   = $fieldsref->{maxdepth}
       || 5;
     my $max_entries = 100;
@@ -342,7 +338,15 @@ sub show_tag_cloud {
 
     }
 
-    # phase 2 make the cloud either json or html
+    # json raw cloud
+    if ( $fieldsref->{'mode'} eq 'json' ) {
+        my ($json) = deliver_remote_data( $db, 'om_categories', $registry_error,
+            \%keyword_index, $status,  $token );
+        return $json;
+    }
+    
+
+    # html cloud for right-hand-side    
     my $depth = 1;
     my $cloud;
 
@@ -351,9 +355,9 @@ sub show_tag_cloud {
         $tag =~ s/\s+$//g;
         $keyword_index{$tag} =~ s/\,$//;
 
-        #FIXME: scale factor of 200 shouldn't be hardcoded
-        my $size = int( $keyword_count{$tag} / $total_count * 200 );
-
+        my $size = int( $keyword_count{$tag} / $total_count * 100 );
+        ### print "$keyword_count{$tag} $total_count $size<br/>" ;
+        $size = 50 if ( $size < 50 );
         $cloud .= <<EOT;
     <span class="$keyword_type{$tag}" style="font-size:$size%"><a title="get listing by category: $messages{'count'} $keyword_count{$tag}: $messages{$keyword_type{$tag}}" href="/cgi-bin/cclite.cgi?action=showyellowbycat&string1=$tag">
          $tag</a></span> 
@@ -368,12 +372,7 @@ EOT
 
     }
 
-    # json raw cloud
-    if ( $fieldsref->{'mode'} eq 'json' ) {
-        my ($json) = deliver_remote_data( $db, 'om_categories', $registry_error,
-            \%keyword_index, $token );
-        return $json;
-    }
+
 
     return ( $registry_error, $cloud );
 

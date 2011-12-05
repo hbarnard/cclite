@@ -20,16 +20,32 @@
 
 print STDOUT "Content-type: text/html\n\n";
 
-#my $data = join( '', <DATA> );
-#eval $data;
-#if ($@) {
-#    print $@;
-#    exit 1;
-#}
-#__END__
+
+=head3 make_column_headings
+
+Make multilingual column headings
+
+=cut
+
+sub make_column_headings {
+
+    my ($messages_ref) = @_ ;
+
+my $column_headers_hash_ref ;
+	
+$column_headers_hash_ref->{'Category'}    = $messages_ref->{'category'} ;
+$column_headers_hash_ref->{'Mobile'}      = $messages_ref->{'mobile'};
+$column_headers_hash_ref->{'Fixed'}       = $messages_ref->{'fixed'} ;
+$column_headers_hash_ref->{'Subject'}     = $messages_ref->{'subject'};
+$column_headers_hash_ref->{'Description'} = $messages_ref->{'description'} ;
+$column_headers_hash_ref->{'Price'}       = $messages_ref->{'price'} ;
+	
+return $column_headers_hash_ref ;
+
+}
+
 
 =head3 print_yellow_dir
-
 
 Main routine for printing the directory...
 
@@ -77,7 +93,7 @@ sub print_yellow_dir {
 
         my $current_table = 't' . $table_counter;
 
-        # experimental: show decimal places for price
+        # show decimal places for price
         if ( $configuration{usedecimals} eq 'yes' ) {
             $yellowdirectory_hash_ref->{$key}->{'price'} = sprintf "%.2f",
               ( $yellowdirectory_hash_ref->{$key}->{'price'} / 100 );
@@ -105,8 +121,7 @@ sub print_yellow_dir {
             $price_expression );
 
         # testing only
-        print "$key: $yellowdirectory_hash_ref->{$key}->{'sortal'} \n";
-
+        ### print "$key: $yellowdirectory_hash_ref->{$key}->{'sortal'} \n";
         ### $document->cellValue( $current_table, $item_counter, 5,
         ###     $yellowdirectory_hash_ref->{$key}->{'sortal'} );
 
@@ -158,7 +173,6 @@ sub paragraph {
 This is the first cut printed directory for yellowpages, part of an attempt to provide some low tech
 add-ons to cclite, in the tradition of transition-style technology.
 
-
 =cut
 
 use lib "../../../lib";
@@ -183,26 +197,24 @@ our %configuration = readconfiguration();
 my %fields = cgiparse();
 
 my $cookieref = get_cookie();
-my $registry  = $$cookieref{registry} || $fields{'registry'} || 'dalston';
-my $language  = $$cookieref{language} || $fields{'language'} || 'en';
+my $registry  = $cookieref->{registry} ;
+our $language = decide_language() ;
+
+# message language now decided by decide_language, within readmessages 08/2011
+our %messages = readmessages();
 
 # lines in one page of table
 my $table_lines = 40;
 
-# where to create the open-office output
-my $output_file = "/home/hbarnard/cclite-support-files/testing/directory.odt";
+# correct path for output file
+my $output_file = "$configuration{'printdir'}/$registry/directory.${language}.odt" ;
 
 # title of each page
-my $title = "Yellow Pages";
+my $title = $messages{'om_yellowpages'};
 
 # headings for table columns
-my $column_headers_hash_ref;
-$column_headers_hash_ref->{'Category'}    = 'Category';
-$column_headers_hash_ref->{'Mobile'}      = 'Mobile';
-$column_headers_hash_ref->{'Fixed'}       = 'Fixed';
-$column_headers_hash_ref->{'Subject'}     = 'Subject';
-$column_headers_hash_ref->{'Description'} = 'Description';
-$column_headers_hash_ref->{'Price'}       = 'Price';
+my $column_headers_hash_ref = make_column_headings(\%messages) ;
+
 
 my ( $token, $offset, $limit );
 

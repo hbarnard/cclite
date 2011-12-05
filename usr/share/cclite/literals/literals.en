@@ -281,6 +281,20 @@ filenotuploaded=File Not Uploaded
 filetoolarge=File is too large
 fileuploaded=File Uploaded
 
+# Statements Print
+moneyin=Money In
+moneyout=Money Out
+statement=Statement
+previousbalancesare=Previous Balances Are
+
+# Yellow Pages Print
+category=Category
+mobile=Mobile
+fixed=Fixed
+subject=Subject
+description=Description
+price=Price
+
 # javascript literals
 js-lgoff=Logoff
 js-user=Cclite user

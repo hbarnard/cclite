@@ -921,6 +921,7 @@ sub change_language {
     my $domain = $configuration{'domain'};
     my $registry_error;
     my $path = "/";
+    my $status ; # blank status needed for json delivery
 
     my %cookie;
     $cookie{'language'} = $fieldsref->{'language'};
@@ -944,7 +945,7 @@ sub change_language {
 # only refresh is [mis]used to carry json payload if json is being returned 2/2011
     if ( $fieldsref->{'mode'} eq 'json' ) {
         my ($json) =
-          deliver_remote_data( $db, 'om_users', $registry_error, $fieldsref,
+          deliver_remote_data( $db, 'om_users', $registry_error, $fieldsref, $status,
             $token );
         return $json;
     }
@@ -1951,6 +1952,7 @@ sub get_many_items {
         $error,         $row,     $html,  $home
     );
     my $total_count;
+    my $status ; # blank status used in josn delivery 11/2011
 
     # for the present deliver all trade types
     my $trade_type = "all";
@@ -1994,7 +1996,7 @@ sub get_many_items {
     # only refresh is [mis]used to carry json payload if json is being returned 2/2011
     if ( $fieldsref->{'mode'} eq 'json' ) {
         my ($json) =
-          deliver_remote_data( $db, $table, $registry_error, $hash_ref,
+          deliver_remote_data( $db, $table, $registry_error, $hash_ref, $status,
             $token );
         return $json;
     }
@@ -2737,6 +2739,7 @@ sub show_balance_and_volume {
     my %total_count;          # by currency
     my %total_volume;         # absolute value cumulated trades
     my %total_volume_html;    # absolute value cumulated trades
+    my $status ;              # blank status used for json delivery 11/2011
 
     my ( $registry_error, $volume_hash_ref, $balance_hash_ref ) =
       get_transaction_totals( $class, $db, $user, $months_back, $token );
@@ -2814,10 +2817,10 @@ EOT
 
 # only refresh is [mis]used to carry json payload if json is being returned 2/2011
         my $json = deliver_remote_data( $db, 'om_transactions', $registry_error,
-            $balance_hash_ref, $token );
+            $balance_hash_ref, $status, $token );
         my $json1 .=
           deliver_remote_data( $db, 'om_transactions', $registry_error,
-            $volume_hash_ref, $token );
+            $volume_hash_ref, $status, $token );
         return "$json|$json1";    # delivers two structures though....
     }
 

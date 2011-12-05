@@ -1,4 +1,4 @@
-<form id="form">
+
 <table>
 
 <tr>
@@ -32,6 +32,7 @@ Upload/process Batch Transactions
 <tr>
 
 <td>
+<form id="form">
    <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 	<option value="0"> Stop Stats</option>
 	<option value="5">Every 5min</option>
@@ -90,16 +91,7 @@ Upload/process Batch Transactions
   </td>
 
 <td>
-
-
-	<div id="upload_button">
-	<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->		
-		<noscript>			
-			<p>Please enable JavaScript to use file uploader.</p>
-			<!-- or put a simple form for upload here -->
-		</noscript>         
-	</div>
-
+<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button" value="Get Batch CSV File"> 	
 </td>
 
 </tr>
@@ -113,11 +105,38 @@ Upload/process Batch Transactions
     <td><span id="gammu">Wait</span></td>
    <td></td>
 </tr>    
-
+</form>
 
 <tr>
-    <td><span id="statements"><a title="print odt bank statements" href="/cgi-bin/protected/batch/print_statements.pl">Print Statements</a></span></td>
-    <td><span id="yellowpages"><a title="print odt yellow pages" href="/cgi-bin/protected/batch/print_yellowpages.pl">Print Yellowpages</a></span></td>
+    <td><span id="statements">
+	<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+		<select class="small" name="month">
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		<option value="6">6</option>
+		<option value="7">7</option>
+		<option value="8">8</option>
+		<option value="9">9</option>
+		<option value="10">10</option>
+		<option value="11">11</option>
+		<option value="12">12</option>						
+		</select>
+		<input type="text" name="year" size="4" maxlength="4">
+		<input type="text" name="username" size="10">
+		<input type="submit" class="small" name="go" value="Go">
+		</form>
+		</span>
+	</td>
+    
+    <td><span id="yellowpages">
+	    <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
+		<input class="small" type="submit" name="go" value="Go">
+		</form>
+		</span>
+	</td>
     <td><span id=""></span></td>
     <td><span id=""></span></td> 
     <td><span id=""></span></td>
@@ -128,7 +147,6 @@ Upload/process Batch Transactions
 
 
 </table>
-</form>
 
 <div id="stats_status"></div>
 <div id="gpg_mail_status"></div>
@@ -140,19 +158,18 @@ Upload/process Batch Transactions
 <div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
 <br/>
 
-
+        
+<div id="stats_summary">This is the average transaction size <span id="average_sparkline" class="sparkline"></span> and this <span id="volumes_sparkbar" class="sparkbar"></span> is the average volume.</div>
 
 <table> 
  <tr>
   <td>
-   <h4><span id="transaction_vol_title"></span> <span id="update_date"></span> </h4>
-    <img src="/images/charts/$$fieldsref{registry}/transactions.png" id="transactions" />
+   <h4><span id="transaction_vol_title"></span> <span id="update_date1"></span> </h4>
+    <div id="volumes_bargraph" class="linegraph"></div>
   </td>
- </tr>
- <tr>  
   <td>
    <h4><span id="averages_title"></span> <span id="update_date2"></span> </h4>
-   <img src="/images/charts/$$fieldsref{registry}/volumes.png" id="volumes" />
+   <div id="average_bargraph" class="linegraph"></div>
   </td>
  </tr>
 </table>

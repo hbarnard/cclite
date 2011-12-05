@@ -235,40 +235,48 @@ function change_install(id) {
 
 /* get stats as this is somewhat specialised */
 
-function get_stats (type,batch_path) {
+function get_stats (batch_path,first_pass) {
 	
-     //alert('batch path ' + batch_path) ;
+     // alert('batch path ' + batch_path) ;
      try {
-         
+       if (first_pass > 0 && ($('#transactions').length > 0) ) {  
+		   
          processing = messages.get("processing");
          waiting = messages.get("waiting");
-
-         selector = '#' + eval("type");
-         status_selector = '#' + eval("type") + '_status';
-         $(selector).html(processing + ' ' + type);
-         $(selector).css('background-color', 'green');
-
-          $.ajax({
+        
+         $('#stats').html(processing + ' ' + type);
+         $('#stats').css('background-color', 'green');
+        }
+        
+        $.ajax({
               method: 'get',
               url: batch_path,
               dataType: 'text',
               success: function (data) {
-                  $(selector).html(messages.get("running") + ' ' + type);
-                   $(status_selector).html(data);
+                  $('#stats').html(messages.get("running") + ' ' + 'stats');
+                   $('#stats_status').html(data);
              }
           });
   
-         $(selector).html(waiting + ' ' + type);
-     } catch (error) {
-         alert(messages.get('erroris') + ' ' + error) ;
-     }
-	         vol = document.getElementById('volumes').src;
+         if (first_pass > 0 && ($('#transactions').length > 0)) {
+          $('#stats').html(waiting + ' ' + type);
+	     } 
+	     
+	     if ($('#transactions').length > 0) {
+  	         vol = document.getElementById('volumes').src;
              trans = document.getElementById('transactions').src;
-             $("#volumes").attr("src", "vol?timestamp=" + new Date().getTime());
-             $("#transactions").attr("src", "trans?timestamp=" + new Date().getTime());
+           //  $("#volumes").attr("src", "vol?timestamp=" + new Date().getTime());
+           //  $("#transactions").attr("src", "trans?timestamp=" + new Date().getTime());
 
              document.getElementById('volumes').src = vol + '?' + (new Date()).getTime();
              document.getElementById('transactions').src = trans + '?' + (new Date()).getTime(); 	
+         }
+  
+  
+     } catch (error) {
+         alert(messages.get('erroris') + ' ' + error) ;
+     }
+
 	
 }	
 
@@ -376,7 +384,7 @@ changed into milliseconds here */
              // window[interval_id] = setInterval( "do_task('type', 'batch_path')", window[interval]) ;
              // this ugly thing is something to do with scoping in setInterval, go figure, I can't!
              if (type == 'stats') {
-                 window[interval_id] = setInterval("get_stats( 'stats', '/cgi-bin/protected/graphs/graph.pl')", window[interval]);
+                 window[interval_id] = setInterval("get_stats('/cgi-bin/protected/graphs/graph.pl',0)", window[interval]);
              } else if (type == 'rss') {
                  window[interval_id] = setInterval("do_task( 'rss', '/cgi-bin/protected/batch/writerss.pl')", window[interval]);
              } else if (type == 'mail') {
@@ -458,8 +466,7 @@ can be used to transmit errors from the script into the page */
     
     setInterval('blinktext()',10000) ;
     
-    // do stats as loading
-    get_stats( 'stats', '/cgi-bin/protected/graphs/graph.pl') ;
+ 
     
     // searchbox_helper_strings (messages) ;
     // language selects in target language from literals
@@ -490,6 +497,8 @@ can be used to transmit errors from the script into the page */
          $("#adminlinknewtab").toggle() ;
          $("#adminlinkhref").toggle() ;
          $("#adminlinkhrefnt").toggle() ;
+         // do stats as loading
+         get_stats('/cgi-bin/protected/graphs/graph.pl',1) ;
      }
      //alert($("#fileproblems").length) ;
      if ($("#fileproblems").length > 1) {

@@ -32,7 +32,6 @@ use Cccookie;
 use Cwd;
 use vars qw(@ISA @EXPORT);
 use Exporter;
-use Log::Log4perl;
 
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
@@ -298,7 +297,7 @@ EOT
     # as of 07/2011 this is switched off, if free form tags are allowed
 
     if (   $pagename =~ /yellowpages/
-        && length( $cookieref->{'ruse Log::Log4perl;egistry'} )
+        && length( $cookieref->{'registry'} )
         && $configuration{'usetags'} ne 'yes' )
     {
 
@@ -763,7 +762,7 @@ EOT
     $html</table>
 EOT
 
-    $template ||= "transtotals.html";
+    $template ||= "result.html";
 
     return ( $html, $template );
 
@@ -774,7 +773,7 @@ EOT
 Since, Cclite.pm 'assumes' in most cases that it is dealing
 with the traditional html front end, this is an experimental
 palliative to deliver self describing hashes and messages
-to remote gateways such as Drupal, Elgg, Joomla and Tiki-Wiki 
+to remote gateways such as Drupal, Elgg, Joomla,Tiki-Wiki and Openclass
 
 It's not a particularly elegant solution but [hopefully] it's
 a pragmatic one that preserves some consistency of access and
@@ -783,6 +782,12 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...
 It does need to distinguish between multdimensional and flat
 
 FIXME: This probably needs replacing by the JSON modules in the medium term...
+
+Also, we're probably going introduce a detailed 'status' part with an array
+of status objects as of 11/2011. This is in response to complaints by tiki-wiki
+that there's no much diagnostic etc. information flowing back in the json
+This is also related to improvements in pretty_caller which now becomes pretty_status
+and returns an array, as above.
 
 For example, transactions:
 
@@ -819,7 +824,7 @@ For example, transactions:
 
 sub deliver_remote_data {
 
-    my ( $db, $table, $message, $hash_ref, $token ) = @_;
+    my ( $db, $table, $message, $hash_ref, $status, $token ) = @_;
 
     $message ||= 'OK';  # used for status messages to remote, $registry_error...
     my $count = 0;      # row counter...
@@ -869,9 +874,23 @@ sub deliver_remote_data {
           ;        # snip off the last comma in the record, ugly but simple...
     }
 
+# FIXME: status is delivered full-cooked into json via pretty_status, this means
+# two places produce json, but they're both in this module.
+
+if (! length($status)) {
+
     $json = <<EOT;
   {\"registry"\:\"$db\",\"table\": \"$table\", \"message":\"$message\",\n\"data\": [$json]} 
 EOT
+
+} else {
+
+$json = <<EOT;
+  {\"registry"\:\"$db\",\"table\": \"$table\", \"message":\"$message\",$status,\n\"data\": [$json]} 
+EOT
+
+}
+
 
     ###$log->debug("json is: $json") ;
 
@@ -954,16 +973,28 @@ sub debug_hash_contents {
     return;
 }
 
-sub pretty_caller {
+=head3 pretty_status
 
-    my ($i) = @_;
+delivers a json object reporting exactly where the status came from
+and the text message. Logs, if required, extended from pretty_caller
+which it replaces
+
+=cut
+
+
+sub pretty_status {
+
+    my ($i, $status, $do_log) = @_;
+    
+    $do_log ||= 0; 
+    
     my (
         $package,   $filename, $line,       $subroutine, $hasargs,
         $wantarray, $evaltext, $is_require, $hints,      $bitmask
     ) = caller($i);
 
-    $log->debug("p:$package l:$line f:$subroutine");
-    ###print "p:$package l:$line f:$subroutine";
+    $log->debug("p:$package l:$line f:$subroutine") unless ($do_log) ;
+    return "{\"p\":\"$package\", \"l\":\"$line\" \"f\":\"$subroutine\" \"s\":\"$status\"}" ;
 }
 
 1;

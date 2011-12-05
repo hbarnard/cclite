@@ -106,7 +106,7 @@ boxwidth
 
 sub make_graph {
 
-  my ($xlabel,$array_ref, $ylabel,$xskip) = @_ ;
+  my ($x_label,$array_ref, $y_label,$xskip) = @_ ;
   my $timestamp = sql_timestamp() ;
   my $graph ;
   my $title = "Last updated at $timestamp" ;
@@ -171,20 +171,20 @@ my $name  ;
 # value before token is how many hours back to go...
 my $hours_back = 24 ; # how many hours back to go
 # type is minutes, hours, days.
-my $type = 'minutes' ;
+my $type = 'hours' ;
 
  my $averages_array_ref = get_raw_stats_data ( 'local', $registry, $hours_back, 'average', $type, '' );
  my $volumes_array_ref = get_raw_stats_data ( 'local', $registry, $hours_back, 'volume', $type, '' );
  
  $name = "$chartdir/transactions" ; 
- my $chart = make_graph  ('transactions and volumes',$averages_array_ref, 'avg values',0) ;
+ my $chart = make_graph  ('time',$averages_array_ref, 'average transaction value',1) ;
  save_chart ($chart,$name,'png');
  $name = "$chartdir/volumes" ;
- my $chart = make_graph  ('transactions and volumes',$volumes_array_ref, $averages_array_ref, 'volumes',0) ;
+ my $chart = make_graph  ('time',$volumes_array_ref, 'trade volume',1) ;
  save_chart ($chart,$name,'png');
 
 my $updated = sql_timestamp() ;
-print "$messages{statsupdate} $updated" ;
+#print "$messages{statsupdate} $updated" ;
 exit 0 ;
 
 
