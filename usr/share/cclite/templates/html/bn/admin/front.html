@@ -1,5 +1,4 @@
 
-<form id="form">
 
 <table>
 
@@ -36,6 +35,8 @@ Upload/process ব্যাচ লেনদেন
 <tr>
 
 <td>
+
+<form id="form">
 
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
@@ -146,21 +147,7 @@ Upload/process ব্যাচ লেনদেন
 
 <td>
 
-<div id="upload_button">
-
-<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->
-
-<noscript>
-
-<p>
-দয়া করে ফাইল uploader ব্যবহার করতে জাভাস্ক্রীপ্ট সক্রিয় করুন।
-</p>
-
-<!--  অথবা আপলোড এখানের জন্য একটি সহজ আকার রাখেন -->
-
-</noscript>
-
-</div>
+<input title="একটি csv ফাইল হিসেবে ব্যাচ লেনদেন পান: নিজে হাতে দেখুন" type="submit" class="small" id="upload_button" value="ব্যাচ CSV ফাইল পান">
 
 </td>
 
@@ -203,22 +190,90 @@ Upload/process ব্যাচ লেনদেন
 
 </tr>
 
+</form>
+
 <tr>
 
 <td>
 <span id="statements">
-<a title="প্রিন্ট odt ব্যাঙ্ক বক্তব্য" href="/cgi-bin/protected/batch/print_statements.pl">
-বক্তব্য প্রিন্ট করুন
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
+<select class="small" name="month">
+
+<option value="1">
+১
+</option>
+
+<option value="2">
+২
+</option>
+
+<option value="3">
+৩
+</option>
+
+<option value="4">
+৪
+</option>
+
+<option value="5">
+৫
+</option>
+
+<option value="6">
+৬
+</option>
+
+<option value="7">
+৭
+</option>
+
+<option value="8">
+৮
+</option>
+
+<option value="9">
+৯
+</option>
+
+<option value="10">
+১০
+</option>
+
+<option value="11">
+১১
+</option>
+
+<option value="12">
+১২
+</option>
+
+</select>
+
+<input type="text" name="year" size="4" maxlength="4">
+
+<input type="text" name="username" size="10">
+
+<input type="submit" class="small" name="go" value="যান">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
 <span id="yellowpages">
-<a title="প্রিন্ট odt হলদে পাতাগুলো" href="/cgi-bin/protected/batch/print_yellowpages.pl">
-Yellowpages প্রিন্ট করুন
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
+
+<input class="small" type="submit" name="go" value="যান">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
@@ -242,8 +297,6 @@ Yellowpages প্রিন্ট করুন
 </tr>
 
 </table>
-
-</form>
 
 <div id="stats_status">
 </div>

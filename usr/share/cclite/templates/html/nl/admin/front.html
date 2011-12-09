@@ -1,5 +1,4 @@
 
-<form id="form">
 
 <table>
 
@@ -36,6 +35,8 @@ Upload/proces batchtransacties
 <tr>
 
 <td>
+
+<form id="form">
 
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
@@ -146,21 +147,7 @@ Elke 30 min
 
 <td>
 
-<div id="upload_button">
-
-<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->
-
-<noscript>
-
-<p>
-Activeer JavaScript om bestand uploader te gebruiken.
-</p>
-
-<!-- of een eenvoudig formulier voor uploaden hier zetten -->
-
-</noscript>
-
-</div>
+<input title="Batchtransacties krijgen als een CSV-bestand: zie handleiding" type="submit" class="small" id="upload_button" value="Krijgen Batch CSV-bestand">
 
 </td>
 
@@ -203,22 +190,90 @@ Wachten
 
 </tr>
 
+</form>
+
 <tr>
 
 <td>
 <span id="statements">
-<a title="afdrukken van bankafschriften odt" href="/cgi-bin/protected/batch/print_statements.pl">
-Print verklaringen
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
+<select class="small" name="month">
+
+<option value="1">
+1
+</option>
+
+<option value="2">
+2
+</option>
+
+<option value="3">
+3
+</option>
+
+<option value="4">
+4
+</option>
+
+<option value="5">
+5
+</option>
+
+<option value="6">
+6
+</option>
+
+<option value="7">
+7
+</option>
+
+<option value="8">
+8
+</option>
+
+<option value="9">
+9
+</option>
+
+<option value="10">
+10
+</option>
+
+<option value="11">
+11
+</option>
+
+<option value="12">
+12
+</option>
+
+</select>
+
+<input type="text" name="year" size="4" maxlength="4">
+
+<input type="text" name="username" size="10">
+
+<input type="submit" class="small" name="go" value="Gaan">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
 <span id="yellowpages">
-<a title="odt gele pagina's afdrukken" href="/cgi-bin/protected/batch/print_yellowpages.pl">
-Yellowpages afdrukken
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
+
+<input class="small" type="submit" name="go" value="Gaan">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
@@ -242,8 +297,6 @@ Yellowpages afdrukken
 </tr>
 
 </table>
-
-</form>
 
 <div id="stats_status">
 </div>

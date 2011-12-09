@@ -1,5 +1,4 @@
 
-<form id="form">
 
 <table>
 
@@ -36,6 +35,8 @@ Gammu 输入
 <tr>
 
 <td>
+
+<form id="form">
 
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
@@ -146,21 +147,7 @@ Gammu 输入
 
 <td>
 
-<div id="upload_button">
-
-<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->
-
-<noscript>
-
-<p>
-请启用 javascript 脚本来使用 uploader 文件。
-</p>
-
-<!-- 在这里写一个简单的窗体，用于上载或 -->
-
-</noscript>
-
-</div>
+<input title="获取为 csv 文件的批处理事务： 请参阅手册" type="submit" class="small" id="upload_button" value="获取批 CSV 文件">
 
 </td>
 
@@ -203,22 +190,90 @@ Gammu 输入
 
 </tr>
 
+</form>
+
 <tr>
 
 <td>
 <span id="statements">
-<a title="打印 odt 银行对账单" href="/cgi-bin/protected/batch/print_statements.pl">
-打印报表
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
+<select class="small" name="month">
+
+<option value="1">
+1
+</option>
+
+<option value="2">
+2
+</option>
+
+<option value="3">
+3
+</option>
+
+<option value="4">
+4
+</option>
+
+<option value="5">
+5
+</option>
+
+<option value="6">
+6
+</option>
+
+<option value="7">
+7
+</option>
+
+<option value="8">
+8
+</option>
+
+<option value="9">
+9
+</option>
+
+<option value="10">
+10
+</option>
+
+<option value="11">
+11
+</option>
+
+<option value="12">
+12
+</option>
+
+</select>
+
+<input type="text" name="year" size="4" maxlength="4">
+
+<input type="text" name="username" size="10">
+
+<input type="submit" class="small" name="go" value="转到">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
 <span id="yellowpages">
-<a title="打印 odt 黄页" href="/cgi-bin/protected/batch/print_yellowpages.pl">
-打印的黄页
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
+
+<input class="small" type="submit" name="go" value="转到">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
@@ -242,8 +297,6 @@ Gammu 输入
 </tr>
 
 </table>
-
-</form>
 
 <div id="stats_status">
 </div>

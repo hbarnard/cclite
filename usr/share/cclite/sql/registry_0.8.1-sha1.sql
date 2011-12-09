@@ -448,7 +448,7 @@ CREATE TABLE IF NOT EXISTS `om_trades` (
 CREATE TABLE IF NOT EXISTS `om_users` (
   `userId` int(11) NOT NULL auto_increment,
   `userLogin` varchar(30) NOT NULL default '',
-  `userLang` enum('en','ar','zh','de','nl','fr','es','it','el','ja','pt','ru','th','ro','vi','ko','bn') NOT NULL default 'en',
+  `userLang` enum('en','ar','zh','de','nl','fr','es','it','el','ja','pt','ru','th') NOT NULL default 'en',
   `userPassword` varchar(128) NOT NULL default '',
   `userPublickeyid` varchar(20),
   `userEmail` varchar(120) NOT NULL default '',
@@ -473,8 +473,9 @@ CREATE TABLE IF NOT EXISTS `om_users` (
   `userPinChanged` date NOT NULL,
   `userPasswordStatus` enum('active','waiting','locked','change') NOT NULL,
   `userPasswordTries` int(1) NOT NULL,
-  `userPasswordChanged` date NOT NULL,
+  `userPasswordChanged` date NOT NULL, 
   `userSmsreceipt` BOOL NOT NULL DEFAULT '0',
+  `userLoggedin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY  (`userId`),
   KEY `userLogin` (`userLogin`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1  ;

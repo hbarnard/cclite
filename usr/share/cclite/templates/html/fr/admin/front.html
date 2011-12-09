@@ -1,5 +1,4 @@
 
-<form id="form">
 
 <table>
 
@@ -36,6 +35,8 @@ Téléchargement et des processus Batch Transactions
 <tr>
 
 <td>
+
+<form id="form">
 
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
@@ -146,21 +147,7 @@ Toutes les 30 min
 
 <td>
 
-<div id="upload_button">
-
-<!--<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button1" value="Get Batch CSV File"> -->
-
-<noscript>
-
-<p>
-Veuillez activer JavaScript utiliser le téléchargeur de fichier.
-</p>
-
-<!-- ou mettre un formulaire simple pour le téléchargement ici -->
-
-</noscript>
-
-</div>
+<input title="Obtenez les mouvements en lot comme un fichier csv : voir le manuel" type="submit" class="small" id="upload_button" value="Obtenir le fichier CSV de lot">
 
 </td>
 
@@ -203,22 +190,90 @@ Attendre
 
 </tr>
 
+</form>
+
 <tr>
 
 <td>
 <span id="statements">
-<a title="imprimer des relevés de comptes bancaires odt" href="/cgi-bin/protected/batch/print_statements.pl">
-Imprimer les déclarations
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
+<select class="small" name="month">
+
+<option value="1">
+1
+</option>
+
+<option value="2">
+2
+</option>
+
+<option value="3">
+3
+</option>
+
+<option value="4">
+4
+</option>
+
+<option value="5">
+5
+</option>
+
+<option value="6">
+6
+</option>
+
+<option value="7">
+7
+</option>
+
+<option value="8">
+8
+</option>
+
+<option value="9">
+9
+</option>
+
+<option value="10">
+10
+</option>
+
+<option value="11">
+11
+</option>
+
+<option value="12">
+12
+</option>
+
+</select>
+
+<input type="text" name="year" size="4" maxlength="4">
+
+<input type="text" name="username" size="10">
+
+<input type="submit" class="small" name="go" value="Aller">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
 <span id="yellowpages">
-<a title="imprimer les pages jaunes d'odt" href="/cgi-bin/protected/batch/print_yellowpages.pl">
-Imprimez des pages jaunes
-</a>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
+
+<input class="small" type="submit" name="go" value="Aller">
+
+</form>
+
 </span>
+
 </td>
 
 <td>
@@ -242,8 +297,6 @@ Imprimez des pages jaunes
 </tr>
 
 </table>
-
-</form>
 
 <div id="stats_status">
 </div>
