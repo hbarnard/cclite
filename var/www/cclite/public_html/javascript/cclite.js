@@ -343,7 +343,6 @@ function get_stats (batch_path,first_pass) {
  function change_language() {
   var e = document.getElementById("language_value");
   var lang = e.options[e.selectedIndex].value;
-
   path = '/cgi-bin/cclite.cgi?action=lang&language=' + lang ;
   window.location=path ;
  }
@@ -466,8 +465,10 @@ can be used to transmit errors from the script into the page */
     
     setInterval('blinktext()',10000) ;
     
- 
-    
+    // make the language menu follow the current language
+    if ($.cookie('language')) {
+     $("#language_value").val($.cookie('language'));
+    }
     // searchbox_helper_strings (messages) ;
     // language selects in target language from literals
     build_language_selects(messages) ;

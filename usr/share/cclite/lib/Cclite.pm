@@ -445,13 +445,16 @@ sub logon_user {
 
 # just supply necessary fields, not the whole records, restore password tries on success, 08/2011
 # language updated just in case changed without logging in...
+        
+
         my %update = (
             'userId', $userref->{'userId'}, 'userLastLogin', "$date$time",
-            'userPasswordTries', 3, 'userLang', $cookie{'language'}
+            'userPasswordTries', 3, 'userLang', $cookie{'language', 'userLoggedin', 1}
         );
+        
 
-        undef $userref->{
-            'userPassword'}; # remove this otherwise it's rehashed and re-update
+        undef $userref->{'userPassword'}; 
+            # remove this otherwise it's rehashed and re-update
             # mode 2 is where userLogin = value ;
             # use userref to update record, should strip all other fields...
             # throw away return codes for the present
@@ -505,6 +508,10 @@ sub do_login {
     # get date and timestamp
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
     $userref->{userLastLogin} = "$date$time";
+    
+    # flag for logged in users 12/2011
+    $userref->{userLoggedin} = 1;
+    
     undef $userref
       ->{'userPassword'};    # remove this otherwise it's rehashed and re-update
                            # mode 2 is where userLogin = value ;
@@ -586,6 +593,17 @@ sub logoff_user {
     my $cookieheader =
       return_cookie_header( -1, $fieldsref->{'domain'}, '/', '',
         %$cookieref );
+
+  # flag for logged in users 12/2011
+    my $userref ;
+    $userref->{'userId'} = $cookieref->{'userId'} ;
+    $userref->{'userLoggedin'} = 0;
+    
+    my ( $a, $b, $c, $d ) =
+      update_database_record( 'local', $cookieref->{'registry'}, 'om_users', 2,
+        $userref, $cookieref->{'language'}, $cookieref->{'token'} );
+
+
 
     display_template(
         1,    $fieldsref->{'home'}, '',         $goodbye,

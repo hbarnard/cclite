@@ -1228,3 +1228,9 @@
 2011/11/27 18:20:19 DEBUG> (eval 1):91 main:: - success
 2011/11/27 19:50:35 WARN> Cclite.pm:2846 Cclite::get_registry_status - login failed for  at dddeet : registry record not found
 2011/12/06 18:57:02 WARN> Cclite.pm:2849 Cclite::get_registry_status - login failed for  at dddeet : registry record not found
+2011/12/11 09:54:55 WARN> Cclite.pm:2849 Cclite::get_registry_status - login failed for  at dddeet : registry record not found
+2011/12/11 16:29:49 WARN> Cclite.pm:2867 Cclite::get_registry_status - accesso non riuscito per manager a dalston : registry record not found
+2011/12/11 16:29:49 WARN> Cclite.pm:2867 Cclite::get_registry_status - accesso non riuscito per manager a dalston : registry record not found
+2011/12/11 16:30:21 WARN> Cclite.pm:2867 Cclite::get_registry_status - login failed for manager at dalston : registry record not found
+2011/12/11 16:30:21 WARN> Cclite.pm:2867 Cclite::get_registry_status - login failed for manager at dalston : registry record not found
+2011/12/11 16:56:52 WARN> Cclite.pm:2867 Cclite::get_registry_status - login failed for  at dddeet : registry record not found
