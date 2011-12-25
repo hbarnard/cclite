@@ -80,9 +80,6 @@ sub add_yellow {
         $fieldsref->{'keywords'}
     ) = $fieldsref->{'classification'} =~ /(\d{4})\s(\d{4})(.*)/;
 
-    ###$log->debug("string: $fieldsref->{'category'}, $fieldsref->{'parent'}, $fieldsref->{'keywords'}  = $fieldsref->{'classification'}") ;
-    #
-
     # put new tags into category table. if free-form tags are in use
     if ( $configuration{'usetags'} eq 'yes' ) {
         my @tags = split( /\s+/, $fieldsref->{'yellowtags'} );
@@ -154,7 +151,6 @@ sub show_yellow {
   y.fromuserid = u.userLogin AND y.id = '$fieldsref->{id}')
 EOT
 
-    ###$log->debug("sqlstring is $sqlstring") ;
     # get equi-joined table
     my ( $error, $hash_ref ) = sqlraw( $class, $db, $sqlstring, 'id', $token );
     my %report;
@@ -228,8 +224,6 @@ sub show_yellow_dir1 {
         my $type =
           $yellowdirectory_hash_ref->{$key}
           ->{'type'};           #just for convenience to shorten it
-
-        ###$log->debug("key is $key type is $type") ;
 
         $yellowdirectory_hash_ref->{$key}->{'type'} =
           $messages{$type};   # replace offered/wanted with multilingual message

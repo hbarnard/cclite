@@ -697,10 +697,6 @@ GROUP BY y.parent
 ORDER BY y.parent ASC
 EOT
 
-    #    $log->debug("test new is: $sqltestifnew") ;
-    #    $log->debug("sqlmajor is: $sqlmajor") ;
-    #    $log->debug("sqldetail is: $sqldetail") ;
-
     my $sqlstring = $sqlmajor;
 
     # detail is supplied by $fieldsref->{'getdetail'}
@@ -844,8 +840,6 @@ sub get_where {
       _sqlgetwhere( $name, $table, $fieldslist, $fieldname, $token, $offset,
         $limit );
 
-    ###$log->debug("get is $get\n") ;
-
     if ( !length($db) ) {
         my ( $package, $filename, $line ) = caller;
         $log->error(
@@ -963,7 +957,6 @@ sub modify_database_record {
     if ( $table eq 'om_users' ) {
         $get = _sqlgetwhere( $cookieref->{'userId'},
             $table, '*', $idname, $token, $offset, $limit );
-        ###$log->debug("idname is $idname get is $get") ;
     } else {
         $get = _sqlgetwhere( $fieldsref->{$idname},
             $table, '*', $idname, $token, $offset, $limit );
@@ -1367,7 +1360,7 @@ sub _sqlupdate {
    $value_string 
    WHERE ( $id_field = '$fields{$id_field}')
 EOT
-    ###$log->debug("update is $sqlupdate") ;
+
     return $sqlupdate;
 }
 

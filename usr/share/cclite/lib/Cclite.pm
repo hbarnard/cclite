@@ -2918,8 +2918,6 @@ sub get_stats {
   {\"registry"\:\"$db\",\"table\": \"om_trades\", \"message":\"$status\",\n\"data\": [$json]} 
 EOT
 
-###$log->debug("json is $json") ;
-
     return $json;
 
 }

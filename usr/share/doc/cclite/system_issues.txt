@@ -180,6 +180,18 @@ to be fixed:
 30. 
 
 
+17.12.2011 Tiki-wiki communication
+
+(1) "username [from user X willing to trade in tiki through cclite] doesn't match any username in cclite"
+(2) "transaction request would exceed the maximum negative budget allowed for user X. 
+Contact the cclite trading network (registry) manager [email or link to intratiki messaging to that user] if needed."
+(3) "currency name X in Tiki doesn't match any currency name for this trading network (registry)"
+(4) The ip address of your tiki installation is not allowed in the Cclite configuration for this trading network. Contact the cclite trading network (registry) manager [email or link to intratiki messaging to that user] if needed."
+(5) Message to the cclite registry manager (not to the client tiki?, to avoid robots trynig differnt Merchant Id continuously until matching it]: "The Merchant Id used from ip|user|whatever-info-from-the-client-tiki is invalid".
+
+
+
+
 
 
 

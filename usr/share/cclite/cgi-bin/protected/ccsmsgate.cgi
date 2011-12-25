@@ -103,15 +103,11 @@ my @message_hash_refs;
 
 $fields{version} = "0.8.0";
 
-$log->debug("incoming message is: $fields{'INCOMING'}");
-
 # parse incoming fields the cardboardfish way...may give multiple messages
 my ( $status, $originator, $destination, $dcs, $datetime, $udh, $message );
 if ( $type eq 'car' ) {
     (@message_hash_refs) = convert_cardboardfish( $fields{'INCOMING'} );
 }
-
-$log->debug("debugger is alive");
 
 #  this is part of conversion to transaction engine use. web mode, which
 #  is the default will deliver html etc. engine mode will deliver data

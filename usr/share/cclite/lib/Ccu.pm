@@ -890,12 +890,6 @@ $json = <<EOT;
 EOT
 
 }
-
-
-    ###$log->debug("json is: $json") ;
-
-    ###print "json is $json\n" ;
-    ###return ( 0, "", $error, $html, $template, "" );
     return $json;
 
 }
@@ -967,9 +961,6 @@ sub debug_hash_contents {
 
     }
     my ( $package, $filename, $line ) = caller;
-    $log->debug("pack:$package file:$filename line:$line");
-    $log->debug("fields: $x");
-
     return;
 }
 

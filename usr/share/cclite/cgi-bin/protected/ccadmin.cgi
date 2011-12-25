@@ -196,7 +196,6 @@ if ( length( $cookieref->{userLevel} )
     && ( $cookieref->{userLevel} ne 'admin' ) )
 {
 
-###    $log->debug("l:$cookieref->{userLevel}  t:$cookieref->{token}");
     $fields{menustyle} = "grey";
     $fieldsref = \%fields;
     my $pages = $user_pages;
@@ -240,11 +239,6 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
         && ( $compare_token ne $cookieref->{token} ) )
     {
         $fieldsref = \%fields;
-###        $log->warn(
-###"corrupt token or spoofing attempt from login:$cookieref->{userLogin} token:$cookieref->{token} token1:$cookieref->{token1} at:$ENV{REMOTE_ADDR}"
-###        );
-        ###$log->debug("action is $action: $compare_token\n  ne \n$cookieref->{token} \ntoken1:$cookieref->{token1}");
-
         # attempt to exit cleanly
         $action = 'logoff';
     }

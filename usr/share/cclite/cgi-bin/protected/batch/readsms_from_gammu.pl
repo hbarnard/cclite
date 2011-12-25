@@ -132,12 +132,7 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
       = ( $1, $2, $3, $4, $5, $6, $7, $8 );
 
     my $full_telephone_number = $sms_int_code . $sms_phone_number;
-
- ###   $log->debug("open sms file is $sms_file") ;
-    
- ###   $log->debug("fields are: $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute, $sms_second,
- ###       $sms_int_code, $sms_phone_number") ;
-        
+       
     open( SMS, $sms_file );
 
     my $sms_data;    # holds message text
@@ -156,16 +151,7 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
     $fields{'message'}    = $sms_data;
     $fields{'status'}     = 0;                   # status is forced
 
-
-
-
-
-###    $log->debug(" o:$fields{'originator'}, t:$full_telephone_number,    m:$fields{'message'}") ;
-
-
     my ( $status, $class, $array_ref, $soap, $token );
-
-
 
 # remote transactions are transported via soap, local ones use the local library...
     if ( ! $configuration{ 'smslocal'} ) {
@@ -180,7 +166,6 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
 
     } else {
         gateway_sms_transaction( 'local', \%configuration, \%fields, $token );
-        $log->debug("end of gateway transaction\n\n") ;
     }
 
     # move the processed file to a done directory, don't process twice

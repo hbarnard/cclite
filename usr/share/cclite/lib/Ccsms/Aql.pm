@@ -120,11 +120,6 @@ sub gateway_sms_transaction {
 
     my ( $offset, $limit );
 
-###    $log->debug("orig is $$fieldsref{'originator'}");
-
-    ### my $x;
-    ### $x = join( "|", %$fieldsref );
-
     my ( $error, $fromuserref ) =
       get_where( 'local', $registry, 'om_users', '*', 'userMobile',
         $$fieldsref{'originator'},
@@ -179,16 +174,12 @@ sub gateway_sms_transaction {
         );
     }
 
-    $log->debug("start of $transaction_type transaction: $input");
-
     # numbers are stored in database as 447855667524 for example
     $$fieldsref{'originator'} =
       format_for_standard_mobile( $$fieldsref{'originator'} );
 
     # can be ok, locked, waiting, fail
     my $pin_status = _check_pin( $pin, $transaction_type, $fieldsref, $token );
-
-    ###   $log->debug("$pin $pin_status transaction type is $transaction_type");
 
     return if ( $pin_status ne 'ok' );
 
@@ -285,8 +276,6 @@ sub _gateway_sms_pay {
         $$transaction_description_ref{'tomobilenumber'} );
     my ( $error1, $touserref );
 
-    $log->debug("parse type is $parse_type");
-
     # contains only figures so it's a mobile number
     if ( $$transaction_description_ref{'touserormobile'} =~ /^\d+\z/ ) {
         ( $error1, $touserref ) =
@@ -302,10 +291,6 @@ sub _gateway_sms_pay {
             $token, $offset, $limit );
     }
 
-###    $log->debug(
-###" $$transaction_description_ref{'tomobilenumber'} pin status is $$touserref{'userPinStatus'}"
-###    );
-
     # one of the above lookups fails, reject the whole transaction
     push @status, $messages{'smsnoorigin'}      if ( !length($fromuserref) );
     push @status, $messages{'smsnodestination'} if ( !length($touserref) );
@@ -315,10 +300,6 @@ sub _gateway_sms_pay {
         && $$touserref{'userPinStatus'} ne 'active' )
     {
         push @status, $messages{smsunconfirmedpin};
-        $log->debug(
-"pin status:$$touserref{'userPinStatus'} user id:$$touserref{'userId'} examine no confirmation bug"
-        );
-
     }
 
     my $errors = join( ':', @status );
@@ -540,8 +521,6 @@ sub _sms_message_parse {
     $transaction_description{'currency'} =~ s/s$//i;
 
     my $x = join( "|", %transaction_description );
-    $log->debug("parsed transaction is: $x parse type is $parse_type");
-
     return ( $parse_type, \%transaction_description );
 
 }
@@ -588,8 +567,6 @@ sub _check_pin {
 
         if ( $$fromuserref{'userPin'} eq $hashed_pin ) {
             $pin_status = 'ok';
-###	    $log->debug("in pin checking ok for user: $$fromuserref{'userId'} $$fromuserref{'userLogin'}") ;
-
             return $pin_status
               if ( $$fromuserref{'userPinTries'} == 3 ); # this is the main case
             $$fromuserref{'userPinTries'} = 3;    # reset to three otherwise
@@ -599,7 +576,6 @@ sub _check_pin {
             $message    = $messages{'smspinfail'};
             $$fromuserref{'userPinTries'}--;      # used one pin attempt
         } elsif ( $$fromuserref{'userPinTries'} <= 1 ) {
-###	    $log->debug("in pin checking,locked for user: $$fromuserref{'userId'} $$fromuserref{'userLogin'}") ;
             $pin_status = 'locked';
             $message    = "$registry: $messages{'smslocked'}";
             $$fromuserref{'userPinStatus'} = 'locked';

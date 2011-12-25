@@ -202,10 +202,6 @@ sub calculate_token {
         $nonce = _get_digest( $url_type, $nonce );
         $token = _get_digest( $url_type, $fieldsref->{'userLogin'},
             $nonce, $remote_address );
-###         $log->debug(
-###"in token calc, new token: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
-###    );
-
         return ( $token, $nonce );
     } else {
         $token = _get_digest(
@@ -214,14 +210,10 @@ sub calculate_token {
             $cookieref->{'token1'},
             $remote_address
         );
-### $log->debug(
-###"in token calc, existing: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
-###    );
+
         return ( $token, undef );
     }
-###    $log->error(
-###"in token calc, fatal problem: $registry_private_value, u:$fieldsref->{'userLogin'}, ip:$remote_address"
-###    );
+
 }
 
 =head3 valid_token
@@ -266,12 +258,9 @@ sub calculate_api_hash {
  # space separated list of IP addresses, relaxed in 5/2010 to multiple spaces...
     my @allowed_ip_addresses = split( /\s+/, $hash_ref->{'allow_ip_list'} );
 
-    ###$log->debug("in get ip address: $registry_error $hash_ref\n") ;
-
     foreach my $ip_address (@allowed_ip_addresses) {
         my $merchant_key_hash =
           _get_digest( 0, ( $hash_ref->{'merchant_key'} . $ip_address ) );
-        ###    $log->debug("in get ip hash:$merchant_key_hash\n") ;
         push @calculated_hashes, $merchant_key_hash;
     }
 
@@ -300,10 +289,6 @@ sub compare_api_key {
 
 # not pretty because if any of them match, it returns...bad scale and doesn't ensure that the 'right' one...
     foreach my $hash (@calculated_hashes) {
-        ###    $log->debug(
-###"comparing hashes: calculated_hash:$hash, merchant:$merchant_key_hash\n\n"
-###        );
-
         if ( $hash eq $merchant_key_hash ) {
             return 1;
         }

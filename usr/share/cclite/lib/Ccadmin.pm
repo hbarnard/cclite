@@ -39,7 +39,7 @@ Ccu.pm
 
 package Ccadmin;
 
-our $log = Log::Log4perl->get_logger("Ccadmin");
+
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
@@ -752,7 +752,7 @@ EOT
     } elsif ( $mode eq 'values' ) {
         return @registries;
     } else {
-        $log->warn("wrong mode for show_registry $mode");
+     ###   $log->warn("wrong mode for show_registry $mode");
     }
 
 #----------------------------------------------------------------------------------
