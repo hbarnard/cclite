@@ -63,9 +63,6 @@ BEGIN {
 use strict;
 use lib "../../lib";
 
-use Log::Log4perl;
-
-
 use HTML::SimpleTemplate;
 use Ccu;
 use CGI ;  # sorry need this for the parsing of multipart...
@@ -74,11 +71,7 @@ use Cccookie;
 use Ccconfiguration;    # new 2009 style configuration supply...
 
 my $cookieref = get_cookie();
-
 my %configuration = readconfiguration();
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("ccupload");
 
 # note that uploads are per registry as of 10/2009
 my $uploaddir = "$configuration{csvpath}/$cookieref->{'registry'}";
@@ -116,7 +109,6 @@ if ($check_size < 1) {
         print STDERR "$messages{filenotuploaded}\n";
 } else  {
         print qq|{ "success": true }|;
-        $log->debug('success') ;
         print STDERR "$messages{fileuploaded}\n";
 }
 

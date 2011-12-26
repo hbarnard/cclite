@@ -57,8 +57,6 @@ use Ccconfiguration;    # new style configuration method
 ###use Net::SMTP;
 
 my %configuration = readconfiguration;
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("ccmailgateway");
 
 @EXPORT = qw(
   mail_message_parse

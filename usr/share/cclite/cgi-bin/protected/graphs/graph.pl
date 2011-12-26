@@ -140,13 +140,9 @@ use Ccconfiguration ;
 use strict ;
 use Cclitedb;
 
-use Log::Log4perl;
 use Chart::Strip;
 
 our %configuration = readconfiguration();
-
-Log::Log4perl->init($configuration{'loggerconfig'});
-our $log = Log::Log4perl->get_logger("graph");
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();

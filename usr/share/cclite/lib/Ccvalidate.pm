@@ -57,7 +57,6 @@ my $VERSION = 1.00;
 use Ccu;         # just for debugging take this away afterwards
 use Cclitedb;    # semantic checks in database during validation
 
-our $log         = Log::Log4perl->get_logger("Ccvalidate");
 our %messages    = readmessages();
 our $messagesref = \%messages;
 

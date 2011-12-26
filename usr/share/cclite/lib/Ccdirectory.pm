@@ -47,8 +47,7 @@ my $VERSION = 1.00;
   show_tag_cloud
 );
 
-# read messages from literals file, this isn't fully multilingual yet
-our $log      = Log::Log4perl->get_logger("Ccdirectory");
+# read messages from literals file
 our %messages = readmessages();
 
 # used in several places now, moved up here 4/2011

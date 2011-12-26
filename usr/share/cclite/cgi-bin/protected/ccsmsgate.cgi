@@ -55,7 +55,6 @@ use lib '../../lib';
 use strict;
 use locale;
 use HTML::SimpleTemplate;    # templating for HTML
-use Log::Log4perl;
 
 use Ccu;                     # utilities + config + multilingual messages
 use Cccookie;                # use the cookie module
@@ -85,9 +84,6 @@ $ENV{IFS} = " ";    # modest security
 our %configuration     = readconfiguration();
 our $configurationref  = \%configuration;
 our %sms_configuration = readconfiguration('../../config/readsms.cf');
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("ccsmscgi");
 
 my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
     $templatename, $registry_private_value );    # for the moment

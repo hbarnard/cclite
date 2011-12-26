@@ -57,7 +57,6 @@ to change these, just substitute a translated hash
 
 # language of messages decided now by Ccu::decide_language
 our %messages = readmessages();
-our $log      = Log::Log4perl->get_logger("Ccinterfaces");
 
 =head3 sms_transaction
 
@@ -367,7 +366,6 @@ sub read_csv_transactions {
 
     while (<CSV>) {
 
-        ###$log->debug("input is $_") ;
         s/"//g;    # remove quotes
         next if (/^#|^\s/);    # skip comment lines and space lines
         chop($_);
@@ -469,7 +467,6 @@ sub read_csv_transactions {
         my $transaction_ref = \%transaction;
         my ( $metarefresh, $home, $error, $output_message, $page, $c );
 
-        ###$log->debug("ok is $ok");
         if ($ok) {
             ( $metarefresh, $home, $error, $output_message, $page, $c ) =
               transaction( 'batch', $transaction{fromregistry},

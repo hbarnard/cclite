@@ -43,7 +43,6 @@ package Ccadmin;
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
-###use Digest::SHA2;    # now needs 256, recent collision work
 use Cclitedb;
 use Ccvalidate;
 use Ccu;
@@ -752,7 +751,7 @@ EOT
     } elsif ( $mode eq 'values' ) {
         return @registries;
     } else {
-     ###   $log->warn("wrong mode for show_registry $mode");
+        carp('unkown mode for registry display') ;
     }
 
 #----------------------------------------------------------------------------------

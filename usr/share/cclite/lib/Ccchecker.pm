@@ -54,11 +54,6 @@ my $VERSION = 1.00;
 
 @EXPORT = qw(check_cclite_preinstall);
 
-
-
-
-
-
 sub check_cclite_preinstall {
 	
 # third version install checker, much more oriented towards exception reporting and

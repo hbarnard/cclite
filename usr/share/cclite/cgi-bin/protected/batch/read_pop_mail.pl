@@ -35,8 +35,6 @@ use Net::POP3;
 
 use lib '../../../lib';
 
-use Log::Log4perl;
-
 use Ccconfiguration;
 use Ccmailgateway;
 use Cclitedb;
@@ -55,10 +53,6 @@ BEGIN {
 
 my %configuration = readconfiguration;
 
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("read_pop_mail");
-
-
 # for cron, replace these with hardcoded registry name
 my $hardcoded_registry  = '' ;
 
@@ -76,7 +70,7 @@ my ( $error, $registryref ) =
     '' );
     
 if (length($error) ) {
-    $log->warn("database error for $registry: $error") ;
+    log_entry("database error for $registry: $error") ;
     exit 0 ;
 }       
     
@@ -157,4 +151,5 @@ if ( $pop->login( $username, $password ) > 0 ) {
     
     # print into management status area, if at least one message was processed...
     print "processed $count transactions" if ($count > 0);
-exit 0
+exit 0 ;
+

@@ -93,8 +93,6 @@ use locale;
 
 use HTML::SimpleTemplate;    # templating for HTML
 
-use Log::Log4perl;
-
 use Ccu;                     # utilities + config + multilingual messages
 use Cccookie;                # use the cookie module
 use Ccvalidate;              # use the validation and javascript routines
@@ -112,9 +110,6 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $cookies,
     $templatename, $registry_private_value );    # for the moment
 
 my %configuration = readconfiguration();
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger('cclite');
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
@@ -335,8 +330,7 @@ if (
     if ( length( $cookieref->{'token'} )
         && ( $compare_token ne $cookieref->{'token'} ) )
     {
-        ### my $fieldsref = \%fields;
-        $log->warn(
+        log_entry(
 "corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}"
         );
 

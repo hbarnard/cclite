@@ -369,7 +369,7 @@ use lib "../../../lib";
 use strict;
 use locale;
 
-use Log::Log4perl;
+
 use OpenOffice::OODoc;
 
 use Ccdirectory;    # yellow pages directory etc.
@@ -382,9 +382,6 @@ use Cccookie;
 
 our %configuration = readconfiguration();
 my %fields = cgiparse();
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("print_statements");
 
 #replace entirely with cgi in a while...
 my $statement_month = $fields{'month'}     || $ARGV[0] || 11  ;

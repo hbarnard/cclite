@@ -50,8 +50,6 @@ use Ccu;    # for paging routine, at least
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
 
-our $log = Log::Log4perl->get_logger("Cclitedb");
-
 #---------------------------------------------------------
 # note the sql ones almost certainly shouldn't be exported!
 
@@ -842,7 +840,7 @@ sub get_where {
 
     if ( !length($db) ) {
         my ( $package, $filename, $line ) = caller;
-        $log->error(
+        log_entry(
 "$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line"
         );
         return ( 'blank database', '' );

@@ -33,6 +33,9 @@ use Cwd;
 use vars qw(@ISA @EXPORT);
 use Exporter;
 
+use Log::Message::Simple qw[msg error debug carp croak cluck confess];
+
+
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
 
@@ -53,6 +56,7 @@ my $VERSION = 1.00;
   getdateandtime
   functiondoc
   error
+  log_entry
   result
   printhead
   pretty_caller
@@ -63,8 +67,6 @@ my $VERSION = 1.00;
   format_for_standard_mobile);
 
 $ENV{IFS} = '';
-
-our $log = Log::Log4perl->get_logger("Ccu");
 
 =head3 cgiparse
 
@@ -984,9 +986,37 @@ sub pretty_status {
         $wantarray, $evaltext, $is_require, $hints,      $bitmask
     ) = caller($i);
 
-    $log->debug("p:$package l:$line f:$subroutine") unless ($do_log) ;
     return "{\"p\":\"$package\", \"l\":\"$line\" \"f\":\"$subroutine\" \"s\":\"$status\"}" ;
 }
+
+
+sub log_entry {
+	
+   my ($logentry, $type ) = @_ ;
+   
+   my $verbose = 0 ; #for the moment
+   	
+   if ( $0 !~ /ccinstall/ ) {
+
+       my %configuration = Ccconfiguration::readconfiguration();
+        
+         $Log::Message::Simple::MSG_FH = $configuration{'logpath'};
+         $Log::Message::Simple::ERROR_FH = $configuration{'logpath'};
+         $Log::Message::Simple::DEBUG_FH = $configuration{'logpath'};
+    }
+    
+    if ($type eq 'warn' || ! length($type))	{	
+	     msg( $logentry, $verbose);
+    } elsif ($type eq 'debug') {
+	     debug( $logentry, $verbose);
+    }	
+	
+  return ;
+}	
+
+
+
+
 
 1;
 

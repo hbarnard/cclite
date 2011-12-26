@@ -87,8 +87,6 @@ this when 'really' logging on
 sub get_openid {
 
     my ( $class, $db, $identifier, $token ) = @_;
-    ###  $identifier = quotemeta($identifier) ;
-    ###$log->debug("id:$identifier d:$db ") ;
     my ( $status, $openid_ref ) = get_where(
         $class,   $db,         "om_openid", '*',
         "openId", $identifier, $token,      '',
@@ -96,7 +94,6 @@ sub get_openid {
     );
     my $userid = $openid_ref->{'userId'};
     my ( $package, $filename, $line ) = caller;
-    ###$log->debug("id-after:$identifier d:$db s:$status $package, $filename, $line ") ;
     if ( $openid_ref->{'userId'} > 0 ) {
         return ( 1, $openid_ref );
     } else {
@@ -109,9 +106,6 @@ sub get_openid {
 use lib '../lib';
 use strict;
 use locale;
-
-use Log::Log4perl;
-
 use Ccu;
 use Ccconfiguration;
 use Cclite;
@@ -148,9 +142,6 @@ my $cache_dir = '/tmp/openid-consumer-test';
 #
 my $token = my $registry_private_value =
   $configuration{publickeyid};    # for the moment, calculated later
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("ccopenid");
 
 my $cache = Cache::File->new( cache_root => $cache_dir, );
 
@@ -195,7 +186,6 @@ if ( $method ne 'POST' ) {
             $identity =~ s/#[^#]+$//;
 
             my $registry = $cache->get($identity);
-            ###$log->debug("id got from cache:$identity r:$registry ") ;
             $cache->purge();
 
             my ( $openid_found, $openid_ref ) =
@@ -258,7 +248,6 @@ if ( $method ne 'POST' ) {
 
         );
         $cache->purge();
-        ###$log->debug("id for cache:$identifier r:$registry ") ;
         $cache->set( $identifier, $registry );
         redirect($check_url);
     }

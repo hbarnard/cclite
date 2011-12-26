@@ -44,8 +44,6 @@ __END__
 
 use lib '../../../lib' ;
 
-use Log::Log4perl;
-
 use Ccu;
 use Ccrss ;
 use Cccookie ; # to get the registry token from the admin page...
@@ -62,9 +60,6 @@ my  %configuration  = readconfiguration();
 
 # message language now decided by decide_language 08/2011
 our %messages = readmessages();
-
-Log::Log4perl->init($configuration{'loggerconfig'});
-our $log = Log::Log4perl->get_logger("writerss");
 
 # these are the feed types, all ads, wanted ads, offered ads and matched ads, change this to the feeds that you need
 my @types = (all, wanted, offered, match) ;

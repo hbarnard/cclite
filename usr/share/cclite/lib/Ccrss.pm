@@ -71,7 +71,6 @@ my $VERSION = 1.00;
 
 our %messages    = readmessages();
 our $messagesref = \%messages;
-our $log         = Log::Log4perl->get_logger("Ccrss");
 
 =head3 create_rss_feed
 
@@ -106,7 +105,7 @@ SELECT * FROM om_yellowpages o, om_yellowpages w where (
 EOT
 
     } else {
-        ###  $log->warn("unknown feed type:$$fieldsref{'type'}");
+        log_entry("unknown feed type:$$fieldsref{'type'}");
     }
 
     my ( $registryerror, $ad_hash_ref );
@@ -196,8 +195,7 @@ EOT
     my $feed_file_name = "$fieldsref->{'type'}\.rdf";
     my $full_name      = "$rss_directory\/$feed_file_name";
     if ( !( -w $full_name ) ) {
-        ###   print "cannot write to rss feed file:$feed_file_name" ;
-        ###$log->warn("cannot write to rss feed file:$feed_file_name");
+        log_entry("cannot write to rss feed file:$feed_file_name");
     }
     $rss->save($full_name)
       if ( length($db) );    # ugly but removes empty file bug

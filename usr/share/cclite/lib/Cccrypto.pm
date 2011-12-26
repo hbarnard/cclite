@@ -30,12 +30,13 @@ my $VERSION = 1.00;
   encrypt_and_sign_notifications
   send_notifications );
 
-use Log::Log4perl;
+
 
 # these are decryption, transcoding etc. etc.
 use MIME::Base64;
 use MIME::Decoder;
 use GnuPG;
+use Ccu ;
 
 # this is used to parse addresses (logically enough...)
 #use Email::Address;
@@ -50,8 +51,6 @@ use Cclite;
 use Ccconfiguration;
 
 my %configuration = readconfiguration();
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("Cccrypto");
 
 =head3 decode_decryot_reformat
 

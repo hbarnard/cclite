@@ -49,7 +49,6 @@ Included here, needs to be executed within BEGIN
 =cut
 
 use lib '../../../lib';
-use Log::Log4perl;
 
 use Ccadmin;
 use Cccookie;
@@ -60,9 +59,6 @@ use Ccconfiguration;
 my $token;
 
 my %configuration = readconfiguration();
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("readmail");
 
 #--------------------------------------------------------------
 # change these two, if necessary
@@ -81,7 +77,6 @@ my $registry  = $$cookieref{registry};
 
 opendir( DIR, $mail_dir );
 
-###$log->info("readcsv started");
 my $mail_file = "$mail_dir/$registry\.cclite";
 
 read_mail_transactions( 'local', $registry, 'om_trades', $mail_file, $token, "",

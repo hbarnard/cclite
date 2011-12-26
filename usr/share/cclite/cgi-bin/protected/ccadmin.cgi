@@ -97,8 +97,6 @@ if ( $configuration{userss} eq "yes" ) {
     import Ccrss;
 }
 
-use Log::Log4perl;
-
 use HTML::SimpleTemplate;
 
 use Cccookie;              # use the cookie module
@@ -125,9 +123,6 @@ our %messages = readmessages();
 
 my %fields = cgiparse();
 my $offset = $fields{offset};
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("ccadmin");
 
 #  this should use the version modules, but that makes life more
 # complex for intermediate users

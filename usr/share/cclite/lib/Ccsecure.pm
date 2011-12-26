@@ -86,8 +86,6 @@ my $VERSION = 1.00;
 # this will choose the hashing module type, hash processing
 # depends on this within _get_digest
 
-our $log = Log::Log4perl->get_logger("Ccsecure");
-
 our %messages    = readmessages();
 our $messagesref = \%messages;
 

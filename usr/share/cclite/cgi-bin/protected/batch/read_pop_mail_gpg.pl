@@ -101,7 +101,6 @@ use lib '../../../lib';
 
 # this is mailbox access
 use Net::POP3;
-use Log::Log4perl;
 
 # this is used to parse addresses (logically enough...)
 use Email::Address;
@@ -130,9 +129,6 @@ my $configuration_hash_ref = \%configuration;
 
 # language now decided by decide_language 08/2011
 our %messages = readmessages();
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("read_pop_mail_gpg");
 
 # note this is a first version, these values will be configured  with the rest later
 #-------------------------------------------------------------------------------------------------------------
@@ -207,7 +203,7 @@ my ( $error, $registryref ) = get_where(
 );
 
 if ( length($error) ) {
-    $log->warn("database error for $registry: $error");
+    log_entry("database error for $registry: $error");
     exit 0;
 }
 
@@ -315,11 +311,8 @@ while (1) {
                         $transaction_description_ref->{'type'} eq 'balance' )
                     {
 
-                        ###my $type = $transaction_description_ref->{'type'};
-                        ###my $text = $transaction_description_ref->{'text'};
-                        ###$log->debug("balance transaction :$type $text") ;
                         $transaction_description_ref->{'output_message'} =
-                          $transaction_description_ref->{'text'};
+                        $transaction_description_ref->{'text'};
                     }
 
            # as mailbox is opened by pop and maybe need to encrypt notifications
@@ -339,7 +332,7 @@ while (1) {
                 # pgp not detected, mail is thrown away...
             } else {
 
-                $log->warn("discarded non-pgp transaction\n");
+                log_entry("discarded non-pgp transaction\n");
             }
 
             # these should be destroyed asap and possibly done in-memory
@@ -356,13 +349,9 @@ while (1) {
     # send encrypted notifications to originator...
     send_notifications( \@notifications, $passphrase, $message, $encrypted,
         $logfile, $encrypt_notifications, $trace, \%messages );
-
-    # print into log, if at least one message was processed...
-    ###$log->info("processed $count transactions") if ( $count > 0 );
-
+         
     $count = 0;
-
     sleep $sleep;
 
 }
-exit 0
+exit 0 ;

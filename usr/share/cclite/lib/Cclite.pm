@@ -111,8 +111,6 @@ to change these, just substitute a translated hash
 our %messages    = readmessages();
 our $messagesref = \%messages;
 
-our $log = Log::Log4perl->get_logger("Cclite");
-
 # used in several places now, moved up here 4/2011
 our %configuration = readconfiguration() if ( $0 !~ /ccinstall/ );
 
@@ -329,9 +327,10 @@ sub logon_user {
 
 # test and branch to deal with bad db user and non-existent database, used  to 500
         if ( length($status) ) {
-###            $log->warn(
-###"logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}"
-###            );
+
+            log_entry(
+"logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}");
+
             $html =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
             return ( "0", '', $error, $html, "result.html", $fieldsref,
@@ -356,7 +355,7 @@ sub logon_user {
     # login failed here...need some industrial processing to deal with this
     # no user found
     if ( !length( $userref->{'userId'} ) ) {
-        $log->warn(
+        log_entry(
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found"
         );
         $html =
@@ -375,7 +374,7 @@ sub logon_user {
       )
 
     {
-        $log->warn(
+        log_entry(
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : password failed"
         );
 
@@ -1484,7 +1483,7 @@ EOT
             my $output_message = join( $separator, @local_status );
             
             # warn about rejections at this level in log
-            ### $log->warn("rejected transaction: $output_message");
+            log_entry("rejected transaction: $output_message");
 
             if ( $transaction{'mode'} ne 'json' ) {
                 return ( 1, $transaction_ref->{'home'}, $error, $output_message,
@@ -2647,7 +2646,7 @@ EOT
     }
 
     if ($@) {
-        ###  $log->error("mail error is: $@ $message");
+        log_entry("mail error is: $@ $message");
     }
 
     return $@;
@@ -2864,7 +2863,7 @@ sub get_registry_status {
     if ( length($status) ) {
         my $message =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : registry record not found";
-        $log->warn($message);
+        log_entry($message);
         return $message;
     } else {
         return $registry_ref->{'status'};

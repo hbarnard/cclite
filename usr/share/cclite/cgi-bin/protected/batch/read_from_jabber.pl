@@ -165,13 +165,8 @@ sub process_cclite_message {
             $transaction_description_ref->{'output_message'} =
               mail_transaction($transaction_description_ref);
         } elsif ( $transaction_description_ref->{'type'} eq 'balance' ) {
-
-            ###my $text = $transaction_description_ref->{'text'} ;
-            ###my $type = $transaction_description_ref->{'type'};
-            ###$log->debug("balance transaction t:$text ty:$type");
-
             $transaction_description_ref->{'output_message'} =
-              $transaction_description_ref->{'text'};
+            $transaction_description_ref->{'text'};
         }
 
     }
@@ -192,11 +187,11 @@ message fields for refereence...
 
 =cut
 
-    ###my $text = $transaction_description_ref->{'text'} ;
+  
     my $output =
 "$transaction_description_ref->{'error'} $transaction_description_ref->{'output_message'}";
     my $type = $transaction_description_ref->{'type'};
-    ###$log->debug("transaction found: $transaction_found ty:$type out: $output");
+  
 
     if ( !$transaction_found ) {
 
@@ -226,8 +221,6 @@ use strict;
 
 use lib '../../../lib';
 
-use Log::Log4perl;
-
 # and cclite support
 use Ccconfiguration;
 use Ccmailgateway;
@@ -242,9 +235,6 @@ my $configuration_hash_ref = \%configuration;
 
 # message language now decided by decide_language 08/2011
 our %messages = readmessages();
-
-Log::Log4perl->init( $configuration{'loggerconfig'} );
-our $log = Log::Log4perl->get_logger("read_from_jabber");
 
 # don't need at present run from command line...
 my $cookieref = get_cookie();
@@ -314,7 +304,7 @@ my ( $error, $registryref ) = get_where(
 );
 
 if ( length($error) ) {
-    $log->warn("database error for $registry: $error");
+    log_entry("database error for $registry: $error");
     exit 0;
 }
 

@@ -218,7 +218,6 @@ sub write_log_config {
     my ( $dir, $os, $distribution, $package_type ) = @_;
     my $log_config;
     my $log_base        = 'var/cclite/log';
-    my $log_config_file = "$dir/config/logging.cf";
     my $error;
 
     # default case...
@@ -239,37 +238,10 @@ sub write_log_config {
 
     eval { `touch $log_file`; };
     if ($@) {
-        $error = $@;
+        $error .= $@;
     }
-
-    $log_config = <<EOT;
-log4perl.rootLogger=DEBUG, LOGFILE    
-log4perl.appender.LOGFILE=Log::Log4perl::Appender::File
-log4perl.appender.LOGFILE.filename=$log_file
-log4perl.appender.LOGFILE.mode=append   
-log4perl.appender.LOGFILE.layout=PatternLayout
-log4perl.appender.LOGFILE.layout.ConversionPattern=%d %p> %F{1}:%L %M - %m%n
-EOT
-
-    if ( !( -w $log_config_file ) ) {
-        $error .= <<EOT;
-    <table><tr class="even"><td>    
-can't write:<br/><br/><pre> $log_config </pre> <br/><br/>to $log_config_file<br/>Please edit by hand
-    </td></tr></table>
-EOT
-
-    }
-
-    eval {
-        open( CONFIG, ">$log_config_file" );
-        print CONFIG $log_config;
-        close CONFIG;
-    };
-
-    if ($@) {
-        $error .= " $@";
-    }
-    return ( $error, $log_config );
+  
+  return ($error, undef) ;
 
 }
 
@@ -616,13 +588,7 @@ BEGIN {
 
 }
 
-use Log::Log4perl;
 
-# must remain hardcoded the config file may not exist yet...
-eval {
-    Log::Log4perl->init( \$log_config );
-    our $log = Log::Log4perl->get_logger("ccinstall");
-};
 
 if ($@) {
     show_problems( $os, $distribution, $login, ($@) );

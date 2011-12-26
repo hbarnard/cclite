@@ -69,8 +69,6 @@ use locale;
 use lib '../../../lib' ;	
 #-------------------------------------------------------------
 
-use Log::Log4perl;
-
 use Ccu;
 use Ccadmin ;
 use Cccookie ;
@@ -79,11 +77,6 @@ use Ccconfiguration;
 
 my %configuration = readconfiguration();
 
-Log::Log4perl->init($configuration{'loggerconfig'});
-our $log = Log::Log4perl->get_logger("readfromgammu");
-
-
-#FIXME: Only need SOAP if non-local update...
 # fixed needs testing
 if ( !$configuration{'smslocal'} ) {
     use SOAP::Lite;

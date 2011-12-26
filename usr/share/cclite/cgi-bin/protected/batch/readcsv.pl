@@ -32,8 +32,6 @@ use locale;
 use lib '../../../lib' ;	
 #-------------------------------------------------------------
 
-use Log::Log4perl;
-
 use Ccu;
 use Cccookie ;
 use Ccinterfaces;
@@ -44,9 +42,6 @@ my $file;
 my %configuration;
 
 %configuration = readconfiguration();
-
-Log::Log4perl->init($configuration{'loggerconfig'});
-our $log = Log::Log4perl->get_logger("readcsv");
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();

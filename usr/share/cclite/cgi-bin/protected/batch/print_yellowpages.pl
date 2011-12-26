@@ -179,11 +179,6 @@ use lib "../../../lib";
 use strict;    # all this code is strict
 use locale;
 
-use Log::Log4perl;
-
-#Log::Log4perl->init( $configuration{'loggerconfig'} );
-#our $log = Log::Log4perl->get_logger("cclite");
-
 use OpenOffice::OODoc;
 use Ccdirectory;    # yellow pages directory etc.
 use Ccsecure;       # security and hashing
