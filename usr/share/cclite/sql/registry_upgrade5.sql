@@ -3,4 +3,4 @@ ALTER TABLE `om_users` CHANGE `userLang` `userLang` ENUM('en','fr','de','ar','zh
 ALTER TABLE `om_registry` CHANGE `status` `status` ENUM( 'open', 'closed', 'down', 'closing' ) DEFAULT 'open' ;
 -- add boolean logged in flag to user table, should be done in separate table but...
 ALTER TABLE `om_users` ADD `userLoggedin` tinyint(1) after `userSmsreceipt` ;
-
+ALTER TABLE 'om_log' ADD  `message` varchar(40) NOT NULL default '' after 'ip' ;

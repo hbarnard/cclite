@@ -14,6 +14,7 @@ if ($test) {
 }
 ###__END__
 
+
 =head1 NAME
  
 cclite.cgi
@@ -330,9 +331,9 @@ if (
     if ( length( $cookieref->{'token'} )
         && ( $compare_token ne $cookieref->{'token'} ) )
     {
-        log_entry(
+        log_entry('local',$db,
 "corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}"
-        );
+        ,'');
 
         $action = 'logoff';
 
@@ -592,14 +593,15 @@ my $fieldsref = \%fields;
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     oscommerce_transaction( 'local', $db, $table, $fieldsref, $token ) );
 
+
 # show balance and volume
 ( $action eq 'showbalvol1' )
   && (
+  
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
-
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume1(
-        'local', $db, $table, $fieldsref, "", $cookieref->{'userLogin'},
+        'local', $db, 'om_trades', $fieldsref, "", $cookieref->{'userLogin'},
         $fieldsref->{'mode'}, $token, $offset, $limit
     )
   );
@@ -607,8 +609,8 @@ my $fieldsref = \%fields;
 # show balance and volume, changed to non-hardcoded mode 2/2011
 ( $action eq 'showbalvol' )
   && (
-    ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =
-
+    
+    ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume(
         'local', $db, $cookieref->{'userLogin'},

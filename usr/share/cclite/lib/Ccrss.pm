@@ -105,7 +105,7 @@ SELECT * FROM om_yellowpages o, om_yellowpages w where (
 EOT
 
     } else {
-        log_entry("unknown feed type:$$fieldsref{'type'}");
+        log_entry($class,$db,"unknown feed type:$$fieldsref{'type'}",'');
     }
 
     my ( $registryerror, $ad_hash_ref );
@@ -195,7 +195,7 @@ EOT
     my $feed_file_name = "$fieldsref->{'type'}\.rdf";
     my $full_name      = "$rss_directory\/$feed_file_name";
     if ( !( -w $full_name ) ) {
-        log_entry("cannot write to rss feed file:$feed_file_name");
+        log_entry($class,$db,"cannot write to rss feed file:$feed_file_name",'');
     }
     $rss->save($full_name)
       if ( length($db) );    # ugly but removes empty file bug

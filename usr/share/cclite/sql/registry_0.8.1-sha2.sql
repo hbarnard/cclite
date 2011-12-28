@@ -255,6 +255,7 @@ CREATE TABLE IF NOT EXISTS `om_log` (
   `userLogin` varchar(30) NOT NULL default '',
   `stamp` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `ip` varchar(30) NOT NULL default '',
+  `message` varchar(40) NOT NULL default '',
   PRIMARY KEY  (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1  ;
 

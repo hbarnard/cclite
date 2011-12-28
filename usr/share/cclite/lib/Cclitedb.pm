@@ -61,6 +61,7 @@ my $VERSION = 1.00;
   modify_database_record2
   delete_database_record
   find_database_records
+  log_entry
   makebutton
   makehome
   sqlget
@@ -840,9 +841,11 @@ sub get_where {
 
     if ( !length($db) ) {
         my ( $package, $filename, $line ) = caller;
-        log_entry(
-"$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line"
-        );
+
+        log_entry($class, $db,
+"$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line",
+      $token  );
+        
         return ( 'blank database', '' );
     }
 
@@ -1717,8 +1720,6 @@ EOT
 
     }
 
-   ###print "$sql_string $seconds $from_x_hours_back\n" ;
-
     my ( $registry_error, $array_ref ) =
       sqlraw_return_array( $class, $db, $sql_string, undef, $token );
 
@@ -1731,14 +1732,24 @@ EOT
                         value => $row->[2],   # the data value
                         color => 'ff0000',   # optional, used for this one point
                        } ;
-       ###print "values: $row->[1] $row->[2] \n"  ;
+                       
        push @chart_array, $hash_ref ;
     }      
     return \@chart_array ;
 }
 
 
-
+sub log_entry {
+	
+  my ( $class, $db, $message, $token ) = @_ ;
+  
+  my $fieldsref = {} ;
+  $fieldsref->{'message'} = $message ;
+  
+  my ( $error, $record_id ) = add_database_record ( $class, $db, 'om_log', $fieldsref, $token );
+  	
+  return ($error,$record_id) ;
+}	
 
 1;
 

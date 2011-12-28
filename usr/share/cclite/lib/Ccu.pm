@@ -56,7 +56,6 @@ my $VERSION = 1.00;
   getdateandtime
   functiondoc
   error
-  log_entry
   result
   printhead
   pretty_caller
@@ -738,8 +737,8 @@ sub make_html_row_contents {
 
 sub make_html_transaction_totals {
 
-    my ( $total_balance_ref, $total_volume_ref, $template, $messages_ref ) = @_;
-
+    my ( $total_balance_ref, $total_volume_ref,  $messages_ref, $template ) = @_;
+    
     my ( $html, $row_style );
     my $record_counter = 1;
 
@@ -990,29 +989,7 @@ sub pretty_status {
 }
 
 
-sub log_entry {
-	
-   my ($logentry, $type ) = @_ ;
-   
-   my $verbose = 0 ; #for the moment
-   	
-   if ( $0 !~ /ccinstall/ ) {
 
-       my %configuration = Ccconfiguration::readconfiguration();
-        
-         $Log::Message::Simple::MSG_FH = $configuration{'logpath'};
-         $Log::Message::Simple::ERROR_FH = $configuration{'logpath'};
-         $Log::Message::Simple::DEBUG_FH = $configuration{'logpath'};
-    }
-    
-    if ($type eq 'warn' || ! length($type))	{	
-	     msg( $logentry, $verbose);
-    } elsif ($type eq 'debug') {
-	     debug( $logentry, $verbose);
-    }	
-	
-  return ;
-}	
 
 
 

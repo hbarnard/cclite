@@ -148,7 +148,7 @@ soap attempts made...
 15/08/2011
 to be fixed:
 
-1. silent turn off for log4perl or use Log::Message
+1. 
 2. 
 3. test and check out graphs [being converted to Ico]
 4. add tests for REST interface
@@ -173,11 +173,11 @@ to be fixed:
 23. Consider all status codes and return codes currently, see list
 24. REST /summary doesn't work properly for csv and delivers two bits of json
 25. Shorten months to three characters in balance and volume output
-26. 
+26. Back button in wrong place and doesn't work properly: showbalvol...
 27. 
 28. Put tag cloud at right everywhere in user side
-29. 
-30. 
+29. put date and timestamp into logging routine
+30. loggng.cf can be removed
 
 
 17.12.2011 Tiki-wiki communication

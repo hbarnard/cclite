@@ -328,8 +328,8 @@ sub logon_user {
 # test and branch to deal with bad db user and non-existent database, used  to 500
         if ( length($status) ) {
 
-            log_entry(
-"logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}");
+            log_entry($class,$db,
+"logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}",'');
 
             $html =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
@@ -355,9 +355,9 @@ sub logon_user {
     # login failed here...need some industrial processing to deal with this
     # no user found
     if ( !length( $userref->{'userId'} ) ) {
-        log_entry(
+        log_entry($class,$db,
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found"
-        );
+        ,'');
         $html =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
         return ( 0, '', $error, $html, 'result.html', $fieldsref,
@@ -374,9 +374,9 @@ sub logon_user {
       )
 
     {
-        log_entry(
+        log_entry($class,$db,
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : password failed"
-        );
+       ,'' );
 
 #FIXME: The locking mechanism is in place but nothing for resetting and testing, bigger job...
         $userref->{userPasswordTries}--;
@@ -1483,7 +1483,7 @@ EOT
             my $output_message = join( $separator, @local_status );
             
             # warn about rejections at this level in log
-            log_entry("rejected transaction: $output_message");
+            log_entry($class,$db,"rejected transaction: $output_message",'');
 
             if ( $transaction{'mode'} ne 'json' ) {
                 return ( 1, $transaction_ref->{'home'}, $error, $output_message,
@@ -2646,7 +2646,7 @@ EOT
     }
 
     if ($@) {
-        log_entry("mail error is: $@ $message");
+        log_entry($class,$registry,"mail error is: $@ $message",'');
     }
 
     return $@;
@@ -2819,13 +2819,21 @@ EOT
             $record_counter++;
         }
         my ( $html_totals, $template ) =
-          make_html_transaction_totals( \%total_balance, \%total_count, '',
-            \%messages );
+          make_html_transaction_totals( \%total_balance, \%total_count,
+            \%messages, undef );
 
         my $volume_table = "<table>$html</table>" ;
+        
+        my $html = <<EOT;
+<table>
+<tr><td>$volume_table</td></tr>
+<tr><td>$html_totals</td></tr>
+</table>        
+EOT
+
 
         return ( 0, '', $registry_error,
-            "$volume_table <br/> $html_totals<hr/>",
+            $html,
             $template, '' );
     } elsif ( $mode eq 'values' ) {
 
@@ -2863,7 +2871,7 @@ sub get_registry_status {
     if ( length($status) ) {
         my $message =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : registry record not found";
-        log_entry($message);
+        log_entry($class,$db,$message,'');
         return $message;
     } else {
         return $registry_ref->{'status'};
