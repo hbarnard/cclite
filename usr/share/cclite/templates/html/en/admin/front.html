@@ -1,5 +1,5 @@
 
-<table>
+<table class="front" >
 
 <tr>
 <td title="start the graphing script">
@@ -91,7 +91,8 @@ Upload/process Batch Transactions
   </td>
 
 <td>
-<input title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button" value="Get Batch CSV File"> 	
+<div title="Get batch transactions as a csv file: see manual" type="submit" class="small" id="upload_button" value="Get Batch CSV File"></div>
+
 </td>
 
 </tr>
@@ -108,8 +109,10 @@ Upload/process Batch Transactions
 </form>
 
 <tr>
-    <td><span id="statements">
+    <td>
+    Download OpenOffice Statements
 	<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+	Month
 		<select class="small" name="month">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -124,18 +127,22 @@ Upload/process Batch Transactions
 		<option value="11">11</option>
 		<option value="12">12</option>						
 		</select>
+	 <br/>	
+	 Year
 		<input type="text" name="year" size="4" maxlength="4">
+	<br/>	
+	 Login Name	
 		<input type="text" name="username" size="10">
 		<input type="submit" class="small" name="go" value="Go">
 		</form>
-		</span>
+		
 	</td>
     
-    <td><span id="yellowpages">
+    <td valign="top">
+    Download OpenOffice Directory
 	    <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 		<input class="small" type="submit" name="go" value="Go">
 		</form>
-		</span>
 	</td>
     <td><span id=""></span></td>
     <td><span id=""></span></td> 
@@ -158,18 +165,16 @@ Upload/process Batch Transactions
 <div id="fileproblems" class="smalltext">$$fieldsref{displaybatchfiles}</div>
 <br/>
 
-        
-<div id="stats_summary">This is the average transaction size <span id="average_sparkline" class="sparkline"></span> and this <span id="volumes_sparkbar" class="sparkbar"></span> is the average volume.</div>
-
 <table> 
  <tr>
   <td>
    <h4><span id="transaction_vol_title"></span> <span id="update_date1"></span> </h4>
-    <div id="volumes_bargraph" class="linegraph"></div>
+    <img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
   </td>
+ </tr><tr> 
   <td>
    <h4><span id="averages_title"></span> <span id="update_date2"></span> </h4>
-   <div id="average_bargraph" class="linegraph"></div>
+   <img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
   </td>
  </tr>
 </table>

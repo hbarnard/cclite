@@ -528,6 +528,10 @@ font-size:8pt;
 padding:3px;
 }
 
+.front{
+border:1px solid;
+}
+
 a.big {
 background-color:#6cf;
 color:#004d9c;

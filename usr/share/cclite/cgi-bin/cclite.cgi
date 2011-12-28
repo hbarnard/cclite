@@ -289,6 +289,8 @@ my %allowed_actions = qw(logon yes
   readmessages yes
   getstats yes);
 
+
+
 if (
        ( !length( $cookieref->{'token'} ) )
     && ( !exists $allowed_actions{$action} )
@@ -663,6 +665,8 @@ if ( $action eq 'readmessages' ) {
     $fieldsref->{'mode'} = 'json';
 
 }
+
+
 
 # get messages and deliver as json for ajax: insecure but is this a problem?
 if ( $action eq 'getstats' ) {

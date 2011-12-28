@@ -237,7 +237,7 @@ function change_install(id) {
 
 function get_stats (batch_path,first_pass) {
 	
-     // alert('batch path ' + batch_path) ;
+    //  alert('batch path ' + batch_path) ;
      try {
        if (first_pass > 0 && ($('#transactions').length > 0) ) {  
 		   
@@ -245,7 +245,7 @@ function get_stats (batch_path,first_pass) {
          waiting = messages.get("waiting");
         
          $('#stats').html(processing + ' ' + type);
-         $('#stats').css('background-color', 'green');
+         
         }
         
         $.ajax({
@@ -258,18 +258,14 @@ function get_stats (batch_path,first_pass) {
              }
           });
   
-         if (first_pass > 0 && ($('#transactions').length > 0)) {
-          $('#stats').html(waiting + ' ' + type);
-	     } 
+    
 	     
-	     if ($('#transactions').length > 0) {
-  	         vol = document.getElementById('volumes').src;
-             trans = document.getElementById('transactions').src;
-           //  $("#volumes").attr("src", "vol?timestamp=" + new Date().getTime());
-           //  $("#transactions").attr("src", "trans?timestamp=" + new Date().getTime());
-
-             document.getElementById('volumes').src = vol + '?' + (new Date()).getTime();
-             document.getElementById('transactions').src = trans + '?' + (new Date()).getTime(); 	
+	     if ($('#volumes_bargraph').length > 0) {
+		   $('#stats').css('background-color', 'green');
+  	       vol = '/images/charts/dalston/volumes.png' + '?timestamp=' + new Date().getTime();
+           trans = '/images/charts/dalston/transactions.png' + '?timestamp=' + new Date().getTime();
+            $("#volumes_bargraph").attr("src", vol);
+            $("#average_bargraph").attr("src", trans);
          }
   
   

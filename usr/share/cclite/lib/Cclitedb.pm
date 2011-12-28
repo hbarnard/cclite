@@ -1743,8 +1743,11 @@ sub log_entry {
 	
   my ( $class, $db, $message, $token ) = @_ ;
   
+  my $timestamp = sql_timestamp() ;
   my $fieldsref = {} ;
+  
   $fieldsref->{'message'} = $message ;
+  $fieldsref->{'stamp'}   = $timestamp ;
   
   my ( $error, $record_id ) = add_database_record ( $class, $db, 'om_log', $fieldsref, $token );
   	

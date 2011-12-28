@@ -67,9 +67,10 @@ my $gammu_found = `which gammu`;
 my $sendmail    = '/usr/sbin/sendmail';
 my $disable_installer_button;
 
+# removed Sendmail and Log4perl as of 12/2011
+
 my %module = (
     'dbi|DBI'                   => '0:Database Connection',
-    'snd|Mail::Sendmail'        => '0:Send Mail, old method',
     'dig|Digest::SHA2'          => '1:512 Digest',
     'dig|Digest::SHA1'          => '1:256 Digest',
     'wse|SOAP::Lite'            => '1:Web Services',
@@ -84,7 +85,6 @@ my %module = (
     'mim|MIME::Decoder'         => '2:Mail/Jabber Encryption',
     'mim|GnuPG'                 => '2:Mail/Jabber Encryption',
     'jab|Net::XMPP'             => '2:Jabber Transport',
-    'log|Log::Log4perl'         => '0:Logging for Perl',
     'fpt|File::Path'            => '0:OS Indep File Path',
     'gde|GD'                    => '2:Graphics for Graphs',
     'gde|GD::Text'              => '2:Graphics for Graphs',

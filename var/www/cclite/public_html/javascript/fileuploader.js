@@ -258,7 +258,7 @@ qq.FileUploaderBasic = function(o){
         multiple: true,
         maxConnections: 3,
         // validation        
-        allowedExtensions: [],               
+        allowedExtensions: [ ],               
         sizeLimit: 0,   
         minSizeLimit: 0,                             
         // events
@@ -359,7 +359,7 @@ qq.FileUploaderBasic.prototype = {
     _onProgress: function(id, fileName, loaded, total){        
     },
     _onComplete: function(id, fileName, result){
-        this._filesInProgress--;                 
+        this._filesInProgress--;  
         if (result.error){
             this._options.showMessage(result.error);
         }             
@@ -496,9 +496,9 @@ qq.FileUploader = function(o){
                 '<span class="qq-upload-spinner"></span>' +
                 '<span class="qq-upload-size"></span>' +
                 '<a class="qq-upload-cancel" href="#">Cancel</a>' +
-                '<span class="qq-upload-failed-text">Failed!!!!</span>' +
+                '<span class="qq-upload-failed-text"></span>' +
             '</li>',        
-        
+      //removed failed from upload 11/2011
         classes: {
             // used to get elements from templates
             button: 'qq-upload-button',

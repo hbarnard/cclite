@@ -164,8 +164,8 @@ to be fixed:
 14. 
 15. 
 16. 
-17. Remove <hr> from admin templates and check them
-18. Upload batch doesn't work properly at present
+17. 
+18. 
 19. 
 20. 
 21. Direct user add needs protection otherwise very spammy
@@ -176,8 +176,8 @@ to be fixed:
 26. Back button in wrong place and doesn't work properly: showbalvol...
 27. 
 28. Put tag cloud at right everywhere in user side
-29. put date and timestamp into logging routine
-30. loggng.cf can be removed
+29. Remove log logic from installer
+30. Remove needs log4perl message from installer
 
 
 17.12.2011 Tiki-wiki communication
