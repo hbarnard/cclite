@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-my $test = 0;
+my $test = 0 ;
 if ($test) {
     print STDOUT "Content-type: text/html\n\n";
     my $data = join( '', <DATA> );

@@ -141,9 +141,7 @@ if ( $usable == 0 ) {
 $diagnosis .=
   "<li class=\"failedcheck\">cclite can't use MySql needs DBI</li>"
   if ( $counter{'dbi'} == 0 );
-$diagnosis .=
-  "<li class=\"failedcheck\">cclite can't log needs Log::Log4perl</li>"
-  if ( $counter{'log'} == 0 );
+
 $diagnosis .=
 "<li class=\"failedcheck\">cclite can't send mail needs Mail::Sendmail or better Net::SMTP </li>"
   if ( $counter{'snd'} == 0 );

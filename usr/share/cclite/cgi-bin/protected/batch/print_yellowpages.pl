@@ -18,7 +18,7 @@
 # these batch scripts are kept as eval, if they fail they print their problems
 # onto the status web page
 
-print STDOUT "Content-type: text/html\n\n";
+#print STDOUT "Content-type: text/html\n\n";
 
 
 =head3 make_column_headings
@@ -225,5 +225,21 @@ print_yellow_dir( 'local', $registry, $document, $title, $table_lines,
     $column_headers_hash_ref, $token );
 
 $document->save;
+
+# read the statements back in
+open (OUT,$output_file) ;
+my @output = <OUT> ;
+close OUT ;
+
+# present for download
+print "Content-Type:application/x-download\n";  
+print "Content-Disposition:attachment;filename=directory_for_$registry.odt\n\n"; 
+print @output  ;
+
+# remove the file...unlikely that this is happening several times in one registry
+unlink $output_file ;
+
 exit 0;
+
+
 

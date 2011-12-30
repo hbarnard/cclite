@@ -44,6 +44,8 @@ onto the status web page
 This is a simple graph of transaction size an volumes for a given
 registry, it is run as a time job within the admin menu
 
+This is still a work in progress, may go to gnuplot, flot dygraph
+or rrdtool
 
 
 =head1 COPYRIGHT
@@ -141,6 +143,8 @@ use strict ;
 use Cclitedb;
 
 use Chart::Strip;
+use Data::Dumper ;
+
 
 our %configuration = readconfiguration();
 
@@ -165,12 +169,16 @@ if (-e $chartdir && -w $chartdir) {
 # name is chart name
 my $name  ;
 # value before token is how many hours back to go...
-my $hours_back = 24 ; # how many hours back to go
+my $hours_back = 168; # how many hours back to go
 # type is minutes, hours, days.
-my $type = 'hours' ;
+my $type = 'minutes' ;
 
  my $averages_array_ref = get_raw_stats_data ( 'local', $registry, $hours_back, 'average', $type, '' );
  my $volumes_array_ref = get_raw_stats_data ( 'local', $registry, $hours_back, 'volume', $type, '' );
+ 
+ #print "a then v" ;
+ # print Dumper($volumes_array_ref);
+
  
  $name = "$chartdir/transactions" ; 
  my $chart = make_graph  ('time',$averages_array_ref, 'average transaction value',1) ;

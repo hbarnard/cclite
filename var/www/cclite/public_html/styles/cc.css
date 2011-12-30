@@ -173,6 +173,14 @@ color:#00;
 padding:5px;
 }
 
+
+#installerlink {
+font-family:Courier;
+font-size:small;
+color:#f00;
+padding:5px;
+}
+
 .smalltext {
 font-family:Courier;
 font-size:small;

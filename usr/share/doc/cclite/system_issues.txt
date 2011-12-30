@@ -152,7 +152,7 @@ to be fixed:
 2. 
 3. test and check out graphs [being converted to Ico]
 4. add tests for REST interface
-5. change Registry balance page in admin, make tidier remove hr
+5. 
 6. 
 7. 
 8. 
@@ -160,7 +160,7 @@ to be fixed:
 10. graph and clean up 'use' pragmas
 11. Make a nice offline page for installer/main page
 12. 
-13. module checker doesn't deliver correct usability result
+13. 
 14. 
 15. 
 16. 
@@ -176,8 +176,8 @@ to be fixed:
 26. Back button in wrong place and doesn't work properly: showbalvol...
 27. 
 28. Put tag cloud at right everywhere in user side
-29. Remove log logic from installer
-30. Remove needs log4perl message from installer
+29. 
+30. 
 
 
 17.12.2011 Tiki-wiki communication

@@ -1720,21 +1720,46 @@ EOT
 
     }
 
+###print "type is $type, sqlstring is $sql_string" ;
+
     my ( $registry_error, $array_ref ) =
       sqlraw_return_array( $class, $db, $sql_string, undef, $token );
 
     my @chart_array ;
 
     foreach my $row (@$array_ref) {
-		
+				
+
 	    my $hash_ref = {
                         time  => $row->[1],  # must be a unix time_t
                         value => $row->[2],   # the data value
                         color => 'ff0000',   # optional, used for this one point
                        } ;
-                       
-       push @chart_array, $hash_ref ;
+        
+        push @chart_array, $hash_ref ;
+
+=item cut                       
+        my $lookahead = shift(@$array_ref)	;
+		my $intervals = int	(($row->[1] - $lookahead->[1]) /600 );                
+        
+        
+        my $time = $lookahead->[1] ;
+        foreach my $i (1..($intervals - 1)) {
+            $time = $time + 600;
+            ###print "time is $time<br/>" ;
+            my $hash_ref = {
+                        time  => $time,  # must be a unix time_t
+                        value =>  0 ,   # the data value
+                        color => '0000ff',   # optional, used for this one point
+           } ;
+           push @chart_array, $hash_ref ;
+        }
+
+       unshift  @$array_ref,$lookahead ;                      
+=cut
+       
     }      
+    
     return \@chart_array ;
 }
 
