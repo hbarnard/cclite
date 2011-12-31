@@ -1,8 +1,7 @@
 <div class="errors">$$fieldsref{errors}</div>
-      <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
-<input name="action" value="offline" type="hidden"> 
-<input name="offline" value="form" type="hidden">
-        <table  class="pme-main" summary="om_users">
+      <form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+      <input type="hidden" name="subaction" value="om_registry">
+        <table  class="pme-main" summary="om_registry">
           <tbody class="stripy">
          <!--   <tr>
             
@@ -18,7 +17,7 @@
               <td nowrap >Change Registry Status<br>
               </td>
               <td > 
-              <select value="action">
+              <select name="action">
                <option selected value="online">Online</option>
                <option value="offline">Offline</option>             
               </select>

@@ -91,6 +91,7 @@ my $VERSION = 1.00;
   sqlraw
   sqlraw_return_array
   sqldelete
+  whos_online
 );
 
 =head3 add_database_record
@@ -260,7 +261,7 @@ sub update_database_record {
     my $update = _sqlupdate( $dbh, $table, $useid, $fieldsref, $token );
     my $sth = $dbh->prepare($update);
     $sth->execute();
-
+    ###debug_message($update) ;
     #FIXME: Some tables still haven't literals
     my $table_literal = $messages{$table} || $table;
 
@@ -1762,6 +1763,43 @@ EOT
     
     return \@chart_array ;
 }
+
+
+=head3 whos_online
+
+Delivers a count and a list of those online
+The count is used for closing down the registry
+
+=cut
+
+
+sub whos_online {
+	
+    my ($class,$db,$token) = @_;
+
+    my $get = "SELECT userLogin FROM om_users where userLoggedin = '1' " ;
+    my ( $rc, $rv, $array_ref );
+    my ( $registryerror, $dbh ) = _registry_connect( $db, $token );
+    if ( length($dbh) ) {
+        my $sth = $dbh->prepare($get);
+        my $rv  = $sth->execute();
+        $array_ref = $sth->fetchall_arrayref();
+        $sth->finish();
+    }
+    my $count = scalar($array_ref) ;
+    return ( $count, $array_ref );	
+	
+	
+	
+}	
+
+
+=head3 log_entry
+
+Log entry into logging table
+
+=cut
+
 
 
 sub log_entry {

@@ -37,3 +37,5 @@ mailpath=/var/spool/mail
 action=updateconfig2
 smspath=/var/cclite/sms/inbox
 package_type=3
+debugpath=/var/cclite/log/cclite.log
+

@@ -295,10 +295,14 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
     )
   );
 
+
 # shutdown for maintenance
-( $action eq "offline" )
-  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
+if ($action eq "offline" ) {
+	
+   ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
     go_offline( 'local', $db, '', 1, '', $language, $token ) );
+}
+
 
 # bring up after maintenance
 ( $action eq "online" )

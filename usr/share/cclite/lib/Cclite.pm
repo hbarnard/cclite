@@ -307,8 +307,8 @@ sub logon_user {
     my $registry_status = get_registry_status(
         ( $class, $db, 'om_registry', $fieldsref, $registry_private_value ) );
 
-    # registry is closed or closing...
-    if ( $registry_status eq 'down' || $registry_status eq 'closing' ) {
+    # registry is closed or closing...and it's not a manager
+    if ( ($registry_status eq 'down' || $registry_status eq 'closing') && $fieldsref->{'userLogin'} ne 'manager') {
         return ( 0, '', $error, $html, 'down.html', $fieldsref,
             $cookieheader );
     }
@@ -448,7 +448,7 @@ sub logon_user {
 
         my %update = (
             'userId', $userref->{'userId'}, 'userLastLogin', "$date$time",
-            'userPasswordTries', 3, 'userLang', $cookie{'language', 'userLoggedin', 1}
+            'userPasswordTries', 3, 'userLang', $cookie{'language'}, 'userLoggedin', 1
         );
         
 
@@ -585,6 +585,15 @@ sub logoff_user {
     $fieldsref->{'at'}     = '';
     $fieldsref->{'action'} = '';
 
+  # flag for logged in users 12/2011
+    my $userref ;
+    $userref->{'userLogin'} = $cookieref->{'userLogin'} ;
+    $userref->{'userLoggedin'} = 0;
+    
+    my ( $a, $b, $c, $d ) =
+      update_database_record( 'local', $cookieref->{'registry'}, 'om_users', 2,
+        $userref, $cookieref->{'language'}, $cookieref->{'token'} );
+
     foreach my $key ( keys %$cookieref ) {
         $cookieref->{$key} = undef if ( $key ne 'language' );
     }
@@ -592,17 +601,6 @@ sub logoff_user {
     my $cookieheader =
       return_cookie_header( -1, $fieldsref->{'domain'}, '/', '',
         %$cookieref );
-
-  # flag for logged in users 12/2011
-    my $userref ;
-    $userref->{'userId'} = $cookieref->{'userId'} ;
-    $userref->{'userLoggedin'} = 0;
-    
-    my ( $a, $b, $c, $d ) =
-      update_database_record( 'local', $cookieref->{'registry'}, 'om_users', 2,
-        $userref, $cookieref->{'language'}, $cookieref->{'token'} );
-
-
 
     display_template(
         1,    $fieldsref->{'home'}, '',         $goodbye,

@@ -32,6 +32,7 @@ use Cccookie;
 use Cwd;
 use vars qw(@ISA @EXPORT);
 use Exporter;
+use Data::Dumper ;
 
 use Log::Message::Simple qw[msg error debug carp croak cluck confess];
 
@@ -44,6 +45,7 @@ my $VERSION = 1.00;
   readmessages
   debug_soap
   debug_hash_contents
+  debug_message
   decide_language
   deliver_remote_data
   display_template
@@ -964,6 +966,43 @@ sub debug_hash_contents {
     my ( $package, $filename, $line ) = caller;
     return;
 }
+
+
+
+=head3 debug_message
+
+debug the contents of a hash, with stamp for calling routine
+Probably should use data dumper, but that's 'yam', yet another module
+
+=cut
+
+sub debug_message {
+
+    my ($message, $dumper) = @_;
+    my ( $package, $filename, $line ) = caller;
+    my %configuration ;
+    
+    if ( $0 !~ /ccinstall/ ) {
+        %configuration = Ccconfiguration::readconfiguration();
+    }
+        
+   `touch $configuration{'debugpath'}` if (! -e $configuration{'debugpath'}) ;
+   
+    open(my $fh, '>>', $configuration{'debugpath'} ) or die 'no debug log' ;
+    
+ 
+    if ($dumper) {
+        print $fh "$package $filename $line" . Dumper($message) . "\n" ;
+    }else {
+	    print $fh "$package $filename $line $message\n" ;
+    }
+    close $fh ;
+    return;
+}
+
+
+
+
 
 =head3 pretty_status
 

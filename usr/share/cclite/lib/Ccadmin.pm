@@ -1052,7 +1052,13 @@ Bring down one registry, move registry record into state 'down'
 sub go_offline {
     my ( $class, $db, $table, $useid, $fieldsref, $language, $token ) = @_;
 
-    $fieldsref = { 'status' => 'closing' };
+    $fieldsref = { 'id' => '1', 'status' => 'closing' };
+    
+    ###debug_message('in go offline routine') ;
+    
+    # get count and list of whos online
+    my ($count,$login_array_ref) = whos_online ($class,$db,$token) ;
+    
     update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
         $language, $token );
 
@@ -1068,7 +1074,7 @@ Bring up one registry, move registry record into state 'open'
 sub go_online {
     my ( $class, $db, $table, $useid, $fieldsref, $language, $token ) = @_;
 
-    $fieldsref = { 'status' => 'open' };
+    $fieldsref = {'id' => '1', 'status' => 'open' };
     update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
         $language, $token );
 

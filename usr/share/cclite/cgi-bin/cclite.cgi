@@ -150,15 +150,9 @@ if (   $fields{action} ne 'logoff'
     $fields{userLogin} = $cookieref->{'userLogin'};
 }
 
-#
 #---------------------------------------------------------------------------
 # change the language default here, languages should be ISO 639 lower case
-#
 my $language = decide_language($fieldsref);
-
-###print "language = $language\n" ;
-
-#---------------------------------------------------------------------------
 
 my $pagename = $fields{name};
 my $action   = $fields{action} || $configuration{defaultaction};
@@ -175,11 +169,9 @@ my $url_type = 0;
 
 $fields{userHash} = hash_password( $url_type, $fields{userPassword} );
 
-#
 #--------------------------------------------------------------
 # number of records per page in displayed lists ex-db tables, change at will
 # 15 is about comfortable for full screen
-#
 my $limit = $fields{limit} || $configuration{linesperpage};
 
 #--------------------------------------------------------------
@@ -370,10 +362,11 @@ my $registry_status =
     $registry_private_value )
   if ( length($db) );
 
-if ( $registry_status eq 'down' ) {
+ 
+
+if ( $registry_status eq 'down' && $cookieref->{'userLogin'} ne 'manager') {
 
     # display an action result, all actions are consumed
-
     display_template(
         $refresh,    $metarefresh, $error,   $html, $pages,
         'down.html', $fieldsref,   $cookies, $token

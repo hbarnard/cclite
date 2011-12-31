@@ -174,9 +174,9 @@ to be fixed:
 24. REST /summary doesn't work properly for csv and delivers two bits of json
 25. Shorten months to three characters in balance and volume output
 26. Back button in wrong place and doesn't work properly: showbalvol...
-27. 
+27. Add user logged in/out flag logic
 28. Put tag cloud at right everywhere in user side
-29. 
+29. Add close down test and do logic, doesn't work, debug
 30. 
 
 
