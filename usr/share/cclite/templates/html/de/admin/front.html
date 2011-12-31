@@ -1,6 +1,6 @@
 
 
-<table>
+<table class="front" >
 
 <tr>
 
@@ -147,7 +147,8 @@ Alle 30 min.
 
 <td>
 
-<input title="Batchtransaktionen als Csv-Datei zu erhalten: siehe Handbuch" type="submit" class="small" id="upload_button" value="Batch CSV Datei">
+<div title="Batchtransaktionen als Csv-Datei zu erhalten: siehe Handbuch" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
+</div>
 
 </td>
 
@@ -194,11 +195,10 @@ Warten
 
 <tr>
 
-<td>
-<span id="statements">
-
+<td class="front">
+Download OpenOffice-Anweisungen
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
-
+Monat
 <select class="small" name="month">
 
 <option value="1">
@@ -251,28 +251,29 @@ Warten
 
 </select>
 
+<br/>
+
+Jahr
 <input type="text" name="year" size="4" maxlength="4">
 
+<br/>
+
+Login-Name
 <input type="text" name="username" size="10">
 
 <input type="submit" class="small" name="go" value="Gehen">
 
 </form>
 
-</span>
-
 </td>
 
-<td>
-<span id="yellowpages">
-
+<td class="front" valign="top">
+Download OpenOffice Directory
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
 <input class="small" type="submit" name="go" value="Gehen">
 
 </form>
-
-</span>
 
 </td>
 
@@ -325,16 +326,6 @@ $$fieldsref{displaybatchfiles}
 <br/>
 
 
-<div id="stats_summary">
-Dies ist der durchschnittliche Transaktionsgrösse
-<span id="average_sparkline" class="sparkline">
-</span>
-und dies
-<span id="volumes_sparkbar" class="sparkbar">
-</span>
-ist das durchschnittliche Volumen.
-</div>
-
 <table>
 
 <tr>
@@ -350,10 +341,13 @@ ist das durchschnittliche Volumen.
 
 </h4>
 
-<div id="volumes_bargraph" class="linegraph">
-</div>
+<img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
+
 
 </td>
+
+</tr>
+<tr>
 
 <td>
 
@@ -366,8 +360,8 @@ ist das durchschnittliche Volumen.
 
 </h4>
 
-<div id="average_bargraph" class="linegraph">
-</div>
+<img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
+
 
 </td>
 

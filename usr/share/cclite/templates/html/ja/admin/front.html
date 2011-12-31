@@ -1,6 +1,6 @@
 
 
-<table>
+<table class="front" >
 
 <tr>
 
@@ -147,7 +147,8 @@ SMS を停止します。
 
 <td>
 
-<input title="バッチ トランザクションを csv ファイルとして取得: マニュアルを参照してください。" type="submit" class="small" id="upload_button" value="バッチの CSV ファイルを取得します。">
+<div title="バッチ トランザクションを csv ファイルとして取得: マニュアルを参照してください。" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
+</div>
 
 </td>
 
@@ -194,11 +195,10 @@ SMS を停止します。
 
 <tr>
 
-<td>
-<span id="statements">
-
+<td class="front">
+OpenOffice のステートメントをダウンロードします。
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
-
+1 ヶ月
 <select class="small" name="month">
 
 <option value="1">
@@ -251,28 +251,29 @@ SMS を停止します。
 
 </select>
 
+<br/>
+
+年
 <input type="text" name="year" size="4" maxlength="4">
 
+<br/>
+
+ログイン名
 <input type="text" name="username" size="10">
 
 <input type="submit" class="small" name="go" value="行く">
 
 </form>
 
-</span>
-
 </td>
 
-<td>
-<span id="yellowpages">
-
+<td class="front" valign="top">
+OpenOffice のディレクトリをダウンロードします。
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
 <input class="small" type="submit" name="go" value="行く">
 
 </form>
-
-</span>
 
 </td>
 
@@ -325,16 +326,6 @@ $$fieldsref{displaybatchfiles}
 <br/>
 
 
-<div id="stats_summary">
-トランザクションの平均サイズです。
-<span id="average_sparkline" class="sparkline">
-</span>
-この
-<span id="volumes_sparkbar" class="sparkbar">
-</span>
-平均のボリュームです。
-</div>
-
 <table>
 
 <tr>
@@ -350,10 +341,13 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<div id="volumes_bargraph" class="linegraph">
-</div>
+<img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
+
 
 </td>
+
+</tr>
+<tr>
 
 <td>
 
@@ -366,8 +360,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<div id="average_bargraph" class="linegraph">
-</div>
+<img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
+
 
 </td>
 
