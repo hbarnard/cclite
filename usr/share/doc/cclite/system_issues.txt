@@ -148,7 +148,7 @@ soap attempts made...
 15/08/2011
 to be fixed:
 
-1. 
+1. Protect batch scripts with cookie testing
 2. 
 3. test and check out graphs [being converted to Ico]
 4. add tests for REST interface
@@ -165,9 +165,9 @@ to be fixed:
 15. 
 16. 
 17. 
-18. 
-19. 
-20. 
+18. * cclite at top of admin goes back to user menu
+19. * ack-grep and remove all debug_message lines
+20. Make some tests for batch scripts
 21. Direct user add needs protection otherwise very spammy
 22. Direct user add needs feedback, probably json
 23. Consider all status codes and return codes currently, see list
@@ -176,8 +176,8 @@ to be fixed:
 26. Back button in wrong place and doesn't work properly: showbalvol...
 27. Add user logged in/out flag logic
 28. Put tag cloud at right everywhere in user side
-29. Add close down test and do logic, doesn't work, debug
-30. 
+29. Add close down test and do logic, doesn't work, debug (done)
+30. * change hardcoded paths to graphs and add javascript logic to correct
 
 
 17.12.2011 Tiki-wiki communication
