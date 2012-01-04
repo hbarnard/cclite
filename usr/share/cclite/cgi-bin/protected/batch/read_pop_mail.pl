@@ -42,6 +42,7 @@ use Cclite ;
 use Ccinterfaces;
 use Cccookie;
 use Ccu;
+use Ccsecure ;
 
 BEGIN {
     use CGI::Carp qw(fatalsToBrowser set_message);
@@ -51,9 +52,11 @@ BEGIN {
 
 }
 
-my %configuration = readconfiguration;
+my %configuration = readconfiguration();
+# message language now decided by decide_language, within readmessages 08/2011
+our %messages = readmessages();
 
-# for cron, replace these with hardcoded registry name
+# for cron, replace these with hardcoded registry name and removed is_admin test
 my $hardcoded_registry  = '' ;
 
 my %fields = cgiparse();
@@ -61,7 +64,19 @@ my $cookieref = get_cookie();
 my $registry  = $hardcoded_registry || $$cookieref{registry};
 
 #FIXME: needs slightly higher barrier than this...
-exit unless ( length($registry) );
+
+if (!length($registry) ) {
+	print 'no registry defined' ;
+	exit 0 ;	
+	
+}	
+
+if (! is_admin) {
+	print "Content-type: text/html\n\n";
+	print $messages{'notadmin'} ;
+	exit 0 ;
+}
+
 
 # read the current registry to pick up per-registry email values
 my ($class,$token) ;

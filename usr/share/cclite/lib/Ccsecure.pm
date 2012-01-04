@@ -55,7 +55,7 @@ use Exporter;
 use Ccu;
 use Cclitedb;
 use Cccookie;
-use MIME::Base64;
+#use MIME::Base64;
 
 # use Net::OAuth;       # for Oauth in a while...
 use Ccconfiguration;    # new style configuration, read hash type...
@@ -75,6 +75,7 @@ my $VERSION = 1.00;
   calculate_api_key
   compare_api_key
   do_oauth
+  gatekeeper
   valid_token
   parse_remote_user
   log_violation
@@ -340,6 +341,25 @@ sub get_server_details {
 
 }
 
+
+
+=head3 gatekeeper
+
+Routine to protect batch scripts by testing token cookies
+
+=cut
+
+
+sub gatekeeper {
+	
+	
+	
+	
+}	
+	
+
+
+
 =head3 log_violation
 
 Log token failures etc. here..needs a new db table
@@ -437,7 +457,7 @@ sub install_grumble {
 Very crude method of determining whether the administration script is being run.
 Should be replaced by something more secure and subtle.
 
-Should also check token to provide some assurance that session is not hijacked
+FIXME: Should also check token to provide some assurance that session is not hijacked
 
 =cut
 
@@ -449,13 +469,13 @@ sub is_admin {
 }
 
 sub encode_base64 {
-    my $data = $_[0];
+    my ($data) = @_ ;
     $data =~ tr|+/=|\-_|d;
     return $data;
 }
 
 sub decode_base64 {
-    my $data = $_[0];
+    my ($data) = @_ ;
 
     # +/ should not be handled, so convert them to invalid chars
     # also, remove spaces (\t..\r and SP) so as to calc padding len
@@ -467,6 +487,8 @@ sub decode_base64 {
     return $data;
 }
 
+
+=item cut
 #
 # Author:       David Shu
 # Created:      5/26/2005
@@ -654,7 +676,7 @@ method in previous releases....
 These calls exit here after supplying the tokens
 
 
-=cut
+
 
 sub do_oauth {
 
@@ -698,8 +720,8 @@ sub do_oauth {
     }
     exit 0;
 }
+=cut
 
-1;
 
 1;
 

@@ -382,6 +382,13 @@ use Cccookie;
 
 our %configuration = readconfiguration();
 my %fields = cgiparse();
+my $cookieref = get_cookie();
+my $registry  = $cookieref->{registry} ;
+our $language = decide_language() ;
+
+# message language now decided by decide_language, within readmessages 08/2011
+our %messages = readmessages();
+
 
 #replace entirely with cgi in a while...
 my $statement_month = $fields{'month'}     || $ARGV[0] || 11  ;
@@ -394,12 +401,12 @@ if ( !length($statement_month) || !length($statement_year) ) {
     exit 0;
 }
 
-my $cookieref = get_cookie();
-my $registry  = $cookieref->{registry} ;
-our $language = decide_language() ;
+if (! is_admin) {
+	print "Content-type: text/html\n\n";
+	print $messages{'notadmin'} ;
+	exit 0 ;
+}
 
-# message language now decided by decide_language, within readmessages 08/2011
-our %messages = readmessages();
 
 # lines in one page of table
 my $table_lines = 40;

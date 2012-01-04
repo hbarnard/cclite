@@ -198,6 +198,14 @@ our $language = decide_language() ;
 # message language now decided by decide_language, within readmessages 08/2011
 our %messages = readmessages();
 
+# not an administrator exiting, perhaps this should be generally avaiable though
+if (! is_admin) {
+	print "Content-type: text/html\n\n";
+	print $messages{'notadmin'} ;
+	exit 0 ;
+}
+
+
 # lines in one page of table
 my $table_lines = 40;
 

@@ -257,17 +257,17 @@ function get_stats (batch_path,first_pass) {
                    $('#stats_status').html(data);
              }
           });
-  
-    
-	     
+       
 	     if ($('#volumes_bargraph').length > 0) {
 		   $('#stats').css('background-color', 'green');
-  	       vol = '/images/charts/dalston/volumes.png' + '?timestamp=' + new Date().getTime();
-           trans = '/images/charts/dalston/transactions.png' + '?timestamp=' + new Date().getTime();
+  	       vol = '/images/charts/' + $.cookie('registry') + '/volumes.png' + '?timestamp=' + new Date().getTime();
+           trans = '/images/charts/' +  $.cookie('registry')  + '/transactions.png' + '?timestamp=' + new Date().getTime();
+           
+           // alert('vol is' + vol) ;
+           
             $("#volumes_bargraph").attr("src", vol);
             $("#average_bargraph").attr("src", trans);
          }
-  
   
      } catch (error) {
          alert(messages.get('erroris') + ' ' + error) ;

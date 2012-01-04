@@ -117,7 +117,7 @@ RewriteRule   active/tags\.json		     /cgi-bin/cclite.cgi?action=showtags&token=
 # note this is pretty insecure should probably be done only under https, the merchant key is supplied as a cookie
 # not on the command line
 RewriteCond   %{HTTP_COOKIE}	merchant_key_hash=(\S+)\b   
-RewriteRule logon/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=logon&subaction=om_users&registry=$2&userLogin=$1&logontype=api  
+RewriteRule logon/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=logon&subaction=om_users&registry=$2&userLogin=$1&logontype=api
 
 # direct/adduser/dalston/test1/email@dddd/
 # this is to add an active stub user, for use with drupal.elgg etc, doesn't require login

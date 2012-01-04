@@ -49,12 +49,12 @@ function get_gateway_variables () {
 
  $user =  get_loggedin_user()->name ;
  
- $domain = 	get_plugin_setting( 'cclite_payment_domain', 'cclite') 	 ;
+ $domain   = 	get_plugin_setting( 'cclite_payment_domain', 'cclite') 	 ;
  $protocol = 	get_plugin_setting('cclite_protocol', 'cclite') ;
- $apikey =  	get_plugin_setting('cclite_api_key', 'cclite') ;
- $hashing = 	get_plugin_setting('cclite_hashing_algorithm', 'cclite') ;
- $registry = 	get_plugin_setting('cclite_registry', 'cclite') ;
- $limit = 	get_plugin_setting('cclite_api_transaction_display_limit', 'cclite') ; 
+ $apikey   =  	get_plugin_setting('cclite_api_key', 'cclite') ;
+ $hashing  = 	get_plugin_setting('cclite_hashing_algorithm', 'cclite') ;
+ $registry  = 	get_plugin_setting('cclite_registry', 'cclite') ;
+ $limit    = 	get_plugin_setting('cclite_api_transaction_display_limit', 'cclite') ; 
 
 
  $values = array('user'=> $user,

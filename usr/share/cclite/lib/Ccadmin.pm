@@ -1046,6 +1046,7 @@ EOT
 =head2 go_offline
 
 Bring down one registry, move registry record into state 'down'
+FIXME: needs to deliver errors and this is a weakness in update_database_record
 
 =cut
 
@@ -1062,12 +1063,14 @@ sub go_offline {
     update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
         $language, $token );
 
-    return;
+
+    return ( "0", '', '', $messages{'registryclosing'}, "result.html", undef );
 }
 
 =head2 go_online
 
 Bring up one registry, move registry record into state 'open'
+FIXME: needs to deliver errors and this is a weakness in update_database_record
 
 =cut
 
@@ -1078,7 +1081,7 @@ sub go_online {
     update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
         $language, $token );
 
-    return;
+    return ( "0", '','', $messages{'registryopen'}, "result.html", undef);
 }
 
 =head2 get_installer_link

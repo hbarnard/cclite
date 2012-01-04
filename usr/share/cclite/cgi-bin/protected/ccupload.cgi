@@ -69,8 +69,13 @@ use CGI ;  # sorry need this for the parsing of multipart...
 use Cclite;
 use Cccookie;
 use Ccconfiguration;    # new 2009 style configuration supply...
+use Ccsecure ;
 
 my $cookieref = get_cookie();
+
+
+
+
 my %configuration = readconfiguration();
 
 # note that uploads are per registry as of 10/2009
@@ -82,6 +87,12 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
 # message language now decided by decide_language, within readmessages 08/2011
 my %messages = readmessages();
 my $language = decide_language() ;
+
+if (! is_admin) {
+	print $messages{'notadmin'} ;
+	exit 0 ;
+}
+
 
 my $maxFileSize = 2 * 1024 * 1024; # 2mb max file size...
 

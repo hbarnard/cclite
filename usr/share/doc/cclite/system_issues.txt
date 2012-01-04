@@ -152,9 +152,9 @@ to be fixed:
 2. 
 3. test and check out graphs [being converted to Ico]
 4. add tests for REST interface
-5. 
-6. 
-7. 
+5. csv REST Payment delivers file? 
+6. update_database_record returns web style signature..
+7. add tests for registry closing and opening from admin
 8. 
 9. 
 10. graph and clean up 'use' pragmas
@@ -165,8 +165,8 @@ to be fixed:
 15. 
 16. 
 17. 
-18. * cclite at top of admin goes back to user menu
-19. * ack-grep and remove all debug_message lines
+18. 
+19. * ack-grep and remove all debug_message lines [each release]
 20. Make some tests for batch scripts
 21. Direct user add needs protection otherwise very spammy
 22. Direct user add needs feedback, probably json
@@ -174,10 +174,10 @@ to be fixed:
 24. REST /summary doesn't work properly for csv and delivers two bits of json
 25. Shorten months to three characters in balance and volume output
 26. Back button in wrong place and doesn't work properly: showbalvol...
-27. Add user logged in/out flag logic
+27. 
 28. Put tag cloud at right everywhere in user side
 29. Add close down test and do logic, doesn't work, debug (done)
-30. * change hardcoded paths to graphs and add javascript logic to correct
+30. 
 
 
 17.12.2011 Tiki-wiki communication
