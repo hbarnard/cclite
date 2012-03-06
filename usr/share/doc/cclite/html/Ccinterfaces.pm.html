@@ -152,7 +152,6 @@ to change these, just substitute a translated hash</p>
 <pre>
 <span class="c"># language of messages decided now by Ccu::decide_language</span>
 <span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span>      = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Ccinterfaces&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 </pre><p></p>
 <h3><a name="sms_transaction">sms_transaction</a></h3>
@@ -446,7 +445,6 @@ themselves. It has remained to keep the function signatures consistent.</p>
 
     <span class="k">while</span> <span class="s">(</span><span class="q">&lt;CSV&gt;</span><span class="s">)</span> <span class="s">{</span>
 
-        <span class="c">###$log-&gt;debug(&quot;input is $_&quot;) ;</span>
         <span class="q">s/&quot;//g</span><span class="sc">;</span>    <span class="c"># remove quotes</span>
         <span class="k">next</span> <span class="k">if</span> <span class="s">(</span><span class="q">/^#|^\s/</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># skip comment lines and space lines</span>
         <span class="k">chop</span><span class="s">(</span><span class="i">$_</span><span class="s">)</span><span class="sc">;</span>
@@ -548,7 +546,6 @@ themselves. It has remained to keep the function signatures consistent.</p>
         <span class="k">my</span> <span class="i">$transaction_ref</span> = \<span class="i">%transaction</span><span class="sc">;</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="c">###$log-&gt;debug(&quot;ok is $ok&quot;);</span>
         <span class="k">if</span> <span class="s">(</span><span class="i">$ok</span><span class="s">)</span> <span class="s">{</span>
             <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
               <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;batch&#39;</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">fromregistry</span>}<span class="cm">,</span>

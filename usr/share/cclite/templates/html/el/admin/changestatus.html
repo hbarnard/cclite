@@ -3,13 +3,11 @@
 $$fieldsref{errors}
 </div>
 
-<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
 
-<input name="action" value="offline" type="hidden">
+<input type="hidden" name="subaction" value="om_registry">
 
-<input name="offline" value="form" type="hidden">
-
-<table  class="pme-main" summary="om_users">
+<table  class="pme-main" summary="om_registry">
 
 <tbody class="stripy">
 
@@ -25,14 +23,14 @@ $$fieldsref{errors}
             <tr >  -->
 
 <td nowrap >
-Αλλαγή κατάστασης μητρώου
+Κατάσταση μεταβολής μητρώου
 <br>
 
 </td>
 
 <td >
 
-<select value="action">
+<select name="action">
 
 <option selected value="online">
 Online

@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Design by Free CSS Templates&#xD;	http://www.FreeCSStemplates.org&#xD;	Rilasciato gratuitamente sotto una licenza Creative Commons Attribuzione 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
-Cclite $$fieldsref{version} Amministratore
+Cclite $$fieldsref{version} Admin
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite $$fieldsref{version} Amministratore
 $$fieldsref{metarefresh}
 <!-- fogli di stile -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- librerie JavaScript, bisogno di eprom compresso versioni -->
+<!-- più tardi DataTable -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- librerie JavaScript, bisogno di eprom compresso versioni ad un certo punto -->
 
 <!-- elementi di jQuery -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- gli altri non jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -72,17 +92,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
-
-<script src="/javascript/fileuploader.js" type="text/javascript">
-</script>
-
 <!-- rappresentazione grafica -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -96,35 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- tutte le forme hanno la stessa nome 'forma', evita la complessità qui -->
+<!-- Questo è lo script che registra gli utenti fuori quando il sistema è essere portato -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- Questa opzione attiva/disattiva la roba punto decimale -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="Casa" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- ricerca di utenti, mestieri, annunci -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -150,9 +151,11 @@ Annunci
 
 </form>
 
-</div>
-
 <!-- fine della casella di ricerca di completamento automatico -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
 <!-- versione del selettore di lingua 1 -->
 
@@ -238,113 +241,135 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- fine del logo -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite Admin
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
 Menu utente
 </a>
+</li>
 
+<li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
 Cambiare Status di $$fieldsref{registry}
 </a>
 
+</li>
+
+<li>
+<
 <a class="bodytext" title="Visualizza registri Partner collegato" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Partner
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="Creare una nuova moneta" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
 Creare moneta
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="Visualizza valute in" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 Visualizza valute
 </a>
+</li>
 
-<a class="bodytext"title="Creare la nuova categoria di annuncio" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+<li>
+<a class="bodytext"title="Creare nuova categoria annunci" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
 Creare annunci categoria
 </a>
+</li>
+
+<li>
 $$fieldsref{installer_link}
-</div>
+</li>
 
-<!-- fine della barra superiore -->
-
-<div class="topbar" >
-
+<li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
 Saldi del Registro di sistema
 </a>
+</li>
 
+<li>
 <a title="Creare la regola o limite di credito" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Limite di credito
 </a>
+</li>
 
+<li>
 <a title="Creare remoto o Partner del Registro di sistema locale" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Creare Partner del Registro di sistema
 </a>
+</li>
 
+<li>
 <a title="Applicare il costo del servizio a tutti gli account" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 Applicare il costo del servizio
 </a>
+</li>
 
+<li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
 Creare Batch Dirs
 </a>
+</li>
 
+<li>
+<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
 Modificare $$fieldsref{registry}
 </a>
+</li>
 
-<!-- fine del po ' dal menu che deve essere sostituito per admin e installare -->
+</ul>
 
 </div>
 
-<!-- fine del menu -->
+<!-- Nuvola di tag e le statistiche di singolo utente -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- fine del contentleft: lato sinistro -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Categorie di annunci
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- fine del pannello -->
-
-</div>
-
-<!-- fine del righthandcontent -->
-
-</div>
-
-<!-- fine del contenuto -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 Casa
@@ -356,6 +381,13 @@ Contattaci
 <br />
 
 Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

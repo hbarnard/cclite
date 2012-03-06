@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Gratis vrijgegeven onder een Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
 Cclite $$fieldsref{version} Gebruiker
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite $$fieldsref{version} Gebruiker
 $$fieldsref{metarefresh}
 <!-- stylesheets -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- JavaScript-bibliotheken, moet subsitute gecomprimeerd versies -->
+<!-- Gegevenstabellen later -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- JavaScript-bibliotheken, moet subsitute gecomprimeerd versies op een bepaald moment -->
 
 <!-- jQuery items -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- anderen niet jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -74,10 +94,7 @@ $$fieldsref{metarefresh}
 
 <!-- Graphing -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -97,33 +114,18 @@ $$fieldsref{metarefresh}
 $$fieldsref{logout_script}
 </script>
 
-<style type="text/css" media="screen">
-
-</style>
-
 </head>
 
 <body>
 
-<!-- deze schakeloptie draait aan/uit het decimaalteken spul -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="Home" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- zoeken naar gebruikers, ambachten, advertenties -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -148,8 +150,6 @@ Advertenties
 <input value="Gaan" class="small" type="submit" title="Zoek naar trades, advertenties of gebruikers">
 
 </form>
-
-</div>
 
 <!-- einde van AutoAanvullen zoekvak -->
 
@@ -241,23 +241,38 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- einde van logo -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite gebruiker
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a id="adminlinkhref" title="Menu administratie" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
 
 </a>
+</li>
+
+<li>
 
 <a id="adminlinkhrefnt" title="administratie menu in nieuw tabblad" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
@@ -266,119 +281,136 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 </a>
 
-<a class="bodytext"  title="Vergat uw wachtwoord??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-Wachtwoord vergeten?
-</a>
+</li>
 
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Openid toevoegen
-</a>
-
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=showopenid">
-Lijst Openids
-</a>
-
-<a class="bodytext" title="Maak een nieuwe Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-Nieuwe Account
-</a>
-
-<a class="bodytext" title="Uw accountgegevens wijzigen" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Account wijzigen
-</a>
-
-</div>
-
-<!-- einde van activiteitenonderdeel -->
-
-<div class="topbar" >
-
-<span id="linksmenu" align="center">
-
+<li>
 <a title="Overdracht valuta of uren" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
 Betaling
 </a>
+</li>
 
-<a title="Split betaling voor goederen of diensten" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Split betaling
+<li>
+<a  title="Vergat uw wachtwoord??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Wachtwoord vergeten?
 </a>
 
+</li>
+
+<li>
+<a title="Openid toevoegen" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Openid toevoegen
+</a>
+
+</li>
+
+<li>
+<a title="Lijst Openids" href="/cgi-bin/cclite.cgi?action=showopenid">
+Lijst Openids
+</a>
+
+</li>
+
+<li>
+<a title="Maak een nieuwe Account" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Nieuwe Account
+</a>
+
+</li>
+
+<li>
+<a title="Uw accountgegevens wijzigen" href="/cgi-bin/cclite.cgi?action=modifyuser">
+Account wijzigen
+</a>
+</li>
+
+<li>
+<a title="Overdracht valuta of uren" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+Betaling
+</a>
+</li>
+
+<li>
+<a title="Betaling voor goederen of diensten te splitsen" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+Split betaling
+</a>
+</li>
+
+<li>
 <a title="Toon mijn transacties" href="/cgi-bin/cclite.cgi?action=showtrans">
 Transacties
 </a>
+</li>
 
+<li>
 <a title="Toon mijn saldi" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Saldi
 </a>
+</li>
 
+<li>
 <a title="Toon de goederen en diensten Directory" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Goederen/diensten
 </a>
+</li>
 
+<li>
 <a title="Mijn advertenties in de goederen en diensten Directory weergeven" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Mijn advertenties
 </a>
+</li>
 
+<li>
 <a title="Maak een pagina voor de goederen en diensten Directory" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 Plaats advertentie
 </a>
+</li>
 
-</span>
-
-<!-- einde van linksmenu -->
-
-<!-- einde van menu bit die moet worden vervangen voor admin en installeren -->
+</ul>
 
 </div>
 
-<!-- einde van menu -->
+<!-- tag cloud en individuele gebruikersstatistieken -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- einde van contentleft: linker kant -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Advertentie Categorieën
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- einde van deelvenster -->
-
-</div>
-
-<!-- einde van righthandcontent -->
-
-</div>
-
-<!-- einde van inhoud -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 Home
 </a>
 |
 <a href="#">
-Contacteer ons
+Neem contact op met ons
 </a>
 <br />
 
 Cclite 
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

@@ -50,6 +50,7 @@ package Cclite;
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
+use Data::Dumper ;
 use Cclitedb;
 use Cccookie;
 use Ccvalidate;
@@ -164,7 +165,7 @@ sub add_user {
     my ( $refresh, $error, $html, $cookies );
 
     my @status;
-    my $hash       = "";                 # for the moment, needs sha1 afterwards
+    my $hash = "";    # for the moment, needs sha1 afterwards
     my $return_url = $fieldsref->{'home'};
 
     # need nuserLogin field to make the autosuggest work in ccsuggest.cgi
@@ -226,7 +227,7 @@ sub add_user {
     #
     $fieldsref->{'action'}     = 'confirmuser';
     $fieldsref->{'userStatus'} = 'active';
-    $fieldsref->{'Send'}       = "$messages{'confirm'} $fieldsref->{'userName'}";
+    $fieldsref->{'Send'} = "$messages{'confirm'} $fieldsref->{'userName'}";
 
 # make a hyperlink: many people will receive text-only email, therefore no buttons
     my $urlstring = <<EOT;
@@ -255,8 +256,7 @@ EOT
         );
     }
 
-    return ( 1, $return_url, $error,
-        "$messages{useradded} <br/> $mail_return",
+    return ( 1, $return_url, $error, "$messages{useradded} <br/> $mail_return",
         'result.html', '' );
 }
 
@@ -265,10 +265,10 @@ EOT
 
 sub confirm_user {
     my ( $class, $db, $table, $fieldsref, $token ) = @_;
-    
+
     update_database_record( $class, $db, $table, 2, $fieldsref,
         $fieldsref->{'language'}, $token );
-    
+
     return ( '1', $fieldsref->{home}, '',
         "$fieldsref->{'userLogin'} $messages{'isnowactive'}",
         'result.html', $fieldsref, '' );
@@ -308,9 +308,10 @@ sub logon_user {
         ( $class, $db, 'om_registry', $fieldsref, $registry_private_value ) );
 
     # registry is closed or closing...and it's not a manager
-    if ( ($registry_status eq 'down' || $registry_status eq 'closing') && $fieldsref->{'userLogin'} ne 'manager') {
-        return ( 0, '', $error, $html, 'down.html', $fieldsref,
-            $cookieheader );
+    if ( ( $registry_status eq 'down' || $registry_status eq 'closing' )
+        && $fieldsref->{'userLogin'} ne 'manager' )
+    {
+        return ( 0, '', $error, $html, 'down.html', $fieldsref, $cookieheader );
     }
 
     # merchant key delivered as cookie
@@ -328,8 +329,12 @@ sub logon_user {
 # test and branch to deal with bad db user and non-existent database, used  to 500
         if ( length($status) ) {
 
-            log_entry($class,$db,
-"logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}",'');
+            log_entry(
+                $class,
+                $db,
+"logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}",
+                ''
+            );
 
             $html =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
@@ -355,9 +360,12 @@ sub logon_user {
     # login failed here...need some industrial processing to deal with this
     # no user found
     if ( !length( $userref->{'userId'} ) ) {
-        log_entry($class,$db,
-"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found"
-        ,'');
+        log_entry(
+            $class,
+            $db,
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found",
+            ''
+        );
         $html =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $status <a href=\"$fieldsref->{home}\">$messages{tryagain}</a>";
         return ( 0, '', $error, $html, 'result.html', $fieldsref,
@@ -374,15 +382,18 @@ sub logon_user {
       )
 
     {
-        log_entry($class,$db,
-"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : password failed"
-       ,'' );
+        log_entry(
+            $class,
+            $db,
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : password failed",
+            ''
+        );
 
 #FIXME: The locking mechanism is in place but nothing for resetting and testing, bigger job...
         $userref->{userPasswordTries}--;
         if ( $userref->{'userPasswordTries'} <= 1 ) {
             $userref->{'userPasswordStatus'} = 'locked';
-            $userref->{'userPasswordTries'} = 0;
+            $userref->{'userPasswordTries'}  = 0;
         }
 
         undef $userref
@@ -435,8 +446,7 @@ sub logon_user {
 
         # make a cookie header, valid for session
         #FIXME: language cookie should have long expiry
-        $cookieheader =
-          return_cookie_header( -1, $domain, $path, '', %cookie );
+        $cookieheader = return_cookie_header( -1, $domain, $path, '', %cookie );
 
         # calculate date and time stamp for om_users table
         # get date and timestamp
@@ -444,19 +454,21 @@ sub logon_user {
 
 # just supply necessary fields, not the whole records, restore password tries on success, 08/2011
 # language updated just in case changed without logging in...
-        
 
         my %update = (
-            'userId', $userref->{'userId'}, 'userLastLogin', "$date$time",
-            'userPasswordTries', 3, 'userLang', $cookie{'language'}, 'userLoggedin', 1
+            'userId',            $userref->{'userId'},
+            'userLastLogin',     "$date$time",
+            'userPasswordTries', 3,
+            'userLang',          $cookie{'language'},
+            'userLoggedin',      1
         );
-        
 
-        undef $userref->{'userPassword'}; 
-            # remove this otherwise it's rehashed and re-update
-            # mode 2 is where userLogin = value ;
-            # use userref to update record, should strip all other fields...
-            # throw away return codes for the present
+        undef $userref->{'userPassword'};
+
+        # remove this otherwise it's rehashed and re-update
+        # mode 2 is where userLogin = value ;
+        # use userref to update record, should strip all other fields...
+        # throw away return codes for the present
         my ( $a, $b, $c, $d ) =
           update_database_record( 'local', $db, "om_users", 1, \%update,
             $userref->{'language'},
@@ -492,7 +504,8 @@ sub do_login {
 
     # make cookie fields from the user table
     $cookie{'userLogin'} = $userref->{'userLogin'};
-    $cookie{'userId'} = $userref->{'userId'};   # not used yet, to replace userLogin
+    $cookie{'userId'} =
+      $userref->{'userId'};    # not used yet, to replace userLogin
 
   # avoid cumulation of registry cookie values, this is a browser problem though
     $cookie{'registry'} = $registry || $fieldsref->{'registry'};
@@ -507,18 +520,19 @@ sub do_login {
     # get date and timestamp
     my ( $date, $time ) = &Ccu::getdateandtime( time() );
     $userref->{userLastLogin} = "$date$time";
-    
+
     # flag for logged in users 12/2011
     $userref->{userLoggedin} = 1;
-    
-    undef $userref
-      ->{'userPassword'};    # remove this otherwise it's rehashed and re-update
-                           # mode 2 is where userLogin = value ;
+
+    undef $userref->{
+        'userPassword'};    # remove this otherwise it's rehashed and re-update
+        # mode 2 is where userLogin = value ;
         # use userref to update record, should strip all other fields...
         # throw away return codes for the present
     my ( $a, $b, $c, $d ) =
       update_database_record( 'local', $cookie{'registry'}, 'om_users', 2,
-        $userref, $userref->{'language'}, $cookie{'token'} );
+        $userref, $userref->{'language'},
+        $cookie{'token'} );
 
     print $cookieheader ;
     print "Location:$fieldsref->{home}\n\n";
@@ -585,28 +599,26 @@ sub logoff_user {
     $fieldsref->{'at'}     = '';
     $fieldsref->{'action'} = '';
 
-  # flag for logged in users 12/2011
-    my $userref ;
-    $userref->{'userLogin'} = $cookieref->{'userLogin'} ;
+    # flag for logged in users 12/2011
+    my $userref;
+    $userref->{'userLogin'}    = $cookieref->{'userLogin'};
     $userref->{'userLoggedin'} = 0;
-    
-    my ( $a, $b, $c, $d ) =
-      update_database_record( 'local', $cookieref->{'registry'}, 'om_users', 2,
-        $userref, $cookieref->{'language'}, $cookieref->{'token'} );
+
+    my ( $a, $b, $c, $d ) = update_database_record(
+        'local', $cookieref->{'registry'},
+        'om_users', 2, $userref, $cookieref->{'language'},
+        $cookieref->{'token'}
+    );
 
     foreach my $key ( keys %$cookieref ) {
         $cookieref->{$key} = undef if ( $key ne 'language' );
     }
 
     my $cookieheader =
-      return_cookie_header( -1, $fieldsref->{'domain'}, '/', '',
-        %$cookieref );
+      return_cookie_header( -1, $fieldsref->{'domain'}, '/', '', %$cookieref );
 
-    display_template(
-        1,    $fieldsref->{'home'}, '',         $goodbye,
-        $pages, 'result.html',        $fieldsref, $cookieheader,
-        ''
-    );
+    display_template( 1, $fieldsref->{'home'}, '', $goodbye, $pages,
+        'result.html', $fieldsref, $cookieheader, '' );
     exit 0;
 }
 
@@ -717,8 +729,8 @@ sub find_records {
 
             if ( $table ne 'om_trades' ) {
                 $delete_button =
-                  makebutton( $messages{'delete'}, 'small', 'delete', $db, $table,
-                    $hash_ref->{$key}, $fieldsref, $token );
+                  makebutton( $messages{'delete'}, 'small', 'delete', $db,
+                    $table, $hash_ref->{$key}, $fieldsref, $token );
 
             } else {
 
@@ -886,7 +898,8 @@ EOT
                 $dclass = 'pme-key-1'
                   if ( $hash_ref1->{'truelets'} ne 'yes'
                     && $hash_ref1->{'type'} eq 'offered' );
-                $dclass = 'pme-key-debit' if ( $hash_ref1->{'type'} eq 'wanted' );
+                $dclass = 'pme-key-debit'
+                  if ( $hash_ref1->{'type'} eq 'wanted' );
 
                 # show 'per unit' price if unit is valid
                 my $per_unit = "$messages{per} $hash_ref1->{unit}"
@@ -914,7 +927,7 @@ EOT
         $first_pass = 0;
         $counter++;
     }    # all records
-    
+
     # change place marker into balance and volume string
     $userhtml =~ s/bal/$balv/;
 
@@ -936,7 +949,7 @@ sub change_language {
     my $domain = $configuration{'domain'};
     my $registry_error;
     my $path = "/";
-    my $status ; # blank status needed for json delivery
+    my $status;    # blank status needed for json delivery
 
     my %cookie;
     $cookie{'language'} = $fieldsref->{'language'};
@@ -960,8 +973,8 @@ sub change_language {
 # only refresh is [mis]used to carry json payload if json is being returned 2/2011
     if ( $fieldsref->{'mode'} eq 'json' ) {
         my ($json) =
-          deliver_remote_data( $db, 'om_users', $registry_error, $fieldsref, $status,
-            $token );
+          deliver_remote_data( $db, 'om_users', $registry_error, $fieldsref,
+            $status, $token );
         return $json;
     }
 
@@ -992,7 +1005,7 @@ sub modify_user {
         shift @status;
         $html = join( '<br/>', @status );
         return (
-            0,        $return_url, '',
+            0,          $return_url, '',
             $html,      $pages,      'result.html',
             $fieldsref, '',          $token
         );
@@ -1350,7 +1363,8 @@ EOT
         if (
             (
                 (
-                    ( $balance + $commitment_limit ) - $transaction{'tradeAmount'}
+                    ( $balance + $commitment_limit ) -
+                    $transaction{'tradeAmount'}
                 ) < 0
             )
             && $transaction{'tradeSource'} ne 'sysaccount'
@@ -1407,9 +1421,9 @@ EOT
 
             my ( $status, $partnerref ) = get_where(
                 $class, $transaction{toregistry},
-                'om_partners',              '*', 'name',
+                'om_partners',                '*', 'name',
                 $transaction{'fromregistry'}, $token,
-                $offset,                    $limit
+                $offset,                      $limit
 
             );
             push @local_status, 'db3: $status' if length($status);
@@ -1479,13 +1493,14 @@ EOT
             push @local_status, $messages{'transactionrejected'};
             $transaction{'tradeStatus'} = 'rejected';
             my $output_message = join( $separator, @local_status );
-            
+
             # warn about rejections at this level in log
-            log_entry($class,$db,"rejected transaction: $output_message",'');
+            log_entry( $class, $db, "rejected transaction: $output_message",
+                '' );
 
             if ( $transaction{'mode'} ne 'json' ) {
-                return ( 1, $transaction_ref->{'home'}, $error, $output_message,
-                    'result.html', '' );
+                return ( 1, $transaction_ref->{'home'},
+                    $error, $output_message, 'result.html', '' );
             } else {
 
                 # put quotes around the messages for json...
@@ -1563,6 +1578,7 @@ EOT
     push @local_status, 'db7: $error' if length($error);
     if ( length( $local_status[0] ) || length( $remote_status[0] ) ) {
         push @local_status, $messages{'transactionrejected'};
+
     } elsif ( $transaction_ref->{'mode'} ne 'json' ) {
         push @local_status,
 "$messages{transactionaccepted}<br/>Ref:&nbsp;$transaction{tradeHash}";
@@ -1922,7 +1938,8 @@ tradeId <> '$transaction_ref->{tradeId}'
 EOT
 
     # sqlfind timestamp and corresponding record
-    my ( $error, $hash_ref ) = sqlfind( $class, $transaction_ref->{'tradeMirror'},
+    my ( $error, $hash_ref ) =
+      sqlfind( $class, $transaction_ref->{'tradeMirror'},
         'om_trades', $transaction_ref, '*', $sqlstring, $order, $token, $offset,
         $limit );
 
@@ -1967,7 +1984,7 @@ sub get_many_items {
         $error,         $row,     $html,  $home
     );
     my $total_count;
-    my $status ; # blank status used in josn delivery 11/2011
+    my $status;    # blank status used in josn delivery 11/2011
 
     # for the present deliver all trade types
     my $trade_type = "all";
@@ -2008,7 +2025,7 @@ sub get_many_items {
     # unhappily the id field used in each table is inconsistent
     my $id = get_id_name($table);
 
-    # only refresh is [mis]used to carry json payload if json is being returned 2/2011
+# only refresh is [mis]used to carry json payload if json is being returned 2/2011
     if ( $fieldsref->{'mode'} eq 'json' ) {
         my ($json) =
           deliver_remote_data( $db, $table, $registry_error, $hash_ref, $status,
@@ -2183,7 +2200,8 @@ EOT
 
         if ( $table ne 'om_trades' ) {
             unshift @columns,
-              ( $messages{'display'}, $messages{'modify'}, $messages{'delete'} );
+              ( $messages{'display'}, $messages{'modify'},
+                $messages{'delete'} );
         } elsif ( $fieldsref->{'mode'} ne 'csv' ) {
             unshift @columns,
               ( $messages{'display'}, $messages{'ok'}, $messages{'no'} );
@@ -2192,11 +2210,11 @@ EOT
         my $row;
         foreach my $entry (@columns) {
             $entry = $messages{$entry} || $entry;
-            $row .= "<td class=\"pme-key-title\">\u$entry</td>"
+            $row .= "<th class=\"pme-key-title\">\u$entry</th>"
               if ( length($entry) );
         }    # end of make column titles
 
-        $col_titles .= "<tr>$row</tr>\n";
+        $col_titles .= "<thead><tr>$row</tr></thead><tbody>\n";
 
         my $type_literal;
         $table eq 'om_trades'
@@ -2212,7 +2230,7 @@ EOT
     }
 
     $html =
-"<table><tbody class=\"stripy\">$header $col_titles $html</tbody></table>";
+      "<table id = \"transtable\">$header $col_titles $html</tbody></table>";
     return ( 0, "", $error, $html, $template, "" );
 }
 
@@ -2644,7 +2662,7 @@ EOT
     }
 
     if ($@) {
-        log_entry($class,$registry,"mail error is: $@ $message",'');
+        log_entry( $class, $registry, "mail error is: $@ $message", '' );
     }
 
     return $@;
@@ -2728,7 +2746,6 @@ EOT
     }
 }
 
-
 =head3 show_balance_and_volume
 
 New version as of 2010, html and sql largely removed, also
@@ -2737,8 +2754,6 @@ json delivery added for use as engine.
 FIXME: months back to be introduced as an input parameter..
 
 =cut
-
-
 
 sub show_balance_and_volume {
 
@@ -2754,11 +2769,14 @@ sub show_balance_and_volume {
     my %total_count;          # by currency
     my %total_volume;         # absolute value cumulated trades
     my %total_volume_html;    # absolute value cumulated trades
-    my $status ;              # blank status used for json delivery 11/2011
+    my $status;               # blank status used for json delivery 11/2011
 
     my ( $registry_error, $volume_hash_ref, $balance_hash_ref ) =
       get_transaction_totals( $class, $db, $user, $months_back, $token );
 
+
+    #FIXME: this is somewhat duplicated in the stats balances processing
+    # in get_stats 
     foreach my $key ( keys %$balance_hash_ref ) {
 
         #FIXME: does this work properly?
@@ -2820,8 +2838,8 @@ EOT
           make_html_transaction_totals( \%total_balance, \%total_count,
             \%messages, undef );
 
-        my $volume_table = "<table>$html</table>" ;
-        
+        my $volume_table = "<table>$html</table>";
+
         my $html = <<EOT;
 <table>
 <tr><td>$volume_table</td></tr>
@@ -2829,10 +2847,7 @@ EOT
 </table>        
 EOT
 
-
-        return ( 0, '', $registry_error,
-            $html,
-            $template, '' );
+        return ( 0, '', $registry_error, $html, $template, '' );
     } elsif ( $mode eq 'values' ) {
 
         return ( \%total_balance, \%total_count );
@@ -2869,7 +2884,7 @@ sub get_registry_status {
     if ( length($status) ) {
         my $message =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : registry record not found";
-        log_entry($class,$db,$message,'');
+        log_entry( $class, $db, $message, '' );
         return $message;
     } else {
         return $registry_ref->{'status'};
@@ -2881,51 +2896,66 @@ sub get_registry_status {
 Get statistics data for new style jquery etc.
 statistics
 
-If there's no movement in either, they are empty, this is signalled in $status
-otherwise the Ico.js will error out when trying to build graphs...
 
 =cut
 
 sub get_stats {
+	
+    my ( $class, $db, $user, $user_level, $from_x_hours_back, $type, $token ) = @_;
 
-    my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;
-
-    my $json;
-
-    my ( $stimes_array_ref, $averages_array_ref, $max_quantity, $avg_exists ) =
-      get_raw_stats_data( $class, $db, $from_x_hours_back, 'average', $type,
-        $token );
-    my ( $vtimes_array_ref, $volumes_array_ref, $max_quantity, $vol_exists ) =
-      get_raw_stats_data( $class, $db, $from_x_hours_back, 'volume', $type,
-        $token );
-
-    my %ref = (
-        'stimes', $stimes_array_ref, 'avg',  $averages_array_ref,
-        'vtimes', $vtimes_array_ref, 'vols', $volumes_array_ref
-    );
-
-    my $status = 'empty';    # either 'ok' or 'empty'
-
-    foreach my $key ( keys %ref ) {
-        my $array_ref = $ref{$key};
-        my $x = join( ',', @$array_ref );
-        $x = "{\"$key\":[$x]}";
-        $json .= ",$x";
-    }
-    $json =~ s/^\,//;
-
-    # tested in javascript before trying to build graphs
-    if ( $avg_exists && $vol_exists ) {
-        $status = 'ok';
-    }
+    $user_level ||= 'user' ;
+    
+    my ($json, $status, $hash_ref, $averages, $volumes, $balances_by_currency_ref);
+    
+    my $milliseconds = $from_x_hours_back * 3600 * 1000 ;
+    
+    # graph stats are delivered for admin level or user level, this may not be granular enough...
+    if ($user_level eq 'admin') {
+    $hash_ref  =  get_raw_stats_data( $class, $db, $user, $from_x_hours_back, 'average', $type, $token ); 
+    $averages  =  _make_flot_array($hash_ref) ;  
+    $hash_ref  =  get_raw_stats_data( $class, $db, $user, $from_x_hours_back, 'volume', $type, $token );
+    $volumes  =  _make_flot_array($hash_ref) ;  
 
     $json = <<EOT;
-  {\"registry"\:\"$db\",\"table\": \"om_trades\", \"message":\"$status\",\n\"data\": [$json]} 
+  {\"registry"\:\"$db\",\"table\": \"om_trades\", \"message":\"OK\", \"milliseconds_back\": $milliseconds,\"averages\": [$averages], \"volumes\": [$volumes] } 
+EOT
+    
+    
+    } elsif ($user_level eq 'user') {
+	  #complex sob, balance for individual currencies grouped by date	
+      $balances_by_currency_ref =  get_raw_stats_data_for_balances( $class, $db, $user, $from_x_hours_back, $type, $token ) ;
+      my @balance_values ;
+	  foreach my $key (keys %$balances_by_currency_ref) {
+       push @balance_values, "\"$key\":  [$balances_by_currency_ref->{$key}] " ; 
+	  }	  	
+	  $json = join(', ',@balance_values) ;
+	  	  
+    $json = <<EOT;
+  {\"registry"\:\"$db\",\"table\": \"om_trades\", \"message":\"OK\", \"milliseconds_back\": $milliseconds, \"balances\": {$json} } 
 EOT
 
+	}	
+  
+    ###print "json is $json" ;
     return $json;
 
 }
+
+
+sub _make_flot_array {
+	
+   my $hash_ref = shift ;
+   ###print Dumper $hash_ref ;
+   # [x,y], suitable for plotting with jquery flot
+   my $flot ;
+   foreach my $key (keys %$hash_ref) {
+     $flot .= "[\"$hash_ref->{$key}->{x_axis}\",\"$hash_ref->{$key}->{y_axis}\"],\n" ;
+   }
+   # snip off last comma
+   $flot =~ s/\,\s*$// ;	
+   return $flot ;
+	
+}	
 
 
 1;

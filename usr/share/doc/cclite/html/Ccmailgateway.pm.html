@@ -146,8 +146,6 @@ pre { color: #000000;
 <span class="c">###use Net::SMTP;</span>
 
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="w">readconfiguration</span><span class="sc">;</span>
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccmailgateway&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="i">@EXPORT</span> = <span class="q">qw(</span>
   <span class="q">mail_message_parse</span>

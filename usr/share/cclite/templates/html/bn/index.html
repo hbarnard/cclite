@@ -1,13 +1,25 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Design by Free CSS Templates
+ -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
 Cclite  $$fieldsref{version} ব্যবহারকারী
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +35,10 @@ Cclite  $$fieldsref{version} ব্যবহারকারী
 $$fieldsref{metarefresh}
 <!-- stylesheets -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +50,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- সঙ্কুচিত সংস্করণ subsituteতে জাভাস্ক্রীপ্ট লাইব্রেরী, প্রয়োজন -->
+<!-- datatables পরবর্তী কালে -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- কিছু দশাতে সঙ্কুচিত সংস্করণ subsituteতে জাভাস্ক্রীপ্ট লাইব্রেরী, প্রয়োজন -->
 
 <!-- jquery পদগুলো -->
 
@@ -61,6 +80,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- অন্যান্য non jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -74,10 +95,7 @@ $$fieldsref{metarefresh}
 
 <!-- graphingচ্ছে -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -97,33 +115,18 @@ $$fieldsref{metarefresh}
 $$fieldsref{logout_script}
 </script>
 
-<style type="text/css" media="screen">
-
-</style>
-
 </head>
 
 <body>
 
-<!-- এই সুইচটি on/off দশমিক বিন্দু stuff বদলায় -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="বাড়ি" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- ব্যবহারকারী, বাণিজ্য, adsএর জন্য অনুসন্ধান -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -148,8 +151,6 @@ Adverts
 <input value="যান" class="small" type="submit" title="বাণিজ্য, ads অথবা ব্যবহারকারীর জন্য দেখুন">
 
 </form>
-
-</div>
 
 <!-- autocomplete অনুসন্ধান বাক্সের প্রান্ত -->
 
@@ -241,23 +242,38 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- লোগোর প্রান্ত -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite ব্যবহারকারী
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a id="adminlinkhref" title="প্রশাসন মেনু" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
 
 </a>
+</li>
+
+<li>
 
 <a id="adminlinkhrefnt" title="নতুন ট্যাবে প্রশাসন মেনু" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
@@ -266,108 +282,118 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 </a>
 
-<a class="bodytext"  title="Forgot আপনার পাসওয়ার্ড??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-ভুলে যাওয়া পাসওয়ার্ড?
-</a>
+</li>
 
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Openid যোগ করুন
-</a>
-
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=showopenid">
-তালিকা Openids
-</a>
-
-<a class="bodytext" title="একটি নতুন অ্যাকাউন্ট তৈরি করুন" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-নতুন অ্যাকাউন্ট
-</a>
-
-<a class="bodytext" title="আপনার অ্যাকাউন্ট বিশদ বর্ণনা পরিবর্তন করুন" href="/cgi-bin/cclite.cgi?action=modifyuser">
-অ্যাকাউন্ট পরিবর্তন করুন
-</a>
-
-</div>
-
-<!-- topbarএর প্রান্ত -->
-
-<div class="topbar" >
-
-<span id="linksmenu" align="center">
-
+<li>
 <a title="স্থানান্তর টাকা অথবা ঘন্টা" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
 অর্থপ্রদান
 </a>
+</li>
 
+<li>
+<a  title="Forgot আপনার পাসওয়ার্ড??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+ভুলে যাওয়া পাসওয়ার্ড?
+</a>
+
+</li>
+
+<li>
+<a title="Openid যোগ করুন" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Openid যোগ করুন
+</a>
+
+</li>
+
+<li>
+<a title="তালিকা Openids" href="/cgi-bin/cclite.cgi?action=showopenid">
+তালিকা Openids
+</a>
+
+</li>
+
+<li>
+<a title="একটি নতুন অ্যাকাউন্ট তৈরি করুন" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+নতুন অ্যাকাউন্ট
+</a>
+
+</li>
+
+<li>
+<a title="আপনার অ্যাকাউন্ট বিশদ বর্ণনা পরিবর্তন করুন" href="/cgi-bin/cclite.cgi?action=modifyuser">
+অ্যাকাউন্ট পরিবর্তন করুন
+</a>
+</li>
+
+<li>
+<a title="স্থানান্তর টাকা অথবা ঘন্টা" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+অর্থপ্রদান
+</a>
+</li>
+
+<li>
 <a title="Goods অথবা পরিষেবার জন্য বিভক্ত অর্থপ্রদান" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 বিভক্ত অর্থপ্রদান
 </a>
+</li>
 
+<li>
 <a title="আমার লেনদেন দেখান" href="/cgi-bin/cclite.cgi?action=showtrans">
 লেনদেন
 </a>
+</li>
 
+<li>
 <a title="আমার Balances দেখান" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Balances
 </a>
+</li>
 
+<li>
 <a title="Goods এবং পরিষেবা ডিরেক্টরী দেখান" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Goods/Services
 </a>
+</li>
 
+<li>
 <a title="Goods এবং পরিষেবা ডিরেক্টরীতে আমার Ads দেখান" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 আমার Ads
 </a>
+</li>
 
+<li>
 <a title="Goods এবং পরিষেবা ডিরেক্টরীর জন্য একটি পাতা তৈরি করুন" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 স্থান Ad
 </a>
+</li>
 
-</span>
-
-<!-- linksmenuএর প্রান্ত -->
-
-<!-- মেনু বিটের প্রান্ত যে অ্যাডমিনের জন্য replacing প্রয়োজন বোধ করে এবং ইনস্টল করুন -->
+</ul>
 
 </div>
 
-<!-- মেনুর প্রান্ত -->
+<!-- ট্যাগ মেঘ এবং স্বতন্ত্র ব্যবহারকারী পরিসংখ্যান -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- contentleftএর প্রান্ত: হাত পাশ ছেড়ে চলে গিয়েছিল -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Ad শ্রেণীবিভাগ
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- প্যানেলের প্রান্ত -->
-
-</div>
-
-<!-- righthandcontentএর প্রান্ত -->
-
-</div>
-
-<!-- ভিতরের উপাদানের প্রান্ত -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 বাড়ি
@@ -379,6 +405,13 @@ $$fieldsref{righthandside}
 <br />
 
 Cclite
+
+</div>
+</div>
+
+</div>
+
+</div>
 
 </div>
 

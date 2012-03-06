@@ -74,6 +74,8 @@ pre { color: #000000;
 			<li><a href="#sql_timestamp">sql_timestamp</a></li>
 			<li><a href="#decide_language">decide_language</a></li>
 			<li><a href="#debug_hash_contents">debug_hash_contents</a></li>
+			<li><a href="#debug_message">debug_message</a></li>
+			<li><a href="#pretty_status">pretty_status</a></li>
 		</ul>
 
 	</ul>
@@ -106,7 +108,8 @@ pre { color: #000000;
 <li><a href="#sql_timestamp-">sql_timestamp</a></li>
 <li><a href="#decide_language-">decide_language</a></li>
 <li><a href="#debug_hash_contents-">debug_hash_contents</a></li>
-<li><a href="#pretty_caller-">pretty_caller</a></li>
+<li><a href="#debug_message-">debug_message</a></li>
+<li><a href="#pretty_status-">pretty_status</a></li>
 </ul>
 </li>
 <li><a href="#EOF-">EOF</a></li>
@@ -148,6 +151,10 @@ read in and localise web forms etc.</p>
 <span class="k">use</span> <span class="w">Cwd</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">vars</span> <span class="q">qw(@ISA @EXPORT)</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Exporter</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span> <span class="sc">;</span>
+
+<span class="k">use</span> <span class="w">Log::Message::Simple</span> <span class="q">qw[msg error debug carp croak cluck confess]</span><span class="sc">;</span>
+
 
 <span class="k">my</span> <span class="i">$VERSION</span> = <span class="n">1.00</span><span class="sc">;</span>
 <span class="i">@ISA</span> = <span class="q">qw(Exporter)</span><span class="sc">;</span>
@@ -157,6 +164,7 @@ read in and localise web forms etc.</p>
   <span class="q">readmessages</span>
   <span class="q">debug_soap</span>
   <span class="q">debug_hash_contents</span>
+  <span class="q">debug_message</span>
   <span class="q">decide_language</span>
   <span class="q">deliver_remote_data</span>
   <span class="q">display_template</span>
@@ -179,8 +187,6 @@ read in and localise web forms etc.</p>
   <span class="q">format_for_standard_mobile)</span><span class="sc">;</span>
 
 <span class="i">$ENV</span>{<span class="w">IFS</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
-
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Ccu&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 </pre><p></p>
 <h3><a name="cgiparse">cgiparse</a></h3>
@@ -810,8 +816,8 @@ part</p>
 <pre>
 <a name="make_html_transaction_totals-"></a><span class="k">sub </span><span class="m">make_html_transaction_totals</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$total_balance_ref</span><span class="cm">,</span> <span class="i">$total_volume_ref</span><span class="cm">,</span> <span class="i">$template</span><span class="cm">,</span> <span class="i">$messages_ref</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$total_balance_ref</span><span class="cm">,</span> <span class="i">$total_volume_ref</span><span class="cm">,</span>  <span class="i">$messages_ref</span><span class="cm">,</span> <span class="i">$template</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    
     <span class="k">my</span> <span class="s">(</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$row_style</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$record_counter</span> = <span class="n">1</span><span class="sc">;</span>
 
@@ -847,12 +853,17 @@ part</p>
 <p>Since, Cclite.pm 'assumes' in most cases that it is dealing
 with the traditional html front end, this is an experimental
 palliative to deliver self describing hashes and messages
-to remote gateways such as Drupal, Elgg, Joomla and Tiki-Wiki</p>
+to remote gateways such as Drupal, Elgg, Joomla,Tiki-Wiki and Openclass</p>
 <p>It's not a particularly elegant solution but [hopefully] it's
 a pragmatic one that preserves some consistency of access and
 delivery and doesn't break a lot of fairly useful things in the legacy part...</p>
 <p>It does need to distinguish between multdimensional and flat</p>
 <p>FIXME: This probably needs replacing by the JSON modules in the medium term...</p>
+<p>Also, we're probably going introduce a detailed 'status' part with an array
+of status objects as of 11/2011. This is in response to complaints by tiki-wiki
+that there's no much diagnostic etc. information flowing back in the json
+This is also related to improvements in pretty_caller which now becomes pretty_status
+and returns an array, as above.</p>
 <p>For example, transactions:</p>
 <p>{&quot;registry&quot;:&quot;ccliekh_dalston&quot;,&quot;table&quot;: &quot;om_trades&quot;, &quot;message&quot;:&quot;OK&quot;,
 &quot;data&quot;: [
@@ -882,7 +893,7 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
 <pre>
 <a name="deliver_remote_data-"></a><span class="k">sub </span><span class="m">deliver_remote_data</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="cm">,</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="i">$message</span> ||= <span class="q">&#39;OK&#39;</span><span class="sc">;</span>  <span class="c"># used for status messages to remote, $registry_error...</span>
     <span class="k">my</span> <span class="i">$count</span> = <span class="n">0</span><span class="sc">;</span>      <span class="c"># row counter...</span>
@@ -932,14 +943,22 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...</
           <span class="sc">;</span>        <span class="c"># snip off the last comma in the record, ugly but simple...</span>
     <span class="s">}</span>
 
+<span class="c"># FIXME: status is delivered full-cooked into json via pretty_status, this means</span>
+<span class="c"># two places produce json, but they&#39;re both in this module.</span>
+
+<span class="k">if</span> <span class="s">(</span>! <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span><span class="s">)</span> <span class="s">{</span>
+
     <span class="i">$json</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">  {\&quot;registry&quot;\:\&quot;$db\&quot;,\&quot;table\&quot;: \&quot;$table\&quot;, \&quot;message&quot;:\&quot;$message\&quot;,\n\&quot;data\&quot;: [$json]} </span>
 <span class="h">EOT</span>
 
-    <span class="c">###$log-&gt;debug(&quot;json is: $json&quot;) ;</span>
+<span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-    <span class="c">###print &quot;json is $json\n&quot; ;</span>
-    <span class="c">###return ( 0, &quot;&quot;, $error, $html, $template, &quot;&quot; );</span>
+<span class="i">$json</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">  {\&quot;registry&quot;\:\&quot;$db\&quot;,\&quot;table\&quot;: \&quot;$table\&quot;, \&quot;message&quot;:\&quot;$message\&quot;,$status,\n\&quot;data\&quot;: [$json]} </span>
+<span class="h">EOT</span>
+
+<span class="s">}</span>
     <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
 
 <span class="s">}</span>
@@ -994,7 +1013,6 @@ This decides the language:
 <h3><a name="debug_hash_contents">debug_hash_contents</a></h3>
 <p>debug the contents of a hash, with stamp for calling routine
 Probably should use data dumper, but that's 'yam', yet another module</p>
-
 <pre>
 <a name="debug_hash_contents-"></a><span class="k">sub </span><span class="m">debug_hash_contents</span> <span class="s">{</span>
 
@@ -1006,23 +1024,72 @@ Probably should use data dumper, but that's 'yam', yet another module</p>
 
     <span class="s">}</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;pack:$package file:$filename line:$line&quot;</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;fields: $x&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
 
-<a name="pretty_caller-"></a><span class="k">sub </span><span class="m">pretty_caller</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span><span class="i">$i</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+</pre><p></p>
+<h3><a name="debug_message">debug_message</a></h3>
+<p>debug the contents of a hash, with stamp for calling routine
+Probably should use data dumper, but that's 'yam', yet another module</p>
+<pre>
+<a name="debug_message-"></a><span class="k">sub </span><span class="m">debug_message</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span><span class="i">$message</span><span class="cm">,</span> <span class="i">$dumper</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%configuration</span> <span class="sc">;</span>
+    
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">%configuration</span> = <span class="i">Ccconfiguration::readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
+        
+   <span class="q">`touch $configuration{&#39;debugpath&#39;}`</span> <span class="k">if</span> <span class="s">(</span>! <span class="k">-e</span> <span class="i">$configuration</span>{<span class="q">&#39;debugpath&#39;</span>}<span class="s">)</span> <span class="sc">;</span>
+   
+    <span class="k">open</span><span class="s">(</span><span class="k">my</span> <span class="i">$fh</span><span class="cm">,</span> <span class="q">&#39;&gt;&gt;&#39;</span><span class="cm">,</span> <span class="i">$configuration</span>{<span class="q">&#39;debugpath&#39;</span>} <span class="s">)</span> <span class="k">or</span> <span class="k">die</span> <span class="q">&#39;no debug log&#39;</span> <span class="sc">;</span>
+    
+ 
+    <span class="k">if</span> <span class="s">(</span><span class="i">$dumper</span><span class="s">)</span> <span class="s">{</span>
+        <span class="k">print</span> <span class="i">$fh</span> <span class="q">&quot;$package $filename $line&quot;</span> . <span class="i">Dumper</span><span class="s">(</span><span class="i">$message</span><span class="s">)</span> . <span class="q">&quot;\n&quot;</span> <span class="sc">;</span>
+    <span class="s">}</span><span class="k">else</span> <span class="s">{</span>
+	    <span class="k">print</span> <span class="i">$fh</span> <span class="q">&quot;$package $filename $line $message\n&quot;</span> <span class="sc">;</span>
+    <span class="s">}</span>
+    <span class="k">close</span> <span class="i">$fh</span> <span class="sc">;</span>
+    <span class="k">return</span><span class="sc">;</span>
+<span class="s">}</span>
+
+
+
+
+
+</pre><p></p>
+<h3><a name="pretty_status">pretty_status</a></h3>
+<p>delivers a json object reporting exactly where the status came from
+and the text message. Logs, if required, extended from pretty_caller
+which it replaces</p>
+
+<pre>
+
+<a name="pretty_status-"></a><span class="k">sub </span><span class="m">pretty_status</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span><span class="i">$i</span><span class="cm">,</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$do_log</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    
+    <span class="i">$do_log</span> ||= <span class="n">0</span><span class="sc">;</span> 
+    
     <span class="k">my</span> <span class="s">(</span>
         <span class="i">$package</span><span class="cm">,</span>   <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span><span class="cm">,</span>       <span class="i">$subroutine</span><span class="cm">,</span> <span class="i">$hasargs</span><span class="cm">,</span>
         <span class="i">$wantarray</span><span class="cm">,</span> <span class="i">$evaltext</span><span class="cm">,</span> <span class="i">$is_require</span><span class="cm">,</span> <span class="i">$hints</span><span class="cm">,</span>      <span class="i">$bitmask</span>
     <span class="s">)</span> = <span class="k">caller</span><span class="s">(</span><span class="i">$i</span><span class="s">)</span><span class="sc">;</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;p:$package l:$line f:$subroutine&quot;</span><span class="s">)</span><span class="sc">;</span>
-    <span class="c">###print &quot;p:$package l:$line f:$subroutine&quot;;</span>
+    <span class="k">return</span> <span class="q">&quot;{\&quot;p\&quot;:\&quot;$package\&quot;, \&quot;l\&quot;:\&quot;$line\&quot; \&quot;f\&quot;:\&quot;$subroutine\&quot; \&quot;s\&quot;:\&quot;$status\&quot;}&quot;</span> <span class="sc">;</span>
 <span class="s">}</span>
+
+
+
+
+
+
+
 
 <span class="n">1</span><span class="sc">;</span>
 

@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Reg nom
+Nom de Reg
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- valeur de chemin explicite de note dans le cookie définissant, sinon chemin est définie pour cgi-bin -->
+<!-- Remarque le chemin d'accès explicite dans cookie définissant, chemin sinon a la valeur pour cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,8 +47,8 @@ Reg nom
 
 <tr class="pme-row-1">
 
-<td title="Doit être de plus de 3 caractères, des lettres, des chiffres et des _ seulement" class="pme-key-0">
-Nom du compte
+<td title="Il faudra plus de 3 caractères, lettres, chiffres et _ seulement" class="pme-key-0">
+Nom de compte
 <br>
 
 </td>
@@ -108,7 +108,7 @@ Messagerie
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Nom de la maison et de la numéro
+Numéro/Nom
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ Téléphone mobile
 
 <td class="pme-value-1">
 
-<input title="Veuillez mettre ce nombre en format international 44777766666" class="pme-input-1"
+<input title="Veuillez mettre ce numéro au format international 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ Téléphone mobile
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-NIP pour les Transactions de téléphone Mobile
+Broches pour les Transactions de téléphone Mobile
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ NIP pour les Transactions de téléphone Mobile
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Confirmer le NIP pour les Transactions de téléphone Mobile
+Confirmer les broches pour les Transactions de téléphone Mobile
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ Confirmer le NIP pour les Transactions de téléphone Mobile
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-SMS reçus de paiement
+SMS paiement reçus
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ Nom complet
 
 <td class="pme-buttons">
 
-<!-- Nous effacer le cookie de Registre ici, sinon il va empêcher une ouverture de session propre plus tard -->
+<!-- Nous effacer le cookie de Registre ici, sinon elle va empêcher une ouverture propre plus tard -->
 
 <input class="pme-save"
  name="saveadd" value="Créer" onClick="eraseCookie('registry');" type="submit">

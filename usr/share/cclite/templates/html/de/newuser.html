@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Reg Name
+Reg-Name
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- explizite Pfad Notenwert in Cookie festlegen, andernfalls Pfad liegt für Cgi-bin -->
+<!-- Hinweis expliziten Pfadwert im Cookie festlegen, sonst Pfad ist für Cgi-bin festgelegt. -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Reg Name
 
 <tr class="pme-row-1">
 
-<td title="Mehr als 3 Zeichen, Buchstaben, Zahlen und _ nur sein muss" class="pme-key-0">
+<td title="Muss mehr als 3 Zeichen, Buchstaben, Zahlen und nur _" class="pme-key-0">
 Account-Name
 <br>
 
@@ -79,7 +79,7 @@ Passwort
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Kennwort bestätigen
+Passwort bestätigen
 </td>
 
 <td class="pme-value-0">
@@ -108,7 +108,7 @@ E-Mail
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Anzahl/Haus Name
+Anzahl/Haus-Name
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ Handy
 
 <td class="pme-value-1">
 
-<input title="Bitte tippen Sie diese Nummer im internationalen Format 44777766666" class="pme-input-1"
+<input title="Bitte geben Sie diese Nummer in im internationalen Format 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -225,7 +225,7 @@ PIN für Handy-Transaktionen
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Pin für Handy Transaktionen bestätigen
+Pin für Mobiltelefon Transaktionen bestätigen
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ SMS Zahlungseingänge
 
 <tr class="pme-row-1">
 
-<td title="Dies ist die öffentlichen Schlüssel Id für verschlüsselte Transaktionen" class="pme-key-0">
+<td title="Dies ist der öffentliche Schlüssel Id für verschlüsselte Transaktionen" class="pme-key-0">
 Öffentlichen Schlüssel-Id
 </td>
 
@@ -282,7 +282,7 @@ Englisch
 </option>
 
 <option value="de">
-English
+Deutsch
 </option>
 
 <option value="fr">
@@ -298,7 +298,7 @@ Fran
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Vollständiger Name
+Voller Name
 </td>
 
 <td class="pme-value-0">
@@ -324,7 +324,7 @@ Vollständiger Name
 
 <td class="pme-buttons">
 
-<!-- Wir löschen des Registrierung Cookies hier, sonst werde es eine saubere Anmeldung später verhindern -->
+<!-- wir hier das Registrierungs-Cookie löschen, sonst werde es später eine saubere Anmeldung verhindern -->
 
 <input class="pme-save"
  name="saveadd" value="Erstellen" onClick="eraseCookie('registry');" type="submit">

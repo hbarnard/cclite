@@ -30,13 +30,11 @@ my $VERSION = 1.00;
   encrypt_and_sign_notifications
   send_notifications );
 
-
-
 # these are decryption, transcoding etc. etc.
 use MIME::Base64;
 use MIME::Decoder;
 use GnuPG;
-use Ccu ;
+use Ccu;
 
 # this is used to parse addresses (logically enough...)
 #use Email::Address;

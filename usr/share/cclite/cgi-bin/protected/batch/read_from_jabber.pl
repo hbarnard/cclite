@@ -166,7 +166,7 @@ sub process_cclite_message {
               mail_transaction($transaction_description_ref);
         } elsif ( $transaction_description_ref->{'type'} eq 'balance' ) {
             $transaction_description_ref->{'output_message'} =
-            $transaction_description_ref->{'text'};
+              $transaction_description_ref->{'text'};
         }
 
     }
@@ -187,11 +187,9 @@ message fields for refereence...
 
 =cut
 
-  
     my $output =
 "$transaction_description_ref->{'error'} $transaction_description_ref->{'output_message'}";
     my $type = $transaction_description_ref->{'type'};
-  
 
     if ( !$transaction_found ) {
 
@@ -304,7 +302,8 @@ my ( $error, $registryref ) = get_where(
 );
 
 if ( length($error) ) {
-    log_entry($class,$registry,"database error for $registry: $error",$token);
+    log_entry( $class, $registry, "database error for $registry: $error",
+        $token );
     exit 0;
 }
 

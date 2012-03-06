@@ -138,7 +138,7 @@ soap attempts made...
 80.
 
 2.Make user/yellow page display clearer/nicer this is showuser transaction
-4.When releasing have a look at Debian control file etc. update version number, for example...
+4.* When releasing have a look at Debian control file etc. update version number, for example...
 6.Test new method for redirecting logon
 8.test for create rule [depreciated]
 9.test for create category, blank category works, apparently [depreciated]
@@ -149,8 +149,8 @@ soap attempts made...
 to be fixed:
 
 1. Protect batch scripts with cookie testing
-2. 
-3. test and check out graphs [being converted to Ico]
+2. Remove create rule
+3. *test and check out graphs [being converted to Ico]
 4. add tests for REST interface
 5. csv REST Payment delivers file? 
 6. update_database_record returns web style signature..

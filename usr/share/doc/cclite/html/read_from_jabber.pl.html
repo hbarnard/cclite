@@ -237,11 +237,6 @@ receipts at present...</p>
             <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;output_message&#39;</span>} =
               <span class="i">mail_transaction</span><span class="s">(</span><span class="i">$transaction_description_ref</span><span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
-
-            <span class="c">###my $text = $transaction_description_ref-&gt;{&#39;text&#39;} ;</span>
-            <span class="c">###my $type = $transaction_description_ref-&gt;{&#39;type&#39;};</span>
-            <span class="c">###$log-&gt;debug(&quot;balance transaction t:$text ty:$type&quot;);</span>
-
             <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;output_message&#39;</span>} =
               <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;text&#39;</span>}<span class="sc">;</span>
         <span class="s">}</span>
@@ -262,11 +257,9 @@ receipts at present...</p>
              errorcode=&gt;string,   then both will be in the &lt;message/&gt;
              error=&gt;string</pre>
 <pre>
-    <span class="c">###my $text = $transaction_description_ref-&gt;{&#39;text&#39;} ;</span>
     <span class="k">my</span> <span class="i">$output</span> =
 <span class="q">&quot;$transaction_description_ref-&gt;{&#39;error&#39;} $transaction_description_ref-&gt;{&#39;output_message&#39;}&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$type</span> = <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>}<span class="sc">;</span>
-    <span class="c">###$log-&gt;debug(&quot;transaction found: $transaction_found ty:$type out: $output&quot;);</span>
 
     <span class="k">if</span> <span class="s">(</span> !<span class="i">$transaction_found</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -296,8 +289,6 @@ receipts at present...</p>
 
 <span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../../../lib&#39;</span><span class="sc">;</span>
 
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
-
 <span class="c"># and cclite support</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccmailgateway</span><span class="sc">;</span>
@@ -312,9 +303,6 @@ receipts at present...</p>
 
 <span class="c"># message language now decided by decide_language 08/2011</span>
 <span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;read_from_jabber&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># don&#39;t need at present run from command line...</span>
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -384,7 +372,8 @@ receipts at present...</p>
 <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;database error for $registry: $error&quot;</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;database error for $registry: $error&quot;</span><span class="cm">,</span>
+        <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>
 

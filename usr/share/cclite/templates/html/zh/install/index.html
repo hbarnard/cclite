@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- 免费 CSS 模板的设计http://www.freecsstemplates.org创造性的知识共享署名 2.5 许可证下免费发布 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
-Cclite!$ $fieldsref{版本} ！安装程序
+Cclite!$ $fieldsref{版本} ！安装
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite!$ $fieldsref{版本} ！安装程序
 $$fieldsref{metarefresh}
 <!-- 样式表 -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- javascript 库，需要代用品压缩版本 -->
+<!-- 后来的数据表 -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- javascript 库，在某一阶段需要代用品压缩版本 -->
 
 <!-- jquery 的项目 -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- 其他非 jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -72,12 +92,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- 图形 -->
+<!-- 网络图表 -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -91,35 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- 所有窗体具有相同的名称 '形式'，避免了在这里的复杂性 -->
+<!-- 这是注销用户，以在系统关闭时的脚本 -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- 此开关打开/关闭小数点的东西 -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="首页" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- 搜索用户、 行业、 广告 -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -145,9 +151,11 @@ Cclite
 
 </form>
 
-</div>
-
 <!-- 自动完成搜索框的结束 -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
 <!-- 语言选择器版本 1 -->
 
@@ -233,93 +241,100 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- 徽标的结束 -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite 安装
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a title="谷歌组支持" href="http://groups.google.co.uk/group/cclite?hl=en">
 需要帮助吗？
 </a>
+</li>
 
+<li>
 <a title="管理" href="/cgi-bin/protected/ccadmin.cgi">
 管理
 </a>
 
+</li>
+
+<li>
 <a title="用户菜单" href="/cgi-bin/cclite.cgi">
 用户菜单
 </a>
+</li>
 
-</div>
-
-<!-- 拉丁文的结束 -->
-
-<div class="topbar" >
-
+<li>
 <a id="updateconfig" title="更新存储在 cclite.cf conifguration" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
 更新配置
 </a>
+</li>
 
+<li>
+<
 <a id="newregistry" title="创建新的注册表" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 创建新的注册表
 </a>
+</li>
 
+<li>
 <a id="showregistry" title="显示当前 Cclite 登记处" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 显示登记册
 </a>
+</li>
 
+<li>
 <a id="installcheck" title="运行安装检查器" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 检查安装要求
 </a>
+</li>
 
-<!-- 菜单位，管理员需要更换和安装结束 -->
+</ul>
 
 </div>
 
-<!-- 菜单的末尾 -->
+<!-- 标签云与单个用户统计 -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- contentleft 结束： 左手边 -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+广告类别
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- 面板的结束 -->
-
-</div>
-
-<!-- righthandcontent 的结束 -->
-
-</div>
-
-<!-- 内容的末尾 -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 首页
@@ -331,6 +346,13 @@ $$fieldsref{righthandside}
 <br />
 
 Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

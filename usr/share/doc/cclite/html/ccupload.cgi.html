@@ -92,7 +92,7 @@ pre { color: #000000;
 =head1 COPYRIGHT</p>
 <p>(c) Hugh Barnard 2005 GPL Licenced</p>
 
-<hr /><pre>#!/usr/bin/perl 
+<hr /><pre>#!/usr/bin/perl
 
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c">#THE cclite SOFTWARE IS PROVIDED TO YOU &quot;AS IS,&quot; AND WE MAKE NO EXPRESS</span>
@@ -133,93 +133,67 @@ pre { color: #000000;
 <span class="q">use strict;</span>
 <span class="q">use lib &quot;../../lib&quot;;</span>
 
-<span class="q">use Log::Log4perl;</span>
-
-
 <span class="q">use HTML::SimpleTemplate;</span>
 <span class="q">use Ccu;</span>
 <span class="q">use CGI ;  # sorry need this for the parsing of multipart...</span>
 <span class="q">use Cclite;</span>
 <span class="q">use Cccookie;</span>
 <span class="q">use Ccconfiguration;    # new 2009 style configuration supply...</span>
+<span class="q">use Ccsecure ;</span>
 
 <span class="q">my $cookieref = get_cookie();</span>
 
-<span class="q">my %configuration;</span>
-<span class="q">%configuration = readconfiguration();</span>
 
-<span class="q">Log::Log4perl-&gt;init( $configuration{&#39;loggerconfig&#39;} );</span>
-<span class="q">our $log = Log::Log4perl-&gt;get_logger(&quot;ccupload&quot;);</span>
+
+
+<span class="q">my %configuration = readconfiguration();</span>
 
 <span class="q"># note that uploads are per registry as of 10/2009</span>
-<span class="q">my $upload_dir = &quot;$configuration{csvpath}/$$cookieref{registry}&quot;;</span>
-
+<span class="q">my $uploaddir = &quot;$configuration{csvpath}/$cookieref-&gt;{&#39;registry&#39;}&quot;;</span>
 
 <span class="q">my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,</span>
 <span class="q">    $templatename, $registry_private_value );    # for the moment</span>
 
-
-<span class="q">my $language = decide_language() ;</span>
-
 <span class="q"># message language now decided by decide_language, within readmessages 08/2011</span>
 <span class="q">my %messages = readmessages();</span>
+<span class="q">my $language = decide_language() ;</span>
 
-<span class="q">my $query = new CGI ;</span>
- 
-<span class="q">#---------------------------------------------------------------</span>
-<span class="q"># A template object referencing a particular directory</span>
-<span class="q">#-------------------------------------------------------------------</span>
-<span class="q"># Change this if you change where the templates are...</span>
-<span class="q">#-------------------------------------------------------------------</span>
-<span class="q">my $pages     = new HTML::SimpleTemplate(&quot;$configuration{templates}/$language&quot;);</span>
-<span class="q">my $home      = $configuration{home};</span>
-<span class="q">my $user_home = $home;</span>
-<span class="q">$user_home =~ s/(\/protected)\/ccadmin.cgi/\/cclite.cgi/;</span>
-
-<span class="q"># since this uploads, need to be an admin and the cookies need to work</span>
-<span class="q">if ( $$cookieref{userLevel} ne &#39;admin&#39; ) {</span>
-<span class="q">    display_template(</span>
-<span class="q">        &quot;1&quot;,    $user_home,    &quot;&quot;,         $messages{notanadmin},</span>
-<span class="q">        $pages, &quot;result.html&quot;, $fieldsref, $cookies,</span>
-<span class="q">        $token</span>
-<span class="q">    );</span>
-<span class="q">    exit 0;</span>
+<span class="q">if (! is_admin) {</span>
+<span class="q">	print $messages{&#39;notadmin&#39;} ;</span>
+<span class="q">	exit 0 ;</span>
 <span class="q">}</span>
 
-<span class="q">my $compare_token;</span>
 
-<span class="q"># there is a token but it&#39;s been modified or spoofed</span>
-<span class="q">if ( length( $$cookieref{token} ) &amp;&amp; ( $compare_token != $$cookieref{token} ) )</span>
-<span class="q">{</span>
-<span class="q">###    $log-&gt;warn(</span>
-<span class="q">###&quot;corrupt2 token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}\n&quot;</span>
-<span class="q">###    );</span>
+<span class="q">my $maxFileSize = 2 * 1024 * 1024; # 2mb max file size...</span>
 
+<span class="q">my $query = new CGI;</span>
+<span class="q">my $file = $query-&gt;param(&#39;POSTDATA&#39;);</span>
+<span class="q">my $temp_id = $query-&gt;param(&#39;temp_id&#39;);</span>
 
-<span class="q">    display_template( 0, &quot;&quot;, &quot;&quot;, &quot;&quot;, $pages, &quot;logon.html&quot;, $fieldsref, $cookies,</span>
-<span class="q">        $token );</span>
-<span class="q">    exit 0;</span>
+<span class="q"># make a filename</span>
+<span class="q">my $name = time() . &#39;.&#39; . $cookieref-&gt;{&#39;registry&#39;} . &#39;.csv&#39; ;</span>
+
+<span class="q">open(UPLOAD, &quot;&gt;$uploaddir/$name&quot;) or die &quot;Cant write to $uploaddir/$name. Reason: $!&quot;;</span>
+<span class="q">   print UPLOAD $file;</span>
+<span class="q">close(UPLOAD);</span>
+
+<span class="q">my $check_size = -s &quot;$uploaddir/$name&quot;;</span>
+
+<span class="q">print $query-&gt;header();</span>
+<span class="q">if ($check_size &lt; 1) {</span>
+<span class="q">        print STDERR &quot;$messages{fileempty}\n&quot;;</span>
+<span class="q">        print qq|{ &quot;success&quot;: false, &quot;error&quot;: &quot;$messages{fileempty}&quot; }|;</span>
+<span class="q">        print STDERR &quot;$messages{filenotuploaded}\n&quot;;</span>
+<span class="q">} elsif ($check_size &gt; $maxFileSize) {</span>
+<span class="q">        print STDERR &quot;$messages{filetoolarge}\n&quot;;</span>
+<span class="q">        print qq|{ &quot;success&quot;: false, &quot;error&quot;: &quot;$messages{filetoolarge}&quot; }|;</span>
+<span class="q">        print STDERR &quot;$messages{filenotuploaded}\n&quot;;</span>
+<span class="q">} else  {</span>
+<span class="q">        print qq|{ &quot;success&quot;: true }|;</span>
+<span class="q">        print STDERR &quot;$messages{fileuploaded}\n&quot;;</span>
 <span class="q">}</span>
 
-<span class="q"># A template object referencing a particular directory</span>
-<span class="q">$pages = new HTML::SimpleTemplate(&quot;$configuration{templates}/$language/admin&quot;);</span>
-
-
-<span class="q"># server file  name is in the AJAX parameter name: in the  upload object in cclite.js</span>
-
-<span class="q">my $filename         = $query-&gt;param(&quot;userfile&quot;);</span>
-<span class="q">my $filehandle       = $query-&gt;upload(&quot;userfile&quot;);</span>
-
-<span class="q">open UPLOADFILE, &quot;&gt;$upload_dir/$filename&quot;;</span>
-<span class="q">binmode UPLOADFILE;</span>
-<span class="q">while (&lt;$filehandle&gt;) {</span>
-<span class="q">    print UPLOADFILE;</span>
-<span class="q">}</span>
-
-<span class="q">close UPLOADFILE;</span>
-
-<span class="q">exit 0;</span>
-
+<span class="q">exit 0 ;</span>
 <a name="EOF-"></a></pre></body>
 
 </html>

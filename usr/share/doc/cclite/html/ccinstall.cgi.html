@@ -302,7 +302,6 @@ configuration should work...</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$log_config</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$log_base</span>        = <span class="q">&#39;var/cclite/log&#39;</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$log_config_file</span> = <span class="q">&quot;$dir/config/logging.cf&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$error</span><span class="sc">;</span>
 
     <span class="c"># default case...</span>
@@ -323,37 +322,10 @@ configuration should work...</p>
 
     <span class="k">eval</span> <span class="s">{</span> <span class="q">`touch $log_file`</span><span class="sc">;</span> <span class="s">}</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
-        <span class="i">$error</span> = <span class="i">$@</span><span class="sc">;</span>
+        <span class="i">$error</span> .= <span class="i">$@</span><span class="sc">;</span>
     <span class="s">}</span>
-
-    <span class="i">$log_config</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">log4perl.rootLogger=DEBUG, LOGFILE    </span>
-<span class="hh">log4perl.appender.LOGFILE=Log::Log4perl::Appender::File</span>
-<span class="hh">log4perl.appender.LOGFILE.filename=$log_file</span>
-<span class="hh">log4perl.appender.LOGFILE.mode=append   </span>
-<span class="hh">log4perl.appender.LOGFILE.layout=PatternLayout</span>
-<span class="hh">log4perl.appender.LOGFILE.layout.ConversionPattern=%d %p&gt; %F{1}:%L %M - %m%n</span>
-<span class="h">EOT</span>
-
-    <span class="k">if</span> <span class="s">(</span> !<span class="s">(</span> <span class="k">-w</span> <span class="i">$log_config_file</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$error</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">    &lt;table&gt;&lt;tr class=&quot;even&quot;&gt;&lt;td&gt;    </span>
-<span class="hh">can&#39;t write:&lt;br/&gt;&lt;br/&gt;&lt;pre&gt; $log_config &lt;/pre&gt; &lt;br/&gt;&lt;br/&gt;to $log_config_file&lt;br/&gt;Please edit by hand</span>
-<span class="hh">    &lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;</span>
-<span class="h">EOT</span>
-
-    <span class="s">}</span>
-
-    <span class="k">eval</span> <span class="s">{</span>
-        <span class="k">open</span><span class="s">(</span> <span class="w">CONFIG</span><span class="cm">,</span> <span class="q">&quot;&gt;$log_config_file&quot;</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="k">print</span> <span class="i">CONFIG</span> <span class="i">$log_config</span><span class="sc">;</span>
-        <span class="k">close</span> <span class="w">CONFIG</span><span class="sc">;</span>
-    <span class="s">}</span><span class="sc">;</span>
-
-    <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
-        <span class="i">$error</span> .= <span class="q">&quot; $@&quot;</span><span class="sc">;</span>
-    <span class="s">}</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$log_config</span> <span class="s">)</span><span class="sc">;</span>
+  
+  <span class="k">return</span> <span class="s">(</span><span class="i">$error</span><span class="cm">,</span> <span class="k">undef</span><span class="s">)</span> <span class="sc">;</span>
 
 <span class="s">}</span>
 
@@ -683,13 +655,7 @@ and general extra flexibility</p>
 
 <span class="s">}</span>
 
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
 
-<span class="c"># must remain hardcoded the config file may not exist yet...</span>
-<span class="k">eval</span> <span class="s">{</span>
-    <span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> \<span class="i">$log_config</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccinstall&quot;</span><span class="s">)</span><span class="sc">;</span>
-<span class="s">}</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
     <span class="i">show_problems</span><span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$login</span><span class="cm">,</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>

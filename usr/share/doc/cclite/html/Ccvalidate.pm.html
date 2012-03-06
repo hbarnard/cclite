@@ -161,7 +161,6 @@ This keeps the display stuff seperate from the client side processing</p>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>         <span class="c"># just for debugging take this away afterwards</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>    <span class="c"># semantic checks in database during validation</span>
 
-<span class="k">our</span> <span class="i">$log</span>         = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Ccvalidate&quot;</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
 

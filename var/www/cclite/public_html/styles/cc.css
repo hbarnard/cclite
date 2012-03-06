@@ -718,6 +718,7 @@ padding:2px;
 display:none;
 }
 
+
 .linegraph,.linegraph_dark,.linegraph_small {
 width:500px;
 background-color:#fff;
@@ -732,6 +733,7 @@ background-color:#999;
 width:400px;
 height:200px;
 }
+
 
 #adminlink,#adminlinkewtab,#adminlinkhref,#adminlinkhrefnt {
 display:none;

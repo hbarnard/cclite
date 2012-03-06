@@ -45,20 +45,7 @@ pre { color: #000000;
 <div name="index">
 <p><a name="__index__"></a></p>
 
-<ul>
 
-	<ul>
-
-		<ul>
-
-			<li><a href="#comments">comments</a></li>
-		</ul>
-
-	</ul>
-
-</ul>
-
-<hr name="index" />
 </div>
 <!-- INDEX END -->
 <h2>Code Index:</h2>
@@ -68,6 +55,7 @@ pre { color: #000000;
 <ul>
 <li><a href="#get_balances_to_date-">get_balances_to_date</a></li>
 <li><a href="#print_statements-">print_statements</a></li>
+<li><a href="#make_column_headings-">make_column_headings</a></li>
 <li><a href="#style-">style</a></li>
 <li><a href="#tablestyle-">tablestyle</a></li>
 <li><a href="#paragraph-">paragraph</a></li>
@@ -146,7 +134,7 @@ pre { color: #000000;
     <span class="s">}</span>
 
     <span class="i">$balances</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">Previous balances are:</span>
+<span class="hh">$messages{&#39;previousbalancesare&#39;}:</span>
 <span class="hh">$balances</span>
 <span class="hh">-----------------------</span>
 <span class="h">EOT</span>
@@ -223,8 +211,6 @@ pre { color: #000000;
     <span class="s">)</span><span class="sc">;</span>
 
     <span class="i">$document</span><span class="i">-&gt;cellStyle</span><span class="s">(</span> <span class="i">$table_id</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;BlueStyle&#39;</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="c"># print &quot;total lines are $total_lines\n&quot; ;</span>
 
     <span class="c"># write out empty table pages + page break paragraph, ready to fill</span>
     <span class="k">for</span> <span class="s">(</span> <span class="i">$x</span> = <span class="n">1</span> <span class="sc">;</span> <span class="i">$x</span> &lt;= <span class="i">$table_count</span> <span class="sc">;</span> <span class="i">$x</span>++ <span class="s">)</span> <span class="s">{</span>
@@ -341,8 +327,38 @@ pre { color: #000000;
 
 <span class="s">}</span>
 
-<span class="c">#create experimental style</span>
+<a name="make_column_headings-"></a><span class="k">sub </span><span class="m">make_column_headings</span> <span class="s">{</span>
 
+    <span class="k">my</span> <span class="s">(</span><span class="i">$messages_ref</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$column_headers_hash_ref</span><span class="sc">;</span>
+
+    <span class="c"># change these, where necessary, column headers</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeId&#39;</span>} = <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeId&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeStatus&#39;</span>} =
+      <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeStatus&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeDate&#39;</span>} = <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeDate&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeSource&#39;</span>} =
+      <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeSource&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeDestination&#39;</span>} =
+      <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeDestination&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeMirror&#39;</span>} =
+      <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeMirror&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeCurrency&#39;</span>} =
+      <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeCurrency&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeType&#39;</span>} = <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeType&#39;}&quot;</span><span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeTitle&#39;</span>} =
+      <span class="q">&quot;\u$messages_ref-&gt;{&#39;tradeTitle&#39;}&quot;</span><span class="sc">;</span>
+
+    <span class="c"># these don&#39;t correspond to fields...</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;debit&#39;</span>}  = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;moneyout&#39;</span>}<span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;credit&#39;</span>} = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;moneyin&#39;</span>}<span class="sc">;</span>
+
+    <span class="k">return</span> <span class="i">$column_headers_hash_ref</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+<span class="c">#create experimental style</span>
 <a name="style-"></a><span class="k">sub </span><span class="m">style</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$document</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
@@ -387,6 +403,7 @@ my ($document) = @_;</pre>
                         'fo:border' =&gt; '0.02mm solid #000000', }
 ); 
 =cut</p>
+
 <pre>
     <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -405,20 +422,12 @@ my ($document) = @_;</pre>
 
 <span class="s">}</span>
 
-</pre><p></p>
-<h3><a name="comments">comments</a></h3>
-
-<pre>
 <span class="k">use</span> <span class="w">lib</span> <span class="q">&quot;../../../lib&quot;</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
 
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
-
-<span class="c">#Log::Log4perl-&gt;init( $configuration{&#39;loggerconfig&#39;} );</span>
-<span class="c">#our $log = Log::Log4perl-&gt;get_logger(&quot;cclite&quot;);</span>
-
 <span class="k">use</span> <span class="w">OpenOffice::OODoc</span><span class="sc">;</span>
+
 <span class="k">use</span> <span class="w">Ccdirectory</span><span class="sc">;</span>    <span class="c"># yellow pages directory etc.</span>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>       <span class="c"># security and hashing</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>       <span class="c"># this probably should be delegated</span>
@@ -427,54 +436,44 @@ my ($document) = @_;</pre>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
 
-<span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
-
 <span class="k">our</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">%fields</span>    = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$registry</span>  = <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>}<span class="sc">;</span>
+<span class="k">our</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># message language now decided by decide_language, within readmessages 08/2011</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#replace entirely with cgi in a while...</span>
-<span class="k">my</span> <span class="i">$statement_month</span> = <span class="i">$fields</span>{<span class="q">&#39;month&#39;</span>}     || <span class="i">$ARGV</span>[<span class="n">0</span>]<span class="sc">;</span>
-<span class="k">my</span> <span class="i">$statement_year</span>  = <span class="i">$fields</span>{<span class="q">&#39;year&#39;</span>}      || <span class="i">$ARGV</span>[<span class="n">1</span>]<span class="sc">;</span>
+<span class="k">my</span> <span class="i">$statement_month</span> = <span class="i">$fields</span>{<span class="q">&#39;month&#39;</span>}     || <span class="i">$ARGV</span>[<span class="n">0</span>] || <span class="n">11</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$statement_year</span>  = <span class="i">$fields</span>{<span class="q">&#39;year&#39;</span>}      || <span class="i">$ARGV</span>[<span class="n">1</span>] || <span class="n">2011</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$user_or_all</span>     = <span class="i">$fields</span>{<span class="q">&#39;userorall&#39;</span>} || <span class="i">$ARGV</span>[<span class="n">2</span>] || <span class="q">&#39;all&#39;</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$statement_month</span><span class="s">)</span> || !<span class="k">length</span><span class="s">(</span><span class="i">$statement_year</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
     <span class="k">print</span> <span class="q">&quot;need month and year for statements\n\n&quot;</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>
 
-<span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$registry</span>  = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="q">&#39;dalston&#39;</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$language</span>  = <span class="i">$$cookieref</span>{<span class="w">language</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
+<span class="k">if</span> <span class="s">(</span> !<span class="w">is_admin</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">$messages</span>{<span class="q">&#39;notadmin&#39;</span>}<span class="sc">;</span>
+    <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
+<span class="s">}</span>
 
 <span class="c"># lines in one page of table</span>
 <span class="k">my</span> <span class="i">$table_lines</span> = <span class="n">40</span><span class="sc">;</span>
 
-<span class="c"># where to create the open-office output, whilst testing</span>
-<span class="k">my</span> <span class="i">$output_file</span> = <span class="q">&quot;/home/hbarnard/cclite-support-files/testing/statements.odt&quot;</span><span class="sc">;</span>
-
 <span class="c"># correct path for output file</span>
-<span class="c"># my $output_file = &quot;$configuration{&#39;printdir&#39;}/$registry/$language&quot;</span>
+<span class="k">my</span> <span class="i">$output_file</span> =
+  <span class="q">&quot;$configuration{&#39;printdir&#39;}/$registry/statements.${language}.odt&quot;</span><span class="sc">;</span>
 
 <span class="c"># title of each page</span>
-<span class="k">my</span> <span class="i">$title</span> = <span class="q">&quot;Statement&quot;</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$title</span> = <span class="i">$messages</span>{<span class="q">&#39;statement&#39;</span>}<span class="sc">;</span>
 
 <span class="c"># headings for table columns</span>
-<span class="k">my</span> <span class="i">$column_headers_hash_ref</span><span class="sc">;</span>
-
-<span class="c"># change these, where necessary, column headers</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeId&#39;</span>}          = <span class="q">&#39;Id&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeStatus&#39;</span>}      = <span class="q">&#39;Status&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeDate&#39;</span>}        = <span class="q">&#39;Date&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeSource&#39;</span>}      = <span class="q">&#39;From&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeDestination&#39;</span>} = <span class="q">&#39;To&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeMirror&#39;</span>}      = <span class="q">&#39;Registry&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeCurrency&#39;</span>}    = <span class="q">&#39;Currency&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeType&#39;</span>}        = <span class="q">&#39;Type&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;tradeTitle&#39;</span>}       = <span class="q">&#39;Description&#39;</span><span class="sc">;</span>
-
-<span class="c"># these don&#39;t correspond to fields...</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;debit&#39;</span>}  = <span class="q">&#39;Money Out&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;credit&#39;</span>} = <span class="q">&#39;Money In&#39;</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$column_headers_hash_ref</span> = <span class="i">make_column_headings</span><span class="s">(</span> \<span class="i">%messages</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="s">(</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -488,10 +487,33 @@ my ($document) = @_;</pre>
 <span class="i">style</span><span class="s">(</span><span class="i">$document</span><span class="s">)</span><span class="sc">;</span>
 <span class="i">tablestyle</span><span class="s">(</span><span class="i">$document</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># get all users</span>
-<span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$user_hash_ref</span> <span class="s">)</span> =
-  <span class="i">get_where_multiple</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span>
-    <span class="n">0</span><span class="cm">,</span> <span class="n">9999999</span> <span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="s">(</span> <span class="i">$user_hash_ref</span><span class="cm">,</span> <span class="i">$registry_error</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># get all users...this could do to be a range or selection perhaps</span>
+<span class="k">if</span> <span class="s">(</span> <span class="i">$user_or_all</span> <span class="k">eq</span> <span class="q">&#39;all&#39;</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$user_hash_ref</span> <span class="s">)</span> = <span class="i">get_where_multiple</span><span class="s">(</span>
+        <span class="q">&#39;local&#39;</span><span class="cm">,</span>     <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>
+        <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>       <span class="q">&#39;&#39;</span><span class="cm">,</span>         <span class="n">0</span><span class="cm">,</span>
+        <span class="n">9999999</span>
+    <span class="s">)</span><span class="sc">;</span>
+
+<span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+
+    <span class="c"># get just one...</span>
+    <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$user_hash_ref</span> <span class="s">)</span> =
+      <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span>
+        <span class="i">$fields</span>{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">1</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+<span class="c"># exit if there aren&#39;t any</span>
+<span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$user_hash_ref</span><span class="s">)</span> || <span class="k">length</span><span class="s">(</span><span class="i">$registry_error</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;no valid user or database problem\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="c"># iterate through the users printing statements...</span>
 
 <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%$user_hash_ref</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -516,6 +538,20 @@ my ($document) = @_;</pre>
 <span class="s">}</span>
 
 <span class="i">$document</span><span class="i">-&gt;save</span><span class="sc">;</span>
+
+<span class="c"># read the statements back in</span>
+<span class="k">open</span><span class="s">(</span> <span class="w">OUT</span><span class="cm">,</span> <span class="i">$output_file</span> <span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">@output</span> = <span class="q">&lt;OUT&gt;</span><span class="sc">;</span>
+<span class="k">close</span> <span class="w">OUT</span><span class="sc">;</span>
+
+<span class="c"># present for download</span>
+<span class="k">print</span> <span class="q">&quot;Content-Type:application/x-download\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="q">&quot;Content-Disposition:attachment;filename=statements.odt\n\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="i">@output</span><span class="sc">;</span>
+
+<span class="c"># remove the file...unlikely that this is happening several times in one registry</span>
+<span class="k">unlink</span> <span class="i">$output_file</span><span class="sc">;</span>
+
 <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 
 <a name="EOF-"></a></pre></body>

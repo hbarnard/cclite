@@ -39,7 +39,6 @@ Ccu.pm
 
 package Ccadmin;
 
-
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
@@ -751,7 +750,7 @@ EOT
     } elsif ( $mode eq 'values' ) {
         return @registries;
     } else {
-        carp('unkown mode for registry display') ;
+        carp('unkown mode for registry display');
     }
 
 #----------------------------------------------------------------------------------
@@ -1054,15 +1053,14 @@ sub go_offline {
     my ( $class, $db, $table, $useid, $fieldsref, $language, $token ) = @_;
 
     $fieldsref = { 'id' => '1', 'status' => 'closing' };
-    
+
     ###debug_message('in go offline routine') ;
-    
+
     # get count and list of whos online
-    my ($count,$login_array_ref) = whos_online ($class,$db,$token) ;
-    
+    my ( $count, $login_array_ref ) = whos_online( $class, $db, $token );
+
     update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
         $language, $token );
-
 
     return ( "0", '', '', $messages{'registryclosing'}, "result.html", undef );
 }
@@ -1077,11 +1075,11 @@ FIXME: needs to deliver errors and this is a weakness in update_database_record
 sub go_online {
     my ( $class, $db, $table, $useid, $fieldsref, $language, $token ) = @_;
 
-    $fieldsref = {'id' => '1', 'status' => 'open' };
+    $fieldsref = { 'id' => '1', 'status' => 'open' };
     update_database_record( 'local', $db, 'om_registry', 1, $fieldsref,
         $language, $token );
 
-    return ( "0", '','', $messages{'registryopen'}, "result.html", undef);
+    return ( "0", '', '', $messages{'registryopen'}, "result.html", undef );
 }
 
 =head2 get_installer_link

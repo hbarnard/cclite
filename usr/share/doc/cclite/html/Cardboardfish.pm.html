@@ -242,10 +242,6 @@ to change these, just substitute a translated hash</p>
 
     <span class="s">}</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;pack:$package file:$filename line:$line&quot;</span><span class="s">)</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;fields: $x&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -260,11 +256,6 @@ then dispatches to the appropriate internal function</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
-<span class="q">&quot;entering gateway_sms_transaction originator is : $fields_ref-&gt;{&#39;originator&#39;}&quot;</span>
-    <span class="s">)</span><span class="sc">;</span>
-
     <span class="c"># no originator, so no lookup or no message...reject</span>
 
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
@@ -277,10 +268,6 @@ then dispatches to the appropriate internal function</p>
     <span class="c"># numbers are stored in database as 447855667524 for example</span>
     <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} =
       <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
-<span class="q">&quot;start of $transaction_type originator translated: $fields_ref-&gt;{&#39;originator&#39;}&quot;</span>
-    <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
       <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
@@ -318,13 +305,8 @@ then dispatches to the appropriate internal function</p>
         <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;start of $transaction_type transaction: $input&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="c"># can be ok, locked, waiting, fail</span>
     <span class="k">my</span> <span class="i">$pin_status</span> = <span class="i">_check_pin</span><span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
-        <span class="q">&quot;pin:$pin pinstatus:$pin_status transaction type is $transaction_type&quot;</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="k">return</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$pin_status</span> <span class="k">ne</span> <span class="q">&#39;ok&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -420,8 +402,6 @@ using the gateway messaging gateway, may need modification for other gateways</p
         <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;tomobilenumber&#39;</span>} <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$to_user_ref</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c">###$log-&gt;debug(&quot;parse type is $parse_type&quot;);</span>
-
     <span class="c"># contains only figures so it&#39;s a mobile number</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;touserormobile&#39;</span>} =~ <span class="q">/^\d+\z/</span> <span class="s">)</span> <span class="s">{</span>
         <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$to_user_ref</span> <span class="s">)</span> =
@@ -437,10 +417,6 @@ using the gateway messaging gateway, may need modification for other gateways</p
             <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
-<span class="c">###    $log-&gt;debug(</span>
-<span class="c">###&quot; $transaction_description_ref-&gt;{&#39;tomobilenumber&#39;} pin status is $to_user_ref-&gt;{&#39;userPinStatus&#39;}&quot;</span>
-<span class="c">###    );</span>
-
     <span class="c"># one of the above lookups fails, reject the whole transaction</span>
     <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnoorigin&#39;</span>}      <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$from_user_ref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnodestination&#39;</span>} <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$to_user_ref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
@@ -450,9 +426,6 @@ using the gateway messaging gateway, may need modification for other gateways</p
         &amp;&amp; <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">smsunconfirmedpin</span>}<span class="sc">;</span>
-        <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
-<span class="q">&quot;pin status:$to_user_ref-&gt;{&#39;userPinStatus&#39;} user id:$to_user_ref-&gt;{&#39;userId&#39;} examine no confirmation bug&quot;</span>
-        <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
 
@@ -557,8 +530,6 @@ To be done...</p>
 <pre>
 <a name="_gateway_sms_send_balance-"></a><span class="k">sub </span><span class="m">_gateway_sms_send_balance</span> <span class="s">{</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;in send balance&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$balance_ref</span><span class="cm">,</span> <span class="i">$volume_ref</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -585,14 +556,9 @@ To be done...</p>
     <span class="k">my</span> <span class="i">$balance_message</span> =
 <span class="q">&quot;$messages{smsthebalancefor} $from_user_ref-&gt;{userLogin} $messages{at} $registry $messages{is} $balance $currency&quot;</span>
       . <span class="q">&quot;s&quot;</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;balance message: $balance_message&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> =
       <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$balance_message</span><span class="cm">,</span>
         <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;mail error: $mail_error&quot;</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># send SMS balance, only if turned on for the user...new 16.08.2010</span>
     <span class="c"># blank transaction ref, need to make 1 unit sms currency transaction</span>
@@ -627,8 +593,6 @@ case the transaction -must- fail and it's not worth continuing</p>
 
   <span class="c"># currently allowed sms pay formats, some flexiblity, people won&#39;t remember...</span>
   <span class="c"># 10 to 447779159453|test2</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;input is $input&quot;</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="i">$parse_type</span> = <span class="n">1</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$input</span> =~ <span class="q">/^(\d+)\s+to\s+(\d{10,12}|\w+)\s*\z/xmis</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -701,8 +665,6 @@ case the transaction -must- fail and it's not worth continuing</p>
     <span class="i">$transaction_description</span>{<span class="q">&#39;currency&#39;</span>} =~ <span class="q">s/s$//i</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$x</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;|&quot;</span><span class="cm">,</span> <span class="i">%transaction_description</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;parsed transaction is: $x parse type is $parse_type&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="k">return</span> <span class="s">(</span> <span class="i">$parse_type</span><span class="cm">,</span> \<span class="i">%transaction_description</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
@@ -745,8 +707,7 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
 
         <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPin&#39;</span>} <span class="k">eq</span> <span class="i">$hashed_pin</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;ok&#39;</span><span class="sc">;</span>
-<span class="c">###	    $log-&gt;debug(&quot;in pin checking ok for user: $from_user_ref-&gt;{&#39;userId&#39;} $from_user_ref-&gt;{&#39;userLogin&#39;}&quot;) ;</span>
-
+            
             <span class="k">return</span> <span class="i">$pin_status</span>
               <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} == <span class="n">3</span> <span class="s">)</span>
               <span class="sc">;</span>    <span class="c"># this is the main case</span>
@@ -757,7 +718,6 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
             <span class="i">$message</span>    = <span class="i">$messages</span>{<span class="q">&#39;smspinfail&#39;</span>}<span class="sc">;</span>
             <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>}--<span class="sc">;</span>      <span class="c"># used one pin attempt</span>
         <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
-<span class="c">###	    $log-&gt;debug(&quot;in pin checking,locked for user: $from_user_ref-&gt;{&#39;userId&#39;} $from_user_ref-&gt;{&#39;userLogin&#39;}&quot;) ;</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
             <span class="i">$message</span>    = <span class="q">&quot;$registry: $messages{&#39;smslocked&#39;}&quot;</span><span class="sc">;</span>
             <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
@@ -843,8 +803,6 @@ Now deals with multiple messages parts and more stable data formats...</p>
 <a name="convert_cardboardfish-"></a><span class="k">sub </span><span class="m">convert_cardboardfish</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span><span class="i">$input</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="c">#$log-&gt;debug(&quot;input  is $input&quot;);</span>
-
     <span class="i">$input</span> =~ <span class="q">/^(\d+)/</span><span class="sc">;</span>    <span class="c"># this is the count for messages</span>
     <span class="k">my</span> <span class="i">$count</span> = <span class="i">$1</span><span class="sc">;</span>
     <span class="i">$input</span> =~ <span class="q">s/^(\d+)//</span><span class="sc">;</span>    <span class="c"># remove the count</span>
@@ -853,11 +811,7 @@ Now deals with multiple messages parts and more stable data formats...</p>
     <span class="k">my</span> <span class="i">@message_hash_refs</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$raw_message</span> <span class="s">(</span><span class="i">@raw_messages</span><span class="s">)</span> <span class="s">{</span>
-
-        <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;raw messageis $raw_message&quot;</span><span class="s">)</span><span class="sc">;</span>
-
         <span class="k">my</span> <span class="i">%message_hash</span><span class="sc">;</span>
-
         <span class="s">(</span>
             <span class="i">$message_hash</span>{<span class="q">&#39;status&#39;</span>}<span class="cm">,</span>      <span class="i">$message_hash</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
             <span class="i">$message_hash</span>{<span class="q">&#39;destination&#39;</span>}<span class="cm">,</span> <span class="i">$message_hash</span>{<span class="q">&#39;dcs&#39;</span>}<span class="cm">,</span>
@@ -923,7 +877,6 @@ Sends an sms message to confirm payment and send back balances</p>
     <span class="k">my</span> <span class="s">(</span><span class="i">$http_response</span><span class="s">)</span> = <span class="i">__outbound_cardboardfish_http_sms</span><span class="s">(</span><span class="i">$urlstring</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$ret</span> = <span class="i">$http_response</span><span class="i">-&gt;code</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;url is $urlstring return code is $ret&quot;</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$http_response</span><span class="i">-&gt;code</span> == <span class="n">200</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">_charge_one_sms_unit</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
@@ -960,8 +913,6 @@ to originator and monies put into sysaccount...</p>
 <a name="_charge_one_sms_unit-"></a><span class="k">sub </span><span class="m">_charge_one_sms_unit</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;in send balance&quot;</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># for balances, extra fields to fill in are filled anyway by a credit</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
@@ -1013,11 +964,6 @@ to originator and monies put into sysaccount...</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$trans_error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
       <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;sms&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;fromregistry&#39;</span>}<span class="cm">,</span>
         <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="c">###$log-&gt;debug(&quot;in send balance: $trans_error&quot;);</span>
-    <span class="c">###debug_hash_contents($transaction_ref);</span>
-
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;transaction error is $trans_error&quot;</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="k">return</span><span class="sc">;</span>
 <span class="s">}</span>

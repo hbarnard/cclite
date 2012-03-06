@@ -32,10 +32,9 @@ use Cccookie;
 use Cwd;
 use vars qw(@ISA @EXPORT);
 use Exporter;
-use Data::Dumper ;
+use Data::Dumper;
 
 use Log::Message::Simple qw[msg error debug carp croak cluck confess];
-
 
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
@@ -739,8 +738,8 @@ sub make_html_row_contents {
 
 sub make_html_transaction_totals {
 
-    my ( $total_balance_ref, $total_volume_ref,  $messages_ref, $template ) = @_;
-    
+    my ( $total_balance_ref, $total_volume_ref, $messages_ref, $template ) = @_;
+
     my ( $html, $row_style );
     my $record_counter = 1;
 
@@ -880,19 +879,19 @@ sub deliver_remote_data {
 # FIXME: status is delivered full-cooked into json via pretty_status, this means
 # two places produce json, but they're both in this module.
 
-if (! length($status)) {
+    if ( !length($status) ) {
 
-    $json = <<EOT;
+        $json = <<EOT;
   {\"registry"\:\"$db\",\"table\": \"$table\", \"message":\"$message\",\n\"data\": [$json]} 
 EOT
 
-} else {
+    } else {
 
-$json = <<EOT;
+        $json = <<EOT;
   {\"registry"\:\"$db\",\"table\": \"$table\", \"message":\"$message\",$status,\n\"data\": [$json]} 
 EOT
 
-}
+    }
     return $json;
 
 }
@@ -967,8 +966,6 @@ sub debug_hash_contents {
     return;
 }
 
-
-
 =head3 debug_message
 
 debug the contents of a hash, with stamp for calling routine
@@ -978,31 +975,26 @@ Probably should use data dumper, but that's 'yam', yet another module
 
 sub debug_message {
 
-    my ($message, $dumper) = @_;
+    my ( $message, $dumper ) = @_;
     my ( $package, $filename, $line ) = caller;
-    my %configuration ;
-    
+    my %configuration;
+
     if ( $0 !~ /ccinstall/ ) {
         %configuration = Ccconfiguration::readconfiguration();
     }
-        
-   `touch $configuration{'debugpath'}` if (! -e $configuration{'debugpath'}) ;
-   
-    open(my $fh, '>>', $configuration{'debugpath'} ) or die 'no debug log' ;
-    
- 
+
+    `touch $configuration{'debugpath'}` if ( !-e $configuration{'debugpath'} );
+
+    open( my $fh, '>>', $configuration{'debugpath'} ) or die 'no debug log';
+
     if ($dumper) {
-        print $fh "$package $filename $line" . Dumper($message) . "\n" ;
-    }else {
-	    print $fh "$package $filename $line $message\n" ;
+        print $fh "$package $filename $line" . Dumper($message) . "\n";
+    } else {
+        print $fh "$package $filename $line $message\n";
     }
-    close $fh ;
+    close $fh;
     return;
 }
-
-
-
-
 
 =head3 pretty_status
 
@@ -1012,27 +1004,20 @@ which it replaces
 
 =cut
 
-
 sub pretty_status {
 
-    my ($i, $status, $do_log) = @_;
-    
-    $do_log ||= 0; 
-    
+    my ( $i, $status, $do_log ) = @_;
+
+    $do_log ||= 0;
+
     my (
         $package,   $filename, $line,       $subroutine, $hasargs,
         $wantarray, $evaltext, $is_require, $hints,      $bitmask
     ) = caller($i);
 
-    return "{\"p\":\"$package\", \"l\":\"$line\" \"f\":\"$subroutine\" \"s\":\"$status\"}" ;
+    return
+"{\"p\":\"$package\", \"l\":\"$line\" \"f\":\"$subroutine\" \"s\":\"$status\"}";
 }
-
-
-
-
-
-
-
 
 1;
 

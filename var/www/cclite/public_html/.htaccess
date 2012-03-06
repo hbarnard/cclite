@@ -11,22 +11,24 @@ RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b
 RewriteRule   pay/(\w+)/(\w+)/([\d\.]+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=json [L]
 
 
+# payment transaction with json return, doesn't work as of 7/2011
+# /pay/ddawg/chelsea/23/luckets.json
+# deals with manual restful transactions
+# deals with php cookiejar transactions can't be sure of order
+RewriteCond   %{HTTP_COOKIE}	token=(\w+).*userLogin=(\S+)\b  
+RewriteRule   pay/(\w+)/(\w+)/([\d\.]+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=json [L]
+
 # /pay/ddawg/chelsea/23/luckets
 # deals with manual restful transactions
 RewriteCond   %{HTTP_COOKIE}	userLogin=(\w+).*token=(\S+)\b   
-RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=csv  
-
-
-
-
-
+RewriteRule   pay/(\w+)/(\w+)/(\w+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%1&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%2&mode=csv  [L]
 
 
 # /pay/ddawg/chelsea/23/luckets
 # changed mode to csv for the moment: 12/8/2009
 # deals with php cookiejar transactions can't be sure of order
 RewriteCond   %{HTTP_COOKIE}	token=(\w+).*userLogin=(\S+)\b   
-RewriteRule   pay/(\w+)/(\w+)/([\d\.]+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%2&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%1&mode=csv  [R]
+RewriteRule   pay/(\w+)/(\w+)/([\d\.]+)/(\w+)    /cgi-bin/cclite.cgi?action=transaction&subaction=om_trades&fromregistry=$2&tradeSource=%2&tradeDestination=$1&toregistry=$2&tradeCurrency=$4&tradeAmount=$3&token=%1&mode=csv  [L]
 
 
 # /credit/ddawg/dalston/23/duckets

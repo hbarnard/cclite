@@ -20,7 +20,6 @@
 
 #print STDOUT "Content-type: text/html\n\n";
 
-
 =head3 make_column_headings
 
 Make multilingual column headings
@@ -29,21 +28,20 @@ Make multilingual column headings
 
 sub make_column_headings {
 
-    my ($messages_ref) = @_ ;
+    my ($messages_ref) = @_;
 
-my $column_headers_hash_ref ;
-	
-$column_headers_hash_ref->{'Category'}    = $messages_ref->{'category'} ;
-$column_headers_hash_ref->{'Mobile'}      = $messages_ref->{'mobile'};
-$column_headers_hash_ref->{'Fixed'}       = $messages_ref->{'fixed'} ;
-$column_headers_hash_ref->{'Subject'}     = $messages_ref->{'subject'};
-$column_headers_hash_ref->{'Description'} = $messages_ref->{'description'} ;
-$column_headers_hash_ref->{'Price'}       = $messages_ref->{'price'} ;
-	
-return $column_headers_hash_ref ;
+    my $column_headers_hash_ref;
+
+    $column_headers_hash_ref->{'Category'}    = $messages_ref->{'category'};
+    $column_headers_hash_ref->{'Mobile'}      = $messages_ref->{'mobile'};
+    $column_headers_hash_ref->{'Fixed'}       = $messages_ref->{'fixed'};
+    $column_headers_hash_ref->{'Subject'}     = $messages_ref->{'subject'};
+    $column_headers_hash_ref->{'Description'} = $messages_ref->{'description'};
+    $column_headers_hash_ref->{'Price'}       = $messages_ref->{'price'};
+
+    return $column_headers_hash_ref;
 
 }
-
 
 =head3 print_yellow_dir
 
@@ -192,32 +190,31 @@ our %configuration = readconfiguration();
 my %fields = cgiparse();
 
 my $cookieref = get_cookie();
-my $registry  = $cookieref->{registry} ;
-our $language = decide_language() ;
+my $registry  = $cookieref->{registry};
+our $language = decide_language();
 
 # message language now decided by decide_language, within readmessages 08/2011
 our %messages = readmessages();
 
 # not an administrator exiting, perhaps this should be generally avaiable though
-if (! is_admin) {
-	print "Content-type: text/html\n\n";
-	print $messages{'notadmin'} ;
-	exit 0 ;
+if ( !is_admin ) {
+    print "Content-type: text/html\n\n";
+    print $messages{'notadmin'};
+    exit 0;
 }
-
 
 # lines in one page of table
 my $table_lines = 40;
 
 # correct path for output file
-my $output_file = "$configuration{'printdir'}/$registry/directory.${language}.odt" ;
+my $output_file =
+  "$configuration{'printdir'}/$registry/directory.${language}.odt";
 
 # title of each page
 my $title = $messages{'om_yellowpages'};
 
 # headings for table columns
-my $column_headers_hash_ref = make_column_headings(\%messages) ;
-
+my $column_headers_hash_ref = make_column_headings( \%messages );
 
 my ( $token, $offset, $limit );
 
@@ -235,19 +232,17 @@ print_yellow_dir( 'local', $registry, $document, $title, $table_lines,
 $document->save;
 
 # read the statements back in
-open (OUT,$output_file) ;
-my @output = <OUT> ;
-close OUT ;
+open( OUT, $output_file );
+my @output = <OUT>;
+close OUT;
 
 # present for download
-print "Content-Type:application/x-download\n";  
-print "Content-Disposition:attachment;filename=directory_for_$registry.odt\n\n"; 
-print @output  ;
+print "Content-Type:application/x-download\n";
+print "Content-Disposition:attachment;filename=directory_for_$registry.odt\n\n";
+print @output;
 
 # remove the file...unlikely that this is happening several times in one registry
-unlink $output_file ;
+unlink $output_file;
 
 exit 0;
-
-
 

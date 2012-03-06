@@ -96,6 +96,8 @@ pre { color: #000000;
 			<li><a href="#get_id_name">get_id_name</a></li>
 			<li><a href="#_choosetemplate">_choosetemplate</a></li>
 			<li><a href="#get_raw_stats_data">get_raw_stats_data</a></li>
+			<li><a href="#whos_online">whos_online</a></li>
+			<li><a href="#log_entry">log_entry</a></li>
 		</ul>
 
 	</ul>
@@ -152,6 +154,8 @@ pre { color: #000000;
 <li><a href="#_choosetemplate-">_choosetemplate</a></li>
 <li><a href="#_format_number-">_format_number</a></li>
 <li><a href="#get_raw_stats_data-">get_raw_stats_data</a></li>
+<li><a href="#whos_online-">whos_online</a></li>
+<li><a href="#log_entry-">log_entry</a></li>
 </ul>
 </li>
 <li><a href="#EOF-">EOF</a></li>
@@ -214,8 +218,6 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
 <span class="k">my</span> <span class="i">$VERSION</span> = <span class="n">1.00</span><span class="sc">;</span>
 <span class="i">@ISA</span> = <span class="q">qw(Exporter)</span><span class="sc">;</span>
 
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Cclitedb&quot;</span><span class="s">)</span><span class="sc">;</span>
-
 <span class="c">#---------------------------------------------------------</span>
 <span class="c"># note the sql ones almost certainly shouldn&#39;t be exported!</span>
 
@@ -227,6 +229,7 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
   <span class="q">modify_database_record2</span>
   <span class="q">delete_database_record</span>
   <span class="q">find_database_records</span>
+  <span class="q">log_entry</span>
   <span class="q">makebutton</span>
   <span class="q">makehome</span>
   <span class="q">sqlget</span>
@@ -256,6 +259,7 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
   <span class="q">sqlraw</span>
   <span class="q">sqlraw_return_array</span>
   <span class="q">sqldelete</span>
+  <span class="q">whos_online</span>
 <span class="q">)</span><span class="sc">;</span>
 
 </pre><p></p>
@@ -414,7 +418,7 @@ modify_database_record2 : where</p>
     <span class="k">my</span> <span class="i">$update</span> = <span class="i">_sqlupdate</span><span class="s">(</span> <span class="i">$dbh</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$update</span><span class="s">)</span><span class="sc">;</span>
     <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-
+    <span class="c">###debug_message($update) ;</span>
     <span class="c">#FIXME: Some tables still haven&#39;t literals</span>
     <span class="k">my</span> <span class="i">$table_literal</span> = <span class="i">$messages</span>{<span class="i">$table</span>} || <span class="i">$table</span><span class="sc">;</span>
 
@@ -510,7 +514,7 @@ renamed to sql_raw_return_hash...</p>
 
     <span class="c"># remove all modification attempts!</span>
     <span class="i">$sqlstring</span> =~ <span class="q">s/delete|insert|update//gi</span><span class="sc">;</span>
-
+      
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># cumulate any detail error with registry error 10/2009</span>
@@ -826,10 +830,6 @@ less fragile with respect to database changes...</p>
 <span class="hh">ORDER BY y.parent ASC</span>
 <span class="h">EOT</span>
 
-    <span class="c">#    $log-&gt;debug(&quot;test new is: $sqltestifnew&quot;) ;</span>
-    <span class="c">#    $log-&gt;debug(&quot;sqlmajor is: $sqlmajor&quot;) ;</span>
-    <span class="c">#    $log-&gt;debug(&quot;sqldetail is: $sqldetail&quot;) ;</span>
-
     <span class="k">my</span> <span class="i">$sqlstring</span> = <span class="i">$sqlmajor</span><span class="sc">;</span>
 
     <span class="c"># detail is supplied by $fieldsref-&gt;{&#39;getdetail&#39;}</span>
@@ -960,13 +960,13 @@ should return one record only</p>
       <span class="i">_sqlgetwhere</span><span class="s">(</span> <span class="i">$name</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldslist</span><span class="cm">,</span> <span class="i">$fieldname</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span>
         <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c">###$log-&gt;debug(&quot;get is $get\n&quot;) ;</span>
-
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
-        <span class="i">$log</span><span class="i">-&gt;error</span><span class="s">(</span>
-<span class="q">&quot;$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line&quot;</span>
-        <span class="s">)</span><span class="sc">;</span>
+
+        <span class="i">log_entry</span><span class="s">(</span><span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span>
+<span class="q">&quot;$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line&quot;</span><span class="cm">,</span>
+      <span class="i">$token</span>  <span class="s">)</span><span class="sc">;</span>
+        
         <span class="k">return</span> <span class="s">(</span> <span class="q">&#39;blank database&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -1073,7 +1073,6 @@ as defined in coding complete, but it hides _sqlfind too...</p>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_users&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$get</span> = <span class="i">_sqlgetwhere</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="cm">,</span>
             <span class="i">$table</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="i">$idname</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="c">###$log-&gt;debug(&quot;idname is $idname get is $get&quot;) ;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="i">$get</span> = <span class="i">_sqlgetwhere</span><span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="i">$idname</span>}<span class="cm">,</span>
             <span class="i">$table</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="i">$idname</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
@@ -1448,7 +1447,7 @@ in which ALL the columns are initialised.</p>
 <span class="hh">   $value_string </span>
 <span class="hh">   WHERE ( $id_field = &#39;$fields{$id_field}&#39;)</span>
 <span class="h">EOT</span>
-    <span class="c">###$log-&gt;debug(&quot;update is $sqlupdate&quot;) ;</span>
+
     <span class="k">return</span> <span class="i">$sqlupdate</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -1728,7 +1727,6 @@ tables too...</p>
 tradeStamp(12,2) is hours
 tradeStamp(9,2) is days
 tradeStamp(6,2) is month</p>
-
 <pre>
 <a name="_format_number-"></a><span class="k">sub </span><span class="m">_format_number</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span><span class="i">$number</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
@@ -1785,84 +1783,109 @@ tradeStamp(6,2) is month</p>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$graph_type</span> = <span class="q">&#39;volume&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="i">$sql_string</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">SELECT tradeStamp, unix_timestamp(tradeStamp), count(*), substr(tradeStamp,$slice) FROM om_trades o  </span>
+<span class="hh">SELECT tradeStamp, unix_timestamp(tradeStamp), count(*)/2, substr(tradeStamp,$slice) FROM om_trades o  </span>
 <span class="hh">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
 <span class="hh">   group by substr(tradeStamp,$slice) ORDER BY tradeStamp  ;</span>
 <span class="h">EOT</span>
 
     <span class="s">}</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;sqlstring is: $sql_string&quot;</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$max_quantity</span> = <span class="k">undef</span><span class="sc">;</span>    <span class="c"># used to scale the graph</span>
+<span class="c">###print &quot;type is $type, sqlstring is $sql_string&quot; ;</span>
+
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span> =
       <span class="i">sqlraw_return_array</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$sql_string</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="i">$previous_hour</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$previous_slice</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$counter</span> = <span class="n">0</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">@chart_array</span> <span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$row</span> <span class="s">(</span><span class="i">@$array_ref</span><span class="s">)</span> <span class="s">{</span>
+				
 
-        <span class="c"># tradestamp format 2011-08-10 13:25:11</span>
-        <span class="k">my</span> <span class="i">$hours_difference</span><span class="sc">;</span>
+	    <span class="k">my</span> <span class="i">$hash_ref</span> = <span class="s">{</span>
+                        <span class="w">time</span>  <span class="cm">=&gt;</span> <span class="i">$row</span>-&gt;[<span class="n">1</span>]<span class="cm">,</span>  <span class="c"># must be a unix time_t</span>
+                        <span class="w">value</span> <span class="cm">=&gt;</span> <span class="i">$row</span>-&gt;[<span class="n">2</span>]<span class="cm">,</span>   <span class="c"># the data value</span>
+                        <span class="w">color</span> <span class="cm">=&gt;</span> <span class="q">&#39;ff0000&#39;</span><span class="cm">,</span>   <span class="c"># optional, used for this one point</span>
+                       <span class="s">}</span> <span class="sc">;</span>
+        
+        <span class="k">push</span> <span class="i">@chart_array</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="sc">;</span>
 
-        <span class="c"># fill in blanks in arrays, if no activity...</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$previous_hour</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">my</span> <span class="i">$seconds_difference</span> = <span class="k">abs</span><span class="s">(</span> <span class="i">$$row</span>[<span class="n">1</span>] - <span class="i">$previous_hour</span> <span class="s">)</span><span class="sc">;</span>
-            <span class="i">$hours_difference</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$seconds_difference</span> / <span class="n">3600</span> <span class="s">)</span> - <span class="n">2</span><span class="sc">;</span>
-        <span class="s">}</span>
+</pre><dl><dt><strong><a name="shift" class="item">cut                       
+        my $lookahead = <code>shift(@$array_ref)</code>	;
+		my $intervals = int	(($row-&gt;[1] - $lookahead-&gt;[1]) /600 );</a></strong></dt>
 
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$hours_difference</span> &gt; <span class="n">0</span> &amp;&amp; <span class="k">length</span><span class="s">(</span><span class="i">$previous_hour</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">my</span> <span class="i">$x</span><span class="sc">;</span>
+<dd>
+<pre>
 
-            <span class="k">my</span> <span class="s">(</span> <span class="i">$year</span><span class="cm">,</span> <span class="i">$month</span><span class="cm">,</span> <span class="i">$day</span><span class="cm">,</span> <span class="i">$hours</span> <span class="s">)</span> =
-              <span class="s">(</span> <span class="i">$previous_slice</span> =~ <span class="q">/^(\d{4})\-(\d{2})\-(\d{2})\s+(\d{2})/</span> <span class="s">)</span><span class="sc">;</span>
-            <span class="c">### $log-&gt;debug(&quot;$year,$month,$day,$hours r:$$row[3]&quot;) ;</span>
-            <span class="k">for</span> <span class="s">(</span> <span class="i">$x</span> = <span class="i">$counter</span> <span class="sc">;</span>
-                <span class="i">$x</span> &lt;= <span class="s">(</span> <span class="i">$counter</span> + <span class="i">$hours_difference</span> <span class="s">)</span> <span class="sc">;</span> <span class="i">$x</span>++ <span class="s">)</span>
-            <span class="s">{</span>
-                <span class="k">my</span> <span class="i">$mark</span> = <span class="q">&#39;&#39;</span><span class="sc">;</span>
-                <span class="i">$hours</span> == <span class="n">24</span> ? <span class="s">(</span> <span class="i">$hours</span> = <span class="n">1</span> <span class="s">)</span> <span class="co">:</span> <span class="i">$hours</span>++<span class="sc">;</span>
-                <span class="i">$hours</span> = <span class="i">_format_number</span><span class="s">(</span><span class="i">$hours</span><span class="s">)</span><span class="sc">;</span>
-
-                <span class="i">$mark</span> = <span class="q">&#39;--&#39;</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$hours</span> == <span class="n">24</span> <span class="s">)</span><span class="sc">;</span>
-                <span class="i">$times</span>[<span class="i">$x</span>] =
-                  <span class="q">&quot;\&quot;$mark $hours\&quot;&quot;</span><span class="sc">;</span>    <span class="c"># fill in blanks, 0 for the moment</span>
-                <span class="i">$values</span>[<span class="i">$x</span>] = <span class="n">0</span><span class="sc">;</span>         <span class="c"># fill in blanks 0 for the moment</span>
-            <span class="s">}</span>    <span class="c">#end for</span>
-
-            <span class="i">$counter</span> = <span class="i">$counter</span> + <span class="i">$hours_difference</span> + <span class="n">1</span><span class="sc">;</span>
-
-        <span class="s">}</span>    <span class="c">#end if real hours difference</span>
-
-        <span class="k">my</span> <span class="i">$this_value</span><span class="sc">;</span>
-
-<span class="c"># this is because there is a debit and credit for each movement, so that the system balances</span>
-<span class="c"># therefore transaction volume equals sum of entries/2</span>
-        <span class="s">(</span> <span class="i">$graph_type</span> <span class="k">eq</span> <span class="q">&#39;volume&#39;</span> <span class="s">)</span>
-          ? <span class="s">(</span> <span class="i">$this_value</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$row</span>-&gt;[<span class="n">2</span>] / <span class="n">2</span> <span class="s">)</span> <span class="s">)</span>
-          <span class="co">:</span> <span class="s">(</span> <span class="i">$this_value</span> = <span class="i">$row</span>-&gt;[<span class="n">2</span>] <span class="s">)</span><span class="sc">;</span>
-
-        <span class="i">$max_quantity</span> = <span class="i">$this_value</span>
-          <span class="k">if</span> <span class="s">(</span> <span class="i">$this_value</span> &gt; <span class="i">$max_quantity</span> <span class="s">)</span><span class="sc">;</span>
-
-        <span class="i">$values</span>[<span class="i">$counter</span>] = <span class="i">$this_value</span><span class="sc">;</span>
-
-        <span class="c"># some value has been recorded...</span>
-        <span class="i">$are_there_values</span> = <span class="n">1</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$this_value</span> &gt; <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
-
-        <span class="i">$times</span>[<span class="i">$counter</span>] = <span class="q">&quot;\&quot;$$row[3]\&quot;&quot;</span><span class="sc">;</span>
-        <span class="i">$previous_hour</span> =
-          <span class="i">$$row</span>[<span class="n">1</span>]<span class="sc">;</span>  <span class="c"># for unix seconds comparison and insertion of empty points</span>
-        <span class="i">$previous_slice</span> =
-          <span class="i">$$row</span>[<span class="n">3</span>]<span class="sc">;</span>  <span class="c"># for unix seconds comparison and insertion of empty points</span>
-        <span class="i">$counter</span>++<span class="sc">;</span>
-
-    <span class="s">}</span>    <span class="c"># end foreach</span>
-
-    <span class="c">#</span>
-    <span class="k">return</span> <span class="s">(</span> \<span class="i">@times</span><span class="cm">,</span> \<span class="i">@values</span><span class="cm">,</span> <span class="i">$max_quantity</span><span class="cm">,</span> <span class="i">$are_there_values</span> <span class="s">)</span><span class="sc">;</span>
+        my $time = $lookahead-&gt;[1] ;
+        foreach my $i (1..($intervals - 1)) {
+            $time = $time + 600;
+            ###print &quot;time is $time&lt;br/&gt;&quot; ;
+            my $hash_ref = {
+                        time  =&gt; $time,  # must be a unix time_t
+                        value =&gt;  0 ,   # the data value
+                        color =&gt; '0000ff',   # optional, used for this one point
+           } ;
+           push @chart_array, $hash_ref ;
+        }</pre>
+<pre>
+       unshift  @$array_ref,$lookahead ;                      
+=cut</pre>
+<pre>       
+    <span class="s">}</span>      
+    
+    <span class="k">return</span> \<span class="i">@chart_array</span> <span class="sc">;</span>
 <span class="s">}</span>
+
+
+</pre></dd></dl>
+<p>
+</p>
+<h3><a name="whos_online">whos_online</a></h3>
+<p>Delivers a count and a list of those online
+The count is used for closing down the registry</p>
+<pre>
+
+<a name="whos_online-"></a><span class="k">sub </span><span class="m">whos_online</span> <span class="s">{</span>
+	
+    <span class="k">my</span> <span class="s">(</span><span class="i">$class</span><span class="cm">,</span><span class="i">$db</span><span class="cm">,</span><span class="i">$token</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$get</span> = <span class="q">&quot;SELECT userLogin FROM om_users where userLoggedin = &#39;1&#39; &quot;</span> <span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$rc</span><span class="cm">,</span> <span class="i">$rv</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$get</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$rv</span>  = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">$array_ref</span> = <span class="i">$sth</span><span class="i">-&gt;fetchall_arrayref</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">$sth</span><span class="i">-&gt;finish</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
+    <span class="k">my</span> <span class="i">$count</span> = <span class="k">scalar</span><span class="s">(</span><span class="i">$array_ref</span><span class="s">)</span> <span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span><span class="sc">;</span>	
+	
+	
+	
+<span class="s">}</span>	
+
+
+</pre><p></p>
+<h3><a name="log_entry">log_entry</a></h3>
+<p>Log entry into logging table</p>
+
+<pre>
+
+
+<a name="log_entry-"></a><span class="k">sub </span><span class="m">log_entry</span> <span class="s">{</span>
+	
+  <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+  
+  <span class="k">my</span> <span class="i">$timestamp</span> = <span class="i">sql_timestamp</span><span class="s">(</span><span class="s">)</span> <span class="sc">;</span>
+  <span class="k">my</span> <span class="i">$fieldsref</span> = <span class="s">{</span><span class="s">}</span> <span class="sc">;</span>
+  
+  <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;message&#39;</span>} = <span class="i">$message</span> <span class="sc">;</span>
+  <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;stamp&#39;</span>}   = <span class="i">$timestamp</span> <span class="sc">;</span>
+  
+  <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span> = <span class="i">add_database_record</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_log&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+  	
+  <span class="k">return</span> <span class="s">(</span><span class="i">$error</span><span class="cm">,</span><span class="i">$record_id</span><span class="s">)</span> <span class="sc">;</span>
+<span class="s">}</span>	
 
 <span class="n">1</span><span class="sc">;</span>
 

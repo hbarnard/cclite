@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- ออกแบบ โดยฟรี CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
-Cclite ! $ fieldsref{รุ่น} ผู้ดูแล
+Cclite ! fieldsref $ {รุ่น} Admin
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -21,10 +32,12 @@ Cclite ! $ fieldsref{รุ่น} ผู้ดูแล
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- stylesheets -->
+<!-- ต -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- ไลบรารี javascript ต้องการแทนที่การบีบอัดรุ่น -->
+<!-- datatables ในภายหลัง -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- ไลบรารี javascript ต้องการแทนที่การบีบอัดรุ่นบางขั้นตอน -->
 
 <!-- jquery รายการ -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- ผู้อื่นไม่ใช่ jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -72,17 +92,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
-
-<script src="/javascript/fileuploader.js" type="text/javascript">
-</script>
-
 <!-- สร้างกราฟ -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -96,35 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- แบบฟอร์มทั้งหมดมีชื่อ 'แบบเดียวกัน' เลี่ยงความซับซ้อนที่นี่ -->
+<!-- เป็นสคริปต์ที่ล็อกผู้ใช้ออกเมื่อมีการนำระบบลง -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- สวิตช์นี้เป็นการ เปิด/ปิดสิ่งจุดทศนิยม -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="หน้าแรก" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- ค้นหาผู้ใช้ เทรด โฆษณา -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -146,13 +147,15 @@ Adverts
 
 </select>
 
-<input value="ไป" class="small" type="submit" title="ค้นหาเทรด โฆษณา หรือผู้ใช้">
+<input value="ไป" class="small" type="submit" title="ค้นหาการเทรด โฆษณา หรือผู้ใช้">
 
 </form>
 
-</div>
-
 <!-- จุดสิ้นสุดของกล่องค้นหาทำให้สมบูรณ์อัตโนมัติ -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
 <!-- ภาษาตัวเลือกรุ่น 1 -->
 
@@ -228,7 +231,7 @@ Italiano
 
 </select>
 
-<!-- สิ้นสุดรุ่น 1 ตัวเลือกภาษา -->
+<!-- ภาษาตัวเลือกรุ่นที่ 1 จบ -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -238,113 +241,135 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- จุดสิ้นสุดของโลโก้ -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite Admin
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
 เมนูผู้ใช้
 </a>
+</li>
 
+<li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-เปลี่ยนสถานะของ! $ fieldsref{รีจิสทรี}
+เปลี่ยนแปลงสถานะของ! $ fieldsref{รีจิสทรี}
 </a>
 
+</li>
+
+<li>
+<
 <a class="bodytext" title="แสดงการเชื่อมโยง Partner Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 คู่ค้า
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="สร้างเป็นสกุลเงินใหม่" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
 สร้างสกุลเงิน
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="แสดงสกุลเงินใน" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 แสดงสกุลเงิน
 </a>
+</li>
 
-<a class="bodytext"title="สร้างประเภทใหม่ที่โฆษณา" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+<li>
+<a class="bodytext"title="สร้างประเภทโฆษณาใหม่" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
 สร้างประเภทโฆษณา
 </a>
+</li>
+
+<li>
 $$fieldsref{installer_link}
-</div>
+</li>
 
-<!-- จุดสิ้นสุดของ topbar -->
-
-<div class="topbar" >
-
+<li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
 ยอดดุลของรีจิสทรี
 </a>
+</li>
 
+<li>
 <a title="สร้างกฎหรือวงเงินสินเชื่อ" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 วงเงินสินเชื่อ
 </a>
+</li>
 
-<a title="สร้างจากระยะไกล หรือภายในรีจิสทรี Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-สร้างบริษัทในรีจิสทรี
+<li>
+<a title="สร้างระยะไกล หรือภายในรีจิสทรี Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+สร้างหุ้นส่วนของรีจิสทรี
 </a>
+</li>
 
+<li>
 <a title="ค่าธรรมเนียมการบริการกับบัญชีทั้งหมด" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 ใช้ค่าธรรมเนียมบริการ
 </a>
+</li>
 
+<li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
 สร้างชุด Dirs
 </a>
+</li>
 
+<li>
+<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
 ปรับเปลี่ยน! $ fieldsref{รีจิสทรี}
 </a>
+</li>
 
-<!-- จุดสิ้นสุดของบิตเมนูที่ต้องการแทนที่สำหรับ admin และติดตั้ง -->
+</ul>
 
 </div>
 
-<!-- จุดสิ้นสุดของเมนู -->
+<!-- แท็กเมฆินทร์และสถิติของผู้ใช้แต่ละ -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- จุดสิ้นสุดของ contentleft: ด้านซ้ายมือ -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+ประเภทโฆษณา
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- จุดสิ้นสุดของแผง -->
-
-</div>
-
-<!-- จุดสิ้นสุดของ righthandcontent -->
-
-</div>
-
-<!-- จุดสิ้นสุดของเนื้อหา -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 หน้าแรก
@@ -356,6 +381,13 @@ $$fieldsref{righthandside}
 <br />
 
 Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

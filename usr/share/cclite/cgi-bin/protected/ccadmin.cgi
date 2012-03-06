@@ -1,5 +1,5 @@
 #!/usr/bin/perl
-my $test = 0 ;
+my $test = 0;
 if ($test) {
     print STDOUT "Content-type: text/html\n\n";
     my $data = join( '', <DATA> );
@@ -234,6 +234,7 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
         && ( $compare_token ne $cookieref->{token} ) )
     {
         $fieldsref = \%fields;
+
         # attempt to exit cleanly
         $action = 'logoff';
     }
@@ -295,14 +296,12 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
     )
   );
 
-
 # shutdown for maintenance
-if ($action eq "offline" ) {
-	
-   ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
-    go_offline( 'local', $db, '', 1, '', $language, $token ) );
-}
+if ( $action eq "offline" ) {
 
+    ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
+          go_offline( 'local', $db, '', 1, '', $language, $token ) );
+}
 
 # bring up after maintenance
 ( $action eq "online" )

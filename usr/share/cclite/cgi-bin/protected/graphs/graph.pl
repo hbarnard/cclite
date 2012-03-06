@@ -1,14 +1,14 @@
 #!/usr/bin/perl 
 
-$test = 1 ;
+$test = 1;
 if ($test) {
-print STDOUT "Content-type: text/html\n\n";
-my $data = join( '', <DATA> );
-eval $data;
-if ($@) {
-    print $@;
-    exit 1;
-}
+    print STDOUT "Content-type: text/html\n\n";
+    my $data = join( '', <DATA> );
+    eval $data;
+    if ($@) {
+        print $@;
+        exit 1;
+    }
 }
 
 __END__

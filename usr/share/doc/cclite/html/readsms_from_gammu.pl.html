@@ -138,8 +138,6 @@ processes them and unlinks them.</p>
 <span class="q">use lib &#39;../../../lib&#39; ;	</span>
 <span class="q">#-------------------------------------------------------------</span>
 
-<span class="q">use Log::Log4perl;</span>
-
 <span class="q">use Ccu;</span>
 <span class="q">use Ccadmin ;</span>
 <span class="q">use Cccookie ;</span>
@@ -148,11 +146,6 @@ processes them and unlinks them.</p>
 
 <span class="q">my %configuration = readconfiguration();</span>
 
-<span class="q">Log::Log4perl-&gt;init($configuration{&#39;loggerconfig&#39;});</span>
-<span class="q">our $log = Log::Log4perl-&gt;get_logger(&quot;readfromgammu&quot;);</span>
-
-
-<span class="q">#FIXME: Only need SOAP if non-local update...</span>
 <span class="q"># fixed needs testing</span>
 <span class="q">if ( !$configuration{&#39;smslocal&#39;} ) {</span>
 <span class="q">    use SOAP::Lite;</span>
@@ -201,12 +194,7 @@ processes them and unlinks them.</p>
 <span class="q">      = ( $1, $2, $3, $4, $5, $6, $7, $8 );</span>
 
 <span class="q">    my $full_telephone_number = $sms_int_code . $sms_phone_number;</span>
-
-<span class="q"> ###   $log-&gt;debug(&quot;open sms file is $sms_file&quot;) ;</span>
-    
-<span class="q"> ###   $log-&gt;debug(&quot;fields are: $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute, $sms_second,</span>
-<span class="q"> ###       $sms_int_code, $sms_phone_number&quot;) ;</span>
-        
+       
 <span class="q">    open( SMS, $sms_file );</span>
 
 <span class="q">    my $sms_data;    # holds message text</span>
@@ -225,16 +213,7 @@ processes them and unlinks them.</p>
 <span class="q">    $fields{&#39;message&#39;}    = $sms_data;</span>
 <span class="q">    $fields{&#39;status&#39;}     = 0;                   # status is forced</span>
 
-
-
-
-
-<span class="q">###    $log-&gt;debug(&quot; o:$fields{&#39;originator&#39;}, t:$full_telephone_number,    m:$fields{&#39;message&#39;}&quot;) ;</span>
-
-
 <span class="q">    my ( $status, $class, $array_ref, $soap, $token );</span>
-
-
 
 <span class="q"># remote transactions are transported via soap, local ones use the local library...</span>
 <span class="q">    if ( ! $configuration{ &#39;smslocal&#39;} ) {</span>
@@ -249,7 +228,6 @@ processes them and unlinks them.</p>
 
 <span class="q">    } else {</span>
 <span class="q">        gateway_sms_transaction( &#39;local&#39;, \%configuration, \%fields, $token );</span>
-<span class="q">        $log-&gt;debug(&quot;end of gateway transaction\n\n&quot;) ;</span>
 <span class="q">    }</span>
 
 <span class="q">    # move the processed file to a done directory, don&#39;t process twice</span>

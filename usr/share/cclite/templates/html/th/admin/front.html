@@ -4,7 +4,7 @@
 
 <tr>
 
-<td title="เริ่มต้นสคริปต์สร้างกราฟ">
+<td title="เริ่มการทำงานของสคริปต์สร้างกราฟ">
 สร้างกราฟ
 </td>
 
@@ -41,7 +41,7 @@
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-หยุด Stats
+หยุดสถิติ
 </option>
 
 <option value="5">
@@ -258,7 +258,7 @@
 
 <br/>
 
-ชื่อเข้าสู่ระบบ
+ชื่อล็อกอิน
 <input type="text" name="username" size="10">
 
 <input type="submit" class="small" name="go" value="ไป">
@@ -341,8 +341,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
-
+<div id="volumes" style="width:600px;height:300px;">
+</div>
 
 </td>
 
@@ -360,8 +360,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
-
+<div id="averages" style="width:600px;height:300px;">
+</div>
 
 </td>
 

@@ -107,7 +107,7 @@ sub add_yellow {
 
         }
 
-        #FIXME: this isn't a great way of storing tags 
+        #FIXME: this isn't a great way of storing tags
         #       move tags to keywords field...
         $fieldsref->{'keywords'} = $fieldsref->{'yellowtags'};
         $fieldsref->{'category'} = '9999';
@@ -296,8 +296,8 @@ sub show_tag_cloud {
     my $interval = 1;    # one week for displaying items as new...
     my $registry_error;
     my $width_count = 1;
-    my $status   ;  # blank entry used for delivering json
-    my $max_depth   = $fieldsref->{maxdepth}
+    my $status;          # blank entry used for delivering json
+    my $max_depth = $fieldsref->{maxdepth}
       || 5;
     my $max_entries = 100;
     my $total_count = 0;
@@ -334,12 +334,11 @@ sub show_tag_cloud {
     # json raw cloud
     if ( $fieldsref->{'mode'} eq 'json' ) {
         my ($json) = deliver_remote_data( $db, 'om_categories', $registry_error,
-            \%keyword_index, $status,  $token );
+            \%keyword_index, $status, $token );
         return $json;
     }
-    
 
-    # html cloud for right-hand-side    
+    # html cloud for right-hand-side
     my $depth = 1;
     my $cloud;
 
@@ -348,11 +347,11 @@ sub show_tag_cloud {
         $tag =~ s/\s+$//g;
         $keyword_index{$tag} =~ s/\,$//;
 
-        my $size = int( $keyword_count{$tag} / $total_count * 100 );
+        my $size = int( $keyword_count{$tag} / $total_count * 10 );
         ### print "$keyword_count{$tag} $total_count $size<br/>" ;
         $size = 50 if ( $size < 50 );
         $cloud .= <<EOT;
-    <span class="$keyword_type{$tag}" style="font-size:$size%"><a title="get listing by category: $messages{'count'} $keyword_count{$tag}: $messages{$keyword_type{$tag}}" href="/cgi-bin/cclite.cgi?action=showyellowbycat&string1=$tag">
+    <span class="$keyword_type{$tag}" style="font-size:$size"><a title="get listing by category: $messages{'count'} $keyword_count{$tag}: $messages{$keyword_type{$tag}}" href="/cgi-bin/cclite.cgi?action=showyellowbycat&string1=$tag">
          $tag</a></span> 
 EOT
 
@@ -364,8 +363,6 @@ EOT
         }
 
     }
-
-
 
     return ( $registry_error, $cloud );
 

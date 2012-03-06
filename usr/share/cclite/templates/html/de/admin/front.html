@@ -4,7 +4,7 @@
 
 <tr>
 
-<td title="Starten Sie das grafikfähiger Skript">
+<td title="Starten Sie das Skript grafikfähiger">
 Grafische Darstellung
 </td>
 
@@ -18,16 +18,16 @@ E-Mail-Eingang
 </td>
 -->
 
-<td title="produzieren Sie Rss Feeds zur GelbeSeiten kleinen anzeigen">
+<td title="Start Herstellung von Rss-feeds für die Gelben Seiten-Kleinanzeigen">
 RSS-Feed
 </td>
 
-<td title="Starten Sie akzeptieren Eingang über Gammu von einem lokalen Mobiltelefon">
+<td title="Starten Sie akzeptieren Eingaben per Gammu von einem lokalen Mobiltelefon">
 Gammu-Eingang
 </td>
 
 <td title="Upload und Prozess Batchtransaktionen">
-Uploadprozess Batchtransaktionen
+Upload-Vorgang-Batchtransaktionen
 </td>
 
 </tr>
@@ -41,7 +41,7 @@ Uploadprozess Batchtransaktionen
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-Stop Stats
+Statistik zu stoppen
 </option>
 
 <option value="5">
@@ -65,7 +65,7 @@ Alle 30 min.
 <select class="small"  onchange="on_select_change('mail');" id="mail_value" >
 
 <option value="0">
--Mail beenden
+Mail beenden
 </option>
 
 <option value="5">
@@ -102,7 +102,7 @@ Alle 30 min.
 <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
 
 <option value="0">
-Beenden Sie Rss
+Stop Rss
 </option>
 
 <option value="5">
@@ -126,7 +126,7 @@ Alle 30 min.
 <select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
 
 <option value="0">
-SMS stoppen
+Stop SMS
 </option>
 
 <option value="5">
@@ -268,7 +268,7 @@ Login-Name
 </td>
 
 <td class="front" valign="top">
-Download OpenOffice Directory
+Download OpenOffice-Verzeichnis
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
 <input class="small" type="submit" name="go" value="Gehen">
@@ -341,8 +341,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
-
+<div id="volumes" style="width:600px;height:300px;">
+</div>
 
 </td>
 
@@ -360,8 +360,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
-
+<div id="averages" style="width:600px;height:300px;">
+</div>
 
 </td>
 

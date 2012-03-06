@@ -9,7 +9,7 @@ Graphiques
 </td>
 
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-Entrée de Courriel
+Apport du Courriel
 </td>
 
 <!--
@@ -22,12 +22,12 @@ Entrée de Courriel
 Flux RSS
 </td>
 
-<td title="commencer à accepter d'entrée par l'intermédiaire de gammu, d'un téléphone mobile local">
-Entrée de la Gammu
+<td title="commencer à accepter l'entrée via gammu depuis un téléphone portable local">
+Entrée de Gammu
 </td>
 
-<td title="transactions par lot upload et processus">
-Téléchargement et des processus Batch Transactions
+<td title="téléchargement et processus de mouvements en lot">
+Téléchargement/processus de Transactions par lot
 </td>
 
 </tr>
@@ -41,7 +41,7 @@ Téléchargement et des processus Batch Transactions
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-Stop Stats
+Arrêter les Stats
 </option>
 
 <option value="5">
@@ -65,7 +65,7 @@ Toutes les 30 min
 <select class="small"  onchange="on_select_change('mail');" id="mail_value" >
 
 <option value="0">
-Arrêter Mail
+Arrêter la messagerie
 </option>
 
 <option value="5">
@@ -102,7 +102,7 @@ Toutes les 30 min
 <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
 
 <option value="0">
-Stop Rss
+Arrêter les flux Rss
 </option>
 
 <option value="5">
@@ -147,7 +147,7 @@ Toutes les 30 min
 
 <td>
 
-<div title="Obtenez les mouvements en lot comme un fichier csv : voir le manuel" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
+<div title="Obtenir les transactions par lots comme un fichier csv : voir Manuel" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
 </div>
 
 </td>
@@ -158,31 +158,31 @@ Toutes les 30 min
 
 <td>
 <span id="stats">
-Attendre
+Attente
 </span>
 </td>
 
 <td>
 <span id="mail">
-Attendre
+Attente
 </span>
 </td>
 
 <td>
 <span id="gpg_mail">
-Attendre
+Attente
 </span>
 </td>
 
 <td>
 <span id="rss">
-Attendre
+Attente
 </span>
 </td>
 
 <td>
 <span id="gammu">
-Attendre
+Attente
 </span>
 </td>
 
@@ -261,7 +261,7 @@ Année
 Nom de connexion
 <input type="text" name="username" size="10">
 
-<input type="submit" class="small" name="go" value="Aller">
+<input type="submit" class="small" name="go" value="Go">
 
 </form>
 
@@ -271,7 +271,7 @@ Nom de connexion
 Télécharger le répertoire OpenOffice
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
-<input class="small" type="submit" name="go" value="Aller">
+<input class="small" type="submit" name="go" value="Go">
 
 </form>
 
@@ -341,8 +341,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
-
+<div id="volumes" style="width:600px;height:300px;">
+</div>
 
 </td>
 
@@ -360,8 +360,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
-
+<div id="averages" style="width:600px;height:300px;">
+</div>
 
 </td>
 

@@ -158,6 +158,7 @@ sub gateway_sms_transaction {
     my ( $class, $configurationref, $fields_ref, $token ) = @_;
 
     my ( $offset, $limit, $pin, $transaction_type );
+
     # no originator, so no lookup or no message...reject
 
     if ( !length( $fields_ref->{'originator'} ) ) {
@@ -620,7 +621,7 @@ sub _check_pin {
 
         if ( $from_user_ref->{'userPin'} eq $hashed_pin ) {
             $pin_status = 'ok';
-            
+
             return $pin_status
               if ( $from_user_ref->{'userPinTries'} == 3 )
               ;    # this is the main case

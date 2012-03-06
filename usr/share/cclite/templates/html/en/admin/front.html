@@ -107,12 +107,17 @@ Upload/process Batch Transactions
    <td></td>
 </tr>    
 </form>
+</table>
+<table>
 
 <tr>
     <td class="front">
     Download OpenOffice Statements
+<table>
+	<tr>
+	<td>Month</td><td>
 	<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
-	Month
+	
 		<select class="small" name="month">
 		<option value="1">1</option>
 		<option value="2">2</option>
@@ -127,14 +132,14 @@ Upload/process Batch Transactions
 		<option value="11">11</option>
 		<option value="12">12</option>						
 		</select>
-	 <br/>	
-	 Year
-		<input type="text" name="year" size="4" maxlength="4">
-	<br/>	
-	 Login Name	
-		<input type="text" name="username" size="10">
-		<input type="submit" class="small" name="go" value="Go">
-		</form>
+	</td></tr>
+	<tr><td> Year</td><td><input type="text" name="year" size="4" maxlength="4"></td></tr>	
+	<tr><td>Login Name	</td><td><input type="text" name="username" size="10"></td></tr>
+	<tr><td><input type="submit" class="small" name="go" value="Go"></td><td></td></tr>
+	</form></table> 
+		
+		
+		
 		
 	</td>
     
@@ -168,14 +173,19 @@ Upload/process Batch Transactions
 <table> 
  <tr>
   <td>
-   <h4><span id="transaction_vol_title"></span> <span id="update_date1"></span> </h4>
-    <img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
+ 
+   
   </td>
  </tr><tr> 
   <td>
-   <h4><span id="averages_title"></span> <span id="update_date2"></span> </h4>
-   <img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
+   
   </td>
  </tr>
 </table>
 
+
+
+
+
+
+ 

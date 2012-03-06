@@ -157,7 +157,6 @@ Copyright (C) 2004 Mark L. Irons</p>
 
 <span class="k">our</span> <span class="i">%messages</span>    = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span>         = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Ccrss&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 </pre><p></p>
 <h3><a name="create_rss_feed">create_rss_feed</a></h3>
@@ -192,7 +191,7 @@ Copyright (C) 2004 Mark L. Irons</p>
 <span class="h">EOT</span>
 
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="c">###  $log-&gt;warn(&quot;unknown feed type:$$fieldsref{&#39;type&#39;}&quot;);</span>
+        <span class="i">log_entry</span><span class="s">(</span><span class="i">$class</span><span class="cm">,</span><span class="i">$db</span><span class="cm">,</span><span class="q">&quot;unknown feed type:$$fieldsref{&#39;type&#39;}&quot;</span><span class="cm">,</span><span class="q">&#39;&#39;</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$ad_hash_ref</span> <span class="s">)</span><span class="sc">;</span>
@@ -282,8 +281,7 @@ Copyright (C) 2004 Mark L. Irons</p>
     <span class="k">my</span> <span class="i">$feed_file_name</span> = <span class="q">&quot;$fieldsref-&gt;{&#39;type&#39;}\.rdf&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$full_name</span>      = <span class="q">&quot;$rss_directory\/$feed_file_name&quot;</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="s">(</span> <span class="k">-w</span> <span class="i">$full_name</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="c">###   print &quot;cannot write to rss feed file:$feed_file_name&quot; ;</span>
-        <span class="c">###$log-&gt;warn(&quot;cannot write to rss feed file:$feed_file_name&quot;);</span>
+        <span class="i">log_entry</span><span class="s">(</span><span class="i">$class</span><span class="cm">,</span><span class="i">$db</span><span class="cm">,</span><span class="q">&quot;cannot write to rss feed file:$feed_file_name&quot;</span><span class="cm">,</span><span class="q">&#39;&#39;</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
     <span class="i">$rss</span><span class="i">-&gt;save</span><span class="s">(</span><span class="i">$full_name</span><span class="s">)</span>
       <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># ugly but removes empty file bug</span>

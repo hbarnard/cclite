@@ -69,7 +69,7 @@ pre { color: #000000;
 <!-- INDEX END -->
 
 <pre>#!/usr/bin/perl
-<span class="k">my</span> <span class="i">$test</span> = <span class="n">0</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$test</span> = <span class="n">0</span> <span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$test</span><span class="s">)</span> <span class="s">{</span>
     <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
@@ -173,8 +173,6 @@ to change these, just substitute a translated hash</p>
     <span class="w">import</span> <span class="w">Ccrss</span><span class="sc">;</span>
 <span class="s">}</span>
 
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
-
 <span class="k">use</span> <span class="w">HTML::SimpleTemplate</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>              <span class="c"># use the cookie module</span>
@@ -201,9 +199,6 @@ to change these, just substitute a translated hash</p>
 
 <span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$offset</span> = <span class="i">$fields</span>{<span class="w">offset</span>}<span class="sc">;</span>
-
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccadmin&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#  this should use the version modules, but that makes life more</span>
 <span class="c"># complex for intermediate users</span>
@@ -272,7 +267,6 @@ to change these, just substitute a translated hash</p>
     &amp;&amp; <span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="w">userLevel</span>} <span class="k">ne</span> <span class="q">&#39;admin&#39;</span> <span class="s">)</span> <span class="s">)</span>
 <span class="s">{</span>
 
-<span class="c">###    $log-&gt;debug(&quot;l:$cookieref-&gt;{userLevel}  t:$cookieref-&gt;{token}&quot;);</span>
     <span class="i">$fields</span>{<span class="w">menustyle</span>} = <span class="q">&quot;grey&quot;</span><span class="sc">;</span>
     <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$pages</span> = <span class="i">$user_pages</span><span class="sc">;</span>
@@ -316,11 +310,6 @@ to change these, just substitute a translated hash</p>
         &amp;&amp; <span class="s">(</span> <span class="i">$compare_token</span> <span class="k">ne</span> <span class="i">$cookieref</span>-&gt;{<span class="w">token</span>} <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
-<span class="c">###        $log-&gt;warn(</span>
-<span class="c">###&quot;corrupt token or spoofing attempt from login:$cookieref-&gt;{userLogin} token:$cookieref-&gt;{token} token1:$cookieref-&gt;{token1} at:$ENV{REMOTE_ADDR}&quot;</span>
-<span class="c">###        );</span>
-        <span class="c">###$log-&gt;debug(&quot;action is $action: $compare_token\n  ne \n$cookieref-&gt;{token} \ntoken1:$cookieref-&gt;{token1}&quot;);</span>
-
         <span class="c"># attempt to exit cleanly</span>
         <span class="i">$action</span> = <span class="q">&#39;logoff&#39;</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -382,10 +371,14 @@ to change these, just substitute a translated hash</p>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
 
+
 <span class="c"># shutdown for maintenance</span>
-<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;offline&quot;</span> <span class="s">)</span>
-  &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
+<span class="k">if</span> <span class="s">(</span><span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;offline&quot;</span> <span class="s">)</span> <span class="s">{</span>
+	
+   <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> =
     <span class="i">go_offline</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
 
 <span class="c"># bring up after maintenance</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;online&quot;</span> <span class="s">)</span>

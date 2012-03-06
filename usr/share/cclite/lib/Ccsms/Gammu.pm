@@ -127,7 +127,7 @@ sub gateway_sms_transaction {
     my ( $class, $configurationref, $fieldsref, $token ) = @_;
 
     my ( $offset, $limit );
-    
+
     my ( $error, $fromuserref ) =
       get_where( 'local', $registry, 'om_users', '*', 'userMobile',
         $$fieldsref{'originator'},
@@ -576,7 +576,7 @@ sub _check_pin {
 
         if ( $$fromuserref{'userPin'} eq $hashed_pin ) {
             $pin_status = 'ok';
-            
+
             return $pin_status
               if ( $$fromuserref{'userPinTries'} == 3 ); # this is the main case
             $$fromuserref{'userPinTries'} = 3;    # reset to three otherwise

@@ -4,8 +4,8 @@
 
 <tr>
 
-<td title="启动该图形的脚本">
-图形
+<td title="启动图形的脚本">
+网络图表
 </td>
 
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
@@ -22,12 +22,12 @@
 Rss 订阅源
 </td>
 
-<td title="开始接受来自本地流动电话 gammu 通过输入">
+<td title="开始接受来自本地的流动电话 gammu 通过输入">
 Gammu 输入
 </td>
 
 <td title="上载和过程的批处理事务">
-上传/处理批处理事务
+上传/过程批处理事务
 </td>
 
 </tr>
@@ -198,7 +198,7 @@ Gammu 输入
 <td class="front">
 下载 OpenOffice 语句
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
-个月
+月
 <select class="small" name="month">
 
 <option value="1">
@@ -341,8 +341,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
-
+<div id="volumes" style="width:600px;height:300px;">
+</div>
 
 </td>
 
@@ -360,8 +360,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
-
+<div id="averages" style="width:600px;height:300px;">
+</div>
 
 </td>
 

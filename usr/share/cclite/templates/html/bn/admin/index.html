@@ -1,13 +1,25 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Design by Free CSS Templates
+ -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
-Cclite  $$fieldsref{version} অ্যাডমিনস্ট্রেটর
+Cclite  $$fieldsref{version} অ্যাডমিন
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +35,10 @@ Cclite  $$fieldsref{version} অ্যাডমিনস্ট্রেটর
 $$fieldsref{metarefresh}
 <!-- stylesheets -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +50,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- সঙ্কুচিত সংস্করণ subsituteতে জাভাস্ক্রীপ্ট লাইব্রেরী, প্রয়োজন -->
+<!-- datatables পরবর্তী কালে -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- কিছু দশাতে সঙ্কুচিত সংস্করণ subsituteতে জাভাস্ক্রীপ্ট লাইব্রেরী, প্রয়োজন -->
 
 <!-- jquery পদগুলো -->
 
@@ -61,6 +80,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- অন্যান্য non jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -72,17 +93,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
-
-<script src="/javascript/fileuploader.js" type="text/javascript">
-</script>
-
 <!-- graphingচ্ছে -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -96,35 +109,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- সমস্ত রূপের একই নাম আকার রয়েছে, জটিলতা এখানে এড়িয়ে চলে -->
+<!-- এইটি লিপি যে কার্যবিবরণী ব্যবহারকারী বাইরে যখন সিস্টেম নিচে আনওয়া হচ্ছে -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- এই সুইচটি on/off দশমিক বিন্দু stuff বদলায় -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="বাড়ি" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- ব্যবহারকারী, বাণিজ্য, adsএর জন্য অনুসন্ধান -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -150,9 +152,11 @@ Adverts
 
 </form>
 
-</div>
-
 <!-- autocomplete অনুসন্ধান বাক্সের প্রান্ত -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
 <!-- ভাষা নির্বাচক সংস্করণ ১ -->
 
@@ -238,113 +242,135 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- লোগোর প্রান্ত -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite অ্যাডমিন
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
 ব্যবহারকারী মেনু
 </a>
+</li>
 
+<li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
  $$fieldsref{registry}
 </a>
 
+</li>
+
+<li>
+<
 <a class="bodytext" title="সংযুক্ত Partner Registries দেখান" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Partners
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="একটি নতুন টাকা তৈরি করুন" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
 টাকা তৈরি করুন
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="তে Currencies দেখান" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 Currencies দেখান
 </a>
+</li>
 
+<li>
 <a class="bodytext"title="নতুন Ad শ্রেণীবিভাগ তৈরি করুন" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
 Ad শ্রেণীবিভাগ তৈরি করুন
 </a>
+</li>
+
+<li>
 $$fieldsref{installer_link}
-</div>
+</li>
 
-<!-- topbarএর প্রান্ত -->
-
-<div class="topbar" >
-
+<li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
 রেজিস্ট্রী Balances
 </a>
+</li>
 
+<li>
 <a title="নিয়ম তৈরি করুন অথবা ধার সীমাবদ্ধ করে" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 ধার সীমাবদ্ধ করে
 </a>
+</li>
 
+<li>
 <a title="দূরবর্তী অথবা স্থানীয় রেজিস্ট্রী Partner তৈরি করুন" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 রেজিস্ট্রী Partner তৈরি করুন
 </a>
+</li>
 
+<li>
 <a title="সমস্ত অ্যাকাউন্টে পরিষেবা আধান প্রয়োগ" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 পরিষেবা আধান প্রয়োগ
 </a>
+</li>
 
+<li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
 ব্যাচ Dirs তৈরি করুন
 </a>
+</li>
 
+<li>
+<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
  $$fieldsref{registry}
 </a>
+</li>
 
-<!-- মেনু বিটের প্রান্ত যে অ্যাডমিনের জন্য replacing প্রয়োজন বোধ করে এবং ইনস্টল করুন -->
+</ul>
 
 </div>
 
-<!-- মেনুর প্রান্ত -->
+<!-- ট্যাগ মেঘ এবং স্বতন্ত্র ব্যবহারকারী পরিসংখ্যান -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- contentleftএর প্রান্ত: হাত পাশ ছেড়ে চলে গিয়েছিল -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Ad শ্রেণীবিভাগ
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- প্যানেলের প্রান্ত -->
-
-</div>
-
-<!-- righthandcontentএর প্রান্ত -->
-
-</div>
-
-<!-- ভিতরের উপাদানের প্রান্ত -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 বাড়ি
@@ -356,6 +382,13 @@ $$fieldsref{righthandside}
 <br />
 
 Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Thiết kế miễn phí CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Phát hành miễn phí dưới một Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
-Cclite $$fieldsref{version} Trình cài đặt
+Cclite $$fieldsref{version} Cài đặt
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite $$fieldsref{version} Trình cài đặt
 $$fieldsref{metarefresh}
 <!-- stylesheets -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- thư viện JavaScript, cần phải subsitute nén các phiên bản -->
+<!-- DataTables sau này -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- thư viện JavaScript, cần phải subsitute nén các phiên bản ở một số giai đoạn -->
 
 <!-- jQuery mục -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- những người khác không jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -74,10 +94,7 @@ $$fieldsref{metarefresh}
 
 <!-- vẽ đồ thị -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -91,35 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- tất cả các dạng có cùng tên 'mẫu', tránh phức tạp ở đây -->
+<!-- Đây là kịch bản mà bản ghi người dùng ra ngoài khi hệ thống được được đưa -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- chuyển đổi này sẽ chuyển thành/tắt những dấu thập phân thứ -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="Trang chủ" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- tìm kiếm người dùng, ngành nghề, quảng cáo -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -145,9 +151,11 @@ Quảng cáo
 
 </form>
 
-</div>
-
 <!-- kết thúc của hộp tìm kiếm tự hoàn tất -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
 <!-- Phiên bản công cụ chọn bằng 1 -->
 
@@ -233,93 +241,100 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- kết thúc của logo -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cài đặt Cclite
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a title="Google nhóm hỗ trợ" href="http://groups.google.co.uk/group/cclite?hl=en">
 Muốn giúp đỡ?
 </a>
+</li>
 
+<li>
 <a title="Admin Menu" href="/cgi-bin/protected/ccadmin.cgi">
 Admin Menu
 </a>
 
+</li>
+
+<li>
 <a title="Người sử dụng Menu" href="/cgi-bin/cclite.cgi">
 Người sử dụng Menu
 </a>
+</li>
 
-</div>
-
-<!-- kết thúc của topbar -->
-
-<div class="topbar" >
-
-<a id="updateconfig" title="Cập Nhật conifguration được lưu trữ trong cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<li>
+<a id="updateconfig" title="Cập Nhật conifguration lưu trữ trong cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
 Cập Nhật cấu hình
 </a>
+</li>
 
+<li>
+<
 <a id="newregistry" title="Tạo mới đăng ký" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 Tạo mới đăng ký
 </a>
+</li>
 
+<li>
 <a id="showregistry" title="Hiển thị hiện tại Cclite đăng ký" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 Đăng ký hiển thị
 </a>
+</li>
 
+<li>
 <a id="installcheck" title="Chạy cài đặt Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 Kiểm tra cài đặt yêu cầu
 </a>
+</li>
 
-<!-- kết thúc của trình đơn bit có nhu cầu thay thế cho admin và cài đặt -->
+</ul>
 
 </div>
 
-<!-- kết thúc của trình đơn -->
+<!-- từ khóa và thống kê người dùng cá nhân -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- kết thúc của contentleft: bên trái tay -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Thể loại quảng cáo
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- cuối của bảng điều khiển -->
-
-</div>
-
-<!-- kết thúc của righthandcontent -->
-
-</div>
-
-<!-- kết thúc của nội dung -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 Trang chủ
@@ -331,6 +346,13 @@ Liên hệ
 <br />
 
 Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

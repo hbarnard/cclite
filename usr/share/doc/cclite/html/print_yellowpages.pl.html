@@ -51,6 +51,7 @@ pre { color: #000000;
 
 		<ul>
 
+			<li><a href="#make_column_headings">make_column_headings</a></li>
 			<li><a href="#print_yellow_dir">print_yellow_dir</a></li>
 			<li><a href="#comments">comments</a></li>
 		</ul>
@@ -65,8 +66,9 @@ pre { color: #000000;
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
 <ul>
-<li><a href="#print_yellow_dir-">package main</a>
+<li><a href="#make_column_headings-">package main</a>
 <ul>
+<li><a href="#make_column_headings-">make_column_headings</a></li>
 <li><a href="#print_yellow_dir-">print_yellow_dir</a></li>
 <li><a href="#style-">style</a></li>
 <li><a href="#paragraph-">paragraph</a></li>
@@ -96,15 +98,28 @@ pre { color: #000000;
 <span class="c"># these batch scripts are kept as eval, if they fail they print their problems</span>
 <span class="c"># onto the status web page</span>
 
-<span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+<span class="c">#print STDOUT &quot;Content-type: text/html\n\n&quot;;</span>
 
-<span class="c">#my $data = join( &#39;&#39;, &lt;DATA&gt; );</span>
-<span class="c">#eval $data;</span>
-<span class="c">#if ($@) {</span>
-<span class="c">#    print $@;</span>
-<span class="c">#    exit 1;</span>
-<span class="c">#}</span>
-<span class="c">#__END__</span>
+</pre><p></p>
+<h3><a name="make_column_headings">make_column_headings</a></h3>
+<p>Make multilingual column headings</p>
+<pre>
+<a name="make_column_headings-"></a><span class="k">sub </span><span class="m">make_column_headings</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span><span class="i">$messages_ref</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$column_headers_hash_ref</span><span class="sc">;</span>
+
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Category&#39;</span>}    = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;category&#39;</span>}<span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Mobile&#39;</span>}      = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;mobile&#39;</span>}<span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Fixed&#39;</span>}       = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;fixed&#39;</span>}<span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Subject&#39;</span>}     = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;subject&#39;</span>}<span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Description&#39;</span>} = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;description&#39;</span>}<span class="sc">;</span>
+    <span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Price&#39;</span>}       = <span class="i">$messages_ref</span>-&gt;{<span class="q">&#39;price&#39;</span>}<span class="sc">;</span>
+
+    <span class="k">return</span> <span class="i">$column_headers_hash_ref</span><span class="sc">;</span>
+
+<span class="s">}</span>
 
 </pre><p></p>
 <h3><a name="print_yellow_dir">print_yellow_dir</a></h3>
@@ -152,7 +167,7 @@ pre { color: #000000;
 
         <span class="k">my</span> <span class="i">$current_table</span> = <span class="q">&#39;t&#39;</span> . <span class="i">$table_counter</span><span class="sc">;</span>
 
-        <span class="c"># experimental: show decimal places for price</span>
+        <span class="c"># show decimal places for price</span>
         <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$yellowdirectory_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;price&#39;</span>} = <span class="k">sprintf</span> <span class="q">&quot;%.2f&quot;</span><span class="cm">,</span>
               <span class="s">(</span> <span class="i">$yellowdirectory_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;price&#39;</span>} / <span class="n">100</span> <span class="s">)</span><span class="sc">;</span>
@@ -180,8 +195,7 @@ pre { color: #000000;
             <span class="i">$price_expression</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># testing only</span>
-        <span class="k">print</span> <span class="q">&quot;$key: $yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;sortal&#39;} \n&quot;</span><span class="sc">;</span>
-
+        <span class="c">### print &quot;$key: $yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;sortal&#39;} \n&quot;;</span>
         <span class="c">### $document-&gt;cellValue( $current_table, $item_counter, 5,</span>
         <span class="c">###     $yellowdirectory_hash_ref-&gt;{$key}-&gt;{&#39;sortal&#39;} );</span>
 
@@ -238,11 +252,6 @@ add-ons to cclite, in the tradition of transition-style technology.</p>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>    <span class="c"># all this code is strict</span>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
 
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
-
-<span class="c">#Log::Log4perl-&gt;init( $configuration{&#39;loggerconfig&#39;} );</span>
-<span class="c">#our $log = Log::Log4perl-&gt;get_logger(&quot;cclite&quot;);</span>
-
 <span class="k">use</span> <span class="w">OpenOffice::OODoc</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccdirectory</span><span class="sc">;</span>    <span class="c"># yellow pages directory etc.</span>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>       <span class="c"># security and hashing</span>
@@ -256,26 +265,31 @@ add-ons to cclite, in the tradition of transition-style technology.</p>
 <span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$registry</span>  = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$fields</span>{<span class="q">&#39;registry&#39;</span>} || <span class="q">&#39;dalston&#39;</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$language</span>  = <span class="i">$$cookieref</span>{<span class="w">language</span>} || <span class="i">$fields</span>{<span class="q">&#39;language&#39;</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$registry</span>  = <span class="i">$cookieref</span>-&gt;{<span class="w">registry</span>}<span class="sc">;</span>
+<span class="k">our</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># message language now decided by decide_language, within readmessages 08/2011</span>
+<span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
+<span class="c"># not an administrator exiting, perhaps this should be generally avaiable though</span>
+<span class="k">if</span> <span class="s">(</span> !<span class="w">is_admin</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">$messages</span>{<span class="q">&#39;notadmin&#39;</span>}<span class="sc">;</span>
+    <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
+<span class="s">}</span>
 
 <span class="c"># lines in one page of table</span>
 <span class="k">my</span> <span class="i">$table_lines</span> = <span class="n">40</span><span class="sc">;</span>
 
-<span class="c"># where to create the open-office output</span>
-<span class="k">my</span> <span class="i">$output_file</span> = <span class="q">&quot;/home/hbarnard/cclite-support-files/testing/directory.odt&quot;</span><span class="sc">;</span>
+<span class="c"># correct path for output file</span>
+<span class="k">my</span> <span class="i">$output_file</span> =
+  <span class="q">&quot;$configuration{&#39;printdir&#39;}/$registry/directory.${language}.odt&quot;</span><span class="sc">;</span>
 
 <span class="c"># title of each page</span>
-<span class="k">my</span> <span class="i">$title</span> = <span class="q">&quot;Yellow Pages&quot;</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$title</span> = <span class="i">$messages</span>{<span class="q">&#39;om_yellowpages&#39;</span>}<span class="sc">;</span>
 
 <span class="c"># headings for table columns</span>
-<span class="k">my</span> <span class="i">$column_headers_hash_ref</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Category&#39;</span>}    = <span class="q">&#39;Category&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Mobile&#39;</span>}      = <span class="q">&#39;Mobile&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Fixed&#39;</span>}       = <span class="q">&#39;Fixed&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Subject&#39;</span>}     = <span class="q">&#39;Subject&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Description&#39;</span>} = <span class="q">&#39;Description&#39;</span><span class="sc">;</span>
-<span class="i">$column_headers_hash_ref</span>-&gt;{<span class="q">&#39;Price&#39;</span>}       = <span class="q">&#39;Price&#39;</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$column_headers_hash_ref</span> = <span class="i">make_column_headings</span><span class="s">(</span> \<span class="i">%messages</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="s">(</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -291,6 +305,20 @@ add-ons to cclite, in the tradition of transition-style technology.</p>
     <span class="i">$column_headers_hash_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="i">$document</span><span class="i">-&gt;save</span><span class="sc">;</span>
+
+<span class="c"># read the statements back in</span>
+<span class="k">open</span><span class="s">(</span> <span class="w">OUT</span><span class="cm">,</span> <span class="i">$output_file</span> <span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">@output</span> = <span class="q">&lt;OUT&gt;</span><span class="sc">;</span>
+<span class="k">close</span> <span class="w">OUT</span><span class="sc">;</span>
+
+<span class="c"># present for download</span>
+<span class="k">print</span> <span class="q">&quot;Content-Type:application/x-download\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="q">&quot;Content-Disposition:attachment;filename=directory_for_$registry.odt\n\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="i">@output</span><span class="sc">;</span>
+
+<span class="c"># remove the file...unlikely that this is happening several times in one registry</span>
+<span class="k">unlink</span> <span class="i">$output_file</span><span class="sc">;</span>
+
 <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 
 <a name="EOF-"></a></pre></body>

@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-my $test = 0;
+my $test = 0 ;
 if ($test) {
     print STDOUT "Content-type: text/html\n\n";
     my $data = join( '', <DATA> );
@@ -281,8 +281,6 @@ my %allowed_actions = qw(logon yes
   readmessages yes
   getstats yes);
 
-
-
 if (
        ( !length( $cookieref->{'token'} ) )
     && ( !exists $allowed_actions{$action} )
@@ -325,9 +323,12 @@ if (
     if ( length( $cookieref->{'token'} )
         && ( $compare_token ne $cookieref->{'token'} ) )
     {
-        log_entry('local',$db,
-"corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}"
-        ,'');
+        log_entry(
+            'local',
+            $db,
+"corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}",
+            ''
+        );
 
         $action = 'logoff';
 
@@ -362,9 +363,7 @@ my $registry_status =
     $registry_private_value )
   if ( length($db) );
 
- 
-
-if ( $registry_status eq 'down' && $cookieref->{'userLogin'} ne 'manager') {
+if ( $registry_status eq 'down' && $cookieref->{'userLogin'} ne 'manager' ) {
 
     # display an action result, all actions are consumed
     display_template(
@@ -378,6 +377,39 @@ if ( $registry_status eq 'down' && $cookieref->{'userLogin'} ne 'manager') {
 }
 
 my $fieldsref = \%fields;
+
+
+# only get news if there's a defined registry containing it 08/2011
+$fieldsref->{'news'} = get_news( 'local', $db, $token ) if ( length($db) );
+
+#FIXME: Probably only to be done when logged on?
+# but nice to show a few 'public' listings....moved 3/2012
+# collect ad listing for bottom of screen, only want news field, don't disturb anything else
+
+if ( length( $cookieref->{'userLogin'} ) ) {
+
+    # get top line news for registry
+
+    my $save = $fieldsref->{'getdetail'};
+    $fieldsref->{'getdetail'} = 1;
+
+    # choice between strict categories and free-form tags now...
+    if ( $configuration{'usetags'} ne 'yes' ) {
+        ( undef, undef, $error, $$fieldsref{'righthandside'}, undef, undef ) =
+
+          show_yellow_dir1( 'local', $db, '', $fieldsref, $token, $offset,
+            $limit );
+
+    } else {
+
+        ( $error, $fieldsref->{'righthandside'} ) =
+
+          show_tag_cloud( 'local', $db, $fieldsref, $token );
+
+    }
+    $fieldsref->{'getdetail'} = $save;
+}
+
 
 # logon to a registry
 ( $action eq 'logon' )
@@ -588,12 +620,12 @@ my $fieldsref = \%fields;
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     oscommerce_transaction( 'local', $db, $table, $fieldsref, $token ) );
 
-
 # show balance and volume
 ( $action eq 'showbalvol1' )
   && (
-  
+
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume1(
         'local', $db, 'om_trades', $fieldsref, "", $cookieref->{'userLogin'},
@@ -604,8 +636,9 @@ my $fieldsref = \%fields;
 # show balance and volume, changed to non-hardcoded mode 2/2011
 ( $action eq 'showbalvol' )
   && (
-    
+
     ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume(
         'local', $db, $cookieref->{'userLogin'},
@@ -659,48 +692,17 @@ if ( $action eq 'readmessages' ) {
 
 }
 
-
-
 # get messages and deliver as json for ajax: insecure but is this a problem?
 if ( $action eq 'getstats' ) {
 
     # json is delivered current as 'abuse' of refresh field in display_template
     ($refresh) = get_stats(
-        ( 'local', $db, $fieldsref->{'hours_back'}, $fieldsref->{'type'}, '' )
+        ( 'local', $db, $cookieref->{'userLogin'}, $cookieref->{'userLevel'}, $fieldsref->{'hours_back'}, $fieldsref->{'type'}, '' )
     );
     $fieldsref->{'mode'} = 'json';
 }
 
-# only get news if there's a defined registry containing it 08/2011
-$fieldsref->{'news'} = get_news( 'local', $db, $token ) if ( length($db) );
 
-#FIXME: Probably only to be done when logged on?
-# but nice to show a few 'public' listings....
-# collect ad listing for bottom of screen, only want news field, don't disturb anything else
-
-if ( length( $cookieref->{'userLogin'} ) ) {
-
-    # get top line news for registry
-
-    my $save = $fieldsref->{'getdetail'};
-    $fieldsref->{'getdetail'} = 1;
-
-    # choice between strict categories and free-form tags now...
-    if ( $configuration{'usetags'} ne 'yes' ) {
-        ( undef, undef, $error, $$fieldsref{righthandside}, undef, undef ) =
-
-          show_yellow_dir1( 'local', $db, '', $fieldsref, $token, $offset,
-            $limit );
-
-    } else {
-
-        ( $error, $fieldsref->{'righthandside'} ) =
-
-          show_tag_cloud( 'local', $db, $fieldsref, $token );
-
-    }
-    $fieldsref->{'getdetail'} = $save;
-}
 
 # display an action result, all actions are consumed
 display_template(

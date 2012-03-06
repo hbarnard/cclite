@@ -55,15 +55,10 @@ pre { color: #000000;
 
 		<ul>
 
-			<li><a href="#get_volumes">get_volumes</a></li>
-			<li><a href="#get_average_transaction_size">get_average_transaction_size</a></li>
-			<li><a href="#render_chart">render_chart</a></li>
 			<li><a href="#save_chart">save_chart</a></li>
 			<li><a href="#make_graph">make_graph</a></li>
-			<li><a href="#blank_graph">blank_graph</a></li>
 		</ul>
 
-		<li><a href="#data_example">data_example</a></li>
 	</ul>
 
 </ul>
@@ -81,13 +76,17 @@ pre { color: #000000;
 
 <pre>#!/usr/bin/perl 
 
-<span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
-<span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
-<span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="i">$@</span><span class="sc">;</span>
-    <span class="k">exit</span> <span class="n">1</span><span class="sc">;</span>
+<span class="i">$test</span> = <span class="n">1</span><span class="sc">;</span>
+<span class="k">if</span> <span class="s">(</span><span class="i">$test</span><span class="s">)</span> <span class="s">{</span>
+    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
+        <span class="k">print</span> <span class="i">$@</span><span class="sc">;</span>
+        <span class="k">exit</span> <span class="n">1</span><span class="sc">;</span>
+    <span class="s">}</span>
 <span class="s">}</span>
+
 <a name="__END__-"></a><span class="k">__END__</span>
 
 
@@ -121,6 +120,8 @@ onto the status web page</p>
 <h1><a name="description">DESCRIPTION</a></h1>
 <p>This is a simple graph of transaction size an volumes for a given
 registry, it is run as a time job within the admin menu</p>
+<p>This is still a work in progress, may go to gnuplot, flot dygraph
+or rrdtool</p>
 <p>
 </p>
 <hr />
@@ -133,132 +134,6 @@ Free Software Foundation; with no Invariant Sections, with
 no Front-Cover Texts, and with no Back-Cover Texts.</p>
 <p>
 </p>
-<h3><a name="get_volumes">get_volumes</a></h3>
-<p>Get trade volumes and deliver to make a GD Graph chart
-This probably also gets delivered into cut down temporary
-tables too...</p>
-<p>1970-01-01 00:00:01'</p>
-<p>tradeStamp(15,2) is minutes
-tradeStamp(12,2) is hours
-tradeStamp(9,2) is days
-tradeStamp(6,2) is month</p>
-<pre>
-<span class="q">sub get_volumes {</span>
-
-<span class="q">    my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;</span>
-<span class="q">    my @times;</span>
-<span class="q">    my @volumes;</span>
-<span class="q">    my $sql_string ;</span>
-<span class="q">    my $movement = 0 ; # flag that indicates whether there is a volume for this period</span>
-<span class="q">    my $seconds = $from_x_hours_back * 60 * 60 ;</span>
-<span class="q">    my %types = (&#39;minutes&#39;,&#39;15,2&#39;,&#39;hours&#39;,&#39;12,2&#39;,&#39;days&#39;,&#39;9,2&#39;,&#39;month&#39;,&#39;6,2&#39; )  ;</span>
-<span class="q">    my $slice = $types{$type} ;</span>
-    
-<span class="q">    my $sql_string = &lt;&lt;EOT;</span>
-<span class="q">SELECT substr(tradeStamp,12,5), count(*) FROM om_trades o  </span>
-<span class="q">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
-<span class="q">   group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;</span>
-<span class="q">EOT</span>
-
-
-<span class="q">    my $max_quantity = undef;    # used to scale the graph</span>
-<span class="q">    my ( $registry_error, $array_ref ) =</span>
-<span class="q">      sqlraw_return_array( $class, $db, $sql_string, undef, $token );</span>
-
-<span class="q">    foreach my $row (@$array_ref)  {</span>
-<span class="q">      # this is because there is a debit and credit for each movement, so that the system balances</span>
-<span class="q">      # therefore transaction volume equals sum of entries/2</span>
-<span class="q">      my $this_volume = $$row[1]/2 ;</span>
-<span class="q">      $max_quantity = $this_volume</span>
-<span class="q">          if ($this_volume  &gt; $max_quantity );</span>
-          
-<span class="q">        push @times,   $$row[0];</span>
-<span class="q">        push @volumes, $this_volume ;</span>
-<span class="q">        $movement = 1 if ($$row[1] &gt; 0) ; # if there&#39;s a movement in the period</span>
-<span class="q">    }</span>
-
-<span class="q">    return \@times, \@volumes, $max_quantity, $movement;</span>
-<span class="q">}</span>
-
-
-</pre><p></p>
-<h3><a name="get_average_transaction_size">get_average_transaction_size</a></h3>
-<p>Get trade volumes and deliver to make a GD Graph chart
-This probably also gets delivered into cut down temporary
-tables too...</p>
-<p>1970-01-01 00:00:01'</p>
-<p>tradeStamp(15,2) is minutes
-tradeStamp(12,2) is hours
-tradeStamp(9,2) is days
-tradeStamp(6,2) is month</p>
-<p>Modified 08/2011 to deal with usedecimals...</p>
-<pre>
-
-<span class="q">sub get_average_transaction_size {</span>
-
-<span class="q">    my ( $class, $db, $from_x_hours_back, $type, $token ) = @_;</span>
-<span class="q">    my @times;</span>
-<span class="q">    my @averages;</span>
-<span class="q">    my $sql_string ;</span>
-<span class="q">    my $movement = 0 ; # indicate whether there are any values for the period</span>
-<span class="q">    my $seconds = $from_x_hours_back * 60 * 60 ;</span>
-<span class="q">    my %types = (&#39;minutes&#39;,&#39;15,2&#39;,&#39;hours&#39;,&#39;12,2&#39;,&#39;days&#39;,&#39;9,2&#39;,&#39;month&#39;,&#39;6,2&#39; )  ;</span>
-<span class="q">    my $slice = $types{$type} ;</span>
-
-   
-<span class="q">    if ($configuration{&#39;usedecimals&#39;} eq &#39;yes&#39;) {</span>
-<span class="q">    $sql_string = &lt;&lt;EOT;</span>
-<span class="q">SELECT substr(tradeStamp,12,5), avg(tradeAmount)/100 FROM om_trades o  </span>
-<span class="q">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
-<span class="q">   group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;</span>
-<span class="q">EOT</span>
-<span class="q">    } else {</span>
-<span class="q">  $sql_string = &lt;&lt;EOT;    </span>
-<span class="q">SELECT substr(tradeStamp,12,5), avg(tradeAmount) FROM om_trades o  </span>
-<span class="q">   where unix_timestamp(tradeStamp) &gt;= (unix_timestamp()-$seconds) </span>
-<span class="q">   group by substr(tradeStamp,$slice) ORDER BY substr(tradeStamp,12,5) ;</span>
-<span class="q">EOT</span>
-         
-<span class="q">    }  </span>
-
-<span class="q">    my $max_quantity = undef;    # used to scale the graph</span>
-<span class="q">    my ( $registry_error, $array_ref ) =</span>
-<span class="q">      sqlraw_return_array( $class, $db, $sql_string, undef, $token );</span>
-
-<span class="q">    foreach my $row (@$array_ref)  {</span>
-<span class="q">      $max_quantity = $$row[1]</span>
-<span class="q">          if ($$row[1]  &gt; $max_quantity );</span>
-<span class="q">        push @times,   $$row[0];</span>
-<span class="q">        push @averages, $$row[1];</span>
-<span class="q">        $movement = 1 if ($$row[1] != 0) ; # if there&#39;s a non-zero average in the period</span>
-<span class="q">    }</span>
-
-<span class="q">    return \@times, \@averages, $max_quantity, $movement;</span>
-<span class="q">}</span>
-
-
-</pre><p></p>
-<h3><a name="render_chart">render_chart</a></h3>
-<p>This just makes the chart and calls save_chart to
-write the file</p>
-<pre>
-
-<span class="q">sub render_chart {</span>
-
-<span class="q">my ($times_ref,$data_ref,$graph,$name) = @_ ;</span>
-
-<span class="q">my @data = ( </span>
-<span class="q">    [ @$times_ref ],</span>
-<span class="q">    [ @$data_ref],</span>
-<span class="q">);</span>
-
-<span class="q">$graph-&gt;plot(\@data);</span>
-<span class="q">save_chart($graph,$name);</span>
-<span class="q">return ;</span>
-<span class="q">}</span>
-
-
-</pre><p></p>
 <h3><a name="save_chart">save_chart</a></h3>
 <p>Writes the file, should die and complain on the
 management page, if something goes wrong</p>
@@ -266,136 +141,79 @@ management page, if something goes wrong</p>
 
 <span class="q">sub save_chart</span>
 <span class="q">{</span>
-<span class="q">	my ($chart,$name) = @_ ;</span>
+<span class="q">	my ($chart,$name,$ext) = @_ ;</span>
+	
 <span class="q">	local(*OUT);</span>
-
-<span class="q">	my $ext = $chart-&gt;export_format;</span>
-<span class="q">        ### print &quot;save at $name.$ext\n&quot; ;</span>
 <span class="q">	open(OUT, &quot;&gt;$name.$ext&quot;) or </span>
 <span class="q">		die &quot;Cannot open $name.$ext for write: $!&quot;;</span>
 <span class="q">	binmode OUT;</span>
-<span class="q">	print OUT $chart-&gt;gd-&gt;$ext();</span>
+<span class="q">	print OUT $chart-&gt;$ext();;</span>
 <span class="q">	close OUT;</span>
 <span class="q">}</span>
 
 
 </pre><p></p>
 <h3><a name="make_graph">make_graph</a></h3>
-<p>Main set setuo for the graph object, if sparklines doesn't work
-set it back to lines (or bats). This is alll fairly experimental.</p>
-<p>Sparklines graphs are pretty unlabelled and used in small format,
-to make them small use imagemagick convert otherwise they are
-really ugly...</p>
+<p>width
+height
+title
+x_label
+y_label
+draw_grid
+draw_border
+draw_tic_labels
+draw_data_labels
+transparent
+grid_on_top
+binary
+data_label_style
+thickness
+skip_undefined
+boxwidth</p>
+
 <pre>
 
 <span class="q">sub make_graph {</span>
 
-<span class="q">  my ($format, $xlabel,$ylabel,$xskip,$max_quantity) = @_ ;</span>
+<span class="q">  my ($x_label,$array_ref, $y_label,$xskip) = @_ ;</span>
 <span class="q">  my $timestamp = sql_timestamp() ;</span>
 <span class="q">  my $graph ;</span>
 <span class="q">  my $title = &quot;Last updated at $timestamp&quot; ;</span>
-<span class="q">  print &quot;format is $format &quot; ;</span>
-<span class="q">  if ($format eq &#39;sparklines&#39;) {</span>
-<span class="q">   $title = &quot;&quot; ;</span>
-<span class="q">   $graph = new GD::Graph::sparklines(300,180);</span>
-<span class="q">  } else {</span>
-<span class="q">   $graph = new GD::Graph::lines(300,180);</span>
-<span class="q">  }</span>
+  
+<span class="q">  my $ch = Chart::Strip-&gt;new(</span>
+<span class="q">                 title   =&gt; $title,</span>
+<span class="q">                 &#39;x_label&#39; =&gt; $x_label,</span>
+<span class="q">                 &#39;y_label&#39; =&gt; $y_label,</span>
+<span class="q">                 &#39;skip_undefined&#39; =&gt; $xskip,</span>
+<span class="q">                 &#39;transparent&#39; =&gt; 0,</span>
+<span class="q">             );</span>
 
-<span class="q"> $graph-&gt;set( </span>
-<span class="q">#	x_label =&gt; $xlabel,</span>
-<span class="q">	y_label =&gt; $ylabel,</span>
-<span class="q">	title =&gt; $title,</span>
-<span class="q">        x_label_skip =&gt; $xskip,</span>
-<span class="q">        x_labels_vertical =&gt; 1,</span>
-<span class="q">	y_max_value =&gt; $max_quantity,</span>
-<span class="q">	y_min_value =&gt; 0,</span>
-<span class="q">	y_tick_number =&gt; 10,</span>
-<span class="q">	y_label_skip =&gt; 2,</span>
-<span class="q">	box_axis =&gt; 0,</span>
-<span class="q">	line_width =&gt; 3,</span>
+<span class="q">    $ch-&gt;add_data( $array_ref, { style =&gt; &#39;line&#39;,</span>
+<span class="q">                                  color =&gt; &#39;000000&#39;,</span>
+<span class="q">                                  label =&gt; &#39;&#39; } );</span>
 
-<span class="q">	transparent =&gt; 1,</span>
-<span class="q">);</span>
-<span class="q"> return $graph ;</span>
-<span class="q">}</span>
-
-
-</pre><p></p>
-<h3><a name="blank_graph">blank_graph</a></h3>
-<p>Prints a 'no movement' graphic when there's nothing
-happening. A little crude at present</p>
-<pre>
-<span class="q">sub blank_graph {</span>
-
-<span class="q">   my ($chart_name,$literal,$width,$height) = @_ ;   </span>
-<span class="q"># create a new image</span>
-<span class="q">my $im = new GD::Image($width,$height);</span>
-
-<span class="q"># allocate some colors</span>
-<span class="q">my $white = $im-&gt;colorAllocate(255,255,255);</span>
-<span class="q">my $black = $im-&gt;colorAllocate(0,0,0);       </span>
-<span class="q">my $red = $im-&gt;colorAllocate(255,0,0);      </span>
-<span class="q">my $blue = $im-&gt;colorAllocate(0,0,255);</span>
-
-<span class="q"># make the background transparent and interlaced</span>
-<span class="q">$im-&gt;transparent($white);</span>
-
-<span class="q"> # Put a black frame around the picture</span>
-<span class="q"> $im-&gt;rectangle(0,0,$width,$height,$black);</span>
-
-<span class="q">###$im-&gt;string(gdSmallFont,50,50,$literal,$black);</span>
-<span class="q"># And fill it with red</span>
-<span class="q">$im-&gt;fill(0,0,$red);</span>
-
-<span class="q">open (BLANK, &quot;&gt;$chart_name\.gif&quot;) ;</span>
-<span class="q">print BLANK $im-&gt;gif;</span>
-<span class="q">close BLANK ;   </span>
-   
-   
+<span class="q">    return $ch ;</span>
 <span class="q">}</span>
 
 <span class="q">#=============================================================================================</span>
-<span class="q"># Main part of script....</span>
+<span class="q"># Main part of script....this will need  which chart strip uses GD</span>
 <span class="q">#=============================================================================================</span>
-
 
 <span class="q">use strict ;</span>
-
-<span class="q">my %configuration;</span>
-
 <span class="q">use lib &#39;../../../lib&#39;;</span>
 
-<span class="q">use Log::Log4perl;</span>
-<span class="q">use Test::More qw(no_plan) ;</span>
-
-<span class="q">use Ccadmin ;</span>
 <span class="q">use Cccookie ;</span>
 <span class="q">use Ccu ;</span>
 <span class="q">use Ccconfiguration ;</span>
 				
 <span class="q">use strict ;</span>
-<span class="q">use GD ;</span>
 <span class="q">use Cclitedb;</span>
 
-<span class="q">my $format ;</span>
-<span class="q">my $ok ;</span>
+<span class="q">use Chart::Strip;</span>
+<span class="q">use Data::Dumper ;</span>
 
-<span class="q">if ($ok = sprint(use_ok(&#39;GD::Graph::sparklines&#39;)) ) {</span>
-<span class="q">  my $format = &#39;sparklines&#39; ;</span>
-<span class="q">} else {</span>
-<span class="q">   $format = &#39;lines&#39; ;</span>
-<span class="q">   use GD::Graph::lines;</span>
-<span class="q">}</span>
-
-<span class="q">print &quot;error: @$ $format&quot; ;</span>
-
-<span class="q">use GD::Text;</span>
 
 <span class="q">our %configuration = readconfiguration();</span>
-
-<span class="q">Log::Log4perl-&gt;init($configuration{&#39;loggerconfig&#39;});</span>
-<span class="q">our $log = Log::Log4perl-&gt;get_logger(&quot;graph&quot;);</span>
 
 <span class="q">my $cookieref = get_cookie();</span>
 <span class="q">my %fields    = cgiparse();</span>
@@ -404,14 +222,10 @@ happening. A little crude at present</p>
 <span class="q">our %messages = readmessages();</span>
 
 <span class="q"># you&#39;ll have to hardwire this, if running from cron</span>
-<span class="q">my $registry = $$cookieref{registry} ;</span>
-
-<span class="q">my ($times_ref,$data_ref,$max_quantity,$movement, $name, $graph, $token, $type, $hours_back) ;</span>
-
+<span class="q">my $registry = $cookieref-&gt;{registry} || &#39;dalston&#39; ;</span>
 
 <span class="q"># charts are kept per registry in public html....</span>
 <span class="q">my $chartdir = &quot;$configuration{htmlpath}/images/charts/$registry&quot; ;</span>
-
 
 <span class="q">if (-e $chartdir &amp;&amp; -w $chartdir) {</span>
 <span class="q">} else {</span>
@@ -419,57 +233,33 @@ happening. A little crude at present</p>
 <span class="q">  exit 1 ;</span>
 <span class="q">}</span>
 
-<span class="q"># </span>
-<span class="q">  $name = &quot;$chartdir/volumes&quot; ;</span>
-<span class="q">  $token = &quot;&quot; ;</span>
-
+<span class="q"># name is chart name</span>
+<span class="q">my $name  ;</span>
 <span class="q"># value before token is how many hours back to go...</span>
-<span class="q">  $type = &#39;minutes&#39; ;</span>
-<span class="q">  $hours_back = 1 ; # how many hours back to go</span>
+<span class="q">my $hours_back = 168; # how many hours back to go</span>
+<span class="q"># type is minutes, hours, days.</span>
+<span class="q">my $type = &#39;minutes&#39; ;</span>
 
-<span class="q"># movement is a flag that shows whether there&#39;s movement in the period</span>
-<span class="q">($times_ref,$data_ref,$max_quantity,$movement) = get_volumes(&#39;local&#39;,$registry,$hours_back,$type,$token) ;</span>
-<span class="q"> $graph = make_graph($format,$type,&#39;transaction volume&#39;,5,$max_quantity) ;</span>
+<span class="q"> my $averages_array_ref = get_raw_stats_data ( &#39;local&#39;, $registry, $hours_back, &#39;average&#39;, $type, &#39;&#39; );</span>
+<span class="q"> my $volumes_array_ref = get_raw_stats_data ( &#39;local&#39;, $registry, $hours_back, &#39;volume&#39;, $type, &#39;&#39; );</span>
+ 
+<span class="q"> #print &quot;a then v&quot; ;</span>
+<span class="q"> # print Dumper($volumes_array_ref);</span>
 
-<span class="q">if ($movement) {</span>
-<span class="q">render_chart ($times_ref,$data_ref,$graph,$name) ;</span>
-<span class="q">} else {</span>
-<span class="q"> # bad idea, just leave the old one in place  </span>
-<span class="q"> ###  blank_graph ($name,&#39;no movement&#39;,400,200) ; </span>
-   
-<span class="q">}</span>
-
-<span class="q">   $name = &quot;$chartdir/transaction&quot; ;</span>
-<span class="q">   $token = &quot;&quot; ;</span>
-
-<span class="q"># value before token is how many hours back to go...</span>
-<span class="q">  $type = &#39;minutes&#39; ;</span>
-<span class="q">  $hours_back = 1 ; # how many hours back to go</span>
-
-<span class="q"> ($times_ref,$data_ref,$max_quantity,$movement) = get_average_transaction_size(&#39;local&#39;,$registry,$hours_back,$type,$token) ;</span>
-<span class="q">  $graph = make_graph($format,$type,&#39;average transaction size&#39;,5,$max_quantity) ;</span>
-
-<span class="q">if ($movement) {</span>
-<span class="q">render_chart ($times_ref,$data_ref,$graph,$name) ;</span>
-<span class="q">} else {</span>
-<span class="q"> # bad idea, just leave the old one in place </span>
-<span class="q"> ### blank_graph ($name,&#39;no movement&#39;,400,200) ; </span>
-   
-<span class="q">}</span>
+ 
+<span class="q"> $name = &quot;$chartdir/transactions&quot; ; </span>
+<span class="q"> my $chart = make_graph  (&#39;time&#39;,$averages_array_ref, &#39;average transaction value&#39;,1) ;</span>
+<span class="q"> save_chart ($chart,$name,&#39;png&#39;);</span>
+<span class="q"> $name = &quot;$chartdir/volumes&quot; ;</span>
+<span class="q"> my $chart = make_graph  (&#39;time&#39;,$volumes_array_ref, &#39;trade volume&#39;,1) ;</span>
+<span class="q"> save_chart ($chart,$name,&#39;png&#39;);</span>
 
 <span class="q">my $updated = sql_timestamp() ;</span>
-<span class="q">print &quot;$messages{statsupdate} $updated&quot; ;</span>
+<span class="q">#print &quot;$messages{statsupdate} $updated&quot; ;</span>
 <span class="q">exit 0 ;</span>
 
-</pre><p></p>
-<h2><a name="data_example">data_example</a></h2>
-<p>example of data needed for graph construction....
-@data = ( 
-    [ qw( Jan Feb Mar Apr May Jun Jul Aug Sep ) ],
-    [ reverse(4, 3, 5, 6, 3,  1.5, -1, -3, -4)],
-);</p>
 
-<pre>
+
 
 <a name="EOF-"></a></pre></body>
 

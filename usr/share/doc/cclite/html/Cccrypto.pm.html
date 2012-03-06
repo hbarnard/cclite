@@ -115,12 +115,13 @@ pre { color: #000000;
   <span class="q">encrypt_and_sign_notifications</span>
   <span class="q">send_notifications )</span><span class="sc">;</span>
 
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
+
 
 <span class="c"># these are decryption, transcoding etc. etc.</span>
 <span class="k">use</span> <span class="w">MIME::Base64</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">MIME::Decoder</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">GnuPG</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccu</span> <span class="sc">;</span>
 
 <span class="c"># this is used to parse addresses (logically enough...)</span>
 <span class="c">#use Email::Address;</span>
@@ -135,8 +136,6 @@ pre { color: #000000;
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;Cccrypto&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 </pre><p></p>
 <h3><a name="decode_decryot_reformat">decode_decryot_reformat</a></h3>

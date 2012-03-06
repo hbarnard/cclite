@@ -130,6 +130,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="s">}</span>
 <span class="c">###__END__</span>
 
+
 </pre><pre>
 <span class="k">BEGIN</span> <span class="s">{</span>
 
@@ -154,8 +155,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="k">use</span> <span class="w">HTML::SimpleTemplate</span><span class="sc">;</span>    <span class="c"># templating for HTML</span>
 
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
-
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>                     <span class="c"># utilities + config + multilingual messages</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>                <span class="c"># use the cookie module</span>
 <span class="k">use</span> <span class="w">Ccvalidate</span><span class="sc">;</span>              <span class="c"># use the validation and javascript routines</span>
@@ -173,9 +172,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="i">$templatename</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># for the moment</span>
 
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&#39;cclite&#39;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">%fields</span>    = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -215,15 +211,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="i">$fields</span>{<span class="w">userLogin</span>} = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="sc">;</span>
 <span class="s">}</span>
 
-<span class="c">#</span>
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c"># change the language default here, languages should be ISO 639 lower case</span>
-<span class="c">#</span>
 <span class="k">my</span> <span class="i">$language</span> = <span class="i">decide_language</span><span class="s">(</span><span class="i">$fieldsref</span><span class="s">)</span><span class="sc">;</span>
-
-<span class="c">###print &quot;language = $language\n&quot; ;</span>
-
-<span class="c">#---------------------------------------------------------------------------</span>
 
 <span class="k">my</span> <span class="i">$pagename</span> = <span class="i">$fields</span>{<span class="w">name</span>}<span class="sc">;</span>
 <span class="k">my</span> <span class="i">$action</span>   = <span class="i">$fields</span>{<span class="w">action</span>} || <span class="i">$configuration</span>{<span class="w">defaultaction</span>}<span class="sc">;</span>
@@ -240,11 +230,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="i">$fields</span>{<span class="w">userHash</span>} = <span class="i">hash_password</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="w">userPassword</span>} <span class="s">)</span><span class="sc">;</span>
 
-<span class="c">#</span>
 <span class="c">#--------------------------------------------------------------</span>
 <span class="c"># number of records per page in displayed lists ex-db tables, change at will</span>
 <span class="c"># 15 is about comfortable for full screen</span>
-<span class="c">#</span>
 <span class="k">my</span> <span class="i">$limit</span> = <span class="i">$fields</span>{<span class="w">limit</span>} || <span class="i">$configuration</span>{<span class="w">linesperpage</span>}<span class="sc">;</span>
 
 <span class="c">#--------------------------------------------------------------</span>
@@ -354,6 +342,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   <span class="q">readmessages yes</span>
   <span class="q">getstats yes)</span><span class="sc">;</span>
 
+
+
 <span class="k">if</span> <span class="s">(</span>
        <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
     &amp;&amp; <span class="s">(</span> !<span class="k">exists</span> <span class="i">$allowed_actions</span>{<span class="i">$action</span>} <span class="s">)</span>
@@ -396,10 +386,9 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span>
         &amp;&amp; <span class="s">(</span> <span class="i">$compare_token</span> <span class="k">ne</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>} <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="c">### my $fieldsref = \%fields;</span>
-        <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span>
+        <span class="i">log_entry</span><span class="s">(</span><span class="q">&#39;local&#39;</span><span class="cm">,</span><span class="i">$db</span><span class="cm">,</span>
 <span class="q">&quot;corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}&quot;</span>
-        <span class="s">)</span><span class="sc">;</span>
+        <span class="cm">,</span><span class="q">&#39;&#39;</span><span class="s">)</span><span class="sc">;</span>
 
         <span class="i">$action</span> = <span class="q">&#39;logoff&#39;</span><span class="sc">;</span>
 
@@ -434,10 +423,11 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="i">$registry_private_value</span> <span class="s">)</span>
   <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$db</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="k">if</span> <span class="s">(</span> <span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;down&#39;</span> <span class="s">)</span> <span class="s">{</span>
+ 
+
+<span class="k">if</span> <span class="s">(</span> <span class="i">$registry_status</span> <span class="k">eq</span> <span class="q">&#39;down&#39;</span> &amp;&amp; <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="k">ne</span> <span class="q">&#39;manager&#39;</span><span class="s">)</span> <span class="s">{</span>
 
     <span class="c"># display an action result, all actions are consumed</span>
-
     <span class="i">display_template</span><span class="s">(</span>
         <span class="i">$refresh</span><span class="cm">,</span>    <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>   <span class="i">$html</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
         <span class="q">&#39;down.html&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>   <span class="i">$cookies</span><span class="cm">,</span> <span class="i">$token</span>
@@ -659,14 +649,15 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
   &amp;&amp; <span class="s">(</span> <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
     <span class="i">oscommerce_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
+
 <span class="c"># show balance and volume</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showbalvol1&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
+  
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-
     <span class="c"># html to return html, values to return raw balances and volumes</span>
     <span class="i">show_balance_and_volume1</span><span class="s">(</span>
-        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
+        <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
     <span class="s">)</span>
   <span class="s">)</span><span class="sc">;</span>
@@ -674,8 +665,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c"># show balance and volume, changed to non-hardcoded mode 2/2011</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;showbalvol&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
+    
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-
     <span class="c"># html to return html, values to return raw balances and volumes</span>
     <span class="i">show_balance_and_volume</span><span class="s">(</span>
         <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="cm">,</span>
@@ -728,6 +719,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} = <span class="q">&#39;json&#39;</span><span class="sc">;</span>
 
 <span class="s">}</span>
+
+
 
 <span class="c"># get messages and deliver as json for ajax: insecure but is this a problem?</span>
 <span class="k">if</span> <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;getstats&#39;</span> <span class="s">)</span> <span class="s">{</span>

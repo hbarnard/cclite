@@ -105,8 +105,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="q">use lib &#39;../../../lib&#39; ;</span>
 
-<span class="q">use Log::Log4perl;</span>
-
 <span class="q">use Ccu;</span>
 <span class="q">use Ccrss ;</span>
 <span class="q">use Cccookie ; # to get the registry token from the admin page...</span>
@@ -123,9 +121,6 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="q"># message language now decided by decide_language 08/2011</span>
 <span class="q">our %messages = readmessages();</span>
-
-<span class="q">Log::Log4perl-&gt;init($configuration{&#39;loggerconfig&#39;});</span>
-<span class="q">our $log = Log::Log4perl-&gt;get_logger(&quot;writerss&quot;);</span>
 
 <span class="q"># these are the feed types, all ads, wanted ads, offered ads and matched ads, change this to the feeds that you need</span>
 <span class="q">my @types = (all, wanted, offered, match) ;</span>

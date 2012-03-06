@@ -215,11 +215,7 @@ then dispatches to the appropriate internal function</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="c">### $log-&gt;debug(&quot;orig is $$fieldsref{&#39;originator&#39;}&quot;);</span>
-    <span class="c">### my $x;</span>
-    <span class="c">### $x = join( &quot;|&quot;, %$fieldsref );</span>
-
+    
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
       <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
         <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
@@ -274,16 +270,12 @@ then dispatches to the appropriate internal function</p>
         <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;start of $transaction_type transaction: $input&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="c"># numbers are stored in database as 447855667524 for example</span>
     <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>} =
       <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># can be ok, locked, waiting, fail</span>
     <span class="k">my</span> <span class="i">$pin_status</span> = <span class="i">_check_pin</span><span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="c">###   $log-&gt;debug(&quot;$pin $pin_status transaction type is $transaction_type&quot;);</span>
 
     <span class="k">return</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$pin_status</span> <span class="k">ne</span> <span class="q">&#39;ok&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -378,8 +370,6 @@ using the gateway messaging gateway, may need modification for other gateways</p
         <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;tomobilenumber&#39;</span>} <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$touserref</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;parse type is $parse_type&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="c"># contains only figures so it&#39;s a mobile number</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$$transaction_description_ref</span>{<span class="q">&#39;touserormobile&#39;</span>} =~ <span class="q">/^\d+\z/</span> <span class="s">)</span> <span class="s">{</span>
         <span class="s">(</span> <span class="i">$error1</span><span class="cm">,</span> <span class="i">$touserref</span> <span class="s">)</span> =
@@ -395,10 +385,6 @@ using the gateway messaging gateway, may need modification for other gateways</p
             <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
-<span class="c">###    $log-&gt;debug(</span>
-<span class="c">###&quot; $$transaction_description_ref{&#39;tomobilenumber&#39;} pin status is $$touserref{&#39;userPinStatus&#39;}&quot;</span>
-<span class="c">###    );</span>
-
     <span class="c"># one of the above lookups fails, reject the whole transaction</span>
     <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnoorigin&#39;</span>}      <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsnodestination&#39;</span>} <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$touserref</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
@@ -408,9 +394,6 @@ using the gateway messaging gateway, may need modification for other gateways</p
         &amp;&amp; <span class="i">$$touserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">ne</span> <span class="q">&#39;active&#39;</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="k">push</span> <span class="i">@status</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">smsunconfirmedpin</span>}<span class="sc">;</span>
-        <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span>
-<span class="q">&quot;pin status:$$touserref{&#39;userPinStatus&#39;} user id:$$touserref{&#39;userId&#39;} examine no confirmation bug&quot;</span>
-        <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
 
@@ -628,8 +611,6 @@ case the transaction -must- fail and it's not worth continuing</p>
     <span class="i">$transaction_description</span>{<span class="q">&#39;currency&#39;</span>} =~ <span class="q">s/s$//i</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$x</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;|&quot;</span><span class="cm">,</span> <span class="i">%transaction_description</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;parsed transaction is: $x parse type is $parse_type&quot;</span><span class="s">)</span><span class="sc">;</span>
-
     <span class="k">return</span> <span class="s">(</span> <span class="i">$parse_type</span><span class="cm">,</span> \<span class="i">%transaction_description</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
@@ -672,8 +653,7 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
 
         <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPin&#39;</span>} <span class="k">eq</span> <span class="i">$hashed_pin</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;ok&#39;</span><span class="sc">;</span>
-<span class="c">###	    $log-&gt;debug(&quot;in pin checking ok for user: $$fromuserref{&#39;userId&#39;} $$fromuserref{&#39;userLogin&#39;}&quot;) ;</span>
-
+            
             <span class="k">return</span> <span class="i">$pin_status</span>
               <span class="k">if</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} == <span class="n">3</span> <span class="s">)</span><span class="sc">;</span> <span class="c"># this is the main case</span>
             <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} = <span class="n">3</span><span class="sc">;</span>    <span class="c"># reset to three otherwise</span>
@@ -683,7 +663,6 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
             <span class="i">$message</span>    = <span class="i">$messages</span>{<span class="q">&#39;smspinfail&#39;</span>}<span class="sc">;</span>
             <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>}--<span class="sc">;</span>      <span class="c"># used one pin attempt</span>
         <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
-<span class="c">###	    $log-&gt;debug(&quot;in pin checking,locked for user: $$fromuserref{&#39;userId&#39;} $$fromuserref{&#39;userLogin&#39;}&quot;) ;</span>
             <span class="i">$pin_status</span> = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
             <span class="i">$message</span>    = <span class="q">&quot;$registry: $messages{&#39;smslocked&#39;}&quot;</span><span class="sc">;</span>
             <span class="i">$$fromuserref</span>{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>

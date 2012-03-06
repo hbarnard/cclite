@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- تصميم من جانب الحرة المغلق قوالب&#xD;	http://www.freecsstemplates.org&#xD;	أفرج عنه مجاناً بموجب "الإبداعي العموم تحميل 2.5 رخصة" -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
-ككليتي $$fieldsref{version} مدير البرنامج
+ككليتي $$fieldsref{version} المشرف
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@
 $$fieldsref{metarefresh}
 <!-- أوراق الأنماط -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,9 +49,14 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- جافا سكريبت المكتبات، بحاجة إلى الإصدارات يستعاض مضغوطة -->
+<!-- داتاتابليس في وقت لاحق -->
 
-<!-- البنود jquery -->
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- جافا سكريبت المكتبات، بحاجة إلى إصدارات يستعاض مضغوطة في مرحلة من المراحل -->
+
+<!-- العناصر jquery -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- الآخرين غير jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -72,17 +92,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
-
-<script src="/javascript/fileuploader.js" type="text/javascript">
-</script>
-
 <!-- رسوم بيانية -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -96,35 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- جميع أشكال لها نفس اسم 'نموذج'، وتتجنب التعقيد هنا -->
+<!-- وهذا هو البرنامج النصي الذي تسجيل المستخدمين الخروج عند هي التي أسقطت النظام -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- رمز التبديل هذا تشغيل/إيقاف تشغيل الأشياء النقطة العشرية -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="الصفحة الرئيسية" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-ككليتي
-</span>
-</a>
-
 <!-- البحث عن المستخدمين، والحرف، والإعلانات -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -146,13 +147,15 @@ $$fieldsref{usedecimals}
 
 </select>
 
-<input value="الذهاب" class="small" type="submit" title="ابحث عن الحرف أو الإعلانات أو المستخدمين">
+<input value="الذهاب" class="small" type="submit" title="ابحث عن حرف أو الإعلانات أو المستخدمين">
 
 </form>
 
-</div>
-
 <!-- نهاية مربع البحث "الإكمال التلقائي" -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
 <!-- إصدار محدد اللغة 1 -->
 
@@ -167,7 +170,7 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='bn'>
-البنغالية [الجزئي]
+البنغالية [جزئي]
 </option>
 
 <option value='zh'>
@@ -191,7 +194,7 @@ Francais
 </option>
 
 <option value='it'>
-Italiano
+الإيطالي
 </option>
 
 <option value='el'>
@@ -238,113 +241,135 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- نهاية للشعار -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+مشرف ككليتي
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
 قائمة المستخدمين
 </a>
+</li>
 
+<li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
 تغيير حالة $$fieldsref{registry}
 </a>
 
+</li>
+
+<li>
+<
 <a class="bodytext" title="وتظهر السجلات شريك مرتبط" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 الشركاء
 </a>
+</li>
 
-<a class="bodytext" title="إنشاء عمله الجديدة" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+<li>
+<a class="bodytext" title="إنشاء عمله جديدة" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
 إنشاء العملة
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="إظهار العملات في" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 إظهار العملات
 </a>
+</li>
 
+<li>
 <a class="bodytext"title="إنشاء فئة إعلانية جديدة" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
 إنشاء فئة الإعلانية
 </a>
+</li>
+
+<li>
 $$fieldsref{installer_link}
-</div>
+</li>
 
-<!-- نهاية توببار -->
-
-<div class="topbar" >
-
+<li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
 أرصدة السجل
 </a>
+</li>
 
+<li>
 <a title="إنشاء قاعدة أو حد الائتمان" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 حد الائتمان
 </a>
+</li>
 
+<li>
 <a title="إنشاء البعيد أو الشريك التسجيل المحلي" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 إيجاد شريك التسجيل
 </a>
+</li>
 
+<li>
 <a title="تطبيق رسوم خدمة على جميع الحسابات" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 تطبيق رسوم خدمة
 </a>
+</li>
 
+<li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
 إنشاء Dirs الدفعية
 </a>
+</li>
 
+<li>
+<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
 تعديل $$fieldsref{registry}
 </a>
+</li>
 
-<!-- نهاية القائمة بت التي يحتاج استبدال للمشرف وتثبيت -->
+</ul>
 
 </div>
 
-<!-- نهاية القائمة -->
+<!-- سحابة الوسم وإحصاءات المستخدم الفردية -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- نهاية كونتينتليفت: الجانب الأيسر -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+الفئات الإعلانية
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- نهاية للفريق -->
-
-</div>
-
-<!-- نهاية ريغثاندكونتينت -->
-
-</div>
-
-<!-- نهاية المحتوى -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 الصفحة الرئيسية
@@ -356,6 +381,13 @@ $$fieldsref{righthandside}
 <br />
 
 ككليتي
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

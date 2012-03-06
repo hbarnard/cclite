@@ -179,7 +179,6 @@ FIXME: Only checks non blank not valid file names</p>
 
 <span class="c"># this is mailbox access</span>
 <span class="k">use</span> <span class="w">Net::POP3</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
 
 <span class="c"># this is used to parse addresses (logically enough...)</span>
 <span class="k">use</span> <span class="w">Email::Address</span><span class="sc">;</span>
@@ -208,9 +207,6 @@ FIXME: Only checks non blank not valid file names</p>
 
 <span class="c"># language now decided by decide_language 08/2011</span>
 <span class="k">our</span> <span class="i">%messages</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;read_pop_mail_gpg&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># note this is a first version, these values will be configured  with the rest later</span>
 <span class="c">#-------------------------------------------------------------------------------------------------------------</span>
@@ -285,7 +281,8 @@ FIXME: Only checks non blank not valid file names</p>
 <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;database error for $registry: $error&quot;</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;database error for $registry: $error&quot;</span><span class="cm">,</span>
+        <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -393,9 +390,6 @@ FIXME: Only checks non blank not valid file names</p>
                         <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;balance&#39;</span> <span class="s">)</span>
                     <span class="s">{</span>
 
-                        <span class="c">###my $type = $transaction_description_ref-&gt;{&#39;type&#39;};</span>
-                        <span class="c">###my $text = $transaction_description_ref-&gt;{&#39;text&#39;};</span>
-                        <span class="c">###$log-&gt;debug(&quot;balance transaction :$type $text&quot;) ;</span>
                         <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;output_message&#39;</span>} =
                           <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;text&#39;</span>}<span class="sc">;</span>
                     <span class="s">}</span>
@@ -417,7 +411,8 @@ FIXME: Only checks non blank not valid file names</p>
                 <span class="c"># pgp not detected, mail is thrown away...</span>
             <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-                <span class="i">$log</span><span class="i">-&gt;warn</span><span class="s">(</span><span class="q">&quot;discarded non-pgp transaction\n&quot;</span><span class="s">)</span><span class="sc">;</span>
+                <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;discarded non-pgp transaction\n&quot;</span><span class="cm">,</span>
+                    <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
             <span class="s">}</span>
 
             <span class="c"># these should be destroyed asap and possibly done in-memory</span>
@@ -435,15 +430,11 @@ FIXME: Only checks non blank not valid file names</p>
     <span class="i">send_notifications</span><span class="s">(</span> \<span class="i">@notifications</span><span class="cm">,</span> <span class="i">$passphrase</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$encrypted</span><span class="cm">,</span>
         <span class="i">$logfile</span><span class="cm">,</span> <span class="i">$encrypt_notifications</span><span class="cm">,</span> <span class="i">$trace</span><span class="cm">,</span> \<span class="i">%messages</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># print into log, if at least one message was processed...</span>
-    <span class="c">###$log-&gt;info(&quot;processed $count transactions&quot;) if ( $count &gt; 0 );</span>
-
     <span class="i">$count</span> = <span class="n">0</span><span class="sc">;</span>
-
     <span class="k">sleep</span> <span class="i">$sleep</span><span class="sc">;</span>
 
 <span class="s">}</span>
-<span class="k">exit</span> <span class="n">0</span>
+<span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <a name="EOF-"></a></pre></body>
 
 </html>

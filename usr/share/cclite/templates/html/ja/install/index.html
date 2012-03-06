@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- 無料の CSS テンプレートによるデザインhttp://www.freecsstemplates.org無料、クリエイティブコモンズ帰属 2.5 ライセンスの下で公開 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
-Cclite ！$ $fieldsref{のバージョン} ！インストーラー
+Cclite ！$ $fieldsref{バージョン} ！インストール
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite ！$ $fieldsref{のバージョン} ！インストーラー
 $$fieldsref{metarefresh}
 <!-- スタイル シート -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- javascript ライブラリ、subsitute 圧縮バージョンする必要があります。 -->
+<!-- データ テーブルを後で -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- javascript ライブラリ、必要な圧縮 subsitute バージョンにいくつかの段階で -->
 
 <!-- jquery のアイテム -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- その他非 jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -72,12 +92,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- グラフの作成 -->
+<!-- グラフ -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -91,35 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- すべてのフォームが同じ名前 'form'、ここの複雑さを回避 -->
+<!-- これは、システムを停止されている場合、ユーザーのログオフ スクリプトです。 -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- このスイッチ機能をオンまたはオフ、小数点もの -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="ホーム" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- 検索ユーザー、取引、広告 -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -145,9 +151,11 @@ Cclite
 
 </form>
 
-</div>
-
 <!-- オートコンプリート検索ボックスの終わり -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
 <!-- 言語セレクター バージョン 1 -->
 
@@ -233,93 +241,100 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- ロゴの終わり -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite インストール
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a title="Google グループのサポート" href="http://groups.google.co.uk/group/cclite?hl=en">
 助けをしたいですか？
 </a>
+</li>
 
+<li>
 <a title="管理メニュー" href="/cgi-bin/protected/ccadmin.cgi">
 管理メニュー
 </a>
 
-<a title="ユーザーのメニュー" href="/cgi-bin/cclite.cgi">
-ユーザーのメニュー
+</li>
+
+<li>
+<a title="ユーザー メニュー" href="/cgi-bin/cclite.cgi">
+ユーザー メニュー
 </a>
+</li>
 
-</div>
-
-<!-- topbar の終わり -->
-
-<div class="topbar" >
-
+<li>
 <a id="updateconfig" title="Cclite.cf に格納されている conifguration を更新します。" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
 更新の構成
 </a>
+</li>
 
+<li>
+<
 <a id="newregistry" title="新しいレジストリを作成します。" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 新しいレジストリを作成します。
 </a>
+</li>
 
+<li>
 <a id="showregistry" title="現在の Cclite レジストリを表示します。" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 レジストリを表示します。
 </a>
+</li>
 
+<li>
 <a id="installcheck" title="インストール チェックを実行します。" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 インストール要件を確認します。
 </a>
+</li>
 
-<!-- 交換管理のため必要があると、インストール メニュー ビットの終わり -->
+</ul>
 
 </div>
 
-<!-- メニューの最後 -->
+<!-- タグ雲と個々 のユーザーの統計情報 -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- 最後の contentleft： 左手側 -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+広告カテゴリ
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- パネルの端 -->
-
-</div>
-
-<!-- righthandcontent の終わり -->
-
-</div>
-
-<!-- 内容の終わり -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 ホーム
@@ -331,6 +346,13 @@ $$fieldsref{righthandside}
 <br />
 
 Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

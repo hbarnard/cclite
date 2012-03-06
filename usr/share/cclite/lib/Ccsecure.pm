@@ -55,6 +55,7 @@ use Exporter;
 use Ccu;
 use Cclitedb;
 use Cccookie;
+
 #use MIME::Base64;
 
 # use Net::OAuth;       # for Oauth in a while...
@@ -341,24 +342,15 @@ sub get_server_details {
 
 }
 
-
-
 =head3 gatekeeper
 
 Routine to protect batch scripts by testing token cookies
 
 =cut
 
-
 sub gatekeeper {
-	
-	
-	
-	
-}	
-	
 
-
+}
 
 =head3 log_violation
 
@@ -469,13 +461,13 @@ sub is_admin {
 }
 
 sub encode_base64 {
-    my ($data) = @_ ;
+    my ($data) = @_;
     $data =~ tr|+/=|\-_|d;
     return $data;
 }
 
 sub decode_base64 {
-    my ($data) = @_ ;
+    my ($data) = @_;
 
     # +/ should not be handled, so convert them to invalid chars
     # also, remove spaces (\t..\r and SP) so as to calc padding len
@@ -486,7 +478,6 @@ sub decode_base64 {
     }
     return $data;
 }
-
 
 =item cut
 #
@@ -721,7 +712,6 @@ sub do_oauth {
     exit 0;
 }
 =cut
-
 
 1;
 

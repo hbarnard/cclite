@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Дизайн-бесплатные шаблоны CSS&#xD;	http://www.freecsstemplates.org&#xD;	Выпущен бесплатно под лицензией Creative Commons атрибуции 2,5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
 Cclite $$fieldsref{version} Администратор
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite $$fieldsref{version} Администратор
 $$fieldsref{metarefresh}
 <!-- таблицы стилей -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- JavaScript библиотеки, необходимо обычную сжатые версии -->
+<!-- DataTables позже -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- нужно обычную сжатые версии библиотек JavaScript, на определенном этапе -->
 
 <!-- jQuery элементы -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- другие не jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -72,17 +92,9 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!--<script type='text/javascript' src='/javascript/ajax.upload.js'></script>-->
+<!-- Построение графа -->
 
-<script src="/javascript/fileuploader.js" type="text/javascript">
-</script>
-
-<!-- графический -->
-
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -96,35 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- все формы имеют же имя «форме», позволяет избежать сложности здесь -->
+<!-- Это сценарий, который осуществляет выход пользователей, когда сбит системы -->
 
-<style type="text/css" media="screen">
-
-</style>
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
 
-<!-- Этот переключатель включает вкл/выкл вещи десятичной запятой -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="Главная страница" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- Поиск пользователей, торги, объявления -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -146,15 +147,17 @@ Cclite
 
 </select>
 
-<input value="Го" class="small" type="submit" title="Ищите торгов, объявления или пользователей">
+<input value="Го" class="small" type="submit" title="Посмотрите на торгах, объявлений или пользователей">
 
 </form>
 
-</div>
-
 <!-- конец поля поиска автозаполнения -->
 
-<!-- Выбор версии 1 -->
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
+
+<!-- язык селектор версии 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -167,7 +170,7 @@ Cclite
 </option>
 
 <option value='bn'>
-Бенгальский [частично]
+Бенгальский [частичная]
 </option>
 
 <option value='zh'>
@@ -191,7 +194,7 @@ Espagnol
 </option>
 
 <option value='it'>
-Итальянский
+Italiano
 </option>
 
 <option value='el'>
@@ -238,113 +241,135 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- конец логотипа -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite Admin
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
 Меню пользователя
 </a>
+</li>
 
+<li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
 Изменить статус $$fieldsref{registry}
 </a>
 
+</li>
+
+<li>
+<
 <a class="bodytext" title="Показывать связанный партнер реестров" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Партнеры
 </a>
+</li>
 
+<li>
 <a class="bodytext" title="Создание новой валюты" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
 Создать валюту
 </a>
+</li>
 
-<a class="bodytext" title="Показать валют" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+<li>
+<a class="bodytext" title="Показать валюты в" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 Показать валюты
 </a>
+</li>
 
+<li>
 <a class="bodytext"title="Создать новую категорию Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Создать объявление
+Создание категории объявления
 </a>
+</li>
+
+<li>
 $$fieldsref{installer_link}
-</div>
+</li>
 
-<!-- конец topbar -->
-
-<div class="topbar" >
-
+<li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
 Реестр остатков
 </a>
+</li>
 
-<a title="Создание правила или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+<li>
+<a title="Создайте правило или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Кредитный лимит
 </a>
+</li>
 
+<li>
 <a title="Создание удаленного или локального реестра партнера" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Создание реестра партнера
 </a>
+</li>
 
-<a title="Применить ко всем счетам плата за обслуживание" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Применяются услуги
+<li>
+<a title="Применить ко всем учетным записям плата за обслуживание" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Применение плата за обслуживание
 </a>
+</li>
 
+<li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
 Создание пакетного Dirs
 </a>
+</li>
 
+<li>
+<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
 Изменить $$fieldsref{registry}
 </a>
+</li>
 
-<!-- конец меню бит, который требует замены для администратора и установить -->
+</ul>
 
 </div>
 
-<!-- конец меню -->
+<!-- Статистика отдельных пользователей и облако тегов -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- конец contentleft: левой -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Категории объявлений
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- конец группы -->
-
-</div>
-
-<!-- конец righthandcontent -->
-
-</div>
-
-<!-- конец содержимого -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 Главная страница
@@ -356,6 +381,13 @@ $$fieldsref{righthandside}
 <br />
 
 Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

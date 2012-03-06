@@ -217,7 +217,7 @@ sub write_log_config {
 
     my ( $dir, $os, $distribution, $package_type ) = @_;
     my $log_config;
-    my $log_base        = 'var/cclite/log';
+    my $log_base = 'var/cclite/log';
     my $error;
 
     # default case...
@@ -240,8 +240,8 @@ sub write_log_config {
     if ($@) {
         $error .= $@;
     }
-  
-  return ($error, undef) ;
+
+    return ( $error, undef );
 
 }
 
@@ -587,8 +587,6 @@ BEGIN {
     }
 
 }
-
-
 
 if ($@) {
     show_problems( $os, $distribution, $login, ($@) );

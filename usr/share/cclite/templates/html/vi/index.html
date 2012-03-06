@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Thiết kế miễn phí CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Phát hành miễn phí dưới một Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
 Cclite $$fieldsref{version} Người dùng
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite $$fieldsref{version} Người dùng
 $$fieldsref{metarefresh}
 <!-- stylesheets -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- thư viện JavaScript, cần phải subsitute nén các phiên bản -->
+<!-- DataTables sau này -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- thư viện JavaScript, cần phải subsitute nén các phiên bản ở một số giai đoạn -->
 
 <!-- jQuery mục -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- những người khác không jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -74,10 +94,7 @@ $$fieldsref{metarefresh}
 
 <!-- vẽ đồ thị -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -97,33 +114,18 @@ $$fieldsref{metarefresh}
 $$fieldsref{logout_script}
 </script>
 
-<style type="text/css" media="screen">
-
-</style>
-
 </head>
 
 <body>
 
-<!-- chuyển đổi này sẽ chuyển thành/tắt những dấu thập phân thứ -->
-
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
-
-<div class="topbar">
-
-<a title="Trang chủ" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
-
 <!-- tìm kiếm người dùng, ngành nghề, quảng cáo -->
 
-<div class="adsearch">
+<br/>
 
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -148,8 +150,6 @@ Quảng cáo
 <input value="Đi" class="small" type="submit" title="Tìm các giao dịch, quảng cáo hoặc người dùng">
 
 </form>
-
-</div>
 
 <!-- kết thúc của hộp tìm kiếm tự hoàn tất -->
 
@@ -241,23 +241,38 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- kết thúc của logo -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite người dùng
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a id="adminlinkhref" title="Chính quyền đơn" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
 
 </a>
+</li>
+
+<li>
 
 <a id="adminlinkhrefnt" title="chính quyền đơn trong thẻ mới" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
@@ -266,108 +281,118 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 </a>
 
-<a class="bodytext"  title="Quên Mật khẩu??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-Quên mật khẩu?
-</a>
+</li>
 
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Thêm Openid
-</a>
-
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=showopenid">
-Danh sách Openids
-</a>
-
-<a class="bodytext" title="Tạo tài khoản mới" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-Trương mục mới
-</a>
-
-<a class="bodytext" title="Sửa đổi chi tiết tài khoản của bạn" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Sửa đổi các tài khoản
-</a>
-
-</div>
-
-<!-- kết thúc của topbar -->
-
-<div class="topbar" >
-
-<span id="linksmenu" align="center">
-
+<li>
 <a title="Chuyển tiền tệ hoặc giờ" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
 Thanh toán
 </a>
+</li>
 
+<li>
+<a  title="Quên Mật khẩu??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Quên mật khẩu?
+</a>
+
+</li>
+
+<li>
+<a title="Thêm Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Thêm Openid
+</a>
+
+</li>
+
+<li>
+<a title="Danh sách Openids" href="/cgi-bin/cclite.cgi?action=showopenid">
+Danh sách Openids
+</a>
+
+</li>
+
+<li>
+<a title="Tạo tài khoản mới" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Trương mục mới
+</a>
+
+</li>
+
+<li>
+<a title="Sửa đổi chi tiết tài khoản của bạn" href="/cgi-bin/cclite.cgi?action=modifyuser">
+Sửa đổi các tài khoản
+</a>
+</li>
+
+<li>
+<a title="Chuyển tiền tệ hoặc giờ" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+Thanh toán
+</a>
+</li>
+
+<li>
 <a title="Tách thanh toán cho hàng hóa hoặc dịch vụ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Split thanh toán
 </a>
+</li>
 
+<li>
 <a title="Hiển thị các giao dịch của tôi" href="/cgi-bin/cclite.cgi?action=showtrans">
 Các giao dịch
 </a>
+</li>
 
+<li>
 <a title="Hiển thị số dư của tôi" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Số dư
 </a>
+</li>
 
+<li>
 <a title="Hiển thị hàng hoá và dịch vụ thư mục" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Hàng hóa/dịch vụ
 </a>
+</li>
 
+<li>
 <a title="Hiển thị các quảng cáo của tôi trong các hàng hoá và dịch vụ thư mục" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Quảng cáo của tôi
 </a>
+</li>
 
+<li>
 <a title="Tạo một trang cho các hàng hóa và dịch vụ thư mục" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 Ra quảng cáo
 </a>
+</li>
 
-</span>
-
-<!-- kết thúc của linksmenu -->
-
-<!-- kết thúc của trình đơn bit có nhu cầu thay thế cho admin và cài đặt -->
+</ul>
 
 </div>
 
-<!-- kết thúc của trình đơn -->
+<!-- từ khóa và thống kê người dùng cá nhân -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- kết thúc của contentleft: bên trái tay -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Thể loại quảng cáo
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- cuối của bảng điều khiển -->
-
-</div>
-
-<!-- kết thúc của righthandcontent -->
-
-</div>
-
-<!-- kết thúc của nội dung -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 Trang chủ
@@ -379,6 +404,13 @@ Liên hệ
 <br />
 
 Cclite 
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

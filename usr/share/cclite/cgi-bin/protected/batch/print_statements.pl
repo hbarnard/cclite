@@ -274,27 +274,33 @@ EOT
 }
 
 sub make_column_headings {
- 
- my ($messages_ref) = @_ ;
-	
- my	$column_headers_hash_ref ;
- 
-# change these, where necessary, column headers
-$column_headers_hash_ref->{'tradeId'}          = "\u$messages_ref->{'tradeId'}";
-$column_headers_hash_ref->{'tradeStatus'}      = "\u$messages_ref->{'tradeStatus'}";
-$column_headers_hash_ref->{'tradeDate'}        = "\u$messages_ref->{'tradeDate'}";
-$column_headers_hash_ref->{'tradeSource'}      = "\u$messages_ref->{'tradeSource'}";
-$column_headers_hash_ref->{'tradeDestination'} = "\u$messages_ref->{'tradeDestination'}";
-$column_headers_hash_ref->{'tradeMirror'}      = "\u$messages_ref->{'tradeMirror'}";
-$column_headers_hash_ref->{'tradeCurrency'}    = "\u$messages_ref->{'tradeCurrency'}";
-$column_headers_hash_ref->{'tradeType'}        = "\u$messages_ref->{'tradeType'}";
-$column_headers_hash_ref->{'tradeTitle'}       = "\u$messages_ref->{'tradeTitle'}";
 
-# these don't correspond to fields...
-$column_headers_hash_ref->{'debit'}  =  $messages_ref->{'moneyout'};
-$column_headers_hash_ref->{'credit'} =  $messages_ref->{'moneyin'};	
-	
-return $column_headers_hash_ref	;
+    my ($messages_ref) = @_;
+
+    my $column_headers_hash_ref;
+
+    # change these, where necessary, column headers
+    $column_headers_hash_ref->{'tradeId'} = "\u$messages_ref->{'tradeId'}";
+    $column_headers_hash_ref->{'tradeStatus'} =
+      "\u$messages_ref->{'tradeStatus'}";
+    $column_headers_hash_ref->{'tradeDate'} = "\u$messages_ref->{'tradeDate'}";
+    $column_headers_hash_ref->{'tradeSource'} =
+      "\u$messages_ref->{'tradeSource'}";
+    $column_headers_hash_ref->{'tradeDestination'} =
+      "\u$messages_ref->{'tradeDestination'}";
+    $column_headers_hash_ref->{'tradeMirror'} =
+      "\u$messages_ref->{'tradeMirror'}";
+    $column_headers_hash_ref->{'tradeCurrency'} =
+      "\u$messages_ref->{'tradeCurrency'}";
+    $column_headers_hash_ref->{'tradeType'} = "\u$messages_ref->{'tradeType'}";
+    $column_headers_hash_ref->{'tradeTitle'} =
+      "\u$messages_ref->{'tradeTitle'}";
+
+    # these don't correspond to fields...
+    $column_headers_hash_ref->{'debit'}  = $messages_ref->{'moneyout'};
+    $column_headers_hash_ref->{'credit'} = $messages_ref->{'moneyin'};
+
+    return $column_headers_hash_ref;
 
 }
 
@@ -364,11 +370,9 @@ sub paragraph {
 
 }
 
-
 use lib "../../../lib";
 use strict;
 use locale;
-
 
 use OpenOffice::OODoc;
 
@@ -381,44 +385,43 @@ use Ccu;
 use Cccookie;
 
 our %configuration = readconfiguration();
-my %fields = cgiparse();
+my %fields    = cgiparse();
 my $cookieref = get_cookie();
-my $registry  = $cookieref->{registry} ;
-our $language = decide_language() ;
+my $registry  = $cookieref->{registry};
+our $language = decide_language();
 
 # message language now decided by decide_language, within readmessages 08/2011
 our %messages = readmessages();
 
-
 #replace entirely with cgi in a while...
-my $statement_month = $fields{'month'}     || $ARGV[0] || 11  ;
-my $statement_year  = $fields{'year'}      || $ARGV[1] ||  2011 ;
+my $statement_month = $fields{'month'}     || $ARGV[0] || 11;
+my $statement_year  = $fields{'year'}      || $ARGV[1] || 2011;
 my $user_or_all     = $fields{'userorall'} || $ARGV[2] || 'all';
 
 if ( !length($statement_month) || !length($statement_year) ) {
-	print "Content-type: text/html\n\n";
+    print "Content-type: text/html\n\n";
     print "need month and year for statements\n\n";
     exit 0;
 }
 
-if (! is_admin) {
-	print "Content-type: text/html\n\n";
-	print $messages{'notadmin'} ;
-	exit 0 ;
+if ( !is_admin ) {
+    print "Content-type: text/html\n\n";
+    print $messages{'notadmin'};
+    exit 0;
 }
-
 
 # lines in one page of table
 my $table_lines = 40;
 
 # correct path for output file
-my $output_file = "$configuration{'printdir'}/$registry/statements.${language}.odt" ;
+my $output_file =
+  "$configuration{'printdir'}/$registry/statements.${language}.odt";
 
 # title of each page
 my $title = $messages{'statement'};
 
 # headings for table columns
-my $column_headers_hash_ref = make_column_headings(\%messages) ;
+my $column_headers_hash_ref = make_column_headings( \%messages );
 
 my ( $token, $offset, $limit );
 
@@ -432,32 +435,31 @@ my $document = odfDocument(
 style($document);
 tablestyle($document);
 
-
-my ($user_hash_ref, $registry_error) ;
-
+my ( $user_hash_ref, $registry_error );
 
 # get all users...this could do to be a range or selection perhaps
-if ($user_or_all eq 'all') {
- ( $registry_error, $user_hash_ref ) =
-  get_where_multiple( 'local', $registry, 'om_users', '*', 'userLogin', '*', '',
-    0, 9999999 );
-    
+if ( $user_or_all eq 'all' ) {
+    ( $registry_error, $user_hash_ref ) = get_where_multiple(
+        'local',     $registry, 'om_users', '*',
+        'userLogin', '*',       '',         0,
+        9999999
+    );
+
 } else {
 
-# get just one...	
-( $registry_error, $user_hash_ref ) =
-  get_where( 'local', $registry, 'om_users', '*', 'userLogin', $fields{'userLogin'}, '',
-    0, 1 );	
-	    
+    # get just one...
+    ( $registry_error, $user_hash_ref ) =
+      get_where( 'local', $registry, 'om_users', '*', 'userLogin',
+        $fields{'userLogin'}, '', 0, 1 );
+
 }
 
 # exit if there aren't any
-if ( ! length($user_hash_ref) || length($registry_error) ) {
-	print "Content-type: text/html\n\n";
+if ( !length($user_hash_ref) || length($registry_error) ) {
+    print "Content-type: text/html\n\n";
     print "no valid user or database problem\n\n";
     exit 0;
 }
-
 
 # iterate through the users printing statements...
 
@@ -486,17 +488,17 @@ foreach my $key ( sort keys %$user_hash_ref ) {
 $document->save;
 
 # read the statements back in
-open (OUT,$output_file) ;
-my @output = <OUT> ;
-close OUT ;
+open( OUT, $output_file );
+my @output = <OUT>;
+close OUT;
 
 # present for download
-print "Content-Type:application/x-download\n";  
-print "Content-Disposition:attachment;filename=statements.odt\n\n"; 
-print @output  ;
+print "Content-Type:application/x-download\n";
+print "Content-Disposition:attachment;filename=statements.odt\n\n";
+print @output;
 
 # remove the file...unlikely that this is happening several times in one registry
-unlink $output_file ;
+unlink $output_file;
 
 exit 0;
 

@@ -175,8 +175,6 @@ this when 'really' logging on</p>
 <a name="get_openid-"></a><span class="k">sub </span><span class="m">get_openid</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$identifier</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="c">###  $identifier = quotemeta($identifier) ;</span>
-    <span class="c">###$log-&gt;debug(&quot;id:$identifier d:$db &quot;) ;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$openid_ref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
         <span class="i">$class</span><span class="cm">,</span>   <span class="i">$db</span><span class="cm">,</span>         <span class="q">&quot;om_openid&quot;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>
         <span class="q">&quot;openId&quot;</span><span class="cm">,</span> <span class="i">$identifier</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span>      <span class="q">&#39;&#39;</span><span class="cm">,</span>
@@ -184,7 +182,6 @@ this when 'really' logging on</p>
     <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$userid</span> = <span class="i">$openid_ref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$package</span><span class="cm">,</span> <span class="i">$filename</span><span class="cm">,</span> <span class="i">$line</span> <span class="s">)</span> = <span class="k">caller</span><span class="sc">;</span>
-    <span class="c">###$log-&gt;debug(&quot;id-after:$identifier d:$db s:$status $package, $filename, $line &quot;) ;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$openid_ref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">return</span> <span class="s">(</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$openid_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
@@ -197,9 +194,6 @@ this when 'really' logging on</p>
 <span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../lib&#39;</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
-
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
-
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclite</span><span class="sc">;</span>
@@ -236,9 +230,6 @@ this when 'really' logging on</p>
 <span class="c">#</span>
 <span class="k">my</span> <span class="i">$token</span> = <span class="k">my</span> <span class="i">$registry_private_value</span> =
   <span class="i">$configuration</span>{<span class="w">publickeyid</span>}<span class="sc">;</span>    <span class="c"># for the moment, calculated later</span>
-
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccopenid&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$cache</span> = <span class="w">Cache::File</span><span class="w">-&gt;new</span><span class="s">(</span> <span class="w">cache_root</span> <span class="cm">=&gt;</span> <span class="i">$cache_dir</span><span class="cm">,</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -283,7 +274,6 @@ this when 'really' logging on</p>
             <span class="i">$identity</span> =~ <span class="q">s/#[^#]+$//</span><span class="sc">;</span>
 
             <span class="k">my</span> <span class="i">$registry</span> = <span class="i">$cache</span><span class="i">-&gt;get</span><span class="s">(</span><span class="i">$identity</span><span class="s">)</span><span class="sc">;</span>
-            <span class="c">###$log-&gt;debug(&quot;id got from cache:$identity r:$registry &quot;) ;</span>
             <span class="i">$cache</span><span class="i">-&gt;purge</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
             <span class="k">my</span> <span class="s">(</span> <span class="i">$openid_found</span><span class="cm">,</span> <span class="i">$openid_ref</span> <span class="s">)</span> =
@@ -353,7 +343,6 @@ this when 'really' logging on</p>
 
         <span class="s">)</span><span class="sc">;</span>
         <span class="i">$cache</span><span class="i">-&gt;purge</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-        <span class="c">###$log-&gt;debug(&quot;id for cache:$identifier r:$registry &quot;) ;</span>
         <span class="i">$cache</span><span class="i">-&gt;set</span><span class="s">(</span> <span class="i">$identifier</span><span class="cm">,</span> <span class="i">$registry</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">redirect</span><span class="s">(</span><span class="i">$check_url</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>

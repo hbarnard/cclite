@@ -4,7 +4,7 @@
 
 <tr>
 
-<td title="iniciar o script de representação gráfico">
+<td title="Inicie o script representação gráfico">
 Representar graficamente
 </td>
 
@@ -19,15 +19,15 @@ Entrada de e-mail
 -->
 
 <td title="começar a produzir feeds rss para páginas amarelas pequenos anúncios">
-RSS Feed
+Feed RSS
 </td>
 
 <td title="Comece a aceitar entrada via gammu de um telefone celular local">
 Gammu entrada
 </td>
 
-<td title="upload e processo de transações em lote">
-Transações de lote/processo de upload
+<td title="upload e processo de transações de lote">
+Processo de transacções Batch upload /
 </td>
 
 </tr>
@@ -41,11 +41,11 @@ Transações de lote/processo de upload
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-Parar Stats
+Parar de Stats
 </option>
 
 <option value="5">
-Todos os 5 min
+Cada 5 min
 </option>
 
 <option value="10">
@@ -53,7 +53,7 @@ Cada 10 min
 </option>
 
 <option value="30">
-Cada 30 min
+Todos 30 min
 </option>
 
 </select>
@@ -69,7 +69,7 @@ Parar correio
 </option>
 
 <option value="5">
-Todos os 5 min
+Cada 5 min
 </option>
 
 <option value="10">
@@ -77,7 +77,7 @@ Cada 10 min
 </option>
 
 <option value="30">
-Cada 30 min
+Todos 30 min
 </option>
 
 </select>
@@ -102,11 +102,11 @@ Cada 30 min
 <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
 
 <option value="0">
-Parar de Rss
+Parar Rss
 </option>
 
 <option value="5">
-Todos os 5 min
+Cada 5 min
 </option>
 
 <option value="10">
@@ -114,7 +114,7 @@ Cada 10 min
 </option>
 
 <option value="30">
-Cada 30 min
+Todos 30 min
 </option>
 
 </select>
@@ -126,11 +126,11 @@ Cada 30 min
 <select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
 
 <option value="0">
-Parar SMS
+Parar de SMS
 </option>
 
 <option value="5">
-Todos os 5 min
+Cada 5 min
 </option>
 
 <option value="10">
@@ -138,7 +138,7 @@ Cada 10 min
 </option>
 
 <option value="30">
-Cada 30 min
+Todos 30 min
 </option>
 
 </select>
@@ -147,7 +147,7 @@ Cada 30 min
 
 <td>
 
-<div title="Obter operações em lotes como um arquivo csv: consulte o manual" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
+<div title="Obter transações em lotes como um arquivo csv: ver manual" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
 </div>
 
 </td>
@@ -158,31 +158,31 @@ Cada 30 min
 
 <td>
 <span id="stats">
-Espere
+Aguarde
 </span>
 </td>
 
 <td>
 <span id="mail">
-Espere
+Aguarde
 </span>
 </td>
 
 <td>
 <span id="gpg_mail">
-Espere
+Aguarde
 </span>
 </td>
 
 <td>
 <span id="rss">
-Espere
+Aguarde
 </span>
 </td>
 
 <td>
 <span id="gammu">
-Espere
+Aguarde
 </span>
 </td>
 
@@ -261,17 +261,17 @@ Ano
 Nome de login
 <input type="text" name="username" size="10">
 
-<input type="submit" class="small" name="go" value="Ir">
+<input type="submit" class="small" name="go" value="Vá">
 
 </form>
 
 </td>
 
 <td class="front" valign="top">
-Baixar o OpenOffice diretório
+Download OpenOffice Directory
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
-<input class="small" type="submit" name="go" value="Ir">
+<input class="small" type="submit" name="go" value="Vá">
 
 </form>
 
@@ -341,8 +341,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="volumes_bargraph" class="linegraph" />
-
+<div id="volumes" style="width:600px;height:300px;">
+</div>
 
 </td>
 
@@ -360,8 +360,8 @@ $$fieldsref{displaybatchfiles}
 
 </h4>
 
-<img src="/images/charts/dalston/volumes.png" id="average_bargraph" class="linegraph" />
-
+<div id="averages" style="width:600px;height:300px;">
+</div>
 
 </td>
 

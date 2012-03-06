@@ -12,7 +12,7 @@ $$fieldsref{error}
 
 <tr class="pme-row-0">
 
-<td title="nom de base définissant le groupe commercial, un seul mot sans espaces" class="pme-key-0">
+<td title="nom de la base de données de définition de groupe commercial, un seul mot sans espace" class="pme-key-0">
 Nom du Registre
 <br>
 
@@ -29,7 +29,7 @@ Nom du Registre
 
 <tr class="pme-row-0">
 
-<td title="Brève description du groupe de négociation" class="pme-key-0">
+<td title="Brève description du commerce groupe" class="pme-key-0">
 Description du Registre
 <br>
 
@@ -42,7 +42,7 @@ Description du Registre
 
 </tr>
 
-<tr title="adresse et compte utilisé pour envoyer des courriels officiels pour ce groupe." class="pme-row-0">
+<tr title="adresse et le compte utilisé pour envoyer des emails officiels pour ce groupe" class="pme-row-0">
 
 <td class="pme-key-0">
 Gestionnaire de Courriel
@@ -86,7 +86,7 @@ Courriel pour les Transactions par lot
 </tr>
 
 <td title="mot de passe de compte de courriel de lot" class="pme-key-0">
-Mot de passe de courriel de lot
+Mot de passe de courriel lot
 <br>
 
 </td>
@@ -98,10 +98,10 @@ Mot de passe de courriel de lot
 
 </tr>
 
-<tr title="non utilisé actuellement, mais définit le modèle commercial" class="pme-row-1">
+<tr title="pas utilisé actuellement, mais définit le modèle commercial" class="pme-row-1">
 
 <td nowrap class="pme-key-1">
-Modèle de système de tarification
+Modèle de système de facturation
 </td>
 
 <td class="pme-value-1">
@@ -118,10 +118,10 @@ Taux du marché
 
 </tr>
 
-<tr title="non utilisé actuellement, mais définit le modèle de la commission" class="pme-row-1">
+<tr title="pas utilisé actuellement, mais définit le modèle de la commission" class="pme-row-1">
 
 <td class="pme-key-1">
-Modèle de système Commission
+Système modèle de Commission
 </td>
 
 <td class="pme-value-1">
@@ -129,7 +129,7 @@ Modèle de système Commission
 <select class="pme-input-1" name="commission">
 
 <option selected value="no">
-Aucune Commission.
+Aucune Commission
 </option>
 
 <option value="yes">
@@ -141,10 +141,10 @@ Commission base de Registre
 
 </tr>
 
-<tr title="non utilisé actuellement, mais définit le modèle de l'abonnement" class="pme-row-1">
+<tr title="pas utilisé actuellement, mais définit le modèle de l'abonnement" class="pme-row-1">
 
 <td class="pme-key-1">
-Modèle d'abonnement
+Modèle de l'abonnement
 </td>
 
 <td class="pme-value-1">
@@ -152,11 +152,11 @@ Modèle d'abonnement
 <select class="pme-input-1" name="subscription">
 
 <option selected value="no">
-Aucun abonnement.
+Pas d'abonnement
 </option>
 
 <option value="yes">
-Abonnement basé
+Abonnement de base
 </option>
 
 </select>
@@ -164,7 +164,7 @@ Abonnement basé
 
 </tr>
 
-<tr title="définit la limite de l'engagement de toutes les devises dans ce registre." class="pme-row-1">
+<tr title="définit la limite de l'engagement de toutes les monnaies dans ce registre" class="pme-row-1">
 
 <td class="pme-key-1">
 Limite d'engagement global
@@ -179,7 +179,7 @@ Limite d'engagement global
 
 </tr>
 
-<tr title="serveur clé utilisé : id de clé publique pour ce registre actuellement pour les transactions de courriel seulement" class="pme-row-1">
+<tr title="serveur clé utilisé : id de clé public pour ce registre actuellement pour les transactions de courriel seulement" class="pme-row-1">
 
 <td class="pme-key-1">
 Id de clé clé serveur : Public
@@ -196,7 +196,7 @@ Id de clé clé serveur : Public
 
 </tr>
 
-<tr title="non utilisé actuellement, mais définit si géographique zone ou intérêt spécial"  class="pme-row-1">
+<tr title="pas utilisé actuellement, mais définit si géographique région ou intérêt spécial"  class="pme-row-1">
 
 <td class="pme-key-1">
 Couvre une zone géographique ?
@@ -219,10 +219,10 @@ Aucun
 
 </tr>
 
-<tr title="pas utilisée actuellement mais définit les postes ou les codes zip afin que les registres publics peuvent être géocodées et mappé" class="pme-row-1">
+<tr title="pas utilisé actuellement, mais définit les postes ou les codes zip afin que les registres publics peuvent être géocodées et mappé" class="pme-row-1">
 
 <td class="pme-key-1">
-Codes postaux ou Latitude et de Longitude
+Codes postaux ou Latitude et Longitude
 </td>
 
 <td class="pme-value-1">
@@ -233,10 +233,10 @@ Codes postaux ou Latitude et de Longitude
 
 </tr>
 
-<tr title="utilisé pour fournir des marchands clés pour elgg, drupal et connecteurs os-commerce" class="pme-row-1">
+<tr title="utilisé pour fournir la clé marchand elgg, drupal et connecteurs de os-commerce" class="pme-row-1">
 
 <td class="pme-key-1">
-Clé de marchand
+Principaux marchand
 </td>
 
 <td class="pme-value-1">
@@ -247,7 +247,7 @@ Clé de marchand
 
 </tr>
 
-<tr title="utilisé, en principe, de limiter les connecteurs pour certaines ips, facilement usurpés probablement" class="pme-row-1">
+<tr title="utilisé en principe pour limiter les connecteurs pour certaines ips, facilement usurpés probablement" class="pme-row-1">
 
 <td class="pme-key-1">
 Permettre à marchand d'adresses IP
@@ -265,7 +265,7 @@ Permettre à marchand d'adresses IP
 
 </table>
 
-<!-- C'est une expérience, deviennent rouges, si le mot de passe db est mal le lien config -->
+<!-- C'est une expérience, rougiront le lien de la config, si le mot de passe db est erronée -->
 $$fieldsref{script}
 <hr class="pme-hr">
 
@@ -280,7 +280,7 @@ $$fieldsref{script}
 <td class="pme-buttons">
 
 <input class="pme-save"
- name="saveadd" value="Aller" type="submit">
+ name="saveadd" value="Go" type="submit">
 &nbsp;
 <input
  class="pme-cancel" name="cancel" value="Annuler"

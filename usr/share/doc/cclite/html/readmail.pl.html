@@ -109,7 +109,6 @@ information, always!</p>
 
 </pre><pre>
 <span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;../../../lib&#39;</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">Ccadmin</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
@@ -120,9 +119,6 @@ information, always!</p>
 <span class="k">my</span> <span class="i">$token</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;readmail&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#--------------------------------------------------------------</span>
 <span class="c"># change these two, if necessary</span>
@@ -141,7 +137,6 @@ information, always!</p>
 
 <span class="k">opendir</span><span class="s">(</span> <span class="w">DIR</span><span class="cm">,</span> <span class="i">$mail_dir</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="c">###$log-&gt;info(&quot;readcsv started&quot;);</span>
 <span class="k">my</span> <span class="i">$mail_file</span> = <span class="q">&quot;$mail_dir/$registry\.cclite&quot;</span><span class="sc">;</span>
 
 <span class="i">read_mail_transactions</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$mail_file</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span>

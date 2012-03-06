@@ -37,6 +37,7 @@ package Cclitedb;
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
+use Data::Dumper ;
 use DBI;
 use Ccsecure;
 use Ccconfiguration;
@@ -73,6 +74,7 @@ my $VERSION = 1.00;
   get_suggest_sql
   get_table_fields
   get_raw_stats_data
+  get_raw_stats_data_for_balances
   get_where
   get_where_multiple
   get_transaction_totals
@@ -345,7 +347,9 @@ sub sqlraw {
         $hash_ref = $sth->fetchall_hashref($id);
         $sth->finish();
     }
-
+    
+    ###print "$sqlstring $rv" ;
+    ###print Dumper $hash_ref ;
     # --- example of use---------------------------------
     # $hash_ref = $sth->fetchall_hashref('id');
     # print "Name for id 42 is $hash_ref->{42}->{name}\n";
@@ -367,7 +371,7 @@ sub sqlraw_return_array {
 
     # remove all modification attempts!
     $sqlstring =~ s/delete|insert|update//gi;
-      
+
     my ( $registryerror, $dbh ) = _registry_connect( $db, $token );
 
     # cumulate any detail error with registry error 10/2009
@@ -468,7 +472,8 @@ sub get_transaction_totals {
     my ( $class, $db, $user, $months_back, $token ) = @_;
     my ( $registry_error, $dbh ) = _registry_connect( $db, $token );
     my $volume_sql = _sql_give_volumes( $user, $months_back, $token );
-    my $balance_sql = _sql_get_balance_by_currency( $user, $token );
+    # balance now allows cut-off date, can be used for zero crossing calc...
+    my $balance_sql = _sql_get_balance_by_currency( $user, '', $token );
 
     my $sth;
     $sth = $dbh->prepare($volume_sql);
@@ -843,10 +848,13 @@ sub get_where {
     if ( !length($db) ) {
         my ( $package, $filename, $line ) = caller;
 
-        log_entry($class, $db,
+        log_entry(
+            $class,
+            $db,
 "$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line",
-      $token  );
-        
+            $token
+        );
+
         return ( 'blank database', '' );
     }
 
@@ -1420,12 +1428,25 @@ EOT
 
 }
 
+=item
+
+SELECT tradeId,substr(tradeStamp,1,10) as slice, tradeCurrency as currency, sum(tradeAmount) as sum from om_trades 
+where tradeType = 'credit' and
+tradeDestination = 'test2' and
+( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) and
+tradeDestination != 'cash'
+group by substr(tradeStamp,1,10), currency
+
+=cut
+
+
+
 sub _sql_get_balance_by_currency {
 
-    my ( $user, $token ) = @_;
+    my ( $user, $date, $token ) = @_;
 
     # sum by user except for manager, sum all transactions...
-    my ( $user_string, $user_string1 );
+    my ( $user_string, $user_string1, $date_string );
     ( $user eq 'manager' )
       ? ( $user_string = '' )
       : ( $user_string = "tradeDestination = \'$user\' and" );
@@ -1433,12 +1454,20 @@ sub _sql_get_balance_by_currency {
       ? ( $user_string1 = '' )
       : ( $user_string1 = "tradeSource = \'$user\' and" );
 
+   # balance up to certain date only...
+   ( length($date) )
+      ? ( $date_string = "and tradeStamp <= cast($date as timestamp)" )
+      : ( $date_string = '' );
+
+
+
     my $sql = <<EOT;
 SELECT tradeId,tradeCurrency as currency, sum(tradeAmount) as sum from om_trades 
 where tradeType = 'credit' and
 $user_string
 ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) and
-tradeDestination != 'cash' 
+tradeDestination != 'cash'
+$date_string 
 group by currency
 
 union
@@ -1447,13 +1476,84 @@ SELECT tradeId,tradeCurrency as currency, -(sum(tradeAmount)) as sum from om_tra
 where tradeType = 'debit' and
 $user_string1
 ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) and
-tradeDestination != 'cash' 
+tradeDestination != 'cash'
+$date_string 
 group by currency
 EOT
 
     return $sql;
 
 }
+
+=head3  _sql_balances_for_time_slices
+
+Two queries, one to get the credits per unixtime
+The second, indexed by unixtime to identifiy th corresponding debits
+There's probably an easier way of doing this...
+
+SELECT tradeId,tradeCurrency as currency,
+       unix_timestamp(tradeStamp)*1000 as x_axis, 
+       sum(tradeAmount) as y_axis
+       from om_trades 
+    where unix_timestamp(tradeStamp) >= (unix_timestamp()-604800) 
+       and tradeType = 'credit' and tradeDestination = 'test2' 
+       and ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) 
+       and tradeDestination != 'cash' 
+    group by substr(tradeStamp,1,16), currency 
+
+
+
+SELECT tradeId,tradeCurrency as currency,
+       unix_timestamp(tradeStamp)*1000 as x_axis, 
+       -(sum(tradeAmount)) as sum
+       from om_trades 
+    where unix_timestamp(tradeStamp) >= (unix_timestamp()-604800) 
+      and tradeType = 'debit' and tradeSource = 'test2' 
+      and ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) 
+      and tradeDestination != 'cash' 
+   group by substr(tradeStamp,1,16), currency
+
+=cut
+
+
+sub _sql_balances_for_time_slices {
+
+    	my ($slice, $user_string1, $user_string2) = @_ ;
+
+        my $sql_string1 = <<EOT;
+ SELECT tradeId,tradeCurrency as currency,
+       unix_timestamp(tradeStamp)*1000 as x_axis, 
+       sum(tradeAmount) as y_axis
+       from om_trades 
+    where unix_timestamp(tradeStamp) >= (unix_timestamp()-604800) 
+       and tradeType = 'credit' 
+       $user_string1
+       and ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) 
+       and tradeDestination != 'cash' 
+    group by substr(tradeStamp,$slice), currency 
+
+EOT
+
+
+        my $sql_string2 = <<EOT;
+SELECT tradeId,tradeCurrency as currency,
+       unix_timestamp(tradeStamp)*1000 as x_axis, 
+       -(sum(tradeAmount)) as sum
+       from om_trades 
+    where unix_timestamp(tradeStamp) >= (unix_timestamp()-604800) 
+      and tradeType = 'debit' 
+      $user_string2
+      and ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) 
+      and tradeDestination != 'cash' 
+   group by substr(tradeStamp,$slice), currency        
+         
+EOT
+	
+return ($sql_string1, $sql_string2) ;
+	
+}	
+
+
 
 =head3 makebutton
 
@@ -1668,26 +1768,19 @@ sub _format_number {
 
 sub get_raw_stats_data {
 
-    my ( $class, $db, $from_x_hours_back, $graph_type, $type, $token ) = @_;
-
+    my ( $class, $db, $user, $from_x_hours_back, $graph_type, $type, $token ) = @_;
+    
     my %configuration = readconfiguration();
-
-    # signals whether empty set of values is delivered
-    my $are_there_values = 0;    # returned as 0 or 1
-
-    my @times;
-    my @values;
-
+    
     my %types =
-      ( 'minutes', '1,16', 'hours', '1,13', 'days', '1,10', 'month', '1,7' );
+      ('seconds','1,19', 'minutes', '1,16', 'hours', '1,13', 'days', '1,10', 'month', '1,7' );
     my %axis =
-      ( 'minutes', '1,16', 'hours', '9,5', 'days', '1,10', 'month', '1,7' );
+      ('seconds','1,19', 'minutes', '1,16', 'hours', '9,5', 'days', '1,10', 'month', '1,7' );
 
-    my %configuration = readconfiguration();
+    # default is one week, shpuldn't be necessary, set in javascript ;
+    $from_x_hours_back ||= 168;
+    $type              ||= 'minutes';
 
-    # default is previous two days in hourly increments ;
-    $from_x_hours_back ||= 48;
-    $type              ||= 'hours';
 
     # fill the 'missing' sql_string variables
     my $slice   = $types{$type};
@@ -1699,70 +1792,112 @@ sub get_raw_stats_data {
     if ( $graph_type eq 'average' ) {
         if ( $configuration{'usedecimals'} eq 'yes' ) {
             $sql_string = <<EOT;
- SELECT tradeStamp, unix_timestamp(tradeStamp), format((avg(tradeAmount)/100),2), substr(tradeStamp,$slice) FROM om_trades o  
+ SELECT tradeId, unix_timestamp(tradeStamp)*1000 as x_axis, format((avg(tradeAmount)/100),2) as y_axis, substr(tradeStamp,$slice) FROM om_trades o  
    where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
-   group by substr(tradeStamp,$slice) ORDER BY tradeStamp ;
+   group by substr(tradeStamp,$slice) ORDER BY tradeId asc;
 EOT
         } else {
             $sql_string = <<EOT;
- SELECT tradeStamp, unix_timestamp(tradeStamp), format(avg(tradeAmount),2), substr(tradeStamp,$slice) FROM om_trades o  
+ SELECT tradeId, unix_timestamp(tradeStamp) as x_axis, format(avg(tradeAmount),2) as y_axis, substr(tradeStamp,$slice) FROM om_trades o  
    where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
-   group by substr(tradeStamp,$slice) ORDER BY tradeStamp ;
+   group by substr(tradeStamp,$slice) ORDER BY tradeId asc ;
 EOT
 
         }
-    } elsif ( $graph_type = 'volume' ) {
+    } elsif ( $graph_type eq 'volume' ) {
 
         $sql_string = <<EOT;
-SELECT tradeStamp, unix_timestamp(tradeStamp), count(*)/2, substr(tradeStamp,$slice) FROM om_trades o  
+SELECT tradeId, unix_timestamp(tradeStamp)*1000 as x_axis, count(*)/2 as y_axis, substr(tradeStamp,$slice) FROM om_trades o  
    where unix_timestamp(tradeStamp) >= (unix_timestamp()-$seconds) 
-   group by substr(tradeStamp,$slice) ORDER BY tradeStamp  ;
+   group by substr(tradeStamp,$slice) ORDER BY tradeId asc ;
 EOT
 
-    }
+    } 
 
-###print "type is $type, sqlstring is $sql_string" ;
 
-    my ( $registry_error, $array_ref ) =
-      sqlraw_return_array( $class, $db, $sql_string, undef, $token );
+    ###print "type is $type, graph type is $graph_type, seconds are $seconds, sqlstring is $sql_string" ;
 
-    my @chart_array ;
-
-    foreach my $row (@$array_ref) {
-				
-
-	    my $hash_ref = {
-                        time  => $row->[1],  # must be a unix time_t
-                        value => $row->[2],   # the data value
-                        color => 'ff0000',   # optional, used for this one point
-                       } ;
-        
-        push @chart_array, $hash_ref ;
-
-=item cut                       
-        my $lookahead = shift(@$array_ref)	;
-		my $intervals = int	(($row->[1] - $lookahead->[1]) /600 );                
-        
-        
-        my $time = $lookahead->[1] ;
-        foreach my $i (1..($intervals - 1)) {
-            $time = $time + 600;
-            ###print "time is $time<br/>" ;
-            my $hash_ref = {
-                        time  => $time,  # must be a unix time_t
-                        value =>  0 ,   # the data value
-                        color => '0000ff',   # optional, used for this one point
-           } ;
-           push @chart_array, $hash_ref ;
-        }
-
-       unshift  @$array_ref,$lookahead ;                      
-=cut
-       
-    }      
-    
-    return \@chart_array ;
+    my ( $registry_error, $hash_ref ) =
+      sqlraw( $class, $db, $sql_string, 'tradeId', $token );
+ 
+    return $hash_ref;
 }
+
+
+=head3 get_raw_stats_data_for_balances
+
+This provides several hash refs one for each currency
+Queries and processing more complex than averages and volumes
+so moved into a separate piece of processing...
+
+=cut
+
+
+sub get_raw_stats_data_for_balances {
+
+    my ( $class, $db, $user, $from_x_hours_back, $type, $token ) = @_;
+    my ($user_string, $user_string1, %flot) ; # %flot is keyed by currency...
+    
+    my %configuration = readconfiguration();
+    
+    my %types =
+      ('seconds','1,19', 'minutes', '1,16', 'hours', '1,13', 'days', '1,10', 'month', '1,7' );
+    my %axis =
+      ('seconds','1,19', 'minutes', '1,16', 'hours', '9,5', 'days', '1,10', 'month', '1,7' );
+
+    # default is one week, shpuldn't be necessary, set in javascript ;
+    $from_x_hours_back ||= 48;
+    $type              ||= 'seconds';
+
+
+    # fill the 'missing' sql_string variables
+    my $slice   = $types{$type};
+    my $x_axis  = $axis{$type};
+    my $seconds = $from_x_hours_back * 60 * 60;
+  
+    
+   # if there's a user for balances add constraint for sql union bits 
+   ( $user eq '' )
+      ? ( $user_string = '' )
+      : ( $user_string = "and tradeDestination = \'$user\' " );     
+   ( $user eq '' )
+      ? ( $user_string1 = '' )
+      : ( $user_string1 = "and tradeSource = \'$user\' " );
+	
+	
+	   my ($sql_string1, $sql_string2) =	_sql_balances_for_time_slices  ($slice, $user_string, $user_string1) ;
+       my ( $registry_error, $hash_ref ) = sqlraw( $class, $db, $sql_string1, 'tradeId', $token );
+	   my ( $registry_error, $hash_ref1 ) = sqlraw( $class, $db, $sql_string2, 'x_axis', $token );
+	   
+	   # add the x_axis debit, a minus value to the credit to create a y axis with totals
+	   foreach my $key (keys %$hash_ref) {
+		   $hash_ref->{$key}->{'y_axis'} = $hash_ref->{$key}->{'y_axis'} 
+		          + $hash_ref1->{$hash_ref->{$key}->{'x_axis'}}->{'sum'} ;
+		# do decimals, if configured            
+		   $hash_ref->{$key}->{'y_axis'} = sprintf "%.2f",
+          ( $hash_ref->{$key}->{'y_axis'} / 100 )
+          if ( $configuration{usedecimals} eq 'yes' );
+  
+        }
+        
+        my %duplicates ; # prevent x axis duplicates    
+        foreach my $key (keys %$hash_ref) { 	  
+		  # make data for each currency	  
+          $flot{$hash_ref->{$key}->{'currency'}} .= " [\"$hash_ref->{$key}->{x_axis}\", \"$hash_ref->{$key}->{y_axis}\"], \n" 
+              if (! length($duplicates{$hash_ref->{$key}}));
+           $duplicates{$hash_ref->{$key}} = 'y' ;   
+        }
+          
+        foreach my $key (keys %flot) {
+          # snip off last comma
+           $flot{$key} =~ s/\,\s*$// ;	
+	    }  
+
+   
+   return \%flot ;
+}
+
+
 
 
 =head3 whos_online
@@ -1772,12 +1907,11 @@ The count is used for closing down the registry
 
 =cut
 
-
 sub whos_online {
-	
-    my ($class,$db,$token) = @_;
 
-    my $get = "SELECT userLogin FROM om_users where userLoggedin = '1' " ;
+    my ( $class, $db, $token ) = @_;
+
+    my $get = "SELECT userLogin FROM om_users where userLoggedin = '1' ";
     my ( $rc, $rv, $array_ref );
     my ( $registryerror, $dbh ) = _registry_connect( $db, $token );
     if ( length($dbh) ) {
@@ -1786,13 +1920,10 @@ sub whos_online {
         $array_ref = $sth->fetchall_arrayref();
         $sth->finish();
     }
-    my $count = scalar($array_ref) ;
-    return ( $count, $array_ref );	
-	
-	
-	
-}	
+    my $count = scalar($array_ref);
+    return ( $count, $array_ref );
 
+}
 
 =head3 log_entry
 
@@ -1800,22 +1931,21 @@ Log entry into logging table
 
 =cut
 
-
-
 sub log_entry {
-	
-  my ( $class, $db, $message, $token ) = @_ ;
-  
-  my $timestamp = sql_timestamp() ;
-  my $fieldsref = {} ;
-  
-  $fieldsref->{'message'} = $message ;
-  $fieldsref->{'stamp'}   = $timestamp ;
-  
-  my ( $error, $record_id ) = add_database_record ( $class, $db, 'om_log', $fieldsref, $token );
-  	
-  return ($error,$record_id) ;
-}	
+
+    my ( $class, $db, $message, $token ) = @_;
+
+    my $timestamp = sql_timestamp();
+    my $fieldsref = {};
+
+    $fieldsref->{'message'} = $message;
+    $fieldsref->{'stamp'}   = $timestamp;
+
+    my ( $error, $record_id ) =
+      add_database_record( $class, $db, 'om_log', $fieldsref, $token );
+
+    return ( $error, $record_id );
+}
 
 1;
 

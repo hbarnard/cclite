@@ -203,7 +203,8 @@ my ( $error, $registryref ) = get_where(
 );
 
 if ( length($error) ) {
-    log_entry($class,$registry,"database error for $registry: $error",$token);
+    log_entry( $class, $registry, "database error for $registry: $error",
+        $token );
     exit 0;
 }
 
@@ -312,7 +313,7 @@ while (1) {
                     {
 
                         $transaction_description_ref->{'output_message'} =
-                        $transaction_description_ref->{'text'};
+                          $transaction_description_ref->{'text'};
                     }
 
            # as mailbox is opened by pop and maybe need to encrypt notifications
@@ -332,7 +333,8 @@ while (1) {
                 # pgp not detected, mail is thrown away...
             } else {
 
-                log_entry($class,$registry,"discarded non-pgp transaction\n",$token);
+                log_entry( $class, $registry, "discarded non-pgp transaction\n",
+                    $token );
             }
 
             # these should be destroyed asap and possibly done in-memory
@@ -349,9 +351,9 @@ while (1) {
     # send encrypted notifications to originator...
     send_notifications( \@notifications, $passphrase, $message, $encrypted,
         $logfile, $encrypt_notifications, $trace, \%messages );
-         
+
     $count = 0;
     sleep $sleep;
 
 }
-exit 0 ;
+exit 0;

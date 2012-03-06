@@ -37,7 +37,7 @@ Reg nome
 
 <td style="vertical-align: top;">
 
-<!-- Observação caminho explícito no cookie definindo, caso contrário caminho está definida para cgi-bin -->
+<!-- Observação caminho explícito no cookie definindo, caminho contrário está definida para o cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Reg nome
 
 <tr class="pme-row-1">
 
-<td title="Deve ser mais do que 3 caracteres, letras, números e _ só" class="pme-key-0">
+<td title="Deve ser mais de 3 caracteres, letras, números e _ apenas" class="pme-key-0">
 Nome da conta
 <br>
 
@@ -108,7 +108,7 @@ Email
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Nome do número/casa
+Número/casa nome
 </td>
 
 <td class="pme-value-1">
@@ -197,7 +197,7 @@ Telefone fixo
 <tr class="pme-row-1">
 
 <td  class="pme-key-0">
-Telemóvel
+Telefone celular
 </td>
 
 <td class="pme-value-1">
@@ -211,7 +211,7 @@ Telemóvel
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-PIN para transações de telemóvel
+Pino para telefone móvel transações
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ PIN para transações de telemóvel
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Confirmar Pin para transações de telemóvel
+Confirmar Pin para transações de telefone celular
 </td>
 
 <td class="pme-value-1">
@@ -267,7 +267,7 @@ Id da chave pública
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Idioma
+Língua
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ Nome completo
 
 <td class="pme-buttons">
 
-<!-- podemos apagar o cookie de registro aqui, caso contrário ele vai impedir um logon limpo mais tarde -->
+<!-- Nós apagar o cookie do registro aqui, caso contrário ele vai impedir um início de sessão limpo mais tarde -->
 
 <input class="pme-save"
  name="saveadd" value="Criar" onClick="eraseCookie('registry');" type="submit">

@@ -120,7 +120,6 @@ ccsmsgate.cgi</pre>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">HTML::SimpleTemplate</span><span class="sc">;</span>    <span class="c"># templating for HTML</span>
-<span class="k">use</span> <span class="w">Log::Log4perl</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>                     <span class="c"># utilities + config + multilingual messages</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>                <span class="c"># use the cookie module</span>
@@ -151,9 +150,6 @@ ccsmsgate.cgi</pre>
 <span class="k">our</span> <span class="i">$configurationref</span>  = \<span class="i">%configuration</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">%sms_configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;../../config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="w">Log::Log4perl</span><span class="w">-&gt;init</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;loggerconfig&#39;</span>} <span class="s">)</span><span class="sc">;</span>
-<span class="k">our</span> <span class="i">$log</span> = <span class="w">Log::Log4perl</span><span class="w">-&gt;get_logger</span><span class="s">(</span><span class="q">&quot;ccsmscgi&quot;</span><span class="s">)</span><span class="sc">;</span>
-
 <span class="k">my</span> <span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$cookies</span><span class="cm">,</span>
     <span class="i">$templatename</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># for the moment</span>
 
@@ -168,15 +164,11 @@ ccsmsgate.cgi</pre>
 
 <span class="i">$fields</span>{<span class="w">version</span>} = <span class="q">&quot;0.8.0&quot;</span><span class="sc">;</span>
 
-<span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;incoming message is: $fields{&#39;INCOMING&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
-
 <span class="c"># parse incoming fields the cardboardfish way...may give multiple messages</span>
 <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$originator</span><span class="cm">,</span> <span class="i">$destination</span><span class="cm">,</span> <span class="i">$dcs</span><span class="cm">,</span> <span class="i">$datetime</span><span class="cm">,</span> <span class="i">$udh</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;car&#39;</span> <span class="s">)</span> <span class="s">{</span>
     <span class="s">(</span><span class="i">@message_hash_refs</span><span class="s">)</span> = <span class="i">convert_cardboardfish</span><span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;INCOMING&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
-
-<span class="i">$log</span><span class="i">-&gt;debug</span><span class="s">(</span><span class="q">&quot;debugger is alive&quot;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#  this is part of conversion to transaction engine use. web mode, which</span>
 <span class="c">#  is the default will deliver html etc. engine mode will deliver data</span>

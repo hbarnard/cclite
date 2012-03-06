@@ -37,7 +37,7 @@ $$fields{errors}
 
 <td style="vertical-align: top;">
 
-<!-- 注明示的なパス設定、クッキー以外のパスで cgi ビンの値は -->
+<!-- 注明示的なパス設定、クッキーその他のパスで cgi ビンの値は -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -225,7 +225,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-携帯電話取引用暗証番号を確認します。
+携帯電話取引のピンを確認します。
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ SMS のお支払いの領収書
 
 <td class="pme-buttons">
 
-<!-- レジストリのクッキーここで我々 を消去、それ以外の場合は後できれいなログオンを防止します -->
+<!-- レジストリのクッキーここで消去、それ以外の場合は後、クリーンのログオンを防止します -->
 
 <input class="pme-save"
  name="saveadd" value="作成します。" onClick="eraseCookie('registry');" type="submit">

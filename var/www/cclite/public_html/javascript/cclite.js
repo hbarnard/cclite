@@ -32,6 +32,7 @@
 
 
 
+
 /* blink the status message, used for bringing system down */
 
 function blinktext() {                               
@@ -103,7 +104,7 @@ function validatedecimals(id, amount) {
              dataType:'json',
              async: false,
              success: function (data) {
-                
+             
                  $.each(data.data, function(i, value) {
                    ;
                    for (var key in value) {
@@ -253,6 +254,7 @@ function get_stats (batch_path,first_pass) {
               url: batch_path,
               dataType: 'text',
               success: function (data) {
+				 
                   $('#stats').html(messages.get("running") + ' ' + 'stats');
                    $('#stats_status').html(data);
              }
@@ -276,6 +278,84 @@ function get_stats (batch_path,first_pass) {
 	
 }	
 
+
+/* get stats as this is somewhat specialised */
+
+function get_stats_json (batch_path,first_pass) {
+
+        $.ajax({
+              method: 'get',
+              url: batch_path,
+              dataType: 'json',
+              success: function (data) {
+				    
+		timestring =   (new Date()).toTimeString().substring(0,12) ;
+		  
+		if (($("#userbalances").length > 0) && ($.cookie('userLogin').length > 0) ){
+			var plotdata = new Array;
+			for (var key in data.balances) {
+               if (data.balances.hasOwnProperty(key)) {
+				  var obj = { data: data.balances[key].sort(), label: key + ' ' + timestring};
+				  //var txt = JSON.stringify(obj, '');
+				  //alert('obj is ' + txt) ;
+				   
+				  plotdata.push(obj);
+				 var txt = JSON.stringify(plotdata, '');
+                //  alert('plotdata is ' + txt) ;
+               }
+            }
+           // var txt = JSON.stringify(plotdata, '');
+           // alert('plotdata is ' + txt) ;
+            
+		    _plot_graph('userbalances',plotdata,data.milliseconds_back,'lines') ;
+		    
+		} else if ($("#averages").length > 0 ) {	
+			 var data1 = [{ data: data.averages.sort(), label: 'Avg Size at ' + timestring, color: "#f00", yaxis: 1 }];
+             var data2 = [{ data: data.volumes.sort(), label: 'Volumes at '  + timestring, color: "#0f0", yaxis: 2 }];
+            _plot_graph('averages',data1,data.milliseconds_back) ;
+		    _plot_graph('volumes',data2,data.milliseconds_back) ;
+	    }
+                  $('#stats').html(messages.get("running") + ' ' + 'stats');
+                  $('#stats_status').html(data);
+             }
+          });
+          	
+}	
+
+
+/* generalised inner function for plotting accessed
+ * from ajax call */
+
+
+function _plot_graph (selector,data,milliseconds_back, graph_type) {
+	
+	
+ //alert('in plot graph ' + selector + ' ' + data + ' ' + milliseconds_back ) ;	
+
+		now =   (new Date()).getTime()
+		minimum_x =  now - milliseconds_back ;	
+		
+		if(typeof graph_type == 'undefined') {
+          graph_type = 'bars';
+         }
+		//alert('graph_type is' + graph_type) ;
+		
+        $.plot($('#'+selector), data, {
+            xaxis: {
+                mode: "time",
+              // minTickSize: [1, "minute"],
+              min: minimum_x,
+              max: now,            
+            }
+ 
+            ,bars: { show: true }
+            
+        });
+
+	
+return ;	
+	
+}	
 
  /* hide all the complex options, first of all */
 
@@ -321,12 +401,12 @@ function get_stats (batch_path,first_pass) {
              $('#tradeSource').val('cash');
              $('#tradeStatus').val('accepted');
              //   $('#tradeSource').attr('disabled', 'disabled');
-             // alert(output) ;
+            
          } else if (selected.val() == 'cashout') {
              $('#tradeDestination').val('cash');
              $('#tradeStatus').val('accepted');
              //    $('#tradeDestination').attr('disabled', 'disabled');
-             //  alert(output) ;
+             
          }
      }
 
@@ -349,8 +429,6 @@ changed into milliseconds here */
 
  function control_task(type, minutes) {
 
-     
-     // alert((type + ' ' + minutes)) ;
      stopped = messages.get("stopped");
      started = messages.get("started");
      //selector is used to change the status bar selection
@@ -378,8 +456,16 @@ changed into milliseconds here */
 
              // window[interval_id] = setInterval( "do_task('type', 'batch_path')", window[interval]) ;
              // this ugly thing is something to do with scoping in setInterval, go figure, I can't!
+             
+             // One week is default for stats, this is passed right though into the x axis too            
              if (type == 'stats') {
-                 window[interval_id] = setInterval("get_stats('/cgi-bin/protected/graphs/graph.pl',0)", window[interval]);
+				 batch_path = '/cgi-bin/cclite.cgi?action=getstats' ;
+				 if ($('hours_back').val()) {
+				  batch_path =	batch_path + '&hours_back=' + $('hours_back').val() ;
+				 } else {
+			      batch_path =	 batch_path + '&hours_back=168' ;	 
+				 }
+                 window[interval_id] = setInterval("get_stats_json(batch_path)", window[interval]);
              } else if (type == 'rss') {
                  window[interval_id] = setInterval("do_task( 'rss', '/cgi-bin/protected/batch/writerss.pl')", window[interval]);
              } else if (type == 'mail') {
@@ -391,9 +477,7 @@ changed into milliseconds here */
              } else if (type == 'gammu') {
                  window[interval_id] = setInterval("do_task( 'gammu', '/cgi-bin/protected/batch/readsms_from_gammu.pl')", window[interval]);
              }
-
-
-             //alert('time ' + window[interval] + ' id ' + window[interval_id] + ' ' + interval_id) ;
+             
          } catch (error) {
              alert(messages.get('erroris') + ' ' + error) ;
          }
@@ -409,10 +493,7 @@ can be used to transmit errors from the script into the page */
 
  function do_task(type, batch_path) {
 
-     //alert('batch path ' + batch_path) ;
-     try {
-
-         
+     try {        
          processing = messages.get("processing");
          waiting = messages.get("waiting");
 
@@ -454,7 +535,7 @@ can be used to transmit errors from the script into the page */
 
 
 
- $(document).ready(function () {
+  $(document).ready(function () {
 
     // new style messages from literals.<language-code>
     messages = readmessages();
@@ -495,14 +576,15 @@ can be used to transmit errors from the script into the page */
          $("#adminlinkhref").toggle() ;
          $("#adminlinkhrefnt").toggle() ;
          // do stats as loading
-         get_stats('/cgi-bin/protected/graphs/graph.pl',1) ;
+        
      }
-     //alert($("#fileproblems").length) ;
+     
+      get_stats_json('/cgi-bin/cclite.cgi?action=getstats&hours_back=168',1) ;
+   
      if ($("#fileproblems").length > 1) {
 
          $("#fileliteral").html(messages.get('batchfileprobs'));
-     }
-
+     }    
 
      // prompt for cut and paste of configuration if not writable directly
      $("#copydiv").bind('copy', function (e) {
@@ -648,71 +730,12 @@ can be used to transmit errors from the script into the page */
 
      });
 
-
-
-     var path = document.location.pathname;
+var path = document.location.pathname;
      
-/*
-    // if ($('#upload_button').val()) {
-         // batch file uploader
-     //   alert('here' + $('#upload_button').val() ) ;
-         new AjaxUpload('#upload_button', {
-             // Location of the server-side upload script
-             // NOTE: You are not allowed to upload files to another domain
-             action: '/cgi-bin/protected/ccupload.cgi',
-             // File upload name
-             name: 'userfile',
-             // Additional data to send
-             data: {
-                 serverfilename: 'batch.csv',
-                 //    example_key2 : 'example_value2'
-             },
-             // Submit file after selection
-             autoSubmit: true,
-             // The type of data that you're expecting back from the server.
-             // HTML (text) and XML are detected automatically.
-             // Useful when you are using JSON data as a response, set to "json" in that case.
-             // Also set server response type to text/html, otherwise it will not work in IE6
-             responseType: false,
-             // Fired after the file is selected
-             // Useful when autoSubmit is disabled
-             // You can return false to cancel upload
-             // @param file basename of uploaded file
-             // @param extension of that file
-             onChange: function (file, extension) {},
-             // Fired before the file is uploaded
-             // You can return false to cancel upload
-             // @param file basename of uploaded file
-             // @param extension of that file
-             onSubmit: function (file, ext) {
-                 //  if (! (ext && /^(jpg|png|jpeg|gif)$/.test(ext))){
-                 if (!(ext && /^(csv)$/.test(ext))) {
-                     // extension is not allowed
-                     alert(messages.get("mustbecsv"));
-                     // cancel upload
-                     return false;
-                 }
-                 return true;
-             },
+/* only show uploader if positioned on admin page */
 
-             // read the file when it's uploaded
-             onComplete: function (file, response) {
-                 alert(messages.get('uploadedfile') + ' ' + file + ' started |CSV File input| to process');
-                 JQuery.ajax({
-                     type: "POST",
-                     url: "/cgi-bin/protected/batch/readcsv.pl",
-                     data: "",
-                     success: function (file) {
-                         alert(messages.get('fileprocessed') + ' ' + file);
-                     }
-                 });
+if ($("#upload_button").length > 0) {
 
-                 // control_task ('csv',1) ;
-                 return true;
-             },
-         });
-
-*/
         function createUploader(){            
             var uploader = new qq.FileUploader({
                 element: document.getElementById('upload_button'),
@@ -738,8 +761,6 @@ can be used to transmit errors from the script into the page */
                 onProgress: function(id, file, loaded, total){},
                 onComplete: function(id, file, responseJSON ) {
 					
-			      // alert(messages.get('uploadedfile') + ' ' + file + ' started |CSV File input| to process');
-                 // alert(responseJSON) ;
                    $.ajax({
                      type: "POST",
                      url: "/cgi-bin/protected/batch/readcsv.pl",
@@ -752,18 +773,16 @@ can be used to transmit errors from the script into the page */
                 //onCancel: function(id, fileName){},
                
             },           
-        });
-        
+        });        
         // in your app create uploader as soon as the DOM is ready
         // don't wait for the window to load  
-
- 
-
-
      };
      // end of bath file uploader
-       window.onload = createUploader;   
+       window.onload = createUploader;  
+   } // end of cookie level == admin for uploader
+     
 
  });
+ 
 
 

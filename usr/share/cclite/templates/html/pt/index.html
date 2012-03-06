@@ -1,13 +1,24 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Design por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Lançado gratuitamente sob uma Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
 
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <title>
 Cclite $$fieldsref{version} Usuário
 </title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
 
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
@@ -23,8 +34,10 @@ Cclite $$fieldsref{version} Usuário
 $$fieldsref{metarefresh}
 <!-- folhas de estilo -->
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet" />
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
 
 <link rel="alternate" type="application/rss+xml" 
 	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
@@ -36,7 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- bibliotecas JavaScript, precisará Substitute compactado versões -->
+<!-- DataTables mais tarde -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- bibliotecas JavaScript, precisará versões Substitute compactado em um certo momento -->
 
 <!-- itens de jQuery -->
 
@@ -61,6 +79,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
 <!-- outros não jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -74,10 +94,7 @@ $$fieldsref{metarefresh}
 
 <!-- representar graficamente -->
 
-<script  src="/javascript/raphael.js" type="text/javascript" >
-</script>
-
-<script  src="/javascript/ico.js" type="text/javascript" >
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
 
 <!-- specific, is cookies necessary now? -->
@@ -91,39 +108,24 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Este é o script que registra usuários fora quando o sistema está sendo derrubado -->
+<!-- Este é o script que faz os usuários logoff quando o sistema está sendo trazido para baixo -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
 </script>
 
-<style type="text/css" media="screen">
-
-</style>
-
 </head>
 
 <body>
 
-<!-- Essa opção ativa de ligar/desligar o material de ponto decimal -->
+<!-- Procurar por usuários, comércios, anúncios -->
 
-<div id="usedecimals" class="hidden">
-$$fieldsref{usedecimals}
-</div>
+<br/>
 
-<div class="topbar">
 
-<a title="Casa" href="/cgi-bin/cclite.cgi">
-<span class="titletext">
-Cclite
-</span>
-</a>
+<div align="right">
 
-<!-- Procurar usuários, comércios, anúncios -->
-
-<div class="adsearch">
-
-<form class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
 <input name="action" value="find" type="hidden">
 
@@ -145,19 +147,17 @@ Anúncios
 
 </select>
 
-<input value="Ir" class="small" type="submit" title="Procure comércios, anúncios ou usuários">
+<input value="Vá" class="small" type="submit" title="Procure por comércios, anúncios ou usuários">
 
 </form>
 
-</div>
-
-<!-- fim da caixa de pesquisa de AutoCompletar -->
+<!-- final da caixa de pesquisa de AutoCompletar -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- versão do seletor de idioma 1 -->
+<!-- versão de seletor de idioma 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -231,7 +231,7 @@ Vietnamita
 
 </select>
 
-<!-- final de versão 1 do idioma selector -->
+<!-- final de versão 1 de seletor de idioma -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -241,23 +241,38 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <span id="logoff">
 </span>
 </a>
+
 </span>
 </span>
 
 </div>
 
-<!-- fim do logotipo -->
+<div id="outer">
 
-<!--- this bit needs replacing by the specific admin and install menus -->
+<div id="header">
 
-<div class="topbar">
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Usuário Cclite
+</a>
+</h1>
 
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
 <a id="adminlinkhref" title="Menu de administração" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
 
 </a>
+</li>
+
+<li>
 
 <a id="adminlinkhrefnt" title="menu de administração em nova aba" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
@@ -266,119 +281,136 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 </a>
 
-<a class="bodytext"  title="Esqueceu sua senha??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-Esqueceu a senha?
-</a>
+</li>
 
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Adicionar Openid
-</a>
-
-<a class="bodytext" title="Deutsch" href="/cgi-bin/cclite.cgi?action=showopenid">
-Lista Openids
-</a>
-
-<a class="bodytext" title="Criar uma nova conta." href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-Nova conta
-</a>
-
-<a class="bodytext" title="Modificar os detalhes da conta" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Modificar conta
-</a>
-
-</div>
-
-<!-- fim da barra superior -->
-
-<div class="topbar" >
-
-<span id="linksmenu" align="center">
-
+<li>
 <a title="Transferência de moeda ou horas" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
 Pagamento
 </a>
+</li>
 
-<a title="Dividir o pagamento para bens ou serviços" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Pagamento de Split
+<li>
+<a  title="Esqueceu sua senha??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Esqueceu a senha?
 </a>
 
+</li>
+
+<li>
+<a title="Adicionar Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Adicionar Openid
+</a>
+
+</li>
+
+<li>
+<a title="Lista Openids" href="/cgi-bin/cclite.cgi?action=showopenid">
+Lista Openids
+</a>
+
+</li>
+
+<li>
+<a title="Criar uma nova conta" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Nova conta
+</a>
+
+</li>
+
+<li>
+<a title="Modificar detalhes da sua conta" href="/cgi-bin/cclite.cgi?action=modifyuser">
+Modificar conta
+</a>
+</li>
+
+<li>
+<a title="Transferência de moeda ou horas" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+Pagamento
+</a>
+</li>
+
+<li>
+<a title="Dividir o pagamento para bens ou serviços" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+Pagamento de divisão
+</a>
+</li>
+
+<li>
 <a title="Mostrar minhas transações" href="/cgi-bin/cclite.cgi?action=showtrans">
 Transações
 </a>
+</li>
 
+<li>
 <a title="Mostrar meus contrapesos" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Saldos
 </a>
+</li>
 
+<li>
 <a title="Mostrar os produtos e diretório de serviços" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Produtos e serviços
 </a>
+</li>
 
+<li>
 <a title="Mostrar meus anúncios em bens e diretório de serviços" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Meus anúncios
 </a>
+</li>
 
+<li>
 <a title="Criar uma página para os bens e diretório de serviços" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 Lugar Ad
 </a>
+</li>
 
-</span>
-
-<!-- final de linksmenu -->
-
-<!-- final do bit de menu que deve ser substituído para admin e instalar -->
+</ul>
 
 </div>
 
-<!-- final do menu -->
+<!-- nuvem de tags e estatísticas de usuário individual -->
 
-<div class="content" align="center">
+<div id="content">
 
-<div class="contentleft">
+<div id="primaryContentContainer">
 
-<div>
+<div id="primaryContent">
 !$$fieldsref{pagename}
 </div>
 
 </div>
 
-<!-- final de contentleft: lado esquerdo -->
+<div valign="top" id="secondaryContent">
 
-<div class="contentright" >
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
 
-<span class="news">
-$$fieldsref{latest_news}
-</span>
-
-<br/>
-
+<h3>
+Categorias de anúncio
+</h3>
 $$fieldsref{righthandside}
-<div class="panel" >
-
 </div>
 
-<!-- fim do painel -->
-
-</div>
-
-<!-- final de righthandcontent -->
-
-</div>
-
-<!-- final do conteúdo -->
-
-<div id="footer" style="float:bottom" class="smallgraytext" align="center">
+<div class="clear">
+<div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
 Casa
 </a>
 |
 <a href="#">
-Entre em contato conosco
+Fale conosco
 </a>
 <br />
 
 Cclite 
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </body>

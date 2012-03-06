@@ -1,16 +1,20 @@
 <div class="errors">$$fieldsref{errors}</div>
-      <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+
+<form  id="form" action="/cgi-bin/cclite.cgi" method="post">
 <input name="action" value="logon" type="hidden"> 
 <input name="subaction" value="om_users" type="hidden">
 <input name="logontype" value="form" type="hidden">
+
+
+
         <table  class="pme-main" summary="om_users">
           <tbody class="stripy">
             <tr>
               <td nowrap >Registry Name<br>
               </td>
-              <td><input class="required" name="registry">
+              <td><input class="required" name="registry" type="text">
 
-<span class="pme-key-1"><!-- Use <i>dalston</i> for the test logins..see below!</span> -->
+  
               </td>
             </tr>
             <tr >
@@ -18,26 +22,27 @@
               </td>
               <td > <input class="required"
  name="userLogin" autocomplete="off"
- size="50" maxlength="50" value="" type="text"></td>
+ size="50" maxlength="50" type="text"></td>
             </tr>
             <tr >
               <td ">Password</td>
               <td > <input class="required"
- name="userPassword" size="32" maxlength="32" value="" type="password">
+ name="userPassword" size="32" maxlength="32"  type="password">
 </td>
             </tr>
             
         <tr >
               <td > <input type="submit" value="Logon">&nbsp;<input 
  name="cancel" value="Clear" type="reset">
- </form> </td><td></td>
+</form>      
+</td><td></td>
             </tr>     
  <td colspan="2"><h3> Open Id Logon (experimental)</h3> </td>
             </tr>
           </tbody>
         </table>
-      
-  
+ 
+ 
        
       
        
