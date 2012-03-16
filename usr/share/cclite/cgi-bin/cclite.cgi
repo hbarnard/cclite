@@ -157,7 +157,11 @@ my $language = decide_language($fieldsref);
 my $pagename = $fields{name};
 my $action   = $fields{action} || $configuration{defaultaction};
 my $table    = $fields{subaction};
+
 my $db       = $fields{registry} || $cookieref->{'registry'};
+#FIXME: done for rdf feed only, other consequences?
+$fields{registry} ||= $cookieref->{'registry'} ;
+
 my $offset   = $fields{offset};
 
 # now take these from configuration because of unreliable $ENV{SERVER_NAME} 11/2009
@@ -641,8 +645,7 @@ if ( length( $cookieref->{'userLogin'} ) ) {
 
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume(
-        'local', $db, $cookieref->{'userLogin'},
-        $fieldsref->{'mode'}, $token
+        'local', $db, $cookieref->{'userLogin'},$fieldsref, $token
     )
   );
 
@@ -695,14 +698,15 @@ if ( $action eq 'readmessages' ) {
 # get messages and deliver as json for ajax: insecure but is this a problem?
 if ( $action eq 'getstats' ) {
 
+    # deliver balances for user other than 'me' for transparency and yellowpage layout
+    my $user = $fieldsref->{'stats_user'} || $cookieref->{'userLogin'} ;
+    
     # json is delivered current as 'abuse' of refresh field in display_template
     ($refresh) = get_stats(
-        ( 'local', $db, $cookieref->{'userLogin'}, $cookieref->{'userLevel'}, $fieldsref->{'hours_back'}, $fieldsref->{'type'}, '' )
+        ( 'local', $db, $user , $cookieref->{'userLevel'}, $fieldsref->{'hours_back'}, $fieldsref->{'type'}, '' )
     );
     $fieldsref->{'mode'} = 'json';
 }
-
-
 
 # display an action result, all actions are consumed
 display_template(

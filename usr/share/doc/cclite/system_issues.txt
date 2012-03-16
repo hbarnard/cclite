@@ -140,8 +140,8 @@ soap attempts made...
 2.Make user/yellow page display clearer/nicer this is showuser transaction
 4.* When releasing have a look at Debian control file etc. update version number, for example...
 6.Test new method for redirecting logon
-8.test for create rule [depreciated]
-9.test for create category, blank category works, apparently [depreciated]
+8.test for create rule [deprecated]
+9.test for create category, blank category works, apparently [deprecated]
 15.Make update_config2 display values for cut and paste too...
 
 
@@ -149,15 +149,15 @@ soap attempts made...
 to be fixed:
 
 1. Protect batch scripts with cookie testing
-2. Remove create rule
-3. *test and check out graphs [being converted to Ico]
-4. add tests for REST interface
+2. Remove create rule (done)
+3. *test and check out graphs [being converted to flot, done enough for this release]
+4. add tests for REST interface (yes, partially, test-REST)
 5. csv REST Payment delivers file? 
 6. update_database_record returns web style signature..
 7. add tests for registry closing and opening from admin
 8. 
 9. 
-10. graph and clean up 'use' pragmas
+10. graph and clean up 'use' pragmas (not done)
 11. Make a nice offline page for installer/main page
 12. 
 13. 
@@ -167,17 +167,26 @@ to be fixed:
 17. 
 18. 
 19. * ack-grep and remove all debug_message lines [each release]
-20. Make some tests for batch scripts
+20. Make some tests for batch scripts (done partially)
 21. Direct user add needs protection otherwise very spammy
 22. Direct user add needs feedback, probably json
 23. Consider all status codes and return codes currently, see list
 24. REST /summary doesn't work properly for csv and delivers two bits of json
-25. Shorten months to three characters in balance and volume output
-26. Back button in wrong place and doesn't work properly: showbalvol...
+25. Shorten months to three characters in balance and volume output (done)
+26. Back button in wrong place and doesn't work properly: showbalvol...(done, no button now)
 27. 
-28. Put tag cloud at right everywhere in user side
+28. Put tag cloud at right everywhere in user side (done)
 29. Add close down test and do logic, doesn't work, debug (done)
-30. 
+30. Commitment limit in non-decimal, need to test in decimal or non-decimal (done)
+31. Show balance and volume delivers two structures for json, should be one (see 24)
+32. mode = values forced in transaction use of show_balance_and_volume should return json and deal with it (not done)
+33. RSS display when turned on in wrong place (done)
+34 Uploader doesn't work again, again (done, library wasn't in place}
+35. GPG mail can't release key from web application, commented out must be run by hand (not done)
+36. show an ad doesn't work (done)
+37. Test rss feeds etc. make more solid, works but link doesn't work
+38. Review csv processing, doesn't produce correct validation output
+
 
 
 17.12.2011 Tiki-wiki communication

@@ -1,4 +1,4 @@
-#!/usr/bin/perl 
+#!/usr/bin/perl
 #---------------------------------------------------------------------------
 #THE cclite SOFTWARE IS PROVIDED TO YOU "AS IS," AND WE MAKE NO EXPRESS
 #OR IMPLIED WARRANTIES WHATSOEVER WITH RESPECT TO ITS FUNCTIONALITY,
@@ -47,7 +47,8 @@ my $cookieref = get_cookie();
 my %fields    = cgiparse();
 
 # cron: hardwire the registry name into the script
-my $registry = $$cookieref{registry} ;
+my $registry = $cookieref->{'registry'} ;
+$registry = 'dalston' ;
 
 # timestamp output files so that they don't get confused
 my ($numeric_date,$time) = getdateandtime(time()) ;

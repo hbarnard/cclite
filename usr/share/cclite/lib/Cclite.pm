@@ -1345,20 +1345,24 @@ EOT
 
         # html to return html, values to return raw balances and volumes
         # for each currency
+        # FIXME: mode = values forced should return and parse json, perhaps
+        my $hash_ref ;
+        $hash_ref->{'mode'} = 'values' ; 
         my ( $balance_ref, $volume_ref ) = show_balance_and_volume(
             'local',
             $transaction{'fromregistry'},
             $transaction{'tradeSource'},
-            'values', $token,
+            $hash_ref, $token,
         );
 
         # current balance for this particular currency
-        my $balance = $$balance_ref{ $transaction{'tradeCurrency'} };
+        my $balance = $balance_ref->{ $transaction{'tradeCurrency'} };
 
 # balances are negative in the sending side, need to subtract and make absolute
 # if more than commitment limit transaction does not proceed
 # sysaccount -can- issue value into accounts: should check for 'local' style currency
 # corrected commit limit arithmetic 12/2008
+# corrected non-decimal commitment at registry creation + arithmetic 3/2012 in Ccadmin.pm
 
         if (
             (
@@ -2757,7 +2761,7 @@ FIXME: months back to be introduced as an input parameter..
 
 sub show_balance_and_volume {
 
-    my ( $class, $db, $user, $mode, $token ) = @_;
+    my ( $class, $db, $user, $fieldsref, $token ) = @_;
 
     #FIXME how many previous months to display, configurable later
     my $months_back = 4;
@@ -2787,14 +2791,14 @@ sub show_balance_and_volume {
         $total_balance{ $balance_hash_ref->{$key}->{'currency'} } +=
           $balance_hash_ref->{$key}->{'sum'};
 
-        if ( ( $mode eq 'html' || !length($mode) )
+        if ( ( $fieldsref->{'mode'} eq 'html' || !length($fieldsref->{'mode'}) )
             && $month_counter <= $months_back )
         {
         }
     }
 
     foreach my $key ( sort { $b cmp $a } keys %$volume_hash_ref ) {
-        if ( ( $mode eq 'html' || !length($mode) )
+        if ( ( $fieldsref->{'mode'} eq 'html' || !length($fieldsref->{'mode'}) )
             && $month_counter <= $months_back )
         {
             ( $month_counter % 2 )
@@ -2821,7 +2825,7 @@ EOT
     }
 
     # default behaviour is to return html
-    if ( $mode eq 'html' || !length($mode) ) {
+    if ( $fieldsref->{'mode'} eq 'html' || !length($fieldsref->{'mode'}) ) {
 
         # lay currencies by month out in a row
         my $html;
@@ -2848,10 +2852,10 @@ EOT
 EOT
 
         return ( 0, '', $registry_error, $html, $template, '' );
-    } elsif ( $mode eq 'values' ) {
+    } elsif ( $fieldsref->{'mode'} eq 'values' ) {
 
         return ( \%total_balance, \%total_count );
-    } elsif ( $mode eq 'json' ) {
+    } elsif ( $fieldsref->{'mode'} eq 'json' ) {
 
 # only refresh is [mis]used to carry json payload if json is being returned 2/2011
         my $json = deliver_remote_data( $db, 'om_transactions', $registry_error,
@@ -2859,7 +2863,8 @@ EOT
         my $json1 .=
           deliver_remote_data( $db, 'om_transactions', $registry_error,
             $volume_hash_ref, $status, $token );
-        return "$json|$json1";    # delivers two structures though....
+#FIXME:  # delivers two structures though, straighten out             
+        return "$json|$json1";   
     }
 
     # }

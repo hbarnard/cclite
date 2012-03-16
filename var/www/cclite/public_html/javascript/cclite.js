@@ -157,7 +157,12 @@ var language_keys = new Array(
 "japanese-ja",
 "greek-el",
 "arabic-ar",
-"spanish-es" ) ;
+"japanese-ja", 
+"korean-ko", 
+"bengali-bn", 
+"vietnames-vi",
+"romainian-ro"
+) ;
 
 $.each(language_keys, function(index,value)
 {   
@@ -234,7 +239,7 @@ function change_install(id) {
 
 }
 
-/* get stats as this is somewhat specialised */
+/* get stats as this is somewhat specialised: deprecated replaced by flot */
 
 function get_stats (batch_path,first_pass) {
 	
@@ -291,29 +296,31 @@ function get_stats_json (batch_path,first_pass) {
 				    
 		timestring =   (new Date()).toTimeString().substring(0,12) ;
 		  
-		if (($("#userbalances").length > 0) && ($.cookie('userLogin').length > 0) ){
+		if (($("#userbalances").length > 0) && ($.cookie('userLevel') == 'user') ){
 			var plotdata = new Array;
 			for (var key in data.balances) {
                if (data.balances.hasOwnProperty(key)) {
-				  var obj = { data: data.balances[key].sort(), label: key + ' ' + timestring};
+				  var obj = { data: data.balances[key].sort(), label: key + ' ' + messages.get('balances') + ' ' + timestring};
 				  //var txt = JSON.stringify(obj, '');
 				  //alert('obj is ' + txt) ;
 				   
 				  plotdata.push(obj);
-				 var txt = JSON.stringify(plotdata, '');
+				// var txt = JSON.stringify(plotdata, '');
                 //  alert('plotdata is ' + txt) ;
                }
             }
-           // var txt = JSON.stringify(plotdata, '');
-           // alert('plotdata is ' + txt) ;
+           //var txt = JSON.stringify(plotdata, '');
+           //alert('plotdata is ' + txt) ;
             
-		    _plot_graph('userbalances',plotdata,data.milliseconds_back,'lines') ;
+            
+            
+		    _plot_graph_lines('userbalances',plotdata,data.milliseconds_back) ;
 		    
 		} else if ($("#averages").length > 0 ) {	
-			 var data1 = [{ data: data.averages.sort(), label: 'Avg Size at ' + timestring, color: "#f00", yaxis: 1 }];
-             var data2 = [{ data: data.volumes.sort(), label: 'Volumes at '  + timestring, color: "#0f0", yaxis: 2 }];
-            _plot_graph('averages',data1,data.milliseconds_back) ;
-		    _plot_graph('volumes',data2,data.milliseconds_back) ;
+			 var data1 = [{ data: data.averages.sort(), label: messages.get('vols') + ' ' + timestring }];
+             var data2 = [{ data: data.volumes.sort(), label: messages.get('avg') + ' ' +  timestring  }];
+            _plot_graph('averages',data1,data.milliseconds_back,'graphlabel1') ;
+		    _plot_graph('volumes',data2,data.milliseconds_back,'graphlabel2') ;
 	    }
                   $('#stats').html(messages.get("running") + ' ' + 'stats');
                   $('#stats_status').html(data);
@@ -327,35 +334,92 @@ function get_stats_json (batch_path,first_pass) {
  * from ajax call */
 
 
-function _plot_graph (selector,data,milliseconds_back, graph_type) {
-	
-	
- //alert('in plot graph ' + selector + ' ' + data + ' ' + milliseconds_back ) ;	
-
+function _plot_graph (selector,data,milliseconds_back,labelcontainer) {	
 		now =   (new Date()).getTime()
 		minimum_x =  now - milliseconds_back ;	
 		
-		if(typeof graph_type == 'undefined') {
-          graph_type = 'bars';
-         }
-		//alert('graph_type is' + graph_type) ;
-		
+		// alert('label '  + labelcontainer) ;
+				
+        $.plot($('#' + selector), data, {
+            xaxis: {
+                mode: "time",
+              // minTickSize: [1, "minute"],
+              min: minimum_x,
+              max: now,            
+            },
+           
+            legend:{container: $('#' + labelcontainer)},
+            bars: { show: true }           
+        });	
+return ;		
+}	
+
+
+function _plot_graph_lines (selector,data,milliseconds_back) {	
+		now =   (new Date()).getTime()
+		minimum_x =  now - milliseconds_back ;	
+				
         $.plot($('#'+selector), data, {
             xaxis: {
                 mode: "time",
               // minTickSize: [1, "minute"],
               min: minimum_x,
               max: now,            
-            }
- 
-            ,bars: { show: true }
-            
-        });
-
-	
-return ;	
-	
+            },
+            legend:{container: $("#graphlabel")}
+           
+        });	
+return ;		
 }	
+
+/*  not being used yet, sparkline formatting for flot data 
+function _plot_graph_sparklines (selector,data) {
+
+//	
+//var data 
+//     = [ [0, 1], [1, 2], [2, 2], [3, 2], [4, 2], [5, 3], [6, 4], 
+ //          [7, 2], [8, 2], [9, 3], [10, 5], [11, 5], [12, 4] ];
+
+		
+  var options = {
+    xaxis: {
+	 mode: "time",	
+      // extend graph to fit the last point
+      max: data[data.length - 1][0] + 1
+    },
+    grid: {
+      show: false
+    }
+  };
+
+  // main series
+  var series = [{
+    data: data,
+    color: '#000000',
+    lines: {
+      lineWidth: 0.8
+    },
+    shadowSize: 0
+  }];
+
+  // colour the last point red.
+  series.push({
+    data: [ data[data.length - 1] ],
+    points: {
+     show: true,
+     radius: 1,
+     fillColor: '#ff0000'
+    },
+    color: '#ff0000'
+  });
+
+  // draw the sparkline
+  var plot = $.plot('#'+selector, series, options);
+
+return ;
+
+}
+*/
 
  /* hide all the complex options, first of all */
 
@@ -507,17 +571,14 @@ can be used to transmit errors from the script into the page */
               url: batch_path,
               dataType: 'text',
               success: function (data) {
+				   selector = '#' + eval("type");
+                    status_selector = '#' + eval("type") + '_status';        
+                  $(status_selector).css('background-color', 'green');
                   $(selector).html(messages.get("running") + ' ' + type);
                    $(status_selector).html(data);
              }
           });
        
-         // reload graphs for stats only
-         if (type == 'stats') {
-  
-             
-         }
-
          $(selector).html(waiting + ' ' + type);
      } catch (error) {
          alert(messages.get('erroris') + ' ' + error) ;
@@ -556,8 +617,6 @@ can be used to transmit errors from the script into the page */
     } 
 
      $("#form").validate();
-     // balloon help via qtip plugin, turned off at present
-     //  $('input').qtip({ style: { name: 'cream', tip: true } }) ;
      $('#hash_type').css('display:none');
 
      // show logoff if logon, show admin link in user, if admin, needs to be multilingual
@@ -580,7 +639,13 @@ can be used to transmit errors from the script into the page */
      }
      
       get_stats_json('/cgi-bin/cclite.cgi?action=getstats&hours_back=168',1) ;
-   
+      
+      // user stats for yellow page display only
+      // if ( $("#userbalances").length > 0 ) {
+      // alert('user is ' + $('#fromuserid').val())
+      // get_stats_json('/cgi-bin/cclite.cgi?action=getstats&hours_back=168&stats_user=' $('#fromuserid').val() + ,1) ;
+      // }
+    
      if ($("#fileproblems").length > 1) {
 
          $("#fileliteral").html(messages.get('batchfileprobs'));
@@ -734,11 +799,11 @@ var path = document.location.pathname;
      
 /* only show uploader if positioned on admin page */
 
-if ($("#upload_button").length > 0) {
+  if ($("#file-uploader").length > 0) {
 
         function createUploader(){            
             var uploader = new qq.FileUploader({
-                element: document.getElementById('upload_button'),
+                element: document.getElementById('file-uploader'),
                 action: '/cgi-bin/protected/ccupload.cgi',
                 
                 // additional data to send, name-value pairs
@@ -776,7 +841,9 @@ if ($("#upload_button").length > 0) {
         });        
         // in your app create uploader as soon as the DOM is ready
         // don't wait for the window to load  
-     };
+    
+    };
+    
      // end of bath file uploader
        window.onload = createUploader;  
    } // end of cookie level == admin for uploader

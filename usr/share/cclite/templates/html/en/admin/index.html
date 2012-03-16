@@ -25,7 +25,7 @@
 	<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
 	<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
-        <!-- datatables later -->
+        <!-- datatables for later -->
 	<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 		
@@ -36,14 +36,15 @@
 	<script src="/javascript/jquery-cookies.js"></script>
 	<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
 	<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
-	<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>
+	<!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 	<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
-	<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
 	<!-- others non jquery -->
 	<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
 	<script src="/javascript/jquery-tagsuggest.js"></script>
 	<script src="/javascript/json_parse.js" type="text/javascript"></script>
+
+        <script src="/javascript/fileuploader.js" type="text/javascript"></script>
        
         <!-- graphing -->
          <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" ></script>
@@ -116,7 +117,7 @@
 
 <div id="outer">
 	<div id="header">
-		<h1><a href="/cgi-bin/cclite.cgi">Cclite Admin</a></h1>
+		<h1><a title="Administrative Interface for Cclite" href="/cgi-bin/protected/ccadmin.cgi">Cclite Admin</a></h1>
 
 	</div>
 		
@@ -126,7 +127,7 @@
 
                         <li><a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">Change Status of $$fieldsref{registry}</a>
 </li>
-			<li><<a class="bodytext" title="Show Linked Partner Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Partners</a></li>
+			<li><a class="bodytext" title="Show Linked Partner Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Partners</a></li>
 			<li><a class="bodytext" title="Create a New Currency" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Create Currency</a></li>
 			<li><a class="bodytext" title="Show Currencies in " href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Show Currencies</a></li>
 			<li><a class="bodytext"title="Create New Ad Category" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Create Ad Category</a></li>
@@ -137,7 +138,7 @@
 			<li><a title="Create Remote or Local Registry Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Create Registry Partner</a></li>
 			<li><a title="Apply Service Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply Service Charge</a></li>
 			<li><a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">Create Batch Dirs</a></li>
-			<li><<a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">Modify $$fieldsref{registry}</a></li>
+			<li><a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify"> Modify $$fieldsref{registry}</a></li>
 			
                     
 		</ul>
@@ -153,15 +154,17 @@
                 </div>
 		<div valign="top" id="secondaryContent">
 <!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->			
- <h3>Ad categories</h3>
+$$fieldsref{count} non-administration users are currently logged in 
 $$fieldsref{righthandside}
 <br/><br/><br/>
 <div id="volumes" style="width:260px;height:150px;"></div>
+<div id="graphlabel1"></div>
 <div id="averages" style="width:260px;height:150px;"></div>
+<div id="graphlabel2"></div>
 		</div>
 		  <div class="clear"><div id="footer">
 			<a href="/cgi-bin/cclite.cgi">Home</a> | <a href="#">Contact Us</a><br />
-			Cclite &copy; Hugh Barnard 2003-2011
+			Cclite &copy; Hugh Barnard 2003-2012
 	</div></div>
                 </div>
 	</div>

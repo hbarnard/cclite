@@ -66,6 +66,7 @@ my $VERSION = 1.00;
   add_registry
   add_partner
   get_installer_link
+  get_logged_in_count
   get_set_batch_files
   go_offline
   go_online
@@ -650,14 +651,12 @@ EOT
         $wantarray, $evaltext, $is_require, $hints,      $bitmask
     ) = caller(1);
 
-    ###print "p:$package l:$line f:$subroutine  $fieldsref->{newregistry} " ;
+    # added turn commit limit into pennies if decimal currency 3/2012
+    my %configuration = main::readconfiguration();
+    $fieldsref->{'commitlimit'} =  $fieldsref->{'commitlimit'}*100 if ( $configuration{usedecimals} eq 'yes' );
 
     update_database_record( $class, $fieldsref->{newregistry},
         'om_registry', 1, $fieldsref, 'en', $token );
-
-    # previous 0.6.0 code keep for a while...
-    ### add_database_record( $class, $fieldsref->{newregistry},
-    ###    'om_registry', $fieldsref, $token );
 
     # set up directories for all batch processes
     my ( $error, $report_ref, $file_ref ) =
@@ -976,6 +975,12 @@ sub get_set_batch_files {
 
     my %configuration = %$configref;
 
+    #FIXME: hack for database prefix in cpanel, 
+    # we want pretty directory names for the paths...
+    if ( length( $configuration{'cpanelprefix'} ) ) {
+        $registry =~ s/$configuration{'cpanelprefix'}\_// ;
+    }
+    
     my ( %file, %report, $html );
 
     # make a subdirectory for graphs etc...
@@ -1041,6 +1046,27 @@ EOT
     return ( $error, \%report, \%file );
 
 }
+
+
+=head2 get_logged_in 
+
+Get the count and names of those logged in
+for preparing to put registry offline
+
+=cut
+
+
+sub get_logged_in_count {
+	
+  my ( $class, $db, $table, $fieldsref, $token ) = @_;
+	
+  # get count and list of whos online
+  my ( $count, $login_array_ref ) = whos_online( $class, $db, $token );	
+  # -1 because admin is logged in to be able to do this!
+  return ($count - 1);	
+}	
+
+
 
 =head2 go_offline
 

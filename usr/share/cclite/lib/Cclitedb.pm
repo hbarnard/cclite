@@ -1489,7 +1489,11 @@ EOT
 
 Two queries, one to get the credits per unixtime
 The second, indexed by unixtime to identifiy th corresponding debits
-There's probably an easier way of doing this...
+This doesn't work well at all, at present, so there is a fixed set of
+queries running two months back. Next step will be the correlated
+subquery, example below...no group by because we want total cumulative sum...
+
+tradeStamp is multuiplied by 1000 to give milliseconds for flot
 
 SELECT tradeId,tradeCurrency as currency,
        unix_timestamp(tradeStamp)*1000 as x_axis, 
@@ -1513,43 +1517,53 @@ SELECT tradeId,tradeCurrency as currency,
       and tradeDestination != 'cash' 
    group by substr(tradeStamp,1,16), currency
 
+
+SELECT DayCount,
+       Sales,
+       Sales+COALESCE((SELECT SUM(Sales) 
+                      FROM Sales b 
+                      WHERE b.DayCount < a.DayCount),0)
+                         AS RunningTotal
+FROM Sales a
+ORDER BY DayCount
+
+
+
 =cut
 
 
 sub _sql_balances_for_time_slices {
 
-    	my ($slice, $user_string1, $user_string2) = @_ ;
-
-        my $sql_string1 = <<EOT;
- SELECT tradeId,tradeCurrency as currency,
-       unix_timestamp(tradeStamp)*1000 as x_axis, 
+    	my ($slice, $seconds_back, $user_string1, $user_string2) = @_ ;
+              
+        my $sql_string = <<EOT;
+ SELECT tradeId, `code` as currency, tradeStamp,
+       (unix_timestamp() - $seconds_back) as x_axis, 
        sum(tradeAmount) as y_axis
-       from om_trades 
-    where unix_timestamp(tradeStamp) >= (unix_timestamp()-604800) 
+       from om_trades , om_currencies 
+    where unix_timestamp(tradeStamp) <= (unix_timestamp() - $seconds_back) 
+       and om_trades.tradeCurrency = `name`
        and tradeType = 'credit' 
        $user_string1
        and ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) 
        and tradeDestination != 'cash' 
-    group by substr(tradeStamp,$slice), currency 
-
-EOT
-
-
-        my $sql_string2 = <<EOT;
-SELECT tradeId,tradeCurrency as currency,
-       unix_timestamp(tradeStamp)*1000 as x_axis, 
-       -(sum(tradeAmount)) as sum
-       from om_trades 
-    where unix_timestamp(tradeStamp) >= (unix_timestamp()-604800) 
+    group by currency 
+UNION
+SELECT tradeId, `code` as currency, tradeStamp,
+      (unix_timestamp() - $seconds_back)  as x_axis, 
+       -(sum(tradeAmount)) as y_axis
+       from om_trades, om_currencies 
+    where unix_timestamp(tradeStamp) <= (unix_timestamp() - $seconds_back)
+      and om_trades.tradeCurrency = `name`
       and tradeType = 'debit' 
       $user_string2
       and ( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) 
       and tradeDestination != 'cash' 
-   group by substr(tradeStamp,$slice), currency        
+   group by currency        
          
 EOT
 	
-return ($sql_string1, $sql_string2) ;
+return ($sql_string) ;
 	
 }	
 
@@ -1581,12 +1595,14 @@ sub makebutton {
         if ( $field_name !~ /Send|Go/ ) {
 
 #FIXME: only need id info within a delete or display button, should only need id, en principe!
+# fromuserid is used by yellow pages to get stats for the advertising user...
             next
               if ( ( $action eq "delete" || $action =~ /^display|show/ )
-                && ( $field_name ne $id && $field_name ne 'userLogin' ) );
+                && ( $field_name ne $id && $field_name ne 'userLogin' &&
+                $field_name ne 'fromuserid'  ) );
 
             my $hidden_field = <<EOT;
- <input type="hidden" name="$field_name" value="$hash_ref->{$field_name}">
+ <input id="$field_name" type="hidden" name="$field_name" value="$hash_ref->{$field_name}">
 EOT
 
             #FIXME: name collision, displayed user data and current user...
@@ -1830,6 +1846,8 @@ This provides several hash refs one for each currency
 Queries and processing more complex than averages and volumes
 so moved into a separate piece of processing...
 
+Some of this should be in Cclite.pm
+
 =cut
 
 
@@ -1853,47 +1871,65 @@ sub get_raw_stats_data_for_balances {
     # fill the 'missing' sql_string variables
     my $slice   = $types{$type};
     my $x_axis  = $axis{$type};
-    my $seconds = $from_x_hours_back * 60 * 60;
+    my $seconds = $from_x_hours_back * 3600;
   
-    
-   # if there's a user for balances add constraint for sql union bits 
-   ( $user eq '' )
+    # if there's a user for balances add constraint for sql union bits 
+    ( $user eq '' )
       ? ( $user_string = '' )
       : ( $user_string = "and tradeDestination = \'$user\' " );     
-   ( $user eq '' )
+    ( $user eq '' )
       ? ( $user_string1 = '' )
       : ( $user_string1 = "and tradeSource = \'$user\' " );
-	
-	
-	   my ($sql_string1, $sql_string2) =	_sql_balances_for_time_slices  ($slice, $user_string, $user_string1) ;
-       my ( $registry_error, $hash_ref ) = sqlraw( $class, $db, $sql_string1, 'tradeId', $token );
-	   my ( $registry_error, $hash_ref1 ) = sqlraw( $class, $db, $sql_string2, 'x_axis', $token );
+  
+  
+    #FIME: calculate ten points to make ten queries, not good but...
+    my $points = $seconds/10 ; # alway integer since multiplied by 3600 above...
+    my $counter = $seconds ;
+    my $x_axis ;
+  
+    while ($counter >= 0) {
+		
+	   my $sql_string =	_sql_balances_for_time_slices  ($slice, $counter, $user_string, $user_string1) ;
 	   
-	   # add the x_axis debit, a minus value to the credit to create a y axis with totals
+	   
+	   ###print "sql string is $sql_string<br/><br/>" ;
+	   
+       my ( $registry_error, $hash_ref ) = sqlraw( $class, $db, $sql_string, 'tradeId', $token );
+	   
+	   my %totals_by_currency ;
+	   
+	   
 	   foreach my $key (keys %$hash_ref) {
-		   $hash_ref->{$key}->{'y_axis'} = $hash_ref->{$key}->{'y_axis'} 
-		          + $hash_ref1->{$hash_ref->{$key}->{'x_axis'}}->{'sum'} ;
-		# do decimals, if configured            
+		  
+		  # do decimals, if configured            
 		   $hash_ref->{$key}->{'y_axis'} = sprintf "%.2f",
           ( $hash_ref->{$key}->{'y_axis'} / 100 )
           if ( $configuration{usedecimals} eq 'yes' );
+	
+	      $totals_by_currency{$hash_ref->{$key}->{'currency'}} +=
+          $hash_ref->{$key}->{'y_axis'};	          
   
         }
         
-        my %duplicates ; # prevent x axis duplicates    
-        foreach my $key (keys %$hash_ref) { 	  
-		  # make data for each currency	  
-          $flot{$hash_ref->{$key}->{'currency'}} .= " [\"$hash_ref->{$key}->{x_axis}\", \"$hash_ref->{$key}->{y_axis}\"], \n" 
-              if (! length($duplicates{$hash_ref->{$key}}));
-           $duplicates{$hash_ref->{$key}} = 'y' ;   
+        # add a record for each currency time series
+        my $x_axis = (time() - $counter) * 1000 ;
+        
+        my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($x_axis);
+        $year = $year + 1900 ;
+        $mon++ ;
+        ###print "$mday/$mon/$year $hour:$min:$sec<br/><br/>" ;
+        
+        foreach my $key (keys %totals_by_currency) { 	  
+          $flot{$key} .= " [\"$x_axis\", \"$totals_by_currency{$key}\"], \n" ;
         }
+		$counter= $counter - $points ;
+    }
           
-        foreach my $key (keys %flot) {
-          # snip off last comma
-           $flot{$key} =~ s/\,\s*$// ;	
-	    }  
+    foreach my $key (keys %flot) {
+      # snip off last comma
+      $flot{$key} =~ s/\,\s*$// ;	
+	}  
 
-   
    return \%flot ;
 }
 
@@ -1920,7 +1956,7 @@ sub whos_online {
         $array_ref = $sth->fetchall_arrayref();
         $sth->finish();
     }
-    my $count = scalar($array_ref);
+    my $count = scalar(@$array_ref);
     return ( $count, $array_ref );
 
 }

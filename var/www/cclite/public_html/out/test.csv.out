@@ -1,14 +1,0 @@
-04/10/2005,ddawg,manager,dalston,dalston,ducket,credit,N,345,test1,invalid sending user,invalid currency,not a debit transaction,
-05/10/2005,ddawg,manager,dalston,dalston,ducket,credit,N,456,test2,invalid sending user,invalid currency,not a debit transaction,
-06/10/2005,ddawg,manager,dalston,dalston,ducket,credit,N,42,test3,invalid sending user,invalid currency,not a debit transaction,
-07/10/2005,ddawg,manager,dalston,dalston,ducket,credit,N,42,test4,invalid sending user,invalid currency,not a debit transaction,
-08/10/2005,ddawg,dduck,chelsea,chelsea,bucket,debit,N,34,test5,Transaction accepted
-09/10/2005,ddawg,dduck,chelsea,chelsea,lucket,debit,N,78,test6,Transaction accepted
-10/10/2005,ddawg,dduck,chelsea,chelsea,bucket,debit,N,56,test7,Transaction accepted
-11/10/2005,ddawg,dduck,chelsea,chelsea,lucket,credit,N,34,test8,not a debit transaction,
-12/10/2005,ddawg,dduck,chelsea,chelsea,lucket,debit,N,56,test9,Transaction accepted
-13/10/2005,ddawg,dduck,chelsea,chelsea,lucket,debit,N,56,test10,Transaction accepted
-14/10/2005,ddawg,manager,chelsea,chelsea,ducket,debit,N,456,test11,Transaction accepted
-15/10/2005,ddawg,activealready,chelsea,chelsea,ducket,debit,N,42,test12,Transaction accepted
-16/10/2005,ddawg,manager,chelsea,chelsea,ducket,debit,N,10,test13,Transaction accepted
-17/10/2005,ddawg,dduck,chelsea,chelsea,lucket,debit,N,10,test14,Transaction accepted

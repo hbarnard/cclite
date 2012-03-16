@@ -168,7 +168,7 @@ EOT
 
     my ( $r, $m, $error, $balvol, $templ, $c ) =
       show_balance_and_volume( $class, $db, $record_ref->{'fromuserid'},
-        'html', $token );
+        $fieldsref, $token );
     $record_ref->{'balanceandvolume'} = $balvol;
 
     $html = "<table>$html</table>";
