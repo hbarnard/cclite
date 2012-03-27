@@ -50,7 +50,7 @@ package Cclite;
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
-use Data::Dumper ;
+use Data::Dumper;
 use Cclitedb;
 use Cccookie;
 use Ccvalidate;
@@ -71,6 +71,7 @@ my $VERSION = 1.00;
   show_user
   confirm_user
   change_language
+  check_ip_is_allowed
   logon_user
   do_login
   logoff_user
@@ -176,6 +177,7 @@ sub add_user {
     $fieldsref->{'userLogin'} = lc( $fieldsref->{'nuserLogin'} );
 
     # api user creation gives non-validated stub records
+    # api user creation can only come from approved IP addresses 03/2012
     if ( $fieldsref->{'logontype'} ne 'api' ) {
         @status =
           validate_user( $class, $db, $fieldsref, $messagesref, $token, "",
@@ -185,6 +187,33 @@ sub add_user {
             $fieldsref->{'errors'} = join( "<br/>", @status );
             return ( "0", "", "", $html, "newuser.html", "" );
         }
+    } else {
+        my $allowed =
+          check_ip_is_allowed( $class, $db, 'om_registry', $ENV{'REMOTE_ADDR'},
+            $token );
+
+        my $user_ref1 =
+          check_name_exists( $class, $db, $fieldsref, '', $token, '', '' );
+        my $user_ref2 =
+          check_email_exists( $class, $db, $fieldsref, '', $token, '', '' );
+
+        my $message;
+
+        $fieldsref->{'mode'}          = 'json';
+        $fieldsref->{'righthandside'} = '';
+        undef $fieldsref->{'action'};
+
+     # don't allow direct add_user if non-allowed ip or duplicate login or email
+        if ( !$allowed || length($user_ref1) || length($user_ref2) ) {
+            $message = 'NOK';
+            undef $fieldsref; #FIXME: don't tell why, perhaps this is a misteake
+                # just return a generic json for the moment 03/2012
+            my $refresh =
+              deliver_remote_data( $db, $table, $message, $fieldsref, '',
+                $token );
+            return ( $refresh, '', '', '', '', '' );
+        }
+
     }
 
     # new users are set to initial status defined in cclite.cf
@@ -256,8 +285,16 @@ EOT
         );
     }
 
-    return ( 1, $return_url, $error, "$messages{useradded} <br/> $mail_return",
-        'result.html', '' );
+    if ( $fieldsref->{'mode'} eq 'json' ) {
+
+        my $refresh =
+          deliver_remote_data( $db, $table, 'OK', undef, '', $token );
+        return ( $refresh, '', '', '', '', '' );
+    } else {
+        return ( 1, $return_url, $error,
+            "$messages{useradded} <br/> $mail_return",
+            'result.html', '' );
+    }
 }
 
 # make a user active in the database usually via reception
@@ -474,6 +511,10 @@ sub logon_user {
             $userref->{'language'},
             $cookie{'token'} );
 
+        # flip to admin to start. if admin
+        if ( $userref->{'userLevel'} eq 'admin' ) {
+            $fieldsref->{'home'} =~ s/cclite.cgi/protected\/ccadmin.cgi/;
+        }
         print $cookieheader ;
         print "Location:$fieldsref->{home}\n\n";
         exit 0;
@@ -999,16 +1040,24 @@ sub modify_user {
     my $hash       = '';
     my $return_url = $fieldsref->{'home'};
 
-    @status =
-      validate_user( $class, $db, $fieldsref, $messagesref, $token, "", "" );
-    if ( $status[0] == -1 ) {
-        shift @status;
-        $html = join( '<br/>', @status );
-        return (
-            0,          $return_url, '',
-            $html,      $pages,      'result.html',
-            $fieldsref, '',          $token
-        );
+    ###print Dumper $fieldsref ;
+
+    my @status;
+    if ( $fieldsref->{'logontype'} ne 'api' ) {
+        @status =
+          validate_user( $class, $db, $fieldsref, $messagesref, $token, "",
+            "" );
+        if ( $status[0] == -1 ) {
+
+            shift @status;
+            $html = join( '<br/>', @status );
+            return (
+                0,          $return_url, '',
+                $html,      $pages,      'result.html',
+                $fieldsref, '',          $token
+            );
+        }
+
     }
 
     # mobile pin number is stored as hashed
@@ -1023,6 +1072,7 @@ sub modify_user {
         'userLogin', $fieldsref, $pages,     'users.html',
         $token
       );
+
     return (
         0,         $metarefresh, $error,   $html, $pages,
         $pagename, $fieldsref,   $cookies, $token
@@ -1292,11 +1342,15 @@ sub transaction {
      {"registry":"$transaction{fromregistry}","table": "om_trades", "message"
 EOT
 
-    # this is somewhat more rational as of 06/2007
+    # 07/2011 make singular, where necessary for REST/json
+    # need to do this before the mirror transaction is created...
+    if ( $transaction{'mode'} eq 'json' ) {
+        $transaction{'tradeCurrency'} =~ s/ies$/y/i;    # dallies -> dally
+        $transaction{'tradeCurrency'} =~ s/s$//i;       # tpounds -> tpound
+    }
+
     my @remote_status;    # messages returned from remote registry
     my @local_status;     # messages returned from local registry
-        # also local messages are accumulated then returned so that
-        # the user can see everything that's wrong, not just the last message
 
     my ( $refresh, $metarefresh, $error, $html, $pagename, $cookies );
 
@@ -1346,8 +1400,8 @@ EOT
         # html to return html, values to return raw balances and volumes
         # for each currency
         # FIXME: mode = values forced should return and parse json, perhaps
-        my $hash_ref ;
-        $hash_ref->{'mode'} = 'values' ; 
+        my $hash_ref;
+        $hash_ref->{'mode'} = 'values';
         my ( $balance_ref, $volume_ref ) = show_balance_and_volume(
             'local',
             $transaction{'fromregistry'},
@@ -1358,11 +1412,15 @@ EOT
         # current balance for this particular currency
         my $balance = $balance_ref->{ $transaction{'tradeCurrency'} };
 
-# balances are negative in the sending side, need to subtract and make absolute
-# if more than commitment limit transaction does not proceed
-# sysaccount -can- issue value into accounts: should check for 'local' style currency
-# corrected commit limit arithmetic 12/2008
-# corrected non-decimal commitment at registry creation + arithmetic 3/2012 in Ccadmin.pm
+=pod
+
+        balances are negative in the sending side, need to subtract and make absolute
+        if more than commitment limit transaction does not proceed
+        sysaccount -can- issue value into accounts: should check for 'local' style currency
+        corrected commit limit arithmetic 12/2008
+        corrected non-decimal commitment at registry creation + arithmetic 3/2012 in Ccadmin.pm
+
+=cut
 
         if (
             (
@@ -1387,12 +1445,16 @@ EOT
     %transaction = %$transaction_ref;
     my %debit_transaction = %$debit_transaction_ref;
 
-# do the remote side before the local side..if the remote side fails, neither are done
-# the credit transaction can be in a remote registry
-# need to get the trading partners description from the originating registry, not the distant one
-# modified to deal with the current registry itself: most common type of transaction
-# local means on the same system, same_registry is on the same system, within the same registry
-# therefore can be carried within a mysql transaction
+=pod
+
+    do the remote side before the local side..if the remote side fails, neither are done
+    the credit transaction can be in a remote registry
+    need to get the trading partners description from the originating registry, not the distant one
+    modified to deal with the current registry itself: most common type of transaction
+    local means on the same system, same_registry is on the same system, within the same registry
+    therefore can be carried within a mysql transaction
+
+=cut
 
     my %registry;
 
@@ -1461,12 +1523,6 @@ EOT
         }
 
         # see if the currency exists in partner
-        # 07/2011 make singular, where necessary for REST/json
-        if ( $transaction{'mode'} eq 'json' ) {
-            $transaction{'tradeCurrency'} =~ s/ies$/y/i;    # dallies -> dally
-            $transaction{'tradeCurrency'} =~ s/s$//i;       # tpounds -> tpound
-        }
-
         my ( $status, $currencyref ) = get_where(
             $class, $transaction{'toregistry'},
             'om_currencies', '*', 'name', $transaction{'tradeCurrency'},
@@ -1484,6 +1540,27 @@ EOT
             push @local_status, $messages{currencyinactive};
         }
 
+        # see if the currency exists locally, if json
+        if ( $transaction{'mode'} eq 'json' ) {
+            my ( $status, $currencyref1 ) = get_where(
+                $class, $transaction{'fromregistry'},
+                'om_currencies', '*', 'name', $transaction{'tradeCurrency'},
+                $token, $offset, $limit
+            );
+
+            push @local_status, 'db5: $status' if length($status);
+
+            # no currency in local registry
+            if ( !length( $currencyref1->{'name'} ) ) {
+                push @local_status, $messages{nolocalcurrency};
+            }
+
+            # currency inactive in local registry
+            if ( $currencyref1->{'status'} ne "active" ) {
+                push @local_status, $messages{currencyinactive};
+            }
+        }
+
         # no zero value transactions...
         if ( $transaction{'tradeAmount'} == 0 ) {
             push @local_status, $messages{'zerovaluetransaction'};
@@ -1494,7 +1571,7 @@ EOT
       # processing changed 1/2009 to avoid storage of many rejected transactions
 
         if ( length( $local_status[0] ) ) {
-            push @local_status, $messages{'transactionrejected'};
+            unshift @local_status, $messages{'transactionrejected'};
             $transaction{'tradeStatus'} = 'rejected';
             my $output_message = join( $separator, @local_status );
 
@@ -1506,15 +1583,8 @@ EOT
                 return ( 1, $transaction_ref->{'home'},
                     $error, $output_message, 'result.html', '' );
             } else {
-
-                # put quotes around the messages for json...
-                my @local_status =
-                  map { ( my $s = $_ ) =~ s/(.*)/\"$1\"/; $s } @local_status;
-                my $output_message = join( $separator, @local_status );
-                my $json = <<EOT;
-                 $json_header: "NOK", "data": [$output_message ] }
-EOT
-                return $json;
+                return _make_transaction_json( \%transaction, 'NOK',
+                    \@local_status, undef );
             }
         }
 
@@ -1597,20 +1667,77 @@ EOT
     if (   $transaction_ref->{'mode'} ne 'engine'
         && $transaction_ref->{'mode'} ne 'json' )
     {
-        return (
-            "1", "$$transaction_ref{home}?action=showtransnotify_by_mail",
-            $error,
-            $output_message,
-
-            "result.html", ""
-        );
+        return ( "1", "$$transaction_ref{home}?action=showtransnotify_by_mail",
+            $error, $output_message, "result.html", "" );
 
     } elsif ( $transaction_ref->{'mode'} eq 'json' ) {
-        return "\{$output_message\}";
+
+        #push @local_status, "\{$output_message\}" ;
+        return _make_transaction_json( \%transaction, 'OK', \@local_status,
+            \@remote_status );
     } else {
         return $transaction_ref;
     }
 
+}
+
+=head3 _make_transaction_json
+
+Standardise the json processing and output from a 'standard' transaction
+This will gradually become more complex, unhappily, but, at least it's
+alll in one place
+
+message is NOK or OK
+
+
+OK transaction
+
+{
+    "registry": "dalston",
+    "table": "om_trades",
+    "message": "OK",
+    "data": [
+        {
+            "message": "Transaction Accepted",
+            "reference": "YzJBHd0KW6e1c2ukYsX8sG2uTUs"
+        }
+    ]
+}
+
+NOK transaction: may vary at present
+
+
+
+
+=cut
+
+sub _make_transaction_json {
+
+    my ( $transaction_ref, $message, $local_status_ref, $remote_status_ref ) =
+      @_;
+
+    # make the header like the 'others'
+    my $json_header = <<EOT;
+     {"registry":"$transaction_ref->{'fromregistry'}","table": "om_trades", "message"
+EOT
+
+    my @status;
+    if ( length($remote_status_ref) ) {
+        @status = ( @$local_status_ref, @$remote_status_ref );
+    } else {
+        @status = @$local_status_ref;
+    }
+
+    # put quotes around the messages for json...
+    #@status = map { ( my $s = $_ ) =~ s/(.*)/\"$1\"/; $s } @status;
+    my $output_message = join( '","', @status );
+    my $output_message = "\"$output_message\"";
+
+    my $json = <<EOT;
+                 $json_header: "$message", "data": [$output_message] }
+EOT
+
+    return $json;
 }
 
 =head3 create_transaction_mirror
@@ -2778,9 +2905,8 @@ sub show_balance_and_volume {
     my ( $registry_error, $volume_hash_ref, $balance_hash_ref ) =
       get_transaction_totals( $class, $db, $user, $months_back, $token );
 
-
     #FIXME: this is somewhat duplicated in the stats balances processing
-    # in get_stats 
+    # in get_stats
     foreach my $key ( keys %$balance_hash_ref ) {
 
         #FIXME: does this work properly?
@@ -2791,15 +2917,25 @@ sub show_balance_and_volume {
         $total_balance{ $balance_hash_ref->{$key}->{'currency'} } +=
           $balance_hash_ref->{$key}->{'sum'};
 
-        if ( ( $fieldsref->{'mode'} eq 'html' || !length($fieldsref->{'mode'}) )
-            && $month_counter <= $months_back )
+        if (
+            (
+                $fieldsref->{'mode'} eq 'html'
+                || !length( $fieldsref->{'mode'} )
+            )
+            && $month_counter <= $months_back
+          )
         {
         }
     }
 
     foreach my $key ( sort { $b cmp $a } keys %$volume_hash_ref ) {
-        if ( ( $fieldsref->{'mode'} eq 'html' || !length($fieldsref->{'mode'}) )
-            && $month_counter <= $months_back )
+        if (
+            (
+                $fieldsref->{'mode'} eq 'html'
+                || !length( $fieldsref->{'mode'} )
+            )
+            && $month_counter <= $months_back
+          )
         {
             ( $month_counter % 2 )
               ? ( $row_style = "odd" )
@@ -2825,7 +2961,7 @@ EOT
     }
 
     # default behaviour is to return html
-    if ( $fieldsref->{'mode'} eq 'html' || !length($fieldsref->{'mode'}) ) {
+    if ( $fieldsref->{'mode'} eq 'html' || !length( $fieldsref->{'mode'} ) ) {
 
         # lay currencies by month out in a row
         my $html;
@@ -2863,8 +2999,9 @@ EOT
         my $json1 .=
           deliver_remote_data( $db, 'om_transactions', $registry_error,
             $volume_hash_ref, $status, $token );
-#FIXME:  # delivers two structures though, straighten out             
-        return "$json|$json1";   
+
+        #FIXME:  # delivers two structures though, straighten out
+        return "$json|$json1";
     }
 
     # }
@@ -2896,6 +3033,39 @@ sub get_registry_status {
     }
 }
 
+=head3 get_allowed_ips
+
+Get list of allowed IP addresses from the registry record. This
+is now used when adding or modify users [and other things, after a while]
+via the rest interface. Stops spam bots adding users or provides a small
+line of defence
+
+=cut
+
+sub check_ip_is_allowed {
+    my ( $class, $db, $table, $ip_address, $registry_private_value ) = @_;
+
+    my ( $status, $registry_ref ) =
+      get_where( $class, $db, $table, '*', 'id', '1', $registry_private_value,
+        '', '' );
+
+# test registry record, can't logon if registry status is down or in closing process
+    if ( length($status) ) {
+        my $message = "get_llowed_ips: registry record not found";
+        log_entry( $class, $db, $message, '' );
+        return $message;
+    } else {
+
+ # space separated list of IP addresses, relaxed in 5/2010 to multiple spaces...
+        my @allowed_ip_addresses =
+          split( /\s+/, $registry_ref->{'allow_ip_list'} );
+        my %ip_hash = map { $_ => 1 } @allowed_ip_addresses;
+
+        # should be 1 if found...
+        return ( $ip_hash{$ip_address} );
+    }
+}
+
 =head3 get_stats
 
 Get statistics data for new style jquery etc.
@@ -2905,63 +3075,72 @@ statistics
 =cut
 
 sub get_stats {
-	
-    my ( $class, $db, $user, $user_level, $from_x_hours_back, $type, $token ) = @_;
 
-    $user_level ||= 'user' ;
-    
-    my ($json, $status, $hash_ref, $averages, $volumes, $balances_by_currency_ref);
-    
-    my $milliseconds = $from_x_hours_back * 3600 * 1000 ;
-    
-    # graph stats are delivered for admin level or user level, this may not be granular enough...
-    if ($user_level eq 'admin') {
-    $hash_ref  =  get_raw_stats_data( $class, $db, $user, $from_x_hours_back, 'average', $type, $token ); 
-    $averages  =  _make_flot_array($hash_ref) ;  
-    $hash_ref  =  get_raw_stats_data( $class, $db, $user, $from_x_hours_back, 'volume', $type, $token );
-    $volumes  =  _make_flot_array($hash_ref) ;  
+    my ( $class, $db, $user, $user_level, $from_x_hours_back, $type, $token ) =
+      @_;
 
-    $json = <<EOT;
+    $user_level ||= 'user';
+
+    my ( $json, $status, $hash_ref, $averages, $volumes,
+        $balances_by_currency_ref );
+
+    my $milliseconds = $from_x_hours_back * 3600 * 1000;
+
+# graph stats are delivered for admin level or user level, this may not be granular enough...
+    if ( $user_level eq 'admin' ) {
+        $hash_ref =
+          get_raw_stats_data( $class, $db, $user, $from_x_hours_back, 'average',
+            $type, $token );
+        $averages = _make_flot_array($hash_ref);
+        $hash_ref =
+          get_raw_stats_data( $class, $db, $user, $from_x_hours_back, 'volume',
+            $type, $token );
+        $volumes = _make_flot_array($hash_ref);
+
+        $json = <<EOT;
   {\"registry"\:\"$db\",\"table\": \"om_trades\", \"message":\"OK\", \"milliseconds_back\": $milliseconds,\"averages\": [$averages], \"volumes\": [$volumes] } 
 EOT
-    
-    
-    } elsif ($user_level eq 'user') {
-	  #complex sob, balance for individual currencies grouped by date	
-      $balances_by_currency_ref =  get_raw_stats_data_for_balances( $class, $db, $user, $from_x_hours_back, $type, $token ) ;
-      my @balance_values ;
-	  foreach my $key (keys %$balances_by_currency_ref) {
-       push @balance_values, "\"$key\":  [$balances_by_currency_ref->{$key}] " ; 
-	  }	  	
-	  $json = join(', ',@balance_values) ;
-	  	  
-    $json = <<EOT;
+
+    } elsif ( $user_level eq 'user' ) {
+
+        #complex sob, balance for individual currencies grouped by date
+        $balances_by_currency_ref =
+          get_raw_stats_data_for_balances( $class, $db, $user,
+            $from_x_hours_back, $type, $token );
+        my @balance_values;
+        foreach my $key ( keys %$balances_by_currency_ref ) {
+            push @balance_values,
+              "\"$key\":  [$balances_by_currency_ref->{$key}] ";
+        }
+        $json = join( ', ', @balance_values );
+
+        $json = <<EOT;
   {\"registry"\:\"$db\",\"table\": \"om_trades\", \"message":\"OK\", \"milliseconds_back\": $milliseconds, \"balances\": {$json} } 
 EOT
 
-	}	
-  
+    }
+
     ###print "json is $json" ;
     return $json;
 
 }
 
-
 sub _make_flot_array {
-	
-   my $hash_ref = shift ;
-   ###print Dumper $hash_ref ;
-   # [x,y], suitable for plotting with jquery flot
-   my $flot ;
-   foreach my $key (keys %$hash_ref) {
-     $flot .= "[\"$hash_ref->{$key}->{x_axis}\",\"$hash_ref->{$key}->{y_axis}\"],\n" ;
-   }
-   # snip off last comma
-   $flot =~ s/\,\s*$// ;	
-   return $flot ;
-	
-}	
 
+    my $hash_ref = shift;
+    ###print Dumper $hash_ref ;
+    # [x,y], suitable for plotting with jquery flot
+    my $flot;
+    foreach my $key ( keys %$hash_ref ) {
+        $flot .=
+"[\"$hash_ref->{$key}->{x_axis}\",\"$hash_ref->{$key}->{y_axis}\"],\n";
+    }
+
+    # snip off last comma
+    $flot =~ s/\,\s*$//;
+    return $flot;
+
+}
 
 1;
 

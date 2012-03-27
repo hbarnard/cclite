@@ -74,6 +74,7 @@ pre { color: #000000;
 			<li><a href="#get_set_batch_files">get_set_batch_files</a></li>
 		</ul>
 
+		<li><a href="#get_logged_in">get_logged_in</a></li>
 		<li><a href="#go_offline">go_offline</a></li>
 		<li><a href="#go_online">go_online</a></li>
 		<li><a href="#get_installer_link">get_installer_link</a></li>
@@ -103,6 +104,7 @@ pre { color: #000000;
 <li><a href="#do_delete_registry-">do_delete_registry</a></li>
 <li><a href="#apply_service_charge-">apply_service_charge</a></li>
 <li><a href="#get_set_batch_files-">get_set_batch_files</a></li>
+<li><a href="#get_logged_in_count-">get_logged_in_count</a></li>
 <li><a href="#go_offline-">go_offline</a></li>
 <li><a href="#go_online-">go_online</a></li>
 <li><a href="#get_installer_link-">get_installer_link</a></li>
@@ -156,7 +158,6 @@ Ccu.pm</p>
 <pre>
 <a name="package-Ccadmin-"></a><span class="k">package </span><span class="i">Ccadmin</span><span class="sc">;</span>
 
-
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">vars</span> <span class="q">qw(@ISA @EXPORT)</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Exporter</span><span class="sc">;</span>
@@ -184,6 +185,7 @@ Ccu.pm</p>
   <span class="q">add_registry</span>
   <span class="q">add_partner</span>
   <span class="q">get_installer_link</span>
+  <span class="q">get_logged_in_count</span>
   <span class="q">get_set_batch_files</span>
   <span class="q">go_offline</span>
   <span class="q">go_online</span>
@@ -243,7 +245,7 @@ for a new installation, the current software version is 'guessed' here...</p>
     <span class="i">$configuration</span>{<span class="w">userss</span>}                 = <span class="q">&quot;no&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">usedecimals</span>}            = <span class="q">&quot;yes&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">usetags</span>}                = <span class="q">&quot;yes&quot;</span><span class="sc">;</span>
-    <span class="i">$configuration</span>{<span class="w">version</span>}                = <span class="q">&quot;0.8.1&quot;</span><span class="sc">;</span>
+    <span class="i">$configuration</span>{<span class="w">version</span>}                = <span class="q">&quot;0.9.0&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">servicechargelimit</span>}     = <span class="q">&quot;notused&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">smslocal</span>}               = <span class="q">&quot;1&quot;</span><span class="sc">;</span>
 
@@ -749,14 +751,13 @@ one for local, one for remote..messier but more efficient?</p>
         <span class="i">$wantarray</span><span class="cm">,</span> <span class="i">$evaltext</span><span class="cm">,</span> <span class="i">$is_require</span><span class="cm">,</span> <span class="i">$hints</span><span class="cm">,</span>      <span class="i">$bitmask</span>
     <span class="s">)</span> = <span class="k">caller</span><span class="s">(</span><span class="n">1</span><span class="s">)</span><span class="sc">;</span>
 
-    <span class="c">###print &quot;p:$package l:$line f:$subroutine  $fieldsref-&gt;{newregistry} &quot; ;</span>
+    <span class="c"># added turn commit limit into pennies if decimal currency 3/2012</span>
+    <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">main::readconfiguration</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;commitlimit&#39;</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;commitlimit&#39;</span>} * <span class="n">100</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">usedecimals</span>} <span class="k">eq</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="i">update_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">newregistry</span>}<span class="cm">,</span>
         <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;en&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-
-    <span class="c"># previous 0.6.0 code keep for a while...</span>
-    <span class="c">### add_database_record( $class, $fieldsref-&gt;{newregistry},</span>
-    <span class="c">###    &#39;om_registry&#39;, $fieldsref, $token );</span>
 
     <span class="c"># set up directories for all batch processes</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$report_ref</span><span class="cm">,</span> <span class="i">$file_ref</span> <span class="s">)</span> =
@@ -846,7 +847,7 @@ This is a heavy and somewhat clumsy operation.</p>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">eq</span> <span class="q">&#39;values&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">return</span> <span class="i">@registries</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="i">carp</span><span class="s">(</span><span class="q">&#39;unkown mode for registry display&#39;</span><span class="s">)</span> <span class="sc">;</span>
+        <span class="i">carp</span><span class="s">(</span><span class="q">&#39;unkown mode for registry display&#39;</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
 <span class="c">#----------------------------------------------------------------------------------</span>
@@ -1057,6 +1058,12 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
 
     <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">%$configref</span><span class="sc">;</span>
 
+    <span class="c">#FIXME: hack for database prefix in cpanel,</span>
+    <span class="c"># we want pretty directory names for the paths...</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="q">&#39;cpanelprefix&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$registry</span> =~ <span class="q">s/$configuration{&#39;cpanelprefix&#39;}\_//</span><span class="sc">;</span>
+    <span class="s">}</span>
+
     <span class="k">my</span> <span class="s">(</span> <span class="i">%file</span><span class="cm">,</span> <span class="i">%report</span><span class="cm">,</span> <span class="i">$html</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># make a subdirectory for graphs etc...</span>
@@ -1124,6 +1131,22 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
 <span class="s">}</span>
 
 </pre><p></p>
+<h2><a name="get_logged_in">get_logged_in</a></h2>
+<p>Get the count and names of those logged in
+for preparing to put registry offline</p>
+<pre>
+<a name="get_logged_in_count-"></a><span class="k">sub </span><span class="m">get_logged_in_count</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c"># get count and list of whos online</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$login_array_ref</span> <span class="s">)</span> = <span class="i">whos_online</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c"># -1 because admin is logged in to be able to do this!</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$count</span> - <span class="n">1</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
+</pre><p></p>
 <h2><a name="go_offline">go_offline</a></h2>
 <p>Bring down one registry, move registry record into state 'down'
 FIXME: needs to deliver errors and this is a weakness in update_database_record</p>
@@ -1132,15 +1155,14 @@ FIXME: needs to deliver errors and this is a weakness in update_database_record<
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="i">$fieldsref</span> = <span class="s">{</span> <span class="q">&#39;id&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;1&#39;</span><span class="cm">,</span> <span class="q">&#39;status&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;closing&#39;</span> <span class="s">}</span><span class="sc">;</span>
-    
+
     <span class="c">###debug_message(&#39;in go offline routine&#39;) ;</span>
-    
+
     <span class="c"># get count and list of whos online</span>
-    <span class="k">my</span> <span class="s">(</span><span class="i">$count</span><span class="cm">,</span><span class="i">$login_array_ref</span><span class="s">)</span> = <span class="w">whos_online</span> <span class="s">(</span><span class="i">$class</span><span class="cm">,</span><span class="i">$db</span><span class="cm">,</span><span class="i">$token</span><span class="s">)</span> <span class="sc">;</span>
-    
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$login_array_ref</span> <span class="s">)</span> = <span class="i">whos_online</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
         <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-
 
     <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;registryclosing&#39;</span>}<span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -1153,11 +1175,11 @@ FIXME: needs to deliver errors and this is a weakness in update_database_record<
 <a name="go_online-"></a><span class="k">sub </span><span class="m">go_online</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="i">$fieldsref</span> = <span class="s">{</span><span class="q">&#39;id&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;1&#39;</span><span class="cm">,</span> <span class="q">&#39;status&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;open&#39;</span> <span class="s">}</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span> = <span class="s">{</span> <span class="q">&#39;id&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;1&#39;</span><span class="cm">,</span> <span class="q">&#39;status&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;open&#39;</span> <span class="s">}</span><span class="sc">;</span>
     <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
         <span class="i">$language</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span><span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;registryopen&#39;</span>}<span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="k">undef</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;0&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;registryopen&#39;</span>}<span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
 </pre><p></p>

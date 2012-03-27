@@ -49,7 +49,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- 后来的数据表 -->
+<!-- 以后再数据表 -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
@@ -73,13 +73,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
 </script>
 
-<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
-</script>
+<!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
-
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
 <!-- 其他非 jquery -->
 
@@ -90,6 +87,9 @@ $$fieldsref{metarefresh}
 </script>
 
 <script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- 网络图表 -->
@@ -117,6 +117,12 @@ $$fieldsref{logout_script}
 </head>
 
 <body>
+
+<!-- 此开关打开/关闭小数点的东西 -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
 
 <!-- 搜索用户、 行业、 广告 -->
 
@@ -162,11 +168,11 @@ $$fieldsref{status_message}
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
 <option value='en'>
-英语
+js-英语
 </option>
 
 <option value='ar'>
-阿拉伯语
+js-阿拉伯语
 </option>
 
 <option value='bn'>
@@ -174,7 +180,7 @@ $$fieldsref{status_message}
 </option>
 
 <option value='zh'>
-中文
+js-中文
 </option>
 
 <option value='de'>
@@ -182,7 +188,7 @@ $$fieldsref{status_message}
 </option>
 
 <option value='nl'>
-荷兰语
+js-荷兰语
 </option>
 
 <option value='fr'>
@@ -198,35 +204,35 @@ $$fieldsref{status_message}
 </option>
 
 <option value='el'>
-希腊语
+js-希腊语
 </option>
 
 <option value='ja'>
-日语
+js-日语
 </option>
 
 <option value='ko'>
-朝鲜语
+js-朝鲜语
 </option>
 
 <option value='pt'>
-葡萄牙
+js-葡萄牙
 </option>
 
 <option value='ro'>
-罗马尼亚
+js-罗马尼亚
 </option>
 
 <option value='ru'>
-俄语
+js-俄语
 </option>
 
 <option value='th'>
-泰语
+js-泰语
 </option>
 
 <option value='vi'>
-越南语
+js-越南语
 </option>
 
 </select>
@@ -252,7 +258,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a href="/cgi-bin/cclite.cgi">
+<a title="Cclite 的管理界面" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite 管理员
 </a>
 </h1>
@@ -277,7 +283,6 @@ Cclite 管理员
 </li>
 
 <li>
-<
 <a class="bodytext" title="显示链接的合作伙伴登记处" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 合作伙伴
 </a>
@@ -336,7 +341,6 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
 修改!$ $fieldsref{注册表} ！
 </a>
@@ -361,11 +365,27 @@ $$fieldsref{installer_link}
 <div valign="top" id="secondaryContent">
 
 <!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
-
-<h3>
-广告类别
-</h3>
+$$fieldsref{count} non-administration users are currently logged in 
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+<br/>
+
+
+<div id="volumes" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel1">
+</div>
+
+<div id="averages" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel2">
+</div>
+
 </div>
 
 <div class="clear">

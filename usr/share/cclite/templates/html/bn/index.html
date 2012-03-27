@@ -119,6 +119,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- এই সুইচটি on/off দশমিক বিন্দু stuff বদলায় -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- ব্যবহারকারী, বাণিজ্য, adsএর জন্য অনুসন্ধান -->
 
 <br/>
@@ -325,12 +331,6 @@ Openid যোগ করুন
 </li>
 
 <li>
-<a title="স্থানান্তর টাকা অথবা ঘন্টা" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-অর্থপ্রদান
-</a>
-</li>
-
-<li>
 <a title="Goods অথবা পরিষেবার জন্য বিভক্ত অর্থপ্রদান" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 বিভক্ত অর্থপ্রদান
 </a>
@@ -390,6 +390,17 @@ Goods/Services
 Ad শ্রেণীবিভাগ
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

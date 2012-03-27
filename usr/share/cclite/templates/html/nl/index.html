@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- deze schakeloptie draait aan/uit de decimale komma spullen -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- zoeken naar gebruikers, ambachten, advertenties -->
 
 <br/>
@@ -324,12 +330,6 @@ Account wijzigen
 </li>
 
 <li>
-<a title="Overdracht valuta of uren" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Betaling
-</a>
-</li>
-
-<li>
 <a title="Betaling voor goederen of diensten te splitsen" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Split betaling
 </a>
@@ -389,6 +389,17 @@ Plaats advertentie
 Advertentie Categorieën
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

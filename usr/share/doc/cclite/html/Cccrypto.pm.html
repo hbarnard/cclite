@@ -115,13 +115,11 @@ pre { color: #000000;
   <span class="q">encrypt_and_sign_notifications</span>
   <span class="q">send_notifications )</span><span class="sc">;</span>
 
-
-
 <span class="c"># these are decryption, transcoding etc. etc.</span>
 <span class="k">use</span> <span class="w">MIME::Base64</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">MIME::Decoder</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">GnuPG</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Ccu</span> <span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 
 <span class="c"># this is used to parse addresses (logically enough...)</span>
 <span class="c">#use Email::Address;</span>

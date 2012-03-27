@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- Questa opzione attiva/disattiva la roba punto decimale -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- ricerca di utenti, mestieri, annunci -->
 
 <br/>
@@ -324,12 +330,6 @@ Modificare l'Account
 </li>
 
 <li>
-<a title="Trasferimento valuta o ore" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Pagamento
-</a>
-</li>
-
-<li>
 <a title="Dividere il pagamento per beni o servizi" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Pagamento Split
 </a>
@@ -389,6 +389,17 @@ Luogo Ad
 Categorie di annunci
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

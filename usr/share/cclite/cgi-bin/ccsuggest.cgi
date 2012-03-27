@@ -71,7 +71,7 @@ use locale;
 
 # logger must be before Cc modules, since loggers are
 # defined within those modules...
-use Log::Log4perl;
+
 use Ccu;           # utilities + config + multilingual messages
 use Cccookie;      # use the cookie module
 use Ccvalidate;    # use the validation and javascript routines

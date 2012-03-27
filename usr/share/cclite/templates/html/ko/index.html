@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- 이 스위치는 on/off 소수점 물건 설정 -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- 사용자, 무역, 광고에 대 한 검색 -->
 
 <br/>
@@ -324,12 +330,6 @@ Cclite 사용자
 </li>
 
 <li>
-<a title="통화 또는 시간을 전송" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-결제
-</a>
-</li>
-
-<li>
 <a title="상품 또는 서비스에 대 한 분할 지불" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 분할 지불
 </a>
@@ -389,6 +389,17 @@ Cclite 사용자
 광고 카테고리
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

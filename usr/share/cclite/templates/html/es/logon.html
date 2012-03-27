@@ -1,81 +1,166 @@
-<span class="errors">$$fieldsref{errors}</span>
-      <form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
-<input name="action" value="logon" type="hidden"> 
+
+<div class="errors">
+$$fieldsref{errors}
+</div>
+
+<form  id="form" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="logon" type="hidden">
+
 <input name="subaction" value="om_users" type="hidden">
+
 <input name="logontype" value="form" type="hidden">
-        <table class="pme-main" summary="om_users">
-          <tbody class="stripy">
-            <tr>
-              <td nowrap >Nombre de la Red de Intercambio (Registry)<br>
-              </td>
-              <td style="vertical-align: top;"><input class="required" name="registry">
 
-<span class="pme-key-1"><!-- Use <i>dalston</i> for the test logins..see below!</span> -->
-              </td>
-            </tr>
-            <tr >
-              <td nowrap >Nombre de la Cuenta<br>
-              </td>
-              <td > <input class="required"
+<table  class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr>
+
+<td nowrap >
+Nombre del registro
+<br>
+
+</td>
+
+<td>
+<input class="required" name="registry" type="text">
+
+</td>
+
+</tr>
+
+<tr >
+
+<td nowrap >
+Nombre de la cuenta
+<br>
+
+</td>
+
+<td >
+
+<input class="required"
  name="userLogin" autocomplete="off"
- size="45" maxlength="50" value="" type="text"></td>
-            </tr>
-            <tr >
-              <td ">Contraseña</td>
-              <td > <input class="required"
- name="userPassword" size="32" maxlength="32" value="" type="password">
+ size="50" maxlength="50" type="text">
 </td>
-            </tr>
-            
-            
 
-          </tbody>
-        </table>
-        <br/><br/>
-        <hr class="pme-hr">
-  
-        <table >
-          <tbody>
-            <tr >
-              <td > <input type="submit" value="Logon">&nbsp;<input 
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>
-      <form id="form" class="pme-form" method="POST" action="/cgi-bin/ccopenid.cgi">
-        <br/><br/>
-              Connexión por Open Id (experimental)  
-        <span class="errors">$$fieldsref{openiderrors}</span>
-        <table>
-             <tr>
-              <td nowrap >Nombre de la Red de Intercambio (Registry)<br>
-              </td>
-            <!--  onfocus="$.cookie('registry1', null);" onblur="$.cookie('registry1', this.value);" -->
-              <td style="vertical-align: top;"><input class="required"  name="registry">
+</tr>
 
-<span class="pme-key-1"><!-- Use <i>dalston</i> for the test logins..see below!</span> -->
-              </td>
-            </tr>
-                  <tr >
-              <td ">Open Id</td>
-              <td > <input class="required"
- name="identifier" size="45" maxlength="120" value="$$fieldsref{identifier}" type="text">
+<tr >
+
+<td ">
+Contraseña
 </td>
-            </tr>
-        </table>
-        <hr class="pme-hr">
-        <table >
-          <tbody>
-            <tr >
-              <td > <input type="submit" value="Logon">&nbsp;<input 
- name="cancel" value="Clear" type="reset"> </td>
-            </tr>
-          </tbody>
-        </table>
-      </form>  
-      
-      
+
+<td >
+
+<input class="required"
+ name="userPassword" size="32" maxlength="32"  type="password">
+
+</td>
+
+</tr>
+
+<tr >
+
+<td >
+
+<input type="submit" value="Inicio de sesión">
+&nbsp;
+<input 
+ name="cancel" value="Claro" type="reset">
+
+</form>
+
+</td>
+<td>
+</td>
+
+</tr>
+
+<td colspan="2">
+<h3>
+Abierto de Id de sesión (experimental)
+</h3>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<span class="errors">
+$$fieldsref{openiderrors}
+</span>
+
+<table >
+
+<tr>
+
+<td nowrap >
+Nombre del registro
+<br>
+
+</td>
+
+<!--  onfocus="$.cookie('registry1', null);" onblur="$.cookie('registry1', this.value);" -->
+
+<td style="vertical-align: top;">
+
+<form id="form" class="pme-form" method="POST" action="/cgi-bin/ccopenid.cgi">
+
+<input class="required"  name="registry">
+
+<span class="pme-key-1">
+<!-- Utilice &lt;i&gt;dalston&lt;/i&gt; para los inicios de sesión de prueba...Vea a continuación! -->
+
+</td>
+
+</tr>
+
+<tr >
+
+<td>
+Id abierto
+</td>
+
+<td >
+
+<input class="required"
+ name="identifier" size="50" maxlength="120" value="$$fieldsref{identifier}" type="text">
+
+</td>
+
+</tr>
+
+</table>
+
+<table >
+
+<tbody>
+
+<tr >
+
+<td >
+
+<input type="submit" value="Inicio de sesión">
+&nbsp;
+<input 
+ name="cancel" value="Claro" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>
+
 <!--
 
 Put your own explanation here and remove the comment tags!
@@ -93,4 +178,4 @@ Create a new account, if you like. It will need a valid email address to mail yo
 There are plenty of rough edges, but all comments are welcome. I'm also putting news of progress into 
 <a href="http://blog.bigwaveheuristics.com/index.php?cat=10">my blog</a>.
 
---> 
+-->

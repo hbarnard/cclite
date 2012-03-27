@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- このスイッチ機能をオンまたはオフ、小数点もの -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- 検索ユーザー、取引、広告 -->
 
 <br/>
@@ -324,12 +330,6 @@ Openid を追加します。
 </li>
 
 <li>
-<a title="転送通貨または時間" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-お支払い
-</a>
-</li>
-
-<li>
 <a title="商品やサービスの支払いを分割します。" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 分割支払
 </a>
@@ -389,6 +389,17 @@ Openid を追加します。
 広告カテゴリ
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- chuyển đổi này sẽ chuyển thành/tắt những thứ daáu thaäp phaân -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- tìm kiếm người dùng, ngành nghề, quảng cáo -->
 
 <br/>
@@ -174,7 +180,7 @@ Bengali [một phần]
 </option>
 
 <option value='zh'>
-Tiếng Trung Quốc
+Trung Quốc
 </option>
 
 <option value='de'>
@@ -324,12 +330,6 @@ Sửa đổi các tài khoản
 </li>
 
 <li>
-<a title="Chuyển tiền tệ hoặc giờ" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Thanh toán
-</a>
-</li>
-
-<li>
 <a title="Tách thanh toán cho hàng hóa hoặc dịch vụ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Split thanh toán
 </a>
@@ -389,6 +389,17 @@ Ra quảng cáo
 Thể loại quảng cáo
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

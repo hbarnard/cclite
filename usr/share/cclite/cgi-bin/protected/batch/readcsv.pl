@@ -15,9 +15,12 @@
 #---------------------------------------------------------------------------
 #
 
-print STDOUT "Content-type: text/html\n\n";
+#print STDOUT "Content-Type: application/json\n\n";
+
+print STDOUT "Content-Type: text/html\n\n";
 
 # this should result in errors printed in the status line of the management page
+
 my $data = join( '', <DATA> );
 eval $data;
 if ($@) {
@@ -48,7 +51,9 @@ my %fields    = cgiparse();
 
 # cron: hardwire the registry name into the script
 my $registry = $cookieref->{'registry'} ;
-$registry = 'dalston' ;
+
+###testing from command line...
+###$registry = 'dalston' ;
 
 # timestamp output files so that they don't get confused
 my ($numeric_date,$time) = getdateandtime(time()) ;
@@ -77,13 +82,15 @@ while ( defined( $file = readdir(DIR) ) ) {
     my $csv_file = "$csv_dir\/$file";
     
     # registry and configuration passed into this now, paths per registry etc. 10/2009
-    read_csv_transactions( 'local', $registry, 'om_trades', $csv_file, $file,
-        \%configuration,
+    my $report_ref = read_csv_transactions( 'local', $registry, 'om_trades', $csv_file, $file,
+        \%configuration, \%fields,
         $token, "", "" );
 
     # give the input file a 'done' extension so that it doesn't get re-processed
     system("mv $csv_file $csv_file\056done\056$numeric_date$time");
-    print "$messages{justprocessed} $csv_file\n" ;
+    ###print "$messages{justprocessed} $csv_file\n" ;
+    my $json = deliver_remote_data ( $registry, 'om_trades', '', $report_ref, '', $token );
+    print $json ;
 }
 
 closedir(DIR);

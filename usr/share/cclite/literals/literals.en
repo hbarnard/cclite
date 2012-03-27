@@ -27,6 +27,7 @@ transactionrejected=Transaction rejected
 nonexist=Non existent destination
 userinactive=User inactive
 noremotecurrency=Currency not in remote registry
+nolocalcurrency=Currency not in local registry
 currencyinactive=Currency inactive
 sameaccount=Cannot transfer to same account
 transactionaccepted=Transaction Accepted

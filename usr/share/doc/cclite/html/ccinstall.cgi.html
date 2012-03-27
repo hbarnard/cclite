@@ -301,7 +301,7 @@ configuration should work...</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$log_config</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$log_base</span>        = <span class="q">&#39;var/cclite/log&#39;</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$log_base</span> = <span class="q">&#39;var/cclite/log&#39;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$error</span><span class="sc">;</span>
 
     <span class="c"># default case...</span>
@@ -324,8 +324,8 @@ configuration should work...</p>
     <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
         <span class="i">$error</span> .= <span class="i">$@</span><span class="sc">;</span>
     <span class="s">}</span>
-  
-  <span class="k">return</span> <span class="s">(</span><span class="i">$error</span><span class="cm">,</span> <span class="k">undef</span><span class="s">)</span> <span class="sc">;</span>
+
+    <span class="k">return</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
@@ -475,7 +475,8 @@ FIXME: Needs test in test suite</p>
 
 </pre><p></p>
 <h3><a name="test_log">test_log</a></h3>
-<p>test whether digest module is present, otherwise whinge...</p>
+<p>test whether Log4perl module is present, otherwise whinge...
+Now deprecated, since Log4perl isn't required 03/2012</p>
 <pre>
 <a name="test_log-"></a><span class="k">sub </span><span class="m">test_log</span> <span class="s">{</span>
 
@@ -637,7 +638,7 @@ and general extra flexibility</p>
 
     <span class="s">(</span> <span class="i">$messages</span>[<span class="n">1</span>]<span class="cm">,</span> <span class="i">$hash_type</span> <span class="s">)</span> = <span class="i">test_sha</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>       <span class="c"># test for sha2 module</span>
     <span class="i">$messages</span>[<span class="n">2</span>] = <span class="i">test_dbi</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>                       <span class="c"># for dbi module</span>
-    <span class="i">$messages</span>[<span class="n">4</span>] = <span class="i">test_log</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="c">###$messages[4] = test_log();</span>
 
     <span class="i">$login</span> = <span class="k">getpwuid</span><span class="s">(</span><span class="i">$&lt;</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -654,8 +655,6 @@ and general extra flexibility</p>
     <span class="s">}</span>
 
 <span class="s">}</span>
-
-
 
 <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
     <span class="i">show_problems</span><span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$login</span><span class="cm">,</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>

@@ -124,8 +124,6 @@ my $pages = new HTML::SimpleTemplate("$configuration{'templates'}/$language");
 
 #=============================================================
 
-our $log = Log::Log4perl->get_logger("Ccsmsgateway");
-
 =head3 debug_hash_contents
 
 debug the contents of a hash, with stamp for calling routine
@@ -162,9 +160,9 @@ sub gateway_sms_transaction {
     # no originator, so no lookup or no message...reject
 
     if ( !length( $fields_ref->{'originator'} ) ) {
-        $log->warn(
-"$fields_ref->{'message'} from $fields_ref->{'originator'} $messages{'smsoriginblank'}"
-        );
+        my $message =
+"$fields_ref->{'message'} from $fields_ref->{'originator'} $messages{'smsoriginblank'}";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
@@ -179,14 +177,17 @@ sub gateway_sms_transaction {
 
     # no originator, so no lookup or no message...reject
     if ( !length( $fields_ref->{'message'} ) ) {
-        $log->warn("$fields_ref->{'originator'} $messages{'smsmessageblank'}");
+        my $message =
+          "$fields_ref->{'originator'} $messages{'smsmessageblank'}";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
     # no one with this number , so no lookup or no message...reject
     if ( !length( $from_user_ref->{'userLogin'} ) ) {
-        $log->warn(
-            "$fields_ref->{'originator'} $messages{'smsnumbernotfound'}");
+        my $message =
+          "$fields_ref->{'originator'} $messages{'smsnumbernotfound'}";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
@@ -198,8 +199,9 @@ sub gateway_sms_transaction {
         $pin              = $1;
         $transaction_type = $2;
     } else {
-        $log->warn(
-            "from: $fields_ref->{'originator'} $input -malformed transaction");
+        my $message =
+          "from: $fields_ref->{'originator'} $input -malformed transaction";
+        log_entry( 'local', $registry, $message, $token );
         my ($mail_error) = _send_sms_mail_message(
             'local',
             $registry,
@@ -226,9 +228,9 @@ sub gateway_sms_transaction {
     } elsif ( $transaction_type eq 'balance' ) {
         _gateway_sms_send_balance( $fields_ref, $token );
     } else {
-        $log->warn(
-            "from: $fields_ref->{'originator'} $input -unrecognised transaction"
-        );
+        my $message =
+          "from: $fields_ref->{'originator'} $input -unrecognised transaction";
+        log_entry( 'local', $registry, $message, $token );
         return 'unrecognisable transaction';
 
         # this is a 'bad' transaction of some kind...
@@ -295,7 +297,7 @@ sub _gateway_sms_pay {
     if ( $parse_type == 0 ) {
         my $message =
 "pay attempt from $fields{'originator'} to $transaction_description_ref->{'tomobilenumber'} : $messages{'smsinvalidsyntax'}";
-        $log->warn($message);
+        log_entry( 'local', $registry, $message, $token );
         my ($mail_error) = _send_sms_mail_message( 'local', $registry, $message,
             $from_user_ref );
         return;
@@ -338,9 +340,9 @@ sub _gateway_sms_pay {
     if ( scalar(@status) > 0 ) {
         _send_sms_mail_message( 'local', $registry, "$errors $input",
             $from_user_ref );
-        $log->warn(
-"pay attempt from $fields{'originator'} to $transaction_description_ref->{'tomobilenumber'} : $errors"
-        );
+        my $message =
+"pay attempt from $fields{'originator'} to $transaction_description_ref->{'tomobilenumber'} : $errors";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
@@ -566,7 +568,8 @@ sub _sms_message_parse {
 
     } else {
 
-        $log->warn("unparsed pay transaction is:$save_input  $input");
+        my $message = "unparsed pay transaction is:$save_input  $input";
+        log_entry( 'local', $registry, $message, '' );
 
     }
 
@@ -790,7 +793,8 @@ http://sms2.cardboardfish.com:9001/HTTPSMS?S=H&UN=$sms_user&P=$sms_password&DA=$
 EOT
 
     } else {
-        $log->warn("unknown or unimplemented sms type: $type");
+        my $message = "unknown or unimplemented sms type: $type";
+        log_entry( 'local', $registry, $message, '' );
         return "$messages{smserror} $type";
 
     }
@@ -804,7 +808,8 @@ EOT
         _charge_one_sms_unit( $class, $registry, $type, $from_user_ref,
             $transaction_ref );
     } else {
-        $log->warn("$messages{smserror} $http_response->code");
+        my $message = "$messages{smserror} $http_response->code";
+        log_entry( 'local', $registry, $message, '' );
         return "$messages{smserror} $http_response->code";
     }
 }

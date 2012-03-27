@@ -156,6 +156,7 @@ off at the moment, but will be 'on' within a couple of releases</p>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
+
 <span class="c">#use MIME::Base64;</span>
 
 <span class="c"># use Net::OAuth;       # for Oauth in a while...</span>
@@ -419,22 +420,13 @@ as Laura's note...</p>
 
 <span class="s">}</span>
 
-
-
 </pre><p></p>
 <h3><a name="gatekeeper">gatekeeper</a></h3>
 <p>Routine to protect batch scripts by testing token cookies</p>
 <pre>
-
 <a name="gatekeeper-"></a><span class="k">sub </span><span class="m">gatekeeper</span> <span class="s">{</span>
-	
-	
-	
-	
-<span class="s">}</span>	
-	
 
-
+<span class="s">}</span>
 
 </pre><p></p>
 <h3><a name="log_violation">log_violation</a></h3>
@@ -533,13 +525,13 @@ Should be replaced by something more secure and subtle.</p>
 <span class="s">}</span>
 
 <a name="encode_base64-"></a><span class="k">sub </span><span class="m">encode_base64</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span><span class="i">$data</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$data</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="i">$data</span> =~ <span class="q">tr|+/=|\-_|d</span><span class="sc">;</span>
     <span class="k">return</span> <span class="i">$data</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <a name="decode_base64-"></a><span class="k">sub </span><span class="m">decode_base64</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span><span class="i">$data</span><span class="s">)</span> = <span class="i">@_</span> <span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$data</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="c"># +/ should not be handled, so convert them to invalid chars</span>
     <span class="c"># also, remove spaces (\t..\r and SP) so as to calc padding len</span>
@@ -550,7 +542,6 @@ Should be replaced by something more secure and subtle.</p>
     <span class="s">}</span>
     <span class="k">return</span> <span class="i">$data</span><span class="sc">;</span>
 <span class="s">}</span>
-
 
 </pre><dl><dt><strong><a name="sha" class="item">cut
 #
@@ -778,7 +769,6 @@ method in previous releases....</p>
 =cut</pre>
 
 <pre>
-
 <span class="n">1</span><span class="sc">;</span>
 
 <a name="EOF-"></a></pre></body>

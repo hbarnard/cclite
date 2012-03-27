@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- Αυτός ο διακόπτης απενεργοποιεί on/off το δεκαδικό σημείο stuff -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- Αναζήτηση για χρήστες, τη διανομή, διαφημίσεις -->
 
 <br/>
@@ -324,12 +330,6 @@ Cclite χρήστη
 </li>
 
 <li>
-<a title="Μεταφορά νόμισμα ή ώρες" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Πληρωμή
-</a>
-</li>
-
-<li>
 <a title="Διαίρεση της πληρωμής για αγαθά ή υπηρεσίες" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Διαίρεση πληρωμής
 </a>
@@ -389,6 +389,17 @@ Cclite χρήστη
 Κατηγορίες διαφημίσεων
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

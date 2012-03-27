@@ -191,7 +191,7 @@ category and keywords work out</p>
 
         <span class="s">}</span>
 
-        <span class="c">#FIXME: this isn&#39;t a great way of storing tags </span>
+        <span class="c">#FIXME: this isn&#39;t a great way of storing tags</span>
         <span class="c">#       move tags to keywords field...</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;keywords&#39;</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;yellowtags&#39;</span>}<span class="sc">;</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;category&#39;</span>} = <span class="q">&#39;9999&#39;</span><span class="sc">;</span>
@@ -248,7 +248,7 @@ should be done as a nightly batch to generate static html</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$r</span><span class="cm">,</span> <span class="i">$m</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$balvol</span><span class="cm">,</span> <span class="i">$templ</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
       <span class="i">show_balance_and_volume</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$record_ref</span>-&gt;{<span class="q">&#39;fromuserid&#39;</span>}<span class="cm">,</span>
-        <span class="q">&#39;html&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="i">$record_ref</span>-&gt;{<span class="q">&#39;balanceandvolume&#39;</span>} = <span class="i">$balvol</span><span class="sc">;</span>
 
     <span class="i">$html</span> = <span class="q">&quot;&lt;table&gt;$html&lt;/table&gt;&quot;</span><span class="sc">;</span>
@@ -366,8 +366,8 @@ is to make the yellow pages more flexible and multilingual.</p>
     <span class="k">my</span> <span class="i">$interval</span> = <span class="n">1</span><span class="sc">;</span>    <span class="c"># one week for displaying items as new...</span>
     <span class="k">my</span> <span class="i">$registry_error</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$width_count</span> = <span class="n">1</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$status</span>   <span class="sc">;</span>  <span class="c"># blank entry used for delivering json</span>
-    <span class="k">my</span> <span class="i">$max_depth</span>   = <span class="i">$fieldsref</span>-&gt;{<span class="w">maxdepth</span>}
+    <span class="k">my</span> <span class="i">$status</span><span class="sc">;</span>          <span class="c"># blank entry used for delivering json</span>
+    <span class="k">my</span> <span class="i">$max_depth</span> = <span class="i">$fieldsref</span>-&gt;{<span class="w">maxdepth</span>}
       || <span class="n">5</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$max_entries</span> = <span class="n">100</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$total_count</span> = <span class="n">0</span><span class="sc">;</span>
@@ -404,12 +404,11 @@ is to make the yellow pages more flexible and multilingual.</p>
     <span class="c"># json raw cloud</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$json</span><span class="s">)</span> = <span class="i">deliver_remote_data</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span>
-            \<span class="i">%keyword_index</span><span class="cm">,</span> <span class="i">$status</span><span class="cm">,</span>  <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+            \<span class="i">%keyword_index</span><span class="cm">,</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="i">$json</span><span class="sc">;</span>
     <span class="s">}</span>
-    
 
-    <span class="c"># html cloud for right-hand-side    </span>
+    <span class="c"># html cloud for right-hand-side</span>
     <span class="k">my</span> <span class="i">$depth</span> = <span class="n">1</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$cloud</span><span class="sc">;</span>
 
@@ -418,11 +417,11 @@ is to make the yellow pages more flexible and multilingual.</p>
         <span class="i">$tag</span> =~ <span class="q">s/\s+$//g</span><span class="sc">;</span>
         <span class="i">$keyword_index</span>{<span class="i">$tag</span>} =~ <span class="q">s/\,$//</span><span class="sc">;</span>
 
-        <span class="k">my</span> <span class="i">$size</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$keyword_count</span>{<span class="i">$tag</span>} / <span class="i">$total_count</span> * <span class="n">100</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$size</span> = <span class="k">int</span><span class="s">(</span> <span class="i">$keyword_count</span>{<span class="i">$tag</span>} / <span class="i">$total_count</span> * <span class="n">10</span> <span class="s">)</span><span class="sc">;</span>
         <span class="c">### print &quot;$keyword_count{$tag} $total_count $size&lt;br/&gt;&quot; ;</span>
         <span class="i">$size</span> = <span class="n">50</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$size</span> &lt; <span class="n">50</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">$cloud</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
-<span class="hh">    &lt;span class=&quot;$keyword_type{$tag}&quot; style=&quot;font-size:$size%&quot;&gt;&lt;a title=&quot;get listing by category: $messages{&#39;count&#39;} $keyword_count{$tag}: $messages{$keyword_type{$tag}}&quot; href=&quot;/cgi-bin/cclite.cgi?action=showyellowbycat&amp;string1=$tag&quot;&gt;</span>
+<span class="hh">    &lt;span class=&quot;$keyword_type{$tag}&quot; style=&quot;font-size:$size&quot;&gt;&lt;a title=&quot;get listing by category: $messages{&#39;count&#39;} $keyword_count{$tag}: $messages{$keyword_type{$tag}}&quot; href=&quot;/cgi-bin/cclite.cgi?action=showyellowbycat&amp;string1=$tag&quot;&gt;</span>
 <span class="hh">         $tag&lt;/a&gt;&lt;/span&gt; </span>
 <span class="h">EOT</span>
 
@@ -434,8 +433,6 @@ is to make the yellow pages more flexible and multilingual.</p>
         <span class="s">}</span>
 
     <span class="s">}</span>
-
-
 
     <span class="k">return</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$cloud</span> <span class="s">)</span><span class="sc">;</span>
 

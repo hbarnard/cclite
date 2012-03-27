@@ -37,7 +37,7 @@ package Cclitedb;
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
-use Data::Dumper ;
+use Data::Dumper;
 use DBI;
 use Ccsecure;
 use Ccconfiguration;
@@ -204,7 +204,7 @@ sub update_database_record {
     #               2 for using the user logon
 
     my ( $class, $db, $table, $useid, $fieldsref, $language, $token ) = @_;
-    my ( $html, %messages, $messagesref );
+    my ( $html, %messages, $messagesref, $message );
 
     # deals with no language problem
     #FIXME: In Ccsmsgateway language delivers notused why is this?
@@ -214,7 +214,10 @@ sub update_database_record {
         $messagesref = \%messages;
     }
 
-    if ( $table eq 'om_users' && $$fieldsref{action} eq "update" ) {
+    if (   $table eq 'om_users'
+        && $fieldsref->{'action'} eq 'update'
+        && $fieldsref->{'logontype'} ne 'api' )
+    {
 
         # boolean smsreceipt update
         length( $$fieldsref{'userSmsreceipt'} )
@@ -256,6 +259,40 @@ sub update_database_record {
             $$fieldsref{userPinStatus} = 'active';
         }
 
+    } elsif ( $table eq 'om_users'
+        && $fieldsref->{'action'} eq 'update'
+        && $fieldsref->{'logontype'} eq 'api' )
+    {
+
+        my $allowed =
+          Cclite::check_ip_is_allowed( $class, $db, 'om_registry',
+            $ENV{'REMOTE_ADDR'}, $token );
+        my $user_ref1 =
+          Cclite::check_name_exists( $class, $db, $fieldsref, '', $token, '',
+            '' );
+        my $user_ref2 =
+          Cclite::check_email_exists( $class, $db, $fieldsref, '', $token, '',
+            '' );
+
+        $fieldsref->{'mode'}          = 'json';
+        $fieldsref->{'righthandside'} = '';
+        undef $fieldsref->{'action'};
+
+# don't allow direct add_user if non-allowed ip or non-exuistent login or duplicate email
+        if ( !$allowed || ( !length($user_ref1) ) || length($user_ref2) ) {
+            $message = 'NOK';
+            undef $fieldsref; #FIXME: don't tell why, perhaps this is a misteake
+            $fieldsref->{'mode'} = 'json';
+
+            # just return a generic json for the moment 03/2012
+            my $refresh =
+              deliver_remote_data( $db, $table, $message, $fieldsref, '',
+                $token );
+            return ( $refresh, '', '', '', '', $fieldsref );
+        } else {
+            $message = 'OK';
+            $useid   = '2';    #use the logon for update
+        }
     }
 
     my ( $rv, $rc, $record_id );
@@ -263,12 +300,20 @@ sub update_database_record {
     my $update = _sqlupdate( $dbh, $table, $useid, $fieldsref, $token );
     my $sth = $dbh->prepare($update);
     $sth->execute();
-    ###debug_message($update) ;
+
     #FIXME: Some tables still haven't literals
     my $table_literal = $messages{$table} || $table;
 
     $html = "$table_literal record $$fieldsref{id} $$fieldsref{action}";
-    return ( 1, $$fieldsref{home}, "", $html, "result.html", $fieldsref );
+
+    if ( $fieldsref->{'mode'} eq 'json' ) {
+        my $refresh =
+          deliver_remote_data( $db, $table, 'OK', undef, '', $token );
+        return ( $refresh, '', '', '', '', $fieldsref );
+    } else {
+        return ( 1, $$fieldsref{home}, "", $html, "result.html", $fieldsref );
+    }
+
 }
 
 =head3 delete_database_record
@@ -347,7 +392,7 @@ sub sqlraw {
         $hash_ref = $sth->fetchall_hashref($id);
         $sth->finish();
     }
-    
+
     ###print "$sqlstring $rv" ;
     ###print Dumper $hash_ref ;
     # --- example of use---------------------------------
@@ -472,6 +517,7 @@ sub get_transaction_totals {
     my ( $class, $db, $user, $months_back, $token ) = @_;
     my ( $registry_error, $dbh ) = _registry_connect( $db, $token );
     my $volume_sql = _sql_give_volumes( $user, $months_back, $token );
+
     # balance now allows cut-off date, can be used for zero crossing calc...
     my $balance_sql = _sql_get_balance_by_currency( $user, '', $token );
 
@@ -1003,8 +1049,10 @@ sub modify_database_record2 {
     my $limit;     # not used here
                    # this needs to be replaced by fetchrow_hashref...
     my $counter = 0;    # count the rows as they go by!
+
     my $get =
-      _sqlgetwhere( $name, $table, $fieldname, $token, $offset, $limit );
+      _sqlgetwhere( $name, $table, '*', $fieldname, $token, $offset, $limit );
+
     my ( $registry_error, $dbh ) = _registry_connect( $db, $token );
     my $sth = $dbh->prepare($get);
     $sth->execute();
@@ -1263,7 +1311,7 @@ EOT
         }
 
     }
-    ### print "where is $sqlgetwhere\n" ;
+    ###print "where is $sqlgetwhere\n" ;
     return $sqlgetwhere;
 }
 
@@ -1439,8 +1487,6 @@ group by substr(tradeStamp,1,10), currency
 
 =cut
 
-
-
 sub _sql_get_balance_by_currency {
 
     my ( $user, $date, $token ) = @_;
@@ -1454,12 +1500,10 @@ sub _sql_get_balance_by_currency {
       ? ( $user_string1 = '' )
       : ( $user_string1 = "tradeSource = \'$user\' and" );
 
-   # balance up to certain date only...
-   ( length($date) )
+    # balance up to certain date only...
+    ( length($date) )
       ? ( $date_string = "and tradeStamp <= cast($date as timestamp)" )
       : ( $date_string = '' );
-
-
 
     my $sql = <<EOT;
 SELECT tradeId,tradeCurrency as currency, sum(tradeAmount) as sum from om_trades 
@@ -1531,12 +1575,11 @@ ORDER BY DayCount
 
 =cut
 
-
 sub _sql_balances_for_time_slices {
 
-    	my ($slice, $seconds_back, $user_string1, $user_string2) = @_ ;
-              
-        my $sql_string = <<EOT;
+    my ( $slice, $seconds_back, $user_string1, $user_string2 ) = @_;
+
+    my $sql_string = <<EOT;
  SELECT tradeId, `code` as currency, tradeStamp,
        (unix_timestamp() - $seconds_back) as x_axis, 
        sum(tradeAmount) as y_axis
@@ -1562,12 +1605,10 @@ SELECT tradeId, `code` as currency, tradeStamp,
    group by currency        
          
 EOT
-	
-return ($sql_string) ;
-	
-}	
 
+    return ($sql_string);
 
+}
 
 =head3 makebutton
 
@@ -1597,9 +1638,12 @@ sub makebutton {
 #FIXME: only need id info within a delete or display button, should only need id, en principe!
 # fromuserid is used by yellow pages to get stats for the advertising user...
             next
-              if ( ( $action eq "delete" || $action =~ /^display|show/ )
-                && ( $field_name ne $id && $field_name ne 'userLogin' &&
-                $field_name ne 'fromuserid'  ) );
+              if (
+                ( $action eq "delete" || $action =~ /^display|show/ )
+                && (   $field_name ne $id
+                    && $field_name ne 'userLogin'
+                    && $field_name ne 'fromuserid' )
+              );
 
             my $hidden_field = <<EOT;
  <input id="$field_name" type="hidden" name="$field_name" value="$hash_ref->{$field_name}">
@@ -1784,19 +1828,23 @@ sub _format_number {
 
 sub get_raw_stats_data {
 
-    my ( $class, $db, $user, $from_x_hours_back, $graph_type, $type, $token ) = @_;
-    
+    my ( $class, $db, $user, $from_x_hours_back, $graph_type, $type, $token ) =
+      @_;
+
     my %configuration = readconfiguration();
-    
-    my %types =
-      ('seconds','1,19', 'minutes', '1,16', 'hours', '1,13', 'days', '1,10', 'month', '1,7' );
-    my %axis =
-      ('seconds','1,19', 'minutes', '1,16', 'hours', '9,5', 'days', '1,10', 'month', '1,7' );
+
+    my %types = (
+        'seconds', '1,19', 'minutes', '1,16', 'hours', '1,13',
+        'days',    '1,10', 'month',   '1,7'
+    );
+    my %axis = (
+        'seconds', '1,19', 'minutes', '1,16', 'hours', '9,5',
+        'days',    '1,10', 'month',   '1,7'
+    );
 
     # default is one week, shpuldn't be necessary, set in javascript ;
     $from_x_hours_back ||= 168;
     $type              ||= 'minutes';
-
 
     # fill the 'missing' sql_string variables
     my $slice   = $types{$type};
@@ -1828,17 +1876,15 @@ SELECT tradeId, unix_timestamp(tradeStamp)*1000 as x_axis, count(*)/2 as y_axis,
    group by substr(tradeStamp,$slice) ORDER BY tradeId asc ;
 EOT
 
-    } 
-
+    }
 
     ###print "type is $type, graph type is $graph_type, seconds are $seconds, sqlstring is $sql_string" ;
 
     my ( $registry_error, $hash_ref ) =
       sqlraw( $class, $db, $sql_string, 'tradeId', $token );
- 
+
     return $hash_ref;
 }
-
 
 =head3 get_raw_stats_data_for_balances
 
@@ -1850,91 +1896,92 @@ Some of this should be in Cclite.pm
 
 =cut
 
-
 sub get_raw_stats_data_for_balances {
 
     my ( $class, $db, $user, $from_x_hours_back, $type, $token ) = @_;
-    my ($user_string, $user_string1, %flot) ; # %flot is keyed by currency...
-    
+    my ( $user_string, $user_string1, %flot );   # %flot is keyed by currency...
+
     my %configuration = readconfiguration();
-    
-    my %types =
-      ('seconds','1,19', 'minutes', '1,16', 'hours', '1,13', 'days', '1,10', 'month', '1,7' );
-    my %axis =
-      ('seconds','1,19', 'minutes', '1,16', 'hours', '9,5', 'days', '1,10', 'month', '1,7' );
+
+    my %types = (
+        'seconds', '1,19', 'minutes', '1,16', 'hours', '1,13',
+        'days',    '1,10', 'month',   '1,7'
+    );
+    my %axis = (
+        'seconds', '1,19', 'minutes', '1,16', 'hours', '9,5',
+        'days',    '1,10', 'month',   '1,7'
+    );
 
     # default is one week, shpuldn't be necessary, set in javascript ;
     $from_x_hours_back ||= 48;
     $type              ||= 'seconds';
 
-
     # fill the 'missing' sql_string variables
     my $slice   = $types{$type};
     my $x_axis  = $axis{$type};
     my $seconds = $from_x_hours_back * 3600;
-  
-    # if there's a user for balances add constraint for sql union bits 
+
+    # if there's a user for balances add constraint for sql union bits
     ( $user eq '' )
       ? ( $user_string = '' )
-      : ( $user_string = "and tradeDestination = \'$user\' " );     
+      : ( $user_string = "and tradeDestination = \'$user\' " );
     ( $user eq '' )
       ? ( $user_string1 = '' )
       : ( $user_string1 = "and tradeSource = \'$user\' " );
-  
-  
+
     #FIME: calculate ten points to make ten queries, not good but...
-    my $points = $seconds/10 ; # alway integer since multiplied by 3600 above...
-    my $counter = $seconds ;
-    my $x_axis ;
-  
-    while ($counter >= 0) {
-		
-	   my $sql_string =	_sql_balances_for_time_slices  ($slice, $counter, $user_string, $user_string1) ;
-	   
-	   
-	   ###print "sql string is $sql_string<br/><br/>" ;
-	   
-       my ( $registry_error, $hash_ref ) = sqlraw( $class, $db, $sql_string, 'tradeId', $token );
-	   
-	   my %totals_by_currency ;
-	   
-	   
-	   foreach my $key (keys %$hash_ref) {
-		  
-		  # do decimals, if configured            
-		   $hash_ref->{$key}->{'y_axis'} = sprintf "%.2f",
-          ( $hash_ref->{$key}->{'y_axis'} / 100 )
-          if ( $configuration{usedecimals} eq 'yes' );
-	
-	      $totals_by_currency{$hash_ref->{$key}->{'currency'}} +=
-          $hash_ref->{$key}->{'y_axis'};	          
-  
+    my $points =
+      $seconds / 10;    # alway integer since multiplied by 3600 above...
+    my $counter = $seconds;
+    my $x_axis;
+
+    while ( $counter >= 0 ) {
+
+        my $sql_string =
+          _sql_balances_for_time_slices( $slice, $counter, $user_string,
+            $user_string1 );
+
+        ###print "sql string is $sql_string<br/><br/>" ;
+
+        my ( $registry_error, $hash_ref ) =
+          sqlraw( $class, $db, $sql_string, 'tradeId', $token );
+
+        my %totals_by_currency;
+
+        foreach my $key ( keys %$hash_ref ) {
+
+            # do decimals, if configured
+            $hash_ref->{$key}->{'y_axis'} = sprintf "%.2f",
+              ( $hash_ref->{$key}->{'y_axis'} / 100 )
+              if ( $configuration{usedecimals} eq 'yes' );
+
+            $totals_by_currency{ $hash_ref->{$key}->{'currency'} } +=
+              $hash_ref->{$key}->{'y_axis'};
+
         }
-        
+
         # add a record for each currency time series
-        my $x_axis = (time() - $counter) * 1000 ;
-        
-        my ($sec,$min,$hour,$mday,$mon,$year,$wday,$yday,$isdst) = localtime($x_axis);
-        $year = $year + 1900 ;
-        $mon++ ;
-        ###print "$mday/$mon/$year $hour:$min:$sec<br/><br/>" ;
-        
-        foreach my $key (keys %totals_by_currency) { 	  
-          $flot{$key} .= " [\"$x_axis\", \"$totals_by_currency{$key}\"], \n" ;
+        my $x_axis = ( time() - $counter ) * 1000;
+
+        my ( $sec, $min, $hour, $mday, $mon, $year, $wday, $yday, $isdst ) =
+          localtime($x_axis);
+        $year = $year + 1900;
+        $mon++;
+
+        foreach my $key ( keys %totals_by_currency ) {
+            $flot{$key} .= " [\"$x_axis\", \"$totals_by_currency{$key}\"], \n";
         }
-		$counter= $counter - $points ;
+        $counter = $counter - $points;
     }
-          
-    foreach my $key (keys %flot) {
-      # snip off last comma
-      $flot{$key} =~ s/\,\s*$// ;	
-	}  
 
-   return \%flot ;
+    foreach my $key ( keys %flot ) {
+
+        # snip off last comma
+        $flot{$key} =~ s/\,\s*$//;
+    }
+
+    return \%flot;
 }
-
-
-
 
 =head3 whos_online
 

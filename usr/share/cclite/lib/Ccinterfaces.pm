@@ -32,7 +32,7 @@ package Ccinterfaces;
 use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
-use Data::Dumper ;
+use Data::Dumper;
 use Cclite;
 use Cclitedb;
 use Ccu;
@@ -352,12 +352,12 @@ Skip # lines which are expected to be comments. Only allow debits, currently.
 
 sub read_csv_transactions {
     my (
-        $class,    $db,        $table,
-        $csv_file, $file_name, $configuration_ref,
-        $token,    $offset,    $limit
+        $class,     $db,                $table,      $csv_file,
+        $file_name, $configuration_ref, $fields_ref, $token,
+        $offset,    $limit
     ) = @_;
 
-
+    my ( $error_count, $success_count );
 
     open( CSV, $csv_file ) or die "can\'t open csv file: $csv_file";
 
@@ -366,7 +366,7 @@ sub read_csv_transactions {
 
     # results written per registry now...11/2009
     my $results_out =
-      "$$configuration_ref{csvout}/$db/$file_name\056$numeric_date$time\056html";
+"$$configuration_ref{csvout}/$db/$file_name\056$numeric_date$time\056html";
     open( OUT, ">$results_out" )
       or die "can\'t open csv output file: $results_out";
 
@@ -378,37 +378,33 @@ sub read_csv_transactions {
 </head>
 <body>    
 EOT
-    
 
     while (<CSV>) {
 
         my (
-          $messages,  $offset,      $limit,  $class,
-          $pages, %error, $save, $bad_registry, $token, %transaction 
+            $messages, $offset, $limit,        $class, $pages,
+            %error,    $save,   $bad_registry, $token, %transaction
         );
-
-
 
         s/"//g;    # remove quotes
         next if (/^#|^\s/);    # skip comment lines/header and space lines
-        
+
         chop($_);
-        $save = $_ ;
- 
+        $save = $_;
+
         # if the from registry is bad currency lookup etc. won't work...
-        $bad_registry = 0 ;
- 
+        $bad_registry = 0;
+
         my @transaction_array = split( /\,/, $_ );
-   
-   
+
         # from registry must be same as to registry for the moment, too much
         # complexity doing batch to remote 03/2012
-        if ($transaction_array[3] ne $transaction_array[4]) {
-			$error{'fromregistry'} = 'y' ;
-			$error{'toregistry'}   = 'y' ;
-   
-	    }    
-   
+        if ( $transaction_array[3] ne $transaction_array[4] ) {
+            $error{'fromregistry'} = 'y';
+            $error{'toregistry'}   = 'y';
+
+        }
+
         my ( $dberror, $fromuserref ) = get_where(
             $class,      $transaction_array[3],
             'om_users',  '*',
@@ -417,66 +413,72 @@ EOT
             $limit
         );
 
-
         if ( length($dberror) ) {
-            $error{'fromregistry'} = 'y' ;
-            $bad_registry = 1 ; 
+            $error{'fromregistry'} = 'y';
+            $bad_registry = 1;
         }
 
-        # don't fail on destination registry, could be remote...
-        #my ($error,$touserref)   = get_where($class,$transaction_array[4],'om_users','userLogin',$transaction_array[2],$token,$offset,$limit) ;
+        # test destination user in same registry, remote currently not allowed
+        my $touserref;
+        if ( !$bad_registry ) {
 
-        
+            ( $dberror, $touserref ) = get_where(
+                $class,      $transaction_array[4],
+                'om_users',  '*',
+                'userLogin', $transaction_array[2],
+                $token,      $offset,
+                $limit
+            );
+
+        }
+
+        # to user is invalid or absent
+        if ( !length($touserref) && !$bad_registry ) {
+            $error{'tradeDestination'} = 'y';
+        }
+
         # fail on currency not within this registry, cannot succeed
-        my $currencyref ;
-        if (! $bad_registry) {
-         ( $dberror, $currencyref ) = get_where(
-            $class,          $transaction_array[3],
-            'om_currencies', '*',
-            'name',          $transaction_array[5],
-            $token,          $offset,
-            $limit
-        );
-	    }
-       $DB::single = 1;
-       
-
-
+        my $currencyref;
+        if ( !$bad_registry ) {
+            ( $dberror, $currencyref ) = get_where(
+                $class,          $transaction_array[3],
+                'om_currencies', '*',
+                'name',          $transaction_array[5],
+                $token,          $offset,
+                $limit
+            );
+        }
 
         # one of the above lookups fails, reject the whole transaction
-        if ( !length($fromuserref) && ! $bad_registry ) {
-            $error{'tradeSource'} = 'y' ;
+        if ( !length($fromuserref) && !$bad_registry ) {
+            $error{'tradeSource'} = 'y';
         }
 
-        # removed, user can be a remote user
-        ###if (! length($touserref) ) {
-        ###  push @errors, $messages{invalidreceiving} ;
-        ###  $ok  = 0;
-        ###}
-
-        if ( !length($currencyref) && ! $bad_registry ) {
-            $error{'tradeCurrency'} = 'y' ;
+        if ( !length($currencyref) && !$bad_registry ) {
+            $error{'tradeCurrency'} = 'y';
         }
 
         # only debit transactions allowed at present, tradeType is NOT
         # part of a genuine transaction, at present!
         if ( $transaction_array[6] ne 'debit' ) {
-            $error{'tradeType'} = 'y' ;
-            $transaction{tradeType} = $messages{'notadebit'} ;
+            $error{'tradeType'} = 'y';
+            $transaction{tradeType} = $messages{'notadebit'};
         }
-       
-        # tradeAmount only contains numbers and decimal points, allow 123.1 for moment 
-        if ( $transaction_array[8] !~ /\d+/ && $transaction_array[8] !~ /\d+\.\d{1,2}/  ) {
-            $error{'tradeAmount'} = 'y' ;
+
+  # tradeAmount only contains numbers and decimal points, allow 123.1 for moment
+        if (   $transaction_array[8] !~ /^\d+$/
+            && $transaction_array[8] !~ /^\d+\.\d{1,2}$/ )
+        {
+            $error{'tradeAmount'} = 'y';
         }
-       
+
         # convert to standard transaction input format, fields etc.
         #fromregistry : chelsea
         $transaction{fromregistry} = $transaction_array[3];
 
-        # home : http://cclite.caca-cola.com:83/cgi-bin/cclite.cgi, for example
-        # $transaction{home}      = "";           # no home, not a web transaction
-         
+      # home : http://cclite.caca-cola.com:83/cgi-bin/cclite.cgi, for example
+      # $transaction{home}      = "";           # no home, not a web transaction
+
         # subaction : om_trades
         $transaction{subaction} = 'om_trades';
 
@@ -496,15 +498,16 @@ EOT
         $transaction{initialPaymentStatus} =
           $configuration_ref->{'initialpaymentstatus'};
 
-        # reformat date  ;
-        my $tdate ;
-        if ($transaction_array[0] =~ m/(\d\d)\D(\d\d)\D(\d\d\d\d)/ ) {
-         $tdate = ( length($3) == 0 ) ? $transaction_array[0] : "$3-$2-$1";
+        #validate and reformat date ;
+        my $tdate;
+        if ( $transaction_array[0] =~ m/(\d\d)\D(\d\d)\D(\d\d\d\d)/ ) {
+            $tdate = ( length($3) == 0 ) ? $transaction_array[0] : "$3-$2-$1";
+            $transaction{tradeDate} = $tdate;
         } else {
-		 	$error{'tradeDate'} = 'y' ;
-		}	
-
-        $transaction{tradeDate} = $tdate;
+            $error{'tradeDate'} = 'y';
+            $transaction{tradeDate} =
+              "<span class=\"failedcheck\">$transaction_array[0]</span>";
+        }
 
         #tradeTitle : added by this routine
         $transaction{tradeTitle} = $messages{batchtransaction};
@@ -524,34 +527,60 @@ EOT
 
         # call ordinary transaction
         my $transaction_ref = \%transaction;
+
         my ( $metarefresh, $home, $error, $output_message, $page, $c );
 
-        if (scalar(keys %error) == 0) {
-            ( $metarefresh, $home, $error, $output_message, $page, $c ) =
-              transaction( 'batch', $transaction{fromregistry},
-                'om_trades', $transaction_ref, $pages, $token );
-              $transaction_ref->{'tradeError'} = '<span class=\"failedcheck\">$error</span>' ;  
+        if ( scalar( keys %error ) == 0 ) {
+
+            # json is the default for this...
+            $transaction_ref->{'mode'} = $fields_ref->{'mode'} || 'json';
+
+            #FIXME: transaction has two return signatures
+            if ( $transaction_ref->{'mode'} ne 'json' ) {
+                ( $metarefresh, $home, $error, $output_message, $page, $c ) =
+                  transaction( 'batch', $transaction{fromregistry},
+                    'om_trades', $transaction_ref, $pages, $token );
+            } else {
+                ($output_message) =
+                  transaction( 'batch', $transaction{fromregistry},
+                    'om_trades', $transaction_ref, $pages, $token );
+            }
+
+            print "$output_message \n";
+
+            # data is OK but there's something wrong during the transaction
+            if ( length($error) ) {
+                $transaction_ref->{'tradeError'} =
+                  '<span class=\"failedcheck\">$error</span>';
+                $error{'tradeError'} = 'y';
+            }
         }
 
         # add a message to the output transaction and print in output file
-        my $message ;
-            if ( scalar(keys %error) > 0 ) {
-            foreach my $key (keys %error) {
-                $transaction_ref->{$key} = "<span class=\"failedcheck\">$transaction_ref->{$key}</span>" ; 
-		    }
-		    $message = "<span class=\"failedcheck\">$messages{transactionrejected}</span>" ;
+        my $message;
+        if ( scalar( keys %error ) > 0 ) {
+            foreach my $key ( keys %error ) {
+                $transaction_ref->{$key} =
+                  "<span class=\"failedcheck\">$transaction_ref->{$key}</span>";
+            }
+            $message =
+"<span class=\"failedcheck\">$messages{transactionrejected}</span>";
+            $error_count++;
         } else {
             $message = $messages{transactionaccepted};
+            $success_count++;
         }
-  
+
         my $x = Dumper $transaction_ref ;
-        
-        print OUT _prettify_dumper($x) . $message . '<br/><br/>' ;
-        
+
+        print OUT _prettify_dumper($x) . $message . '<br/><br/>';
+
     }    # end of while on csv files
 
+    my %report = ( 'success', $success_count, 'error', $error_count );
+
     # need to decide how this returns, processes multiple transactions
-    return ( 0, '', '', '', 'result.html', "" );
+    return ( \%report );
 }
 
 =header2  _prettify_dumper
@@ -562,21 +591,17 @@ stuff
 
 =cut
 
-
 sub _prettify_dumper {
-	
-my ($x) = @_ ;	
 
-#$x =~ s/\,//g ;
-$x =~ s/^([^\{]+)\{//g ;
-$x =~ s/\}\;//g;
-	
-return $x ;	
+    my ($x) = @_;
 
-}	
+    #$x =~ s/\,//g ;
+    $x =~ s/^([^\{]+)\{//g;
+    $x =~ s/\}\;//g;
 
+    return $x;
 
-
+}
 
 =head3 oscommerce_transaction
 

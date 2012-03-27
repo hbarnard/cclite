@@ -357,7 +357,10 @@ return ;
 
 function _plot_graph_lines (selector,data,milliseconds_back) {	
 		now =   (new Date()).getTime()
-		minimum_x =  now - milliseconds_back ;	
+		minimum_x =  now - milliseconds_back ;
+		
+		var txt = JSON.stringify(data, '');
+		// alert ('data is ' + txt) ;
 				
         $.plot($('#'+selector), data, {
             xaxis: {
@@ -830,8 +833,10 @@ var path = document.location.pathname;
                      type: "POST",
                      url: "/cgi-bin/protected/batch/readcsv.pl",
                      serverfilename: 'batch.csv',
-                     success: function (file) {
-                         alert(messages.get('fileprocessed') + ' ' + file);
+                     dataType: 'text',
+                     success: function (file,responseJSON) {
+						 alert('json is ' + file);
+                        // alert(messages.get('fileprocessed') + ' ' + file);
                      },			
 					});
  			      return true ;

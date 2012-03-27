@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- สวิตช์นี้เป็นการ เปิด/ปิดสิ่งจุดทศนิยม -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- ค้นหาผู้ใช้ เทรด โฆษณา -->
 
 <br/>
@@ -324,12 +330,6 @@ Openids รายการ
 </li>
 
 <li>
-<a title="สกุลเงินโอนย้ายหรือชั่วโมง" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-ชำระเงิน
-</a>
-</li>
-
-<li>
 <a title="แยกการชำระเงินสำหรับสินค้าหรือบริการ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 แยกการชำระเงิน
 </a>
@@ -389,6 +389,17 @@ Openids รายการ
 ประเภทโฆษณา
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

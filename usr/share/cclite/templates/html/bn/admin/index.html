@@ -50,7 +50,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- datatables পরবর্তী কালে -->
+<!-- পরবর্তী কালের জন্য datatables -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
@@ -74,13 +74,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
 </script>
 
-<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
-</script>
+<!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
-
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
 <!-- অন্যান্য non jquery -->
 
@@ -91,6 +88,9 @@ $$fieldsref{metarefresh}
 </script>
 
 <script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- graphingচ্ছে -->
@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 </head>
 
 <body>
+
+<!-- এই সুইচটি on/off দশমিক বিন্দু stuff বদলায় -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
 
 <!-- ব্যবহারকারী, বাণিজ্য, adsএর জন্য অনুসন্ধান -->
 
@@ -253,7 +259,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a href="/cgi-bin/cclite.cgi">
+<a title="Ccliteএর জন্য প্রশাসনিক ইন্টারফেস" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite অ্যাডমিন
 </a>
 </h1>
@@ -278,7 +284,6 @@ Cclite অ্যাডমিন
 </li>
 
 <li>
-<
 <a class="bodytext" title="সংযুক্ত Partner Registries দেখান" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Partners
 </a>
@@ -337,7 +342,6 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
  $$fieldsref{registry}
 </a>
@@ -362,11 +366,27 @@ $$fieldsref{installer_link}
 <div valign="top" id="secondaryContent">
 
 <!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
-
-<h3>
-Ad শ্রেণীবিভাগ
-</h3>
+$$fieldsref{count} non-administration users are currently logged in 
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+<br/>
+
+
+<div id="volumes" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel1">
+</div>
+
+<div id="averages" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel2">
+</div>
+
 </div>
 
 <div class="clear">

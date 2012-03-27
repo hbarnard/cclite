@@ -1,170 +1,415 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Diseño por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo una licencia Creative Commons 2.5 -->
+
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
+
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<title>
+Cclite $$fieldsref{version} Admin
+</title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
 <meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="PERMITE C finance currency" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
 <meta name="author" content="hugh barnard" />
+
 $$fieldsref{metarefresh}
-<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+<!-- hojas de estilo -->
+
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
+
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
 
+
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
-<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite $$fieldsref{Versión} Manager</title>
 
-<!-- this -should- be compatible with jquery -->
-<script src="/javascript/ajax.upload.js"></script>
+<!-- tablas de datos para más tarde -->
 
-<script src="/javascript/jquery-1.3.2.js"></script>
-<script src="/javascript/jquery-validation-1.5.5.js"></script>
-<script src="/javascript/jquery-cookies.js"></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/thickbox-compressed.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
-<script src="/javascript/jquery-tagsuggest.js"></script>
+<!-- bibliotecas de JavaScript, necesario sustituirlas comprimidos versiones en algún momento -->
 
-<script type='text/javascript' src='/javascript/jquery.event.drop-1.2/jquery.event.drop-1.2.js'></script>
-<script type='text/javascript' src='/javascript/jquery.event.drag-1.5/jquery.event.drag-1.5.js'></script>
-<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.tooltip.js'></script>
+<!-- elementos de jQuery -->
 
-<script src="/javascript/cookies.js" type="text/javascript"></script>
+<script src="/javascript/jquery-1.3.2.js">
+</script>
 
-<script src="/javascript/striper.js" type="text/javascript"></script>
-<script src="/javascript/cclite.js" type="text/javascript"></script>
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
 
-<style type="text/css">
-</style>
+<script src="/javascript/jquery-cookies.js">
+</script>
 
-<!-- all forms have the same name 'form', avoids complexity here -->
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!-- otros no jquery -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
+</script>
+
+<!-- gráficos -->
+
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
+
+<!-- Esta es la secuencia de comandos que desconecta los usuarios cuando el sistema está siendo derribado -->
+
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
+
 <body>
 
-        <!-- this switch turns on/off the decimal point stuff -->
-        <div id="usedecimals" class="hidden">$$fieldsref{usedecimals}</div>
+<!-- Este modificador se convierte el encendido/apagado las cosas punto decimal -->
 
-	<div id="page" align="center">
-		<div id="toppage" align="center">
-			<div id="date">
-				<div class="smalltext" style="padding:13px;">
-				</div>
-			</div>
-			<div id="topbar">
-				<div align="left" style="padding:12px;">
- 
-<a class="bodytext" href="/cgi-bin/cclite.cgi">Usuario Menu</a> |
-<a class="bodytext" title="Mostrar registros vinculados de socio" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">Asociados de negocios</a>|
-<a class="bodytext" title="Crear a New Moneda" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">Crear moneda</a>|
-<a class="bodytext" title="Mostrar monedas en" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">Mostrar monedas</a>|
-<a class="bodytext"title="Crear New Ad Categoría" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">Crear Ad Categoría</a>|
-<a class="bodytext" title="Registro y instalador de configuración" href="/cgi-bin/protected/ccinstall.cgi">Instalador</a>
-
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
 </div>
-			</div>
-		</div>
-		<div id="header" align="center">
-			<div class="titletext" id="logo">
-Cclite
-                                
-                                 <div align="right" style="padding:12px;" class="smalltext"></div>
-				<div class="logotext" style="margin:30px"><span class="orangelogotext"></span></div> 
-			</div>
-			<div id="pagetitle">
-				<div id="title" class="titletext" align="right"></div>
-                               <div align="right" style="padding:12px;" class="smalltext">$$fieldsref{youare} $$fieldsref{atregistry}</div>
-				<div align="right" style="padding:12px;" class="smalltext"><a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff"><span id="logoff"><span></a></div>
+
+<!-- Buscar usuarios, oficios, anuncios -->
+
+<br/>
 
 
+<div align="right">
 
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
 
-
-
-			</div>
-			
-			
-		</div>
-		<div id="content" align="center">
-			<div id="menu" align="right">
-				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
-				<div id="linksmenu" align="center">
-<a  title="Mostrar saldos de registro for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">Mostrar saldos de registro</a>
-<a title="Crear regla o límite de crédito" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">Crear Rule/Límite de crédito</a>
-<a title="Crear Remote or Local Registro Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">Crear Registro Partner</a>
-<a title="Subir Batch File containing Batch Pagos" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">Subir Batch Files</a>
-<a title="Apply Servicio Charge to All Accounts" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">Apply Servicio Charge</a>
-<a title="Crear Abierto Office Printable Directory" href="/cgi-bin/protected/ccdirectory.cgi">Abierto Office Directory</a>
-<a title="Crear Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">Crear Batch Dirs</a>
-<a title="Modificar values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">Modificar $$fieldsref{registry}</a>
-
-
-
-<!-- autocomplete search boxes -->
-
-<!-- search for users -->
-<div class="adsearch">
-
-<form action="/cgi-bin/cclite.cgi" method="post">
 <input name="action" value="find" type="hidden">
-<input type="hidden" name="subaction" value="om_users">
-<input onfocus="if(this.value == this.defaultValor) this.value = ''" value="search users" name="string1" id="string1"  size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="Buscar usuarios">
-</form>
-</div>
-<!-- search for ads -->
-<div class="adsearch">
 
-<form action="/cgi-bin/cclite.cgi" method="post">
-<input name="action" value="find" type="hidden">
-<input type="hidden" name="subaction" value="om_yellowpages">
- <input onfocus="if(this.value == this.defaultValor) this.value = ''"  value="search ads" name="string2" id="string2"  autocomplete="off" size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="buscar anuncios">
-</form>
-</div>
-<!-- search for trades -->
-<div class="adsearch">
- <form action="/cgi-bin/cclite.cgi" method="post">
-<input name="action" value="find" type="hidden">
-<input type="hidden" name="subaction" value="om_trades">
-<input onfocus="if(this.value == this.defaultValor) this.value = ''" value="search trades" name="string3" id="string3" autocomplete="off" size="10" type="text">
-<input src="/images/24-zoom.png"  type="image" title="Buscar oficios">
-</div>
+<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+
+<select id="search_type" class="small" name="search_type">
+
+<option selected value='trade'>
+Transacciones
+</option>
+
+<option value='user'>
+Usuarios
+</option>
+
+<option value='ad'>
+Anuncios
+</option>
+
+</select>
+
+<input value="Ir" class="small" type="submit" title="Buscar oficios, anuncios o usuarios">
+
 </form>
 
-<!-- end of autocomplete search boxes -->
+<!-- final del cuadro de búsqueda de Autocompletar -->
 
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
 
-				</div>
-				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_bottomshadow.gif" width="189" height="8" alt="mnubottomshadow" /></div>
-			</div>
+<!-- versión de selector de idioma 1 -->
 
-		<div id="contenttext">
-			<div class="bodytext" style="padding:12px;" align="justify">
-				
-!$$fieldsref{pagename}
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-			</div>
-			<div class="panel" align="justify">
-				<span class="orangetitle"></span>
-				<span class="bodytext">
+<option value='en'>
+Inglés
+</option>
 
-$$fieldsref{righthandside}
+<option value='ar'>
+Árabe
+</option>
+
+<option value='bn'>
+Bengalí [parcial]
+</option>
+
+<option value='zh'>
+Chino
+</option>
+
+<option value='de'>
+Deutsch
+</option>
+
+<option value='nl'>
+Holandés
+</option>
+
+<option value='fr'>
+Francais
+</option>
+
+<option value='es'>
+Espagnol
+</option>
+
+<option value='it'>
+Italiano
+</option>
+
+<option value='el'>
+Griego
+</option>
+
+<option value='ja'>
+Japonés
+</option>
+
+<option value='ko'>
+Coreano
+</option>
+
+<option value='pt'>
+En portugués
+</option>
+
+<option value='ro'>
+Rumano
+</option>
+
+<option value='ru'>
+Ruso
+</option>
+
+<option value='th'>
+Tailandés
+</option>
+
+<option value='vi'>
+Vietnamita
+</option>
+
+</select>
+
+<!-- final de la versión 1 de selector de idioma -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
 
 </span>
-	
+</span>
 
-			</div>
-			</div>
-		</div>
-		<div id="footer" class="smallgraytext" align="center">
-			<a href="#">Hogar</a> | <a href="#">Póngase en contacto con nosotros</a><br />
-			Cclite &copy; Hugh Barnard 2003-2011<br />
-	
-		</div>
-	</div>
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<h1>
+<a title="Interfaz administrativa de Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+Cclite Admin
+</a>
+</h1>
+
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
+<a class="bodytext" href="/cgi-bin/cclite.cgi">
+Menú de usuario
+</a>
+</li>
+
+<li>
+<a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
+Cambiar estado de $$fieldsref{registry}
+</a>
+
+</li>
+
+<li>
+<a class="bodytext" title="Mostrar registros de socio vinculado" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Asociados de negocios
+</a>
+</li>
+
+<li>
+<a class="bodytext" title="Crear una nueva moneda" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Crear moneda
+</a>
+</li>
+
+<li>
+<a class="bodytext" title="Mostrar monedas en" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Mostrar monedas
+</a>
+</li>
+
+<li>
+<a class="bodytext"title="Crear nueva categoría de Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Crear la categoría de Ad
+</a>
+</li>
+
+<li>
+$$fieldsref{installer_link}
+</li>
+
+<li>
+<a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Saldos del registro
+</a>
+</li>
+
+<li>
+<a title="Crear regla o límite de crédito" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Límite de crédito
+</a>
+</li>
+
+<li>
+<a title="Crear remoto o socio de registro Local" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Crear socio de registro
+</a>
+</li>
+
+<li>
+<a title="Cargo por servicio se aplican a todas las cuentas" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Aplica cargo por servicio
+</a>
+</li>
+
+<li>
+<a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
+Crear directorios de lote
+</a>
+</li>
+
+<li>
+<a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
+Modificar $$fieldsref{registry}
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<!-- nube y estadísticas de usuario individuales. -->
+
+<div id="content">
+
+<div id="primaryContentContainer">
+
+<div id="primaryContent">
+!$$fieldsref{pagename}
+</div>
+
+</div>
+
+<div valign="top" id="secondaryContent">
+
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
+$$fieldsref{count} non-administration users are currently logged in 
+$$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+<br/>
+
+
+<div id="volumes" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel1">
+</div>
+
+<div id="averages" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel2">
+</div>
+
+</div>
+
+<div class="clear">
+<div id="footer">
+
+<a href="/cgi-bin/cclite.cgi">
+Inicio
+</a>
+|
+<a href="#">
+Póngase en contacto con nosotros
+</a>
+<br />
+
+Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </body>
+
 </html>

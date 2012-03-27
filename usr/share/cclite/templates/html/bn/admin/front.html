@@ -147,7 +147,18 @@ Upload/process ব্যাচ লেনদেন
 
 <td>
 
-<div title="একটি csv ফাইল হিসেবে ব্যাচ লেনদেন পান: নিজে হাতে দেখুন" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
+<div id="file-uploader" title="একটি csv ফাইল হিসেবে ব্যাচ লেনদেন পান: নিজে হাতে দেখুন">
+
+<noscript>
+
+<p>
+দয়া করে ফাইল uploader ব্যবহার করতে জাভাস্ক্রীপ্ট সক্রিয় করুন।
+</p>
+
+<!--  অথবা আপলোড এখানের জন্য একটি সহজ আকার রাখেন -->
+
+</noscript>
+
 </div>
 
 </td>
@@ -168,11 +179,7 @@ Upload/process ব্যাচ লেনদেন
 </span>
 </td>
 
-<td>
-<span id="gpg_mail">
-অপেক্ষা করুন
-</span>
-</td>
+<!--<td><span id="gpg_mail">Wait</span></td> -->
 
 <td>
 <span id="rss">
@@ -193,12 +200,25 @@ Upload/process ব্যাচ লেনদেন
 
 </form>
 
+</table>
+
+<table>
+
 <tr>
 
 <td class="front">
 ওপেনঅফিস বক্তব্য ডাউনলোড করুন
-<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+<table>
+
+<tr>
+
+<td>
 মাস
+</td>
+<td>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
 <select class="small" name="month">
 
 <option value="1">
@@ -251,19 +271,37 @@ Upload/process ব্যাচ লেনদেন
 
 </select>
 
-<br/>
+</td>
+</tr>
 
+<tr>
+<td>
 বছর
+</td>
+<td>
 <input type="text" name="year" size="4" maxlength="4">
+</td>
+</tr>
 
-<br/>
-
+<tr>
+<td>
 লগিন নাম
+</td>
+<td>
 <input type="text" name="username" size="10">
+</td>
+</tr>
 
+<tr>
+<td>
 <input type="submit" class="small" name="go" value="যান">
+</td>
+<td>
+</td>
+</tr>
 
 </form>
+</table>
 
 </td>
 
@@ -332,36 +370,12 @@ $$fieldsref{displaybatchfiles}
 
 <td>
 
-<h4>
-<span id="transaction_vol_title">
-</span>
-
-<span id="update_date1">
-</span>
-
-</h4>
-
-<div id="volumes" style="width:600px;height:300px;">
-</div>
-
 </td>
 
 </tr>
 <tr>
 
 <td>
-
-<h4>
-<span id="averages_title">
-</span>
-
-<span id="update_date2">
-</span>
-
-</h4>
-
-<div id="averages" style="width:600px;height:300px;">
-</div>
 
 </td>
 

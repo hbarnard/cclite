@@ -130,7 +130,7 @@ sub _guess_config_values {
     $configuration{userss}                 = "no";
     $configuration{usedecimals}            = "yes";
     $configuration{usetags}                = "yes";
-    $configuration{version}                = "0.8.1";
+    $configuration{version}                = "0.9.0";
     $configuration{servicechargelimit}     = "notused";
     $configuration{smslocal}               = "1";
 
@@ -653,7 +653,8 @@ EOT
 
     # added turn commit limit into pennies if decimal currency 3/2012
     my %configuration = main::readconfiguration();
-    $fieldsref->{'commitlimit'} =  $fieldsref->{'commitlimit'}*100 if ( $configuration{usedecimals} eq 'yes' );
+    $fieldsref->{'commitlimit'} = $fieldsref->{'commitlimit'} * 100
+      if ( $configuration{usedecimals} eq 'yes' );
 
     update_database_record( $class, $fieldsref->{newregistry},
         'om_registry', 1, $fieldsref, 'en', $token );
@@ -975,12 +976,12 @@ sub get_set_batch_files {
 
     my %configuration = %$configref;
 
-    #FIXME: hack for database prefix in cpanel, 
+    #FIXME: hack for database prefix in cpanel,
     # we want pretty directory names for the paths...
     if ( length( $configuration{'cpanelprefix'} ) ) {
-        $registry =~ s/$configuration{'cpanelprefix'}\_// ;
+        $registry =~ s/$configuration{'cpanelprefix'}\_//;
     }
-    
+
     my ( %file, %report, $html );
 
     # make a subdirectory for graphs etc...
@@ -1047,7 +1048,6 @@ EOT
 
 }
 
-
 =head2 get_logged_in 
 
 Get the count and names of those logged in
@@ -1055,18 +1055,16 @@ for preparing to put registry offline
 
 =cut
 
-
 sub get_logged_in_count {
-	
-  my ( $class, $db, $table, $fieldsref, $token ) = @_;
-	
-  # get count and list of whos online
-  my ( $count, $login_array_ref ) = whos_online( $class, $db, $token );	
-  # -1 because admin is logged in to be able to do this!
-  return ($count - 1);	
-}	
 
+    my ( $class, $db, $table, $fieldsref, $token ) = @_;
 
+    # get count and list of whos online
+    my ( $count, $login_array_ref ) = whos_online( $class, $db, $token );
+
+    # -1 because admin is logged in to be able to do this!
+    return ( $count - 1 );
+}
 
 =head2 go_offline
 

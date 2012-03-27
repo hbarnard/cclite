@@ -147,7 +147,18 @@ Mỗi 30 phút
 
 <td>
 
-<div title="Nhận được hàng loạt các giao dịch dưới dạng tệp csv: xem hướng dẫn sử dụng" type="submit" class="small" id="upload_button" value="Get Batch CSV File">
+<div id="file-uploader" title="Nhận được hàng loạt các giao dịch dưới dạng tệp csv: xem hướng dẫn sử dụng">
+
+<noscript>
+
+<p>
+Vui lòng kích hoạt JavaScript để sử dụng tập tin tải lên.
+</p>
+
+<!-- hoặc đặt một hình thức đơn giản cho tải lên ở đây -->
+
+</noscript>
+
 </div>
 
 </td>
@@ -168,11 +179,7 @@ Mỗi 30 phút
 </span>
 </td>
 
-<td>
-<span id="gpg_mail">
-Đợi
-</span>
-</td>
+<!--<td><span id="gpg_mail">Wait</span></td> -->
 
 <td>
 <span id="rss">
@@ -193,12 +200,25 @@ Mỗi 30 phút
 
 </form>
 
+</table>
+
+<table>
+
 <tr>
 
 <td class="front">
 Tải về OpenOffice Statements
-<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+<table>
+
+<tr>
+
+<td>
 Tháng
+</td>
+<td>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
 <select class="small" name="month">
 
 <option value="1">
@@ -251,19 +271,37 @@ Tháng
 
 </select>
 
-<br/>
+</td>
+</tr>
 
+<tr>
+<td>
 Năm
+</td>
+<td>
 <input type="text" name="year" size="4" maxlength="4">
+</td>
+</tr>
 
-<br/>
-
+<tr>
+<td>
 Tên đăng nhập
+</td>
+<td>
 <input type="text" name="username" size="10">
+</td>
+</tr>
 
+<tr>
+<td>
 <input type="submit" class="small" name="go" value="Đi">
+</td>
+<td>
+</td>
+</tr>
 
 </form>
+</table>
 
 </td>
 
@@ -332,36 +370,12 @@ $$fieldsref{displaybatchfiles}
 
 <td>
 
-<h4>
-<span id="transaction_vol_title">
-</span>
-
-<span id="update_date1">
-</span>
-
-</h4>
-
-<div id="volumes" style="width:600px;height:300px;">
-</div>
-
 </td>
 
 </tr>
 <tr>
 
 <td>
-
-<h4>
-<span id="averages_title">
-</span>
-
-<span id="update_date2">
-</span>
-
-</h4>
-
-<div id="averages" style="width:600px;height:300px;">
-</div>
 
 </td>
 

@@ -1,103 +1,360 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-<meta name="description" content="cclite community currency system" />
-<meta name="keywords" content="PERMITE C finance currency" />
-<meta name="author" content="hugh barnard" />
-$$fieldsref{metarefresh}
 
-<link type="text/css" href="/styles/cc.css" rel="stylesheet">
-	
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Diseño por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo una licencia Creative Commons 2.5 -->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<title>
+Cclite $$fieldsref{version} Instalar
+</title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
+<meta name="author" content="hugh barnard" />
+
+$$fieldsref{metarefresh}
+<!-- hojas de estilo -->
+
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
+
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
 
+
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
-<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
-
-<title>Cclite $$fieldsref{Versión} Instalador</title>
-
-<script src="/javascript/jquery-1.3.2.js"></script>
-<script src="/javascript/jquery-cookies.js"></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/thickbox-compressed.js'></script>
-<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'></script>
-
-<script type='text/javascript' src='/javascript/jshashtable-2.1.js'></script>
-<script src="/javascript/jquery-tagsuggest.js"></script>
-
-<script type='text/javascript' src='/javascript/jquery.event.drop-1.2/jquery.event.drop-1.2.js'></script>
-<script type='text/javascript' src='/javascript/jquery.event.drag-1.5/jquery.event.drag-1.5.js'></script>
-<script src="/javascript/jquery-validation-1.5.5.js"></script>
-<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.tooltip.js'></script>
-
-<script src="/javascript/cookies.js" type="text/javascript"></script>
-
-<script src="/javascript/striper.js" type="text/javascript"></script>
-<script src="/javascript/cclite.js" type="text/javascript"></script>
 
 
+<!-- más tarde DataTables -->
 
-<!-- all forms have the same name 'form', avoids complexity here -->
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- bibliotecas de JavaScript, necesario sustituirlas comprimidos versiones en algún momento -->
+
+<!-- elementos de jQuery -->
+
+<script src="/javascript/jquery-1.3.2.js">
+</script>
+
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
+
+<script src="/javascript/jquery-cookies.js">
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
+<!-- otros no jquery -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<!-- gráficos -->
+
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
+
+<!-- Esta es la secuencia de comandos que desconecta los usuarios cuando el sistema está siendo derribado -->
+
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
 
 </head>
 
 <body>
-	<div id="page" align="center">
-		<div id="toppage" align="center">
-			<div id="date">
-				<div class="smalltext" style="padding:13px;"></div>
-			</div>
-			<div id="topbar">
-				<div align="right" style="padding:12px;">
-<a class="bodytext" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff"><span id="logoff"><span></a>|
-<a title="Grupo de Google para soporte" href="http://groups.google.co.uk/group/cclite?hl=en">¿Desea ayuda??</a>| 
-<a target="blank" title="Compruebe y diagnosticar la instalación" href="/cgi-bin/protected/checkinstall.cgi">Comprobar la instalación</a>|
-<a title="Menú de administración" href="/cgi-bin/protected/ccadmin.cgi">Menú de administración</a>|
-<a title="Usuario Menu" href="/cgi-bin/cclite.cgi">Usuario Menu</a>
+
+<!-- Buscar usuarios, oficios, anuncios -->
+
+<br/>
+
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="find" type="hidden">
+
+<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+
+<select id="search_type" class="small" name="search_type">
+
+<option selected value='trade'>
+Transacciones
+</option>
+
+<option value='user'>
+Usuarios
+</option>
+
+<option value='ad'>
+Anuncios
+</option>
+
+</select>
+
+<input value="Ir" class="small" type="submit" title="Buscar oficios, anuncios o usuarios">
+
+</form>
+
+<!-- final del cuadro de búsqueda de Autocompletar -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
+
+<!-- versión de selector de idioma 1 -->
+
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
+
+<option value='en'>
+Inglés
+</option>
+
+<option value='ar'>
+Árabe
+</option>
+
+<option value='bn'>
+Bengalí [parcial]
+</option>
+
+<option value='zh'>
+Chino
+</option>
+
+<option value='de'>
+Deutsch
+</option>
+
+<option value='nl'>
+Holandés
+</option>
+
+<option value='fr'>
+Francais
+</option>
+
+<option value='es'>
+Espagnol
+</option>
+
+<option value='it'>
+Italiano
+</option>
+
+<option value='el'>
+Griego
+</option>
+
+<option value='ja'>
+Japonés
+</option>
+
+<option value='ko'>
+Coreano
+</option>
+
+<option value='pt'>
+En portugués
+</option>
+
+<option value='ro'>
+Rumano
+</option>
+
+<option value='ru'>
+Ruso
+</option>
+
+<option value='th'>
+Tailandés
+</option>
+
+<option value='vi'>
+Vietnamita
+</option>
+
+</select>
+
+<!-- final de la versión 1 de selector de idioma -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
+
+</span>
+</span>
 
 </div>
-			</div>
-		</div>
-		<div id="header" align="center">
 
-			<div class="titletext" id="logo">
-Cclite
-                                 <div align="right" style="padding:12px;" class="smalltext">$$fieldsref{youare} $$fieldsref{atregistry}</div>
-                                 <div align="right" style="padding:12px;" class="contenttext"></div>
-				<div class="logotext" style="margin:30px"><span class="orangelogotext"></span></div> 
-			</div>
-			<div id="pagetitle">
-				<div id="title" class="titletext" align="right"></div>
-			</div>
-		</div>
-		<div id="content" align="center">
-			<div id="menu" align="right">
-				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_topshadow.gif" width="189" height="8" alt="mnutopshadow" /></div>
-				<div id="linksmenu" align="center">
-<a id="updateconfig" title="Conifguration de actualización en cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">Configuración de la actualización</a>
-<a id="newregistry" title="Crear New Registro" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">Crear New Registro</a>
-<a id="showregistry" title="Mostrar registros de Cclite actual" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">Mostrar registros</a>
+<div id="outer">
 
+<div id="header">
 
-				</div>
-				<div align="right" style="width:189px; height:8px;"><img src="/images/mnu_bottomshadow.gif" width="189" height="8" alt="mnubottomshadow" /></div>
-			</div>
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Instalación de Cclite
+</a>
+</h1>
 
-		<div id="contenttext">
-			<div class="bodytext" style="padding:12px;" align="justify">
-				
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
+<a title="Grupo de Google para soporte" href="http://groups.google.co.uk/group/cclite?hl=en">
+¿Quieres ayuda?
+</a>
+</li>
+
+<li>
+<a title="Menú de admin" href="/cgi-bin/protected/ccadmin.cgi">
+Menú de admin
+</a>
+
+</li>
+
+<li>
+<a title="Menú de usuario" href="/cgi-bin/cclite.cgi">
+Menú de usuario
+</a>
+</li>
+
+<li>
+<a id="updateconfig" title="Actualización conifguration almacenado en cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+Configuración de la actualización
+</a>
+</li>
+
+<li>
+<
+<a id="newregistry" title="Crear nuevo registro" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+Crear nuevo registro
+</a>
+</li>
+
+<li>
+<a id="showregistry" title="Mostrar los registros Cclite actual" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+Mostrar registros
+</a>
+</li>
+
+<li>
+<a id="installcheck" title="Ejecutar el Comprobador de instalación" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+Compruebe los requisitos de instalación
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<!-- nube y estadísticas de usuario individuales. -->
+
+<div id="content">
+
+<div id="primaryContentContainer">
+
+<div id="primaryContent">
 !$$fieldsref{pagename}
+</div>
 
-			</div>
+</div>
 
-			</div>
-		</div>
-		<div id="footer" class="smallgraytext" align="center">
-			<a title="Inicio de sesión de usuario Cclite" href="/cgi-bin/cclite.cgi">Hogar</a> | <a title="Grupo de Google para soporte" href="http://groups.google.co.uk/group/cclite?hl=en">Ayuda con Cclite</a><br />
-			Cclite &copy; Hugh Barnard 2003-2011<br />
+<div valign="top" id="secondaryContent">
 
-		</div>
-	</div>
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
+
+<h3>
+Categorías de anuncios
+</h3>
+$$fieldsref{righthandside}
+</div>
+
+<div class="clear">
+<div id="footer">
+
+<a href="/cgi-bin/cclite.cgi">
+Inicio
+</a>
+|
+<a href="#">
+Póngase en contacto con nosotros
+</a>
+<br />
+
+Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </body>
+
 </html>

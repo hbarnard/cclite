@@ -79,6 +79,7 @@ pre { color: #000000;
 <li><a href="#sms_transaction-">sms_transaction</a></li>
 <li><a href="#read_mail_transactions-">read_mail_transactions</a></li>
 <li><a href="#read_csv_transactions-">read_csv_transactions</a></li>
+<li><a href="#_prettify_dumper-">_prettify_dumper</a></li>
 <li><a href="#oscommerce_transaction-">oscommerce_transaction</a></li>
 </ul>
 </li>
@@ -126,6 +127,7 @@ If there's smart card, it'll go here</p>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">vars</span> <span class="q">qw(@ISA @EXPORT)</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Exporter</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclite</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
@@ -416,21 +418,27 @@ a set of transactions.</p>
    0 date     1 from 2 to	3 fromreg 4 toreg  5 currency 6 type 7 taxflag  8 amount   9 description
 &quot;10-04-2005&quot;,&quot;ddawg&quot;,&quot;manager&quot;,&quot;dalston&quot;,&quot;dalston&quot;,&quot;ducket&quot;,&quot;credit&quot;,&quot;N&quot;,345,&quot;test1&quot;
 This will move to GPG encoded at -some- stage</p>
+<pre>
+
+   04/10/2009,&quot;test1&quot;,&quot;test2&quot;,&quot;dalston&quot;,&quot;dalston&quot;,&quot;dally&quot;,&quot;credit&quot;,&quot;N&quot;,345,&quot;batch test&quot;</pre>
+<pre>
+   'tradeSource' =&gt; 'test1', 'tradeDestination' =&gt; 'test2', 'tradeDescription' =&gt; 'batch test', 
+   'tradeTaxflag' =&gt; 'N', 'initialPaymentStatus' =&gt; 'waiting', 
+   'tradeTitle' =&gt; 'Batch transaction: see description', 'tradeDate' =&gt; '2009-10-04', 
+   'fromregistry' =&gt; 'dalston', 'subaction' =&gt; 'om_trades', 'toregistry' =&gt; 'dalston', 
+   'tradeCurrency' =&gt; 'dally', 'tradeAmount' =&gt; '345', 'home' =&gt; ''</pre>
 <p>Note that $db is empty, the registries are declared in the transactions
-themselves. It has remained to keep the function signatures consistent.</p>
+themselves. It's there to keep the function signatures consistent.</p>
 <p>Skip # lines which are expected to be comments. Only allow debits, currently.</p>
 <pre>
 <a name="read_csv_transactions-"></a><span class="k">sub </span><span class="m">read_csv_transactions</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span>
-        <span class="i">$class</span><span class="cm">,</span>    <span class="i">$db</span><span class="cm">,</span>        <span class="i">$table</span><span class="cm">,</span>
-        <span class="i">$csv_file</span><span class="cm">,</span> <span class="i">$file_name</span><span class="cm">,</span> <span class="i">$configuration_ref</span><span class="cm">,</span>
-        <span class="i">$token</span><span class="cm">,</span>    <span class="i">$offset</span><span class="cm">,</span>    <span class="i">$limit</span>
+        <span class="i">$class</span><span class="cm">,</span>     <span class="i">$db</span><span class="cm">,</span>                <span class="i">$table</span><span class="cm">,</span>      <span class="i">$csv_file</span><span class="cm">,</span>
+        <span class="i">$file_name</span><span class="cm">,</span> <span class="i">$configuration_ref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span>
+        <span class="i">$offset</span><span class="cm">,</span>    <span class="i">$limit</span>
     <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
-    <span class="k">my</span> <span class="s">(</span>
-        <span class="i">$messages</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span>      <span class="i">$limit</span><span class="cm">,</span>  <span class="i">$class</span><span class="cm">,</span>
-        <span class="i">$pages</span><span class="cm">,</span>    <span class="i">$token</span><span class="cm">,</span> <span class="i">%transaction</span><span class="cm">,</span> <span class="i">@errors</span><span class="cm">,</span> <span class="i">$ok</span>
-    <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$error_count</span><span class="cm">,</span> <span class="i">$success_count</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">open</span><span class="s">(</span> <span class="w">CSV</span><span class="cm">,</span> <span class="i">$csv_file</span> <span class="s">)</span> <span class="k">or</span> <span class="k">die</span> <span class="q">&quot;can\&#39;t open csv file: $csv_file&quot;</span><span class="sc">;</span>
 
@@ -439,20 +447,46 @@ themselves. It has remained to keep the function signatures consistent.</p>
 
     <span class="c"># results written per registry now...11/2009</span>
     <span class="k">my</span> <span class="i">$results_out</span> =
-      <span class="q">&quot;$$configuration_ref{csvout}/$db/$file_name\056$numeric_date$time\056txt&quot;</span><span class="sc">;</span>
+<span class="q">&quot;$$configuration_ref{csvout}/$db/$file_name\056$numeric_date$time\056html&quot;</span><span class="sc">;</span>
     <span class="k">open</span><span class="s">(</span> <span class="w">OUT</span><span class="cm">,</span> <span class="q">&quot;&gt;$results_out&quot;</span> <span class="s">)</span>
       <span class="k">or</span> <span class="k">die</span> <span class="q">&quot;can\&#39;t open csv output file: $results_out&quot;</span><span class="sc">;</span>
 
+    <span class="k">print</span> <span class="i">OUT</span> <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">&lt;html&gt;</span>
+<span class="hh">&lt;head&gt;    </span>
+<span class="hh">      &lt;link href=&quot;/styles/default.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot; /&gt;    </span>
+<span class="hh">&lt;title&gt;$db $numeric_date$time&lt;/title&gt;    </span>
+<span class="hh">&lt;/head&gt;</span>
+<span class="hh">&lt;body&gt;    </span>
+<span class="h">EOT</span>
+
     <span class="k">while</span> <span class="s">(</span><span class="q">&lt;CSV&gt;</span><span class="s">)</span> <span class="s">{</span>
 
+        <span class="k">my</span> <span class="s">(</span>
+            <span class="i">$messages</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span>        <span class="i">$class</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
+            <span class="i">%error</span><span class="cm">,</span>    <span class="i">$save</span><span class="cm">,</span>   <span class="i">$bad_registry</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">%transaction</span>
+        <span class="s">)</span><span class="sc">;</span>
+
         <span class="q">s/&quot;//g</span><span class="sc">;</span>    <span class="c"># remove quotes</span>
-        <span class="k">next</span> <span class="k">if</span> <span class="s">(</span><span class="q">/^#|^\s/</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># skip comment lines and space lines</span>
+        <span class="k">next</span> <span class="k">if</span> <span class="s">(</span><span class="q">/^#|^\s/</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># skip comment lines/header and space lines</span>
+
         <span class="k">chop</span><span class="s">(</span><span class="i">$_</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">$save</span> = <span class="i">$_</span><span class="sc">;</span>
+
+        <span class="c"># if the from registry is bad currency lookup etc. won&#39;t work...</span>
+        <span class="i">$bad_registry</span> = <span class="n">0</span><span class="sc">;</span>
+
         <span class="k">my</span> <span class="i">@transaction_array</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/\,/</span><span class="cm">,</span> <span class="i">$_</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="k">my</span> <span class="i">$ok</span> = <span class="n">1</span><span class="sc">;</span>    <span class="c"># turned off for non-ok transaction</span>
-                       <span class="c"># look up sending user, receiving user and currency</span>
-                       <span class="c"># fail on from user not within this registry, policy</span>
-        <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
+
+        <span class="c"># from registry must be same as to registry for the moment, too much</span>
+        <span class="c"># complexity doing batch to remote 03/2012</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_array</span>[<span class="n">3</span>] <span class="k">ne</span> <span class="i">$transaction_array</span>[<span class="n">4</span>] <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;fromregistry&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
+            <span class="i">$error</span>{<span class="q">&#39;toregistry&#39;</span>}   = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
+
+        <span class="s">}</span>
+
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$dberror</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span>      <span class="i">$transaction_array</span>[<span class="n">3</span>]<span class="cm">,</span>
             <span class="q">&#39;om_users&#39;</span><span class="cm">,</span>  <span class="q">&#39;*&#39;</span><span class="cm">,</span>
             <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span> <span class="i">$transaction_array</span>[<span class="n">1</span>]<span class="cm">,</span>
@@ -460,48 +494,73 @@ themselves. It has remained to keep the function signatures consistent.</p>
             <span class="i">$limit</span>
         <span class="s">)</span><span class="sc">;</span>
 
-<span class="c"># don&#39;t fail on destination registry, could be remote...</span>
-<span class="c">#my ($error,$touserref)   = get_where($class,$transaction_array[4],&#39;om_users&#39;,&#39;userLogin&#39;,$transaction_array[2],$token,$offset,$limit) ;</span>
-<span class="c"># fail on currency not within this registry, cannot succeed</span>
-        <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$currencyref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
-            <span class="i">$class</span><span class="cm">,</span>          <span class="i">$transaction_array</span>[<span class="n">3</span>]<span class="cm">,</span>
-            <span class="q">&#39;om_currencies&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>
-            <span class="q">&#39;name&#39;</span><span class="cm">,</span>          <span class="i">$transaction_array</span>[<span class="n">5</span>]<span class="cm">,</span>
-            <span class="i">$token</span><span class="cm">,</span>          <span class="i">$offset</span><span class="cm">,</span>
-            <span class="i">$limit</span>
-        <span class="s">)</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dberror</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;fromregistry&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
+            <span class="i">$bad_registry</span> = <span class="n">1</span><span class="sc">;</span>
+        <span class="s">}</span>
+
+        <span class="c"># test destination user in same registry, remote currently not allowed</span>
+        <span class="k">my</span> <span class="i">$touserref</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="i">$bad_registry</span> <span class="s">)</span> <span class="s">{</span>
+
+            <span class="s">(</span> <span class="i">$dberror</span><span class="cm">,</span> <span class="i">$touserref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
+                <span class="i">$class</span><span class="cm">,</span>      <span class="i">$transaction_array</span>[<span class="n">4</span>]<span class="cm">,</span>
+                <span class="q">&#39;om_users&#39;</span><span class="cm">,</span>  <span class="q">&#39;*&#39;</span><span class="cm">,</span>
+                <span class="q">&#39;userLogin&#39;</span><span class="cm">,</span> <span class="i">$transaction_array</span>[<span class="n">2</span>]<span class="cm">,</span>
+                <span class="i">$token</span><span class="cm">,</span>      <span class="i">$offset</span><span class="cm">,</span>
+                <span class="i">$limit</span>
+            <span class="s">)</span><span class="sc">;</span>
+
+        <span class="s">}</span>
+
+        <span class="c"># to user is invalid or absent</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$touserref</span><span class="s">)</span> &amp;&amp; !<span class="i">$bad_registry</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;tradeDestination&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
+        <span class="s">}</span>
+
+        <span class="c"># fail on currency not within this registry, cannot succeed</span>
+        <span class="k">my</span> <span class="i">$currencyref</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="i">$bad_registry</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="s">(</span> <span class="i">$dberror</span><span class="cm">,</span> <span class="i">$currencyref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
+                <span class="i">$class</span><span class="cm">,</span>          <span class="i">$transaction_array</span>[<span class="n">3</span>]<span class="cm">,</span>
+                <span class="q">&#39;om_currencies&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>
+                <span class="q">&#39;name&#39;</span><span class="cm">,</span>          <span class="i">$transaction_array</span>[<span class="n">5</span>]<span class="cm">,</span>
+                <span class="i">$token</span><span class="cm">,</span>          <span class="i">$offset</span><span class="cm">,</span>
+                <span class="i">$limit</span>
+            <span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span>
 
         <span class="c"># one of the above lookups fails, reject the whole transaction</span>
-
-        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@errors</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">invalidsending</span>}<span class="sc">;</span>
-            <span class="i">$ok</span> = <span class="n">0</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$fromuserref</span><span class="s">)</span> &amp;&amp; !<span class="i">$bad_registry</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;tradeSource&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
 
-        <span class="c"># removed, user can be a remote user</span>
-        <span class="c">###if (! length($touserref) ) {</span>
-        <span class="c">###  push @errors, $messages{invalidreceiving} ;</span>
-        <span class="c">###  $ok  = 0;</span>
-        <span class="c">###}</span>
-
-        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$currencyref</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@errors</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">invalidcurrency</span>}<span class="sc">;</span>
-            <span class="i">$ok</span> = <span class="n">0</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$currencyref</span><span class="s">)</span> &amp;&amp; !<span class="i">$bad_registry</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;tradeCurrency&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
 
-        <span class="c"># only debit transactions allowed at present</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_array</span>[<span class="n">6</span>] <span class="k">ne</span> <span class="q">&quot;debit&quot;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@errors</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="w">notadebit</span>}<span class="sc">;</span>
-            <span class="i">$ok</span> = <span class="n">0</span><span class="sc">;</span>
+        <span class="c"># only debit transactions allowed at present, tradeType is NOT</span>
+        <span class="c"># part of a genuine transaction, at present!</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_array</span>[<span class="n">6</span>] <span class="k">ne</span> <span class="q">&#39;debit&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;tradeType&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
+            <span class="i">$transaction</span>{<span class="w">tradeType</span>} = <span class="i">$messages</span>{<span class="q">&#39;notadebit&#39;</span>}<span class="sc">;</span>
+        <span class="s">}</span>
+
+  <span class="c"># tradeAmount only contains numbers and decimal points, allow 123.1 for moment</span>
+        <span class="k">if</span> <span class="s">(</span>   <span class="i">$transaction_array</span>[<span class="n">8</span>] !~ <span class="q">/^\d+$/</span>
+            &amp;&amp; <span class="i">$transaction_array</span>[<span class="n">8</span>] !~ <span class="q">/^\d+\.\d{1,2}$/</span> <span class="s">)</span>
+        <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;tradeAmount&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
 
         <span class="c"># convert to standard transaction input format, fields etc.</span>
         <span class="c">#fromregistry : chelsea</span>
         <span class="i">$transaction</span>{<span class="w">fromregistry</span>} = <span class="i">$transaction_array</span>[<span class="n">3</span>]<span class="sc">;</span>
 
-        <span class="c">#home : http://cclite.caca-cola.com:83/cgi-bin/cclite.cgi, for example</span>
-        <span class="i">$transaction</span>{<span class="w">home</span>}      = <span class="q">&quot;&quot;</span><span class="sc">;</span>           <span class="c"># no home, not a web transaction</span>
-                                                <span class="c">#subaction : om_trades</span>
+      <span class="c"># home : http://cclite.caca-cola.com:83/cgi-bin/cclite.cgi, for example</span>
+      <span class="c"># $transaction{home}      = &quot;&quot;;           # no home, not a web transaction</span>
+
+        <span class="c"># subaction : om_trades</span>
         <span class="i">$transaction</span>{<span class="w">subaction</span>} = <span class="q">&#39;om_trades&#39;</span><span class="sc">;</span>
 
         <span class="c">#toregistry : dalston</span>
@@ -518,13 +577,18 @@ themselves. It has remained to keep the function signatures consistent.</p>
 
         <span class="c"># read from configuration file in cron job</span>
         <span class="i">$transaction</span>{<span class="w">initialPaymentStatus</span>} =
-          <span class="i">$$configuration_ref</span>{<span class="w">initialpaymentstatus</span>}<span class="sc">;</span>
+          <span class="i">$configuration_ref</span>-&gt;{<span class="q">&#39;initialpaymentstatus&#39;</span>}<span class="sc">;</span>
 
-        <span class="c"># reformat date if necessary ;</span>
-        <span class="i">$transaction_array</span>[<span class="n">0</span>] =~ <span class="q">m/(\d\d)\D(\d\d)\D(\d\d\d\d)/</span><span class="sc">;</span>
-        <span class="k">my</span> <span class="i">$tdate</span> = <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$3</span><span class="s">)</span> == <span class="n">0</span> <span class="s">)</span> ? <span class="i">$transaction_array</span>[<span class="n">0</span>] <span class="co">:</span> <span class="q">&quot;$3-$2-$1&quot;</span><span class="sc">;</span>
-
-        <span class="i">$transaction</span>{<span class="w">tradeDate</span>} = <span class="i">$tdate</span><span class="sc">;</span>
+        <span class="c">#validate and reformat date ;</span>
+        <span class="k">my</span> <span class="i">$tdate</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_array</span>[<span class="n">0</span>] =~ <span class="q">m/(\d\d)\D(\d\d)\D(\d\d\d\d)/</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$tdate</span> = <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$3</span><span class="s">)</span> == <span class="n">0</span> <span class="s">)</span> ? <span class="i">$transaction_array</span>[<span class="n">0</span>] <span class="co">:</span> <span class="q">&quot;$3-$2-$1&quot;</span><span class="sc">;</span>
+            <span class="i">$transaction</span>{<span class="w">tradeDate</span>} = <span class="i">$tdate</span><span class="sc">;</span>
+        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+            <span class="i">$error</span>{<span class="q">&#39;tradeDate&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
+            <span class="i">$transaction</span>{<span class="w">tradeDate</span>} =
+              <span class="q">&quot;&lt;span class=\&quot;failedcheck\&quot;&gt;$transaction_array[0]&lt;/span&gt;&quot;</span><span class="sc">;</span>
+        <span class="s">}</span>
 
         <span class="c">#tradeTitle : added by this routine</span>
         <span class="i">$transaction</span>{<span class="w">tradeTitle</span>} = <span class="i">$messages</span>{<span class="w">batchtransaction</span>}<span class="sc">;</span>
@@ -544,29 +608,75 @@ themselves. It has remained to keep the function signatures consistent.</p>
 
         <span class="c"># call ordinary transaction</span>
         <span class="k">my</span> <span class="i">$transaction_ref</span> = \<span class="i">%transaction</span><span class="sc">;</span>
+
         <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="k">if</span> <span class="s">(</span><span class="i">$ok</span><span class="s">)</span> <span class="s">{</span>
-            <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
-              <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;batch&#39;</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">fromregistry</span>}<span class="cm">,</span>
-                <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span> <span class="k">keys</span> <span class="i">%error</span> <span class="s">)</span> == <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
+
+            <span class="c"># json is the default for this...</span>
+            <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} = <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} || <span class="q">&#39;json&#39;</span><span class="sc">;</span>
+
+            <span class="c">#FIXME: transaction has two return signatures</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
+                  <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;batch&#39;</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">fromregistry</span>}<span class="cm">,</span>
+                    <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+                <span class="s">(</span><span class="i">$output_message</span><span class="s">)</span> =
+                  <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;batch&#39;</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">fromregistry</span>}<span class="cm">,</span>
+                    <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="s">}</span>
+
+            <span class="k">print</span> <span class="q">&quot;$output_message \n&quot;</span><span class="sc">;</span>
+
+            <span class="c"># data is OK but there&#39;s something wrong during the transaction</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeError&#39;</span>} =
+                  <span class="q">&#39;&lt;span class=\&quot;failedcheck\&quot;&gt;$error&lt;/span&gt;&#39;</span><span class="sc">;</span>
+                <span class="i">$error</span>{<span class="q">&#39;tradeError&#39;</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
+            <span class="s">}</span>
         <span class="s">}</span>
 
         <span class="c"># add a message to the output transaction and print in output file</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span> || !<span class="i">$ok</span> &amp;&amp; <span class="k">length</span><span class="s">(</span><span class="i">$_</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">push</span> <span class="i">@errors</span><span class="cm">,</span> <span class="i">$error</span><span class="sc">;</span>
-            <span class="k">my</span> <span class="i">$error_messages</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;,&quot;</span><span class="cm">,</span> <span class="i">@errors</span> <span class="s">)</span><span class="sc">;</span>
-            <span class="i">$_</span> .= <span class="q">&quot;,$error_messages\n&quot;</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$message</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">scalar</span><span class="s">(</span> <span class="k">keys</span> <span class="i">%error</span> <span class="s">)</span> &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%error</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$transaction_ref</span>-&gt;{<span class="i">$key</span>} =
+                  <span class="q">&quot;&lt;span class=\&quot;failedcheck\&quot;&gt;$transaction_ref-&gt;{$key}&lt;/span&gt;&quot;</span><span class="sc">;</span>
+            <span class="s">}</span>
+            <span class="i">$message</span> =
+<span class="q">&quot;&lt;span class=\&quot;failedcheck\&quot;&gt;$messages{transactionrejected}&lt;/span&gt;&quot;</span><span class="sc">;</span>
+            <span class="i">$error_count</span>++<span class="sc">;</span>
         <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-            <span class="i">$_</span> .= <span class="q">&quot;,$messages{accepted}\n&quot;</span><span class="sc">;</span>
+            <span class="i">$message</span> = <span class="i">$messages</span>{<span class="w">transactionaccepted</span>}<span class="sc">;</span>
+            <span class="i">$success_count</span>++<span class="sc">;</span>
         <span class="s">}</span>
-        <span class="k">undef</span> <span class="i">$error</span><span class="sc">;</span>
-        <span class="i">@errors</span> = <span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-        <span class="k">print</span> <span class="i">OUT</span> <span class="i">$_</span><span class="sc">;</span>
+
+        <span class="k">my</span> <span class="i">$x</span> = <span class="w">Dumper</span> <span class="i">$transaction_ref</span> <span class="sc">;</span>
+
+        <span class="k">print</span> <span class="i">OUT</span> <span class="i">_prettify_dumper</span><span class="s">(</span><span class="i">$x</span><span class="s">)</span> . <span class="i">$message</span> . <span class="q">&#39;&lt;br/&gt;&lt;br/&gt;&#39;</span><span class="sc">;</span>
+
     <span class="s">}</span>    <span class="c"># end of while on csv files</span>
 
+    <span class="k">my</span> <span class="i">%report</span> = <span class="s">(</span> <span class="q">&#39;success&#39;</span><span class="cm">,</span> <span class="i">$success_count</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$error_count</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="c"># need to decide how this returns, processes multiple transactions</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$messages</span><span class="cm">,</span> <span class="q">&#39;result.html&#39;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span> \<span class="i">%report</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
+</pre><p>miniature hack to get dumper output nicer to keep a recordfor csv transactions but could be useful later for other batchy
+stuff</p>
+<pre>
+<a name="_prettify_dumper-"></a><span class="k">sub </span><span class="m">_prettify_dumper</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span><span class="i">$x</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c">#$x =~ s/\,//g ;</span>
+    <span class="i">$x</span> =~ <span class="q">s/^([^\{]+)\{//g</span><span class="sc">;</span>
+    <span class="i">$x</span> =~ <span class="q">s/\}\;//g</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="i">$x</span><span class="sc">;</span>
+
 <span class="s">}</span>
 
 </pre><p></p>

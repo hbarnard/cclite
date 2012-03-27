@@ -112,8 +112,6 @@ our $currency = $sms_configuration{'currency'};
 
 #=============================================================
 
-our $log = Log::Log4perl->get_logger("Ccsmsgateway");
-
 =head3 gateway_sms_transaction
 
 This does a validation (could move to ccvalidate) and
@@ -135,29 +133,32 @@ sub gateway_sms_transaction {
 
     # log and exit if there's a problem with the received messaged
     if ( defined( $$fieldsref{'status'} ) && $$fieldsref{'status'} > 0 ) {
-        $log->warn(
-"$$fieldsref{'message'} from $$fieldsref{'originator'} rejected with status $$fieldsref{'status'}"
-        );
+        my $message =
+"$$fieldsref{'message'} from $$fieldsref{'originator'} rejected with status $$fieldsref{'status'}";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
     # no originator, so no lookup or no message...reject
     if ( !length( $$fieldsref{'originator'} ) ) {
-        $log->warn(
-"$$fieldsref{'message'} from $$fieldsref{'originator'} $messages{'smsoriginblank'}"
-        );
+        my $message =
+"$$fieldsref{'message'} from $$fieldsref{'originator'} $messages{'smsoriginblank'}";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
     # no originator, so no lookup or no message...reject
     if ( !length( $$fieldsref{'message'} ) ) {
-        $log->warn("$$fieldsref{'originator'} $messages{'smsmessageblank'}");
+        my $message = "$$fieldsref{'originator'} $messages{'smsmessageblank'}";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
     # no one with this number , so no lookup or no message...reject
     if ( !length( $$fromuserref{'userLogin'} ) ) {
-        $log->warn("$$fieldsref{'originator'} $messages{'smsnumbernotfound'}");
+        my $message =
+          "$$fieldsref{'originator'} $messages{'smsnumbernotfound'}";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
@@ -172,8 +173,9 @@ sub gateway_sms_transaction {
         $pin              = $1;
         $transaction_type = $2;
     } else {
-        $log->warn(
-            "from: $$fieldsref{'originator'} $input -malformed transaction");
+        my $message =
+          "from: $$fieldsref{'originator'} $input -malformed transaction";
+        log_entry( 'local', $registry, $message, $token );
         my ($mail_error) = _send_sms_mail_message(
             'local',
             $registry,
@@ -204,8 +206,9 @@ sub gateway_sms_transaction {
     } elsif ( $transaction_type eq 'balance' ) {
         _gateway_sms_send_balance( $fieldsref, $token );
     } else {
-        $log->warn(
-            "from: $$fieldsref{'originator'} $input -unrecognised transaction");
+        my $message =
+          "from: $$fieldsref{'originator'} $input -unrecognised transaction";
+        log_entry( 'local', $registry, $message, $token );
         return 'unrecognisable transaction';
 
         # this is a 'bad' transaction of some kind...
@@ -272,7 +275,7 @@ sub _gateway_sms_pay {
     if ( $parse_type == 0 ) {
         my $message =
 "pay attempt from $fields{'originator'} to $$transaction_description_ref{'tomobilenumber'} : $messages{'smsinvalidsyntax'}";
-        $log->warn($message);
+        log_entry( 'local', $registry, $message, $token );
         my ($mail_error) =
           _send_sms_mail_message( 'local', $registry, $message, $fromuserref );
         return;
@@ -315,9 +318,9 @@ sub _gateway_sms_pay {
     if ( scalar(@status) > 0 ) {
         _send_sms_mail_message( 'local', $registry, "$errors $input",
             $fromuserref );
-        $log->warn(
-"pay attempt from $fields{'originator'} to $$transaction_description_ref{'tomobilenumber'} : $errors"
-        );
+        my $message =
+"pay attempt from $fields{'originator'} to $$transaction_description_ref{'tomobilenumber'} : $errors";
+        log_entry( 'local', $registry, $message, $token );
         return;
     }
 
@@ -521,7 +524,8 @@ sub _sms_message_parse {
 
     } else {
 
-        $log->warn("unparsed pay transaction is:$save_input  $input");
+        my $message = "unparsed pay transaction is:$save_input  $input";
+        log_entry( 'local', $registry, $message, '' );
 
     }
 

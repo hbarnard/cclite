@@ -1,6 +1,6 @@
 #!/usr/bin/perl
 
-my $test = 0 ;
+my $test = 0;
 if ($test) {
     print STDOUT "Content-type: text/html\n\n";
     my $data = join( '', <DATA> );
@@ -13,7 +13,6 @@ if ($test) {
     }
 }
 ###__END__
-
 
 =head1 NAME
  
@@ -73,13 +72,13 @@ Hugh Barnard
 
 BEGIN {
 
-    # krystal hosting only stuff
-    my $base_module_dir = (
-        -d '/home/ccliekh/perl'
-        ? '/home/ccliekh/perl'
-        : ( getpwuid($>) )[7] . '/perl/'
-    );
-    unshift @INC, map { $base_module_dir . $_ } @INC;
+    # krystal hosting only stuff, should be unnecessary now 03/2012
+    #    my $base_module_dir = (
+    #        -d '/home/ccliekh/perl'
+    #        ? '/home/ccliekh/perl'
+    #        : ( getpwuid($>) )[7] . '/perl/'
+    #    );
+    #    unshift @INC, map { $base_module_dir . $_ } @INC;
 
     use CGI::Carp qw(fatalsToBrowser set_message);
     set_message(
@@ -158,11 +157,12 @@ my $pagename = $fields{name};
 my $action   = $fields{action} || $configuration{defaultaction};
 my $table    = $fields{subaction};
 
-my $db       = $fields{registry} || $cookieref->{'registry'};
-#FIXME: done for rdf feed only, other consequences?
-$fields{registry} ||= $cookieref->{'registry'} ;
+my $db = $fields{registry} || $cookieref->{'registry'};
 
-my $offset   = $fields{offset};
+#FIXME: done for rdf feed only, other consequences?
+$fields{registry} ||= $cookieref->{'registry'};
+
+my $offset = $fields{offset};
 
 # now take these from configuration because of unreliable $ENV{SERVER_NAME} 11/2009
 $fields{home}   = $configuration{home};
@@ -382,7 +382,6 @@ if ( $registry_status eq 'down' && $cookieref->{'userLogin'} ne 'manager' ) {
 
 my $fieldsref = \%fields;
 
-
 # only get news if there's a defined registry containing it 08/2011
 $fieldsref->{'news'} = get_news( 'local', $db, $token ) if ( length($db) );
 
@@ -414,7 +413,6 @@ if ( length( $cookieref->{'userLogin'} ) ) {
     $fieldsref->{'getdetail'} = $save;
 }
 
-
 # logon to a registry
 ( $action eq 'logon' )
   && (
@@ -444,16 +442,18 @@ if ( length( $cookieref->{'userLogin'} ) ) {
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     delete_database_record( 'local', $db, $table, $fieldsref, $token ) );
 
-( $action eq 'modifyuser' )
-  && (
-    (
-        $refresh,  $metarefresh, $error,   $html, $pages,
-        $pagename, $fieldsref,   $cookies, $token
-    )
-    = modify_database_record(
-        'local', $db, 'om_users', $fieldsref, $cookieref, $pages, $token
-    )
-  );
+if ( $action eq 'modifyuser' ) {
+
+    if ( $fieldsref->{logontype} ne 'api' ) {
+        (
+            $refresh,  $metarefresh, $error,   $html, $pages,
+            $pagename, $fieldsref,   $cookies, $token
+          )
+          = modify_database_record( 'local', $db, 'om_users', $fieldsref,
+            $cookieref, $pages, $token );
+    }
+}
+
 ( $action eq 'display' )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref ) =
     show_record( 'local', $db, $table, $fieldsref, $token ) );
@@ -645,7 +645,8 @@ if ( length( $cookieref->{'userLogin'} ) ) {
 
     # html to return html, values to return raw balances and volumes
     show_balance_and_volume(
-        'local', $db, $cookieref->{'userLogin'},$fieldsref, $token
+        'local', $db, $cookieref->{'userLogin'},
+        $fieldsref, $token
     )
   );
 
@@ -698,12 +699,17 @@ if ( $action eq 'readmessages' ) {
 # get messages and deliver as json for ajax: insecure but is this a problem?
 if ( $action eq 'getstats' ) {
 
-    # deliver balances for user other than 'me' for transparency and yellowpage layout
-    my $user = $fieldsref->{'stats_user'} || $cookieref->{'userLogin'} ;
-    
+# deliver balances for user other than 'me' for transparency and yellowpage layout
+    my $user = $fieldsref->{'stats_user'} || $cookieref->{'userLogin'};
+
     # json is delivered current as 'abuse' of refresh field in display_template
     ($refresh) = get_stats(
-        ( 'local', $db, $user , $cookieref->{'userLevel'}, $fieldsref->{'hours_back'}, $fieldsref->{'type'}, '' )
+        (
+            'local', $db, $user,
+            $cookieref->{'userLevel'},
+            $fieldsref->{'hours_back'},
+            $fieldsref->{'type'}, ''
+        )
     );
     $fieldsref->{'mode'} = 'json';
 }

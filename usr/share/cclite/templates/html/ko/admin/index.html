@@ -73,13 +73,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
 </script>
 
-<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
-</script>
+<!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
-
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
 <!-- 다른 비 jquery -->
 
@@ -90,6 +87,9 @@ $$fieldsref{metarefresh}
 </script>
 
 <script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
 <!-- 그래프 -->
@@ -117,6 +117,12 @@ $$fieldsref{logout_script}
 </head>
 
 <body>
+
+<!-- 이 스위치는 on/off 소수점 물건 설정 -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
 
 <!-- 사용자, 무역, 광고에 대 한 검색 -->
 
@@ -252,7 +258,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a href="/cgi-bin/cclite.cgi">
+<a title="Cclite에 대 한 관리 인터페이스" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite 관리자
 </a>
 </h1>
@@ -277,7 +283,6 @@ Cclite 관리자
 </li>
 
 <li>
-<
 <a class="bodytext" title="연결 된 파트너 레지스트리 보기" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 파트너
 </a>
@@ -336,7 +341,6 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
 수정 $$fieldsref{registry}
 </a>
@@ -361,11 +365,27 @@ $$fieldsref{installer_link}
 <div valign="top" id="secondaryContent">
 
 <!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
-
-<h3>
-광고 카테고리
-</h3>
+$$fieldsref{count} non-administration users are currently logged in 
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+<br/>
+
+
+<div id="volumes" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel1">
+</div>
+
+<div id="averages" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel2">
+</div>
+
 </div>
 
 <div class="clear">

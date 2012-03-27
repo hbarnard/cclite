@@ -118,6 +118,12 @@ $$fieldsref{logout_script}
 
 <body>
 
+<!-- durch diese Befehlszeilenoption wird ein-/ausschalten der Dezimalpunkt-Stoff -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
 <!-- Suchen Sie nach Benutzern, Handel, Werbung -->
 
 <br/>
@@ -324,12 +330,6 @@ Konto ändern
 </li>
 
 <li>
-<a title="Überweisungswährung oder Stunden" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Zahlung
-</a>
-</li>
-
-<li>
 <a title="Zahlung für Waren oder Dienstleistungen aufteilen" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Split-Zahlung
 </a>
@@ -389,6 +389,17 @@ Inserieren
 Anzeige Kategorien
 </h3>
 $$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:260px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
 </div>
 
 <div class="clear">

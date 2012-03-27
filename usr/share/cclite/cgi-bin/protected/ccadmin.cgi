@@ -255,7 +255,8 @@ if ( length( $cookieref->{userLogin} ) && length( $cookieref->{token} ) ) {
 
 }
 
- $fieldsref->{'count'} = get_logged_in_count ( 'local', $db, 'om_users', $fieldsref, $token );
+$fieldsref->{'count'} =
+  get_logged_in_count( 'local', $db, 'om_users', $fieldsref, $token );
 
 # Controller based on the action field
 # 'local' is added to routines that are invoked locally to fill the class field

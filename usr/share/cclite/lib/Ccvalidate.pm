@@ -44,6 +44,8 @@ my $VERSION = 1.00;
 @ISA = qw(Exporter);
 
 @EXPORT = qw(create_utilityscriptlets
+  check_name_exists
+  check_email_exists
   validate_registry
   validate_currency
   validate_user
@@ -244,41 +246,28 @@ sub validate_user {
         }
     }
 
-    #FIXME: not accepted if username exists already or email exists already
-    # now updated for blank 'order by' string after sql string
-    # ugly needs doing with count, really
-
-    my ( $error1, $fromuserref1 ) =
-      get_where( $class, $db, 'om_users', '*', 'userLogin',
-        $fieldsref->{userLogin},
-        $token, $offset, $limit );
-    my ( $error2, $fromuserref2 ) =
-      get_where( $class, $db, 'om_users', '*', 'userEmail',
-        $fieldsref->{userEmail},
-        $token, $offset, $limit );
-
-    my ( $nameexists, $emailexists );
-
-    if ( !length($error1) && !length($error2) ) {
-
-        $nameexists  = length($fromuserref1);
-        $emailexists = length($fromuserref2);
-    }
+    my $user_ref1 =
+      check_name_exists( $class, $db, $fieldsref, $messagesref, $token, $offset,
+        $limit );
 
     # adding a user that already exists
-    if ( $nameexists > 0 && $action eq "adduser" ) {
+    if ( length($user_ref1) && $action eq "adduser" ) {
         push @status, $messagesref->{userexists};
     }
 
+    my $user_ref2 =
+      check_email_exists( $class, $db, $fieldsref, $messagesref, $token,
+        $offset, $limit );
+
     # adding a user email exists
-    if ( $emailexists > 0 && $action eq "adduser" ) {
+    if ( length($user_ref2) && $action eq "adduser" ) {
         push @status, $messagesref->{emailexists};
     }
 
     # modifying a user email exists and not this user
-    # this is probably inadequate...race condition
-    if ( $emailexists > 0 && $action eq "update" ) {
-        if ( $$fromuserref2{'userId'} != $fieldsref->{'userId'} ) {
+    # FIXME: this is probably inadequate...race condition
+    if ( length($user_ref2) && $action eq "update" ) {
+        if ( $user_ref2->{'userId'} != $fieldsref->{'userId'} ) {
             push @status, $messagesref->{emailexists};
         }
     }
@@ -290,6 +279,67 @@ sub validate_user {
         unshift @status, 1;
     }
     return @status;
+}
+
+=head3 check_name_exists
+
+Abstrated out of validate because this is used
+for validation of REST style additions
+
+This doesn't deal will database problems
+
+=cut
+
+sub check_name_exists {
+
+    my ( $class, $db, $fieldsref, $messagesref, $token, $offset, $limit ) = @_;
+
+    #FIXME: not accepted if username exists already or email exists already
+    # now updated for blank 'order by' string after sql string
+    # ugly needs doing with count, really
+
+    my ( $error, $user_ref ) =
+      get_where( $class, $db, 'om_users', '*', 'userLogin',
+        $fieldsref->{userLogin},
+        $token, $offset, $limit );
+
+    if ( !length($error) && length($user_ref) ) {
+        return $user_ref;    # exists already
+    } else {
+        return undef;        # userLogin is unique
+    }
+
+}
+
+=head3 check_email_exists
+
+Abstrated out of validate because this is used
+for validation of REST style additions
+
+This doesn't deal will database problems
+
+
+=cut
+
+sub check_email_exists {
+
+    my ( $class, $db, $fieldsref, $messagesref, $token, $offset, $limit ) = @_;
+
+    #FIXME: not accepted if username exists already or email exists already
+    # now updated for blank 'order by' string after sql string
+    # ugly needs doing with count, really
+
+    my ( $error, $user_ref ) =
+      get_where( $class, $db, 'om_users', '*', 'userEmail',
+        $fieldsref->{userEmail},
+        $token, $offset, $limit );
+
+    if ( !length($error) && length($user_ref) ) {
+        return $user_ref;    # exists already
+    } else {
+        return undef;        # email is unique
+    }
+
 }
 
 =head3 validate_partner

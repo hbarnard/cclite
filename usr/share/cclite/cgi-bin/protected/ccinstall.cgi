@@ -400,7 +400,8 @@ EOT
 
 =head3 test_log
 
-test whether digest module is present, otherwise whinge...
+test whether Log4perl module is present, otherwise whinge...
+Now deprecated, since Log4perl isn't required 03/2012
 
 =cut
 
@@ -570,7 +571,7 @@ BEGIN {
 
     ( $messages[1], $hash_type ) = test_sha();       # test for sha2 module
     $messages[2] = test_dbi();                       # for dbi module
-    $messages[4] = test_log();
+    ###$messages[4] = test_log();
 
     $login = getpwuid($<) if ( $os ne 'windows' );
 
