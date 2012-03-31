@@ -66,16 +66,7 @@
 <!-- search for users,trades, ads -->
 <br/>
 <div align="right">       
-		<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
-			<input name="action" value="find" type="hidden">
-			<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
-			<select id="search_type" class="small" name="search_type">
-					<option selected value='trade'>Transactions</option>
-					<option value='user'>Users</option>
-					<option value='ad'>Adverts</option>
-	        </select>	
-	        <input value="Go" class="small" type="submit" title="Look for trades, ads or users">								
-		</form>
+
        
 
 <!-- end of autocomplete search box -->
@@ -143,7 +134,7 @@
                 </div>
 		<div valign="top" id="secondaryContent">
 <!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->			
- <h3>Ad categories</h3>
+ 
 $$fieldsref{righthandside}
 
 		</div>

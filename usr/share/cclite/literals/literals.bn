@@ -206,6 +206,7 @@ noregistriesfound=কোনও রেজিস্ট্রী বর্তমা
 sha1warning=হ্যাশ ধরন SHA1: SHA2 ইনস্টল করুন যদি সম্ভব, ব্যবস্থাপনার পরে পরিবর্তন করা যাবে না
 js-greek=গ্রিক
 passwordnelogin=পাসওয়ার্ডের লগিন হিসেবে একই হবে না
+nolocalcurrency=স্থানীয় রেজিস্ট্রীতে টাকা না
 loginfailedfor=লগিন ের জন্য ব্যর্থ হয়েছিল
 tradeTaxflag=কর ফ্ল্যাগ
 admpass=অ্যাডমিন পাসওয়ার্ড

@@ -484,6 +484,12 @@ start page via print Location. 10/2009</p>
         <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&#39;down.html&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
+    <span class="c"># registry is unkown, little hole found 03/2012</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$registry_status</span> =~ <span class="q">/Unknown database/i</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$registry_status</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&#39;logon.html&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+            <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
+
     <span class="c"># merchant key delivered as cookie</span>
     <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
@@ -3029,6 +3035,9 @@ json delivery added for use as engine.</p>
 <h3><a name="get_registry_status">get_registry_status</a></h3>
 <p>Get registry status open, closed, down, closing
 Closing is to give people time to log off</p>
+<p>FIXME: this needs to return a couple of things, the message
+and the technical status of the database, unkown etc. etc.
+hence the returns need looking at too</p>
 <pre>
 <a name="get_registry_status-"></a><span class="k">sub </span><span class="m">get_registry_status</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>

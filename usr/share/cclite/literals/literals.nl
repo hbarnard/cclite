@@ -209,6 +209,7 @@ noregistriesfound=Geen registers momenteel, maak een!
 sha1warning=Hash-type is SHA1: installatie SHA2 indien mogelijk, na de installatie kan niet worden gewijzigd
 js-greek=Grieks
 passwordnelogin=Wachtwoord moet niet hetzelfde als login
+nolocalcurrency=Valuta niet in het lokale register
 loginfailedfor=Login failed for
 tradeTaxflag=vlag van de belasting
 admpass=admin wachtwoord

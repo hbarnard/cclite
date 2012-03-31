@@ -209,6 +209,7 @@ noregistriesfound=Keine Register derzeit, erstellen Sie bitte ein!
 sha1warning=Hash-Typ ist SHA1: Installieren SHA2 nicht wenn möglich, nach der Installation geändert werden
 js-greek=Griechisch
 passwordnelogin=Passwort darf nicht dem Anmeldenamen identisch sein
+nolocalcurrency=Währung nicht in der lokalen Registrierung
 loginfailedfor=Fehler bei der Anmeldung für
 tradeTaxflag=Steuer-flag
 admpass=Admin Passwort

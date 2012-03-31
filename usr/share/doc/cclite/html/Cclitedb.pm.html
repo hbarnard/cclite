@@ -279,12 +279,17 @@ now very general should work out which fields to insert via 'describe'</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$insert</span> = <span class="i">_sqlinsert</span><span class="s">(</span> <span class="i">$dbh</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$sth</span>    = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$insert</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$rv</span>     = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$error</span>  = <span class="i">$sth</span><span class="i">-&gt;errstr</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$dbh</span><span class="i">-&gt;disconnect</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">$insert</span> = <span class="i">_sqlinsert</span><span class="s">(</span> <span class="i">$dbh</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$sth</span>    = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$insert</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$rv</span>     = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$error</span>  = <span class="i">$sth</span><span class="i">-&gt;errstr</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">$dbh</span><span class="i">-&gt;disconnect</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="k">undef</span><span class="sc">;</span>
+    <span class="s">}</span>
 <span class="s">}</span>
 
 </pre><p></p>
@@ -458,9 +463,15 @@ modify_database_record2 : where</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$rv</span><span class="cm">,</span> <span class="i">$rc</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: better return needed if databases has gone away...</span>
+    <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> &amp;&amp; <span class="s">(</span>! <span class="k">length</span><span class="s">(</span><span class="i">$registry_error</span><span class="s">)</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
     <span class="k">my</span> <span class="i">$update</span> = <span class="i">_sqlupdate</span><span class="s">(</span> <span class="i">$dbh</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$update</span><span class="s">)</span><span class="sc">;</span>
     <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+	  <span class="k">return</span> <span class="k">undef</span> <span class="sc">;</span>	
+	<span class="s">}</span>	 
 
     <span class="c">#FIXME: Some tables still haven&#39;t literals</span>
     <span class="k">my</span> <span class="i">$table_literal</span> = <span class="i">$messages</span>{<span class="i">$table</span>} || <span class="i">$table</span><span class="sc">;</span>
@@ -1031,7 +1042,7 @@ should return one record only</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$rc</span><span class="cm">,</span> <span class="i">$rv</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> &amp;&amp; <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$registryerror</span><span class="s">)</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$get</span><span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$rv</span>  = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$hash_ref</span> = <span class="i">$sth</span><span class="i">-&gt;fetchrow_hashref</span><span class="sc">;</span>
@@ -1184,16 +1195,21 @@ table describe. Used to prepare other operations</p>
 <pre>
 <a name="get_table_columns-"></a><span class="k">sub </span><span class="m">get_table_columns</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$sth</span><span class="cm">,</span> <span class="i">@columns</span><span class="cm">,</span> <span class="i">@row</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$show</span> = <span class="q">&quot;describe $table;&quot;</span><span class="sc">;</span>
-    <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$show</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$rv</span> = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">while</span> <span class="s">(</span> <span class="i">@row</span> = <span class="i">$sth</span><span class="i">-&gt;fetchrow_array</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">push</span> <span class="i">@columns</span><span class="cm">,</span> <span class="i">$row</span>[<span class="n">0</span>]<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$sth</span><span class="cm">,</span> <span class="i">@columns</span><span class="cm">,</span> <span class="i">@row</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$show</span> = <span class="q">&quot;describe $table;&quot;</span><span class="sc">;</span>
+        <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$show</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$rv</span> = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">while</span> <span class="s">(</span> <span class="i">@row</span> = <span class="i">$sth</span><span class="i">-&gt;fetchrow_array</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">push</span> <span class="i">@columns</span><span class="cm">,</span> <span class="i">$row</span>[<span class="n">0</span>]<span class="sc">;</span>
+        <span class="s">}</span>
+        <span class="i">$sth</span><span class="i">-&gt;finish</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$error</span> = <span class="i">$dbh</span><span class="i">-&gt;errstr</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span><span class="i">@columns</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="k">undef</span><span class="sc">;</span>
     <span class="s">}</span>
-    <span class="i">$sth</span><span class="i">-&gt;finish</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$error</span> = <span class="i">$dbh</span><span class="i">-&gt;errstr</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span><span class="i">@columns</span><span class="s">)</span><span class="sc">;</span>
+
 <span class="s">}</span>
 
 </pre><p></p>
@@ -2059,9 +2075,11 @@ The count is used for closing down the registry</p>
         <span class="k">my</span> <span class="i">$rv</span>  = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$array_ref</span> = <span class="i">$sth</span><span class="i">-&gt;fetchall_arrayref</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$sth</span><span class="i">-&gt;finish</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="s">}</span>
-    <span class="k">my</span> <span class="i">$count</span> = <span class="k">scalar</span><span class="s">(</span><span class="i">@$array_ref</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$count</span> = <span class="k">scalar</span><span class="s">(</span><span class="i">@$array_ref</span><span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+		<span class="k">return</span> <span class="k">undef</span> <span class="sc">;</span>
+	<span class="s">}</span>	
 
 <span class="s">}</span>
 

@@ -351,6 +351,12 @@ sub logon_user {
         return ( 0, '', $error, $html, 'down.html', $fieldsref, $cookieheader );
     }
 
+    # registry is unkown, little hole found 03/2012
+    if ( $registry_status =~ /Unknown database/i ) {
+        return ( 0, '', $registry_status, $html, 'logon.html', $fieldsref,
+            $cookieheader );
+    }
+
     # merchant key delivered as cookie
     my $cookieref = get_cookie();
 
@@ -3012,6 +3018,10 @@ EOT
 
 Get registry status open, closed, down, closing
 Closing is to give people time to log off
+
+FIXME: this needs to return a couple of things, the message
+and the technical status of the database, unkown etc. etc.
+hence the returns need looking at too
 
 =cut
 

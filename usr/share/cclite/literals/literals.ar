@@ -209,6 +209,7 @@ noregistriesfound=لا السجلات حاليا، يرجى إنشاء واحد!
 sha1warning=هو نوع التجزئة SHA1: تثبيت SHA2 إذا كان ذلك ممكناً، لا يمكن تغيير بعد الإعداد
 js-greek=اليونانية
 passwordnelogin=لا يجب أن تكون كلمة المرور نفس تسجيل الدخول
+nolocalcurrency=العملة ليس في التسجيل المحلي
 loginfailedfor=فشل تسجيل دخول
 tradeTaxflag=ضريبة العلم
 admpass=كلمة مرور المشرف

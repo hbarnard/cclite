@@ -125,32 +125,6 @@ $$fieldsref{logout_script}
 
 <div align="right">
 
-<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
-
-<input name="action" value="find" type="hidden">
-
-<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
-
-<select id="search_type" class="small" name="search_type">
-
-<option selected value='trade'>
-交易
-</option>
-
-<option value='user'>
-用户
-</option>
-
-<option value='ad'>
-广告
-</option>
-
-</select>
-
-<input value="转到" class="small" type="submit" title="寻找行业、 广告或用户">
-
-</form>
-
 <!-- 自动完成搜索框的结束 -->
 
 <span id="status_message">
@@ -162,11 +136,11 @@ $$fieldsref{status_message}
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
 <option value='en'>
-js-英语
+英语
 </option>
 
 <option value='ar'>
-js-阿拉伯语
+阿拉伯语
 </option>
 
 <option value='bn'>
@@ -174,7 +148,7 @@ js-阿拉伯语
 </option>
 
 <option value='zh'>
-js-中文
+中文
 </option>
 
 <option value='de'>
@@ -182,7 +156,7 @@ js-中文
 </option>
 
 <option value='nl'>
-js-荷兰语
+荷兰语
 </option>
 
 <option value='fr'>
@@ -198,35 +172,35 @@ js-荷兰语
 </option>
 
 <option value='el'>
-js-希腊语
+希腊语
 </option>
 
 <option value='ja'>
-js-日语
+日语
 </option>
 
 <option value='ko'>
-js-朝鲜语
+朝鲜语
 </option>
 
 <option value='pt'>
-js-葡萄牙
+葡萄牙
 </option>
 
 <option value='ro'>
-js-罗马尼亚
+罗马尼亚
 </option>
 
 <option value='ru'>
-js-俄语
+俄语
 </option>
 
 <option value='th'>
-js-泰语
+泰语
 </option>
 
 <option value='vi'>
-js-越南语
+越南语
 </option>
 
 </select>
@@ -270,8 +244,8 @@ Cclite 安装
 </li>
 
 <li>
-<a title="js-管理" href="/cgi-bin/protected/ccadmin.cgi">
-js-管理
+<a title="管理" href="/cgi-bin/protected/ccadmin.cgi">
+管理
 </a>
 
 </li>
@@ -326,10 +300,6 @@ js-管理
 <div valign="top" id="secondaryContent">
 
 <!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
-
-<h3>
-广告类别
-</h3>
 $$fieldsref{righthandside}
 </div>
 

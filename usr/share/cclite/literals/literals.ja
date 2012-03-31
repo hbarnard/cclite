@@ -209,6 +209,7 @@ noregistriesfound=レジストリ現在、ください作成しない 1 つ ！
 sha1warning=ハッシュ SHA1 です: SHA2 をインストール可能な場合は、変更できませんセットアップ後
 js-greek=ギリシャ語
 passwordnelogin=パスワードは、ログインと同じできませんする必要があります。
+nolocalcurrency=ローカルのレジストリではなく通貨
 loginfailedfor=ログインに失敗しました
 tradeTaxflag=税フラグ
 admpass=管理者パスワード

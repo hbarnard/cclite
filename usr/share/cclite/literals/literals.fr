@@ -209,6 +209,7 @@ noregistriesfound=Aucun registres actuellement, veuillez ne créer un !
 sha1warning=Type de hachage est SHA1 : installer SHA2 si possible, ne peut être modifié après l'installation
 js-greek=Grec
 passwordnelogin=Mot de passe ne doit pas être la même que la connexion
+nolocalcurrency=Devise pas dans le Registre local
 loginfailedfor=Échec de la connexion
 tradeTaxflag=Drapeau de l'impôt
 admpass=admin mot de passe

@@ -209,6 +209,7 @@ noregistriesfound=없음 레지스트리에 현재 하나 만들 하시기 바�
 sha1warning=해시 종류는 SHA1: SHA2 설치 만약에 가능 하다 면, 설치 후 변경할 수 없습니다
 js-greek=그리스어
 passwordnelogin=암호 없는 로그인과 동일 해야
+nolocalcurrency=로컬 레지스트리에 없는 통화
 loginfailedfor=로그인 하지 못했습니다.
 tradeTaxflag=세금 플래그
 admpass=관리자 암호

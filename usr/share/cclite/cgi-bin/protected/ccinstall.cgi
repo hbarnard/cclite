@@ -269,7 +269,7 @@ sub show_problems {
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite 0.8.1 Installer: Problems</title>
+<title>Cclite 0.9.0 Installer: Problems</title>
 
 
 
@@ -571,7 +571,7 @@ BEGIN {
 
     ( $messages[1], $hash_type ) = test_sha();       # test for sha2 module
     $messages[2] = test_dbi();                       # for dbi module
-    ###$messages[4] = test_log();
+    ###$messages[4] = test_log();                    # log4perl no longer necessary
 
     $login = getpwuid($<) if ( $os ne 'windows' );
 
@@ -611,7 +611,7 @@ my $offset = $fields{offset};
 $fields{hash_type} = $hash_type if ($newinstall);
 
 #FIXME: no configuration file at this stage, but hard-code horror...
-$fields{version} ||= "0.8.1";
+$fields{version} ||= "0.9.0";
 
 # number of records per page in lists ex-db tables, provided in cclite.cf
 my $limit = $fields{limit} || 15;
@@ -632,9 +632,9 @@ $db = $fields{registry};
 
 # A template object referencing a particular directory
 # Uses $dir to try and locate template from directory it's loaded into
-# Install is english only, at present
 
-my $language = "en";
+# install is multilingual now 03/2012 en default...
+my $language = $cookieref->{'language'} || 'en';
 
 my $pages = new HTML::SimpleTemplate("$dir/templates/html/$language/install");
 
@@ -710,8 +710,35 @@ $action =~ /template/
   );
 
 # display an action result, all actions are consumed
-display_template(
-    $refresh,  $metarefresh, $error,   $html, $pages,
-    $pagename, $fieldsref,   $cookies, $token
+
+# my $goodbye = "$messages{goodbye} $cookieref->{userLogin}";
+
+$fieldsref->{'youare'} = '';
+$fieldsref->{'at'}     = '';
+$fieldsref->{'action'} = '';
+
+# flag for logged in users 12/2011
+my $userref;
+$userref->{'userLogin'}    = $cookieref->{'userLogin'};
+$userref->{'userLoggedin'} = 0;
+
+my ( $a, $b, $c, $d ) = update_database_record(
+    'local', $cookieref->{'registry'},
+    'om_users', 2, $userref, $cookieref->{'language'},
+    $cookieref->{'token'}
 );
+
+foreach my $key ( keys %$cookieref ) {
+    $cookieref->{$key} = undef if ( $key ne 'language' );
+}
+
+my $cookieheader =
+  return_cookie_header( -1, $fieldsref->{'domain'}, '/', '', %$cookieref );
+
+display_template(
+
+    $refresh,  $metarefresh, $error,        $html, $pages,
+    $pagename, $fieldsref,   $cookieheader, $token
+);
+
 exit 0;

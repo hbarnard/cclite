@@ -209,6 +209,7 @@ noregistriesfound=Không có đăng ký hiện thời, hãy tạo một!
 sha1warning=Băm kiểu là SHA1: cài đặt SHA2 nếu có thể, không thể thay đổi sau khi thiết lập
 js-greek=Hy Lạp
 passwordnelogin=Mật khẩu không là giống như đăng nhập
+nolocalcurrency=Tiền tệ không có trong sổ đăng ký địa phương
 loginfailedfor=đăng nhập thất bại
 tradeTaxflag=thuế cờ
 admpass=admin mật khẩu

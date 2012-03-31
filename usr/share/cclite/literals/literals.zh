@@ -209,6 +209,7 @@ noregistriesfound=没有登记册目前，请创建一个 ！
 sha1warning=哈希值类型是 SHA1： 安装 SHA2 如果可能的话，不能更改安装后
 js-greek=希腊语
 passwordnelogin=密码不能登录相同
+nolocalcurrency=不在本地注册表中的货币
 loginfailedfor=登录失败
 tradeTaxflag=税标志
 admpass=管理员密码

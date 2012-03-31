@@ -109,12 +109,17 @@ sub add_database_record {
     my ( $class, $db, $table, $fieldsref, $token ) = @_;
 
     my ( $registry_error, $dbh ) = _registry_connect( $db, $token );
-    my $insert = _sqlinsert( $dbh, $table, $fieldsref, $token );
-    my $sth    = $dbh->prepare($insert);
-    my $rv     = $sth->execute();
-    my $error  = $sth->errstr();
-    $dbh->disconnect();
-    return ( $error, $record_id );
+
+    if ( length($dbh) ) {
+        my $insert = _sqlinsert( $dbh, $table, $fieldsref, $token );
+        my $sth    = $dbh->prepare($insert);
+        my $rv     = $sth->execute();
+        my $error  = $sth->errstr();
+        $dbh->disconnect();
+        return ( $error, $record_id );
+    } else {
+        return undef;
+    }
 }
 
 =head3 add_database_record_dbh
@@ -297,9 +302,15 @@ sub update_database_record {
 
     my ( $rv, $rc, $record_id );
     my ( $registry_error, $dbh ) = _registry_connect( $db, $token );
+
+    #FIXME: better return needed if databases has gone away...
+    if (length($dbh) && (! length($registry_error)) ) {
     my $update = _sqlupdate( $dbh, $table, $useid, $fieldsref, $token );
     my $sth = $dbh->prepare($update);
     $sth->execute();
+    } else {
+	  return undef ;	
+	}	 
 
     #FIXME: Some tables still haven't literals
     my $table_literal = $messages{$table} || $table;
@@ -907,7 +918,7 @@ sub get_where {
     my ( $rc, $rv, $hash_ref );
     my ( $registryerror, $dbh ) = _registry_connect( $db, $token );
 
-    if ( length($dbh) ) {
+    if ( length($dbh) && ( !length($registryerror) ) ) {
         my $sth = $dbh->prepare($get);
         my $rv  = $sth->execute();
         $hash_ref = $sth->fetchrow_hashref;
@@ -1071,16 +1082,21 @@ table describe. Used to prepare other operations
 
 sub get_table_columns {
     my ( $table, $dbh ) = @_;
-    my ( $sth, @columns, @row );
-    my $show = "describe $table;";
-    $sth = $dbh->prepare($show);
-    my $rv = $sth->execute();
-    while ( @row = $sth->fetchrow_array ) {
-        push @columns, $row[0];
+    if ( length($dbh) ) {
+        my ( $sth, @columns, @row );
+        my $show = "describe $table;";
+        $sth = $dbh->prepare($show);
+        my $rv = $sth->execute();
+        while ( @row = $sth->fetchrow_array ) {
+            push @columns, $row[0];
+        }
+        $sth->finish();
+        my $error = $dbh->errstr();
+        return (@columns);
+    } else {
+        return undef;
     }
-    $sth->finish();
-    my $error = $dbh->errstr();
-    return (@columns);
+
 }
 
 =head3 check_db_and_version
@@ -2002,9 +2018,11 @@ sub whos_online {
         my $rv  = $sth->execute();
         $array_ref = $sth->fetchall_arrayref();
         $sth->finish();
-    }
-    my $count = scalar(@$array_ref);
-    return ( $count, $array_ref );
+        my $count = scalar(@$array_ref);
+        return ( $count, $array_ref );
+    } else {
+		return undef ;
+	}	
 
 }
 

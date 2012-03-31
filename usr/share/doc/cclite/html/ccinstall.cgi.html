@@ -350,7 +350,7 @@ been found at this stage...</p>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/jquery.autocomplete.css&quot; /&gt;</span>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/lib/thickbox.css&quot; /&gt;</span>
 
-<span class="hh">&lt;title&gt;Cclite 0.8.1 Installer: Problems&lt;/title&gt;</span>
+<span class="hh">&lt;title&gt;Cclite 0.9.0 Installer: Problems&lt;/title&gt;</span>
 
 
 
@@ -638,7 +638,7 @@ and general extra flexibility</p>
 
     <span class="s">(</span> <span class="i">$messages</span>[<span class="n">1</span>]<span class="cm">,</span> <span class="i">$hash_type</span> <span class="s">)</span> = <span class="i">test_sha</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>       <span class="c"># test for sha2 module</span>
     <span class="i">$messages</span>[<span class="n">2</span>] = <span class="i">test_dbi</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>                       <span class="c"># for dbi module</span>
-    <span class="c">###$messages[4] = test_log();</span>
+    <span class="c">###$messages[4] = test_log();                    # log4perl no longer necessary</span>
 
     <span class="i">$login</span> = <span class="k">getpwuid</span><span class="s">(</span><span class="i">$&lt;</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -678,7 +678,7 @@ and general extra flexibility</p>
 <span class="i">$fields</span>{<span class="w">hash_type</span>} = <span class="i">$hash_type</span> <span class="k">if</span> <span class="s">(</span><span class="i">$newinstall</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#FIXME: no configuration file at this stage, but hard-code horror...</span>
-<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.8.1&quot;</span><span class="sc">;</span>
+<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.9.0&quot;</span><span class="sc">;</span>
 
 <span class="c"># number of records per page in lists ex-db tables, provided in cclite.cf</span>
 <span class="k">my</span> <span class="i">$limit</span> = <span class="i">$fields</span>{<span class="w">limit</span>} || <span class="n">15</span><span class="sc">;</span>
@@ -699,9 +699,9 @@ and general extra flexibility</p>
 
 <span class="c"># A template object referencing a particular directory</span>
 <span class="c"># Uses $dir to try and locate template from directory it&#39;s loaded into</span>
-<span class="c"># Install is english only, at present</span>
 
-<span class="k">my</span> <span class="i">$language</span> = <span class="q">&quot;en&quot;</span><span class="sc">;</span>
+<span class="c"># install is multilingual now 03/2012 en default...</span>
+<span class="k">my</span> <span class="i">$language</span> = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span><span class="q">&quot;$dir/templates/html/$language/install&quot;</span><span class="s">)</span><span class="sc">;</span>
 
@@ -777,10 +777,37 @@ and general extra flexibility</p>
   <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># display an action result, all actions are consumed</span>
-<span class="i">display_template</span><span class="s">(</span>
-    <span class="i">$refresh</span><span class="cm">,</span>  <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>   <span class="i">$html</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
-    <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>   <span class="i">$cookies</span><span class="cm">,</span> <span class="i">$token</span>
+
+<span class="c"># my $goodbye = &quot;$messages{goodbye} $cookieref-&gt;{userLogin}&quot;;</span>
+
+<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;youare&#39;</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;at&#39;</span>}     = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+<span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;action&#39;</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+
+<span class="c"># flag for logged in users 12/2011</span>
+<span class="k">my</span> <span class="i">$userref</span><span class="sc">;</span>
+<span class="i">$userref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}    = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="sc">;</span>
+<span class="i">$userref</span>-&gt;{<span class="q">&#39;userLoggedin&#39;</span>} = <span class="n">0</span><span class="sc">;</span>
+
+<span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> = <span class="i">update_database_record</span><span class="s">(</span>
+    <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span>
+    <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>}<span class="cm">,</span>
+    <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;token&#39;</span>}
 <span class="s">)</span><span class="sc">;</span>
+
+<span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%$cookieref</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="i">$cookieref</span>-&gt;{<span class="i">$key</span>} = <span class="k">undef</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> <span class="k">ne</span> <span class="q">&#39;language&#39;</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<span class="k">my</span> <span class="i">$cookieheader</span> =
+  <span class="i">return_cookie_header</span><span class="s">(</span> <span class="n">-1</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;domain&#39;</span>}<span class="cm">,</span> <span class="q">&#39;/&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">%$cookieref</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="i">display_template</span><span class="s">(</span>
+
+    <span class="i">$refresh</span><span class="cm">,</span>  <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span>        <span class="i">$html</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span>
+    <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>   <span class="i">$cookieheader</span><span class="cm">,</span> <span class="i">$token</span>
+<span class="s">)</span><span class="sc">;</span>
+
 <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <a name="EOF-"></a></pre></body>
 
