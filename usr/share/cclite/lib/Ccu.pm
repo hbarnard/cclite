@@ -241,7 +241,7 @@ EOT
     if ( $pagename !~ /logon/
         && length( $cookieref->{'registry'} && $0 !~ /ccinstall/ ) )
     {
-        my $option_string =
+        my ($option_string,$count) =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_currencies', $fieldsref, 'name', 'select', $token );
 
@@ -309,7 +309,7 @@ EOT
     {
 
         # collect categories for yellow pages
-        my $option_string =
+        my ($option_string,$count) =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_categories', $fieldsref, 'description', 'select', $token );
         $fieldsref->{selectclassification} = <<EOT ;
@@ -325,7 +325,7 @@ EOT
 
         # collect major, if a category operation
         #
-        my $option_string =
+        my ($option_string,$count) =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_categories', $fieldsref, 'parent', 'select', $token );
         $fieldsref->{selectparent} = <<EOT ;
