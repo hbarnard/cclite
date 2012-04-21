@@ -304,13 +304,13 @@ sub update_database_record {
     my ( $registry_error, $dbh ) = _registry_connect( $db, $token );
 
     #FIXME: better return needed if databases has gone away...
-    if (length($dbh) && (! length($registry_error)) ) {
-    my $update = _sqlupdate( $dbh, $table, $useid, $fieldsref, $token );
-    my $sth = $dbh->prepare($update);
-    $sth->execute();
+    if ( length($dbh) && ( !length($registry_error) ) ) {
+        my $update = _sqlupdate( $dbh, $table, $useid, $fieldsref, $token );
+        my $sth = $dbh->prepare($update);
+        $sth->execute();
     } else {
-	  return undef ;	
-	}	 
+        return undef;
+    }
 
     #FIXME: Some tables still haven't literals
     my $table_literal = $messages{$table} || $table;
@@ -2021,8 +2021,8 @@ sub whos_online {
         my $count = scalar(@$array_ref);
         return ( $count, $array_ref );
     } else {
-		return undef ;
-	}	
+        return undef;
+    }
 
 }
 

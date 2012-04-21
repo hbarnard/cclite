@@ -2532,6 +2532,9 @@ sub collect_items {
     my $first_pass = 1;
     my $save;
 
+    my $filtered_hash_ref ;  # output to be turned into json
+    my $count = 0 ; # count the items in the options
+    
     foreach my $key ( keys( %{$hash_ref} ) ) {
 
         # only take active items from categories table
@@ -2539,6 +2542,12 @@ sub collect_items {
           if ( $table eq 'om_categories'
             && $hash_ref->{$key}->{'status'} eq 'inactive'
             && $field_name ne 'parent' );
+            
+       # if not multiregistry only collect local partners
+        next
+          if ( $table eq 'om_partners'
+            && $hash_ref->{$key}->{'type'} ne 'local'
+            && $fieldsref->{'multiregistry'} ne 'yes' );       
 
    # don't display currencies that are declared as closed or suspended/predelete
         next
@@ -2551,10 +2560,16 @@ sub collect_items {
 
         #item is hold over from the array code previously...
         my $item = $hash_ref->{$key}->{$field_name};
+       
+ 
+       # put filtered results into new hash...
+       $filtered_hash_ref->{$key} = $hash_ref->{$key} ;
+       $count++ ;
 
         my $x = 1;
         my $name;
         my $checked;
+        
 
         # if it's not already defined and not a current subdirectory
         if ( !defined $duplicates{$item} && $item !~ /\056/ ) {
@@ -2603,11 +2618,11 @@ sub collect_items {
 "<input type=\"checkbox\" name=\"$name\" $checked value=\"$item\">\u$item &nbsp;";
                 undef $checked;
                 $x++;
-            }
+            } 
             $duplicates{$item} = 'y';
         }
     }
-    return $option_string;
+    return ($option_string,$count) ;
 }
 
 =head3 notify_by_mail

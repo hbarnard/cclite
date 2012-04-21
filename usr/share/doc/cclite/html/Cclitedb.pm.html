@@ -465,13 +465,13 @@ modify_database_record2 : where</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c">#FIXME: better return needed if databases has gone away...</span>
-    <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> &amp;&amp; <span class="s">(</span>! <span class="k">length</span><span class="s">(</span><span class="i">$registry_error</span><span class="s">)</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="i">$update</span> = <span class="i">_sqlupdate</span><span class="s">(</span> <span class="i">$dbh</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$update</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> &amp;&amp; <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$registry_error</span><span class="s">)</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">$update</span> = <span class="i">_sqlupdate</span><span class="s">(</span> <span class="i">$dbh</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$useid</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$update</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-	  <span class="k">return</span> <span class="k">undef</span> <span class="sc">;</span>	
-	<span class="s">}</span>	 
+        <span class="k">return</span> <span class="k">undef</span><span class="sc">;</span>
+    <span class="s">}</span>
 
     <span class="c">#FIXME: Some tables still haven&#39;t literals</span>
     <span class="k">my</span> <span class="i">$table_literal</span> = <span class="i">$messages</span>{<span class="i">$table</span>} || <span class="i">$table</span><span class="sc">;</span>
@@ -2078,8 +2078,8 @@ The count is used for closing down the registry</p>
         <span class="k">my</span> <span class="i">$count</span> = <span class="k">scalar</span><span class="s">(</span><span class="i">@$array_ref</span><span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="s">(</span> <span class="i">$count</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-		<span class="k">return</span> <span class="k">undef</span> <span class="sc">;</span>
-	<span class="s">}</span>	
+        <span class="k">return</span> <span class="k">undef</span><span class="sc">;</span>
+    <span class="s">}</span>
 
 <span class="s">}</span>
 

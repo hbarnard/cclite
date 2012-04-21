@@ -34,7 +34,7 @@ use vars qw(@ISA @EXPORT);
 use Exporter;
 use Data::Dumper;
 
-use Log::Message::Simple qw[msg error debug carp croak cluck confess];
+#use Log::Message::Simple qw[msg error debug carp croak cluck confess];
 
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
@@ -224,10 +224,10 @@ EOT
 
     if ( length( $cookieref->{token} ) ) {
 
-        my $login = $cookieref->{userLogin} || $fieldsref->{userLogin};
-        %messages                = readmessages();
-        $fieldsref->{youare}     = "$messages{youare} $login";
-        $fieldsref->{atregistry} = "$messages{at} $fieldsref->{registry}";
+        my $login = $cookieref->{'userLogin'} || $fieldsref->{'userLogin'};
+        %messages                  = readmessages();
+        $fieldsref->{'youare'}     = "$messages{youare} $login";
+        $fieldsref->{'atregistry'} = "$messages{at} $fieldsref->{registry}";
     }
 
     # collect currencies and partners, if a trade operation
@@ -239,19 +239,19 @@ EOT
 
     # not done for install, blocked 'new' installer 6/4/2011
     if ( $pagename !~ /logon/
-        && length( $cookieref->{registry} && $0 !~ /ccinstall/ ) )
+        && length( $cookieref->{'registry'} && $0 !~ /ccinstall/ ) )
     {
         my $option_string =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_currencies', $fieldsref, 'name', 'select', $token );
 
         # get the latest news field from the registry for front page display
-        $fieldsref->{latest_news} =
+        $fieldsref->{'latest_news'} =
           Cclite::get_news( 'local', $fieldsref->{'registry'}, $token )
           if ( length( $cookieref->{registry} ) );
 
         # format it for user level users, admin needs to edit it
-        $fieldsref->{latest_news} =
+        $fieldsref->{'latest_news'} =
           "<span class=\"news\">$fieldsref->{latest_news}<\/span>"
           if ( $cookieref->{userLevel} ne "admin"
             && length( $fieldsref->{latest_news} ) );
@@ -270,12 +270,16 @@ EOT
         # collect partners for registry operations, if multiregistry
         # add local registry to option string!
         # otherwise just present local registry as readonly field
-        if ( $fieldsref->{multiregistry} eq "yes"
-            && length( $cookieref->{registry} ) )
+        # not quite right 04/2012 since local multiregistry does NOT
+        # need SOAP, corrected and collect_items modified...
+        my $count = 0 ;
+        
+        if ( length( $cookieref->{'registry'} ) )
         {
-            $option_string =
+            ($option_string,$count) =
               Cclite::collect_items( 'local', $fieldsref->{registry},
                 'om_partners', $fieldsref, 'name', 'select', $token );
+         if ($count > 0 ) {       
             $option_string .=
 "<option value=\"$fieldsref->{registry}\">\u$fieldsref->{registry}</option>";
             $fieldsref->{selectpartners} = <<EOT ;
@@ -288,6 +292,7 @@ EOT
 <input class="grey"
  name="toregistry" class="required" readonly="readonly" size="30" maxlength="255" value="$fieldsref->{registry}" type="text">   
 EOT
+	    }
 
         }
 
@@ -313,7 +318,7 @@ EOT
 
     } else {
 
-        $fieldsref->{selectclassification} = $messages{'usetags'};
+        $fieldsref->{'selectclassification'} = $messages{'usetags'};
     }
 
     if ( $pagename =~ /category/ && length( $cookieref->{registry} ) ) {
@@ -338,7 +343,7 @@ EOT
 # added logic 8/2009 to return untemplated html, for 'foreign' systems
 # this is the beginning of 'return for various representations, rss, json, csv etc.
 
-    if ( !length( $fieldsref->{mode} ) || $fieldsref->{mode} eq 'html' ) {
+    if ( !length( $fieldsref->{'mode'} ) || $fieldsref->{'mode'} eq 'html' ) {
         if ( !length( $fieldsref->{templatename} ) ) {
             $pages->Display( "index.html", $fieldsref );
         } else {
@@ -826,7 +831,7 @@ For example, transactions:
 
 sub deliver_remote_data {
 
-    my ( $db, $table, $message, $hash_ref, $status, $token ) = @_;
+    my ( $db, $table, $message, $hash_ref, $status, $token ) = @_;    #
 
     $message ||= 'OK';  # used for status messages to remote, $registry_error...
     my $count = 0;      # row counter...
