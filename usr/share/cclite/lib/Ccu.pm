@@ -241,7 +241,7 @@ EOT
     if ( $pagename !~ /logon/
         && length( $cookieref->{'registry'} && $0 !~ /ccinstall/ ) )
     {
-        my ($option_string,$count) =
+        my ( $option_string, $count ) =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_currencies', $fieldsref, 'name', 'select', $token );
 
@@ -272,27 +272,26 @@ EOT
         # otherwise just present local registry as readonly field
         # not quite right 04/2012 since local multiregistry does NOT
         # need SOAP, corrected and collect_items modified...
-        my $count = 0 ;
-        
-        if ( length( $cookieref->{'registry'} ) )
-        {
-            ($option_string,$count) =
+        my $count = 0;
+
+        if ( length( $cookieref->{'registry'} ) ) {
+            ( $option_string, $count ) =
               Cclite::collect_items( 'local', $fieldsref->{registry},
                 'om_partners', $fieldsref, 'name', 'select', $token );
-         if ($count > 0 ) {       
-            $option_string .=
+            if ( $count > 0 ) {
+                $option_string .=
 "<option value=\"$fieldsref->{registry}\">\u$fieldsref->{registry}</option>";
-            $fieldsref->{selectpartners} = <<EOT ;
+                $fieldsref->{selectpartners} = <<EOT ;
 <select class="required" name="toregistry">$blank_option$option_string</select>    
 EOT
 
-        } else {
+            } else {
 
-            $fieldsref->{selectpartners} = <<EOT ;
+                $fieldsref->{selectpartners} = <<EOT ;
 <input class="grey"
  name="toregistry" class="required" readonly="readonly" size="30" maxlength="255" value="$fieldsref->{registry}" type="text">   
 EOT
-	    }
+            }
 
         }
 
@@ -309,7 +308,7 @@ EOT
     {
 
         # collect categories for yellow pages
-        my ($option_string,$count) =
+        my ( $option_string, $count ) =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_categories', $fieldsref, 'description', 'select', $token );
         $fieldsref->{selectclassification} = <<EOT ;
@@ -325,7 +324,7 @@ EOT
 
         # collect major, if a category operation
         #
-        my ($option_string,$count) =
+        my ( $option_string, $count ) =
           Cclite::collect_items( 'local', $fieldsref->{registry},
             'om_categories', $fieldsref, 'parent', 'select', $token );
         $fieldsref->{selectparent} = <<EOT ;

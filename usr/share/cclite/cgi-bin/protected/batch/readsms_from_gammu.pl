@@ -89,9 +89,7 @@ my $cookieref = get_cookie();
 my %fields    = cgiparse();
 
 # for cron: hardcode registry, cannot be read from web cookie
-my $registry = $$cookieref{registry};
-
-# set local = 1 if this script is on the same computer as the rest of cclite
+my $registry = $cookieref->{'registry'};
 
 my $domain =
   $configuration{'domain'};    # remote domain if the script is not local

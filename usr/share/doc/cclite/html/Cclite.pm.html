@@ -2559,6 +2559,9 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
     <span class="k">my</span> <span class="i">$first_pass</span> = <span class="n">1</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$save</span><span class="sc">;</span>
 
+    <span class="k">my</span> <span class="i">$filtered_hash_ref</span> <span class="sc">;</span>  <span class="c"># output to be turned into json</span>
+    <span class="k">my</span> <span class="i">$count</span> = <span class="n">0</span> <span class="sc">;</span> <span class="c"># count the items in the options</span>
+    
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span><span class="s">(</span> <span class="i">%</span>{<span class="i">$hash_ref</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="c"># only take active items from categories table</span>
@@ -2566,6 +2569,12 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
           <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_categories&#39;</span>
             &amp;&amp; <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;status&#39;</span>} <span class="k">eq</span> <span class="q">&#39;inactive&#39;</span>
             &amp;&amp; <span class="i">$field_name</span> <span class="k">ne</span> <span class="q">&#39;parent&#39;</span> <span class="s">)</span><span class="sc">;</span>
+            
+       <span class="c"># if not multiregistry only collect local partners</span>
+        <span class="k">next</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_partners&#39;</span>
+            &amp;&amp; <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">ne</span> <span class="q">&#39;local&#39;</span>
+            &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;multiregistry&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>       
 
    <span class="c"># don&#39;t display currencies that are declared as closed or suspended/predelete</span>
         <span class="k">next</span>
@@ -2578,10 +2587,16 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
 
         <span class="c">#item is hold over from the array code previously...</span>
         <span class="k">my</span> <span class="i">$item</span> = <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="i">$field_name</span>}<span class="sc">;</span>
+       
+ 
+       <span class="c"># put filtered results into new hash...</span>
+       <span class="i">$filtered_hash_ref</span>-&gt;{<span class="i">$key</span>} = <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>} <span class="sc">;</span>
+       <span class="i">$count</span>++ <span class="sc">;</span>
 
         <span class="k">my</span> <span class="i">$x</span> = <span class="n">1</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$name</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$checked</span><span class="sc">;</span>
+        
 
         <span class="c"># if it&#39;s not already defined and not a current subdirectory</span>
         <span class="k">if</span> <span class="s">(</span> !<span class="k">defined</span> <span class="i">$duplicates</span>{<span class="i">$item</span>} &amp;&amp; <span class="i">$item</span> !~ <span class="q">/\056/</span> <span class="s">)</span> <span class="s">{</span>
@@ -2630,11 +2645,11 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
 <span class="q">&quot;&lt;input type=\&quot;checkbox\&quot; name=\&quot;$name\&quot; $checked value=\&quot;$item\&quot;&gt;\u$item &amp;nbsp;&quot;</span><span class="sc">;</span>
                 <span class="k">undef</span> <span class="i">$checked</span><span class="sc">;</span>
                 <span class="i">$x</span>++<span class="sc">;</span>
-            <span class="s">}</span>
+            <span class="s">}</span> 
             <span class="i">$duplicates</span>{<span class="i">$item</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
-    <span class="k">return</span> <span class="i">$option_string</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="s">(</span><span class="i">$option_string</span><span class="cm">,</span><span class="i">$count</span><span class="s">)</span> <span class="sc">;</span>
 <span class="s">}</span>
 
 </pre><p></p>

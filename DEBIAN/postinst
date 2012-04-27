@@ -3,7 +3,7 @@
 #
 
 # copies the hosts file and then attempts to write an entry
-# for 127.0.0.1 cclite.private.serve
+# for 127.0.0.1 cclite.private.server
 #      127.0.0.1 <short_name> cclite.private.server
 # now checks so that it wont be done multiple times
 

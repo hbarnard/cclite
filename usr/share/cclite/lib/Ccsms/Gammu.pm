@@ -42,7 +42,8 @@ and dispatches to the appropriate internal function
 Pin number is always first thing...
 
 SMS Transactions
--> Confirm pin         p123456 confirm-> Change pin          p123456 change p345678
+-> Confirm pin         p123456 confirm
+-> Change pin          p123456 change p345678
 -> Pay                 p123456 pay 5 to 07855 524667 for stuff (note need to change strip regex)
                        p123456 pay 5 to 07855524667 for other stuff
                        p123456 pay 5 to 4407855 524667 for stuff
@@ -66,7 +67,7 @@ Cchooks.pm
  
 =cut
 
-package Ccsmsgateway;
+package Ccsms::Gammu;
 
 use strict;
 
@@ -83,6 +84,7 @@ use Cclitedb;
 use Ccu;
 use Ccsecure;
 use Ccconfiguration;    # new style configuration method
+use Data::Dumper ;
 
 ###open (STDERR, ">&STDOUT"); # send STDERR out to page, then view source when debugging regular expressions
 
@@ -104,7 +106,7 @@ our %messages = readmessages();
 #============== change the configuration to your registry and currency for sms
 
 my %sms_configuration =
-  readconfiguration('/home/hbarnard/trunk/usr/share/cclite/config/readsms.cf');
+  readconfiguration('/usr/share/cclite/config/readsms.cf');
 
 # this is a little unnecessary, but can stay for a while
 our $registry = $sms_configuration{'registry'};
@@ -126,10 +128,19 @@ sub gateway_sms_transaction {
 
     my ( $offset, $limit );
 
+  print "registry is $registry" ;
+  print "incoming data" ;
+  print Dumper $fieldsref ;
+  print "<br><br>" ;
+
     my ( $error, $fromuserref ) =
       get_where( 'local', $registry, 'om_users', '*', 'userMobile',
         $$fieldsref{'originator'},
         $token, $offset, $limit );
+
+print "from user<br/>" ;
+print Dumper $fromuserref ;
+print "<br><br>" ;
 
     # log and exit if there's a problem with the received messaged
     if ( defined( $$fieldsref{'status'} ) && $$fieldsref{'status'} > 0 ) {
@@ -184,6 +195,8 @@ sub gateway_sms_transaction {
         );
     }
 
+ 
+
     # numbers are stored in database as 447855667524 for example
     $$fieldsref{'originator'} =
       format_for_standard_mobile( $$fieldsref{'originator'} );
@@ -202,6 +215,10 @@ sub gateway_sms_transaction {
         # allow pay or send as keyword to line up with email style...
     } elsif ( $transaction_type eq 'pay' || $transaction_type eq 'send' )
     {                                              # payment transaction
+    
+     print "is a payment transaction" ;
+     print "<br><br>" ;
+     
         _gateway_sms_pay( $configurationref, $fieldsref, $token );
     } elsif ( $transaction_type eq 'balance' ) {
         _gateway_sms_send_balance( $fieldsref, $token );
@@ -270,6 +287,10 @@ sub _gateway_sms_pay {
 
     my ( $parse_type, $transaction_description_ref ) =
       _sms_message_parse($input);
+
+print "after parse<br/>" ;
+print Dumper $transaction_description_ref  ;
+print "<br><br>" ;
 
     # sms pay message didn't parse, not worth proceeding
     if ( $parse_type == 0 ) {
@@ -668,6 +689,141 @@ sub _send_sms_mail_message {
     return $mail_error;
 
 }
+
+
+
+=head3 _send_cardboardfish_sms_receipt
+
+This is specific to cardboardfish and is therefore marked as such
+Sends an sms message to confirm payment and send back balances
+
+=cut
+
+sub _send_gammu_sms_receipt {
+
+    my ( $class, $registry, $type, $message, $from_user_ref, $to_user_ref,
+        $transaction_ref )
+      = @_;
+
+    #FIXME: add on sponsor message, if present, need rotating etc. etc.
+    $message .= " $sms_configuration{'sms_sponsor_message'}"
+      if ( length( $sms_configuration{'sms_sponsor_message'} ) );
+
+#FIXME: note that SA source address is cclite for balance, maybe same for credit?
+
+    my $urlstring;
+
+    #FIXME: not read properly from the configuration file...
+
+    if ( $type eq 'credit' ) {
+
+$to_user_ref->{'userMobile'}
+$message
+
+    } elsif ( $type = 'balance' ) {
+
+$from_user_ref->{'userMobile'}
+$message
+
+    } else {
+        my $message = "unknown or unimplemented sms type: $type";
+        log_entry( 'local', $registry, $message, '' );
+        return "$messages{smserror} $type";
+
+    }
+
+    # use LWP to send an SMS message via the cardborardfish gateway...
+    my ($http_response) = __outbound_cardboardfish_http_sms($urlstring);
+
+    my $ret = $http_response->code();
+
+    if ( $http_response->code == 200 ) {
+        _charge_one_sms_unit( $class, $registry, $type, $from_user_ref,
+            $transaction_ref );
+    } else {
+        my $message = "$messages{smserror} $http_response->code";
+        log_entry( 'local', $registry, $message, '' );
+        return "$messages{smserror} $http_response->code";
+    }
+}
+
+=head3 _charge_one_sms_unit
+
+Transfer an SMS unit from the transaction originator to sysaccount
+to account for the sent SMS
+
+$type is 'credit' or 'balance' at present. In the case of balance
+need to build up a few transaction fields to charge it..always charged
+to originator and monies put into sysaccount...
+
+=cut
+
+sub _charge_one_sms_unit {
+
+    my ( $class, $registry, $type, $from_user_ref, $transaction_ref ) = @_;
+
+    # for balances, extra fields to fill in are filled anyway by a credit
+    if ( $type eq 'balance' ) {
+
+        #subaction : om_trades
+        $transaction_ref->{'subaction'} = 'om_trades';
+
+        #toregistry : dalston
+        $transaction_ref->{'fromregistry'} = $registry;
+
+        #toregistry : dalston
+        $transaction_ref->{'toregistry'} = $registry;
+
+        $transaction_ref->{'tradeDescription'} =
+          "$messages{'smsdebitfor'} $type";
+
+        #tradeSource : manager
+        $transaction_ref->{'tradeSource'} = $from_user_ref->{'userLogin'};
+
+    }
+
+#FIXME: tradeItem not really identifiable from sms message/possible tax problem too!
+    $transaction_ref->{'tradeItem'} = 'other';
+
+ #FIXME: mode for this is csv, this is part of a general format upgrade later...
+    $transaction_ref->{'mode'} = 'csv';
+
+    #FIXME: tradestatus is always accepted for sms-debit
+    $transaction_ref->{'tradeStatus'} = 'accepted';
+
+    # if HTTP 200, sent OK charge receipt to one unit of sms currency...
+    $transaction_ref->{'tradeAmount'}   = '1';
+    $transaction_ref->{'tradeCurrency'} = 'sms';
+
+    #tradeDate : this is date of reception and processing, in fact
+    my ( $date, $time ) = Ccu::getdateandtime( time() );
+    $transaction_ref->{'tradeDate'} = $date;
+
+    #tradeTitle : sms debit for sms receipt
+    $transaction_ref->{'tradeTitle'} =
+      "$messages{'smsdebitfor'} $messages{'smstransactiontitle'}";
+
+    #tradeDestination : sysadmin is credited in sms currency
+    $transaction_ref->{'tradeDestination'} = 'sysaccount';
+
+    #FIXME: this should be passed into this subsystem, really...
+    my $token;
+
+    my ( $metarefresh, $home, $trans_error, $output_message, $page, $c ) =
+      transaction( 'sms', $transaction_ref->{'fromregistry'},
+        'om_trades', $transaction_ref, $pages, $token );
+
+    return;
+}
+
+sub _ascii_to_hex ($) {
+    ## Convert each ASCII character to a two-digit hex number.
+    ( my $str = shift ) =~ s/(.|\n)/sprintf("%02lx", ord $1)/eg;
+    return $str;
+}
+
+
+
 
 1;
 

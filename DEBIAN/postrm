@@ -24,12 +24,21 @@ my $package_root = '/usr/share/cclite' ;
 
 my $operation = $ARGV[0];
 
-if ( $operation =~ /remove/ ) {
+if ( $operation =~ /remove/ || /failed-upgrade/ || /abort-upgrade/) {
    `rm -rf /var/cclite` if (-e $data_root) ; 	# this may not be empty at package remove time
    `rm -rf /var/www/cclite` if (-e $web_root) ; # this may not be empty at package remove time
    `rm -rf $package_root` if (-e $package_root) ; # this may contain config files at package remove time
    # `deluser --remove-all-files cclite` ;
    `cp /etc/hosts.saved-by-cclite /etc/hosts` ;
+   `/etc/init.d/apache2 restart` ;
+   
+} elsif ( $operation =~ /upgrade/ ) {   
+   print "ugrade only leaving files in place \n" ;
+
+} elsif ( $operation =~ /purge/ ) {
+   # this may need to be filled in for extra file removal 04/2012	
+   print "purging";
+   # restart apache
    `/etc/init.d/apache2 restart` ;
 } else {
     print "post remove called with unknown argument \`$operation\'";

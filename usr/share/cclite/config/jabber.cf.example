@@ -1,5 +1,5 @@
 server=jabber.org.uk
-username=jrandom
+username=jrandomhacker
 password=very-secret
 temp_directory=/home/temp/jabber-pay
 message=message.txt

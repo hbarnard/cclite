@@ -335,8 +335,8 @@ function get_stats_json (batch_path,first_pass) {
 
 
 function _plot_graph (selector,data,milliseconds_back,labelcontainer) {	
-		now =   (new Date()).getTime()
-		minimum_x =  now - milliseconds_back ;	
+		until =   (new Date()).getTime() + 7200000 ; //  two hours into the future
+		minimum_x =  until - milliseconds_back ;	
 		
 		// alert('label '  + labelcontainer) ;
 				
@@ -345,7 +345,7 @@ function _plot_graph (selector,data,milliseconds_back,labelcontainer) {
                 mode: "time",
               // minTickSize: [1, "minute"],
               min: minimum_x,
-              max: now,            
+              max: until,            
             },
            
             legend:{container: $('#' + labelcontainer)},
@@ -356,8 +356,8 @@ return ;
 
 
 function _plot_graph_lines (selector,data,milliseconds_back) {	
-		now =   (new Date()).getTime()
-		minimum_x =  now - milliseconds_back ;
+		until =   (new Date()).getTime() + 7200000 ; //  two hours into the future
+		minimum_x =  until - milliseconds_back ;
 		
 		var txt = JSON.stringify(data, '');
 		// alert ('data is ' + txt) ;
@@ -367,7 +367,7 @@ function _plot_graph_lines (selector,data,milliseconds_back) {
                 mode: "time",
               // minTickSize: [1, "minute"],
               min: minimum_x,
-              max: now,            
+              max: until,            
             },
             legend:{container: $("#graphlabel")}
            

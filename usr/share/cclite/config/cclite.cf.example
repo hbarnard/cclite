@@ -1,3 +1,5 @@
+# this example is for a test system running from a home directory
+# ask for help on googlegroups if necessary
 multiregistry=no
 smslocal=1
 os=linux
@@ -35,6 +37,7 @@ systemmailaddress=cclite@mydomain.com
 usedecimals=yes
 mailpath=/var/spool/mail
 action=updateconfig2
+# read about gammu-smsd and readsms.cf for use of parameter below too...
 smspath=/var/cclite/sms/inbox
 package_type=3
 debugpath=/var/cclite/log/cclite.log
