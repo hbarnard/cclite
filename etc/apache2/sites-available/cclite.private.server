@@ -1,4 +1,3 @@
-NameVirtualHost cclite.private.server
 <VirtualHost *:80>
 	ServerAdmin webmaster@localhost
 	ServerName cclite.private.server
