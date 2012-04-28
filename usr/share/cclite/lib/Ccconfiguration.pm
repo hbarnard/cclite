@@ -98,7 +98,9 @@ sub readconfiguration {
         return;
     } else {
         my $message = _dying_message($configfile);
-        die $message;
+        print "Content-type: text/html\n\n";
+        print $message;
+        die;
     }
     return %configuration;
 }
@@ -113,28 +115,30 @@ sub _dying_message {
     ) = caller(4);
 
     my $message = <<EOT;
- en:   
-    Configuration file not found at: $configfile    
-    Use cgi-bin/protected/ccinstall.cgi to set it up 
-    
-    Please use the http://groups.google.co.uk/group/cclite Cclite Google Group
+<html>
+<head>
+<link type="text/css" href="/styles/default.css" rel="stylesheet">
+<title>
+Configuration Not found
+</title>
+<body style="{margin-left:100px}">
+<br/><br/>
+<h1>Configuration not found</h1>
+ en:   <br/>
+    Configuration file not found at: <span class="failedcheck">$configfile</span>
+    Use <a title="installer" href="/cgi-bin/protected/ccinstall.cgi">the installer to set it up</a>
+    <br/><br/>
+    Please use the <a title="help" href="http://groups.google.co.uk/group/cclite"> Cclite Google Group</a>
     for help, if necessary
- es:
-     Archivo de configuración que no se encuentra en: $ configfile
-     Use cgi-bin/protected/ccinstall.cgi para configurarlo
-    
-     Por favor, utilice el http://groups.google.co.uk/group/cclite Cclite Google Group
+    <br/><br/>
+ es: <br/>
+     Archivo de configuracion que no se encuentra en: <span class="failedcheck">$configfile</span>
+     Utilizar <a title="configurarlo" href="/cgi-bin/protected/ccinstall.cgi">el instalador para configurarlo</a>
+    <br/><br/>
+     Por favor, utilice el <a title="ayuda" href="http://groups.google.co.uk/group/cclite"> Cclite Google Group</a>
      en busca de ayuda, si es necesario
- zh:    
-    没有找到配置文件：$configfile
-    使用cgi-bin/protected/ccinstall.cgi设置它
-    
-    请使用http://groups.google.co.uk/group/cclite Cclite谷歌集团
-    为帮助，如有必要，
-    
-    package:$package line:$line function:$subroutine
-EOT    
-    package:$package line:$line function:$subroutine
+    <br/><br/>
+    package:$package line:$line function:$subroutine<br/><br/>
 EOT
 
     return $message;
