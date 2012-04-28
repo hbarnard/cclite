@@ -158,9 +158,7 @@ processes them and unlinks them.</p>
 <span class="q">my %fields    = cgiparse();</span>
 
 <span class="q"># for cron: hardcode registry, cannot be read from web cookie</span>
-<span class="q">my $registry = $$cookieref{registry};</span>
-
-<span class="q"># set local = 1 if this script is on the same computer as the rest of cclite</span>
+<span class="q">my $registry = $cookieref-&gt;{&#39;registry&#39;};</span>
 
 <span class="q">my $domain =</span>
 <span class="q">  $configuration{&#39;domain&#39;};    # remote domain if the script is not local</span>

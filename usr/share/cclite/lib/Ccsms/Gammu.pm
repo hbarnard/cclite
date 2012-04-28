@@ -84,7 +84,7 @@ use Cclitedb;
 use Ccu;
 use Ccsecure;
 use Ccconfiguration;    # new style configuration method
-use Data::Dumper ;
+use Data::Dumper;
 
 ###open (STDERR, ">&STDOUT"); # send STDERR out to page, then view source when debugging regular expressions
 
@@ -128,19 +128,19 @@ sub gateway_sms_transaction {
 
     my ( $offset, $limit );
 
-  print "registry is $registry" ;
-  print "incoming data" ;
-  print Dumper $fieldsref ;
-  print "<br><br>" ;
+    print "registry is $registry";
+    print "incoming data";
+    print Dumper $fieldsref;
+    print "<br><br>";
 
     my ( $error, $fromuserref ) =
       get_where( 'local', $registry, 'om_users', '*', 'userMobile',
         $$fieldsref{'originator'},
         $token, $offset, $limit );
 
-print "from user<br/>" ;
-print Dumper $fromuserref ;
-print "<br><br>" ;
+    print "from user<br/>";
+    print Dumper $fromuserref;
+    print "<br><br>";
 
     # log and exit if there's a problem with the received messaged
     if ( defined( $$fieldsref{'status'} ) && $$fieldsref{'status'} > 0 ) {
@@ -195,8 +195,6 @@ print "<br><br>" ;
         );
     }
 
- 
-
     # numbers are stored in database as 447855667524 for example
     $$fieldsref{'originator'} =
       format_for_standard_mobile( $$fieldsref{'originator'} );
@@ -215,10 +213,10 @@ print "<br><br>" ;
         # allow pay or send as keyword to line up with email style...
     } elsif ( $transaction_type eq 'pay' || $transaction_type eq 'send' )
     {                                              # payment transaction
-    
-     print "is a payment transaction" ;
-     print "<br><br>" ;
-     
+
+        print "is a payment transaction";
+        print "<br><br>";
+
         _gateway_sms_pay( $configurationref, $fieldsref, $token );
     } elsif ( $transaction_type eq 'balance' ) {
         _gateway_sms_send_balance( $fieldsref, $token );
@@ -288,9 +286,9 @@ sub _gateway_sms_pay {
     my ( $parse_type, $transaction_description_ref ) =
       _sms_message_parse($input);
 
-print "after parse<br/>" ;
-print Dumper $transaction_description_ref  ;
-print "<br><br>" ;
+    print "after parse<br/>";
+    print Dumper $transaction_description_ref;
+    print "<br><br>";
 
     # sms pay message didn't parse, not worth proceeding
     if ( $parse_type == 0 ) {
@@ -690,8 +688,6 @@ sub _send_sms_mail_message {
 
 }
 
-
-
 =head3 _send_cardboardfish_sms_receipt
 
 This is specific to cardboardfish and is therefore marked as such
@@ -717,13 +713,11 @@ sub _send_gammu_sms_receipt {
 
     if ( $type eq 'credit' ) {
 
-$to_user_ref->{'userMobile'}
-$message
+        $to_user_ref->{'userMobile'} $message
 
     } elsif ( $type = 'balance' ) {
 
-$from_user_ref->{'userMobile'}
-$message
+        $from_user_ref->{'userMobile'} $message
 
     } else {
         my $message = "unknown or unimplemented sms type: $type";
@@ -821,9 +815,6 @@ sub _ascii_to_hex ($) {
     ( my $str = shift ) =~ s/(.|\n)/sprintf("%02lx", ord $1)/eg;
     return $str;
 }
-
-
-
 
 1;
 

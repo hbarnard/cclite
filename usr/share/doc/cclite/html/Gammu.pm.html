@@ -65,6 +65,8 @@ pre { color: #000000;
 			<li><a href="#sms_message_parse">sms_message_parse</a></li>
 			<li><a href="#_check_pin">_check_pin</a></li>
 			<li><a href="#_send_sms_mail_message">_send_sms_mail_message</a></li>
+			<li><a href="#_send_cardboardfish_sms_receipt">_send_cardboardfish_sms_receipt</a></li>
+			<li><a href="#_charge_one_sms_unit">_charge_one_sms_unit</a></li>
 		</ul>
 
 	</ul>
@@ -77,7 +79,7 @@ pre { color: #000000;
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
 <ul>
-<li><a href="#package-Ccsmsgateway-">package Ccsmsgateway</a>
+<li><a href="#package-Ccsms::Gammu-">package Ccsms::Gammu</a>
 <ul>
 <li><a href="#gateway_sms_transaction-">gateway_sms_transaction</a></li>
 <li><a href="#_gateway_sms_pin_change-">_gateway_sms_pin_change</a></li>
@@ -86,6 +88,9 @@ pre { color: #000000;
 <li><a href="#_sms_message_parse-">_sms_message_parse</a></li>
 <li><a href="#_check_pin-">_check_pin</a></li>
 <li><a href="#_send_sms_mail_message-">_send_sms_mail_message</a></li>
+<li><a href="#_send_gammu_sms_receipt-">_send_gammu_sms_receipt</a></li>
+<li><a href="#_charge_one_sms_unit-">_charge_one_sms_unit</a></li>
+<li><a href="#_ascii_to_hex-">_ascii_to_hex</a></li>
 </ul>
 </li>
 <li><a href="#EOF-">EOF</a></li>
@@ -155,7 +160,7 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 
 =cut</pre>
 <pre>
-<a name="package-Ccsmsgateway-"></a><span class="k">package </span><span class="i">Ccsmsgateway</span><span class="sc">;</span>
+<a name="package-Ccsms::Gammu-"></a><span class="k">package </span><span class="i">Ccsms::Gammu</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 
@@ -172,6 +177,7 @@ system with pins supplied in the sms messages. The allowed messages are:</p>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>    <span class="c"># new style configuration method</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
 <span class="c">###open (STDERR, &quot;&gt;&amp;STDOUT&quot;); # send STDERR out to page, then view source when debugging regular expressions</span>
 
@@ -194,7 +200,7 @@ to change these, just substitute a translated hash</p>
 <span class="c">#============== change the configuration to your registry and currency for sms</span>
 
 <span class="k">my</span> <span class="i">%sms_configuration</span> =
-  <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;/home/hbarnard/trunk/usr/share/cclite/config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
+  <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;/usr/share/cclite/config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># this is a little unnecessary, but can stay for a while</span>
 <span class="k">our</span> <span class="i">$registry</span> = <span class="i">$sms_configuration</span>{<span class="q">&#39;registry&#39;</span>}<span class="sc">;</span>
@@ -214,10 +220,19 @@ then dispatches to the appropriate internal function</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
+    <span class="k">print</span> <span class="q">&quot;registry is $registry&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;incoming data&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">Dumper</span> <span class="i">$fieldsref</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;&lt;br&gt;&lt;br&gt;&quot;</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> =
       <span class="i">get_where</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
         <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">print</span> <span class="q">&quot;from user&lt;br/&gt;&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">Dumper</span> <span class="i">$fromuserref</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;&lt;br&gt;&lt;br&gt;&quot;</span><span class="sc">;</span>
 
     <span class="c"># log and exit if there&#39;s a problem with the received messaged</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">defined</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;status&#39;</span>} <span class="s">)</span> &amp;&amp; <span class="i">$$fieldsref</span>{<span class="q">&#39;status&#39;</span>} &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
@@ -290,6 +305,10 @@ then dispatches to the appropriate internal function</p>
         <span class="c"># allow pay or send as keyword to line up with email style...</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;pay&#39;</span> || <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;send&#39;</span> <span class="s">)</span>
     <span class="s">{</span>                                              <span class="c"># payment transaction</span>
+
+        <span class="k">print</span> <span class="q">&quot;is a payment transaction&quot;</span><span class="sc">;</span>
+        <span class="k">print</span> <span class="q">&quot;&lt;br&gt;&lt;br&gt;&quot;</span><span class="sc">;</span>
+
         <span class="i">_gateway_sms_pay</span><span class="s">(</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">_gateway_sms_send_balance</span><span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
@@ -356,6 +375,10 @@ using the gateway messaging gateway, may need modification for other gateways</p
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$parse_type</span><span class="cm">,</span> <span class="i">$transaction_description_ref</span> <span class="s">)</span> =
       <span class="i">_sms_message_parse</span><span class="s">(</span><span class="i">$input</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">print</span> <span class="q">&quot;after parse&lt;br/&gt;&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">Dumper</span> <span class="i">$transaction_description_ref</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;&lt;br&gt;&lt;br&gt;&quot;</span><span class="sc">;</span>
 
     <span class="c"># sms pay message didn&#39;t parse, not worth proceeding</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$parse_type</span> == <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
@@ -716,7 +739,6 @@ with notification type 4</p>
 <p>Within notify_by_mail, if net_smtp is switched on, the registry account rather
 than the cclite.cf account is used for the mailout, this is preferred because
 it separates 'business' between registries 11/2009</p>
-
 <pre>
 <a name="_send_sms_mail_message-"></a><span class="k">sub </span><span class="m">_send_sms_mail_message</span> <span class="s">{</span>
 
@@ -742,6 +764,130 @@ it separates 'business' between registries 11/2009</p>
 
     <span class="k">return</span> <span class="i">$mail_error</span><span class="sc">;</span>
 
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="_send_cardboardfish_sms_receipt">_send_cardboardfish_sms_receipt</a></h3>
+<p>This is specific to cardboardfish and is therefore marked as such
+Sends an sms message to confirm payment and send back balances</p>
+<pre>
+<a name="_send_gammu_sms_receipt-"></a><span class="k">sub </span><span class="m">_send_gammu_sms_receipt</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span>
+        <span class="i">$transaction_ref</span> <span class="s">)</span>
+      = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: add on sponsor message, if present, need rotating etc. etc.</span>
+    <span class="i">$message</span> .= <span class="q">&quot; $sms_configuration{&#39;sms_sponsor_message&#39;}&quot;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;sms_sponsor_message&#39;</span>} <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c">#FIXME: note that SA source address is cclite for balance, maybe same for credit?</span>
+
+    <span class="k">my</span> <span class="i">$urlstring</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: not read properly from the configuration file...</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;credit&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>} <span class="i">$message</span>
+
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> = <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>} <span class="i">$message</span>
+
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;unknown or unimplemented sms type: $type&quot;</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="q">&quot;$messages{smserror} $type&quot;</span><span class="sc">;</span>
+
+    <span class="s">}</span>
+
+    <span class="c"># use LWP to send an SMS message via the cardborardfish gateway...</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">$http_response</span><span class="s">)</span> = <span class="i">__outbound_cardboardfish_http_sms</span><span class="s">(</span><span class="i">$urlstring</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$ret</span> = <span class="i">$http_response</span><span class="i">-&gt;code</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$http_response</span><span class="i">-&gt;code</span> == <span class="n">200</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">_charge_one_sms_unit</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
+            <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;$messages{smserror} $http_response-&gt;code&quot;</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="q">&quot;$messages{smserror} $http_response-&gt;code&quot;</span><span class="sc">;</span>
+    <span class="s">}</span>
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="_charge_one_sms_unit">_charge_one_sms_unit</a></h3>
+<p>Transfer an SMS unit from the transaction originator to sysaccount
+to account for the sent SMS</p>
+<p>$type is 'credit' or 'balance' at present. In the case of balance
+need to build up a few transaction fields to charge it..always charged
+to originator and monies put into sysaccount...</p>
+
+<pre>
+<a name="_charge_one_sms_unit-"></a><span class="k">sub </span><span class="m">_charge_one_sms_unit</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c"># for balances, extra fields to fill in are filled anyway by a credit</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="c">#subaction : om_trades</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;subaction&#39;</span>} = <span class="q">&#39;om_trades&#39;</span><span class="sc">;</span>
+
+        <span class="c">#toregistry : dalston</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;fromregistry&#39;</span>} = <span class="i">$registry</span><span class="sc">;</span>
+
+        <span class="c">#toregistry : dalston</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;toregistry&#39;</span>} = <span class="i">$registry</span><span class="sc">;</span>
+
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeDescription&#39;</span>} =
+          <span class="q">&quot;$messages{&#39;smsdebitfor&#39;} $type&quot;</span><span class="sc">;</span>
+
+        <span class="c">#tradeSource : manager</span>
+        <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeSource&#39;</span>} = <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="sc">;</span>
+
+    <span class="s">}</span>
+
+<span class="c">#FIXME: tradeItem not really identifiable from sms message/possible tax problem too!</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeItem&#39;</span>} = <span class="q">&#39;other&#39;</span><span class="sc">;</span>
+
+ <span class="c">#FIXME: mode for this is csv, this is part of a general format upgrade later...</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} = <span class="q">&#39;csv&#39;</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: tradestatus is always accepted for sms-debit</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeStatus&#39;</span>} = <span class="q">&#39;accepted&#39;</span><span class="sc">;</span>
+
+    <span class="c"># if HTTP 200, sent OK charge receipt to one unit of sms currency...</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeAmount&#39;</span>}   = <span class="q">&#39;1&#39;</span><span class="sc">;</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeCurrency&#39;</span>} = <span class="q">&#39;sms&#39;</span><span class="sc">;</span>
+
+    <span class="c">#tradeDate : this is date of reception and processing, in fact</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">Ccu::getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeDate&#39;</span>} = <span class="i">$date</span><span class="sc">;</span>
+
+    <span class="c">#tradeTitle : sms debit for sms receipt</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeTitle&#39;</span>} =
+      <span class="q">&quot;$messages{&#39;smsdebitfor&#39;} $messages{&#39;smstransactiontitle&#39;}&quot;</span><span class="sc">;</span>
+
+    <span class="c">#tradeDestination : sysadmin is credited in sms currency</span>
+    <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;tradeDestination&#39;</span>} = <span class="q">&#39;sysaccount&#39;</span><span class="sc">;</span>
+
+    <span class="c">#FIXME: this should be passed into this subsystem, really...</span>
+    <span class="k">my</span> <span class="i">$token</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$trans_error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
+      <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;sms&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;fromregistry&#39;</span>}<span class="cm">,</span>
+        <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<a name="_ascii_to_hex-"></a><span class="k">sub </span><span class="m">_ascii_to_hex ($)</span> <span class="s">{</span>
+    <span class="c">## Convert each ASCII character to a two-digit hex number.</span>
+    <span class="s">(</span> <span class="k">my</span> <span class="i">$str</span> = <span class="k">shift</span> <span class="s">)</span> =~ <span class="q">s/(.|\n)/sprintf(&quot;%02lx&quot;, ord $1)/eg</span><span class="sc">;</span>
+    <span class="k">return</span> <span class="i">$str</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="n">1</span><span class="sc">;</span>

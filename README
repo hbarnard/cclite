@@ -1,4 +1,4 @@
-This is the Debian format version of Cclite 0.8.0 as a working repository
+This is the Debian format version of Cclite 0.9.0 as a working repository
 
 The tarballs and debian packages are on Sourceforge at: http://sourceforge.net/projects/cclite/
 
@@ -24,4 +24,6 @@ Cclite is a Perl package for local exchange trading systems (LETS), banking and 
 
     * If you want help with cclite join the google group:
       http://groups.google.co.uk/group/cclite?hl=en
+      
+Many things are changed/improved in 0.9.0 please see /usr/share/doc/cclite which contains release notes.
 

@@ -354,7 +354,7 @@ note that the $html variable is badly named, it should be 'message' or something
     <span class="k">if</span> <span class="s">(</span> <span class="i">$pagename</span> !~ <span class="q">/logon/</span>
         &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} &amp;&amp; <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="k">my</span> <span class="s">(</span><span class="i">$option_string</span><span class="cm">,</span><span class="i">$count</span><span class="s">)</span> =
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$option_string</span><span class="cm">,</span> <span class="i">$count</span> <span class="s">)</span> =
           <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
             <span class="q">&#39;om_currencies&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -385,27 +385,26 @@ note that the $html variable is badly named, it should be 'message' or something
         <span class="c"># otherwise just present local registry as readonly field</span>
         <span class="c"># not quite right 04/2012 since local multiregistry does NOT</span>
         <span class="c"># need SOAP, corrected and collect_items modified...</span>
-        <span class="k">my</span> <span class="i">$count</span> = <span class="n">0</span> <span class="sc">;</span>
-        
-        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} <span class="s">)</span> <span class="s">)</span>
-        <span class="s">{</span>
-            <span class="s">(</span><span class="i">$option_string</span><span class="cm">,</span><span class="i">$count</span><span class="s">)</span> =
+        <span class="k">my</span> <span class="i">$count</span> = <span class="n">0</span><span class="sc">;</span>
+
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="s">(</span> <span class="i">$option_string</span><span class="cm">,</span> <span class="i">$count</span> <span class="s">)</span> =
               <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
                 <span class="q">&#39;om_partners&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-         <span class="k">if</span> <span class="s">(</span><span class="i">$count</span> &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>       
-            <span class="i">$option_string</span> .=
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$count</span> &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$option_string</span> .=
 <span class="q">&quot;&lt;option value=\&quot;$fieldsref-&gt;{registry}\&quot;&gt;\u$fieldsref-&gt;{registry}&lt;/option&gt;&quot;</span><span class="sc">;</span>
-            <span class="i">$fieldsref</span>-&gt;{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+                <span class="i">$fieldsref</span>-&gt;{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh">&lt;select class=&quot;required&quot; name=&quot;toregistry&quot;&gt;$blank_option$option_string&lt;/select&gt;    </span>
 <span class="h">EOT</span>
 
-        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+            <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-            <span class="i">$fieldsref</span>-&gt;{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
+                <span class="i">$fieldsref</span>-&gt;{<span class="w">selectpartners</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
 <span class="hh">&lt;input class=&quot;grey&quot;</span>
 <span class="hh"> name=&quot;toregistry&quot; class=&quot;required&quot; readonly=&quot;readonly&quot; size=&quot;30&quot; maxlength=&quot;255&quot; value=&quot;$fieldsref-&gt;{registry}&quot; type=&quot;text&quot;&gt;   </span>
 <span class="h">EOT</span>
-	    <span class="s">}</span>
+            <span class="s">}</span>
 
         <span class="s">}</span>
 
@@ -422,7 +421,7 @@ note that the $html variable is badly named, it should be 'message' or something
     <span class="s">{</span>
 
         <span class="c"># collect categories for yellow pages</span>
-        <span class="k">my</span> <span class="s">(</span><span class="i">$option_string</span><span class="cm">,</span><span class="i">$count</span><span class="s">)</span> =
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$option_string</span><span class="cm">,</span> <span class="i">$count</span> <span class="s">)</span> =
           <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
             <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;description&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="w">selectclassification</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
@@ -438,7 +437,7 @@ note that the $html variable is badly named, it should be 'message' or something
 
         <span class="c"># collect major, if a category operation</span>
         <span class="c">#</span>
-        <span class="k">my</span> <span class="s">(</span><span class="i">$option_string</span><span class="cm">,</span><span class="i">$count</span><span class="s">)</span> =
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$option_string</span><span class="cm">,</span> <span class="i">$count</span> <span class="s">)</span> =
           <span class="i">Cclite::collect_items</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">registry</span>}<span class="cm">,</span>
             <span class="q">&#39;om_categories&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;parent&#39;</span><span class="cm">,</span> <span class="q">&#39;select&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">$fieldsref</span>-&gt;{<span class="w">selectparent</span>} = <span class="h">&lt;&lt;EOT</span> <span class="sc">;</span>
