@@ -312,15 +312,31 @@ function get_stats_json (batch_path,first_pass) {
            //var txt = JSON.stringify(plotdata, '');
            //alert('plotdata is ' + txt) ;
             
-            
-            
+           // only plot if there is data, otherwise display message 
+           if (plotdata.length > 0) {
 		    _plot_graph_lines('userbalances',plotdata,data.milliseconds_back) ;
+		   } else {
+			   $('#userbalances').text(messages.get("nobalancedata"));
+		   }	   
 		    
 		} else if ($("#averages").length > 0 ) {	
 			 var data1 = [{ data: data.averages.sort(), label: messages.get('vols') + ' ' + timestring }];
              var data2 = [{ data: data.volumes.sort(), label: messages.get('avg') + ' ' +  timestring  }];
+            
+            // only plot if there is data, otherwise display message 
+           if (data1.length > 0) {  
             _plot_graph('averages',data1,data.milliseconds_back,'graphlabel1') ;
+           } else {
+			   $('#averages').text(messages.get("noaveragesdata"));
+		   }	    
+            
+		    // only plot if there is data, otherwise display message
+		   if (data2.length > 0) { 
 		    _plot_graph('volumes',data2,data.milliseconds_back,'graphlabel2') ;
+		   } else { 
+			 $('#volumes').text(messages.get("novolumedata"));
+		   }	   
+		    
 	    }
                   $('#stats').html(messages.get("running") + ' ' + 'stats');
                   $('#stats_status').html(data);

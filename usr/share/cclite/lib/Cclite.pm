@@ -143,7 +143,8 @@ sub add_openid {
     $fieldsref->{'userId'} = $cookieref->{'userId'};
 
     add_database_record( $class, $db, $table, $fieldsref, $token );
-    return ( "1", $fieldsref->{home}, "", "open id added", "result.html", "" );
+    
+    return ( "1", $fieldsref->{home}, "", $messages{'openidadded'}, "result.html", "" );
 
 }
 

@@ -278,6 +278,8 @@ cclitecfinsecure=cclite.cf is writable, this is very insecure, please change
 ccinstallinsecure=ccinstall.cgi present and executable, this is very insecure, please remove
 ccsoapserverinsecure=ccserver.cgi present and executable, this is insecure, please remove unless used
 
+openidadded=Open Id Added
+
 # uploads etc. just converted to multilingual
 justprocessed=Just processed
 nocsvdir=does not exist or is not writable
@@ -300,7 +302,7 @@ subject=Subject
 description=Description
 price=Price
 
-# javascript literals
+# javascript literals, js- prefix always
 js-lgoff=Logoff
 js-user=Cclite user
 js-admin=Cclite admin
@@ -340,6 +342,11 @@ js-vietnamese=Vietnamese
 js-searchusers=Search Users
 js-searchads=Search Ads
 js-searchtrades=Search Trades
+js-nobalancedata=No Balance Data
+js-novolumedata=No Volume Data
+js-noaveragesdata=No Averages Data
+
+
 
 
 
