@@ -285,7 +285,9 @@ with a password of 'test'</p>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="sc">;</span>
 
     <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;open id added&quot;</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="s">(</span> <span class="q">&quot;1&quot;</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">home</span>}<span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;openidadded&#39;</span>}<span class="cm">,</span>
+        <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
