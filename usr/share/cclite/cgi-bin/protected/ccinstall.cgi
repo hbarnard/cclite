@@ -561,8 +561,10 @@ BEGIN {
 # but if it's a tarball or non-standard debian/ubuntu need to set up log config...
 
     if ( ( $package_type == 0 || $package_type == 3 ) && $newinstall ) {
-        ( $messages[6], $log_config ) =
-          write_log_config( $dir, $os, $distribution, $package_type );
+
+        # FIXME: no check needed because log4perl withdrawn
+        #  ( $messages[6], $log_config ) =
+        #    write_log_config( $dir, $os, $distribution, $package_type );
 
         $messages[3] = check_template_path($dir);    # check template directory
 

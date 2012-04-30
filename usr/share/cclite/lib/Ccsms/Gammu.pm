@@ -688,10 +688,9 @@ sub _send_sms_mail_message {
 
 }
 
-=head3 _send_cardboardfish_sms_receipt
+=head3 _send_gammu_sms_receipt
 
-This is specific to cardboardfish and is therefore marked as such
-Sends an sms message to confirm payment and send back balances
+#FIXME: this isn't totally implemented as yet
 
 =cut
 
@@ -713,11 +712,11 @@ sub _send_gammu_sms_receipt {
 
     if ( $type eq 'credit' ) {
 
-        $to_user_ref->{'userMobile'} $message
+        $to_user_ref->{'userMobile'};
 
     } elsif ( $type = 'balance' ) {
 
-        $from_user_ref->{'userMobile'} $message
+        $from_user_ref->{'userMobile'};
 
     } else {
         my $message = "unknown or unimplemented sms type: $type";

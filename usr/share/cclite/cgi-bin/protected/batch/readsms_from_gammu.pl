@@ -75,6 +75,7 @@ use Cccookie ;
 use Ccsms::Gammu ;
 use Ccconfiguration;
 
+# hardcode configuration path, if running from a cron
 my %configuration = readconfiguration();
 
 # fixed needs testing

@@ -65,7 +65,7 @@ pre { color: #000000;
 			<li><a href="#sms_message_parse">sms_message_parse</a></li>
 			<li><a href="#_check_pin">_check_pin</a></li>
 			<li><a href="#_send_sms_mail_message">_send_sms_mail_message</a></li>
-			<li><a href="#_send_cardboardfish_sms_receipt">_send_cardboardfish_sms_receipt</a></li>
+			<li><a href="#_send_gammu_sms_receipt">_send_gammu_sms_receipt</a></li>
 			<li><a href="#_charge_one_sms_unit">_charge_one_sms_unit</a></li>
 		</ul>
 
@@ -767,9 +767,8 @@ it separates 'business' between registries 11/2009</p>
 <span class="s">}</span>
 
 </pre><p></p>
-<h3><a name="_send_cardboardfish_sms_receipt">_send_cardboardfish_sms_receipt</a></h3>
-<p>This is specific to cardboardfish and is therefore marked as such
-Sends an sms message to confirm payment and send back balances</p>
+<h3><a name="_send_gammu_sms_receipt">_send_gammu_sms_receipt</a></h3>
+<p>#FIXME: this isn't totally implemented as yet</p>
 <pre>
 <a name="_send_gammu_sms_receipt-"></a><span class="k">sub </span><span class="m">_send_gammu_sms_receipt</span> <span class="s">{</span>
 
@@ -789,11 +788,11 @@ Sends an sms message to confirm payment and send back balances</p>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;credit&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>} <span class="i">$message</span>
+        <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>}<span class="sc">;</span>
 
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> = <span class="q">&#39;balance&#39;</span> <span class="s">)</span> <span class="s">{</span>
 
-        <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>} <span class="i">$message</span>
+        <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>}<span class="sc">;</span>
 
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;unknown or unimplemented sms type: $type&quot;</span><span class="sc">;</span>

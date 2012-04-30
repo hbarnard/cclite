@@ -628,8 +628,10 @@ and general extra flexibility</p>
 <span class="c"># but if it&#39;s a tarball or non-standard debian/ubuntu need to set up log config...</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="s">(</span> <span class="i">$package_type</span> == <span class="n">0</span> || <span class="i">$package_type</span> == <span class="n">3</span> <span class="s">)</span> &amp;&amp; <span class="i">$newinstall</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="s">(</span> <span class="i">$messages</span>[<span class="n">6</span>]<span class="cm">,</span> <span class="i">$log_config</span> <span class="s">)</span> =
-          <span class="i">write_log_config</span><span class="s">(</span> <span class="i">$dir</span><span class="cm">,</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span><span class="sc">;</span>
+      
+      <span class="c"># FIXME: no check needed because log4perl withdrawn</span>
+      <span class="c">#  ( $messages[6], $log_config ) =</span>
+      <span class="c">#    write_log_config( $dir, $os, $distribution, $package_type );</span>
 
         <span class="i">$messages</span>[<span class="n">3</span>] = <span class="i">check_template_path</span><span class="s">(</span><span class="i">$dir</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># check template directory</span>
 
