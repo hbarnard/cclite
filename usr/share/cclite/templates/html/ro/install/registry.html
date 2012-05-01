@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="numele de definire a grup de tranzacţionare, un cuvânt fără spații de date" class="pme-key-0">
+Nume registru
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="scurtă descriere a grupului de tranzacţionare" class="pme-key-0">
+Descrierea registry
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="adresa şi contul utilizat pentru a trimite email-uri oficiale pentru acest grup" class="pme-row-0">
+
+<td class="pme-key-0">
+Manager Email
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="parola pentru contul de poştă electronică admin" class="pme-key-0">
+Manager Email parola
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="cont în cazul în care sunt primite de tranzacţii de email-uri poate fi la fel ca admin" class="pme-row-1">
+
+<td class="pme-key-1">
+E-mail pentru tranzacţii pe loturi
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="parola pentru contul de poştă electronică pe loturi" class="pme-key-0">
+Lot E-mail parola
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="nu utilizează în prezent dar defineşte model de tranzacţionare" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Sistemul de tarifare Model
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Egalitatea
+</option>
+<option selected value="market">
+Ratele de piaţă
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="nu utilizează în prezent dar defineşte Comisiei model" class="pme-row-1">
+
+<td class="pme-key-1">
+Sistem Comisiei Model
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Comisia nu
+</option>
+
+<option value="yes">
+Comisia bazate pe Registry
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="nu utilizează în prezent dar defineşte model de abonament" class="pme-row-1">
+
+<td class="pme-key-1">
+Model de abonament
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Nu abonament
+</option>
+
+<option value="yes">
+Pe bază de abonament
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="definește limita angajamentul pentru toate valutele în acest registru, convertite la cenţi automat dacă zecimale moneda" class="pme-row-1">
+
+<td class="pme-key-1">
+Limita de angajament global
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="server cheie utilizate: id cheie publică pentru acest registru în prezent pentru email tranzacţii numai" class="pme-row-1">
+
+<td class="pme-key-1">
+ID-ul Server: Public cheie cheie
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="nu utilizează în prezent dar defineşte dacă geografică zona sau speciale de interes"  class="pme-row-1">
+
+<td class="pme-key-1">
+Acoperă zonă geografică?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+da
+</option>
+
+<option value="no">
+nu
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="nu utilizează în prezent dar defineşte codurile zip sau posturi astfel încât registrele publice poate fi geocoded şi mapate" class="pme-row-1">
+
+<td class="pme-key-1">
+Postcodes sau latitudine, longitudine
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="utilizat pentru a furniza cheie comerciale pentru elgg, drupal şi conectori os-commerce" class="pme-row-1">
+
+<td class="pme-key-1">
+Cheie comerciale
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="utilizat, în principiu, să se limiteze conectori pentru anumite IP-uri, uşor lingură, probabil" class="pme-row-1">
+
+<td class="pme-key-1">
+Permite comerciant de adrese IP
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- Acest lucru este un experiment, va transforma legătura config roşu, dacă parola db este greşit -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Du-te" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Revocare"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

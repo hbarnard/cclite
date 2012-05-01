@@ -1,0 +1,46 @@
+# Configuration file for Gammu SMS Daemon
+# modify and move this into /etc/gammu-smsdrc
+#
+# then, for example >gammu-smsd -d
+#
+# Gammu library configuration, see gammurc(5)
+[gammu]
+# example for USB configured modem
+#port=/dev/ttyUSB0 
+#connection=at 
+
+# this needs to be address/connection for your phone
+# nokia preferred, look into: http://wammu.eu/phones/
+port = 1C:62:B8:D4:46:3F
+#port = 1C:62:B8:D4:46:3F
+connection = blueat
+
+name=Samsung C3050 
+# Debugging
+#logformat = textall
+
+# SMSD configuration, see gammu-smsdrc(5)
+[smsd]
+service = files
+
+# be careful with logfile can get very big!
+logfile = /var/log/gammu/gammu-smsd.log
+# Increase for debugging information
+debuglevel = 5
+
+# no pin
+CheckSecurity = 0
+Checkbattery=0
+GetSignalQuality = 0
+
+DeliveryReport=log
+
+# don't loop too fast...
+LoopSleep=60
+
+# Paths where messages are stored
+
+inboxpath = /var/cclite/sms/inbox/dalston/
+outboxpath = /var/cclite/sms/outbox/dalston/
+sentsmspath = /var/cclite/sms/sent/dalston/
+errorsmspath = /cclite/sms/error/dalston/

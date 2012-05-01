@@ -1,0 +1,485 @@
+
+<title>
+Forma JavaScript validare
+</title>
+</head>
+
+<body bgcolor="white">
+
+<table border="0" width="625">
+<tbody>
+<tr>
+<td rowspan="6" bgcolor="#408080" width="10">
+<img src="clear.gif" height="1" width="10">
+</td>
+
+<td bgcolor="#b6dada">
+
+<font size="+3">
+JavaScript machetÄ Validation UnealtÄ
+</font>
+
+<font size="+1">
+ver 2.5
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<font size="-1">
+de Artswork
+</font>
+<br>
+
+<font color="#ff0000" size="2">
+Eu trebuie sÄ cer scuze pentru faptul cÄ sunt&#xD;nu mai sunt capabili sÄ accepte Ã®ntrebÄri de e-mail despre script-ul meu Ã®n cazul Ã®n care mi-ar&#xD;permite mai multe ore pentru a ajuta oamenii corect integra acest modul Åi&#xD;scris elemente suplimentare pentru oricine. Acest lucru a avut loc de e-mail&#xD;viermi de August 2003 grav compromisÄ adresa mea de e-mail afiÅate&#xD;aici au atacat la Ã®n cazul Ã®n care am avut de a face cu mii de eronate&#xD;s-a Ã®ntors e-mailuri pe zi. Periodic pot Ã®ncerc sÄ nap it spate on astfel Ã®ncÃ¢t&#xD;vÄ rugÄm sÄ reveniÅ£i sau Ã®ncercaÅ£i din nou dupÄ praful stabileste. Am, de asemenea, trebuie sÄ precizeze&#xD;cum poate ruina oameni cu aptitudinile noastre Åi ideea incredibil cum ar fi&#xD;Internet de comunicare este defaimator. Am Ã®ncercat de mai mulÅ£i ani&#xD;returnarea contribuÈiile altora pentru succesul meu lucreazÄ la acest lucru&#xD;mediu. VÄ mulÅ£umim pentru toate interesul pe care am primit.
+</font>
+<hr size="1">
+Poate verifica aceastÄ machetÄ validation unealtÄ
+<b>
+cÃ¢mpurile obligatorii, Ã®ntreg, e-mail Åi data
+</b>
+Ã®n formulare.&#xD;Este uÅor de portabil pentru toate formularele Åi va ajuta la salvarea server side&#xD;resurse de validare cÃ¢mp machetÄ&#xD;Åi reÃ®ncÄrca pagina. Toate mesajele sunt personalizate sub forma ascunse&#xD;element Ã®n cazul Ã®n care, de asemenea, selectaÅ£i cerinÈa de validare. PuteÅ£i sÄ combinaÅ£i&#xD;elementul necesare cu oricare dintre celelalte elemente.&#xD;Acest cod este complet portabile Åi pot fi utilizate cu orice formÄ de doar&#xD;adÄugarea elementele ascunse Ã®n mod corespunzÄtor Åi adÄugarea onClick&#xD;comanda la un buton.
+<br>
+<br>
+
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+<font size="+2">
+Urma regulile.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+1)
+</b>
+Pentru a seta un cÃ¢mp obligatoriu utilizarea numele de cÃ¢mp existente Åi adaugÄ&#xD;o r_ la Ã®nceputul cÃ¢mpului Nume Åi de a crea un element ascuns.
+<br>
+
+<b>
+EXEMPLU:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="r_your_fieldname" value="Required error message goes here"&gt;
+<p>
+
+<b>
+2)
+</b>
+Pentru a seta un Ã®ntreg domeniul utilizaÅ£i numele de cÃ¢mp existente Åi adÄugaÅ£i&#xD;o i_ la Ã®nceputul cÃ¢mpului Nume Åi de a crea un element ascuns.
+<br>
+
+<b>
+EXEMPLU:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="i_your_fieldname" value="Integer error message goes here"&gt;
+</p>
+<p>
+
+<b>
+3)
+</b>
+Utilizarea pe cÃ¢mp o datÄ numele de cÃ¢mp existente Åi adaugÄ un&#xD;d_ la Ã®nceputul cÃ¢mpului Nume Åi de a crea un element ascuns. Acest lucru&#xD;cÃ¢mpul Data acceptÄ numai formatul LL/ZZ/AA sau ZZ/AA.
+<br>
+
+<b>
+EXEMPLU:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="d_your_fieldname" value="Date error message goes here"&gt;
+<br>
+<br>
+
+<b>
+4)
+</b>
+Pentru a valida un cÃ¢mp de e-mail utilizaÅ£i numele de cÃ¢mp existente Åi&#xD;AdÄugaÅ£i o are prefixul e_ la Ã®nceputul numele cÃ¢mpului Åi de a crea un ascunse&#xD;element.
+<br>
+
+<b>
+EXEMPLU:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="e_your_fieldname" value="The email address format is incorrect"&gt;
+<br>
+<br>
+
+</p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+
+<font size="+2">
+IniÅ£ializare de script-ul.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+Trebuie sÄ utilizaÅ£i tipul = "buton" nu tipul = "submit" pentru butonul SUBMIT, javascript trimite remitere pentru tine.
+<br>
+
+<font size="-1">
+<b>
+EXEMPLU:
+</b>
+<br>
+&lt;input type=button Value="Button Message Here" onclick="check(form,form.elements.length)"&gt;
+</font>
+
+<br>
+<br>
+<hr size="1">
+
+<font size="+2">
+Acest eÅantion utilizeaza toate instrumentele de validare trei Ã®n combinaÈie.
+</font>
+<p>
+
+</p>
+<form action="thanks.html">
+
+<table border="0" width="575">
+
+<tbody>
+<tr>
+<td>
+
+<b>
+Adresa de e-mail:
+</b>
+
+</td>
+
+<td>
+
+<input name="email" type="text">
+
+<input name="e_email" value="Email address format is incorrect" type="hidden">
+
+<input name="r_email" value="Email address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and email validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Prenume:
+</b>
+
+</td>
+
+<td>
+
+<input name="fname" type="text">
+
+<input name="r_fname" value="First name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Nume:
+</b>
+
+</td>
+
+<td>
+
+<input name="lname" type="text">
+
+<input name="r_lname" value="Last name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Adresa 1:
+</b>
+
+</td>
+
+<td>
+
+<input name="address1" type="text">
+
+<input name="r_address1" value="Address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Adresa 2:
+</b>
+
+</td>
+
+<td>
+
+<input name="address2" type="text">
+
+</td>
+<td>
+<font size="-1">
+(no validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ce vÃ¢rstÄ ai:
+</b>
+
+</td>
+
+<td>
+
+<input name="age" type="text">
+
+<input name="r_age" value="Age is required" type="hidden">
+
+<input name="i_age" value="Age must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Ani au aÅ£i fost scripting:
+</b>
+
+</td>
+
+<td>
+
+<input name="scripting" type="text">
+
+<!--- <input type="hidden" name="r_scripting" value="Years scripting required"> --->
+
+<input name="i_scripting" value="Years scripting must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Ce este data de astÄzi:
+</b>
+
+<font size="-1">
+(mm/dd/yy)
+</font>
+
+</td>
+
+<td>
+
+<input name="todays_dt" type="text">
+
+<!--- <input type="hidden" name="r_todays_dt" value="Today's date is required"> --->
+
+<input name="d_todays_dt" value="The date is not valid or the format is incorrect. Please format mm/dd/yy." type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(date validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+SelectaÅ£i un subiect:
+</b>
+
+</td>
+
+<td>
+
+<select name="subject">
+<option value="">
+SelectaÅ£i una
+</option>
+<option value="Javascript">
+JavaScript
+</option>
+<option value="C">
+C
+</option>
+<option value="C++">
+C
+</option>
+<option value="Visual Basic">
+Visual Basic
+</option>
+</select>
+
+<input name="r_subject" value="You must select a subject" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+SelectaÅ£i un buton Radio:
+</b>
+
+</td>
+
+<td>
+
+<input name="test" value="1" type="radio">
+Ã®ncercarea 1
+<input name="test" value="2" type="radio">
+test 2
+<input name="test" value="3" type="radio">
+3 de testare
+<input name="r_test" value="Please select a radio button 1, 2 or 3" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+SelectaÅ£i toate cÄ se aplicÄ:
+</b>
+
+</td>
+
+<td>
+
+<input name="test1" value="1" type="checkbox">
+Ã®ncercarea 1
+<input name="r_test1" value="You must select checkbox test 1" type="hidden">
+
+<input name="test2" value="2" type="checkbox">
+test 2
+<input name="test3" value="3" type="checkbox">
+3 de testare
+</td>
+<td>
+<font size="-1">
+(required validation on box 1)
+</font>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+
+<input value="Submit this form for validation" onclick="check(form,form.elements.length)" type="button">
+
+</td>
+</tr>
+
+</tbody>
+</table>
+
+</form>
+
+<hr size="1">
+
+<center>
+<font size="-1">
+� 2004 Artswork
+</font>
+<p>
+
+<img src="/cgi-bin/counter?perflunk">
+
+</p>
+</center>
+
+</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>
