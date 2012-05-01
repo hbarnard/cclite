@@ -1,0 +1,352 @@
+
+/*
+	Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License
+*/
+
+/* Basic */
+
+*
+{
+	margin: 0em;
+	padding: 0em;
+}
+
+h1,h2,h3,h4,h5,h6
+{
+	color: #6a6a6a;
+}
+
+body
+{
+	font-family: "Trebuchet MS", sans-serif;
+	color: #7a7a7a;
+	font-size: 11pt;
+}
+
+a
+{
+	color: #AF0A0A;
+	text-decoration: underline;
+}
+
+a:hover
+{
+	text-decoration: none;
+}
+
+/* Outer */
+
+#outer
+{
+	margin: 2.5em 3.0em 1.5em 3.0em;
+}
+
+/* Header */
+
+#header
+{
+	padding: 0em 1em 0em 1.5em;
+	height: 8em;
+	width: 15em;
+	float: left;
+	position: relative;
+        background: #AF0A0A url('/images/cclite.png') top right no-repeat;
+      //  background: #f00 ;
+}
+
+#header h1
+{
+	position: absolute;
+	bottom: 2.2em;
+	font-size: 1.5em;
+	letter-spacing: 0.1em;
+}
+
+#header h1 a
+{
+	color: #fff;
+	text-decoration: none;
+}
+
+#header h2
+{
+	position: absolute;
+	bottom: 2.7em;
+	color: #EFE0E0;
+	font-size: 0.8em;
+}
+
+/* Menu */
+
+#menu
+{
+	height: 8em;
+	background: #fafafa url('/images/a2.gif') top left repeat-x;
+	margin-left: 18em;
+	position: relative;
+}
+
+#menu ul
+{
+	list-style: none;
+	position: absolute;
+	top: 3.3em;
+	margin-left: 1.5em;
+}
+
+#menu li
+{
+	display: inline;
+	border-left: dotted 1px #848484;
+	padding-left: 0.8em;
+        padding-bottom: 0.8em;
+}
+
+#menu li.first
+{
+	border-left: 0px;
+	padding-left: 0em;
+}
+
+#menu li a
+{
+	text-decoration: none;
+	color: #6a6a6a;
+	font-weight: bold;
+	padding: 0.8em;
+	margin-right: 0.8em;
+	font-size: 0.9em;
+}
+
+#menu li a:hover
+{
+	background: #AF0A0A url('/images/a4.gif') bottom left repeat-x;
+	color: #fff;
+}
+
+/* Content */
+
+#content
+{
+	background: #fff url('/images/a3.gif') top left repeat-x;
+	margin-top: 1px;
+	padding-top: 1.5em;
+}
+
+#content p
+{
+	margin-bottom: 1.5em;
+	line-height: 1.6em;
+}
+
+#content h2
+{
+	font-size: 1.5em;
+}
+
+#content h3
+{
+	font-size: 1.1em;
+}
+
+#content h2,h3,h4,h5,h6
+{
+	padding-bottom: 0.2em;
+	margin-bottom: 1.2em;
+	border-bottom: dotted 1px #cacaca;
+}
+
+#content ul
+{
+	margin-bottom: 1.5em;
+	padding-left: 1em;
+	line-height: 1.6em;
+}
+
+#content blockquote
+{
+	border-left: solid 0.8em #cacaca;
+	padding: 0.5em 0em 0.5em 1.0em;
+	margin-bottom: 1.5em;
+	line-height: 1.6em;
+}
+
+#content blockquote p
+{
+	display: inline;
+}
+
+#content table
+{
+	border: dotted 1px #cacaca;
+	padding: 0.5em;
+	margin-bottom: 1.5em;
+}
+
+#content table th
+{
+	text-align: left;
+	font-weight: bold;
+	padding: 0.5em;
+}
+
+#content table td
+{
+	padding: 0.5em;
+}
+
+#content table tr.rowA
+{
+	background-color: #f5f5f5;
+	color: inherit;
+}
+
+#content table tr.rowB
+{
+	background-color: #fdfdfd;
+	color: inherit;
+}
+
+/* Primary Content */
+
+#primaryContentContainer
+{
+	float: right;
+	margin-left: -19em;
+	width: 100%;
+}
+
+#primaryContent
+{
+	margin: 0em 0em 0em 18em;
+	padding: 1.5em;
+	border-left: dotted 1px #cacaca;
+}
+
+/* Secondary Content */
+
+#secondaryContent
+{
+	float: left;
+	width: 15em;
+	padding: 1.5em;
+        border: dotted 1px #cacaca;
+}
+
+/* Footer */
+
+#footer
+{
+	margin-top: 1.0em;
+	border-top: dotted 1px #cacaca;
+	padding: 1.5em;
+	font-size: 0.9em;
+	text-align: center;
+}
+
+
+.clear
+{
+	clear: both;
+}
+
+/* added to template from cc.css */
+
+#adminlink,#adminlinkewtab,#adminlinkhref,#adminlinkhrefnt {
+display:none;
+// font-family:Agenda, sans-serif;
+// font-size:small;
+// color:#666;
+// padding:5px;
+}
+
+
+tr.odd {
+border:1px dotted;
+background:#fff;
+}
+
+tr.even {
+background:#edf3fe;
+}
+
+.hidden {
+visibility:hidden;
+display:none;
+}
+
+#logoninfo {
+float:right;
+font-size:small;
+padding-right:40px;
+}
+
+
+/* file uploader stuff, to be reviewed a little */
+
+/*file uploader */
+
+.qq-uploader { position:relative; width: 100%;}
+
+.qq-upload-button {
+color:#004d9c;
+//background-color:#e0e0e0;
+background-color:#c0c0c0;
+border:1px solid;
+font-size:10pt;
+text-decoration:none;
+padding:3px;
+margin-top:20px;
+}
+.qq-upload-button-hover {background:#00ff00;}
+.qq-upload-button-focus {outline:1px dotted black;}
+
+.qq-upload-drop-area {
+    position:absolute; top:0; left:0; width:100%; height:100%; min-height: 70px; z-index:2;
+    background:#FF9797; text-align:center; 
+}
+.qq-upload-drop-area span {
+    display:block; position:absolute; top: 50%; width:100%; margin-top:-8px; font-size:16px;
+}
+.qq-upload-drop-area-active {background:#FF7171;}
+
+.qq-upload-list {margin:15px 35px; padding:0; list-style:disc;}
+.qq-upload-list li { margin:0; padding:0; line-height:15px; font-size:12px;}
+.qq-upload-file, .qq-upload-spinner, .qq-upload-size, .qq-upload-cancel, .qq-upload-failed-text {
+    margin-right: 7px;
+}
+
+.qq-upload-file {}
+.qq-upload-spinner {display:inline-block; background: url("/images/loading.gif"); width:15px; height:15px; vertical-align:text-bottom;}
+.qq-upload-size,.qq-upload-cancel {font-size:11px;}
+
+.qq-upload-failed-text {display:none;}
+.qq-upload-fail .qq-upload-failed-text {display:inline;}
+
+/* validation styles red for failed, green OK */
+
+li.system,div.system,span.system {
+color:green;
+font-family:Courier;
+text-align:left;
+}
+
+li.failedcheck,div.failedcheck,span.failedcheck {
+color:red;
+font-family:Courier;
+text-align:left;
+}
+
+.news {
+padding-left:200px;
+text-align:right;
+font-family:Courier;
+font-size:24px;
+//display: none ;
+font-weight:700;
+color:#09C;
+}
+
+

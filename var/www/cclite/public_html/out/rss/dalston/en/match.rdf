@@ -1,0 +1,2711 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<rdf:RDF
+ xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+ xmlns="http://purl.org/rss/1.0/"
+ xmlns:content="http://purl.org/rss/1.0/modules/content/"
+ xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/"
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+ xmlns:syn="http://purl.org/rss/1.0/modules/syndication/"
+ xmlns:admin="http://webns.net/mvcb/"
+>
+
+<channel rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi">
+<title>dalston matched</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi</link>
+<description>desc</description>
+<dc:language>en</dc:language>
+<dc:rights>Copyright 2010, Cclite</dc:rights>
+<dc:date>2000-08-23T07:00+00:00</dc:date>
+<dc:publisher>support@cclite.private.trunk</dc:publisher>
+<dc:creator>support@cclite.private.trunk</dc:creator>
+<dc:subject>Goods and Services Offers at dalston</dc:subject>
+<syn:updateBase>1901-01-01T00:00+00:00</syn:updateBase>
+<syn:updateFrequency>1</syn:updateFrequency>
+<syn:updatePeriod>hourly</syn:updatePeriod>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+<items>
+ <rdf:Seq>
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser" />
+  <rdf:li rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser" />
+ </rdf:Seq>
+</items>
+<image rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi/image" />
+<textinput rdf:resource="http://cclite.private.trunk/cgi-bin/cclite.cgi" />
+</channel>
+<image rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi/image">
+<title>dalston matched</title>
+<url>http://cclite.private.trunk/cgi-bin/cclite.cgi/image</url>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi</link>
+<dc:creator>anon</dc:creator>
+</image>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser">
+<title>offered:this is a test for shopping</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test79&#x26;action=showuser</link>
+<description>description for shopping</description>
+<dc:creator>test79 at dalston</dc:creator>
+<dc:subject>this is a test for shopping</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<item rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser">
+<title>wanted:this is a test for plumbing</title>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi?subaction=om_yellowpages&#x26;userLogin=test53&#x26;action=showuser</link>
+<description>description for plumbing</description>
+<dc:creator>test53 at dalston</dc:creator>
+<dc:subject>this is a test for plumbing</dc:subject>
+<taxo:topics>
+  <rdf:Bag>
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/" />
+    <rdf:li resource="http://dmoz.org/Society/Organizations/Local_Currency_Systems/LETS/" />
+  </rdf:Bag>
+</taxo:topics>
+</item>
+<textinput rdf:about="http://cclite.private.trunk/cgi-bin/cclite.cgi">
+<title>quick finder</title>
+<description>Use the input below to search this registry</description>
+<name>query</name>
+<link>http://cclite.private.trunk/cgi-bin/cclite.cgi</link>
+</textinput>
+</rdf:RDF>

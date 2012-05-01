@@ -1,0 +1,38 @@
+# example setup for regression, some values can be overriden by command
+# line options. change this file and move to test.cf in the same directory as the test script
+#
+type=trunk
+language=English
+scope=all
+snapshots=no
+sleep=5
+logg=yes
+registry1=dalston
+registry2=limehouse
+dbuser=your-dbuser
+dbpassword=your-password
+# use instead of dbuser
+cpaneldbuser=your-cpanel-dbuser
+cpaneldbpassword=your-cpane-dbpassword
+#
+usedecimals=yes
+cpanelprefix=prefix
+trunkurl=http://cclite.private.trunk/
+deburl=http://cclite.private.server/
+xpurl=http://cclite.xp.server/
+fedoraurl=http://cclite.vectormart.org/
+cpanelurl=http://cclite.cclite.k-hosting.co.uk/
+image_path=/home/hbarnard/cclite-support-files/testimages
+image_key=aaa
+admemail=admin\@youdomain.tld
+admpass=mailpassword 
+postemail=post\@youdomain.tld
+postpass=mailpassword2 
+# selenium browserparameters
+browser=*firefox /usr/lib/firefox-10.0.2/firefox
+port=4444
+host=localhost
+# iterations for volume and random
+randomcount=1000
+volumecount=30
+
