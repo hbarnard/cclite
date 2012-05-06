@@ -67,6 +67,7 @@ my $VERSION = 1.00;
 @ISA    = qw(Exporter);
 @EXPORT = qw(add_user
   add_openid
+  add_preference
   modify_user
   show_user
   confirm_user
@@ -78,6 +79,7 @@ my $VERSION = 1.00;
   collect_items
   get_user
   get_news
+  get_preferences
   get_registry_status
   get_stats
   get_trades
@@ -862,6 +864,46 @@ EOT
 "<table><tbody class=\"stripy\">$header $col_titles $html</tbody></table>";
     return ( 0, '', $error, $html, "result.html", '', '', $token );
 }
+
+
+=head3 add_preference
+
+Add a preference, used for individual trading limits etc.
+Expansible and probably rather messy
+
+=cut
+
+sub add_preference {
+
+
+
+return ;
+}
+
+=head3 get_preferences
+
+Get all the preferences for a given user, deliver as json
+or as a hash
+
+
+=cut
+
+sub get_preferences {
+
+
+
+return ;
+
+
+}
+
+
+
+
+
+
+
+
 
 =head3 show_user
 

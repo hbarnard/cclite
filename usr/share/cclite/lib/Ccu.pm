@@ -33,6 +33,8 @@ use Cwd;
 use vars qw(@ISA @EXPORT);
 use Exporter;
 use Data::Dumper;
+use POSIX ; # for mysql date time conversion
+
 
 #use Log::Message::Simple qw[msg error debug carp croak cluck confess];
 
@@ -55,6 +57,7 @@ my $VERSION = 1.00;
   getdirectoryentries
   checkstatus
   getdateandtime
+  get_mysql_time
   functiondoc
   error
   result
@@ -378,6 +381,22 @@ sub getdateandtime {
       sprintf( "%.2d/%.2d/%.4d", $mday, $lmon, ( $lyear + 1900 ) );
     return ( $numeric_day, $time );
 }
+
+
+=head3 get_mysql_time
+
+Get format for database timestamps
+
+=cut
+
+sub get_mysql_time
+{
+  return POSIX::strftime("%Y-%m-%d %H:%M:%S", gmtime(shift));
+}
+
+
+
+
 
 =head3 error
 

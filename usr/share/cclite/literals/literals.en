@@ -253,6 +253,8 @@ userinfofor=User information for
 #
 smsdebitfor=sms debit for
 smserror=sms error has occurred
+smssetupnumberinuse=setup failed, this phone number is already registered
+smssuspend=account suspended, see administrator
 usetags=Use free form tags below
 #
 january=January

@@ -67,8 +67,11 @@ use Ccconfiguration;         # new way of doing configuration
 # please de-comment to suit interface, only Cardboardfish has been heavily
 # tested recently as of August 2010
 
-use Ccsms::Cardboardfish;
-my $type = 'car';
+use Ccsms::Textmarketer;
+my $type = 'txt';
+
+#use Ccsms::Cardboardfish;
+#my $type = 'car';
 
 #use Ccsms::Aql;
 #my $type = 'aql' ;
@@ -90,14 +93,13 @@ my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
+my @message_hash_refs ;
 
-# reference to possible multiple message hashes from cardboardfish
-my @message_hash_refs;
 
 #  this should use the version modules, but that makes life more
 # complex for intermediate users
 
-$fields{version} = "0.8.0";
+$fields{version} = "0.9.0";
 
 # parse incoming fields the cardboardfish way...may give multiple messages
 my ( $status, $originator, $destination, $dcs, $datetime, $udh, $message );
@@ -156,7 +158,7 @@ if ( $type eq 'car' ) {
 
 } else {
 
-    # Aql and gammu single messages...
+    # Aql, Textmarketer and gammu single messages...
     my $fieldsref = \%fields;
 
     gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
