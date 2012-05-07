@@ -77,6 +77,7 @@ my $VERSION = 1.00;
   do_login
   logoff_user
   collect_items
+  delete_preference
   get_user
   get_news
   get_preferences
@@ -100,6 +101,7 @@ my $VERSION = 1.00;
   split_transaction
   directpay
   transaction
+  update_preference
   check_user_and_add_trade
   wrapper_for_check_user_and_add_trade
 );
@@ -234,6 +236,7 @@ sub add_user {
 
     my ( $date, $time ) = getdateandtime( time() );
     $fieldsref->{'userJoindate'} = $date;
+    $fieldsref->{'userPasswordChanged'} = $date;
 
     $fieldsref->{'userLevel'}    = 'user';
     $fieldsref->{'userPassword'} = $fieldsref->{userHash};
@@ -871,29 +874,90 @@ EOT
 Add a preference, used for individual trading limits etc.
 Expansible and probably rather messy
 
+userId, prefName, prefValue
+
 =cut
 
 sub add_preference {
 
+    my ($class,$db,$fieldsref,$token) = @_;
 
+    # add the user to the registry database
+    my ( $rc, $rv, $record_id ) =
+      add_database_record( $class, $db, 'om_prefs', $fieldsref, $token );
 
 return ;
 }
+
+
+=head3 delete_preference
+
+Add a preference, used for individual trading limits etc.
+Expansible and probably rather messy
+
+userId, prefName, prefValue
+
+=cut
+
+sub delete_preference {
+
+    my ($class,$db,$fieldsref,$token) = @_;
+
+    # add the user to the registry database
+    my ( $rc, $rv, $record_id ) =
+      add_database_record( $class, $db, 'om_prefs', $fieldsref, $token );
+
+return ;
+
+}
+
+=head3 update_preference
+
+Add a preference, used for individual trading limits etc.
+Expansible and probably rather messy
+
+userId, prefName, prefValue
+
+=cut
+
+sub update_preference {
+
+    my ($class,$db,$fieldsref,$token) = @_;
+
+    # add the user to the registry database
+    my ( $rc, $rv, $record_id ) =
+      add_database_record( $class, $db, 'om_prefs', $fieldsref, $token );
+
+return ;
+
+}
+
+
+
+
 
 =head3 get_preferences
 
 Get all the preferences for a given user, deliver as json
 or as a hash
 
+Only need userId  and mode value in fieldsref, to get all the preferences
 
 =cut
 
 sub get_preferences {
 
+  my ($class,$db,$table,$fieldsref,$token) = @_;
 
-
-return ;
-
+  my ($registry_error, $hash_ref) = get_where_multiple  (
+        $class, $db,    $table,  '*', 'userId',
+        $fieldsref->{'userId'},  $token, undef, undef
+   ) ;
+if ($fieldsref->{'mode'} eq 'josn') {
+	
+} else {	   
+  return $hash_ref ;
+}  
 
 }
 

@@ -63,9 +63,14 @@ use Cclite;                  # use the main motor
 use Ccsecure;                # security and hashing
 use Cclitedb;                # this probably should be delegated
 use Ccconfiguration;         # new way of doing configuration
+use Data::Dumper ;
+
+print "Content-type: text/html\n\n" ;
 
 # please de-comment to suit interface, only Cardboardfish has been heavily
 # tested recently as of August 2010
+# Textmarketer tested heavily with added functions May 2012
+#
 
 use Ccsms::Textmarketer;
 my $type = 'txt';
@@ -82,6 +87,10 @@ my $type = 'txt';
 
 #--------------------------------------------------------------
 
+### open (our $debug_file, '>>', '/home/hbarnard/cclite/var/cclite/log/debug.log') ;
+### our $debug = 1 ; # don't use LWP just log etc.
+
+
 $ENV{IFS} = " ";    # modest security
 
 our %configuration     = readconfiguration();
@@ -89,12 +98,15 @@ our $configurationref  = \%configuration;
 our %sms_configuration = readconfiguration('../../config/readsms.cf');
 
 my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
-    $templatename, $registry_private_value );    # for the moment
+    $templatename, $registry_private_value, $return_value );    # for the moment
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
 my @message_hash_refs ;
 
+###print $debug_file Dumper %fields ;
+
+close $debug_file ;
 
 #  this should use the version modules, but that makes life more
 # complex for intermediate users
@@ -161,13 +173,13 @@ if ( $type eq 'car' ) {
     # Aql, Textmarketer and gammu single messages...
     my $fieldsref = \%fields;
 
-    gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
+    $return_value = gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
 
 }
 
 # mobile number + raw string
 # this is mainly to make Selenium etc. work...
-print "Content-type: text/html\n\nrunning\n";
+print "running $return_value<br/>";
 
 exit 0;
 
