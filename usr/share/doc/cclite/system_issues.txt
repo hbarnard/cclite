@@ -194,7 +194,11 @@ to be fixed:
   "message" : "NOK", "data": [{Transaction rejected,Currency not in remote registry,Currency inactive}] } (done)
 43. Need check on from registry currency for json as it's free form, not from a drop down  (done)
 
-
+07.05.2012
+44. Complete preferences processing in Cclite.pm and link it to 'something'
+45. smsdebit transactions need a more varied set of messages to deal with join,balance, suspension etc.
+46. eternal: produce a script for archiving transactions.
+47. get currencies/get small ad count sms
 
 
 17.12.2011 Tiki-wiki communication

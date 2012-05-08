@@ -188,6 +188,7 @@ smsoriginblank=Originating telephone number not found
 smsmessageblank=SMS Message is Blank
 smsthebalancefor=The balance for
 smsnumbernotfound=mobile number not found
+smsbadjoin=join data cannot be parsed
 # end
 mobphoneexists=mobile phone number belongs to someone else, must be unique
 invalidlogin=User name contains spaces or forbidden characters

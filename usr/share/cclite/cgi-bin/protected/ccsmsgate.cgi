@@ -87,31 +87,33 @@ my $type = 'txt';
 
 #--------------------------------------------------------------
 
-### open (our $debug_file, '>>', '/home/hbarnard/cclite/var/cclite/log/debug.log') ;
-### our $debug = 1 ; # don't use LWP just log etc.
+
 
 
 $ENV{IFS} = " ";    # modest security
 
-our %configuration     = readconfiguration();
-our $configurationref  = \%configuration;
-our %sms_configuration = readconfiguration('../../config/readsms.cf');
+our %configuration     	= readconfiguration();
+our $configurationref  	= \%configuration;
+our %sms_configuration 	= readconfiguration('../../config/readsms.cf');
+
+my $debug = $sms_configuration{'debug'} ; # set debug level
+
 
 my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
     $templatename, $registry_private_value, $return_value );    # for the moment
 
-my $cookieref = get_cookie();
-my %fields    = cgiparse();
+my $cookieref  			= get_cookie();
+my %fields    			= cgiparse();
 my @message_hash_refs ;
 
-###print $debug_file Dumper %fields ;
 
-close $debug_file ;
+# just check that it's being accessed for the moment...
+open (my $debug_file, '>>', $sms_configuration{'debug_file'}) ;
 
 #  this should use the version modules, but that makes life more
 # complex for intermediate users
 
-$fields{version} = "0.9.0";
+$fields{version} = "0.9.1";
 
 # parse incoming fields the cardboardfish way...may give multiple messages
 my ( $status, $originator, $destination, $dcs, $datetime, $udh, $message );
@@ -163,7 +165,7 @@ if ( $type eq 'car' ) {
 
         my $fieldsref = \%fields;
 
-        gateway_sms_transaction( 'local', $configurationref, $fieldsref,
+        $return_value = gateway_sms_transaction( 'local', $configurationref, $fieldsref,
             $token );
 
     }
@@ -173,13 +175,23 @@ if ( $type eq 'car' ) {
     # Aql, Textmarketer and gammu single messages...
     my $fieldsref = \%fields;
 
+
+
+
     $return_value = gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
+    
+    if ($debug) {
+     print $debug_file "in smsgate after gateway...\n" ; 
+     print $debug_file "return value is $return_value\n" ;
+    }
 
 }
 
 # mobile number + raw string
 # this is mainly to make Selenium etc. work...
 print "running $return_value<br/>";
+
+close $debug_file ;
 
 exit 0;
 

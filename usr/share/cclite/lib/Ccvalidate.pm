@@ -316,7 +316,7 @@ sub check_name_exists {
 Abstrated out of validate because this is used
 for validation of REST style additions
 
-This doesn't deal will database problems
+FIXME: This doesn't deal will any database problems
 
 
 =cut
@@ -331,10 +331,10 @@ sub check_email_exists {
 
     my ( $error, $user_ref ) =
       get_where( $class, $db, 'om_users', '*', 'userEmail',
-        $fieldsref->{userEmail},
+        $fieldsref->{'userEmail'},
         $token, $offset, $limit );
 
-    if ( !length($error) && length($user_ref) ) {
+    if ( !length($error) && length($user_ref->{'userId'}) ) {
         return $user_ref;    # exists already
     } else {
         return undef;        # email is unique
