@@ -89,7 +89,7 @@ Issues:
 28. add a little table to identify transaction colour coding: orange=split, silver=declined etc.
 29. rationalise the filtered fields in modify_trade, some are need for 'where' operations,
 do in a different way?
-30. cclite.cgi should detect no setup for simplicity
+30. cclite.cgi should detect no setup for simplicity [done]
 31. 
 32. need better diagnosis + eval for soap failures when multiregistry switched off and
 soap attempts made...(not done, deprecated nd replaced by REST)
@@ -171,6 +171,7 @@ to be fixed:
 21. Direct user add needs protection otherwise very spammy (portected by allowed IP, done-ish)
 22. Direct user add needs feedback, probably json (done, rudimentary)
 23. Consider all status codes and return codes currently, see list
+
 24. REST /summary doesn't work properly for csv and delivers two bits of json
 25. Shorten months to three characters in balance and volume output (done)
 26. Back button in wrong place and doesn't work properly: showbalvol...(done, no button now)
@@ -199,6 +200,16 @@ to be fixed:
 45. smsdebit transactions need a more varied set of messages to deal with join,balance, suspension etc.
 46. eternal: produce a script for archiving transactions.
 47. get currencies/get small ad count sms
+48. change language sms, means testing ut8 languages too [! large project]
+49. make orig something like cclite-dalston
+50. deb packages work on LTS but barf somewhat on 11.04 natty at least: default web root var/www now unacceptable
+51. Modify registry flips back to user menu, should go to admin page
+52. History -1 as back doesn't seem to work nowadays?
+53. SMS: Check cannot change to same pin, mistake
+54. SMS: Should not accept and process pay transaction when account suspended by own hands!
+55. SMS: How does suspended via SMS get unsuspended
+56. Send suspended and locked messages to the registry supervisor
+
 
 
 17.12.2011 Tiki-wiki communication

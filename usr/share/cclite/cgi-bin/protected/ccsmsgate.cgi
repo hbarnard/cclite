@@ -107,8 +107,7 @@ my %fields    			= cgiparse();
 my @message_hash_refs ;
 
 
-# just check that it's being accessed for the moment...
-open (my $debug_file, '>>', $sms_configuration{'debug_file'}) ;
+
 
 #  this should use the version modules, but that makes life more
 # complex for intermediate users
@@ -146,7 +145,7 @@ $fields{systemMailReplyAddress} = $configuration{systemmailreplyaddress};
 #--------------------------------------------------------------------
 # This is the token that is to be carried everywhere, preventing
 # session hijack etc. It's probably going to be a GnuPg public key
-# anyway it's a public key of some king related to the cclite installations
+# anyway it's a public key of some kind related to the cclite installations
 # private key, not transmitted and protected by passphrase
 #
 $token = $registry_private_value =
@@ -175,23 +174,16 @@ if ( $type eq 'car' ) {
     # Aql, Textmarketer and gammu single messages...
     my $fieldsref = \%fields;
 
-
-
-
     $return_value = gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
     
-    if ($debug) {
-     print $debug_file "in smsgate after gateway...\n" ; 
-     print $debug_file "return value is $return_value\n" ;
-    }
+    debug( "rv after gateway is $return_value", undef) ;
+    
 
 }
 
 # mobile number + raw string
 # this is mainly to make Selenium etc. work...
 print "running $return_value<br/>";
-
-close $debug_file ;
 
 exit 0;
 

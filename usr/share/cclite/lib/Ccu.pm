@@ -62,6 +62,7 @@ my $VERSION = 1.00;
   result
   printhead
   pretty_caller
+  pretty_status
   sql_timestamp
   get_os_and_distribution
   check_paths

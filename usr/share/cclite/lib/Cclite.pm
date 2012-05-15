@@ -2843,7 +2843,25 @@ $messages{usernameis} $accountname
 
 EOT
 
-    }
+
+# type 6 is for supervisory alerts on SMS, account sefl-suspended, pin locked etc.
+# anything that may need intervention from a manager...
+
+    } elsif ( $notificationtype == 6 ) {
+		
+        $from    = "$messages{'smstransactionemailtitle'} <$return_address>";
+        $subject = "$messages{'smssupervisormessage'} $registry\r\n\r\n";
+        $message = <<EOT;
+$text        
+$messages{usernameis} $accountname 
+
+EOT
+		
+		    
+}    
+    
+    
+    
 
     if ( $configuration{net_smtp} ) {
         eval {
@@ -3141,8 +3159,10 @@ Get registry status open, closed, down, closing
 Closing is to give people time to log off
 
 FIXME: this needs to return a couple of things, the message
-and the technical status of the database, unkown etc. etc.
+and the technical status of the database, unknown etc. etc.
 hence the returns need looking at too
+
+FIXME: Doesn't need fieldsref really...
 
 =cut
 

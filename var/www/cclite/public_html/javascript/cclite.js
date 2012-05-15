@@ -688,12 +688,18 @@ can be used to transmit errors from the script into the page */
          $('input[name=userSmsreceipt]').attr('checked', true);
      }
 
-     // autocompletes, depending on the field used, the 'type' of lookup is decided and this
-     // is passed in to ccsuggest.cgi  
-					
-
-
-
+     /* autocompletes, depending on the field used, the 'type' of lookup is decided and this
+     is passed in to ccsuggest.cgi  
+     avoid using userLogin, this is probably the way to generalise all of them...*/
+     
+    // 'user' is used in preferences.html 
+    $("#user").autocomplete("/cgi-bin/ccsuggest.cgi", {
+         extraParams: {
+             type: function () {
+                 return 'user';
+             }
+         }
+     });
 
 
      $("#tradeDestination").autocomplete("/cgi-bin/ccsuggest.cgi", {

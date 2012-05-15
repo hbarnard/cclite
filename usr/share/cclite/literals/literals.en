@@ -189,6 +189,7 @@ smsmessageblank=SMS Message is Blank
 smsthebalancefor=The balance for
 smsnumbernotfound=mobile number not found
 smsbadjoin=join data cannot be parsed
+smssupervisormessage=Supervisory Message
 # end
 mobphoneexists=mobile phone number belongs to someone else, must be unique
 invalidlogin=User name contains spaces or forbidden characters
@@ -256,6 +257,7 @@ smsdebitfor=sms debit for
 smserror=sms error has occurred
 smssetupnumberinuse=setup failed, this phone number is already registered
 smssuspend=account suspended, see administrator
+smslanguagechanged=Language changed to 
 usetags=Use free form tags below
 #
 january=January
@@ -274,6 +276,7 @@ december=December
 from=from
 transactions=transactions
 registryclosing=Registry marked as closing, no new logons
+notransfersallowed=No transfers allowed currently
 registryopen=Registry marked as open, logons allowed
 notadmin=Not administrator exiting
 #
