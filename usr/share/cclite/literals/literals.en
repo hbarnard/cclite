@@ -177,6 +177,7 @@ smslocked=Account locked for sms: please contact your administrator to unlock!
 smspinactive=Pin checked ok: your account is active!
 smspinfail=Pin invalid: please try again!
 smspinchanged=Your new pin is now ready to use
+smspinnotchanged=Pin not changed, new pin too short
 smstransactiontitle=SMS Transaction
 smstransactionemailtitle=Cclite SMS Transaction
 smsinvalidsyntax=Invalid SMS payment message
