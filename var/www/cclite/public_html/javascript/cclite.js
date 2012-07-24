@@ -161,12 +161,18 @@ var language_keys = new Array(
 "korean-ko", 
 "bengali-bn", 
 "vietnames-vi",
-"romainian-ro"
+"ukranian-uk",
+"indonesian-id",
+"hungarian-hu",
+"finnish-fi",
+"hebrew-he",
+"haitian-ht"
 ) ;
 
 $.each(language_keys, function(index,value)
 {   
      var literal = value.split('-') ;
+     // alert ('literal is ' + literal) ;
      $('#language_value').
           append($("<option></option>").
           attr("value",literal[1]).
