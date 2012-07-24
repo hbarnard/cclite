@@ -1,0 +1,485 @@
+
+<title>
+JavaScript kÃ©pernyÅ ÃrvÃ©nyesÃ­tÃ©s
+</title>
+</head>
+
+<body bgcolor="white">
+
+<table border="0" width="625">
+<tbody>
+<tr>
+<td rowspan="6" bgcolor="#408080" width="10">
+<img src="clear.gif" height="1" width="10">
+</td>
+
+<td bgcolor="#b6dada">
+
+<font size="+3">
+JavaScript kÃ©pernyÅ ÃrvÃ©nyesÃ­tÃ©s SzerszÃ¡m
+</font>
+
+<font size="+1">
+2.5 ver
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<font size="-1">
+Ã¡ltal Artswork
+</font>
+<br>
+
+<font color="#ff0000" size="2">
+Kell bocsÃ¡natot kÃ©rni, az a tÃ©ny, hogy Ã©n vagyok&#xD;mÃ¡r nem tudja elfogadni a elektronikus levÃ©l Ã©n ha Ã©n akar parancsfÃ¡jl kÃ©rdÃ©sekre&#xD;engedheti meg magÃ¡nak, segÃ­t az emberek megfelelÅen integrÃ¡lni az e modul tÃ¶bb Ã³rÃ¡ig Ã©s&#xD;Ã­rÃ¡sban bÃ¡rki tovÃ¡bbi elemeket. Ez az e-mailt Ã³ta tÃ¶rtÃ©nt&#xD;2003. augusztus fÃ©rgek sÃºlyosan veszÃ©lyezteti az Ã©n-m elektronikus levÃ©l cÃ­m jelenik meg&#xD;Itt megtÃ¡madta, ahol tÃ¶bb ezer hibÃ¡s foglalkoznia kellett&#xD;vissza az e-maileket egy nap. Ãn is rendszeresen megprÃ³bÃ¡l-hoz kapcsolja vissza,&#xD;vissza, Ã©s prÃ³bÃ¡lja meg Ãºjra, miutÃ¡n a por rendezi. Azt is tartalmaznia kell&#xD;Hogyan tÃ¶nkreteheti a mi tudÃ¡sukat Ã©s a hihetetlen gondolat, mint pÃ©ldÃ¡ul a&#xD;internetes kommunikÃ¡ciÃ³s disparaging. Nekem van prÃ³bÃ¡lt sok Ã©vig&#xD;VisszatÃ©rÃ©s hozzÃ¡jÃ¡rulÃ¡sok mÃ¡sok Ã©n siker azon ez dolgozik&#xD;kÃ¶zepes. A kamat kÃ¶szÃ¶nhetÅen kaptam.
+</font>
+<hr size="1">
+A kÃ©pernyÅ ÃrvÃ©nyesÃ­tÃ©s SzerszÃ¡m tudod ellenÅriz rÃ©szÃ©re
+<b>
+szÃ¼ksÃ©ges, integer, elektronikus levÃ©l Ã©s dÃ¡tum mezÅk
+</b>
+az Å±rlap.&#xD;KÃ¶nnyen hordozhatÃ³, az Å±rlaphoz, Ã©s segÃ­t a kiszolgÃ¡lÃ³ oldali mentÃ©se&#xD;Å±rlapmezÅ Ã©rvÃ©nyesÃ­tÃ©se szÃ¡rmazÃ³ forrÃ¡sok&#xD;Ã©s az oldalak ismÃ©telt betÃ¶ltÃ©se. Az Ã¼zeneteket lehet testre szabni a rejtett Å±rlapot&#xD;elem, ahol is kijelÃ¶lheti az Ã©rvÃ©nyesÃ­tÃ©s kÃ­vÃ¡nalom. SegÃ­tsÃ©gÃ©vel keverjÃ¼k Ã¶ssze&#xD;a szÃ¼ksÃ©ges elem bÃ¡rmely egyÃ©b elemeit.&#xD;Ez a kÃ³d hordozhatÃ³, Ã©s csak hasznÃ¡lhatÃ³ bÃ¡rmely formÃ¡ja Ã¡ltal&#xD;a rejtett elemek megfelelÅen Ã©s a KattintÃ¡sra (OnClick)&#xD;a parancs egy gombra.
+<br>
+<br>
+
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+<font size="+2">
+A szabÃ¡lyokkal.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+1)
+</b>
+Egy szÃ¼ksÃ©ges mezÅ hasznÃ¡lata a meglÃ©vÅ mezÅ neve Ã©s hozzÃ¡adÃ¡sa&#xD;egy r_, hogy a mezÅ elejÃ©re kell elneveznie Ã©s lÃ©trehoznia egy rejtett elemet.
+<br>
+
+<b>
+PÃLDA:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="r_your_fieldname" value="Required error message goes here"&gt;
+<p>
+
+<b>
+2)
+</b>
+Egy egÃ©sz szÃ¡m mezÅ hasznÃ¡lata a meglÃ©vÅ mezÅ neve Ã©s hozzÃ¡adÃ¡sa&#xD;egy i_, hogy a mezÅ elejÃ©re kell elneveznie Ã©s lÃ©trehoznia egy rejtett elemet.
+<br>
+
+<b>
+PÃLDA:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="i_your_fieldname" value="Integer error message goes here"&gt;
+</p>
+<p>
+
+<b>
+3)
+</b>
+Egy dÃ¡tum mezÅ hasznÃ¡lata a meglÃ©vÅ mezÅ neve Ã©s adjunk hozzÃ¡ egy&#xD;a mezÅ elejÃ©re a d_ nevet, Ã©s hozzon lÃ©tre egy rejtett elemet. Ez&#xD;dÃ¡tum mezÅ csak akkor fogad el, a hh/nn/Ã©Ã© formÃ¡tumban vagy a H/Ã©Ã©.
+<br>
+
+<b>
+PÃLDA:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="d_your_fieldname" value="Date error message goes here"&gt;
+<br>
+<br>
+
+<b>
+4)
+</b>
+ÃrvÃ©nyesÃ­tÃ©sÃ©hez az e-mail mezÅ hasznÃ¡lata a meglÃ©vÅ mezÅ neve Ã©s&#xD;Adjunk hozzÃ¡ egy e_ a mezÅnÃ©v elejÃ©re, Ã©s hozzon lÃ©tre egy rejtett&#xD;elemet.
+<br>
+
+<b>
+PÃLDA:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="e_your_fieldname" value="The email address format is incorrect"&gt;
+<br>
+<br>
+
+</p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+
+<font size="+2">
+A parancsfÃ¡jl inicializÃ¡lÃ¡sa.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+KELL hasznÃ¡lnia a type = "button" nem az a tÃ­pus = "submit" ahhoz, hogy a KÃ¼ldÃ©s gomb a javascript az Ãn szÃ¡mÃ¡ra elkÃ¼ldi a a KÃ¼ldÃ©s.
+<br>
+
+<font size="-1">
+<b>
+PÃLDA:
+</b>
+<br>
+&lt;input type=button Value="Button Message Here" onclick="check(form,form.elements.length)"&gt;
+</font>
+
+<br>
+<br>
+<hr size="1">
+
+<font size="+2">
+Ez a minta Ã¶sszes hÃ¡rom Ã©rvÃ©nyesÃ­tÅ eszkÃ¶zÃ¶k egyÃ¼ttes hasznosÃ­tja.
+</font>
+<p>
+
+</p>
+<form action="thanks.html">
+
+<table border="0" width="575">
+
+<tbody>
+<tr>
+<td>
+
+<b>
+E-mail cÃ­me:
+</b>
+
+</td>
+
+<td>
+
+<input name="email" type="text">
+
+<input name="e_email" value="Email address format is incorrect" type="hidden">
+
+<input name="r_email" value="Email address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and email validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+KeresztnÃ©v:
+</b>
+
+</td>
+
+<td>
+
+<input name="fname" type="text">
+
+<input name="r_fname" value="First name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+VezetÃ©knÃ©v:
+</b>
+
+</td>
+
+<td>
+
+<input name="lname" type="text">
+
+<input name="r_lname" value="Last name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+1. CÃ­m:
+</b>
+
+</td>
+
+<td>
+
+<input name="address1" type="text">
+
+<input name="r_address1" value="Address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+2. CÃ­m:
+</b>
+
+</td>
+
+<td>
+
+<input name="address2" type="text">
+
+</td>
+<td>
+<font size="-1">
+(no validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+mennyi idÅs vagy:
+</b>
+
+</td>
+
+<td>
+
+<input name="age" type="text">
+
+<input name="r_age" value="Age is required" type="hidden">
+
+<input name="i_age" value="Age must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Ãvekben mÃ¡r meg lett scripting:
+</b>
+
+</td>
+
+<td>
+
+<input name="scripting" type="text">
+
+<!--- <input type="hidden" name="r_scripting" value="Years scripting required"> --->
+
+<input name="i_scripting" value="Years scripting must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Mi a mai dÃ¡tum:
+</b>
+
+<font size="-1">
+(mm/dd/yy)
+</font>
+
+</td>
+
+<td>
+
+<input name="todays_dt" type="text">
+
+<!--- <input type="hidden" name="r_todays_dt" value="Today's date is required"> --->
+
+<input name="d_todays_dt" value="The date is not valid or the format is incorrect. Please format mm/dd/yy." type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(date validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+VÃ¡lasszon ki egy tÃ©mÃ¡t:
+</b>
+
+</td>
+
+<td>
+
+<select name="subject">
+<option value="">
+VÃ¡lassza ki az egyik
+</option>
+<option value="Javascript">
+JavaScript
+</option>
+<option value="C">
+C
+</option>
+<option value="C++">
+C
+</option>
+<option value="Visual Basic">
+Visual Basic
+</option>
+</select>
+
+<input name="r_subject" value="You must select a subject" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+KivÃ¡laszt a rÃ¡diÃ³ gomb:
+</b>
+
+</td>
+
+<td>
+
+<input name="test" value="1" type="radio">
+vizsgÃ¡lat:
+<input name="test" value="2" type="radio">
+2 teszt
+<input name="test" value="3" type="radio">
+3 tesztelÃ©se
+<input name="r_test" value="Please select a radio button 1, 2 or 3" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+JelÃ¶lje ki az Ã¶sszes alkalmazni:
+</b>
+
+</td>
+
+<td>
+
+<input name="test1" value="1" type="checkbox">
+vizsgÃ¡lat:
+<input name="r_test1" value="You must select checkbox test 1" type="hidden">
+
+<input name="test2" value="2" type="checkbox">
+2 teszt
+<input name="test3" value="3" type="checkbox">
+3 tesztelÃ©se
+</td>
+<td>
+<font size="-1">
+(required validation on box 1)
+</font>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+
+<input value="Submit this form for validation" onclick="check(form,form.elements.length)" type="button">
+
+</td>
+</tr>
+
+</tbody>
+</table>
+
+</form>
+
+<hr size="1">
+
+<center>
+<font size="-1">
+� 2004 Artswork
+</font>
+<p>
+
+<img src="/cgi-bin/counter?perflunk">
+
+</p>
+</center>
+
+</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

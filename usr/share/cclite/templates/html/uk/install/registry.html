@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="ім'я бази даних, визначення торгової групи, одним словом, без пробілів" class="pme-key-0">
+Назва реєстру
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="короткий опис Торгова група" class="pme-key-0">
+Опис реєстру
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="адресу та обліковий запис, що використовується для надсилання офіційного листа для цієї групи" class="pme-row-0">
+
+<td class="pme-key-0">
+Менеджер електронної пошти
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="пароль облікового запису адміністратора пошти" class="pme-key-0">
+Менеджер паролів електронної пошти
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="обліковий запис, де отримав листів угоди можуть бути так само, як адміністратор" class="pme-row-1">
+
+<td class="pme-key-1">
+Електронна пошта для операцій пакетної
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="пароль для облікового запису електронної пошти пакетної" class="pme-key-0">
+Пакетний пароль електронної пошти
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="не використовується, але визначає Торгова моделі" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Тарифна модель системи
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Рівність
+</option>
+<option selected value="market">
+Ринкові ставки
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="не використовується, але визначає комісії моделі" class="pme-row-1">
+
+<td class="pme-key-1">
+Модель системи комісії
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Без комісії
+</option>
+
+<option value="yes">
+Комісії на основі реєстру
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="не використовується, але визначає модель передплати" class="pme-row-1">
+
+<td class="pme-key-1">
+Модель передплати
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Немає підписки
+</option>
+
+<option value="yes">
+На основі підписки
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="визначає зобов'язання межа для всіх валют у реєстрі, перетворюються на центів автоматично, якщо десяткові валюти" class="pme-row-1">
+
+<td class="pme-key-1">
+Глобальний межі зобов'язання
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="ключові server використовується: громадськості ключових посвідчення для цього реєстру в даний час для транзакцій електронної пошти лише" class="pme-row-1">
+
+<td class="pme-key-1">
+Ключові Server: громадськості ключових id
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="не використовується, але визначає, чи географічні області або особливий інтерес"  class="pme-row-1">
+
+<td class="pme-key-1">
+Охоплює географічній області?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+Так
+</option>
+
+<option value="no">
+Ні
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="не використовуються в даний час, але визначає посади або поштові індекси, так що громадських реєстрами може бути geocoded і зіставлених" class="pme-row-1">
+
+<td class="pme-key-1">
+Індекси або широта, довгота
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="використовується для надання купець ключ для elgg, drupal та з'єднувачі os комерція" class="pme-row-1">
+
+<td class="pme-key-1">
+Купець ключ
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="використовується в принципі обмежити роз'єми для певної IP-адреси, легко підроблені ймовірно" class="pme-row-1">
+
+<td class="pme-key-1">
+Дозволити купець від IP-адреси
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- це експеримент, стане config посилання червоним, якщо db пароль є неправильним -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Перейти" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Скасувати"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

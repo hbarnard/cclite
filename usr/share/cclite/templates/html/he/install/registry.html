@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="שם מסד הנתונים מגדיר את קבוצת המסחר, מילה אחת ללא רווחים" class="pme-key-0">
+שם הרישום
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="תיאור קצר של מסחר קבוצה" class="pme-key-0">
+תיאור הרישום
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="כתובת ואת החשבון המשמש לשליחת דואר אלקטרוני הרשמי עבור קבוצה זו" class="pme-row-0">
+
+<td class="pme-key-0">
+דואר אלקטרוני של מנהל
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="הסיסמה עבור חשבון דואר אלקטרוני של מנהל" class="pme-key-0">
+מנהל דואר אלקטרוני סיסמה
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="החשבון שבו מתקבלות הודעות טרנזקציות יכול להיות זהה admin" class="pme-row-1">
+
+<td class="pme-key-1">
+דוא עבור טרנזקציות אצווה
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="הסיסמה עבור חשבון דואר אלקטרוני של אצווה" class="pme-key-0">
+סיסמה דוא של אצווה
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="לא בשימוש כעת אך מגדירה מודל המסחר" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+מודל חיוב של המערכת
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+שוויון
+</option>
+<option selected value="market">
+תעריפי השוק
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="לא בשימוש כעת אך מגדירה מודל הנציבות" class="pme-row-1">
+
+<td class="pme-key-1">
+מודל הנציבות של המערכת
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+ללא עמלה
+</option>
+
+<option value="yes">
+הנציבות לפי הרישום
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="לא בשימוש כעת אך מגדירה מודל מנוי" class="pme-row-1">
+
+<td class="pme-key-1">
+מודל מנוי
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+אין מנוי
+</option>
+
+<option value="yes">
+המנוי בהתאם
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="מגדיר את הגבלת התחייבות עבור מטבעות כל ברישום זה, המרה סנט באופן אוטומטי אם עשרוני מטבע" class="pme-row-1">
+
+<td class="pme-key-1">
+מגבלת המחויבות הכללית
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="מפתח שרת המשמש: מזהה מפתח ציבורי עבור רישום זו כעת עבור טרנזקציות דוא ל בלבד" class="pme-row-1">
+
+<td class="pme-key-1">
+מזהה מפתח של מפתח שרת: הציבור
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="לא בשימוש כעת אך מגדיר אם הגיאוגרפי באזור או עניין מיוחד"  class="pme-row-1">
+
+<td class="pme-key-1">
+כריכות אזור גיאוגרפי?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+כן
+</option>
+
+<option value="no">
+לא
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="לא בשימוש כעת אך מגדיר הצבות או מיקוד כך קבלו ציבורי יכול להיות geocoded וממופים" class="pme-row-1">
+
+<td class="pme-key-1">
+Postcodes או Latitude, קו אורך
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="משמש כדי לספק מפתח סוחר elgg, דרופל ומחברים os-מסחר" class="pme-row-1">
+
+<td class="pme-key-1">
+סוחר מפתח
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="שימוש, בעקרון להגבלת מחברים מסוימים ips, בקלות לזייף כנראה" class="pme-row-1">
+
+<td class="pme-key-1">
+לאפשר הסוחר מכתובות IP
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- זה ניסוי, תפעיל את הקישור config אדום, אם db סיסמה שגויה -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="מעבר" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="ביטול"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

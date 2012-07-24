@@ -1,0 +1,276 @@
+
+<form class="pme-form" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="update" type="hidden">
+
+<input name="subaction" value="om_users" type="hidden">
+
+<input name="userId" value="$$fields{userId}" type="hidden">
+
+<table class="pme-main" summary="om_users">
+
+<tbody>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserLogin
+</td>
+
+<td "pme-value-0">
+
+<input class="grey"
+ name="userLogin" readonly="readonly" size="60" maxlength="255" value="$$fields{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Пароль користувача
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Підтвердження пароля
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="confirmPassword" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userEmail" size="60" maxlength="255" value="$$fields{userEmail}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Ім'я номер/будинку
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userNameornumber" size="30" maxlength="30" value="$$fields{userNameornumber}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Назви вулиці
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userStreet" size="40" maxlength="40" value="$$fields{userStreet}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Місто
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTown" size="40" maxlength="40" value="$$fields{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Повіт/держави
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userArea" size="40" maxlength="40" value="$$fields{userArea}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Мобільний телефон
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userMobile" size="15" maxlength="15" value="$$fields{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Мова
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLang">
+
+<option value="de">
+Deutsch
+</option>
+
+<option selected value="en">
+англійська
+</option>
+
+<option value="fr">
+Френ
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Ім'я користувача
+</td>
+
+<td class="pme-value-0">
+
+<input class="pme-input-0"
+ name="userName" size="60" maxlength="255" value="$$fields{userName}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Свято або активної
+</td>
+
+<td class="pme-value-1">
+
+<select name="userStatus">
+
+<option selected value="active">
+Активний
+</option>
+
+<option value="holiday">
+На свято
+</option>
+
+<option value="unconfirmed">
+Непідтверджені
+</option>
+
+<option value="predelete">
+Видалення попередньо
+</option>
+
+<option value="suspended">
+Призупинено
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Рівень користувача
+</td>
+
+<td class="pme-value-1">
+
+<select name="userLevel">
+
+<option selected value="user">
+Користувач
+</option>
+
+<option value="admin">
+Адміністратор
+</option>
+
+<option value="sysaccount">
+Системний обліковий запис
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd"
+ value="Зберегти" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Cancel" onclick="form.submit();" type="button">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

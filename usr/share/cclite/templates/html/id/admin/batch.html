@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
+<meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="alternate" type="application/rss+xml" title="Eksperimental cclite link" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $$fieldsref{version} Admin
+</title>
+!$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
+
+<script src="/javascript/scriptaculous.js">
+</script>
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+
+<div id="toptabs">
+
+<a 
+ class="toptab" title="Lupa Kata Sandi Anda??"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Lupa Password?
+</a>
+
+<a class="toptabstrikethrough" title="Deutsch"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+Deutsch
+</a>
+
+<a 
+ class="toptabstrikethrough" title="Mengubah ke Perancis"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+Fran
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
+<p>
+
+<a class="toptab" title="Account baru" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Account baru
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+Logoff $$fieldsref{user}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Kembali ke Menu pengguna" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+Pengguna Menu
+</a>
+<span class="hide">
+|
+</span>
+
+</p>
+
+</div>
+
+<div id="container">
+
+<h1>
+Cclite $$fieldsref{version} Administrasi
+</h1>
+
+<div id="navitabs">
+
+<a class="showpartnersresulthtml" title="Tujuh mitra" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Tampilkan mitra
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="Membuat mata uang baru" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Membuat mata uang
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="Tampilkan diperdagangkan mata uang" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Menunjukkan mata uang
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="Buat kategori iklan baru" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Membuat iklan Kategori
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Mengubah Account pengguna" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+Mengubah Account pengguna
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="showbalvolresulthtml" title="Menunjukkan saldo registri" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Menunjukkan saldo registri
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Membuat aturan atau batas kredit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Membuat batas aturan/kredit
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Membuat mitra Registry" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Membuat mitra Registry
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Meng-upload Batch File" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+Meng-upload file Batch
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="templateservicechghtml" title="Berlaku biaya pelayanan untuk semua account" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Berlaku biaya pelayanan
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Membuat Open Office direktori cetak" href="/cgi-bin/protected/ccdirectory.cgi">
+Kantor direktori terbuka
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+Memodifikasi $$fieldsref{registry}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Registri dan konfigurasi Installer" href="/cgi-bin/protected/ccinstall.cgi">
+Installer
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="Sistem kesehatan dan statistik" href="/">
+Sistem kesehatan/statistik
+</a>
+<span class="hide">
+|
+</span>
+
+</div>
+
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+<div id="footer">
+Cclite copyright
+<a href="http://andreasviklund.com">
+Andreas Viklund
+</a>
+.
+</div>
+
+</div>
+
+</body>
+
+</html>

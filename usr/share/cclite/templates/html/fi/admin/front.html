@@ -1,0 +1,384 @@
+
+
+<table class="front" >
+
+<tr>
+
+<td title="Käynnistä graphing komentosarja">
+Graphing
+</td>
+
+<td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
+Sähköposti syöttö
+</td>
+
+<!--
+<td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
+<del>GPG Email input</del> 
+</td>
+-->
+
+<td title="alkaa tuottaa keltaiset sivut pieni mainoksia rss-syötteet">
+RSS-syöte
+</td>
+
+<td title="Käynnistä hyväksymisestä panosta paikallisen matkapuhelimen välityksellä gammu">
+Gammu syöttö
+</td>
+
+<td title="Lataa ja prosessin erätapahtumien">
+Siirtoprosessi/erän tapahtumat
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<form id="form">
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+Lopeta Stats
+</option>
+
+<option value="5">
+Jokainen 5 min
+</option>
+
+<option value="10">
+Jokainen 10 min
+</option>
+
+<option value="30">
+Jokainen 30 min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+Lopeta sähköposti
+</option>
+
+<option value="5">
+Jokainen 5 min
+</option>
+
+<option value="10">
+Jokainen 10 min
+</option>
+
+<option value="30">
+Jokainen 30 min
+</option>
+
+</select>
+
+</td>
+
+<!--
+<td>
+    <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
+</select>
+
+    
+    </td>
+-->
+
+<td>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+Lopeta Rss
+</option>
+
+<option value="5">
+Jokainen 5 min
+</option>
+
+<option value="10">
+Jokainen 10 min
+</option>
+
+<option value="30">
+Jokainen 30 min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+Lopeta SMS
+</option>
+
+<option value="5">
+Jokainen 5 min
+</option>
+
+<option value="10">
+Jokainen 10 min
+</option>
+
+<option value="30">
+Jokainen 30 min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<div id="file-uploader" title="Hae erätapahtumien csv-tiedostona: manuaali">
+
+<noscript>
+
+<p>
+Ota JavaScript käyttää tiedoston uploader.
+</p>
+
+<!-- tai ladata yksinkertainen lomake tähän -->
+
+</noscript>
+
+</div>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+<span id="stats">
+Odota
+</span>
+</td>
+
+<td>
+<span id="mail">
+Odota
+</span>
+</td>
+
+<!--<td><span id="gpg_mail">Wait</span></td> -->
+
+<td>
+<span id="rss">
+Odota
+</span>
+</td>
+
+<td>
+<span id="gammu">
+Odota
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+<table>
+
+<tr>
+
+<td class="front">
+Imuroi OpenOffice lausumat
+<table>
+
+<tr>
+
+<td>
+Kuukauden
+</td>
+<td>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
+<select class="small" name="month">
+
+<option value="1">
+1
+</option>
+
+<option value="2">
+2
+</option>
+
+<option value="3">
+3
+</option>
+
+<option value="4">
+4
+</option>
+
+<option value="5">
+5
+</option>
+
+<option value="6">
+6
+</option>
+
+<option value="7">
+7
+</option>
+
+<option value="8">
+8
+</option>
+
+<option value="9">
+9
+</option>
+
+<option value="10">
+10
+</option>
+
+<option value="11">
+11
+</option>
+
+<option value="12">
+12
+</option>
+
+</select>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Vuoden
+</td>
+<td>
+<input type="text" name="year" size="4" maxlength="4">
+</td>
+</tr>
+
+<tr>
+<td>
+Kirjautumisnimi
+</td>
+<td>
+<input type="text" name="username" size="10">
+</td>
+</tr>
+
+<tr>
+<td>
+<input type="submit" class="small" name="go" value="Siirry">
+</td>
+<td>
+</td>
+</tr>
+
+</form>
+</table>
+
+</td>
+
+<td class="front" valign="top">
+Imuroi OpenOffice Directory
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
+
+<input class="small" type="submit" name="go" value="Siirry">
+
+</form>
+
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
+
+</table>
+
+<div id="stats_status">
+</div>
+
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
+<br/>
+
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<table>
+
+<tr>
+
+<td>
+
+</td>
+
+</tr>
+<tr>
+
+<td>
+
+</td>
+
+</tr>
+
+</table>

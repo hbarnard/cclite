@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="non de defini komès gwoup, yon dènye pawòl pa mache" class="pme-key-0">
+Rejis non
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="kout dekri teren de négociation gwoup" class="pme-key-0">
+Rejis dekri teren
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="adrès Et compte ki te itilize pou voye e-mails ofisyèl pou gwoup sa a" class="pme-row-0">
+
+<td class="pme-key-0">
+Responsab yon kouryèll
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="modpas pou admin kont" class="pme-key-0">
+Responsab yon kouryèll modpas
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="compte kote e-mails tranzaksyon yo ki te resevwa kapab menm bagay la tou kòm admin" class="pme-row-1">
+
+<td class="pme-key-1">
+Mel pou par tranzaksyon yo
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="modpas pou par kont" class="pme-key-0">
+Modpas kouryèll par
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="pa abitye kounye a men définit modèl komèsyal" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Sistèm Chargement modèl
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Egalite
+</option>
+<option selected value="market">
+Mache Taux
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="pa abitye kounye a men définit komisyon bay fom" class="pme-row-1">
+
+<td class="pme-key-1">
+Sistèm komisyon modèl
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Komisyon an pa
+</option>
+
+<option value="yes">
+Komisyon an te baze rejis
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="pa abitye kounye a men définit abònman modèl" class="pme-row-1">
+
+<td class="pme-key-1">
+Abònman modèl
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Abònman pa
+</option>
+
+<option value="yes">
+Abònman baze
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="définit limite angajman pou tout kalite monè nan rejis sa a, en kòb pou otomatikman si sistèm desimal lajan" class="pme-row-1">
+
+<td class="pme-key-1">
+Limit angajman mondyal
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="sèvè kle ki te itilize: piblik didantite kle pou rejis sa a kounye a pou kouryèll tranzaksyon yo sèlman" class="pme-row-1">
+
+<td class="pme-key-1">
+Kle sèvè: piblik didantite
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="pa abitye kounye a men définit si géographique nan zòn ou enterè èspesyal"  class="pme-row-1">
+
+<td class="pme-key-1">
+Couvre Géographique zòn nan?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+Wi
+</option>
+
+<option value="no">
+Non
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="pa te aktyèlman ap itilize men définit postes ou postal codes konsa, registres piblik kapab geocoded Et avec" class="pme-row-1">
+
+<td class="pme-key-1">
+Codes ou Latitude, Lonjitid
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="te itilize pou founi komèsan kle pou elgg, drupal Et os-komès connecteurs" class="pme-row-1">
+
+<td class="pme-key-1">
+Kle machann
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="itilize nan prensip pou limite connecteurs pou konnen se ips, fasil falsifiés pwobableman" class="pme-row-1">
+
+<td class="pme-key-1">
+Pèmèt koèsan de IP adrès
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- sa se yon eksperyans, pral vire lyen config wouj, si db modpas problem ou? -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Ale" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Anile"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

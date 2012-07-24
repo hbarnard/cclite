@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="määritellään kaupankäynnin ryhmän, yksi sana ilman välilyöntejä tietokannan nimi" class="pme-key-0">
+Rekisterinimi
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="kaupankäynnin ryhmän lyhyt kuvaus" class="pme-key-0">
+Rekisterin kuvaus
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="osoite ja tili, jota käytetään lähettää tälle ryhmälle virallisessa sähköpostit" class="pme-row-0">
+
+<td class="pme-key-0">
+Manager-sähköposti
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="admin sähköposti tilin salasana" class="pme-key-0">
+Managerin sähköpostin salasana
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="Jos sähköpostit tapahtumia on saanut huomioon voi olla sama kuin admin" class="pme-row-1">
+
+<td class="pme-key-1">
+Erätapahtumien sähköposti
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="erän sähköposti tilin salasana" class="pme-key-0">
+Erän sähköpostin salasana
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="ei tällä hetkellä käytetä mutta määritellään kaupankäynnin malli" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Järjestelmän kantamisen malli
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Tasa-arvo
+</option>
+<option selected value="market">
+Markkinakorot
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="ei tällä hetkellä käytetä mutta määritellään komission malli" class="pme-row-1">
+
+<td class="pme-key-1">
+Järjestelmän komission malli
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Ei komission
+</option>
+
+<option value="yes">
+Komissio perusti rekisterin
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="ei tällä hetkellä käytetä mutta määritellään tilauksen malli" class="pme-row-1">
+
+<td class="pme-key-1">
+Tilauksen malli
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Ei tilausta
+</option>
+
+<option value="yes">
+Tilauksen perusteella
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="määrittää sitoumuksen raja kaikkien valuuttojen osalta tämän rekisterin muunnetaan senttiä automaattisesti, jos desimaali valuutta" class="pme-row-1">
+
+<td class="pme-key-1">
+Yleinen sitoutuminen raja
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="avaimen palvelin: tämän rekisterin tällä hetkellä sähköposti tapahtumat vain julkisen avaimen tunnus" class="pme-row-1">
+
+<td class="pme-key-1">
+Avaimen Server: julkisen avaimen tunnus
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="ei käytetä tällä hetkellä, mutta määrittää, onko maantieteellisen alueen tai erityisen mielenkiintoisen"  class="pme-row-1">
+
+<td class="pme-key-1">
+Maantieteellinen alue kattaa?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+Kyllä
+</option>
+
+<option value="no">
+Ei
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="ei nykyisin käytössä mutta virkaa tai postinumerot määritellään niin, että julkiset rekisterit voivat olla geocoded ja yhdistetyt" class="pme-row-1">
+
+<td class="pme-key-1">
+Postinumeroiden tai leveysaste, pituusaste
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="käytetään elgg, drupal ja os kaupankäynti yhdistimet alalta avain" class="pme-row-1">
+
+<td class="pme-key-1">
+Alalta avain
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="käytetään periaatteessa rajoittaa tiettyjen tutkimusajanjaksojen väärentää helposti todennäköisesti yhdistimet" class="pme-row-1">
+
+<td class="pme-key-1">
+Salli kauppias IP-osoitteista
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- Tämä on koe, muuttuu punaiseksi config-linkkiä, jos db salasana on väärä -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Siirry" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Peruuta"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

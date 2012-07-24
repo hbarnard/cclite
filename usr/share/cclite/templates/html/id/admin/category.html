@@ -1,0 +1,91 @@
+
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<table class="pme-main" summary="om_categories">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Nama Kategori
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addcategory">
+
+<input type="hidden" name="subaction" value="om_categories">
+
+<input class="required" name="description" size="50" maxlength="80" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Parent Kategori
+<br>
+
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{selectparent}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Status
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select class="required" name="status">
+
+<option selected value="">
+
+</option>
+
+<option value="active">
+Aktif
+</option>
+
+<option value="inactive">
+Tidak aktif
+</option>
+
+</select>
+
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Buat Kategori"  type="submit">
+&nbsp;
+</td>
+
+<td>
+<input
+ class="pme-cancel" name="cancel" value="Batal"
+  type="reset">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

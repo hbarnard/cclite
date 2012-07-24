@@ -1,0 +1,343 @@
+
+
+<form name="newuser" class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="action" value="adduser" type="hidden">
+
+<input name="subaction"
+ value="om_users" type="hidden">
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr>
+
+<td class="pme-key-0">
+<br>
+
+</td>
+
+<td style="vertical-align: top;">
+<span class="errors">
+$$fields{errors}
+</span>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Non reg
+<br>
+
+</td>
+
+<td style="vertical-align: top;">
+
+<!-- wè klè D' valè bonbon mete, D' otreman li nan sitiyasyon pou cgi-emplacement -->
+
+<input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="Bezwen pou plis pase 3 caractères, lèt, anpil moun ak sèlman _" class="pme-key-0">
+Compte non
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="nuserLogin" id="nuserLogin" class="required" value="$$fieldsref{userLogin}" size="60" maxlength="255" value="" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Modpas
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="userPassword" class="required" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Konfime modpas
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="cuserPassword" class="required" size="32" maxlength="32" value="" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Mel
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userEmail" id="nuserEmail" class="required email" size="50" maxlength="50" value="$$fieldsref{userEmail}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Nombre/kay non
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userNameornumber" class="required" value="$$fieldsref{userNameornumber}" size="30" maxlength="30" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Ri non
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userStreet" size="40" class="required" maxlength="40" value="$$fieldsref{userStreet}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Vil
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userTown" class="required" size="40" maxlength="40" value="$$fieldsref{userTown}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Eta/leta
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userArea" class="required" size="40" maxlength="40" value="$$fieldsref{userArea}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Postal
+</td>
+
+<td class="pme-value-1">
+
+<input 
+ name="userPostcode" class="required" size="10" maxlength="10" value="$$fieldsref{userPostcode}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Telefòn fiks
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userTelephone" size="20" maxlength="20" value="$$fieldsref{userTelephone}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td  class="pme-key-0">
+Telefòn mobil
+</td>
+
+<td class="pme-value-1">
+
+<input title="Tanpri mete nonm sa a nan nan fòma entènasyonal 44777766666" class="pme-input-1"
+ name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Code pou telefòn mobil tranzaksyon yo
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPin" size="6" maxlength="6" value="$$fieldsref{userPin}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Konfime Code pou telefòn mobil tranzaksyon yo
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="cuserPin" size="6" maxlength="6" value="$$fieldsref{cuserPin}" type="password">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Resi peye SMS
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userSmsreceipt" type="checkbox">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td title="sa se piblik didantite kle pou chiffré tranzaksyon yo" class="pme-key-0">
+Piblik kle didantite
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1"
+ name="userPublickeyid" size="20" maxlength="20" value="$$fieldsref{userPublickeyid}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+Lang
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="userLang">
+
+<option value="">
+</option>
+
+<option selected value="en">
+Angle
+</option>
+
+<option value="de">
+Deutsch
+</option>
+
+<option value="fr">
+Fran
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Non complet
+</td>
+
+<td class="pme-value-0">
+
+<input 
+ name="userName" size="60" class="required" maxlength="255" value="$$fieldsref{userName}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<!-- nou efase bonbon rejis isit la, san sa l ap evite yon kondisyon D' pi ta -->
+
+<input class="pme-save"
+ name="saveadd" value="Kreye" onClick="eraseCookie('registry');" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Klè" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

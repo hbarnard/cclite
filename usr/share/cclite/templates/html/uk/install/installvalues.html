@@ -1,0 +1,483 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Простий
+</option>
+
+<option value="full">
+Всі опції
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="Оновлення конфігурації" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="Це для mysql, користувач дБ" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="db пароль для mysql" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="експериментальна cpanel префікс, використовувати з обережністю, uusally cpanel ім'я користувача" class="menu">
+CPanel префікс
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="відображення десяткової коми для валют" class="menu">
+використовувати десяткові знаки
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="використовувати вільній формі теги для жовті сторінки замість фіксованих категорії" class="menu">
+Використовуйте теги
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<!-- нижче тут є повний параметрів -->
+
+<tr>
+<td title="Це домен як виводив з шлях сценарію, повинен бути правильним для файлів cookie для роботи" class="menu">
+домен
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Це smtp-сервер для пошти, для cpanel звичайно ж, як і ім'я домену, localhost або ip для внутрішніх серверів" class="menu">
+сервер SMTP
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Основний скрипт для cclite" class="menu">
+Головна
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Це тип хеш для пароля та маркера обчислення, sha2 є кращим, не може бути змінено/змішані після налаштування" class="menu">
+Тип хеша
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="HTML, rss, вивід файлів та діаграми, виводив з кореневого каталогу документів в рамках сервера" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="початковий стан платежу, зроблені, якщо очікування вимагають підтвердження, отримуючи користувача" class="pme-key-title">
+Початковий платіж статус
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="початковий стан користувача, якщо непідтверджені потребують підтвердження по електронній пошті користувача" class="pme-key-title">
+початковий користувач статус
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Мова за замовчуванням для повідомлень та шаблони" class="pme-key-title">
+мова
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="кількість рядків екрану для табличних звіти" class="pme-key-title">
+рядків на сторінці
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="шлях до файлу повідомлень, нічого не буде працювати, якщо це не так!" class="menu">
+шлях для повідомлень
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="Якщо ні, не потрібно Soap::Lite модулів" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="не використовується безпосередньо, але можуть бути включені в користувацьких шаблонів" class="pme-key-title">
+Підтримка пошти
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- Це не обов'язково на дійсну адресу електронної пошти, може бути тільки внутрішніми користувача для входу на сервер пошти -->
+
+<tr>
+<td title="використовується для надсилання пошти та увійти на сервер smtp, встановити в cpanel, при необхідності, перший" class="menu">
+Адреса пошти системі
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- Це не обов'язково на дійсну адресу електронної пошти, може бути тільки внутрішніми користувача для входу на сервер пошти -->
+
+<tr>
+<td title="для переключення на Net::SMTP для сповіщення т. д. це перевага і буде єдиним варіантом у майбутньому, 0 або 1" class="menu">
+Чистий smtp?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="пароль для входу до системи адресу електронної пошти в рамках smtp-сервер" class="menu">
+система пошта пароль
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="зворотну адресу для згенерований листів, часто робити не відповідь" class="pme-key-title">
+система відповідь адреса
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="шлях для файлів шаблонів для веб-інтерфейс, нічого не набагато буде працювати, якщо це неправильно!" class="menu">
+шаблони
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- розділ, що стосуються пакетних файлів -->
+
+<tr>
+<td title="база виведення шлях для діяльності діаграми у групі веб-сервера, ім'я реєстру додається до цього шляху" class="pme-key-title">
+Каталог діаграми
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="потребує rss модулі perl для генерації rss, якщо так" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="база передати шлях для пакетної угоди, не повинно бути під веб-сервера" class="pme-key-title">
+Каталог CSV
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Вхідні для gammu отримав sms, не потрібно для СМС http" class="pme-key-title">
+Вхідні SMS
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title=""Вхідні" пошти, старий метод замінений поп пошти в кожному реєстру" class="pme-key-title">
+readmail.pl каталог
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="база вихідного шляху для csv трансакцій за веб-сервера" class="pme-key-title">
+CSV з
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="база виводу шлях для друкованого матеріалу під веб-сервера, ім'я реєстру та мову буде додано до цього шляху" class="pme-key-title">
+друкувати контур
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="база виводу шлях для rss, Назва реєстру та мову буде додано до цього шляху" class="pme-key-title">
+база годувати каталогів
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="база з каталогу для gammu результатів, не потрібно для СМС http" class="pme-key-title">
+SMS з
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Gammu вводу оброблятися на місці, якщо 1, в іншому випадку це використовує мило для обробки віддалено" class="pme-key-title">
+місцеві sms?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="шлях до файлу конфігурації Log4perl" class="pme-key-title">
+шлях конфігурації Logger
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+Версія
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="Оновлення" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Ясно" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

@@ -1,0 +1,330 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Conception pa Modèles CSS gratis&#xD;	http://www.freecsstemplates.org&#xD;	Pou granmesi publié anba yon kreyativ Communes Attribution 2.5 lisans -->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<title>
+Cclite $$fieldsref{version} Enstale
+</title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
+<meta name="author" content="hugh barnard" />
+
+$$fieldsref{metarefresh}
+<!-- feuilles -->
+
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
+
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
+
+
+<!-- datatables pi ta -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- javascript bibliyotèk, bezwen pou subsitute compressés vèsyon sèn nan kèk -->
+
+<!-- atik jquery -->
+
+<script src="/javascript/jquery-1.3.2.js">
+</script>
+
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
+
+<script src="/javascript/jquery-cookies.js">
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
+<!-- gen lòt ki pa jquery -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<!-- graphique -->
+
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
+
+<!-- sa se script sa journaux utilisateurs soti lè sistèm nan te desann -->
+
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
+
+</head>
+
+<body>
+
+<!-- recherche pou utilisateurs, echanj, annonces -->
+
+<br/>
+
+
+<div align="right">
+
+<!-- fin de la recherche n. Bwat -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
+
+<!-- lang sélection vèsyon 1 -->
+
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
+
+<option value='en'>
+Angle
+</option>
+
+<option value='ar'>
+Arabe
+</option>
+
+<option value='bn'>
+Bengali [partielle]
+</option>
+
+<option value='zh'>
+Chinwa
+</option>
+
+<option value='de'>
+Deutsch
+</option>
+
+<option value='nl'>
+Olandè
+</option>
+
+<option value='fr'>
+English
+</option>
+
+<option value='es'>
+Espagnol
+</option>
+
+<option value='it'>
+Italiano
+</option>
+
+<option value='el'>
+Moun lòt nasyon
+</option>
+
+<option value='ja'>
+Japonè
+</option>
+
+<option value='ko'>
+Koreyen
+</option>
+
+<option value='pt'>
+Portugese
+</option>
+
+<option value='ro'>
+Romanyen
+</option>
+
+<option value='ru'>
+Wis
+</option>
+
+<option value='th'>
+Tayland
+</option>
+
+<option value='vi'>
+Vyètnamyen
+</option>
+
+</select>
+
+<!-- lang sélection vèsyon 1 fin -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
+
+</span>
+</span>
+
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite Install
+</a>
+</h1>
+
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
+<a title="Google gwoup pou sipò" href="http://groups.google.co.uk/group/cclite?hl=en">
+Vle ede?
+</a>
+</li>
+
+<li>
+<a title="Meni Admin" href="/cgi-bin/protected/ccadmin.cgi">
+Meni Admin
+</a>
+
+</li>
+
+<li>
+<a title="Meni utilisateur" href="/cgi-bin/cclite.cgi">
+Meni utilisateur
+</a>
+</li>
+
+<li>
+<a id="updateconfig" title="À conifguration nan cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+À Configuration
+</a>
+</li>
+
+<li>
+<
+<a id="newregistry" title="Kreye nouvo rejis" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+Kreye nouvo rejis
+</a>
+</li>
+
+<li>
+<a id="showregistry" title="Montre Registres Cclite aktyèl" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+Montre Registres
+</a>
+</li>
+
+<li>
+<a id="installcheck" title="Lage kous chekè Install a" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+Kondisyon Install separe, chèk separe
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<!-- balise nwaj Et statistiques kap itilize li an grenn pa grenn -->
+
+<div id="content">
+
+<div id="primaryContentContainer">
+
+<div id="primaryContent">
+!$$fieldsref{pagename}
+</div>
+
+</div>
+
+<div valign="top" id="secondaryContent">
+
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
+$$fieldsref{righthandside}
+</div>
+
+<div class="clear">
+<div id="footer">
+
+<a href="/cgi-bin/cclite.cgi">
+Kay
+</a>
+|
+<a href="#">
+Kontakte nou
+</a>
+<br />
+
+Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<input type="hidden" name="action" value="insert">
+
+<input type="hidden" name="subaction" value="om_rules">
+
+<table class="pme-main" summary="om_rules">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Dekri t' ap mache sou teren
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="description" size="40" maxlength="40" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+T' ap mache sou nivo *
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select name="event">
+<option value="creditlimit" selected>
+Kredi Limit
+</option>
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Nan la pou lajan
+<br>
+
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{selectcurrency}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Kredi Limit
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="rulevalue" size="10" maxlength="10" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+* Only per currency credit limits are supported at present
+</td>
+
+<td class="pme-value-0">
+
+</td>
+
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Kreye t' ap mache sou" type="submit">
+&nbsp;
+</td>
+
+<td>
+<input
+ class="pme-cancel" name="cancel" value="Anile"
+ type="reset">
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

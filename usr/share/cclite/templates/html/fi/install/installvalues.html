@@ -1,0 +1,483 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Yksinkertainen
+</option>
+
+<option value="full">
+Kaikki asetukset
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="Päivitä määritykset" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="Tämä on mysql db-käyttäjä" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Tämä on mysql db-salasana" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="kokeellinen cpanel etuliite, käyttää varoen uusally cpanel käyttäjänimi" class="menu">
+cPanel etuliite
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="desimaalipilkun näytön valuutat" class="menu">
+Käytä desimaalia
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Käytä vapaassa muodossa tunnisteet keltaiset sivut sijasta kiinteän luokat" class="menu">
+Käytä Tagit
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<!-- jäljempänä tässä on täydellinen parametrit -->
+
+<tr>
+<td title="Tämä on toimialueen, kuten aukoista Komentosarjapolku, tarvitsee evästeitä toimiakseen oikein" class="menu">
+toimialueen
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="mail, cpanel smtp-palvelin on yleensä sama kuin toimialuenimi, localhost tai sisäinen palvelimien ip" class="menu">
+SMTP-palvelin
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="pääasiallinen käyttäjä-komentosarjan cclite" class="menu">
+Etusivu
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Tämä on salasana ja tunnussanoma laskelmissa käytetyt hash-laji, sha2 on ensisijainen, ei voi muuttaa ja sekoitettu kerran perustaa" class="menu">
+Hash-laji
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="HTML, rss, kohdetiedostot ja kaavioita, aukoista kuluessa palvelimen pääkansio" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="alkutilan maksua, jos odottaa vaatii vahvistuksen vastaanottamalla käyttäjä" class="pme-key-title">
+ensimmäisen maksun tila
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="alkutilan käyttäjä, jos vahvistamaton käyttäjälle sähköpostitse edellyttää vahvistus" class="pme-key-title">
+alkuperäinen käyttäjä tila
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="oletuskielen viestit ja mallit" class="pme-key-title">
+kieli
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="näytön rivien taulukkomuotoinen raportti" class="pme-key-title">
+rivejä sivulla
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="viestit-tiedoston polku, mitään toimivat, jos tämä on väärin!" class="menu">
+viestien polku
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="Jos ei, ei tarvitse Soap::Lite moduulit" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="ei käytetty suoraan, mutta voi sisältää mukautetut mallit" class="pme-key-title">
+Tuen sähköposti
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- Tämä ei välttämättä ole kelvollinen sähköpostiosoite, voi olla vain sisäisen käyttäjän kirjautuminen sähköpostipalvelimeen -->
+
+<tr>
+<td title="sähköpostin lähettäminen ja kirjaudu smtp-palvelimen määrittäminen cpanel, tarvittaessa ensimmäisen" class="menu">
+järjestelmän sähköpostiosoite
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- Tämä ei välttämättä ole kelvollinen sähköpostiosoite, voi olla vain sisäisen käyttäjän kirjautuminen sähköpostipalvelimeen -->
+
+<tr>
+<td title="Voit vaihtaa Net::SMTP ilmoituksia jne. Tämä on ensisijainen ja tulevaisuudessa, ainoa vaihtoehto on 0 tai 1 käyttää" class="menu">
+net smtp?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="salasana kirjautumisen järjestelmän sähköpostiosoite kuluessa smtp-palvelin" class="menu">
+järjestelmän sähköposti salasana
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="luotu sähköpostit, usein-ei-vastauksen vastausosoite" class="pme-key-title">
+järjestelmän vastaus sähköpostiosoite
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="web-liittymä käyttää mallitiedostot polku, mitään paljon toimivat, jos tämä on väärin!" class="menu">
+mallit
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- Komentojonotiedostojen koskevassa kohdassa -->
+
+<tr>
+<td title="Base tulosteen toiminnan kaavioiden nojalla web pääkansion polku, rekisterinimi lisätään tämä polku" class="pme-key-title">
+kaavion hakemisto
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="edellyttää perl rss moduulien varten luodaan rss, jos Kyllä" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base Lataa polku erätapahtumien, ei pitäisi web-juuressa nojalla" class="pme-key-title">
+CSV-hakemisto
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="vastaanotettu gammu sms, ei vaadita http sms yhdyskäytävien Saapuneet-kansioon" class="pme-key-title">
+SMS Saapuneet-kansioon
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Saapuneet-kansion Mail, kunkin rekisterin pop postin Korvataan vanhaa menetelmää" class="pme-key-title">
+readmail.PL hakemisto
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base kohdepolkua web-juuressa toimet csv" class="pme-key-title">
+CSV ulos
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="perustaa tuotoksen painetun materiaalin web-juuressa, rekisterinimi ja kielen polku lisätään tämä polku" class="pme-key-title">
+Tulosta polku
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="perustaa tuotoksen polku rss, rekisterinimi ja kieli lisätään tämä polku" class="pme-key-title">
+Base-syötteen kansio
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="perustaa ulos gammu tulokset, ei vaadita http sms yhdyskäytävien-hakemistosta" class="pme-key-title">
+SMS ulos
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu syöttö-käsitelty paikallisesti, jos 1, muuten tämä käyttää SOAPia käsittelemään etäyhteyden välityksellä" class="pme-key-title">
+paikallinen sms?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Log4perl määritystiedoston polku" class="pme-key-title">
+metsuri config polku
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+versio
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="Päivitys" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Selkeää" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

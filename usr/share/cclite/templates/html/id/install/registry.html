@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="nama database yang mendefinisikan grup perdagangan, satu kata tanpa spasi" class="pme-key-0">
+Nama registri
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="deskripsi singkat perdagangan kelompok" class="pme-key-0">
+Deskripsi registri
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="alamat dan account yang digunakan untuk mengirim email resmi Group" class="pme-row-0">
+
+<td class="pme-key-0">
+Manager Email
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="password untuk admin email account" class="pme-key-0">
+Manajer Email Password
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="akun dimana transaksi email yang diterima dapat sama dengan admin" class="pme-row-1">
+
+<td class="pme-key-1">
+Email untuk Batch transaksi
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="password untuk batch email account" class="pme-key-0">
+Batch Email Password
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="tidak digunakan saat ini tetapi mendefinisikan model perdagangan" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Sistem pengisian Model
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Kesetaraan
+</option>
+<option selected value="market">
+Harga pasar
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="tidak digunakan saat ini tetapi mendefinisikan Komisi model" class="pme-row-1">
+
+<td class="pme-key-1">
+Sistem Komisi Model
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Tidak ada komisi
+</option>
+
+<option value="yes">
+Komisi berbasis registri
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="tidak digunakan saat ini tetapi mendefinisikan langganan model" class="pme-row-1">
+
+<td class="pme-key-1">
+Model berlangganan
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Tidak berlangganan
+</option>
+
+<option value="yes">
+Berbasis langganan
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="mendefinisikan batas komitmen untuk semua mata uang dalam registri ini, dikonversi ke sen secara otomatis jika desimal mata uang" class="pme-row-1">
+
+<td class="pme-key-1">
+Global komitmen batas
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="server utama yang digunakan: id kunci publik untuk registri ini saat ini untuk email transaksi hanya" class="pme-row-1">
+
+<td class="pme-key-1">
+Id kunci Key Server: publik
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="tidak digunakan saat ini tetapi mendefinisikan apakah geografis area atau minat khusus"  class="pme-row-1">
+
+<td class="pme-key-1">
+Mencakup wilayah geografis?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+Ya
+</option>
+
+<option value="no">
+Tidak
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="tidak digunakan saat ini tetapi mendefinisikan posting atau kode zip sehingga pendaftar publik dapat Geocode dan dipetakan" class="pme-row-1">
+
+<td class="pme-key-1">
+Kodepos atau lintang, bujur
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="digunakan untuk menyediakan kunci pedagang untuk elgg, drupal dan os-commerce konektor" class="pme-row-1">
+
+<td class="pme-key-1">
+Pedagang kunci
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="digunakan, pada prinsipnya untuk membatasi konektor untuk IP tertentu, dengan mudah palsu mungkin" class="pme-row-1">
+
+<td class="pme-key-1">
+Memungkinkan pedagang dari alamat IP
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- ini adalah percobaan, akan mengubah konfigurasi link merah, jika db sandi salah -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Pergi" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Batal"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

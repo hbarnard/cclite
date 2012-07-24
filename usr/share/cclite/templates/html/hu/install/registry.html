@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="meghatározása a kereskedelmi csoportba, szóköz nélkül egy szó adatbázis név" class="pme-key-0">
+Rendszerleíró adatbázis neve
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="kereskedelmi csoport rövid leírása" class="pme-key-0">
+Rendszerleíró adatbázis leírása
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="címet és a hivatalos e-mailt küld a csoport használt fiók" class="pme-row-0">
+
+<td class="pme-key-0">
+Kezelő e-mailben
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="admin email azonosφt≤ jelszava" class="pme-key-0">
+Kezelő elektronikus levél jelszó
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="Ha a tranzakciók e-maileket kapott fiók lehet, ugyanaz, mint admin" class="pme-row-1">
+
+<td class="pme-key-1">
+Kötegelt tranzakciókkal kapcsolatos e-mailben
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="kötegelt e-mail fiók jelszava" class="pme-key-0">
+Kötegelt elektronikus levél jelszó
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="jelenleg nem használt, de határozza meg a kereskedelmi minta" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Töltés rendszermodell
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Egyenlőség
+</option>
+<option selected value="market">
+Piaci hozamok
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="jelenleg nem használt, de határozza meg a Bizottság modell" class="pme-row-1">
+
+<td class="pme-key-1">
+A Bizottság rendszermodell
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Nem a Bizottság
+</option>
+
+<option value="yes">
+A Bizottság a rendszerleíró adatbázis alapú
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="jelenleg nem használt, de az előfizetési modell határozza meg" class="pme-row-1">
+
+<td class="pme-key-1">
+Előfizetési modell
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Nincs előfizetés
+</option>
+
+<option value="yes">
+Előfizetés alapú
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="határozza meg minden pénznem esetében a kötelezettségvállalási határérték a rendszerleíró adatbázisban cent automatikusan alakulnak, ha decimális pénznem" class="pme-row-1">
+
+<td class="pme-key-1">
+Globális kötelezettségvállalás határérték
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="használt kulcsfontosságú kiszolgáló: nyilvános kulcs jelenleg tranzakciókhoz email csak e rendszerleíró azonosítója" class="pme-row-1">
+
+<td class="pme-key-1">
+Kiszolgáló: nyilvános kulcs kulcsazonosítója
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="jelenleg nem használt, de az határozza meg, hogy a földrajzi terület vagy a különleges érdeklődésre számot tartó"  class="pme-row-1">
+
+<td class="pme-key-1">
+Magában foglalja a földrajzi terület?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+igen
+</option>
+
+<option value="no">
+nem
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="nem a jelenleg használt, hanem határozza meg a hozzászólás vagy irányítószámok, hogy nyilvános kibocsátásiegység-forgalmi geokódolt és a csatlakoztatott" class="pme-row-1">
+
+<td class="pme-key-1">
+Postcodes vagy a szélesség, hosszúság
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="biztosítja a bankkártya-elfogadói kulcs elgg, drupal és os-kereskedelem csatlakozók" class="pme-row-1">
+
+<td class="pme-key-1">
+Bankkártya-elfogadói kulcs
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="elvben a csatlakozók egyes ips könnyen svindli valószínűleg korlátozására használt" class="pme-row-1">
+
+<td class="pme-key-1">
+Lehetővé teszi a kereskedő IP-címekről érkező
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- Ez a kísérlet, piros színűre változik a config link, ha a db jelszó helytelen -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Go" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Mégse"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

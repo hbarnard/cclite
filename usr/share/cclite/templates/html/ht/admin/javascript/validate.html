@@ -1,0 +1,485 @@
+
+<title>
+FÃ²m Javascript Validation
+</title>
+</head>
+
+<body bgcolor="white">
+
+<table border="0" width="625">
+<tbody>
+<tr>
+<td rowspan="6" bgcolor="#408080" width="10">
+<img src="clear.gif" height="1" width="10">
+</td>
+
+<td bgcolor="#b6dada">
+
+<font size="+3">
+FÃ²m Javascript Validation Outil
+</font>
+
+<font size="+1">
+2.5 ver
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<font size="-1">
+pa Artswork
+</font>
+<br>
+
+<font color="#ff0000" size="2">
+Mwen dwe regrete pou LefÃ¨t ke mwen menm&#xD;pa gen ankÃ² kapab aksepte kouryÃ¨ll kesyon sou script m' kote mwen ta&#xD;se anpil Ã¨dtan pou ede moun ki entegre correctement sa a modile Et&#xD;ekri plis atik pou yon moun. Sa ki te pase depi kouryÃ¨ll a&#xD;krent pou vÃ¨ nan mwa Dawou 2003 yon malÃ¨ sou ke m' kouryÃ¨ll adrÃ¨s affiche&#xD;isit la atake kote mwen te gen pou kontra ak dÃ¨ milye de erronÃ©&#xD;te retounen e-mails yon jou. Mwen ka rÃ©guliÃ¨rement eseye vire l' tounen sou kote se konsa&#xD;Tanpri retounen ou eseye ankÃ² apre s' pousyÃ¨ tÃ¨ a. Mwen tou se pou leta&#xD;ki jan moun ki compÃ©tences nou ka ruin Et enkwayab idÃ©e tÃ¨lke a&#xD;entÃ¨nÃ¨t pou kominikasyon rÃ©solument. Mwen te eseye pou anpil tan&#xD;retounen kontribisyon pou lÃ²t moun pou siksÃ¨ m' ap travay sou sa&#xD;mwayen. Gras tout enterÃ¨ a mwen te resevwa.
+</font>
+<hr size="1">
+Outil validation fÃ²m sa a kapab tcheke
+<b>
+jaden nonm antye, kouryÃ¨ll ak dat mande,
+</b>
+nan fÃ¨ fÃ²milÃ¨ ou.&#xD;Li fasil pÃ²tab pou tout fÃ²m ou e li pwal ede enregistrer sÃ¨vÃ¨ bÃ²&#xD;resous nan fÃ²m jaden validation&#xD;Et paj se. Tout mesaj sont personnalisÃ© nan fÃ²m hidden&#xD;eleman kote nou tou chwazi kondisyon validation a. Ou kapab v mele&#xD;mande eleman ak yonn nan lÃ²t eleman yo.&#xD;KÃ²d sa a complÃ¨tement pÃ²tatif ak ka sÃ¨vi ak okenn fÃ²m pa jis&#xD;ajouter ou hidden eleman yo fÃ¨ a se sa Et ajoute onClick a&#xD;komand pou yon bouton.
+<br>
+<br>
+
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+<font size="+2">
+Swiv lÃ²d yo.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+1)
+</b>
+Pou mete yon jaden pou sÃ¨vi ak non jaden ki ekziste e ajoute&#xD;yon r_ pou kÃ²mansman bwa non Et kreye yon eleman hidden.
+<br>
+
+<b>
+EGZANP:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="r_your_fieldname" value="Required error message goes here"&gt;
+<p>
+
+<b>
+2)
+</b>
+Ete yon nonm antye jaden sÃ¨vi ak non jaden ki ekziste e ajoute&#xD;yon i_ pou kÃ²mansman bwa non Et kreye yon eleman hidden.
+<br>
+
+<b>
+EGZANP:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="i_your_fieldname" value="Integer error message goes here"&gt;
+</p>
+<p>
+
+<b>
+3)
+</b>
+Pou mete yon dat jaden utiliser non jaden ki ekziste ou e ajoute yon&#xD;d_ pou kÃ²mansman bwa non Et kreye yon eleman hidden. Sa a&#xD;jaden dat sÃ¨lman accepte a fÃ²ma MilimÃ¨t/JJ/YY ou M/D/YY.
+<br>
+
+<b>
+EGZANP:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="d_your_fieldname" value="Date error message goes here"&gt;
+<br>
+<br>
+
+<b>
+4)
+</b>
+Pou valider yon jaden kouryÃ¨ll itilize non jaden ki ekziste ou Et&#xD;ajoute e_ yon kÃ²mansman non jaden yo ak kreye yon hidden&#xD;eleman.
+<br>
+
+<b>
+EGZANP:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="e_your_fieldname" value="The email address format is incorrect"&gt;
+<br>
+<br>
+
+</p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+
+<font size="+2">
+D' de script a.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+Ou dwe sÃ¨vi ak jan de = "bouton" pa ki tip = "soumÃ¨t" pou bouton ENVOYER ou, javascript a envoie soumettre a pou ou.
+<br>
+
+<font size="-1">
+<b>
+EGZANP:
+</b>
+<br>
+&lt;input type=button Value="Button Message Here" onclick="check(form,form.elements.length)"&gt;
+</font>
+
+<br>
+<br>
+<hr size="1">
+
+<font size="+2">
+Echantiyon sa a utilise tout zouti validation twa nan konbinezon.
+</font>
+<p>
+
+</p>
+<form action="thanks.html">
+
+<table border="0" width="575">
+
+<tbody>
+<tr>
+<td>
+
+<b>
+Mel adrÃ¨s ou:
+</b>
+
+</td>
+
+<td>
+
+<input name="email" type="text">
+
+<input name="e_email" value="Email address format is incorrect" type="hidden">
+
+<input name="r_email" value="Email address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and email validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Pwemye non!
+</b>
+
+</td>
+
+<td>
+
+<input name="fname" type="text">
+
+<input name="r_fname" value="First name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Non fanmi ou!
+</b>
+
+</td>
+
+<td>
+
+<input name="lname" type="text">
+
+<input name="r_lname" value="Last name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+AdrÃ¨s 1:
+</b>
+
+</td>
+
+<td>
+
+<input name="address1" type="text">
+
+<input name="r_address1" value="Address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+AdrÃ¨s 2:
+</b>
+
+</td>
+
+<td>
+
+<input name="address2" type="text">
+
+</td>
+<td>
+<font size="-1">
+(no validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+ki laj ou:
+</b>
+
+</td>
+
+<td>
+
+<input name="age" type="text">
+
+<input name="r_age" value="Age is required" type="hidden">
+
+<input name="i_age" value="Age must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Pase fÃ¨ ou te scripting:
+</b>
+
+</td>
+
+<td>
+
+<input name="scripting" type="text">
+
+<!--- <input type="hidden" name="r_scripting" value="Years scripting required"> --->
+
+<input name="i_scripting" value="Years scripting must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Sa se dat jodi a.
+</b>
+
+<font size="-1">
+(mm/dd/yy)
+</font>
+
+</td>
+
+<td>
+
+<input name="todays_dt" type="text">
+
+<!--- <input type="hidden" name="r_todays_dt" value="Today's date is required"> --->
+
+<input name="d_todays_dt" value="The date is not valid or the format is incorrect. Please format mm/dd/yy." type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(date validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Chwazi yon sijÃ¨:
+</b>
+
+</td>
+
+<td>
+
+<select name="subject">
+<option value="">
+Chwazi yonn
+</option>
+<option value="Javascript">
+Javascript
+</option>
+<option value="C">
+C
+</option>
+<option value="C++">
+C
+</option>
+<option value="Visual Basic">
+Base vizyÃ¨l
+</option>
+</select>
+
+<input name="r_subject" value="You must select a subject" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Chwazi yon bouton radyo:
+</b>
+
+</td>
+
+<td>
+
+<input name="test" value="1" type="radio">
+tÃ¨s 1
+<input name="test" value="2" type="radio">
+tÃ¨s 2
+<input name="test" value="3" type="radio">
+tÃ¨s 3
+<input name="r_test" value="Please select a radio button 1, 2 or 3" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+FÃ¨ chwa tout pou aplike:
+</b>
+
+</td>
+
+<td>
+
+<input name="test1" value="1" type="checkbox">
+tÃ¨s 1
+<input name="r_test1" value="You must select checkbox test 1" type="hidden">
+
+<input name="test2" value="2" type="checkbox">
+tÃ¨s 2
+<input name="test3" value="3" type="checkbox">
+tÃ¨s 3
+</td>
+<td>
+<font size="-1">
+(required validation on box 1)
+</font>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+
+<input value="Submit this form for validation" onclick="check(form,form.elements.length)" type="button">
+
+</td>
+</tr>
+
+</tbody>
+</table>
+
+</form>
+
+<hr size="1">
+
+<center>
+<font size="-1">
+� 2004 Artswork
+</font>
+<p>
+
+<img src="/cgi-bin/counter?perflunk">
+
+</p>
+</center>
+
+</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

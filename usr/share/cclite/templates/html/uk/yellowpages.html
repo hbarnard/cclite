@@ -1,0 +1,249 @@
+
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+
+<input name="action" value="addyellow" type="hidden">
+
+<tr>
+
+<td class="pme-key-0">
+Від користувача
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Тип
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+Пропозиція
+</option>
+
+<option value="wanted">
+Хотів
+</option>
+
+<option value="other">
+Інші
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Основний клас
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+Служба
+</option>
+
+<option value="goods">
+Товари
+</option>
+
+<option value="other">
+Інші
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Класифікація
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Мітки (автозаповнення)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Тема
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Опис
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}
+</textarea>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Ціна
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Валюта
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+На одиницю (тільки для послуги)
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+за годину
+</option>
+
+<option value="day" >
+за день
+</option>
+
+<option value="week" >
+за тиждень
+</option>
+
+<option value="month" >
+за місяць
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Повна оплата участі в ДОЗВОЛЯЄ валюти?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+Так
+</option>
+
+<option value="no">
+Ні
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Зробити сторінку" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Ясно" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
+</table>
+
+<div id="stats_user" style="width:260px;height:150px;">
+</div>

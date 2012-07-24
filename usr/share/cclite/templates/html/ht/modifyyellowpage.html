@@ -1,0 +1,254 @@
+
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="modifyyellowpages">
+
+<!-- modèle modifyyellowpage.html pou modification paj jòn -->
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+
+<input name="action" value="update" type="hidden">
+
+<input name="id" value="$$fieldsref{id}" type="hidden">
+
+<table class="pme-main" summary="om_yellowpages">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Fromuserid
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{fromuserid}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Tip
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+Ofri
+</option>
+
+<option value="wanted">
+Yo te vle
+</option>
+
+<option value="other">
+Lòt
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Majò nan klas
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+Sèvis
+</option>
+
+<option value="goods">
+Machandiz
+</option>
+
+<option value="other">
+Lòt
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Klasifikasyon
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+<input type="hidden" name="r_classification" value="Need a classification for the item or service please">
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Baj
+</td>
+
+<td class="pme-value-1">
+
+<input id="yellowtags" name="yellowtags" size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Sijè
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" value="$$fieldsref{subject}" name="subject" size="30" maxlength="30" value="" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Dekri teren
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}
+</textarea>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Prix
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="price" id="price" onChange="validatedecimals(this,this.value);"  size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Lajan
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Pa inite w la (sèvis sèlman)
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+pa lè
+</option>
+
+<option value="day" >
+chak jou
+</option>
+
+<option value="week" >
+pa semenn
+</option>
+
+<option value="month" >
+pa mwa
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Fin peye nan transpò altènatif lajan?
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="truelets">
+
+<option value="yes" >
+Wi
+</option>
+
+<option value="no">
+Non
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Motifye" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Klè" type="reset">
+
+</td>
+
+</tr>
+</tbody>
+</table>
+
+</form>
+
+</body>
+</html>

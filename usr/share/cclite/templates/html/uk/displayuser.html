@@ -1,0 +1,94 @@
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+UserLogin
+</td>
+
+<!-- duserLogin використовується, щоб відрізняти від userLogin, обробляються як правило -->
+
+<td class="pme-value-0">
+$$fields{duserLogin}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+UserEmail
+</td>
+
+<td class="pme-value-1">
+$$fields{userEmail}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+Вулиця
+</td>
+
+<td class="pme-value-1">
+$$fields{userNameornumber} $$fields{userStreet}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+Місто/повіт
+</td>
+
+<td class="pme-value-1">
+$$fields{userTown} $$fields{userArea}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+Мобільний телефон
+</td>
+
+<td class="pme-value-1">
+$$fields{userMobile}
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-title">
+Ім’я
+</td>
+
+<td class="pme-value-0">
+$$fields{userName}
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-title">
+Свято або активної
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{userStatus}
+</td>
+
+</tr>
+
+</tbody>
+
+</table>

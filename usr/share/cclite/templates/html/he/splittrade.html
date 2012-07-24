@@ -1,0 +1,200 @@
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden">
+
+<input
+ name="action" value="splittransaction" type="hidden">
+
+<input
+ name="subaction" value="om_trades" type="hidden">
+
+<tr>
+
+<td class="pme-key-1">
+תאריך
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeDate" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+מחשבון
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+לחשבון
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<!-- אם אינך מעוניין autosuggest&#xD; decomment זה והכניסו את השורות שלהלן&#xD; עד לתוך הערות&lt;input class="pme-input-1" name="tradeDestination" size="11" maxlength="11" type="text"&gt; -->
+
+<input type="text" class="required" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
+
+
+<div  class="autocomplete" id="suggestionBox" >
+</div>
+
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+  var myAutoCompleter = new Ajax.Autocompleter('tradeDestination', 'suggestionBox', '/cgi-bin/ccsuggest.cgi', {});
+		// ]]>
+</script>
+
+<span class="pme-key-0">
+הרישום
+</span>
+$$fieldsref{selectpartners}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+מטבע
+</td>
+
+<td nowrap class="pme-value-0">
+$$fieldsref{selectcurrency}
+<span class="pme-key-0">
+כמות
+</span>
+
+<input class="required" id="tradeAmount" onChange="validatedecimals(this,this.value);" name="tradeAmount" size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+מטבע משני
+</td>
+
+<td class="pme-value-0">
+$$fieldsref{sselectcurrency}
+<span class="pme-key-0">
+כמות משני
+<input class="required" name="stradeAmount" id="stradeAmount"  onChange="validatedecimals(this,this.value);"  size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+</td>
+
+<td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+סוג פריט
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<select class="required" name="tradeItem">
+
+<option value="goods">
+סחורות
+</option>
+
+<option value="services">
+שירותים
+</option>
+
+<option value="other">
+אחרים
+</option>
+
+</select>
+
+<span class="pme-key-0">
+כותרת פריט
+</span>
+
+<input class="required"
+ name="tradeTitle" size="60" maxlength="255" value="" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+תיאור פריט
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required"
+ name="tradeDescription" rows="3" cols="60">
+</textarea>
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd"  value="לבצע העברה" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="נקה" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
+</table>

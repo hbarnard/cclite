@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
+<meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="alternate" type="application/rss+xml" title="Lyen cclite sperimantal" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $$fieldsref{version} Admin
+</title>
+!$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
+
+<script src="/javascript/scriptaculous.js">
+</script>
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+
+<div id="toptabs">
+
+<a 
+ class="toptab" title="Bliye mo pas ou??"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Modpas oublié?
+</a>
+
+<a class="toptabstrikethrough" title="Deutsch"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+Deutsch
+</a>
+
+<a 
+ class="toptabstrikethrough" title="Chanje pou Fwansè"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+Fran
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
+<p>
+
+<a class="toptab" title="Kont" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Kont
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+Journal $$fieldsref{user}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Tounen pou kat Utilisateur" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+Meni utilisateur
+</a>
+<span class="hide">
+|
+</span>
+
+</p>
+
+</div>
+
+<div id="container">
+
+<h1>
+Cclite $$fieldsref{version} Administrasyon
+</h1>
+
+<div id="navitabs">
+
+<a class="showpartnersresulthtml" title="Montre patnè Registres" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Montre asosye yo
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="Kreye nouvo lajan" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Kreye lajan
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="Afficher komèsyal Devises" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Montre Devises
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="Kreye nouvo piblisite kategori" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Kreye piblisite kategori
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Motifye Compte Utilisateur" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+Chanje yon Compte Utilisateur
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="showbalvolresulthtml" title="Montre Soldes rejis" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Montre Soldes rejis
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Kreye t' ap mache sou ou kredi Limit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Kreye t' ap mache sou/kredi Limit
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Kreye rejis asosye" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Kreye rejis asosye
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Fichier Batch téléchargement" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+Téléchargement sispann par
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="templateservicechghtml" title="Aplike Frais sèvis pou tout Comptes" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Aplike sèvis Frais
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Kreye louvri biwo Imprimable anyè" href="/cgi-bin/protected/ccdirectory.cgi">
+Anyè biwo louvri
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+Motifye $$fieldsref{registry}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Rejis Et D' Configuration" href="/cgi-bin/protected/ccinstall.cgi">
+D'
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="Sistèm sante Et Statistiques" href="/">
+Sistèm sante/Statistiques
+</a>
+<span class="hide">
+|
+</span>
+
+</div>
+
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+<div id="footer">
+D' Cclite
+<a href="http://andreasviklund.com">
+Tankou Viklund
+</a>
+.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,483 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Egyszerű
+</option>
+
+<option value="full">
+Minden beállítás
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="A frissítés konfigurálása" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="Ez részére mysql db felhasználói" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Ez részére mysql db-jelszó" class="menu">
+DBPASSWORD
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="kísérleti cpanel előtaghoz, óvatosan uusally cpanel felhasználónév használata" class="menu">
+cPanel előtaghoz
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="pénznem tizedes jegy megjelenítése" class="menu">
+tizedesjegyek használata
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="szabad formátumú címkék használatával a yellow pages helyett rögzített kategóriát" class="menu">
+címkék használatával
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<!-- Itt alul van a teljes paraméterek -->
+
+<tr>
+<td title="Ez az a tartomány, mint a segítségével határozható meg a parancsfájl elérési útját, megfelel-e a cookie-kat a munkát kell" class="menu">
+tartomány
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Ez a levelet, cpanel az smtp-kiszolgáló általában ugyanaz, mint a tartománynév, a localhost vagy a belső kiszolgálók IP-" class="menu">
+SMTP-kiszolgáló
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="fő felhasználói parancsfájl cclite" class="menu">
+Home
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Ez a jelszó és a token számításokhoz használt üzenetkivonat típusa, sha2 a előnyben részesített, nem kell változtatni/vegyes egyszer beállítása" class="menu">
+üzenetkivonat típusa
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="HTML, rss, kimeneti fájlok és diagramokat, a document root-kiszolgálón belül kell levezetni" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="a kifizetést, ha a várakozó megerősítést kér a felhasználó kezdeti állapota" class="pme-key-title">
+első kifizetés állapota
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="a felhasználó, ha a felhasználó e-mailben megerősítést kér nem megerősített kezdeti állapota" class="pme-key-title">
+kezdeti felhasználói állapot
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="üzenetek és a sablonok alapértelmezett nyelv" class="pme-key-title">
+nyelv
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="a táblázatos jelentést a képernyő sorok száma" class="pme-key-title">
+az oldalankénti sorok
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="üzenetek fájl elérési útja, ezen intézkedéseket semmi sem fog működni, ha ez a baj!" class="menu">
+PATH üzenetek
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="Ha nem, nincs szükség a Soap::Lite modulok" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="nem közvetlenül, hanem is bele kell foglalni az egyéni sablonok" class="pme-key-title">
+mail támogatása
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználónak, a mail server szolgáltatásba való bejelentkezésre -->
+
+<tr>
+<td title="levél küldése, és jelentkezzen be, hogy szükség esetén cpanel, beállított smtp-kiszolgáló első" class="menu">
+rendszer mail-cím
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználónak, a mail server szolgáltatásba való bejelentkezésre -->
+
+<tr>
+<td title="közötti váltásra szolgáló Net::SMTP szóló értesítések stb ez elsődleges, és lesz a jövőben csak a beállítás 0 vagy 1" class="menu">
+nettó smtp?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="rendszer elektronikus levél cím belül smtp-kiszolgálóra való bejelentkezéshez jelszót" class="menu">
+rendszer mail jelszó
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="a Válaszcím számára létrehozott e-mailek, gyakran a do not-válasz" class="pme-key-title">
+a Válaszcím rendszer mail
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="a webes felületen használt sablonfájlok elérési útját, semmi sok fog működni, ha ez a baj!" class="menu">
+sablonok
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- kötegfájlok foglalkozó rész -->
+
+<tr>
+<td title="base kimeneti elérési út a tevékenység diagramok web gyökérkönyvtára alatt, a rendszerleíró adatbázis név hozzáadódik az elérési út" class="pme-key-title">
+diagram könyvtár
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="igényel perl rss modulok előállítása rss, ha igen" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Alap feltölteni a kötegelt tranzakciókkal kapcsolatos elérési út, nem kell az web gyökérkönyvtára" class="pme-key-title">
+CSV-könyvtár
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu kapott SMS, http sms átjárók esetén nem szükséges a Beérkezett üzenetek mappába" class="pme-key-title">
+SMS Beérkezett üzenetek
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Beérkezett üzenetek, levelek, helyébe az egyes kibocsátásiegység pop levelezési régebbi módszer" class="pme-key-title">
+readmail.pl directory
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="base kimeneti csv tranzakciók alapján web gyökérkönyvtára elérési útját" class="pme-key-title">
+CSV-ki
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="a következő kimeneti nyomdatechnikai web gyökérkönyvtára, a rendszerleíró adatbázis név és nyelv szerinti elérési út hozzáadódik ez az elérési út" class="pme-key-title">
+nyomtatási elérési útja
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="a következő kimeneti rss, a rendszerleíró adatbázis nevét és a nyelvi elérési útját az erre az útra egészül ki." class="pme-key-title">
+base directory takarmány
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="ki a könyvtárban gammu eredményeit, nem szükséges az sms-átjárók http base" class="pme-key-title">
+SMS-el
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu input helyben feldolgozott, ha 1, egyébként ez soap feldolgozásához használ távoli" class="pme-key-title">
+helyi sms?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Log4perl konfigurációs fájl elérési útja" class="pme-key-title">
+naplózó config path
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+változat
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="A frissítés" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Világos" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

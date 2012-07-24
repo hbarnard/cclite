@@ -1,0 +1,483 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Senp
+</option>
+
+<option value="full">
+Tout posiblite
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="À Configuration" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="sa se kap itilize li an db an pou mysql" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sa se modpas db pou mysql" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sperimantal cpanel prefix, sèvi ak byen gade, non kap itilize li an uusally cpanel" class="menu">
+cpanel prefix
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="desimal point ekspozisyon pou devises" class="menu">
+sèvi ak chif desimal
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sèvi ak baj lib fòm pou paj jòn olye de kategori fiks" class="menu">
+sèvi ak baj
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<!-- pi ba pase isit la sont les paramètres plen -->
+
+<tr>
+<td title="sa a se domèn a déduire de la D' script, bezwen être kòrèk pou lekòl pou travay" class="menu">
+domèn
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sa se sèvè smtp a pou pa lapòs, pou cpanel dabitid menm kòm domèn non, localhost ou ip pou serveurs entèn" class="menu">
+sèvè smtp
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="script utilisateur pwensipal pou cclite" class="menu">
+lakay
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sa se ki tip hachage ki te itilize pou modpas ak senbolik mete, sha2 préféré, pa ka tounen vin jwenn Bondye/melanje yon fwa plase" class="menu">
+jan de hachage
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="html, rss, sispann sortie Et graphiques, déduire de dokiman rasin nan sèvè" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="kondisyon inisyal peye yon fè, si ap tann yo pral mande konfimasyon pa resevwa utilisateur" class="pme-key-title">
+kondisyon inisyal peye
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="kondisyon inisyal de yon utilisateur, si non yo pral mande konfimasyon bò utilisateur kouryèll" class="pme-key-title">
+kondisyon inisyal utilisateur
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="lang defo pou mesaj Et modèles" class="pme-key-title">
+lang
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="nombre D' écran lin tableau rapò sa yo" class="pme-key-title">
+liy yo pa paj
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="D' pou mesaj fichier, pa gen anyen ap travay si sa pa bon!" class="menu">
+ti chemen pou mesaj
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="Si non, pa bezwen Soap::Lite modules" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="pa te itilize dirèkteman men ka nan personnalisé modèles inclus" class="pme-key-title">
+sipòte pa lapòs
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- sa pa nesesèman yon adrès kouryèll valab, kapab sèlman yon entèn utilisateur pou journal sou sèvè pa lapòs la -->
+
+<tr>
+<td title="te itilize pou voye pa lapòs Et journal pou smtp sèvè, te plase nan cpanel, si li nesesè, premye" class="menu">
+adrès pa lapòs sistèm
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- sa pa nesesèman yon adrès kouryèll valab, kapab sèlman yon entèn utilisateur pou journal sou sèvè pa lapòs la -->
+
+<tr>
+<td title="te itilize pou chanje sou Net::SMTP pou voye avize yo osijè elatriye sa privilégiées pral sèlman yon opsyon nan fiti, 0 ou 1" class="menu">
+rezo smtp?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="modpas pou enregistrement sou sistèm kouryèll adrès ou nan smtp sèvè" class="menu">
+sistèm pa lapòs modpas
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="adrès n. repons pou généré e-mails, souvan yon fè-pas-repons" class="pme-key-title">
+n. repons adrès pa lapòs sistèm
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="D' pou modèle sispann itilize pou Entèfas entènèt la, pa gen anyen nou pa bezwen ap travay si sa pa bon!" class="menu">
+modèles
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- seksyon dwe sispann par -->
+
+<tr>
+<td title="baz sortie chimen pou aktivite graphiques web rasin anba, non rejis te ajoute pou wout sa a" class="pme-key-title">
+anyè graphique
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="yo pral mande perl rss modules pou génération rss, si wi" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="baz téléchargement D' pou par tranzaksyon yo, pa ta dwe rete anba entènèt rasin" class="pme-key-title">
+anyè csv
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="réception pou gammu te resevwa sms, pat mande pou http sms passerelles" class="pme-key-title">
+sms réception
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="réception pou pa lapòs, ancien metòd ranplase pa lapòs pòp nan rejis chak" class="pme-key-title">
+anyè readmail.pl
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="baz pèsistans yap ogmante jiska D' pou csv tranzaksyon yo sou entènèt rasin" class="pme-key-title">
+csv deyò
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="baz pèsistans yap ogmante jiska D' pou materyèl imprimé sou entènèt rasin, rejis non ak lang te ajoute pou wout sa a" class="pme-key-title">
+enprime D'
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="baz sortie chimen pou rss, rejis non ak lang te ajoute pou wout sa a" class="pme-key-title">
+baz pour anyè
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="baz soti anyè pou rezilta gammu, pat mande pou http sms passerelles" class="pme-key-title">
+sms deyò
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu D' trete lokalman si 1, sinon sa a itilize savon pou kontwole travay" class="pme-key-title">
+lokal sms?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="ti chemen pou Log4perl configuration fichier" class="pme-key-title">
+D' config journal
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+vèsyon pipiti de youn
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="Ajou" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Klè" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

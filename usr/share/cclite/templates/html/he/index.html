@@ -1,0 +1,431 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- עיצוב על-ידי תבניות CSS חינם&#xD;	http://www.freecsstemplates.org&#xD;	שוחרר בחינם תחת Creative Commons 2.5 רישיון -->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<title>
+Cclite $$fieldsref{version} משתמש
+</title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
+<meta name="author" content="hugh barnard" />
+
+$$fieldsref{metarefresh}
+<!-- גליונות סגנונות -->
+
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
+
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
+
+
+<!-- datatables מאוחר יותר -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- ספריות javascript, שיהיה subsitute דחוס גירסאות בשלב מסוים -->
+
+<!-- פריטים jquery -->
+
+<script src="/javascript/jquery-1.3.2.js">
+</script>
+
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
+
+<script src="/javascript/jquery-cookies.js">
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+
+<!-- אחרים jquery ללא -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<!-- גראפית -->
+
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
+
+<!-- זהו קובץ ה-script אשר יוצא משתמשים כאשר המערכת מובאת -->
+
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
+
+</head>
+
+<body>
+
+<!-- בורר זה הפעלה/ביטול של החומר נקודה עשרונית -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
+<!-- חיפוש משתמשים, עסקאות, מודעות -->
+
+<br/>
+
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="find" type="hidden">
+
+<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+
+<select id="search_type" class="small" name="search_type">
+
+<option selected value='trade'>
+עסקאות
+</option>
+
+<option value='user'>
+משתמשים
+</option>
+
+<option value='ad'>
+ולטיפולים
+</option>
+
+</select>
+
+<input value="מעבר" class="small" type="submit" title="לחפש עסקאות, מודעות או משתמשים">
+
+</form>
+
+<!-- סוף תיבת חיפוש של השלמה אוטומטית -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
+
+<!-- גירסת בורר השפה 1 -->
+
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
+
+<option value='en'>
+אנגלית
+</option>
+
+<option value='ar'>
+ערבית
+</option>
+
+<option value='bn'>
+בנגלית [חלקי]
+</option>
+
+<option value='zh'>
+סינית
+</option>
+
+<option value='de'>
+דויטש
+</option>
+
+<option value='nl'>
+הולנדית
+</option>
+
+<option value='fr'>
+צרפת
+</option>
+
+<option value='es'>
+Espagnol
+</option>
+
+<option value='it'>
+איטלקית
+</option>
+
+<option value='el'>
+יוונית
+</option>
+
+<option value='ja'>
+יפנית
+</option>
+
+<option value='ko'>
+קוריאנית
+</option>
+
+<option value='pt'>
+פורטוגזית
+</option>
+
+<option value='ro'>
+רומנית
+</option>
+
+<option value='ru'>
+רוסית
+</option>
+
+<option value='th'>
+תאילנדית
+</option>
+
+<option value='vi'>
+וייטנאמית
+</option>
+
+</select>
+
+<!-- הקצה גירסה 1 של בורר השפה -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
+
+</span>
+</span>
+
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<h1>
+<a href="/cgi-bin/cclite.cgi">
+Cclite משתמש
+</a>
+</h1>
+
+</div>
+
+<div id="menu">
+
+<span class="news">
+$$fieldsref{latest_news}
+</span>
+
+<ul>
+
+<li class="first">
+<a id="adminlinkhref" title="תפריט הניהול" href="/cgi-bin/protected/ccadmin.cgi">
+
+<span id="adminlink">
+</span>
+
+</a>
+</li>
+
+<li>
+
+<a id="adminlinkhrefnt" title="ניהול תפריט בכרטיסיה חדשה" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+
+<span id="adminlinknewtab">
+</span>
+
+</a>
+
+</li>
+
+<li>
+<a title="העברת מטבע או שעות" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+התשלום
+</a>
+</li>
+
+<li>
+<a  title="שכחת את הסיסמה??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+שכחת סיסמה?
+</a>
+
+</li>
+
+<li>
+<a title="להוסיף Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+להוסיף Openid
+</a>
+
+</li>
+
+<li>
+<a title="רשימת Openids" href="/cgi-bin/cclite.cgi?action=showopenid">
+רשימת Openids
+</a>
+
+</li>
+
+<li>
+<a title="יצירת חשבון חדש" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+חשבון חדש
+</a>
+
+</li>
+
+<li>
+<a title="לשנות את פרטי החשבון שלך" href="/cgi-bin/cclite.cgi?action=modifyuser">
+שינוי חשבון
+</a>
+</li>
+
+<li>
+<a title="פיצול התשלום עבור המוצרים או השירותים" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+פיצול תשלום
+</a>
+</li>
+
+<li>
+<a title="הצג אזור עסקאות" href="/cgi-bin/cclite.cgi?action=showtrans">
+עסקאות
+</a>
+</li>
+
+<li>
+<a title="הצג אזור מאזני" href="/cgi-bin/cclite.cgi?action=showbalvol">
+מאזני
+</a>
+</li>
+
+<li>
+<a title="הצג את הסחורות ואת שירותי מדריך כתובות" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+סחורות/שירותים
+</a>
+</li>
+
+<li>
+<a title="הצג את המודעות שלי סחורות ומדריך שירותים" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+המודעות שלי
+</a>
+</li>
+
+<li>
+<a title="יצירת דף עבור סחורות ומדריך שירותים" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
+מקום לספירה
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<!-- ענן התגיות וסטטיסטיקה משתמש בודד -->
+
+<div id="content">
+
+<div id="primaryContentContainer">
+
+<div id="primaryContent">
+!$$fieldsref{pagename}
+</div>
+
+</div>
+
+<div valign="top" id="secondaryContent">
+
+<h3>
+קטגוריות לספירה
+</h3>
+$$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+
+<div id="userbalances" style="width:250px;height:150px;">
+</div>
+
+<div id="graphlabel">
+</div>
+
+</div>
+
+<div class="clear">
+<div id="footer">
+
+<a href="/cgi-bin/cclite.cgi">
+הבית
+</a>
+|
+<a href="#">
+צור קשר
+</a>
+<br />
+
+Cclite 
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

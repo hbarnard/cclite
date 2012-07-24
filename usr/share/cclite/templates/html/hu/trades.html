@@ -1,0 +1,184 @@
+
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" action="/cgi-bin/cclite.cgi" method="post">
+<input
+ name="fromregistry" value="$$fieldsref{registry}" type="hidden">
+
+<input
+ name="action" value="transaction" type="hidden">
+
+<input
+ name="subaction" value="om_trades" type="hidden">
+
+<tr>
+
+<td class="pme-key-1">
+Dátum
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeDate" size="11"  readonly="readonly" value="$$fieldsref{date}"
+ type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+-Fiókból
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="grey"
+ name="tradeSource" size="11" readonly="readonly" value="$$fieldsref{userLogin}" type="text">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Számlára
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="required" type="text" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
+
+
+</td>
+</tr>
+
+<tr>
+
+<td>
+<span class="pme-key-0">
+Rendszerleíró adatbázis
+</span>
+</td>
+
+<td>
+$$fieldsref{selectpartners}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Pénznem
+</td>
+
+<td nowrap class="pme-value-0">
+$$fieldsref{selectcurrency}
+<span class="pme-key-0">
+Összeg
+</span>
+
+<input class="required" name="tradeAmount" onChange="validatedecimals(this,this.value);" id="tradeAmount" size="11" maxlength="11" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-0">
+</td>
+
+<td class="pme-value-1">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Elemtípus
+</td>
+
+<td class="pme-value-0">
+
+<select class="required" name="tradeItem">
+
+<option value="goods">
+Áruk
+</option>
+
+<option value="services">
+Szolgáltatások
+</option>
+
+<option value="other">
+Egyéb
+</option>
+
+</select>
+
+</td>
+</tr>
+<tr>
+<td class="pme-key-0">
+Cikk címe
+</td>
+<td>
+
+<input class="required"
+ name="tradeTitle" size="50" maxlength="255" value="" type="text">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Cikk leírása
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required"
+ name="tradeDescription" rows="3" cols="60">
+</textarea>
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Hogy átadása" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Világos" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
+</table>

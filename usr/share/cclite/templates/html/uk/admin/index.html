@@ -1,0 +1,415 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<!-- Дизайн Безкоштовні CSS шаблонів&#xD;	http://www.freecsstemplates.org&#xD;	Випущений безкоштовно під Creative Commons Attribution 2.5 ліцензії -->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<title>
+Cclite $$fieldsref{version} Admin
+</title>
+
+<meta name="keywords" content="" />
+
+
+<meta name="description" content="" />
+
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC finance currency" />
+
+
+<meta name="author" content="hugh barnard" />
+
+$$fieldsref{metarefresh}
+<!-- таблиці стилів -->
+
+<link href="/styles/default.css" rel="stylesheet" type="text/css" />
+
+
+<!--<link type="text/css" href="/styles/cc.css" rel="stylesheet" />-->
+
+<link rel="alternate" type="application/rss+xml" 
+	title="$$fieldsref{registry} feed" href="/out/rss/$$fieldsref{registry}/$$fieldsref{language}/all.rdf"/>
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
+
+
+<!-- DataTables для пізніше -->
+
+<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+
+<!-- JavaScript бібліотек, необхідно subsitute стиснутий версії на певному етапі -->
+
+<!-- Jquery елементів -->
+
+<script src="/javascript/jquery-1.3.2.js">
+</script>
+
+<script src="/javascript/jquery-validation-1.5.5.js">
+</script>
+
+<script src="/javascript/jquery-cookies.js">
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.ajaxQueue.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/jquery.autocomplete.js'>
+</script>
+
+<!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
+
+<script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<!-- Інші номери jquery -->
+
+<script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
+</script>
+
+<script src="/javascript/jquery-tagsuggest.js">
+</script>
+
+<script src="/javascript/json_parse.js" type="text/javascript">
+</script>
+
+<script src="/javascript/fileuploader.js" type="text/javascript">
+</script>
+
+<!-- графічні -->
+
+<script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
+</script>
+
+<!-- specific, is cookies necessary now? -->
+
+<script src="/javascript/cookies.js" type="text/javascript">
+</script>
+
+<script src="/javascript/striper.js" type="text/javascript">
+</script>
+
+<script src="/javascript/cclite.js" type="text/javascript">
+</script>
+
+<!-- це сценарій, який реєструє користувачів, коли система представлена -->
+
+<script type="text/javascript">
+$$fieldsref{logout_script}
+</script>
+
+</head>
+
+<body>
+
+<!-- Цей ключ виявляється включення/вимикання десяткової коми речі -->
+
+<div id="usedecimals" class="hidden">
+$$fieldsref{usedecimals}
+</div>
+
+<!-- Пошук користувачів, торги, оголошення -->
+
+<br/>
+
+
+<div align="right">
+
+<form style='display:inline;' class="searchform" action="/cgi-bin/cclite.cgi" method="post">
+
+<input name="action" value="find" type="hidden">
+
+<input class="search" onfocus="if(this.value == this.defaultValue) this.value = ''" value="search" name="search_string" id="search_string"  size="10" type="text">
+
+<select id="search_type" class="small" name="search_type">
+
+<option selected value='trade'>
+Угоди
+</option>
+
+<option value='user'>
+Користувачів
+</option>
+
+<option value='ad'>
+Реклами
+</option>
+
+</select>
+
+<input value="Перейти" class="small" type="submit" title="Шукайте торгів, оголошення або користувачів">
+
+</form>
+
+<!-- Кінець поля пошуку автозаповнення -->
+
+<span id="status_message">
+$$fieldsref{status_message}
+</span>
+
+<!-- мова селектор версії 1 -->
+
+<select id="language_value" class="small" onchange="change_language(this);" name="language">
+
+<option value='en'>
+англійська
+</option>
+
+<option value='ar'>
+арабська
+</option>
+
+<option value='bn'>
+Бенгальська [часткова]
+</option>
+
+<option value='zh'>
+китайська
+</option>
+
+<option value='de'>
+Deutsch
+</option>
+
+<option value='nl'>
+нідерландська
+</option>
+
+<option value='fr'>
+Francais
+</option>
+
+<option value='es'>
+Espagnol
+</option>
+
+<option value='it'>
+Italiano
+</option>
+
+<option value='el'>
+грецька
+</option>
+
+<option value='ja'>
+японська
+</option>
+
+<option value='ko'>
+корейська
+</option>
+
+<option value='pt'>
+Португальська
+</option>
+
+<option value='ro'>
+румунська
+</option>
+
+<option value='ru'>
+російська
+</option>
+
+<option value='th'>
+тайська
+</option>
+
+<option value='vi'>
+в\'єтнамська
+</option>
+
+</select>
+
+<!-- мова селектор Версія 1 кінця -->
+
+<span id="logoninfo">
+$$fieldsref{youare} $$fieldsref{atregistry}
+<span >
+<a title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+
+<span id="logoff">
+</span>
+</a>
+
+</span>
+</span>
+
+</div>
+
+<div id="outer">
+
+<div id="header">
+
+<h1>
+<a title="Адміністративний інтерфейс для Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+Cclite Admin
+</a>
+</h1>
+
+</div>
+
+<div id="menu">
+
+<ul>
+
+<li class="first">
+<a class="bodytext" href="/cgi-bin/cclite.cgi">
+Меню користувача
+</a>
+</li>
+
+<li>
+<a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
+Зміна статусу $$fieldsref{registry}
+</a>
+
+</li>
+
+<li>
+<a class="bodytext" title="Показати зв'язані реєстрами партнер" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Партнери
+</a>
+</li>
+
+<li>
+<a class="bodytext" title="Створення нової валюти" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Створити валюти
+</a>
+</li>
+
+<li>
+<a class="bodytext" title="Показати валют в" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Показати валют
+</a>
+</li>
+
+<li>
+<a class="bodytext"title="Створити нову категорію оголошення" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Створення оголошення категорії
+</a>
+</li>
+
+<li>
+$$fieldsref{installer_link}
+</li>
+
+<li>
+<a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Залишки реєстру
+</a>
+</li>
+
+<li>
+<a title="Створити правило або кредитний ліміт" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Кредитний ліміт
+</a>
+</li>
+
+<li>
+<a title="Створити віддалене або місцевим партнером реєстру" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Створення реєстру партнер
+</a>
+</li>
+
+<li>
+<a title="Застосувати тарифікація послуг для всіх облікових записів" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Застосувати тарифікація послуг
+</a>
+</li>
+
+<li>
+<a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
+Створіть пакетний Dirs
+</a>
+</li>
+
+<li>
+<a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
+Змінити $$fieldsref{registry}
+</a>
+</li>
+
+</ul>
+
+</div>
+
+<!-- Статистика окремого користувача та хмара тегів -->
+
+<div id="content">
+
+<div id="primaryContentContainer">
+
+<div id="primaryContent">
+!$$fieldsref{pagename}
+</div>
+
+</div>
+
+<div valign="top" id="secondaryContent">
+
+<!--<span class="news">$$fieldsref{latest_news}</span>	<br/>-->
+$$fieldsref{count} non-administration users are currently logged in 
+$$fieldsref{righthandside}
+<br/>
+
+<br/>
+
+<br/>
+
+
+<div id="volumes" style="width:245px;height:150px;">
+</div>
+
+<div id="graphlabel1">
+</div>
+
+<div id="averages" style="width:245px;height:150px;">
+</div>
+
+<div id="graphlabel2">
+</div>
+
+</div>
+
+<div class="clear">
+<div id="footer">
+
+<a href="/cgi-bin/cclite.cgi">
+Головна
+</a>
+|
+<a href="#">
+Зв'язатися з нами
+</a>
+<br />
+
+Cclite
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,384 @@
+
+
+<table class="front" >
+
+<tr>
+
+<td title="kòmanse a script graphiques">
+Graphique
+</td>
+
+<td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
+Mel D'
+</td>
+
+<!--
+<td title="start accepting  encrypted email input from the batch mailbox for $$fieldsref{registry} please use read_pop_mail_gpg.pl from command line, does not run from web interface">
+<del>GPG Email input</del> 
+</td>
+-->
+
+<td title="kòmanse pwodwi flux rss pou yo an ti paj jòn">
+Flux RSS
+</td>
+
+<td title="kòmanse accepter D' via gammu de yon lokal telefòn mobil">
+D' Gammu
+</td>
+
+<td title="tranzaksyon téléchargement Et pwosesis par yo">
+Téléchargement/pwosesis par tranzaksyon yo
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+<form id="form">
+
+<select class="small"  onchange="on_select_change('stats');" id="stats_value" >
+
+<option value="0">
+Sispann! / rete Statistiques
+</option>
+
+<option value="5">
+Chak 5 min
+</option>
+
+<option value="10">
+Chak 10 min
+</option>
+
+<option value="30">
+Chak 30 min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<select class="small"  onchange="on_select_change('mail');" id="mail_value" >
+
+<option value="0">
+Sispann! / rete pa lapòs
+</option>
+
+<option value="5">
+Chak 5 min
+</option>
+
+<option value="10">
+Chak 10 min
+</option>
+
+<option value="30">
+Chak 30 min
+</option>
+
+</select>
+
+</td>
+
+<!--
+<td>
+    <select onchange="on_select_change('gpg_mail');" id="gpg_mail_value" >
+	<option value="0"> Stop GPG Mail</option>
+	<option value="5">Every 5min</option>
+	<option value="10">Every 10min</option>
+	<option value="30">Every 30min</option>
+</select>
+
+    
+    </td>
+-->
+
+<td>
+
+<select class="small"  onchange="on_select_change('rss');" id="rss_value" >
+
+<option value="0">
+Sispann! / rete Rss
+</option>
+
+<option value="5">
+Chak 5 min
+</option>
+
+<option value="10">
+Chak 10 min
+</option>
+
+<option value="30">
+Chak 30 min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
+
+<option value="0">
+Sispann! / rete SMS
+</option>
+
+<option value="5">
+Chak 5 min
+</option>
+
+<option value="10">
+Chak 10 min
+</option>
+
+<option value="30">
+Chak 30 min
+</option>
+
+</select>
+
+</td>
+
+<td>
+
+<div id="file-uploader" title="Obtenir par tranzaksyon yo kòm yon fichier csv: wè Manuel">
+
+<noscript>
+
+<p>
+Pèmèt JavaScript pou itilize fichier classique.
+</p>
+
+<!-- ou mete yon senp fòm pou téléchargement isit la -->
+
+</noscript>
+
+</div>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+<span id="stats">
+tann
+</span>
+</td>
+
+<td>
+<span id="mail">
+tann
+</span>
+</td>
+
+<!--<td><span id="gpg_mail">Wait</span></td> -->
+
+<td>
+<span id="rss">
+tann
+</span>
+</td>
+
+<td>
+<span id="gammu">
+tann
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+<table>
+
+<tr>
+
+<td class="front">
+Rale dosye OpenOffice deklarasyon
+<table>
+
+<tr>
+
+<td>
+Mwa
+</td>
+<td>
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_statements.pl" method="post">
+
+<select class="small" name="month">
+
+<option value="1">
+1
+</option>
+
+<option value="2">
+2
+</option>
+
+<option value="3">
+3
+</option>
+
+<option value="4">
+4
+</option>
+
+<option value="5">
+5
+</option>
+
+<option value="6">
+6
+</option>
+
+<option value="7">
+7
+</option>
+
+<option value="8">
+8
+</option>
+
+<option value="9">
+9
+</option>
+
+<option value="10">
+10
+</option>
+
+<option value="11">
+11
+</option>
+
+<option value="12">
+12
+</option>
+
+</select>
+
+</td>
+</tr>
+
+<tr>
+<td>
+Ane
+</td>
+<td>
+<input type="text" name="year" size="4" maxlength="4">
+</td>
+</tr>
+
+<tr>
+<td>
+Connexion non
+</td>
+<td>
+<input type="text" name="username" size="10">
+</td>
+</tr>
+
+<tr>
+<td>
+<input type="submit" class="small" name="go" value="Ale">
+</td>
+<td>
+</td>
+</tr>
+
+</form>
+</table>
+
+</td>
+
+<td class="front" valign="top">
+Rale dosye OpenOffice anyè
+<form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
+
+<input class="small" type="submit" name="go" value="Ale">
+
+</form>
+
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+<span id="">
+</span>
+</td>
+
+<td>
+</td>
+
+</tr>
+
+</table>
+
+<div id="stats_status">
+</div>
+
+<div id="gpg_mail_status">
+</div>
+
+<div id="mail_status">
+</div>
+
+<div id="csv_status">
+</div>
+
+<div id="rss_status">
+</div>
+
+<div id="gammu_status">
+</div>
+<br/>
+
+
+<div id="fileproblems" class="smalltext">
+$$fieldsref{displaybatchfiles}
+</div>
+
+<br/>
+
+
+<table>
+
+<tr>
+
+<td>
+
+</td>
+
+</tr>
+<tr>
+
+<td>
+
+</td>
+
+</tr>
+
+</table>

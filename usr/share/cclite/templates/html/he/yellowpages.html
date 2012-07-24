@@ -1,0 +1,249 @@
+
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+
+<input name="action" value="addyellow" type="hidden">
+
+<tr>
+
+<td class="pme-key-0">
+משתמש
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+סוג
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+הצעה
+</option>
+
+<option value="wanted">
+רצה
+</option>
+
+<option value="other">
+אחרים
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+מחלקה ראשית
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+שירות
+</option>
+
+<option value="goods">
+סחורות
+</option>
+
+<option value="other">
+אחרים
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+סיווג
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+תגיות (השלמה אוטומטית)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+נושא
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+תיאור
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}
+</textarea>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+מחיר
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+מטבע
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+בכל יחידה (שירותי בלבד)
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+לשעה
+</option>
+
+<option value="day" >
+ליום
+</option>
+
+<option value="week" >
+בכל שבוע
+</option>
+
+<option value="month" >
+בכל חודש
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+תשלום מלא מאפשר מטבע?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+כן
+</option>
+
+<option value="no">
+לא
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="הפיכת דף" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="נקה" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
+</table>
+
+<div id="stats_user" style="width:260px;height:150px;">
+</div>
