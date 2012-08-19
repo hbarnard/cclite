@@ -5,7 +5,7 @@
 <tr>
 
 <td title="グラフのスクリプトを開始します。">
-グラフ
+グラフの作成
 </td>
 
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
@@ -26,8 +26,8 @@ RSS フィード
 Gammu 入力
 </td>
 
-<td title="アップロードとプロセスのバッチ トランザクション">
-アップロード ・ トランザクション バッチ プロセス
+<td title="アップロード ・ プロセスのバッチ トランザクション">
+アップロード/バッチ トランザクション処理
 </td>
 
 </tr>
@@ -41,11 +41,11 @@ Gammu 入力
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-統計を停止します。
+統計情報を停止します。
 </option>
 
 <option value="5">
-すべて 5 分
+5 分毎
 </option>
 
 <option value="10">
@@ -69,7 +69,7 @@ Gammu 入力
 </option>
 
 <option value="5">
-すべて 5 分
+5 分毎
 </option>
 
 <option value="10">
@@ -106,7 +106,7 @@ Rss を停止します。
 </option>
 
 <option value="5">
-すべて 5 分
+5 分毎
 </option>
 
 <option value="10">
@@ -130,7 +130,7 @@ SMS を停止します。
 </option>
 
 <option value="5">
-すべて 5 分
+5 分毎
 </option>
 
 <option value="10">
@@ -147,7 +147,7 @@ SMS を停止します。
 
 <td>
 
-<div id="file-uploader" title="バッチ トランザクションを csv ファイルとして取得: マニュアルを参照してください">
+<div id="file-uploader" title="バッチ トランザクションを csv ファイルとして取得: マニュアルを参照してください。">
 
 <noscript>
 
@@ -155,7 +155,7 @@ SMS を停止します。
 ファイルのアップローダーを使用して JavaScript を有効にしてください。
 </p>
 
-<!-- またはをアップロードするための簡単なフォームをここに置く -->
+<!-- またはアップロードするための簡単なフォームをここに置く -->
 
 </noscript>
 
@@ -306,7 +306,7 @@ OpenOffice のステートメントをダウンロードします。
 </td>
 
 <td class="front" valign="top">
-OpenOffice のディレクトリをダウンロードします。
+OpenOffice ディレクトリをダウンロードします。
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
 <input class="small" type="submit" name="go" value="行く">

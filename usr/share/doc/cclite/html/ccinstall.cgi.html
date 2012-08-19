@@ -270,7 +270,12 @@ configuration should work...</p>
     <span class="c"># guessing at cpanel because the whole thing is under the document root</span>
     <span class="k">my</span> <span class="i">$path</span> = <span class="q">`pwd`</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;linux&#39;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$path</span> =~ <span class="q">/public_html/i</span> &amp;&amp; <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;linux&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$distribution</span> .= <span class="q">&#39; probably cpanel&#39;</span><span class="sc">;</span>
+		<span class="k">my</span> <span class="i">$cpanel</span> = <span class="q">`/usr/local/cpanel/cpanel -V`</span> <span class="sc">;</span>  <span class="c"># better test for cpanel 07/2012</span>
+        <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$cpanel</span><span class="s">)</span><span class="s">)</span> <span class="s">{</span>
+		  <span class="i">$distribution</span> .= <span class="q">&#39; cpanel&#39;</span><span class="sc">;</span>	
+		<span class="s">}</span> <span class="k">else</span> <span class="s">{</span>	   
+          <span class="i">$distribution</span> .= <span class="q">&#39; probably cpanel&#39;</span><span class="sc">;</span>
+	    <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span><span class="sc">;</span>
@@ -350,7 +355,7 @@ been found at this stage...</p>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/jquery.autocomplete.css&quot; /&gt;</span>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/lib/thickbox.css&quot; /&gt;</span>
 
-<span class="hh">&lt;title&gt;Cclite 0.9.0 Installer: Problems&lt;/title&gt;</span>
+<span class="hh">&lt;title&gt;Cclite 0.9.1 Installer: Problems&lt;/title&gt;</span>
 
 
 
@@ -680,7 +685,7 @@ and general extra flexibility</p>
 <span class="i">$fields</span>{<span class="w">hash_type</span>} = <span class="i">$hash_type</span> <span class="k">if</span> <span class="s">(</span><span class="i">$newinstall</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#FIXME: no configuration file at this stage, but hard-code horror...</span>
-<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.9.0&quot;</span><span class="sc">;</span>
+<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.9.1&quot;</span><span class="sc">;</span>
 
 <span class="c"># number of records per page in lists ex-db tables, provided in cclite.cf</span>
 <span class="k">my</span> <span class="i">$limit</span> = <span class="i">$fields</span>{<span class="w">limit</span>} || <span class="n">15</span><span class="sc">;</span>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by a Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	A Creative Commons Attribution 2.5 License alapján szabad forgalomba -->
+<!-- Design by a Free CSS Templates&amp;#xD;	http://www.freecsstemplates.org&amp;#xD;	A Creative Commons Attribution 2.5 License alapj&Atilde;&iexcl;n szabad forgalomba -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Felhasználói
+Cclite $$fieldsref{version} Felhaszn&Atilde;&iexcl;l&Atilde;&sup3;i
 </title>
 
 <meta name="keywords" content="" />
@@ -32,7 +32,7 @@ Cclite $$fieldsref{version} Felhasználói
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- stíluslapok -->
+<!-- st&Atilde;&shy;luslapok -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -49,12 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- később a datatables -->
+<!-- k&Atilde;&copy;s&Aring;&#145;bb a datatables -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- -on némely színpad helyett tömörített változatának kell JavaScript library -->
+<!-- -on n&Atilde;&copy;mely sz&Atilde;&shy;npad helyett t&Atilde;&para;m&Atilde;&para;r&Atilde;&shy;tett v&Atilde;&iexcl;ltozat&Atilde;&iexcl;nak kell JavaScript library -->
 
 <!-- jQuery elemek -->
 
@@ -81,7 +81,7 @@ $$fieldsref{metarefresh}
 
 <!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
-<!-- mások nem jquery -->
+<!-- m&Atilde;&iexcl;sok nem jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- grafikonozás -->
+<!-- grafikonoz&Atilde;&iexcl;s -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Ez a bejelentkező felhasználók, amikor a rendszer webhelycsoportról parancsfájl -->
+<!-- Ez a bejelentkez&Aring;&#145; felhaszn&Atilde;&iexcl;l&Atilde;&sup3;k, amikor a rendszer webhelycsoportr&Atilde;&sup3;l parancsf&Atilde;&iexcl;jl -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +118,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Ez a kapcsoló bekapcsolja a be- / kikapcsolása a tizedesvessző megtöm -->
+<!-- Ez a kapcsol&Atilde;&sup3; bekapcsolja a be- / kikapcsol&Atilde;&iexcl;sa a tizedesvessz&Aring;&#145; megt&Atilde;&para;m -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- a felhasználók, a kereskedelem, a hirdetések keresése -->
+<!-- a felhaszn&Atilde;&iexcl;l&Atilde;&sup3;k, a kereskedelem, a hirdet&Atilde;&copy;sek keres&Atilde;&copy;se -->
 
 <br/>
 
@@ -140,104 +140,54 @@ $$fieldsref{usedecimals}
 <select id="search_type" class="small" name="search_type">
 
 <option selected value='trade'>
-Tranzakciók
+Tranzakci&Atilde;&sup3;k
 </option>
 
 <option value='user'>
-A felhasználók
+A felhaszn&Atilde;&iexcl;l&Atilde;&sup3;k
 </option>
 
 <option value='ad'>
-Reklámok
+Rekl&Atilde;&iexcl;mok
 </option>
 
 </select>
 
-<input value="Go" class="small" type="submit" title="Keres a kereskedelem, a hirdetések vagy a felhasználók">
+<input value="Go" class="small" type="submit" title="Keres a kereskedelem, a hirdet&Atilde;&copy;sek vagy a felhaszn&Atilde;&iexcl;l&Atilde;&sup3;k">
 
 </form>
 
-<!-- a keresőmező automatikus kiegészítés végére -->
+<!-- a keres&Aring;&#145;mez&Aring;&#145; automatikus kieg&Atilde;&copy;sz&Atilde;&shy;t&Atilde;&copy;s v&Atilde;&copy;g&Atilde;&copy;re -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- a nyelvet 1 kijelölője -->
+<!-- a nyelvet 1 kijel&Atilde;&para;l&Aring;&#145;je -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-angol
-</option>
-
-<option value='ar'>
-arab
-</option>
-
-<option value='bn'>
-Bengáli [részleges]
-</option>
-
-<option value='zh'>
-kínai
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-holland
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-görög
-</option>
-
-<option value='ja'>
-japán
-</option>
-
-<option value='ko'>
-koreai
-</option>
-
-<option value='pt'>
-Portugál
-</option>
-
-<option value='ro'>
-román
-</option>
-
-<option value='ru'>
-orosz
-</option>
-
-<option value='th'>
-thai
-</option>
-
-<option value='vi'>
-vietnami
-</option>
+<!--	<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- nyelv választó 1-es verziójú vége -->
+<!-- nyelv v&Atilde;&iexcl;laszt&Atilde;&sup3; 1-es verzi&Atilde;&sup3;j&Atilde;&ordm; v&Atilde;&copy;ge -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -259,7 +209,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Cclite felhasználói
+Cclite felhaszn&Atilde;&iexcl;l&Atilde;&sup3;i
 </a>
 </h1>
 
@@ -274,7 +224,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="Rendszeradminisztrátori menü" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Rendszeradminisztr&Atilde;&iexcl;tori men&Atilde;&frac14;" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -284,7 +234,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="Rendszeradminisztrátori menü új lapon" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="Rendszeradminisztr&Atilde;&iexcl;tori men&Atilde;&frac14; &Atilde;&ordm;j lapon" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -294,21 +244,21 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Deviza- vagy órán át" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Kifizetés
+<a title="Deviza- vagy &Atilde;&sup3;r&Atilde;&iexcl;n &Atilde;&iexcl;t" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+Kifizet&Atilde;&copy;s
 </a>
 </li>
 
 <li>
-<a  title="Elfelejtette jelszavát??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-Elfelejtette a jelszavát?
+<a  title="Elfelejtette jelszav&Atilde;&iexcl;t??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Elfelejtette a jelszav&Atilde;&iexcl;t?
 </a>
 
 </li>
 
 <li>
-<a title="Openid hozzáadása" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Openid hozzáadása
+<a title="Openid hozz&Atilde;&iexcl;ad&Atilde;&iexcl;sa" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Openid hozz&amp;Atilde;&amp;iexcl;ad&amp;Atilde;&amp;iexcl;sa
 </a>
 
 </li>
@@ -321,50 +271,50 @@ Lista Openids
 </li>
 
 <li>
-<a title="Hozzon létre egy új fiókot" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-Új számla
+<a title="Hozzon l&Atilde;&copy;tre egy &Atilde;&ordm;j fi&Atilde;&sup3;kot" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+&Atilde;&#154;j sz&Atilde;&iexcl;mla
 </a>
 
 </li>
 
 <li>
-<a title="Fiókja adatainak módosítása" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Fiók módosítása
+<a title="Fi&Atilde;&sup3;kja adatainak m&Atilde;&sup3;dos&Atilde;&shy;t&Atilde;&iexcl;sa" href="/cgi-bin/cclite.cgi?action=modifyuser">
+Fi&Atilde;&sup3;k m&Atilde;&sup3;dos&Atilde;&shy;t&Atilde;&iexcl;sa
 </a>
 </li>
 
 <li>
-<a title="Az áruk vagy szolgáltatások fizetés felosztása" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Split fizetési
+<a title="Az &Atilde;&iexcl;ruk vagy szolg&Atilde;&iexcl;ltat&Atilde;&iexcl;sok fizet&Atilde;&copy;s feloszt&Atilde;&iexcl;sa" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+Split fizet&Atilde;&copy;si
 </a>
 </li>
 
 <li>
-<a title="A tranzakciók megjelenítése" href="/cgi-bin/cclite.cgi?action=showtrans">
-Tranzakciók
+<a title="A tranzakci&Atilde;&sup3;k megjelen&Atilde;&shy;t&Atilde;&copy;se" href="/cgi-bin/cclite.cgi?action=showtrans">
+Tranzakci&amp;Atilde;&amp;sup3;k
 </a>
 </li>
 
 <li>
-<a title="Az én-M egyenlegek megjelenítése" href="/cgi-bin/cclite.cgi?action=showbalvol">
+<a title="Az &Atilde;&copy;n-M egyenlegek megjelen&Atilde;&shy;t&Atilde;&copy;se" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Egyenlegek
 </a>
 </li>
 
 <li>
-<a title="Az áruk és a szolgáltatások Directory megjelenítése" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Áruk és szolgáltatások
+<a title="Az &Atilde;&iexcl;ruk &Atilde;&copy;s a szolg&Atilde;&iexcl;ltat&Atilde;&iexcl;sok Directory megjelen&Atilde;&shy;t&Atilde;&copy;se" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+&Atilde;&#129;ruk &Atilde;&copy;s szolg&Atilde;&iexcl;ltat&Atilde;&iexcl;sok
 </a>
 </li>
 
 <li>
-<a title="Az áruk és a szolgáltatások Directory hirdetéseim megjelenítése" href="/cgi-bin/cclite.cgi?action=showmyyellow">
-Hirdetéseim
+<a title="Az &Atilde;&iexcl;ruk &Atilde;&copy;s a szolg&Atilde;&iexcl;ltat&Atilde;&iexcl;sok Directory hirdet&Atilde;&copy;seim megjelen&Atilde;&shy;t&Atilde;&copy;se" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+Hirdet&Atilde;&copy;seim
 </a>
 </li>
 
 <li>
-<a title="Az áruk és a szolgáltatások Directory lap létrehozása" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
+<a title="Az &Atilde;&iexcl;ruk &Atilde;&copy;s a szolg&Atilde;&iexcl;ltat&Atilde;&iexcl;sok Directory lap l&Atilde;&copy;trehoz&Atilde;&iexcl;sa" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 Helyet Ad
 </a>
 </li>
@@ -373,7 +323,7 @@ Helyet Ad
 
 </div>
 
-<!-- Címke felhő és egyéni felhasználói statisztikák -->
+<!-- C&Atilde;&shy;mke felh&Aring;&#145; &Atilde;&copy;s egy&Atilde;&copy;ni felhaszn&Atilde;&iexcl;l&Atilde;&sup3;i statisztik&Atilde;&iexcl;k -->
 
 <div id="content">
 
@@ -388,7 +338,7 @@ Helyet Ad
 <div valign="top" id="secondaryContent">
 
 <h3>
-Ad-kategóriák
+Ad-kateg&Atilde;&sup3;ri&Atilde;&iexcl;k
 </h3>
 $$fieldsref{righthandside}
 <br/>
@@ -412,7 +362,7 @@ Home
 </a>
 |
 <a href="#">
-Lépjen kapcsolatba velünk
+L&Atilde;&copy;pjen kapcsolatba vel&Atilde;&frac14;nk
 </a>
 <br />
 

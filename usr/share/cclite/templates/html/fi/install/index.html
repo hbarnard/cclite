@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Free CSS Templates mukainen suunnittelu&#xD;	http://www.freecsstemplates.org&#xD;	Creative Commons Attribution 2.5 License vapaaseen -->
+<!-- Free CSS Templates mukainen suunnittelu&amp;#xD;	http://www.freecsstemplates.org&amp;#xD;	Ilmainen lisenssill&Atilde;&curren; Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -49,12 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- myöhemmin dataTables -->
+<!-- my&amp;Atilde;&amp;para;hemmin dataTables -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- JavaScript-kirjastot on pakattu subsitute versiot jotkin vaiheessa -->
+<!-- JavaScript-Kirjastot, on pakattu subsitute versiot jotkin vaiheessa -->
 
 <!-- jQuery kohteet -->
 
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Tämä on komentosarja, joka kirjaa käyttäjät ulos, kun järjestelmä saatetaan -->
+<!-- T&amp;Atilde;&amp;curren;m&amp;Atilde;&amp;curren; on komentosarja, joka kirjaa k&amp;Atilde;&amp;curren;ytt&amp;Atilde;&amp;curren;j&amp;Atilde;&amp;curren;t ulos, kun j&amp;Atilde;&amp;curren;rjestelm&amp;Atilde;&amp;curren; on nyt nostanut kanteen -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,90 +118,50 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Etsi käyttäjät, kaupat, mainokset -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- Katkaise suoraan luomista, jos cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- automaattisen täydennyksen Etsi-ruudun loppuun -->
+<!-- automaattisen t&amp;Atilde;&amp;curren;ydennyksen Etsi-ruudun loppuun -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- 1 valitsin kieliversio -->
+<!-- kielen valitseminen versio 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-englanti
-</option>
-
-<option value='ar'>
-arabia
-</option>
-
-<option value='bn'>
-Bengali [osittainen]
-</option>
-
-<option value='zh'>
-kiina
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-hollanti
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-kreikka
-</option>
-
-<option value='ja'>
-japani
-</option>
-
-<option value='ko'>
-korea
-</option>
-
-<option value='pt'>
-Portugali
-</option>
-
-<option value='ro'>
-romania
-</option>
-
-<option value='ru'>
-venäjä
-</option>
-
-<option value='th'>
-thai
-</option>
-
-<option value='vi'>
-vietnam
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
@@ -232,14 +192,14 @@ Cclite asentaminen
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
 
 <li class="first">
-<a title="Google-ryhmän tuki" href="http://groups.google.co.uk/group/cclite?hl=en">
-Haluat lisätietoja?
+<a title="Google ryhm&amp;Atilde;&amp;curren;&amp;Atilde;&amp;curren;n tukeen" href="http://groups.google.co.uk/group/cclite?hl=en">
+Haluat lis&amp;Atilde;&amp;curren;tietoja?
 </a>
 </li>
 
@@ -251,27 +211,26 @@ Admin-valikko
 </li>
 
 <li>
-<a title="Käyttäjävalikko" href="/cgi-bin/cclite.cgi">
-Käyttäjävalikko
+<a title="K&amp;Atilde;&amp;curren;ytt&amp;Atilde;&amp;curren;j&amp;Atilde;&amp;curren;valikko" href="/cgi-bin/cclite.cgi">
+K&amp;Atilde;&amp;curren;ytt&amp;Atilde;&amp;curren;j&amp;Atilde;&amp;curren;valikko
 </a>
 </li>
 
 <li>
-<a id="updateconfig" title="Päivitä cclite.cf tallennetut conifguration" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
-Päivitä määritykset
+<a id="updateconfig" title="P&amp;Atilde;&amp;curren;ivit&amp;Atilde;&amp;curren; cclite.cf tallennetut conifguration" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+Lataa kuva
 </a>
 </li>
 
 <li>
-<
 <a id="newregistry" title="Luo uusi rekisteri" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 Luo uusi rekisteri
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="Näytä nykyisen Cclite rekisterit" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
-Näytä rekisterit
+<a id="showregistry" title="N&amp;Atilde;&amp;curren;yt&amp;Atilde;&amp;curren; nykyisen Cclite rekisterit" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+N&amp;Atilde;&amp;curren;yt&amp;Atilde;&amp;curren; rekisterit
 </a>
 </li>
 
@@ -285,7 +244,7 @@ Tarkista asennuksen vaatimukset
 
 </div>
 
-<!-- tag cloud ja yksittäisen Käyttäjätilastot -->
+<!-- tag cloud ja yksitt&amp;Atilde;&amp;curren;isten K&amp;Atilde;&amp;curren;ytt&amp;Atilde;&amp;curren;j&amp;Atilde;&amp;curren;tilastot -->
 
 <div id="content">
 
@@ -311,7 +270,7 @@ Etusivu
 </a>
 |
 <a href="#">
-Ota yhteyttä
+Ota meihin yhteytt&amp;Atilde;&amp;curren;
 </a>
 <br />
 

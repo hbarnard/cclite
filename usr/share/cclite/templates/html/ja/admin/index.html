@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite ！$ $fieldsref{バージョン} ！管理者
+Cclite ！$ $fieldsref{のバージョン} ！管理者
 </title>
 
 <meta name="keywords" content="" />
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
-<!-- グラフ -->
+<!-- グラフの作成 -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- これは、システムを停止されている場合、ユーザーのログオフ スクリプトです。 -->
+<!-- これは、システムをダウンされているときにユーザーがログアウト スクリプトです。 -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +118,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- このスイッチ機能をオンまたはオフ、小数点もの -->
+<!-- このスイッチにオン/オフの小数点もの -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -153,7 +153,7 @@ $$fieldsref{usedecimals}
 
 </select>
 
-<input value="行く" class="small" type="submit" title="取引、広告やユーザーを探す">
+<input value="行く" class="small" type="submit" title="貿易、広告やユーザーを探す">
 
 </form>
 
@@ -167,73 +167,23 @@ $$fieldsref{status_message}
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-英語
-</option>
-
-<option value='ar'>
-アラビア語
-</option>
-
-<option value='bn'>
-ベンガル語 [部分]
-</option>
-
-<option value='zh'>
-中国語
-</option>
-
-<option value='de'>
-ドイツ
-</option>
-
-<option value='nl'>
-オランダ語
-</option>
-
-<option value='fr'>
-フランス語
-</option>
-
-<option value='es'>
-ギニア
-</option>
-
-<option value='it'>
-イタリア語
-</option>
-
-<option value='el'>
-ギリシャ語
-</option>
-
-<option value='ja'>
-日本語
-</option>
-
-<option value='ko'>
-韓国語
-</option>
-
-<option value='pt'>
-ポルトガル語
-</option>
-
-<option value='ro'>
-ルーマニア語
-</option>
-
-<option value='ru'>
-ロシア語
-</option>
-
-<option value='th'>
-タイ語
-</option>
-
-<option value='vi'>
-ベトナム語
-</option>
+<!--	<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
@@ -258,7 +208,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a title="Cclite の管理インターフェイス" href="/cgi-bin/protected/ccadmin.cgi">
+<a title="Cclite の管理インタ フェース" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite 管理者
 </a>
 </h1>
@@ -271,13 +221,13 @@ Cclite 管理者
 
 <li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
-ユーザー メニュー
+ユーザーのメニュー
 </a>
 </li>
 
 <li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-変更の状態 ！$ $fieldsref{レジストリ} ！
+ステータスを変更 ！$ $fieldsref{レジストリ}!
 </a>
 
 </li>
@@ -295,7 +245,7 @@ Cclite 管理者
 </li>
 
 <li>
-<a class="bodytext" title="通貨での表示します。" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+<a class="bodytext" title="通貨を表示します。" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 通貨を表示します。
 </a>
 </li>
@@ -323,14 +273,14 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<a title="リモートの作成またはローカルのレジストリ パートナー" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="リモートの作成またはレジストリのローカル パートナー" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 レジストリのパートナーを作成します。
 </a>
 </li>
 
 <li>
 <a title="すべてのアカウントにサービス料を適用します。" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-サービス料金します。
+サービス料を適用します。
 </a>
 </li>
 
@@ -342,7 +292,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-変更 ！$ $fieldsref{レジストリ} ！
+変更 ！$ $fieldsref{レジストリ}!
 </a>
 </li>
 
@@ -350,7 +300,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- タグ雲と個々 のユーザーの統計情報 -->
+<!-- タグの雲と個々 のユーザーの統計 -->
 
 <div id="content">
 

@@ -673,7 +673,7 @@ sub do_oauth {
 
     my ( $class, $db, $fields_ref, $token ) = @_;
 
-    print "Content-type: text/html\n\n";
+    print "Content-Type: text/html; charset=utf-8\n\n";
     print "in do auth $fields_ref->{'registry'}";
 
     ###require "Net::OAuth" ;

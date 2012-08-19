@@ -25,7 +25,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
 # rough equivalent of fatals to browser, will print anything that goes wrong
 
-print STDOUT "Content-type: text/html\n\n";
+print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
 my $data = join( '', <DATA> );
 eval $data;
 if ($@) {

@@ -66,6 +66,10 @@ pre { color: #000000;
 			<li><a href="#logoff_user">logoff_user</a></li>
 			<li><a href="#get_news">get_news</a></li>
 			<li><a href="#find_records">find_records</a></li>
+			<li><a href="#add_preference">add_preference</a></li>
+			<li><a href="#delete_preference">delete_preference</a></li>
+			<li><a href="#update_preference">update_preference</a></li>
+			<li><a href="#get_preferences">get_preferences</a></li>
 			<li><a href="#show_user">show_user</a></li>
 			<li><a href="#change_language">change_language</a></li>
 			<li><a href="#modify_user">modify_user</a></li>
@@ -115,6 +119,10 @@ pre { color: #000000;
 <li><a href="#logoff_user-">logoff_user</a></li>
 <li><a href="#get_news-">get_news</a></li>
 <li><a href="#find_records-">find_records</a></li>
+<li><a href="#add_preference-">add_preference</a></li>
+<li><a href="#delete_preference-">delete_preference</a></li>
+<li><a href="#update_preference-">update_preference</a></li>
+<li><a href="#get_preferences-">get_preferences</a></li>
 <li><a href="#show_user-">show_user</a></li>
 <li><a href="#change_language-">change_language</a></li>
 <li><a href="#modify_user-">modify_user</a></li>
@@ -213,6 +221,7 @@ There are extra actions for remote registry checks already</p>
 <span class="i">@ISA</span>    = <span class="q">qw(Exporter)</span><span class="sc">;</span>
 <span class="i">@EXPORT</span> = <span class="q">qw(add_user</span>
   <span class="q">add_openid</span>
+  <span class="q">add_preference</span>
   <span class="q">modify_user</span>
   <span class="q">show_user</span>
   <span class="q">confirm_user</span>
@@ -222,8 +231,10 @@ There are extra actions for remote registry checks already</p>
   <span class="q">do_login</span>
   <span class="q">logoff_user</span>
   <span class="q">collect_items</span>
+  <span class="q">delete_preference</span>
   <span class="q">get_user</span>
   <span class="q">get_news</span>
+  <span class="q">get_preferences</span>
   <span class="q">get_registry_status</span>
   <span class="q">get_stats</span>
   <span class="q">get_trades</span>
@@ -244,6 +255,7 @@ There are extra actions for remote registry checks already</p>
   <span class="q">split_transaction</span>
   <span class="q">directpay</span>
   <span class="q">transaction</span>
+  <span class="q">update_preference</span>
   <span class="q">check_user_and_add_trade</span>
   <span class="q">wrapper_for_check_user_and_add_trade</span>
 <span class="q">)</span><span class="sc">;</span>
@@ -369,7 +381,8 @@ here, in this case, validation is skipped. August 2009</p>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userPasswordStatus&#39;</span>} = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userJoindate&#39;</span>} = <span class="i">$date</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userJoindate&#39;</span>}        = <span class="i">$date</span><span class="sc">;</span>
+    <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userPasswordChanged&#39;</span>} = <span class="i">$date</span><span class="sc">;</span>
 
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userLevel&#39;</span>}    = <span class="q">&#39;user&#39;</span><span class="sc">;</span>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userPassword&#39;</span>} = <span class="i">$fieldsref</span>-&gt;{<span class="w">userHash</span>}<span class="sc">;</span>
@@ -981,6 +994,81 @@ some way to go though...</p>
     <span class="i">$html</span> =
 <span class="q">&quot;&lt;table&gt;&lt;tbody class=\&quot;stripy\&quot;&gt;$header $col_titles $html&lt;/tbody&gt;&lt;/table&gt;&quot;</span><span class="sc">;</span>
     <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="add_preference">add_preference</a></h3>
+<p>Add a preference, used for individual trading limits etc.
+Expansible and probably rather messy</p>
+<p>userId, prefName, prefValue</p>
+<pre>
+<a name="add_preference-"></a><span class="k">sub </span><span class="m">add_preference</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c"># add the user to the registry database</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$rc</span><span class="cm">,</span> <span class="i">$rv</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span> =
+      <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_prefs&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span><span class="sc">;</span>
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="delete_preference">delete_preference</a></h3>
+<p>Add a preference, used for individual trading limits etc.
+Expansible and probably rather messy</p>
+<p>userId, prefName, prefValue</p>
+<pre>
+<a name="delete_preference-"></a><span class="k">sub </span><span class="m">delete_preference</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c"># add the user to the registry database</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$rc</span><span class="cm">,</span> <span class="i">$rv</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span> =
+      <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_prefs&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="update_preference">update_preference</a></h3>
+<p>Add a preference, used for individual trading limits etc.
+Expansible and probably rather messy</p>
+<p>userId, prefName, prefValue</p>
+<pre>
+<a name="update_preference-"></a><span class="k">sub </span><span class="m">update_preference</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c"># add the user to the registry database</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$rc</span><span class="cm">,</span> <span class="i">$rv</span><span class="cm">,</span> <span class="i">$record_id</span> <span class="s">)</span> =
+      <span class="i">add_database_record</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_prefs&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="get_preferences">get_preferences</a></h3>
+<p>Get all the preferences for a given user, deliver as json
+or as a hash</p>
+<p>Only need userId  and mode value in fieldsref, to get all the preferences</p>
+<pre>
+<a name="get_preferences-"></a><span class="k">sub </span><span class="m">get_preferences</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> =
+      <span class="i">get_where_multiple</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userId&#39;</span><span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userId&#39;</span>}<span class="cm">,</span>
+        <span class="i">$token</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;josn&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="i">$hash_ref</span><span class="sc">;</span>
+    <span class="s">}</span>
+
 <span class="s">}</span>
 
 </pre><p></p>
@@ -2759,6 +2847,19 @@ and may be a current problem</p>
 
 <span class="h">EOT</span>
 
+<span class="c"># type 6 is for supervisory alerts on SMS, account sefl-suspended, pin locked etc.</span>
+<span class="c"># anything that may need intervention from a manager...</span>
+
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$notificationtype</span> == <span class="n">6</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">$from</span>    = <span class="q">&quot;$messages{&#39;smstransactionemailtitle&#39;} &lt;$return_address&gt;&quot;</span><span class="sc">;</span>
+        <span class="i">$subject</span> = <span class="q">&quot;$messages{&#39;smssupervisormessage&#39;} $registry\r\n\r\n&quot;</span><span class="sc">;</span>
+        <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">$text        </span>
+<span class="hh">$messages{usernameis} $accountname </span>
+
+<span class="h">EOT</span>
+
     <span class="s">}</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">net_smtp</span>} <span class="s">)</span> <span class="s">{</span>
@@ -3051,8 +3152,9 @@ json delivery added for use as engine.</p>
 <p>Get registry status open, closed, down, closing
 Closing is to give people time to log off</p>
 <p>FIXME: this needs to return a couple of things, the message
-and the technical status of the database, unkown etc. etc.
+and the technical status of the database, unknown etc. etc.
 hence the returns need looking at too</p>
+<p>FIXME: Doesn't need fieldsref really...</p>
 <pre>
 <a name="get_registry_status-"></a><span class="k">sub </span><span class="m">get_registry_status</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>

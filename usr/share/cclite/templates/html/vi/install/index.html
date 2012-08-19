@@ -54,7 +54,7 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- thư viện JavaScript, cần phải subsitute nén các phiên bản ở một số giai đoạn -->
+<!-- thư viện JavaScript, cần phải nén subsitute Phiên bản ở một số giai đoạn -->
 
 <!-- jQuery mục -->
 
@@ -118,7 +118,10 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- tìm kiếm người dùng, ngành nghề, quảng cáo -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- tắt trực tiếp tạo ra nếu cpanel -->
 
 <br/>
 
@@ -131,77 +134,34 @@ $$fieldsref{logout_script}
 $$fieldsref{status_message}
 </span>
 
-<!-- Phiên bản công cụ chọn bằng 1 -->
+<!-- chọn ngôn ngữ phiên bản 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-Tiếng Anh
-</option>
-
-<option value='ar'>
-Tiếng ả Rập
-</option>
-
-<option value='bn'>
-Bengali [một phần]
-</option>
-
-<option value='zh'>
-Trung Quốc
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-Tiếng Hà Lan
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-Hy Lạp
-</option>
-
-<option value='ja'>
-Tiếng Nhật
-</option>
-
-<option value='ko'>
-Hàn Quốc
-</option>
-
-<option value='pt'>
-Tiếng Bồ Đào Nha
-</option>
-
-<option value='ro'>
-Romania
-</option>
-
-<option value='ru'>
-Nga
-</option>
-
-<option value='th'>
-Tiếng Thái
-</option>
-
-<option value='vi'>
-Tiếng Việt
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
@@ -232,7 +192,7 @@ Cài đặt Cclite
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
@@ -251,8 +211,8 @@ Admin Menu
 </li>
 
 <li>
-<a title="Người sử dụng Menu" href="/cgi-bin/cclite.cgi">
-Người sử dụng Menu
+<a title="Dùng Menu" href="/cgi-bin/cclite.cgi">
+Dùng Menu
 </a>
 </li>
 
@@ -263,7 +223,6 @@ Cập Nhật cấu hình
 </li>
 
 <li>
-<
 <a id="newregistry" title="Tạo mới đăng ký" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 Tạo mới đăng ký
 </a>
@@ -311,7 +270,7 @@ Trang chủ
 </a>
 |
 <a href="#">
-Liên hệ
+Liên hệ với chúng tôi
 </a>
 <br />
 

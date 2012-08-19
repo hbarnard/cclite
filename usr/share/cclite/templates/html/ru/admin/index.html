@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Дизайн-бесплатные шаблоны CSS&#xD;	http://www.freecsstemplates.org&#xD;	Выпущен бесплатно под лицензией Creative Commons атрибуции 2,5 -->
+<!-- Дизайн Бесплатные CSS шаблоны&#xD;	http://www.freecsstemplates.org&#xD;	Выпустила бесплатно по лицензии Creative Commons Attribution 2,5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -49,14 +49,14 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- объекты DataTable для последующего -->
+<!-- DataTables позже -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- нужно обычную сжатые версии библиотек JavaScript, на определенном этапе -->
+<!-- JavaScript библиотеки, необходимо subsitute сжатых версий на каком-то этапе -->
 
-<!-- jQuery элементы -->
+<!-- JQuery-предметов -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
-<!-- Построение графа -->
+<!-- Построение графиков -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Это сценарий, который осуществляет выход пользователей, когда сбит системы -->
+<!-- Это скрипт, который регистрирует пользователей, когда системы доводится -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +118,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Этот переключатель включает/от десятичной запятой вещи -->
+<!-- Этот параметр включает и отключает вещи десятичной запятой -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Поиск пользователей, торги, объявления -->
+<!-- Поиск для пользователей, торгов, объявления -->
 
 <br/>
 
@@ -144,20 +144,20 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='user'>
-Пользователей
+Пользователи
 </option>
 
 <option value='ad'>
-Реклама
+Объявления
 </option>
 
 </select>
 
-<input value="Го" class="small" type="submit" title="Посмотрите на торгах, объявлений или пользователей">
+<input value="Перейти" class="small" type="submit" title="Посмотрите на торгах, объявлений или пользователей">
 
 </form>
 
-<!-- конец поля поиска автозаполнения -->
+<!-- конец автозаполнения поля поиска -->
 
 <span id="status_message">
 $$fieldsref{status_message}
@@ -167,73 +167,23 @@ $$fieldsref{status_message}
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-английский
-</option>
-
-<option value='ar'>
-арабский
-</option>
-
-<option value='bn'>
-Бенгальский [частичная]
-</option>
-
-<option value='zh'>
-китайский
-</option>
-
-<option value='de'>
-Дойч
-</option>
-
-<option value='nl'>
-нидерландский
-</option>
-
-<option value='fr'>
-Французский
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-греческий
-</option>
-
-<option value='ja'>
-японский
-</option>
-
-<option value='ko'>
-корейский
-</option>
-
-<option value='pt'>
-Португальский
-</option>
-
-<option value='ro'>
-румынский
-</option>
-
-<option value='ru'>
-русский
-</option>
-
-<option value='th'>
-тайский
-</option>
-
-<option value='vi'>
-вьетнамский
-</option>
+<!--	<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
@@ -283,26 +233,26 @@ Cclite Admin
 </li>
 
 <li>
-<a class="bodytext" title="Показывать связанный партнер реестров" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Показать связанные Регистры-партнеры" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Партнеры
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="Создание новой валюты" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
-Создать валюту
+<a class="bodytext" title="Создать новую валюту" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Создайте валюты
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="Показать валюты в" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Показать валюты
+<a class="bodytext" title="Показать валют" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Показать валют
 </a>
 </li>
 
 <li>
-<a class="bodytext"title="Создать новую категорию Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Создание категории объявления
+<a class="bodytext"title="Создание новой категории объявлений" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Создайте объявление категории
 </a>
 </li>
 
@@ -312,12 +262,12 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Реестр остатков
+Остатки реестра
 </a>
 </li>
 
 <li>
-<a title="Создайте правило или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+<a title="Создание правила или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Кредитный лимит
 </a>
 </li>
@@ -329,7 +279,7 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<a title="Применить ко всем учетным записям плата за обслуживание" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+<a title="Применение плата за обслуживание для всех учетных записей" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 Применение плата за обслуживание
 </a>
 </li>
@@ -350,7 +300,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- Статистика отдельных пользователей и облако тегов -->
+<!-- Облако тегов и отдельных пользователей статистики -->
 
 <div id="content">
 
@@ -392,7 +342,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Главная страница
+Дом
 </a>
 |
 <a href="#">

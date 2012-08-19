@@ -1,0 +1,229 @@
+
+
+Mobile CSS
+How to create and test css stylesheets for mobile devices
+
+Created: May 28, 2011
+By Jeff Baker
+Subscribe to Internet Tips and Tools Feed
+Menu
+Viewport
+Stylesheet
+Username login input fields
+Scrollable divs
+Contenteditable or designMode divs
+Google Adsense
+Testing without a smartphone or tablet
+Phone and Tablet Emulators and Simulators
+Links
+Home Page
+
+	
+
+In this document we will go over how to create css (cascading style sheets) for mobile devices such as mobile phones, smartphones and tablets. We will explore effective methods to write web pages for iPhones, iPads, Blackberry phones, Blackberry Playbook and other tablets, Android phones and Android tablets such as Motorola Xoom and Samsung Galaxy tablet. Many of these techniques will also work for older phones with internet access.
+
+We will discuss these topics:
+
+    Viewport
+    Stylesheet
+    Username login input fields
+    Scrollable divs
+    Fixed divs
+    Contenteditable or designMode divs
+    Google Adsense
+    Testing without a smartphone or tablet
+    Phone and Tablet Emulators and Simulators
+
+First off, here is a list of common Smartphones, Operating Systems and Tablets. The list shows features that each device supports and which features they do not support:
+
+As you can see, at the time of this writing Apple has no plans to offer Flash support for iPhones or iPads. Also, currently Blackberry phones do not support flash. Earlier Anddroid devices below version 2.1 also do not natively support flash in the browser. So it would be best to avoid flash menus and pictures in your sight if you want mobile devices to be able to see them.
+
+The majority of phone users are not going to jailbreak or root their phones. Also, the majority of mobile phone and tablet users will use the stock browser that comes with their device. So the techniques mentioned in this article generally work with the default browsers that come with the devices.
+
+Viewport
+
+The first line you will want to put in between the <head> and </head> tags in your HTML document in order to target mobile devices is:
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=yes" />
+
+Mobile devices look for this meta tag in order to set the viewing mode for the device.
+
+width
+Most browsers in phones will show an overview of the whole page if you do not include the width command in the content field. But for a nice, closer up view of your webpage you will want to set the viewport to the width of the device. Simply: width=device-width . In the past you could put width=320 back when the only phone with a decent browser was the iPhone. But now many phones have a width of 480.
+
+initial-scale
+You will almost always want to set the initial-scale to 1. This is the zoom in/zoom out scale. At 1, the font size will be the most pleasing to the phone user. At 2 you would be viewing the page zoomed in too closely.
+
+maximum-scale
+This setting limits how far a page can be zoomed in. I have found that letting a user zoom in at least 2 times is good just in case there is something like a form field and they misspelled a word and want to place the cursor in a certain spot to retype.
+
+user-scalable
+Some sites don't allow a user to zoom in or out. But it is almost always a good idea to allow it.
+
+If you have looked up the viewport command before you will notice that some websites recommend putting 1 or 0 for user-scalable, but after looking through most of the official documentation I have found that using yes or no is the proper way to be compatible with most devices. Also some websites recommend separating the options with a semi-colon ;, but for compatibility with most devices you should use a comma.
+
+Official documentation for viewport
+Android Developers
+IE for Windows Phone Team Weblog
+Blackberry Support Community
+Safari Developer Library
+
+Stylesheet
+
+1. The second line you will want to put in between the <head> and </head> tags in your HTML document is:
+
+<link media="Screen" href="styles.css" type="text/css" rel="stylesheet" />
+
+2. Followed by:
+
+<link media="handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)" href="mobile.css" type="text/css" rel="stylesheet" />
+
+3. Followed by:
+
+<!--[if IEMobile]>
+<link rel="stylesheet" type="text/css" href="mobile.css" media="screen" />
+<![endif]-->
+
+The first line above is to load your default stylesheet for desktop browsers. You probably already have one named styles.css or something similar. Unfortunately without jumping through a lot of hoops, the mobile browsers will also load this stylesheet as shown on line 1 above. So then we have a second stylesheet that is ALSO loaded by the mobile browsers as shown on line 2 called mobile.css. In this stylesheet we overwrite some of the settings in styles.css so that the width, floats and menus all look properly formatted for a mobile device. (More on the contents of mobile.css later.) (Note: If you do not want to load both styles.css and mobile.css on the mobile phones then see Carrer web log)
+
+handheld
+On line two one of the paramaters is handheld. This is so that some older phones with web browsers will load this stylesheet.
+
+only screen and (max-device-width: 480px)
+This command is what tells iPhones, Blackberry phones and Android phones to load mobile.css. Even though the iPhone 4 has a resolution width of 640, to be compatible, iPhone 4 pretends that it has a resolution width of 320, so it will still load this stylesheet. It also seems that some 7" android devices such as Samsung Galaxy tablet and Nook Color with a width of 600, will also pretend that they only have a width of 480 and still load this stylesheet. If you turn the iPhone and iPhone 4 sideways for landscape viewing then this stylesheet will still load because they both pretend to have a length of 480. But most android phones have a length of 800 or the Motorola Droid X and Droid 2 have a lendth of 854. So if you find that you don't want to just have the desktop stylesheet load on these phones when they are in landscape orientation then you will want to change (max-device-width: 480px) to (max-device-width: 854px).
+
+only screen and (max-width: 480px)
+There is a major bug on some android devices where they refuse to load the mobile stylesheet with the (max-device-width: 480px) command on some webpages unless you refresh the page. That is the reason for including only screen and (max-width: 480px) in the line. It will force any browser window with a width of 480 or lower to load mobile.css. Another benefit of including this command is that it is an easy way to test the look of your mobile stylesheet in your desktop browser. If you are using a browser like Firefox just pull the side of your browser window smaller until you reach 480px, then Firefox will automatically load the mobile stylesheet right before your eyes. Go ahead and do it on this page. You will see that when you reach 480px then mobile.css will be loaded and some of the menus and advertisements will change. To resize your browser window you have to make sure that your browser is in window mode and not full screen mode but clicking the window icon next to the closing x.
+
+Alternative method
+An alternative method to line 2 above is to not declare a second stylesheet (mobile.css) but instead to have the stylesheet for mobile devices inside of your desktop stylesheet. Inside of your desktop stylesheet file (styles.css) you would put:
+
+@media handheld, only screen and (max-width: 480px), only screen and (max-device-width: 480px)
+{
+}
+
+Then inside of { } you would declare all your mobile css statements. The problem with this method is you would still need a separate stylesheet file for Windows Phone 7 because Windows Phone 7 does not read the above statement.
+
+<!--[if IEMobile]>
+Finally, the reason for line 3 above is that Internet Explorer in Windows Phone 7 does not support max-width and max-device-width CSS3 statments. So you have to use a special conditional if statement to load mobile.css in windows phone 7 phones.
+
+Styling mobile.css
+
+Here is a sample mobile.css stylesheet with comments for explaination:
+
+
+/* If you have set your body tag or a wrapper div with class='wrapper' in your desktop styles.css
+   to a specific width then you will want to change it to width: auto;
+   You may also have set a min-width in styles.css.  Best to change that to 0px
+*/
+body, .wrapper
+{
+   width: auto;
+   /* max-width: 320px; */ /* max_width works with iPhones, but doesn't format well with new Android phones and devices that are wider than 320px */
+   min-width: 0px;
+}
+/* There is no need to have a giant header on a small mobile screen */
+h1
+{
+   font-size: 1em;
+}
+/* As a matter of fact, if you have any Divs with a set width you will want to change their class
+   to have width: auto;
+   Sometimes width: 100%; works better, so play with both
+*/
+.commentbox, .iframe_box,
+{
+   width: 100%;
+}
+/* Some images you may want to change the width to less than the width of the screen */
+.photo img
+{
+   max-width: 160px;
+}
+/* If you have any pop-up help windows that appear in the middle of the screen or have a left
+   of something like left: 100px; then you will want them to be closer to the left side
+   of the screen, so that it appears correctly on the smaller displays
+*/
+.helpwindow
+{
+   left: 1px;
+}
+/* There are some elements of the webpage that you just won't want to display on a mobile device.
+   For this page we don't want to display the normal google ads because they take up too much room
+   on a mobile phone. So I have made two DIVs around the google ads with a class of google_top
+   for the top one and google_left for the left one.
+*/
+.google_top, .google_left
+{
+   display: none;
+}
+/* But you may want to put in a special google mobile ad.  Surround that ad with a DIV with class='google_mobile'.
+   In the desktop stylesheet (styles.css) you would have display: none; for that class.  But in the mobile
+   stylesheet you have display: block
+*/
+.google_mobile
+{
+   float: none;
+   display: block;
+}
+/* On the desktop stylesheet you probably have many floats for side menus or ads next to elements in the page.
+   You will want to cancel all these floats so that users don't have to scroll left and right to see everything
+   on the page.  If you decide to include your side menu it will appear above the content of your page.  Make
+   sure you set the width to auto or 100%
+*/
+.sidemenu
+{
+   padding: 0px;
+   margin: 0px;
+   width: 100%;
+   float: none;
+}
+/* In a side menu you usually place anchor links or buttons.
+If you have each link displayed as block you may want to let
+them float next to each other so that they don't take up as much room vertically.
+Put some margin around them so they are easy to press with a finger.
+*/
+.sidemenu a
+{
+   padding: 1px;
+   margin: 3px;
+   float: left;
+}
+.sidemenu a:hover
+{
+   padding: 1px;
+   margin: 3px;
+   float: left;
+}
+/* If you have input form elements of type='text' that have a very long length attribute, you will
+	want to stop using length and use a css width instead.  For mobile use width: auto;
+*/
+.input
+{
+	width: auto;
+}	
+/*If you have a textarea that has a wide
+	cols attribute you will want to change it to use width: 100%
+*/
+textarea
+{
+	width: 100%;
+}
+/* Sometimes you might have a really wide table or div or pre that just won't fit in the width of a
+mobile device causing the page to have to scroll sideways (horizontally) to view the whole
+div or table.  Add the following break_word class and the table or div will even split in
+the middle of words to try to format it to the width of the device:
+Examples: <table class='break_word'> or <div class='break_word'>
+*/
+.break_word
+{
+	width: auto; 
+	word-wrap: break-word; 
+	word-break: break-all;
+	white-space: pre-wrap;       /* css-3 */
+	white-space: -moz-pre-wrap !important;  /* Mozilla, since 1999 */
+	white-space: -pre-wrap;      /* Opera 4-6 */
+	white-space: -o-pre-wrap;    /* Opera 7 */
+	word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+

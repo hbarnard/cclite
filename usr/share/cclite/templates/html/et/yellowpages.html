@@ -1,0 +1,249 @@
+
+
+<table>
+
+<tbody class="stripy">
+
+<form class="pme-form" id="form" method="post" action="/cgi-bin/cclite.cgi" name="yellowpages">
+
+<input name="subaction" value="om_yellowpages" type="hidden">
+
+<input name="action" value="addyellow" type="hidden">
+
+<tr>
+
+<td class="pme-key-0">
+Kasutajalt
+</td>
+
+<td class="pme-value-0">
+
+<input class="grey" name="fromuserid" size="11" readonly="readonly" maxlength="11" value="$$fieldsref{userLogin}" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Tüüp
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="offered" selected="selected">
+Pakkumise
+</option>
+
+<option value="wanted">
+Tahtsin
+</option>
+
+<option value="other">
+Muud
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Peamised klassi
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="majorclass">
+
+<option value="service" selected="selected">
+Teenus
+</option>
+
+<option value="goods">
+Kauba
+</option>
+
+<option value="other">
+Muud
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Klassifikatsioon
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectclassification}
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Sildid (autocomplete)
+</td>
+
+<td class="pme-value-1">
+
+<span id="tagmatches" class="tagmatches">
+<input id="yellowtags" name="yellowtags" "size="30" maxlength="60" value="$$fieldsref{yellowtags}">
+</span>
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Teema
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="subject" size="30" maxlength="50" value="" type="text">
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Kirjeldus
+</td>
+
+<td class="pme-value-1">
+
+<textarea class="required" name="description" rows="5" columns="50">
+$$fieldsref{description}
+</textarea>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-0">
+Hind
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" onChange="validatedecimals(this,this.value);" id="price" name="price" size="10" maxlength="10" value="$$fieldsref{price}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Valuuta
+</td>
+
+<td class="pme-value-1">
+$$fieldsref{selectcurrency}
+<input type="hidden" name="r_currency" value="Need a price for the item or service please">
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Ühiku (teenused)
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="unit">
+
+<option value="" >
+</option>
+
+<option value="hour" >
+tunnis
+</option>
+
+<option value="day" >
+päevas
+</option>
+
+<option value="week" >
+nädalas
+</option>
+
+<option value="month" >
+kuus
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td class="pme-key-1">
+Täielik makse VÕIMALDAB valuutas?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="truelets">
+
+<option value="yes" >
+Jah
+</option>
+
+<option value="no">
+Ei
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<table class="pme-navigation">
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Tehke lehe" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" value="Selge" type="reset">
+
+</td>
+
+</tr>
+
+</form>
+
+</table>
+
+</tbody>
+
+</table>
+
+<div id="stats_user" style="width:260px;height:150px;">
+</div>

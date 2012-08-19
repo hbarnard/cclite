@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design de Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Liberă sub un Creative Commons Attribution 2.5 License -->
+<!-- Design de CSS template-uri gratuite&#xD;	http://www.freecsstemplates.org&#xD;	Liberă sub un Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- Graphing -->
+<!-- grafice -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Acest lucru este script-ul pe care utilizatorii se conectează la atunci când sistemul este fiind adus în jos -->
+<!-- Acest lucru este script-ul care utilizatorii se conectează la atunci când sistemul este fiind adus în jos -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,90 +118,50 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- de căutare pentru utilizatori, meserii, anunţurile -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- opriţi crearea directă dacă cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- sfârşitul caseta de căutare de completare automată -->
+<!-- sfârşitul caseta Căutare completare automată -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- selectorul de limba 1 -->
+<!-- limba selectorul versiunea 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-Engleză
-</option>
-
-<option value='ar'>
-Arabă
-</option>
-
-<option value='bn'>
-Bengali [parţial]
-</option>
-
-<option value='zh'>
-Chineză
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-Olandeză
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-Greacă
-</option>
-
-<option value='ja'>
-Japoneză
-</option>
-
-<option value='ko'>
-Coreeană
-</option>
-
-<option value='pt'>
-Portugese
-</option>
-
-<option value='ro'>
-Română
-</option>
-
-<option value='ru'>
-Rusă
-</option>
-
-<option value='th'>
-Thai
-</option>
-
-<option value='vi'>
-Vietnameză
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
@@ -232,7 +192,7 @@ Cclite instalare
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
@@ -244,8 +204,8 @@ Doriţi ajutor?
 </li>
 
 <li>
-<a title="Meniul de admin" href="/cgi-bin/protected/ccadmin.cgi">
-Meniul de admin
+<a title="Meniu Admin" href="/cgi-bin/protected/ccadmin.cgi">
+Meniu Admin
 </a>
 
 </li>
@@ -257,26 +217,25 @@ Meniul utilizator
 </li>
 
 <li>
-<a id="updateconfig" title="Update conifguration stocate în cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Conifguration actualizare stocate în cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
 Actualizare configurare
 </a>
 </li>
 
 <li>
-<
 <a id="newregistry" title="Crea nou registru" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 Crea nou registru
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="Arată curent Cclite registrele" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+<a id="showregistry" title="Afişează curent Cclite registrele" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 Registrele Arată
 </a>
 </li>
 
 <li>
-<a id="installcheck" title="Executa verificatorul de instalare" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+<a id="installcheck" title="Executaţi Checker instalare" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 Verificaţi cerinţele de instalare
 </a>
 </li>
@@ -285,7 +244,7 @@ Verificaţi cerinţele de instalare
 
 </div>
 
-<!-- tag cloud şi statistici utilizator individual -->
+<!-- Tag-ul cloud şi statistici utilizator individual -->
 
 <div id="content">
 
@@ -307,7 +266,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Acasă
 </a>
 |
 <a href="#">

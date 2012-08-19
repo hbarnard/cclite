@@ -119,7 +119,10 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- ব্যবহারকারী, বাণিজ্য, adsএর জন্য অনুসন্ধান -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- সুইচ বন্ধ সরাসরি সৃষ্টি যদি cpanel -->
 
 <br/>
 
@@ -136,73 +139,30 @@ $$fieldsref{status_message}
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-ইংরেজী
-</option>
-
-<option value='ar'>
-আরবী
-</option>
-
-<option value='bn'>
-বাংলা [আংশিক]
-</option>
-
-<option value='zh'>
-চীনা
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-ওলন্দাজ
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-গ্রিক
-</option>
-
-<option value='ja'>
-জাপানী
-</option>
-
-<option value='ko'>
-কোরিয়
-</option>
-
-<option value='pt'>
-Portugese
-</option>
-
-<option value='ro'>
-Romanian
-</option>
-
-<option value='ru'>
-রুশ
-</option>
-
-<option value='th'>
-থাই
-</option>
-
-<option value='vi'>
-Vietnamese
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
@@ -233,7 +193,7 @@ Cclite ইনস্টল করে
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
@@ -264,7 +224,6 @@ Cclite ইনস্টল করে
 </li>
 
 <li>
-<
 <a id="newregistry" title="নতুন রেজিস্ট্রী তৈরি করুন" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 নতুন রেজিস্ট্রী তৈরি করুন
 </a>

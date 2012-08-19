@@ -17,7 +17,7 @@
 
 #print STDOUT "Content-Type: application/json\n\n";
 
-print STDOUT "Content-Type: text/html\n\n";
+print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
 
 # this should result in errors printed in the status line of the management page
 

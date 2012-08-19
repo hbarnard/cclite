@@ -1,0 +1,227 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+
+<meta name="description" content="cclite community currency system" />
+
+
+<meta name="keywords" content="LETS CC" />
+
+
+<meta name="author" content="hugh barnard  / Original design: Andreas Viklund - http://andreasviklund.com/" />
+
+
+<link type="text/css" href="/styles/cc.css" rel="stylesheet">
+
+<link rel="stylesheet" type="text/css" href="/styles/andreas02.css" media="screen" title="andreas02 (screen)" />
+
+
+<link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
+
+
+<link rel="alternate" type="application/rss+xml" title="Eksperimentaalsed cclite link" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+
+
+<title>
+Cclite $$fieldsref{version} Admin
+</title>
+!$$fieldsref{jscript}
+<script src="/javascript/prototype.js">
+</script>
+
+<script src="/javascript/scriptaculous.js">
+</script>
+
+</head>
+
+<body id="$$fieldsref{action}$$fieldsref{substyle}">
+
+<div id="toptabs">
+
+<a 
+ class="toptab" title="Kas unustasid parooli??"
+ href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+Unustasid parooli?
+</a>
+
+<a class="toptabstrikethrough" title="Deutsch"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=de">
+Deutsch
+</a>
+
+<a 
+ class="toptabstrikethrough" title="Prantsuse muutmiseks"
+ href="/cgi-bin/cclite.cgi?action=lang&amp;language=fr">
+Fran
+</a>
+$$fieldsref{youare} $$fieldsref{atregistry}
+<p>
+
+<a class="toptab" title="Uue konto" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Uue konto
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
+Välja logida $$fieldsref{user}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptab" title="Tagasi kasutaja menüüsse" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
+Kasutajamenüü
+</a>
+<span class="hide">
+|
+</span>
+
+</p>
+
+</div>
+
+<div id="container">
+
+<h1>
+Cclite $$fieldsref{version} Haldamine
+</h1>
+
+<div id="navitabs">
+
+<a class="showpartnersresulthtml" title="Kuva Partner registrid" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+Kuva partnerid
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecurrencyhtml" title="Saate luua uue valuuta" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Loo valuuta
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="showcurrenciesresulthtml" title="Kuva kaubeldavates valuutades" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Kuva valuuta
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="templatecategoryhtml" title="Loo uus Ad kategooria" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Ad kategooria loomine
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Muuda kasutaja konto" href="/cgi-bin/cclite.cgi?action=template&amp;name=users.html">
+Muuta kasutajakonto
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="showbalvolresulthtml" title="Kuva registri saldod" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
+Kuva registri saldod
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Luua reegli või krediidilimiiti" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+Luua reegli/krediidilimiiti
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Loo register Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Loo register Partner
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Partii faili üles laadida" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=upload.html">
+Partii failide üleslaadimine
+</a>
+<span class="hide">
+|
+</span>
+
+<br/>
+
+
+<br/>
+
+
+<a class="templateservicechghtml" title="Teenustasu suhtes kõik kontod" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Kohaldatakse teenustasu
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Avatud Office'i prinditava kataloogi loomine" href="/cgi-bin/protected/ccdirectory.cgi">
+Avatud Office'i register
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
+Muuda $$fieldsref{registry}
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="navitab" title="Registri ja konfiguratsiooni Installer" href="/cgi-bin/protected/ccinstall.cgi">
+Paigaldaja
+</a>
+<span class="hide">
+|
+</span>
+
+<a class="toptabstrikethrough" title="Süsteemi tervise ja statistika" href="/">
+Süsteemi tervishoiustatistika
+</a>
+<span class="hide">
+|
+</span>
+
+</div>
+
+<div id="main">
+!$$fieldsref{pagename}
+</div>
+
+<div id="footer">
+Cclite copyright
+<a href="http://andreasviklund.com">
+Andreas Viklund
+</a>
+.
+</div>
+
+</div>
+
+</body>
+
+</html>

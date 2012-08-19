@@ -117,7 +117,7 @@ sub plog;
 
     sub header {
         my $status = shift || 200;
-        my $type   = shift || "text/html";
+        my $type   = shift || "text/html; charset=utf-8";
         if ( !$done_header ) {
             plog "Sending header with status $status and type $type";
             print "Status: $status Blahblah\n";
@@ -131,7 +131,7 @@ sub plog;
         if ( !$done_header ) {
             plog "Redirecting to $url\n";
             print "Status: 302 Found\n";
-            print "Content-type: text/html\n";
+            print "Content-Type: text/html; charset=utf-8\n";
             print "Location: $url\n\n";
             print '<a href="' . $url . '">' . $url . '</a>';
         } else {

@@ -334,7 +334,7 @@ sub check_email_exists {
         $fieldsref->{'userEmail'},
         $token, $offset, $limit );
 
-    if ( !length($error) && length($user_ref->{'userId'}) ) {
+    if ( !length($error) && length( $user_ref->{'userId'} ) ) {
         return $user_ref;    # exists already
     } else {
         return undef;        # email is unique

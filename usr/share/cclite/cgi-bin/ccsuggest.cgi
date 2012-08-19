@@ -61,7 +61,7 @@ BEGIN {
     set_message(
 "Please use the <a title=\"cclite google group\" href=\"http://groups.google.co.uk/group/cclite\">Cclite Google Group</a> for help, if necessary"
     );
-    print STDOUT "Content-type: text/html\n\n";
+    print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
 }
 
 use lib '../lib';

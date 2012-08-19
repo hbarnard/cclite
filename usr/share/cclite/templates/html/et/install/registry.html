@@ -1,0 +1,297 @@
+
+
+<form id="form"  action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<span class="error">
+$$fieldsref{error}
+</span>
+
+<table class="pme-main" summary="om_users">
+
+<tbody class="stripy">
+
+<tr class="pme-row-0">
+
+<td title="andmebaasi määratlemine kaubandusgrupp, ühe sõna ilma tühikuteta nimi" class="pme-key-0">
+Registri nimi
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input type="hidden" name="action" value="addregistry">
+
+<input class="required" name="newregistry" size="32" maxlength="32" value="$$fieldsref{newregistry}" type="text">
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td title="kauplemisele rühma lühike kirjeldus" class="pme-key-0">
+Registri kirjeldus
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required" name="description" size="40" maxlength="250" value="$$fieldsref{description}" type="text">
+</td>
+
+</tr>
+
+<tr title="aadress ja ametlike e-kirju saata selle rühma jaoks kasutatav konto" class="pme-row-0">
+
+<td class="pme-key-0">
+Manager e-posti
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input  class="required email" name="admemail" size="50"  maxlength="60" value="$$fieldsref{admemail}" type="text">
+</td>
+
+</tr>
+
+<td title="admin e-posti konto jaoks parool" class="pme-key-0">
+Manager saada salasõna
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="admpass" size="20" maxlength="20" value="$$fieldsref{admpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="Kui e-kirju tehingud on saanud konto võib olla sama admin" class="pme-row-1">
+
+<td class="pme-key-1">
+Tehinguid e-posti aadressi
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input  class="required email" name="postemail" size="50" maxlength="60" value="$$fieldsref{postemail}" type="text">
+</td>
+
+</tr>
+
+<td title="partii e-posti konto jaoks parool" class="pme-key-0">
+Partii saada salasõna
+<br>
+
+</td>
+
+<td class="pme-value-0">
+
+<input class="required" name="postpass" size="20" maxlength="20" value="$$fieldsref{postpass}" type="password">
+</td>
+
+</tr>
+
+<tr title="praegu ei kasutata, kuid määratletakse kauplemise mudel" class="pme-row-1">
+
+<td nowrap class="pme-key-1">
+Süsteemi maksustamise mudel
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="chargetype">
+<option value="equaltime">
+Võrdõiguslikkuse
+</option>
+<option selected value="market">
+Turul
+</option>
+</select>
+</td>
+
+</tr>
+
+<tr title="praegu ei kasutata, kuid määratleb komisjon mudel" class="pme-row-1">
+
+<td class="pme-key-1">
+Süsteemi komisjoni mudel
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="commission">
+
+<option selected value="no">
+Ükski komisjoni
+</option>
+
+<option value="yes">
+Komisjon tugines register
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="praegu ei kasutata, kuid määratletakse märkimise mudel" class="pme-row-1">
+
+<td class="pme-key-1">
+Kordustellimuste mudel
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="subscription">
+
+<option selected value="no">
+Ole tellitud
+</option>
+
+<option value="yes">
+Tellimuse alusel
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="määratakse kindlaks kulukohustuste piirmäära kõigi valuutade puhul selles registris senti teisendatakse automaatselt kui kümnendkoha valuuta" class="pme-row-1">
+
+<td class="pme-key-1">
+Üldise kohustuse piirmäär
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="commitlimit" size="10" maxlength="10" value="$$fieldsref{commitlimit}" type="text">
+</td>
+
+</tr>
+
+<tr title="peamised serverist: see register praegu ainult e-posti tehingute puhul avaliku võtme id" class="pme-row-1">
+
+<td class="pme-key-1">
+Sisestage serveri: avaliku võtme ID-d
+<br>
+
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="public_key_id" size="30" maxlength="30" value="$$fieldsref{public_key_id}" type="text">
+</td>
+
+</tr>
+
+</tr>
+
+<tr title="praegu ei kasutata, kuid määratleb, kas geograafilise ala või erilist huvi"  class="pme-row-1">
+
+<td class="pme-key-1">
+Geograafiline piirkond hõlmab?
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="geographic">
+
+<option selected value="yes">
+Jah
+</option>
+
+<option value="no">
+Ei
+</option>
+
+</select>
+</td>
+
+</tr>
+
+<tr title="ei kasutata praegu vaid määratleb ametikohtade või zip koodid nii, et riiklike registrite võib olla geocoded ja vastendatud" class="pme-row-1">
+
+<td class="pme-key-1">
+Postcodes või põhjalaiust, 9o
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="postcodes" size="40" maxlength="80" value="$$fieldsref{postcodes}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="kasutatakse kaubalaevade võti kommentaar Fetion Alert, drupal ja os-kaubanduse konnektorid" class="pme-row-1">
+
+<td class="pme-key-1">
+Kaubalaevade võti
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="merchant_key" size="40" maxlength="80" value="$$fieldsref{merchant_key}" type="text">
+
+</td>
+
+</tr>
+
+<tr title="kasutatakse üldjuhul piirata teatavate ips, kergesti spoofed ilmselt konnektorid" class="pme-row-1">
+
+<td class="pme-key-1">
+Võimaldada kaupmehe IP-aadressid
+</td>
+
+<td class="pme-value-1">
+
+<input class="pme-input-1" name="allow_ip_list" size="40" maxlength="80" value="$$fieldsref{allow_ip_list}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<!-- see on eksperiment, muutub punaseks config lingi, kui andmebaasi parool on vale -->
+$$fieldsref{script}
+<hr class="pme-hr">
+
+<hr class="pme-hr">
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" value="Mine" type="submit">
+&nbsp;
+<input
+ class="pme-cancel" name="cancel" value="Loobu"
+type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

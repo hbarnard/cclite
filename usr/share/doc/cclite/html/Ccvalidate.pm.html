@@ -415,7 +415,7 @@ for validation of REST style additions</p>
 <h3><a name="check_email_exists">check_email_exists</a></h3>
 <p>Abstrated out of validate because this is used
 for validation of REST style additions</p>
-<p>This doesn't deal will database problems</p>
+<p>FIXME: This doesn't deal will any database problems</p>
 <pre>
 <a name="check_email_exists-"></a><span class="k">sub </span><span class="m">check_email_exists</span> <span class="s">{</span>
 
@@ -427,10 +427,10 @@ for validation of REST style additions</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$user_ref</span> <span class="s">)</span> =
       <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userEmail&#39;</span><span class="cm">,</span>
-        <span class="i">$fieldsref</span>-&gt;{<span class="w">userEmail</span>}<span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;userEmail&#39;</span>}<span class="cm">,</span>
         <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span> &amp;&amp; <span class="k">length</span><span class="s">(</span><span class="i">$user_ref</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span> &amp;&amp; <span class="k">length</span><span class="s">(</span> <span class="i">$user_ref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">return</span> <span class="i">$user_ref</span><span class="sc">;</span>    <span class="c"># exists already</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">return</span> <span class="k">undef</span><span class="sc">;</span>        <span class="c"># email is unique</span>

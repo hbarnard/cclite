@@ -235,7 +235,7 @@ sub add_user {
     $fieldsref->{'userPasswordStatus'} = 'active';
 
     my ( $date, $time ) = getdateandtime( time() );
-    $fieldsref->{'userJoindate'} = $date;
+    $fieldsref->{'userJoindate'}        = $date;
     $fieldsref->{'userPasswordChanged'} = $date;
 
     $fieldsref->{'userLevel'}    = 'user';
@@ -868,7 +868,6 @@ EOT
     return ( 0, '', $error, $html, "result.html", '', '', $token );
 }
 
-
 =head3 add_preference
 
 Add a preference, used for individual trading limits etc.
@@ -880,15 +879,14 @@ userId, prefName, prefValue
 
 sub add_preference {
 
-    my ($class,$db,$fieldsref,$token) = @_;
+    my ( $class, $db, $fieldsref, $token ) = @_;
 
     # add the user to the registry database
     my ( $rc, $rv, $record_id ) =
       add_database_record( $class, $db, 'om_prefs', $fieldsref, $token );
 
-return ;
+    return;
 }
-
 
 =head3 delete_preference
 
@@ -901,13 +899,13 @@ userId, prefName, prefValue
 
 sub delete_preference {
 
-    my ($class,$db,$fieldsref,$token) = @_;
+    my ( $class, $db, $fieldsref, $token ) = @_;
 
     # add the user to the registry database
     my ( $rc, $rv, $record_id ) =
       add_database_record( $class, $db, 'om_prefs', $fieldsref, $token );
 
-return ;
+    return;
 
 }
 
@@ -922,19 +920,15 @@ userId, prefName, prefValue
 
 sub update_preference {
 
-    my ($class,$db,$fieldsref,$token) = @_;
+    my ( $class, $db, $fieldsref, $token ) = @_;
 
     # add the user to the registry database
     my ( $rc, $rv, $record_id ) =
       add_database_record( $class, $db, 'om_prefs', $fieldsref, $token );
 
-return ;
+    return;
 
 }
-
-
-
-
 
 =head3 get_preferences
 
@@ -947,27 +941,19 @@ Only need userId  and mode value in fieldsref, to get all the preferences
 
 sub get_preferences {
 
-  my ($class,$db,$table,$fieldsref,$token) = @_;
+    my ( $class, $db, $table, $fieldsref, $token ) = @_;
 
-  my ($registry_error, $hash_ref) = get_where_multiple  (
-        $class, $db,    $table,  '*', 'userId',
-        $fieldsref->{'userId'},  $token, undef, undef
-   ) ;
-if ($fieldsref->{'mode'} eq 'josn') {
-	
-} else {	   
-  return $hash_ref ;
-}  
+    my ( $registry_error, $hash_ref ) =
+      get_where_multiple( $class, $db, $table, '*', 'userId',
+        $fieldsref->{'userId'},
+        $token, undef, undef );
+    if ( $fieldsref->{'mode'} eq 'josn' ) {
+
+    } else {
+        return $hash_ref;
+    }
 
 }
-
-
-
-
-
-
-
-
 
 =head3 show_user
 
@@ -2843,12 +2829,11 @@ $messages{usernameis} $accountname
 
 EOT
 
-
 # type 6 is for supervisory alerts on SMS, account sefl-suspended, pin locked etc.
 # anything that may need intervention from a manager...
 
     } elsif ( $notificationtype == 6 ) {
-		
+
         $from    = "$messages{'smstransactionemailtitle'} <$return_address>";
         $subject = "$messages{'smssupervisormessage'} $registry\r\n\r\n";
         $message = <<EOT;
@@ -2856,12 +2841,8 @@ $text
 $messages{usernameis} $accountname 
 
 EOT
-		
-		    
-}    
-    
-    
-    
+
+    }
 
     if ( $configuration{net_smtp} ) {
         eval {

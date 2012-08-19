@@ -1,0 +1,485 @@
+
+<title>
+JavaScript vormi kinnitamine
+</title>
+</head>
+
+<body bgcolor="white">
+
+<table border="0" width="625">
+<tbody>
+<tr>
+<td rowspan="6" bgcolor="#408080" width="10">
+<img src="clear.gif" height="1" width="10">
+</td>
+
+<td bgcolor="#b6dada">
+
+<font size="+3">
+JavaScript vormi valideerimise tÃ¶Ã¶riist
+</font>
+
+<font size="+1">
+ver 2.5
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<font size="-1">
+poolt Artswork
+</font>
+<br>
+
+<font color="#ff0000" size="2">
+Peab vabandan asjaolu, et ma olen&#xD;ei ole enam vÃµimalik vastu vÃµtta e-posti kÃ¼simustele, kui ma oleks minu skripti&#xD;Paljud tundi, et aidata inimestel nÃµuetekohaselt integreerida see moodul annab ja&#xD;kirjutamine keegi veel Ã¼ksusi. See on aset leidnud pÃ¤rast e-posti&#xD;August 2003 ussid tÃµsiselt ohustada minu e-posti aadress, kuvatakse&#xD;Siin rÃ¼nnanud kui mul oli ekslik tuhandeid kÃ¤sitleda&#xD;tagasi saata e-kirju pÃ¤evas. Ma korrapÃ¤raselt proovida uuesti sisse lÃ¼litada,&#xD;Tagastab vÃµi proovige uuesti pÃ¤rast tolmu tasumisel. Ma ka mÃ¤rkima&#xD;Kuidas saab rikud oma oskuste tasemega inimesed ja uskumatu idee nagu on&#xD;edastamiseks Interneti disparaging. Olen pÃ¼Ã¼dnud aastaid&#xD;tagasi toetused teistele korral see tÃ¶Ã¶ minu edu&#xD;keskmise. TÃ¤nu kÃµigile huvi olen saanud.
+</font>
+<hr size="1">
+Selle vormi valideerimise tÃ¶Ã¶riista otsida
+<b>
+vajadusel vÃ¤ljad tÃ¤isarv, e-posti ja
+</b>
+oma vormides.&#xD;See on kergesti teisaldatavad kÃµikides teie vormide ja aitab sÃ¤Ã¤sta serveripoolseid&#xD;VormivÃ¤lja valideerimine ressursid&#xD;ja lehe laadib. KÃµigi sÃµnumite kohandatud peidetud kujul&#xD;elemendi, kus saate valida kinnitamise nÃµue. Saab segada&#xD;nÃµutav element ja mis tahes muud elemendid.&#xD;KÃ¤esoleva koodeksi on tÃ¤ielikult sÃ¼learvuti ja saab kasutada mis tahes vormis poolt lihtsalt&#xD;lisades oma peidetud elemendid asjakohaselt ja lisada selle onClick&#xD;kÃ¤su nupule.
+<br>
+<br>
+
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+<font size="+2">
+Reeglitele.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+1)
+</b>
+Kohustuslik vÃ¤li kasutamine olemasoleva vÃ¤lja nime ja lisamine&#xD;r_ vÃ¤lja algusse nimetage ja looge peidetud elemente.
+<br>
+
+<b>
+NÃIDE:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="r_your_fieldname" value="Required error message goes here"&gt;
+<p>
+
+<b>
+2)
+</b>
+TÃ¤isarv vÃ¤lja kasutada olemasoleva vÃ¤lja nime ja lisamine&#xD;i_ vÃ¤lja algusse nimetage ja looge peidetud elemente.
+<br>
+
+<b>
+NÃIDE:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="i_your_fieldname" value="Integer error message goes here"&gt;
+</p>
+<p>
+
+<b>
+3)
+</b>
+KuupÃ¤eva vÃ¤li kasutamine olemasoleva vÃ¤lja nime ja lisada selle&#xD;d_ vÃ¤lja algusse nimetage ja looge peidetud elemente. See&#xD;kuupÃ¤eva vÃ¤li aktsepteerib ainult formaadis KK/PP/aa vÃµi K.P.aa.
+<br>
+
+<b>
+NÃIDE:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="d_your_fieldname" value="Date error message goes here"&gt;
+<br>
+<br>
+
+<b>
+4)
+</b>
+Kinnitatavad vÃ¤lja e-posti kasutada olemasoleva vÃ¤lja nime ja&#xD;lisada vÃ¤lja nime alguses on e_ ja luua on peidetud&#xD;elemendi.
+<br>
+
+<b>
+NÃIDE:
+</b>
+<br>
+&lt;input type="text" name="your_fieldname"&gt;
+<br>
+&lt;input type="hidden" name="e_your_fieldname" value="The email address format is incorrect"&gt;
+<br>
+<br>
+
+</p>
+</td>
+</tr>
+
+<tr>
+<td bgcolor="#b6dada">
+
+<font size="+2">
+Selle skripti kÃ¤ivitamine.
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+Peate kasutama tÃ¼Ã¼p = "nupp" mitte tÃ¼Ã¼pi = "submit" nupu EDASTA puhul saadab javascript on esitada teile.
+<br>
+
+<font size="-1">
+<b>
+NÃIDE:
+</b>
+<br>
+&lt;input type=button Value="Button Message Here" onclick="check(form,form.elements.length)"&gt;
+</font>
+
+<br>
+<br>
+<hr size="1">
+
+<font size="+2">
+See proov kasutab kÃµiki kolme valideerimise vahendeid kombineeritult.
+</font>
+<p>
+
+</p>
+<form action="thanks.html">
+
+<table border="0" width="575">
+
+<tbody>
+<tr>
+<td>
+
+<b>
+E-posti aadress:
+</b>
+
+</td>
+
+<td>
+
+<input name="email" type="text">
+
+<input name="e_email" value="Email address format is incorrect" type="hidden">
+
+<input name="r_email" value="Email address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and email validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Eesnimi:
+</b>
+
+</td>
+
+<td>
+
+<input name="fname" type="text">
+
+<input name="r_fname" value="First name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Perenimi:
+</b>
+
+</td>
+
+<td>
+
+<input name="lname" type="text">
+
+<input name="r_lname" value="Last name is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+1. Aadress:
+</b>
+
+</td>
+
+<td>
+
+<input name="address1" type="text">
+
+<input name="r_address1" value="Address is required" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+2. Aadress:
+</b>
+
+</td>
+
+<td>
+
+<input name="address2" type="text">
+
+</td>
+<td>
+<font size="-1">
+(no validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Kui vana sa oled:
+</b>
+
+</td>
+
+<td>
+
+<input name="age" type="text">
+
+<input name="r_age" value="Age is required" type="hidden">
+
+<input name="i_age" value="Age must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required and integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Aasta jooksul on teil on skriptimine:
+</b>
+
+</td>
+
+<td>
+
+<input name="scripting" type="text">
+
+<!--- <input type="hidden" name="r_scripting" value="Years scripting required"> --->
+
+<input name="i_scripting" value="Years scripting must be a valid integer" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(integer validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Mis on tÃ¤nane kuupÃ¤ev:
+</b>
+
+<font size="-1">
+(mm/dd/yy)
+</font>
+
+</td>
+
+<td>
+
+<input name="todays_dt" type="text">
+
+<!--- <input type="hidden" name="r_todays_dt" value="Today's date is required"> --->
+
+<input name="d_todays_dt" value="The date is not valid or the format is incorrect. Please format mm/dd/yy." type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(date validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Vali teema:
+</b>
+
+</td>
+
+<td>
+
+<select name="subject">
+<option value="">
+Valige Ã¼ks
+</option>
+<option value="Javascript">
+JavaScript
+</option>
+<option value="C">
+C
+</option>
+<option value="C++">
+C
+</option>
+<option value="Visual Basic">
+Visual Basic
+</option>
+</select>
+
+<input name="r_subject" value="You must select a subject" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Saate valida raadionupu:
+</b>
+
+</td>
+
+<td>
+
+<input name="test" value="1" type="radio">
+katse 1
+<input name="test" value="2" type="radio">
+katse 2
+<input name="test" value="3" type="radio">
+katse 3
+<input name="r_test" value="Please select a radio button 1, 2 or 3" type="hidden">
+
+</td>
+<td>
+<font size="-1">
+(required validation)
+</font>
+</td>
+</tr>
+
+<tr>
+<td>
+
+<b>
+Valige variant KÃµik, et:
+</b>
+
+</td>
+
+<td>
+
+<input name="test1" value="1" type="checkbox">
+katse 1
+<input name="r_test1" value="You must select checkbox test 1" type="hidden">
+
+<input name="test2" value="2" type="checkbox">
+katse 2
+<input name="test3" value="3" type="checkbox">
+katse 3
+</td>
+<td>
+<font size="-1">
+(required validation on box 1)
+</font>
+</td>
+</tr>
+
+<tr>
+<td colspan="3">
+
+<input value="Submit this form for validation" onclick="check(form,form.elements.length)" type="button">
+
+</td>
+</tr>
+
+</tbody>
+</table>
+
+</form>
+
+<hr size="1">
+
+<center>
+<font size="-1">
+� 2004 Artswork
+</font>
+<p>
+
+<img src="/cgi-bin/counter?perflunk">
+
+</p>
+</center>
+
+</td>
+</tr>
+</tbody>
+</table>
+
+</body>
+</html>

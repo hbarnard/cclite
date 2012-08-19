@@ -37,7 +37,7 @@ $$fields{errors}
 
 <td style="vertical-align: top;">
 
-<!-- หมายเหตุเส้นค่าในคุกกี้เซ็ต เส้นทางอื่นถูกตั้งค่าสำหรับ cgi-ช่องเก็บ -->
+<!-- หมายเหตุเส้นทางที่ชัดเจนในคุกกี้เซ็ต เส้นทางที่อื่นค่าเป็นสำหรับ cgi-ช่องเก็บ -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ $$fields{errors}
 
 <tr class="pme-row-1">
 
-<td title="จำเป็นต้องได้มากกว่า 3 อักขระ ตัวอักษร ตัวเลข และ_เท่านั้น" class="pme-key-0">
+<td title="จำเป็นต้องได้มากกว่า 3 อักขระ อักษร ตัวเลข และ_เท่านั้น" class="pme-key-0">
 ชื่อบัญชี
 <br>
 
@@ -108,7 +108,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-ชื่อหมายเลข/บ้าน
+หมายเลข/บ้านชื่อ
 </td>
 
 <td class="pme-value-1">
@@ -183,7 +183,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-โทรศัพท์ที่ถาวร
+โทรศัพท์ถาวร
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ $$fields{errors}
 
 <td class="pme-value-1">
 
-<input title="กรุณาใส่หมายเลขนี้ในรูปแบบนานาชาติ 44777766666" class="pme-input-1"
+<input title="กรุณาใส่หมายเลขนี้ในในรูปแบบนานาชาติ 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-รหัส pin สำหรับธุรกรรมการโทรศัพท์มือถือ
+หมุดสำหรับธุรกรรมที่โทรศัพท์มือถือ
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-ยืนยัน Pin สำหรับธุรกรรมการโทรศัพท์มือถือ
+ยืนยันรหัส Pin สำหรับธุรกรรมที่โทรศัพท์มือถือ
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-ใบรับชำระทาง SMS
+การรับชำระเงินทาง SMS
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ $$fields{errors}
 
 <tr class="pme-row-1">
 
-<td title="นี่คือหมายเลขคีย์สาธารณะสำหรับธุรกรรมที่เข้ารหัสลับ" class="pme-key-0">
-Id ของคีย์สาธารณะ
+<td title="นี่คือหมายเลขคีย์สาธารณะสำหรับธุรกรรมการเข้ารหัสลับ" class="pme-key-0">
+รหัสคีย์สาธารณะ
 </td>
 
 <td class="pme-value-1">
@@ -324,13 +324,13 @@ Fran
 
 <td class="pme-buttons">
 
-<!-- เราลบคุกกี้รีจิสทรีที่นี่ มิฉะนั้น มันจะป้องกันการเข้าสู่ระบบใหม่ทั้งหมดในภายหลัง -->
+<!-- เราลบคุกกี้รีจิสทรีต่อไปนี้ หรือมิฉะนั้น ก็จะป้องกันการเข้าสู่ระบบใหม่ทั้งหมดในภายหลัง -->
 
 <input class="pme-save"
  name="saveadd" value="สร้าง" onClick="eraseCookie('registry');" type="submit">
 &nbsp;
 <input class="pme-cancel"
- name="cancel" value="ล้าง" type="reset">
+ name="cancel" value="การล้าง" type="reset">
 
 </td>
 

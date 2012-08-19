@@ -128,12 +128,20 @@ ccsmsgate.cgi</pre>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>                <span class="c"># security and hashing</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>                <span class="c"># this probably should be delegated</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>         <span class="c"># new way of doing configuration</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
+
+<span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
 
 <span class="c"># please de-comment to suit interface, only Cardboardfish has been heavily</span>
 <span class="c"># tested recently as of August 2010</span>
+<span class="c"># Textmarketer tested heavily with added functions May 2012</span>
+<span class="c">#</span>
 
-<span class="k">use</span> <span class="w">Ccsms::Cardboardfish</span><span class="sc">;</span>
-<span class="k">my</span> <span class="i">$type</span> = <span class="q">&#39;car&#39;</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccsms::Textmarketer</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$type</span> = <span class="q">&#39;txt&#39;</span><span class="sc">;</span>
+
+<span class="c">#use Ccsms::Cardboardfish;</span>
+<span class="c">#my $type = &#39;car&#39;;</span>
 
 <span class="c">#use Ccsms::Aql;</span>
 <span class="c">#my $type = &#39;aql&#39; ;</span>
@@ -150,19 +158,19 @@ ccsmsgate.cgi</pre>
 <span class="k">our</span> <span class="i">$configurationref</span>  = \<span class="i">%configuration</span><span class="sc">;</span>
 <span class="k">our</span> <span class="i">%sms_configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;../../config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
 
+<span class="k">my</span> <span class="i">$debug</span> = <span class="i">$sms_configuration</span>{<span class="q">&#39;debug&#39;</span>}<span class="sc">;</span>    <span class="c"># set debug level</span>
+
 <span class="k">my</span> <span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$cookies</span><span class="cm">,</span>
-    <span class="i">$templatename</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># for the moment</span>
+    <span class="i">$templatename</span><span class="cm">,</span> <span class="i">$registry_private_value</span><span class="cm">,</span> <span class="i">$return_value</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># for the moment</span>
 
 <span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">%fields</span>    = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-
-<span class="c"># reference to possible multiple message hashes from cardboardfish</span>
 <span class="k">my</span> <span class="i">@message_hash_refs</span><span class="sc">;</span>
 
 <span class="c">#  this should use the version modules, but that makes life more</span>
 <span class="c"># complex for intermediate users</span>
 
-<span class="i">$fields</span>{<span class="w">version</span>} = <span class="q">&quot;0.8.0&quot;</span><span class="sc">;</span>
+<span class="i">$fields</span>{<span class="w">version</span>} = <span class="q">&quot;0.9.1&quot;</span><span class="sc">;</span>
 
 <span class="c"># parse incoming fields the cardboardfish way...may give multiple messages</span>
 <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$originator</span><span class="cm">,</span> <span class="i">$destination</span><span class="cm">,</span> <span class="i">$dcs</span><span class="cm">,</span> <span class="i">$datetime</span><span class="cm">,</span> <span class="i">$udh</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
@@ -195,7 +203,7 @@ ccsmsgate.cgi</pre>
 <span class="c">#--------------------------------------------------------------------</span>
 <span class="c"># This is the token that is to be carried everywhere, preventing</span>
 <span class="c"># session hijack etc. It&#39;s probably going to be a GnuPg public key</span>
-<span class="c"># anyway it&#39;s a public key of some king related to the cclite installations</span>
+<span class="c"># anyway it&#39;s a public key of some kind related to the cclite installations</span>
 <span class="c"># private key, not transmitted and protected by passphrase</span>
 <span class="c">#</span>
 <span class="i">$token</span> = <span class="i">$registry_private_value</span> =
@@ -214,23 +222,27 @@ ccsmsgate.cgi</pre>
 
         <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 
-        <span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+        <span class="i">$return_value</span> =
+          <span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
             <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
 
 <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-    <span class="c"># Aql and gammu single messages...</span>
+    <span class="c"># Aql, Textmarketer and gammu single messages...</span>
     <span class="k">my</span> <span class="i">$fieldsref</span> = \<span class="i">%fields</span><span class="sc">;</span>
 
-    <span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$return_value</span> =
+      <span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="i">debug</span><span class="s">(</span> <span class="q">&quot;rv after gateway is $return_value&quot;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 
 <span class="c"># mobile number + raw string</span>
 <span class="c"># this is mainly to make Selenium etc. work...</span>
-<span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\nrunning\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="q">&quot;running $return_value&lt;br/&gt;&quot;</span><span class="sc">;</span>
 
 <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 

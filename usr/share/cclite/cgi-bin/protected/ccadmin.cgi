@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 my $test = 0;
 if ($test) {
-    print STDOUT "Content-type: text/html\n\n";
+    print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
     my $data = join( '', <DATA> );
     eval $data;
     if ($@) {
@@ -315,11 +315,12 @@ if ( $action eq "offline" ) {
 ( $action eq "addpartner" )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     add_partner( 'local', $db, "om_partners", $fieldsref, $token ) );
-    
+
 # update preferences, probably in cclite...
 ( $action eq "prefs" )
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
-    update_prefs( 'local', $db, "om_prefs", $fieldsref, $token ) );        
+    update_prefs( 'local', $db, "om_prefs", $fieldsref, $token ) );
+
 #
 ( $action eq "template" )
   && (

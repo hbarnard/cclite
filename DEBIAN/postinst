@@ -66,8 +66,8 @@ if ( $operation =~ /configure/ ) {
     `chown -R www-data /var/www/cclite/`;
     `chmod -R u+w /var/www/cclite/`;
     
-    # log file permissions for log4perl
-    `chown   www-data /var/cclite/log/cclite.log` ;
+    # log file permissions for log4perl, now removed as of 07/2012, no log4perl 
+#    `chown   www-data /var/cclite/log/cclite.log` ;
     `chmod -R  u+w /var/cclite/log/` ;
     
     # enable mod_rewrite and cclite server the apache2 way...then

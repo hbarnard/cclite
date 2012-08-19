@@ -2,7 +2,7 @@
 
 my $test = 0;
 if ($test) {
-    print STDOUT "Content-type: text/html\n\n";
+    print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
     my $data = join( '', <DATA> );
     eval $data;
     if ($@) {
@@ -63,9 +63,9 @@ use Cclite;                  # use the main motor
 use Ccsecure;                # security and hashing
 use Cclitedb;                # this probably should be delegated
 use Ccconfiguration;         # new way of doing configuration
-use Data::Dumper ;
+use Data::Dumper;
 
-print "Content-type: text/html\n\n" ;
+print "Content-Type: text/html; charset=utf-8\n\n";
 
 # please de-comment to suit interface, only Cardboardfish has been heavily
 # tested recently as of August 2010
@@ -87,27 +87,20 @@ my $type = 'txt';
 
 #--------------------------------------------------------------
 
-
-
-
 $ENV{IFS} = " ";    # modest security
 
-our %configuration     	= readconfiguration();
-our $configurationref  	= \%configuration;
-our %sms_configuration 	= readconfiguration('../../config/readsms.cf');
+our %configuration     = readconfiguration();
+our $configurationref  = \%configuration;
+our %sms_configuration = readconfiguration('../../config/readsms.cf');
 
-my $debug = $sms_configuration{'debug'} ; # set debug level
-
+my $debug = $sms_configuration{'debug'};    # set debug level
 
 my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
     $templatename, $registry_private_value, $return_value );    # for the moment
 
-my $cookieref  			= get_cookie();
-my %fields    			= cgiparse();
-my @message_hash_refs ;
-
-
-
+my $cookieref = get_cookie();
+my %fields    = cgiparse();
+my @message_hash_refs;
 
 #  this should use the version modules, but that makes life more
 # complex for intermediate users
@@ -164,7 +157,8 @@ if ( $type eq 'car' ) {
 
         my $fieldsref = \%fields;
 
-        $return_value = gateway_sms_transaction( 'local', $configurationref, $fieldsref,
+        $return_value =
+          gateway_sms_transaction( 'local', $configurationref, $fieldsref,
             $token );
 
     }
@@ -174,10 +168,10 @@ if ( $type eq 'car' ) {
     # Aql, Textmarketer and gammu single messages...
     my $fieldsref = \%fields;
 
-    $return_value = gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
-    
-    debug( "rv after gateway is $return_value", undef) ;
-    
+    $return_value =
+      gateway_sms_transaction( 'local', $configurationref, $fieldsref, $token );
+
+    debug( "rv after gateway is $return_value", undef );
 
 }
 

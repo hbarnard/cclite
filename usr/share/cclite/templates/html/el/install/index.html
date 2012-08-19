@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Ελεύθερη υπό Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Ελεύθερη υπό την Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- αυτή είναι η δέσμη ενεργειών που πραγματοποιεί χρήστες όταν το σύστημα είναι να τίθεται προς τα κάτω -->
+<!-- αυτή είναι η δέσμη ενεργειών που πραγματοποιεί χρήστες όταν το σύστημα είναι τα παράπονα -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,14 +118,17 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Αναζήτηση για χρήστες, τη διανομή, διαφημίσεις -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- Απενεργοποιήστε την άμεση δημιουργία εάν cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- τέλος του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
+<!-- Τέλος, του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
 
 <span id="status_message">
 $$fieldsref{status_message}
@@ -135,77 +138,34 @@ $$fieldsref{status_message}
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-Αγγλικά
-</option>
-
-<option value='ar'>
-Αραβικά
-</option>
-
-<option value='bn'>
-Βεγγάλι [μερική]
-</option>
-
-<option value='zh'>
-Κινεζικά
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-Ολλανδικά
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-Ελληνικά
-</option>
-
-<option value='ja'>
-Ιαπωνικά
-</option>
-
-<option value='ko'>
-Κορεατικά
-</option>
-
-<option value='pt'>
-Πορτογαλικό
-</option>
-
-<option value='ro'>
-Ρουμανικά
-</option>
-
-<option value='ru'>
-Ρωσικά
-</option>
-
-<option value='th'>
-Ταϊλανδικά
-</option>
-
-<option value='vi'>
-Βιετναμικά
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- Τέλος έκδοση 1 επιλογής γλώσσας -->
+<!-- γλώσσα επιλογέα έκδοση 1 τέλος -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -232,7 +192,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
@@ -257,15 +217,14 @@ Admin μενού
 </li>
 
 <li>
-<a id="updateconfig" title="Conifguration ενημερωμένη έκδοση αποθηκεύεται στο cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Conifguration ενημερωμένη έκδοση που αποθηκεύονται σε cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
 Ενημέρωση ρύθμισης παραμέτρων
 </a>
 </li>
 
 <li>
-<
-<a id="newregistry" title="Δημιουργήστε νέο μητρώο" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
-Δημιουργήστε νέο μητρώο
+<a id="newregistry" title="Δημιουργία νέου μητρώου" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+Δημιουργία νέου μητρώου
 </a>
 </li>
 
@@ -277,7 +236,7 @@ Admin μενού
 
 <li>
 <a id="installcheck" title="Εκτελέστε την εγκατάσταση Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-Έλεγχο των απαιτήσεων για εγκατάσταση
+Απαιτήσεις εγκατάστασης ελέγχου
 </a>
 </li>
 

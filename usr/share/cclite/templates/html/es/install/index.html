@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Diseño por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo una licencia Creative Commons 2.5 -->
+<!-- Dise&Atilde;&plusmn;o por Free CSS Templates&amp;#xD;	http://www.freecsstemplates.org&amp;#xD;	Despachadas a libre bajo una licencia Creative Commons Attribution 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -49,12 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- más tarde DataTables -->
+<!-- m&amp;Atilde;&amp;iexcl;s tarde DataTables -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- bibliotecas de JavaScript, necesario sustituirlas comprimidos versiones en algún momento -->
+<!-- librer&amp;Atilde;&amp;shy;as JavaScript, necesitan versiones de sustituci&amp;Atilde;&amp;sup3;n comprimido en alg&amp;Atilde;&amp;ordm;n momento -->
 
 <!-- elementos de jQuery -->
 
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- gráficos -->
+<!-- gr&amp;Atilde;&amp;iexcl;ficas -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Esta es la secuencia de comandos que desconecta los usuarios cuando el sistema está siendo derribado -->
+<!-- Este es el script que desconecta los usuarios cuando el sistema est&amp;Atilde;&amp;iexcl; siendo derribado -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,94 +118,54 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Buscar usuarios, oficios, anuncios -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- Apague la creaci&amp;Atilde;&amp;sup3;n directa si cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- final del cuadro de búsqueda de Autocompletar -->
+<!-- final del cuadro de b&amp;Atilde;&amp;ordm;squeda de Autocompletar -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- versión de selector de idioma 1 -->
+<!-- versi&amp;Atilde;&amp;sup3;n del selector de idioma 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-Inglés
-</option>
-
-<option value='ar'>
-Árabe
-</option>
-
-<option value='bn'>
-Bengalí [parcial]
-</option>
-
-<option value='zh'>
-Chino
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-Holandés
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-Griego
-</option>
-
-<option value='ja'>
-Japonés
-</option>
-
-<option value='ko'>
-Coreano
-</option>
-
-<option value='pt'>
-En portugués
-</option>
-
-<option value='ro'>
-Rumano
-</option>
-
-<option value='ru'>
-Ruso
-</option>
-
-<option value='th'>
-Tailandés
-</option>
-
-<option value='vi'>
-Vietnamita
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- final de la versión 1 de selector de idioma -->
+<!-- final de la versi&amp;Atilde;&amp;sup3;n 1 de selector de idioma -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -227,57 +187,56 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Instalación de Cclite
+Instalaci&amp;Atilde;&amp;sup3;n del Cclite
 </a>
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
 
 <li class="first">
 <a title="Grupo de Google para soporte" href="http://groups.google.co.uk/group/cclite?hl=en">
-¿Quieres ayuda?
+&amp;Acirc;&amp;iquest;Quieres ayuda?
 </a>
 </li>
 
 <li>
-<a title="Menú de admin" href="/cgi-bin/protected/ccadmin.cgi">
-Menú de admin
+<a title="Men&Atilde;&ordm; de admin" href="/cgi-bin/protected/ccadmin.cgi">
+Men&Atilde;&ordm; de admin
 </a>
 
 </li>
 
 <li>
-<a title="Menú de usuario" href="/cgi-bin/cclite.cgi">
-Menú de usuario
+<a title="Men&amp;Atilde;&amp;ordm; de usuario" href="/cgi-bin/cclite.cgi">
+Men&amp;Atilde;&amp;ordm; de usuario
 </a>
 </li>
 
 <li>
-<a id="updateconfig" title="Actualización conifguration almacenado en cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
-Configuración de la actualización
+<a id="updateconfig" title="Actualizaci&amp;Atilde;&amp;sup3;n conifguration almacenado en cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+Configuraci&amp;Atilde;&amp;sup3;n de la actualizaci&amp;Atilde;&amp;sup3;n
 </a>
 </li>
 
 <li>
-<
 <a id="newregistry" title="Crear nuevo registro" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 Crear nuevo registro
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="Mostrar los registros Cclite actual" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+<a id="showregistry" title="Mostrar registros de Cclite actual" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 Mostrar registros
 </a>
 </li>
 
 <li>
-<a id="installcheck" title="Ejecutar el Comprobador de instalación" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-Compruebe los requisitos de instalación
+<a id="installcheck" title="Ejecutar el comprobador de instalaci&amp;Atilde;&amp;sup3;n" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+Verifique los requisitos de instalaci&amp;Atilde;&amp;sup3;n
 </a>
 </li>
 
@@ -285,7 +244,7 @@ Compruebe los requisitos de instalación
 
 </div>
 
-<!-- nube y estadísticas de usuario individuales. -->
+<!-- nube de etiquetas y estad&amp;Atilde;&amp;shy;sticas de usuario individual -->
 
 <div id="content">
 
@@ -307,11 +266,11 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Inicio
+Home
 </a>
 |
 <a href="#">
-Póngase en contacto con nosotros
+P&amp;Atilde;&amp;sup3;ngase en contacto con nosotros
 </a>
 <br />
 

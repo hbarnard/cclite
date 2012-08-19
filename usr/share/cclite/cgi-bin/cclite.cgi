@@ -2,7 +2,7 @@
 
 my $test = 0;
 if ($test) {
-    print STDOUT "Content-type: text/html\n\n";
+    print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
     my $data = join( '', <DATA> );
     eval $data;
     if ($@) {

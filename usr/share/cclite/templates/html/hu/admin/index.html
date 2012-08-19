@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by a Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	A Creative Commons Attribution 2.5 License alapján szabad forgalomba -->
+<!-- Design by a Free CSS Templates&amp;#xD;	http://www.freecsstemplates.org&amp;#xD;	A Creative Commons Attribution 2.5 License alapj&Atilde;&iexcl;n szabad forgalomba -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,7 +32,7 @@ Cclite $$fieldsref{version} Admin
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- stíluslapok -->
+<!-- st&amp;Atilde;&amp;shy;luslapok -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -49,12 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- későbbi datatables -->
+<!-- k&amp;Atilde;&amp;copy;s&amp;Aring;&amp;#145;bbi datatables -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- -on némely színpad helyett tömörített változatának kell JavaScript library -->
+<!-- -on n&amp;Atilde;&amp;copy;mely sz&amp;Atilde;&amp;shy;npad helyett t&amp;Atilde;&amp;para;m&amp;Atilde;&amp;para;r&amp;Atilde;&amp;shy;tett v&amp;Atilde;&amp;iexcl;ltozat&amp;Atilde;&amp;iexcl;nak kell JavaScript library -->
 
 <!-- jQuery elemek -->
 
@@ -78,7 +78,7 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!-- mások nem jquery -->
+<!-- m&amp;Atilde;&amp;iexcl;sok nem jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
-<!-- grafikonozás -->
+<!-- grafikonoz&amp;Atilde;&amp;iexcl;s -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Ez a bejelentkező felhasználók, amikor a rendszer webhelycsoportról parancsfájl -->
+<!-- Ez a bejelentkez&amp;Aring;&amp;#145; felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;k, amikor a rendszer webhelycsoportr&amp;Atilde;&amp;sup3;l parancsf&amp;Atilde;&amp;iexcl;jl -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +118,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Ez a kapcsoló bekapcsolja a be- / kikapcsolása a tizedesvessző megtöm -->
+<!-- Ez a kapcsol&amp;Atilde;&amp;sup3; bekapcsolja a be- / kikapcsol&amp;Atilde;&amp;iexcl;sa a tizedesvessz&amp;Aring;&amp;#145; megt&amp;Atilde;&amp;para;m -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- a felhasználók, a kereskedelem, a hirdetések keresése -->
+<!-- a felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;k, a kereskedelem, a hirdet&amp;Atilde;&amp;copy;sek keres&amp;Atilde;&amp;copy;se -->
 
 <br/>
 
@@ -140,104 +140,54 @@ $$fieldsref{usedecimals}
 <select id="search_type" class="small" name="search_type">
 
 <option selected value='trade'>
-Tranzakciók
+Tranzakci&amp;Atilde;&amp;sup3;k
 </option>
 
 <option value='user'>
-A felhasználók
+A felhaszn&Atilde;&iexcl;l&Atilde;&sup3;k
 </option>
 
 <option value='ad'>
-Reklámok
+Rekl&amp;Atilde;&amp;iexcl;mok
 </option>
 
 </select>
 
-<input value="Go" class="small" type="submit" title="Keres a kereskedelem, a hirdetések vagy a felhasználók">
+<input value="Go" class="small" type="submit" title="Keres a kereskedelem, a hirdet&amp;Atilde;&amp;copy;sek vagy a felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;k">
 
 </form>
 
-<!-- a keresőmező automatikus kiegészítés végére -->
+<!-- a keres&amp;Aring;&amp;#145;mez&amp;Aring;&amp;#145; automatikus kieg&amp;Atilde;&amp;copy;sz&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;s v&amp;Atilde;&amp;copy;g&amp;Atilde;&amp;copy;re -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- a nyelvet 1 kijelölője -->
+<!-- a nyelvet 1 kijel&amp;Atilde;&amp;para;l&amp;Aring;&amp;#145;je -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-angol
-</option>
-
-<option value='ar'>
-arab
-</option>
-
-<option value='bn'>
-Bengáli [részleges]
-</option>
-
-<option value='zh'>
-kínai
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-holland
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-görög
-</option>
-
-<option value='ja'>
-japán
-</option>
-
-<option value='ko'>
-koreai
-</option>
-
-<option value='pt'>
-Portugál
-</option>
-
-<option value='ro'>
-román
-</option>
-
-<option value='ru'>
-orosz
-</option>
-
-<option value='th'>
-thai
-</option>
-
-<option value='vi'>
-vietnami
-</option>
+<!--	<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- nyelv választó 1-es verziójú vége -->
+<!-- nyelv v&amp;Atilde;&amp;iexcl;laszt&amp;Atilde;&amp;sup3; 1-es verzi&amp;Atilde;&amp;sup3;j&amp;Atilde;&amp;ordm; v&amp;Atilde;&amp;copy;ge -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -258,7 +208,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a title="Felügyeleti felület az Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+<a title="Fel&amp;Atilde;&amp;frac14;gyeleti fel&amp;Atilde;&amp;frac14;let az Cclite" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite Admin
 </a>
 </h1>
@@ -271,38 +221,38 @@ Cclite Admin
 
 <li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
-Felhasználó menü
+Felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3; men&amp;Atilde;&amp;frac14;
 </a>
 </li>
 
 <li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-Állapotának módosításához $$fieldsref{registry}
+&Atilde;&#129;llapot&Atilde;&iexcl;nak m&Atilde;&sup3;dos&Atilde;&shy;t&Atilde;&iexcl;s&Atilde;&iexcl;hoz $$fieldsref{registry}
 </a>
 
 </li>
 
 <li>
-<a class="bodytext" title="Kibocsátásiegység-forgalmi jegyzékek csatolt Partner megjelenítése" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Kibocs&amp;Atilde;&amp;iexcl;t&amp;Atilde;&amp;iexcl;siegys&amp;Atilde;&amp;copy;g-forgalmi jegyz&amp;Atilde;&amp;copy;kek csatolt Partner megjelen&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;se" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Partnerek
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="Hozzon létre egy új valuta" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
-Valuta létrehozása
+<a class="bodytext" title="Hozzon l&amp;Atilde;&amp;copy;tre egy &amp;Atilde;&amp;ordm;j valuta" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Valuta l&amp;Atilde;&amp;copy;trehoz&amp;Atilde;&amp;iexcl;sa
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="Pénznemek megjelenítése" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Pénznemek megjelenítése
+<a class="bodytext" title="P&amp;Atilde;&amp;copy;nznemek megjelen&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;se" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+P&amp;Atilde;&amp;copy;nznemek megjelen&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;se
 </a>
 </li>
 
 <li>
-<a class="bodytext"title="Hozzon létre új hirdetés kategória" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Ad-kategória létrehozása
+<a class="bodytext"title="Hozzon l&amp;Atilde;&amp;copy;tre &amp;Atilde;&amp;ordm;j hirdet&amp;Atilde;&amp;copy;s kateg&amp;Atilde;&amp;sup3;ria" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Ad-kateg&amp;Atilde;&amp;sup3;ria l&amp;Atilde;&amp;copy;trehoz&amp;Atilde;&amp;iexcl;sa
 </a>
 </li>
 
@@ -312,37 +262,37 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Rendszerleíró adatbázis egyenlegek
+Rendszerle&amp;Atilde;&amp;shy;r&amp;Atilde;&amp;sup3; adatb&amp;Atilde;&amp;iexcl;zis egyenlegek
 </a>
 </li>
 
 <li>
-<a title="Hozzon létre szabályt vagy a hitelkeret" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+<a title="Hozzon l&amp;Atilde;&amp;copy;tre szab&amp;Atilde;&amp;iexcl;lyt vagy a hitelkeret" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Hitelkeret
 </a>
 </li>
 
 <li>
-<a title="Hozza létre a távoli vagy a helyi rendszerleíró adatbázis-Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-Hozza létre a rendszerleíró adatbázis Partner
+<a title="Hozza l&amp;Atilde;&amp;copy;tre a t&amp;Atilde;&amp;iexcl;voli vagy a helyi rendszerle&amp;Atilde;&amp;shy;r&amp;Atilde;&amp;sup3; adatb&amp;Atilde;&amp;iexcl;zis-Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Hozza l&amp;Atilde;&amp;copy;tre a rendszerle&amp;Atilde;&amp;shy;r&amp;Atilde;&amp;sup3; adatb&amp;Atilde;&amp;iexcl;zis Partner
 </a>
 </li>
 
 <li>
-<a title="Szolgáltatási díj vonatkozik minden fiók" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Alkalmazása a szolgáltatási díj
+<a title="Szolg&amp;Atilde;&amp;iexcl;ltat&amp;Atilde;&amp;iexcl;si d&amp;Atilde;&amp;shy;j vonatkozik minden fi&amp;Atilde;&amp;sup3;k" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Alkalmaz&amp;Atilde;&amp;iexcl;sa a szolg&amp;Atilde;&amp;iexcl;ltat&amp;Atilde;&amp;iexcl;si d&amp;Atilde;&amp;shy;j
 </a>
 </li>
 
 <li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
-Kötegelt könyvtárak létrehozása
+K&amp;Atilde;&amp;para;tegelt k&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;rak l&amp;Atilde;&amp;copy;trehoz&amp;Atilde;&amp;iexcl;sa
 </a>
 </li>
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Módosítása $$fieldsref{registry}
+M&Atilde;&sup3;dos&Atilde;&shy;t&Atilde;&iexcl;sa $$fieldsref{registry}
 </a>
 </li>
 
@@ -350,7 +300,7 @@ Módosítása $$fieldsref{registry}
 
 </div>
 
-<!-- Címke felhő és egyéni felhasználói statisztikák -->
+<!-- C&amp;Atilde;&amp;shy;mke felh&amp;Aring;&amp;#145; &amp;Atilde;&amp;copy;s egy&amp;Atilde;&amp;copy;ni felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;i statisztik&amp;Atilde;&amp;iexcl;k -->
 
 <div id="content">
 
@@ -396,7 +346,7 @@ Home
 </a>
 |
 <a href="#">
-Lépjen kapcsolatba velünk
+L&amp;Atilde;&amp;copy;pjen kapcsolatba vel&amp;Atilde;&amp;frac14;nk
 </a>
 <br />
 

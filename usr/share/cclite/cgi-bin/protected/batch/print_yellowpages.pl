@@ -18,7 +18,7 @@
 # these batch scripts are kept as eval, if they fail they print their problems
 # onto the status web page
 
-#print STDOUT "Content-type: text/html\n\n";
+#print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
 
 =head3 make_column_headings
 

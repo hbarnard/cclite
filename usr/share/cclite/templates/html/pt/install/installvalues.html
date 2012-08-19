@@ -21,7 +21,7 @@ Todas as opções
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="Atualizar configuração" type="submit">
+ name="saveadd" data-simple="yes" value="Configuração de atualização" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
@@ -50,7 +50,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="cpanel experimental prefixo, use com cuidado, nome de usuário uusally cpanel" class="menu">
+<td title="prefixo experimental cpanel, uso com cuidado, nome de usuário cpanel uusally" class="menu">
 prefixo do cPanel
 </td>
 <td class="pme-key-1">
@@ -72,7 +72,7 @@ usar casas decimais
 </tr>
 
 <tr>
-<td title="usar marcas de forma livre para páginas amarelas em vez de categorias fixas" class="menu">
+<td title="Use tags de forma livre para páginas amarelas em vez de categorias fixas" class="menu">
 usar tags
 </td>
 <td class="pme-key-1">
@@ -82,10 +82,10 @@ usar tags
 </td>
 </tr>
 
-<!-- abaixo aqui são os parâmetros completos -->
+<!-- aqui abaixo estão os parâmetros completos -->
 
 <tr>
-<td title="Este é o domínio como deduzido o caminho do script, precisa ser correta para cookies para trabalhar" class="menu">
+<td title="Este é o domínio, como deduzido do caminho do script, precisa ser correta para cookies trabalhar" class="menu">
 domínio
 </td>
 <td class="pme-key-1">
@@ -96,7 +96,7 @@ domínio
 </tr>
 
 <tr>
-<td title="Este é o servidor de smtp para correio, para o cpanel normalmente mesmo que o nome de domínio, localhost ou ip para os servidores internos" class="menu">
+<td title="Este é o servidor de smtp para o mail, para cpanel geralmente mesmo como ip para servidores internos, localhost ou o nome de domínio" class="menu">
 servidor SMTP
 </td>
 <td class="pme-key-1">
@@ -118,7 +118,7 @@ Casa
 </tr>
 
 <tr>
-<td title="Este é o tipo de hash usado para senha e token cálculos, sha2 é preferido, não pode ser alterado/misto uma vez configurado" class="menu">
+<td title="Este é o tipo de hash usado para cálculos de token e senha, sha2 é preferido, não podem ser alterados e misturados uma vez configurados" class="menu">
 tipo de hash
 </td>
 <td class="pme-key-1">
@@ -129,7 +129,7 @@ tipo de hash
 </tr>
 
 <tr>
-<td title="HTML, rss, arquivos de saída e gráficos, deduzidos da raiz do documento no servidor" class="menu">
+<td title="HTML, rss, arquivos de saída e gráficos, deduzidos a partir da raiz do documento no servidor" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,8 +140,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="status inicial de um pagamento, se em espera requer confirmação pelo recebimento de usuário" class="pme-key-title">
-status do pagamento inicial
+<td title="status inicial de um pagamento, se espera vai exigir a confirmação, recebendo o usuário" class="pme-key-title">
+status de pagamento inicial
 </td>
 <td class="pme-key-1">
 
@@ -151,7 +151,7 @@ status do pagamento inicial
 </tr>
 
 <tr>
-<td title="status inicial de um usuário, se não confirmados exigirá confirmação por email do usuário" class="pme-key-title">
+<td title="status inicial de um usuário, se não confirmada vai exigir a confirmação por e-mail de usuário" class="pme-key-title">
 status do usuário inicial
 </td>
 <td class="pme-key-1">
@@ -162,7 +162,7 @@ status do usuário inicial
 </tr>
 
 <tr>
-<td title="idioma padrão para mensagens e modelos" class="pme-key-title">
+<td title="linguagem padrão para mensagens e modelos" class="pme-key-title">
 língua
 </td>
 <td class="pme-key-1">
@@ -179,7 +179,7 @@ língua
 -->
 
 <tr>
-<td title="número de linhas, tela para relatórios tabulares" class="pme-key-title">
+<td title="número de linhas da tela de relatórios tabulares" class="pme-key-title">
 linhas por página
 </td>
 <td class="pme-key-1">
@@ -209,7 +209,7 @@ caminho para mensagens
 </tr>
 
 <tr>
-<td title="Se não, não é necessário Soap::Lite módulos" class="menu">
+<td title="Se não, não precisa de módulos Soap::Lite" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -240,7 +240,7 @@ multiregistry?
 </tr>
 
 <tr>
-<td title="não usadas diretamente, mas podem ser incluídas em modelos personalizados" class="pme-key-title">
+<td title="não usadas diretamente, mas pode ser incluído em modelos personalizados" class="pme-key-title">
 email de suporte
 </td>
 <td class="pme-key-1">
@@ -250,11 +250,11 @@ email de suporte
 </td>
 </tr>
 
-<!-- Isso não é necessariamente um email address válido, pode ser apenas um usuário interno para logon no servidor de correio -->
+<!-- Isso não é necessariamente um endereço de e-mail válido, pode ser apenas um usuário interno para fazer logon no servidor de email -->
 
 <tr>
-<td title="usado para enviar mensagens e fazer logon servidor smtp, configurar no cpanel, se necessário, primeiro" class="menu">
-endereço de correio electrónico do sistema
+<td title="usado para enviar e-mail e login no servidor de smtp, configurar no cpanel, se necessário, primeiro" class="menu">
+Endereço de email do sistema
 </td>
 <td >
 
@@ -263,11 +263,11 @@ endereço de correio electrónico do sistema
 </td>
 </tr>
 
-<!-- Isso não é necessariamente um email address válido, pode ser apenas um usuário interno para logon no servidor de correio -->
+<!-- Isso não é necessariamente um endereço de e-mail válido, pode ser apenas um usuário interno para fazer logon no servidor de email -->
 
 <tr>
-<td title="usado para ligar Net::SMTP para notificações etc. isto é preferido e será a única opção no futuro, 0 ou 1" class="menu">
-smtp líquido?
+<td title="usado para ligar Net::SMTP para notificações etc esta é preferida e será a única opção no futuro, 0 ou 1" class="menu">
+NET smtp?
 </td>
 <td >
 
@@ -277,8 +277,8 @@ smtp líquido?
 </tr>
 
 <tr>
-<td title="palavra-passe para iniciar sessão no endereço de correio electrónico do sistema no servidor smtp" class="menu">
-senha de e-mail do sistema
+<td title="senha para fazer logon no endereço de e-mail do sistema no servidor de smtp" class="menu">
+senha de email do sistema
 </td>
 <td >
 
@@ -288,8 +288,8 @@ senha de e-mail do sistema
 </tr>
 
 <tr>
-<td title="endereço de resposta para e-mails gerados, muitas vezes a fazer-não-resposta" class="pme-key-title">
-endereço de resposta do sistema de correio
+<td title="Endereço de resposta para e-mails gerados, muitas vezes fazer-não-resposta" class="pme-key-title">
+Endereço de resposta do sistema correio
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +299,7 @@ endereço de resposta do sistema de correio
 </tr>
 
 <tr>
-<td title="caminho para arquivos de modelo usada para a interface web, nada muito funcionará se isto é errado!" class="menu">
+<td title="caminho para arquivos de modelo usados para a interface web, nada muito funcionará se isso é errado!" class="menu">
 modelos
 </td>
 <td class="pme-key-1">
@@ -309,10 +309,10 @@ modelos
 </td>
 </tr>
 
-<!-- secção relativa aos arquivos em lotes -->
+<!-- seção que trata arquivos em lote -->
 
 <tr>
-<td title="base de saída caminho para gráficos de atividade na raiz da web, nome do registro é adicionado a esse caminho" class="pme-key-title">
+<td title="base de saída caminho para gráficos de atividade sob a raiz da web, nome de registro é adicionado a esse caminho" class="pme-key-title">
 diretório de gráfico
 </td>
 <td class="pme-key-1">
@@ -323,7 +323,7 @@ diretório de gráfico
 </tr>
 
 <tr>
-<td title="vai exigir módulos do perl rss para a geração de rss, se sim" class="pme-key-title">
+<td title="exigirá módulos do perl rss para a geração de rss, se sim" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,7 +344,7 @@ userss
 </tr>
 
 <tr>
-<td title="base de carregar caminho para transações em lotes, não deve ser na raiz da web" class="pme-key-title">
+<td title="base Carregar caminho para transações em lote, não deve ser sob a raiz da web" class="pme-key-title">
 diretório de CSV
 </td>
 <td class="pme-key-1">
@@ -355,7 +355,7 @@ diretório de CSV
 </tr>
 
 <tr>
-<td title="caixa de entrada para gammu recebido sms, não é necessário para os gateways de sms de http" class="pme-key-title">
+<td title="caixa de entrada para o gammu recebido sms, não é necessário para gateways de sms de http" class="pme-key-title">
 caixa de entrada de SMS
 </td>
 <td class="pme-key-1">
@@ -366,8 +366,8 @@ caixa de entrada de SMS
 </tr>
 
 <tr>
-<td title="caixa de entrada para o mail, método antigo, substituído pelo correio pop em cada registro" class="pme-key-title">
-diretório de readmail.PL
+<td title="caixa de entrada para o correio, método antigo, substituído pelo pop mail em cada registro" class="pme-key-title">
+diretório de readmail.pl
 </td>
 <td class="pme-key-1">
 
@@ -377,8 +377,8 @@ diretório de readmail.PL
 </tr>
 
 <tr>
-<td title="caminho de saída base para csv transações sob a raiz da web" class="pme-key-title">
-CSV fora
+<td title="caminho de saída de base para transações de csv na raiz da web" class="pme-key-title">
+CSV para fora
 </td>
 <td class="pme-key-1">
 
@@ -388,7 +388,7 @@ CSV fora
 </tr>
 
 <tr>
-<td title="base saída caminho para material impresso sob a raiz da web, nome do registro e linguagem é adicionado a esse caminho" class="pme-key-title">
+<td title="saída de base caminho para material impresso sob a raiz da web, nome de registro e linguagem é adicionado a esse caminho" class="pme-key-title">
 caminho de impressão
 </td>
 <td class="pme-key-1">
@@ -399,8 +399,8 @@ caminho de impressão
 </tr>
 
 <tr>
-<td title="base saída caminho rss, nome de registro e linguagem é adicionado a esse caminho" class="pme-key-title">
-base de alimentação de diretório
+<td title="saída de base caminho rss, nome de registro e linguagem é adicionado a esse caminho" class="pme-key-title">
+Directório de canais de base
 </td>
 <td class="pme-key-1">
 
@@ -410,8 +410,8 @@ base de alimentação de diretório
 </tr>
 
 <tr>
-<td title="base de diretório para gammu resultados, não é necessário para os gateways de sms de http" class="pme-key-title">
-SMS fora
+<td title="base Directory para gammu resultados, não é necessário para gateways de sms de http" class="pme-key-title">
+SMS para fora
 </td>
 <td class="pme-key-1">
 
@@ -421,7 +421,7 @@ SMS fora
 </tr>
 
 <tr>
-<td title="gammu entrada processada localmente se for 1, caso contrário isso usa soap para processar remotamente" class="pme-key-title">
+<td title="Gammu entrada processada localmente, se 1, caso contrário isso usa soap processo remotamente" class="pme-key-title">
 sms local?
 </td>
 <td class="pme-key-1">

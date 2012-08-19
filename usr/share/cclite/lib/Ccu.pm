@@ -34,8 +34,6 @@ use vars qw(@ISA @EXPORT);
 use Exporter;
 use Data::Dumper;
 
-
-
 #use Log::Message::Simple qw[msg error debug carp croak cluck confess];
 
 my $VERSION = 1.00;
@@ -338,8 +336,10 @@ EOT
 
     }
 
+# changed to utf-8 8/2012 to deal with multiple languages...
+
     print <<EOT;
-Content-type: text/html
+Content-Type: text/html; charset=utf-8
 $cookies
 EOT
 
@@ -383,7 +383,6 @@ sub getdateandtime {
       sprintf( "%.2d/%.2d/%.4d", $mday, $lmon, ( $lyear + 1900 ) );
     return ( $numeric_day, $time );
 }
-
 
 =head3 error
 
@@ -469,7 +468,7 @@ This is also probably dead code
 
 sub printhead {
     print <<EOT;
-Content-type: text/html
+Content-Type: text/html; charset=utf-8
 
 EOT
     return;
@@ -641,7 +640,13 @@ sub get_os_and_distribution {
     # guessing at cpanel because the whole thing is under the document root
     my $path = ( getcwd() || `pwd` ) if ( $os eq 'linux' );
     if ( $path =~ /public_html/i && $os eq 'linux' ) {
-        $distribution .= ' probably cpanel';
+        my $cpanel =
+          `/usr/local/cpanel/cpanel -V`;    # better test for cpanel 07/2012
+        if ( length($cpanel) ) {
+            $distribution .= ' cpanel';
+        } else {
+            $distribution .= ' probably cpanel';
+        }
     }
     return ( $os, $distribution, $package_type );
 }

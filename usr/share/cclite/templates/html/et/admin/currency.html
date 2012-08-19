@@ -1,0 +1,195 @@
+
+
+<form class="pme-form" id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<input name="subaction" value="om_currencies" type="hidden">
+
+<input name="action" value="addcurrency" type="hidden">
+
+<table class="pme-main" summary="om_currencies">
+
+<tbody class="stripy">
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+</td>
+
+<td class="pme-value-1">
+<span class="errors">
+$$fieldsref{errors}
+</span>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Nimi
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="cname" size="30" maxlength="30" value="$$fieldsref{cname}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Kood
+</td>
+
+<td class="pme-value-1">
+
+<input class="required"
+ name="code" size="3" maxlength="3" value="$$fieldsref{code}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+Kirjeldus
+</td>
+
+<td class="pme-value-0">
+
+<input class="required"
+ name="description" size="30" maxlength="30" value="$$fieldsref{description}" type="text">
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Olek
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="status">
+
+<option value="active" selected="selected">
+aktiivne
+</option>
+
+<option value="suspended">
+peatatud
+</option>
+
+<option value="predelete">
+predelete
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Tüüp
+</td>
+
+<td class="pme-value-1">
+
+<select class="required" name="type">
+
+<option value="lets" selected="selected">
+VÕIMALDAB
+</option>
+
+<option value="local">
+Kohalike
+</option>
+
+<option value="hours">
+Tundi
+</option>
+
+<option value="demurrage">
+Üleseisukulude
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-1">
+
+<td class="pme-key-1">
+Liikmelisus
+</td>
+
+<td class="pme-value-1">
+
+<select class="pme-input-1" name="membership">
+
+<option value="open" selected="selected">
+Avatud
+</option>
+
+<option value="closed">
+Suletud
+</option>
+
+</select>
+
+</td>
+
+</tr>
+
+<tr class="pme-row-0">
+
+<td class="pme-key-0">
+E-posti
+</td>
+
+<td class="pme-value-0">
+
+<input class="required email"
+ name="mail" size="30" maxlength="30" value="$$fieldsref{mail}" type="text">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<table class="pme-navigation">
+
+<tbody>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save" name="saveadd" value="Loomine" type="submit">
+&nbsp;
+<input class="pme-cancel" name="cancel" value="Loobu" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</form>

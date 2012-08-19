@@ -1,0 +1,483 @@
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+
+<table>
+<tbody class="stripy">
+
+<form  name="installvalues" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
+
+<select class="small" name="install_type" id="install_type" onchange="change_install();">
+
+<option selected value="simple">
+Lihtne
+</option>
+
+<option value="full">
+Kõik suvandid
+</option>
+
+</select>
+
+<input class="small"
+ name="saveadd" data-simple="yes" value="Värskenduste konfigureerimine" type="submit">
+
+<input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
+
+<input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
+
+<tr>
+<td title="see on mysql andmebaasi kasutaja" class="menu">
+dbuser
+</td>
+<td class="pme-key-1">
+
+<input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
+
+</td>
+</tr>
+
+<tr>
+<td title="see on mysql andmebaasi parooli" class="menu">
+dbpassword
+</td>
+<td class="pme-key-1">
+
+<input id="dbpassword" data-simple="yes" type="password"  class="required" name="dbpassword" size="60" value="$$fieldsref{dbpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="katse cpanel eesliide, kasutamist hoolikalt, uusally cpanel kasutaja nimi" class="menu">
+cPanel prefiks
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" name="cpanelprefix" size="15" value="$$fieldsref{cpanelprefix}">
+
+</td>
+</tr>
+
+<tr>
+<td title="valuutade koma Kuva" class="menu">
+Kasutage kümnendkohta.
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usedecimals" size="3" value="$$fieldsref{usedecimals}">
+
+</td>
+</tr>
+
+<tr>
+<td title="kollased leheküljed fikseeritud kategooriate asemel vabas vormis siltide kasutamine" class="menu">
+siltide kasutamine
+</td>
+<td class="pme-key-1">
+
+<input type="text" data-simple="yes" class="required" name="usetags" size="3" value="$$fieldsref{usetags}">
+
+</td>
+</tr>
+
+<!-- Siin allpool on täielik parameetrid -->
+
+<tr>
+<td title="see on domeeni skripti tee pikkuse põhjal, vajab õigeks töötamiseks küpsiste kohta" class="menu">
+domeen
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1"  class="required" name="domain" size="60" value="$$fieldsref{domain}">
+
+</td>
+</tr>
+
+<tr>
+<td title="see on e-posti cpanel smtp-serveri tavaliselt sama domeeni nimi, localhost või sisemise serverite ip" class="menu">
+SMTP-server
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smtp" size="60" value="$$fieldsref{smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="peamine kasutaja skripti cclite" class="menu">
+Avaleht
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required"  name="home" size="60" value="$$fieldsref{uhome}">
+
+</td>
+</tr>
+
+<tr>
+<td title="see on parool ja sümboolne arvutustes kasutatud räsi tüüp, eelistatud on sha2, ei saa muuta/kombineeritud kord moodustada" class="menu">
+räsi tüüp
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" id="hash_type" "class="required" name="hash_type" size="60" value="$$fieldsref{hash_type}">
+
+</td>
+</tr>
+
+<tr>
+<td title="HTML, rss, väljundfailide ja diagrammid, mahtuvustegurist dokumendi juurkaust jooksul server" class="menu">
+htmlpath
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" lass="required"  name="htmlpath" size="60" value="$$fieldsref{htmlpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="esialgse makse kui ootel nõuab kinnituse saamist kasutaja olek" class="pme-key-title">
+Esialgne makse olek
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="initialpaymentstatus" size="60" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="kasutaja, kui kinnitamata esialgne seisund nõuab kinnitust kasutaja e-posti teel" class="pme-key-title">
+esialgne kasutaja olek
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" name="initialuserstatus" size="60" value="$$fieldsref{initialuserstatus}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Tekstisõnumid ja Blanketid vaikekeele" class="pme-key-title">
+keel
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="language" size="60" value="$$fieldsref{language}">
+
+</td>
+</tr>
+
+<!-- now hardcoded as relative within all scripts 
+<tr><td title="path to cclite perl modules, nothing will work if this is wrong!" class="menu">librarypath</td><td class="pme-key-1">
+    <input type="text" class="required" name="librarypath" size="60" value="$$fieldsref{librarypath}">
+</td></tr>
+-->
+
+<tr>
+<td title="tabeli aruannete jaoks ekraani ridade arv" class="pme-key-title">
+ridu lehekülje kohta
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="linesperpage" size="60" value="$$fieldsref{linesperpage}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sõnumite faili tee, toimib midagi juhul, kui see on vale!" class="menu">
+tee sõnumite puhul
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" name="literalspath" size="60" value="$$fieldsref{literalspath}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">menustyle</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="menustyle" size="60" value="$$fieldsref{menustyle}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="Kui ei, ei pea Soap::Lite moodulid" class="menu">
+multiregistry?
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="multiregistry" size="60" value="$$fieldsref{multiregistry}">
+
+</td>
+</tr>
+
+<!--
+<tr><td title="not used currently" class="pme-key-title">ping_interval</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly"  name="ping_interval" size="60" value="notused">
+</td></tr>
+<tr><td title="not used currently" class="menu">registrypublickey</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="registrypublickey" size="60" value="notused">
+
+</td></tr>
+
+<tr><td title="not used currently" class="pme-key-title">secure</td><td class="pme-key-1">
+    <input type="text" class="grey" readonly="readonly" name="secure" size="60" value="$$fieldsref{secure}">
+</td></tr>
+
+<tr><td title="not used currently"  class="pme-key-title">servicechargelimit</td><td class="pme-key-1">
+    <input type="text" class="required"  name="servicechargelimit" size="60" value="$$fieldsref{servicechargelimit}">
+-->
+
+</td>
+</tr>
+
+<tr>
+<td title="ei kasutata otseselt, vaid saate lisada kohandatud mallid" class="pme-key-title">
+toetab e-posti
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="supportmail" size="60" value="$$fieldsref{supportmail}">
+
+</td>
+</tr>
+
+<!-- see ei ole kindlasti kehtiv e-posti aadress, võib olla lihtsalt sisemine kasutaja e-posti serverisse sisselogimiseks -->
+
+<tr>
+<td title="saata e-posti ja smtp-server, vajaduse korral cpanel, seadistada siseneda esimese" class="menu">
+süsteemi e-posti aadress
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailaddress" size="60" value="$$fieldsref{systemmailaddress}">
+
+</td>
+</tr>
+
+<!-- see ei ole kindlasti kehtiv e-posti aadress, võib olla lihtsalt sisemine kasutaja e-posti serverisse sisselogimiseks -->
+
+<tr>
+<td title="0 või 1 teatised jne see on eelistatud ja tulevikus ainus võimalus Net::SMTP lülitada abil" class="menu">
+neto smtp?
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="net_smtp" size="1" value="$$fieldsref{net_smtp}">
+
+</td>
+</tr>
+
+<tr>
+<td title="süsteemi e-posti aadress smtp-serveri sisselogimiseks parooli" class="menu">
+e-posti süsteemi parool
+</td>
+<td >
+
+<input type="text" readonly="1" class="required" name="systemmailpassword" size="60" value="$$fieldsref{systemmailpassword}">
+
+</td>
+</tr>
+
+<tr>
+<td title="vastuse aadress loodud meile, sageli ei-ei-vastuse" class="pme-key-title">
+süsteemi vastuse meiliaadress
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required email" name="systemmailreplyaddress" size="60" value="$$fieldsref{systemmailreplyaddress}">
+
+</td>
+</tr>
+
+<tr>
+<td title="mallifailid veebiliidese kasutatava tee, midagi palju toimib juhul, kui see on vale!" class="menu">
+Mallid
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="templates" size="60" value="$$fieldsref{templates}">
+
+</td>
+</tr>
+
+<!-- jaotises, mis käsitleb partii failidega -->
+
+<tr>
+<td title="Base toodangu tee tegevuse diagrammide veebi juurkataloogi alusel, registri nimi lisatakse see tee" class="pme-key-title">
+Diagrammi register
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="chartdir" size="60" value="$$fieldsref{chartdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="nõuab perl rss moodulite genereerimiseks, rss, kui jah" class="pme-key-title">
+userss
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="userss" size="60" value="$$fieldsref{userss}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base laadida tee tehinguid, ei tohiks veebi juurkataloogi alusel" class="pme-key-title">
+CSV register
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvpath" size="60" value="$$fieldsref{csvpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu sai SMS-i, ei ole vaja http sms lüüsid sisse" class="pme-key-title">
+SMS-i sisse
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sisendkausta meili, pop e-posti igas registris asendada vana meetod" class="pme-key-title">
+readmail.PL register
+</td>
+<td class="pme-key-1">
+
+<input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base toodangu tee csv veebi juurkataloogi kohaste tehingute puhul" class="pme-key-title">
+CSV läbi
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="csvout" size="60" value="$$fieldsref{csvout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base toodangu trükitud materjali veebi juurkataloogi, registri nimi ja keele tee täiendatakse seda teed" class="pme-key-title">
+Prindi tee
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="printdir" size="60" value="$$fieldsref{printdir}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base toodangu rss, registri nimi ja keele tee täiendatakse seda teed" class="pme-key-title">
+Base sööda register
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="rsspath" size="60" value="$$fieldsref{rsspath}">
+
+</td>
+</tr>
+
+<tr>
+<td title="Base directory gammu tulemusi, ei ole vaja http sms lüüsid läbi" class="pme-key-title">
+SMS läbi
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="smsout" size="60" value="$$fieldsref{smsout}">
+
+</td>
+</tr>
+
+<tr>
+<td title="gammu sisend kui 1 kohapeal töödeldud, muul see kasutab seep eemalt töödelda" class="pme-key-title">
+kohaliku sms?
+</td>
+<td class="pme-key-1">
+
+<input type="text"  readonly="1" class="required" name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+</tr>
+
+<tr>
+<td colspan="2" class="pme-key-title">
+<hr/>
+
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="Log4perl konfiguratsioon faili tee" class="pme-key-title">
+logger config tee
+</td>
+<td class="pme-key-1">
+
+<input type="text" readonly="1" class="required" name="loggerconfig" size="60" value="$$fieldsref{loggerconfig}">
+
+</td>
+</tr>
+
+<tr>
+<td ctitle="current cclite version" lass="pme-key-title">
+versioon
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" class="grey" readonly="1" name="version" size="5" value="$$fieldsref{version}">
+
+</td>
+</tr>
+
+<tr class="pme-navigation">
+
+<td class="pme-buttons">
+
+<input class="pme-save"
+ name="saveadd" data-simple="yes" value="Värskendus" type="submit">
+&nbsp;
+<input class="pme-cancel"
+ name="cancel" data-simple="yes" value="Selge" type="reset">
+
+</td>
+
+</tr>
+
+</tbody>
+</table>
+
+</form>

@@ -51,7 +51,7 @@
 	<!-- specific, is cookies necessary now? -->
 	<script src="/javascript/cookies.js" type="text/javascript"></script>
 	<script src="/javascript/striper.js" type="text/javascript"></script>
-	<script src="/javascript/cclite.js" type="text/javascript"></script>    
+	<script src="/javascript/cclite.js" charset="utf-8" type="text/javascript"></script>      
 
     <!-- this is the script that logs users out when the system is being brought down -->
     <script type="text/javascript">
@@ -63,7 +63,7 @@
 
 </head>
 <body>
-<!-- search for users,trades, ads -->
+<div id="distribution" class="hidden">$$fieldsref{distribution}</div><!-- switch off direct creation if cpanel -->
 <br/>
 <div align="right">       
 
@@ -74,6 +74,7 @@
        
 			<!-- language selector version 1  -->
 				<select id="language_value" class="small" onchange="change_language(this);" name="language">
+				<!--	
 					<option value='en'>English</option>
 					<option value='ar'>Arabic</option>
 					<option value='bn'>Bengali [partial]</option>
@@ -90,7 +91,13 @@
 					<option value='ro'>Romanian</option>
 					<option value='ru'>Russian</option>
 					<option value='th'>Thai</option>
-					<option value='vi'>Vietnamese</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 				</select>
 			<!--  language selector version 1 end  -->
 
@@ -107,7 +114,7 @@
 		<h1><a href="/cgi-bin/cclite.cgi">Cclite Install</a></h1>
 
 	</div>
-		
+		$$fieldsref{environment} 
 	<div id="menu">
 		<ul>
                         <li class="first"><a title="Google group for support" href="http://groups.google.co.uk/group/cclite?hl=en">Want Help?</a></li>
@@ -116,7 +123,7 @@
 </li>
 			<li><a title="User Menu" href="/cgi-bin/cclite.cgi">User Menu</a></li>
 			<li><a id="updateconfig" title="Update conifguration stored in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">Update Configuration</a></li>
-			<li><<a id="newregistry" title="Create New Registry" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">Create New Registry</a></li>
+			<li><a id="newregistry" title="Create New Registry" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">Create New Registry</a></li>
 			<li><a id="showregistry" title="Show Current Cclite Registries" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">Show Registries</a></li>
 			<li><a id="installcheck" title="Run the Install Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">Check Install Requirements</a></li>
 			
@@ -129,6 +136,8 @@
 	<div id="content">
 		<div id="primaryContentContainer">
 		  <div id="primaryContent">
+ 
+			  
 !$$fieldsref{pagename}
 		  </div>
                 </div>

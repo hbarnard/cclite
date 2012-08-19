@@ -2,7 +2,7 @@
 
 my $test = 0;
 if ($test) {
-    print STDOUT "Content-type: text/html\n\n";
+    print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
     my $data = join( '', <DATA> );
     eval $data;
     if ($@) {
@@ -182,7 +182,13 @@ sub get_os_and_distribution {
     # guessing at cpanel because the whole thing is under the document root
     my $path = `pwd` if ( $os eq 'linux' );
     if ( $path =~ /public_html/i && $os eq 'linux' ) {
-        $distribution .= ' probably cpanel';
+        my $cpanel =
+          `/usr/local/cpanel/cpanel -V`;    # better test for cpanel 07/2012
+        if ( length($cpanel) ) {
+            $distribution .= ' cpanel';
+        } else {
+            $distribution .= $sys_message{'probably'} . ' cpanel';
+        }
     }
 
     return ( $os, $distribution, $package_type );
@@ -259,7 +265,7 @@ sub show_problems {
     my ( $os, $distribution, $package_type, $login, @messages ) = @_;
     my $errors = join( "</td></tr><tr><td>", @messages );
 
-    print "Content-type: text/html\n\n";
+    print "Content-Type: text/html; charset=utf-8\n\n";
     print <<EOT;
      <html>
       <head>
@@ -269,7 +275,7 @@ sub show_problems {
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite 0.9.0 Installer: Problems</title>
+<title>Cclite 0.9.1 Installer: Problems</title>
 
 
 
@@ -431,6 +437,8 @@ on Fedora/Redhat and commodity hosting this is often of form:
 /home/<domain>/var/cclite/log/cclite.log
 /home/<domain>/domains/<subdomain>/var/cclite/log/cclite.log
 
+Dead code now, as of 2012
+
 =cut
 
 sub check_log_path {
@@ -442,8 +450,7 @@ sub check_log_path {
     #FIXME: remove double slash in some log paths
     $log_path =~ s/\/\//\//;
 
-    ###print "log path is $log_path" ;
-
+ 
     # can't find log directory or can't write to it..
     if ( !-e $log_path || !-w $log_path ) {
         $message = <<EOT;
@@ -613,7 +620,12 @@ my $offset = $fields{offset};
 $fields{hash_type} = $hash_type if ($newinstall);
 
 #FIXME: no configuration file at this stage, but hard-code horror...
-$fields{version} ||= "0.9.0";
+$fields{version} ||= "0.9.1";
+
+
+# read here to announce OS, cpanel etc.
+our %sys_message = readmessages() ;
+
 
 # number of records per page in lists ex-db tables, provided in cclite.cf
 my $limit = $fields{limit} || 15;
@@ -648,6 +660,9 @@ $token = $registry_private_value =
 $fields{os}           = $os;
 $fields{package_type} = $package_type;
 $fields{distribution} = $distribution;
+
+# message at top of install fields, helpful for remote support...
+$fields{environment}  = "$sys_message{environmentis}  $fields{os} $fields{distribution} : $sys_message{packagetype} $fields{package_type}" ;
 
 #
 my $fieldsref = \%fields;

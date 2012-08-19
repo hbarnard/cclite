@@ -15,7 +15,7 @@
 #---------------------------------------------------------------------------
 #
 
-print STDOUT "Content-type: text/html\n\n";
+print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
 
 # this should give errors in the status line of the admin page
 my $data = join( '', <DATA> );

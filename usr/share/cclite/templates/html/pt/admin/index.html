@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Lançado gratuitamente sob uma Creative Commons Attribution 2.5 License -->
+<!-- Design por Free CSS Templates&#xD;	http://www.FreeCSStemplates.org&#xD;	Lançado gratuitamente sob uma Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -54,7 +54,7 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- bibliotecas JavaScript, precisará versões Substitute compactado em um certo momento -->
+<!-- bibliotecas de JavaScript, precisará substituir comprimido versões em algum estágio -->
 
 <!-- itens de jQuery -->
 
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
-<!-- representar graficamente -->
+<!-- representação gráfica -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Este é o script que faz os usuários logoff quando o sistema está sendo trazido para baixo -->
+<!-- Este é o script que faz logoff usuários quando o sistema está sendo trazido para baixo -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +118,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Essa opção ativa de ligar/desligar o material de ponto decimal -->
+<!-- Este interruptor liga e desliga as coisas de ponto decimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -153,91 +153,41 @@ Anúncios
 
 </select>
 
-<input value="Vá" class="small" type="submit" title="Procure por comércios, anúncios ou usuários">
+<input value="Ir" class="small" type="submit" title="Procure por comércios, anúncios ou usuários">
 
 </form>
 
-<!-- final da caixa de pesquisa de AutoCompletar -->
+<!-- fim da caixa de pesquisa do AutoCompletar -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- versão de seletor de idioma 1 -->
+<!-- Versão 1 do seletor de idioma -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-Inglês
-</option>
-
-<option value='ar'>
-Árabe
-</option>
-
-<option value='bn'>
-Bengali [parcial]
-</option>
-
-<option value='zh'>
-Chinês
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-Holandês
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-Grego
-</option>
-
-<option value='ja'>
-Japonês
-</option>
-
-<option value='ko'>
-Coreano
-</option>
-
-<option value='pt'>
-Português
-</option>
-
-<option value='ro'>
-Romeno
-</option>
-
-<option value='ru'>
-Russo
-</option>
-
-<option value='th'>
-Tailandês
-</option>
-
-<option value='vi'>
-Vietnamita
-</option>
+<!--	<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- final de versão 1 de seletor de idioma -->
+<!-- fim de versão 1 de seletor de idioma -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -271,19 +221,19 @@ Cclite Admin
 
 <li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
-Menu do usuário
+Menu de usuário
 </a>
 </li>
 
 <li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-Alterar o Status de $$fieldsref{registry}
+Alterar Status de $$fieldsref{registry}
 </a>
 
 </li>
 
 <li>
-<a class="bodytext" title="Visualizar registos de parceiro vinculados" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Visualizar registos de sócio vinculado" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Parceiros
 </a>
 </li>
@@ -295,14 +245,14 @@ Criar moeda
 </li>
 
 <li>
-<a class="bodytext" title="Mostrar moedas em" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+<a class="bodytext" title="Visualizar moedas em" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 Visualizar moedas
 </a>
 </li>
 
 <li>
-<a class="bodytext"title="Criar nova categoria de anúncios" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Criar categoria de anúncios
+<a class="bodytext"title="Criar nova categoria Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Criar categoria Ad
 </a>
 </li>
 
@@ -312,7 +262,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Registro saldos
+Saldos de registro
 </a>
 </li>
 
@@ -323,14 +273,14 @@ Limite de crédito
 </li>
 
 <li>
-<a title="Criar remoto ou parceiro de registro Local" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Criar remoto ou parceiro Local de registro" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Criar parceiro de registro
 </a>
 </li>
 
 <li>
-<a title="Aplicar taxa de serviço a todas as contas" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Aplicar taxa de serviço
+<a title="Aplicar a taxa de serviço para todas as contas" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Aplicar a taxa de serviço
 </a>
 </li>
 
@@ -350,7 +300,7 @@ Modificar $$fieldsref{registry}
 
 </div>
 
-<!-- nuvem de tags e estatísticas de usuário individual -->
+<!-- Estatísticas de usuário individual e tag cloud -->
 
 <div id="content">
 
@@ -396,7 +346,7 @@ Casa
 </a>
 |
 <a href="#">
-Fale conosco
+Contacte-nos
 </a>
 <br />
 

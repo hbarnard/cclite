@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite ！$ $fieldsref{バージョン} ！インストール
+Cclite ！$ $fieldsref{のバージョン} ！インストール
 </title>
 
 <meta name="keywords" content="" />
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- グラフ -->
+<!-- グラフの作成 -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- これは、システムを停止されている場合、ユーザーのログオフ スクリプトです。 -->
+<!-- これは、システムをダウンされているときにユーザーがログアウト スクリプトです。 -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +118,10 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- 検索ユーザー、取引、広告 -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- 場合は直接作成をオフに切り替える cpanel -->
 
 <br/>
 
@@ -135,73 +138,30 @@ $$fieldsref{status_message}
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-英語
-</option>
-
-<option value='ar'>
-アラビア語
-</option>
-
-<option value='bn'>
-ベンガル語 [部分]
-</option>
-
-<option value='zh'>
-中国語
-</option>
-
-<option value='de'>
-ドイツ
-</option>
-
-<option value='nl'>
-オランダ語
-</option>
-
-<option value='fr'>
-フランス語
-</option>
-
-<option value='es'>
-ギニア
-</option>
-
-<option value='it'>
-イタリア語
-</option>
-
-<option value='el'>
-ギリシャ語
-</option>
-
-<option value='ja'>
-日本語
-</option>
-
-<option value='ko'>
-韓国語
-</option>
-
-<option value='pt'>
-ポルトガル語
-</option>
-
-<option value='ro'>
-ルーマニア語
-</option>
-
-<option value='ru'>
-ロシア語
-</option>
-
-<option value='th'>
-タイ語
-</option>
-
-<option value='vi'>
-ベトナム語
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
@@ -232,27 +192,27 @@ Cclite インストール
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
 
 <li class="first">
 <a title="Google グループのサポート" href="http://groups.google.co.uk/group/cclite?hl=en">
-助けをしたいですか？
+ヘルプしたいですか？
 </a>
 </li>
 
 <li>
-<a title="管理メニュー" href="/cgi-bin/protected/ccadmin.cgi">
-管理メニュー
+<a title="管理者メニュー" href="/cgi-bin/protected/ccadmin.cgi">
+管理者メニュー
 </a>
 
 </li>
 
 <li>
-<a title="ユーザー メニュー" href="/cgi-bin/cclite.cgi">
-ユーザー メニュー
+<a title="ユーザーのメニュー" href="/cgi-bin/cclite.cgi">
+ユーザーのメニュー
 </a>
 </li>
 
@@ -263,7 +223,6 @@ Cclite インストール
 </li>
 
 <li>
-<
 <a id="newregistry" title="新しいレジストリを作成します。" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 新しいレジストリを作成します。
 </a>
@@ -285,7 +244,7 @@ Cclite インストール
 
 </div>
 
-<!-- タグ雲と個々 のユーザーの統計情報 -->
+<!-- タグの雲と個々 のユーザーの統計 -->
 
 <div id="content">
 

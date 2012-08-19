@@ -88,6 +88,24 @@ function validatedecimals(id, amount) {
  }
 
 
+/* switch off direct registry creation if cpanel */
+
+function cpanel_install() {
+
+
+     // see whether we are using decimal point
+     var cp = $('div#distribution').text();
+     var patt1 = /cpanel/ ;
+     var patt2 = /probably/ ;
+     
+     // certainly cpanel found in binaries
+     if (cp.search(patt1) != -1 && cp.search(patt2) == -1) {
+		 $('a#newregistry').css('text-decoration', 'strikethrough'); 
+     } 
+     return;
+
+ }
+
 
  /* multilingual messages 
  these are js- prefixed messages in the 'normal' literals
@@ -144,6 +162,9 @@ problems in drop down, chinese, arabic etc.  08/2011
 
 function build_language_selects (messages) {
 
+// $('#language_value').empty();
+
+
 var language_keys = new Array(
 "english-en",
 "french-fr",
@@ -154,13 +175,12 @@ var language_keys = new Array(
 "chinese-zh",
 "portugese-pt",
 "italian-it",
-"japanese-ja",
 "greek-el",
 "arabic-ar",
 "japanese-ja", 
 "korean-ko", 
 "bengali-bn", 
-"vietnames-vi",
+"vietnamese-vi",
 "ukranian-uk",
 "indonesian-id",
 "hungarian-hu",
@@ -171,13 +191,18 @@ var language_keys = new Array(
 
 $.each(language_keys, function(index,value)
 {   
+  
+  
      var literal = value.split('-') ;
-     // alert ('literal is ' + literal) ;
+     // alert ('literal is ' + literal + '' + index) ;
      $('#language_value').
           append($("<option></option>").
           attr("value",literal[1]).
           text(messages.get(literal[0]))); 
+    // alert ('literal is ' + literal[0] + ' ' + literal[1] + ' ' + messages.get(literal[0])) ;     
+          
  });  
+
 
 
   $.each(language_keys, function(index, value)
@@ -187,6 +212,7 @@ $.each(language_keys, function(index,value)
           attr("value",value).
           text(messages.get(value))); 
  });
+
 
  }
 
@@ -610,6 +636,26 @@ can be used to transmit errors from the script into the page */
      }
  }
 
+
+// sort options list, used for languages only at present
+
+$.fn.sort_select_box = function(){
+    // Get options from select box
+    var my_options = $("#" + this.attr('id') + ' option');
+    // sort alphabetically
+    my_options.sort(function(a,b) {
+        if (a.text > b.text) return 1;
+        else if (a.text < b.text) return -1;
+        else return 0
+    })
+   //replace with sorted my_options;
+   $(this).empty().append( my_options );
+
+   // clearing any selections
+   $("#"+this.attr('id')+" option").attr('selected', false);
+}
+
+
  
 
  function poptastic(url) {
@@ -626,6 +672,12 @@ can be used to transmit errors from the script into the page */
     // new style messages from literals.<language-code>
     messages = readmessages();
     
+    // cpanel install, grey out registry create if cpanel
+    cpanel_install() ;
+    
+  
+;
+    
     setInterval('blinktext()',10000) ;
     
     // make the language menu follow the current language
@@ -634,7 +686,10 @@ can be used to transmit errors from the script into the page */
     }
     // searchbox_helper_strings (messages) ;
     // language selects in target language from literals
-    build_language_selects(messages) ;
+     build_language_selects(messages) ;
+    
+    // sort the list of language values, not sure what'll happen with non-western!
+     $('#language_value').sort_select_box();
 
     // hide fields omly if in the installer
     if ($("#install_type").length > 0){

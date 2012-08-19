@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Reg nome
+Nome de reg
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- Observação caminho explícito no cookie definindo, caminho contrário está definida para o cgi-bin -->
+<!-- valor de caminho explícito de nota em cookie definindo, caminho contrário está definido para o cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -108,7 +108,7 @@ Email
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Número/casa nome
+Casa de número/nome
 </td>
 
 <td class="pme-value-1">
@@ -197,7 +197,7 @@ Telefone fixo
 <tr class="pme-row-1">
 
 <td  class="pme-key-0">
-Telefone celular
+Telefone móvel
 </td>
 
 <td class="pme-value-1">
@@ -211,7 +211,7 @@ Telefone celular
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Pino para telefone móvel transações
+Pino para telefone móvel de transações
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ Pino para telefone móvel transações
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Confirmar Pin para transações de telefone celular
+Confirme o Pin para operações do telefone móvel
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ Recibos de pagamento de SMS
 
 <tr class="pme-row-1">
 
-<td title="Esta é a identificação da chave pública para transações criptografadas" class="pme-key-0">
-Id da chave pública
+<td title="Este é o id da chave pública para transações criptografadas" class="pme-key-0">
+Identificação de chave pública
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ Nome completo
 
 <td class="pme-buttons">
 
-<!-- Nós apagar o cookie do registro aqui, caso contrário ele vai impedir um início de sessão limpo mais tarde -->
+<!-- vamos apagar o cookie do registro aqui, caso contrário ele vai evitar um logon limpo mais tarde -->
 
 <input class="pme-save"
  name="saveadd" value="Criar" onClick="eraseCookie('registry');" type="submit">

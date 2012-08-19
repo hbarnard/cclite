@@ -399,13 +399,13 @@ my $statement_year  = $fields{'year'}      || $ARGV[1] || 2011;
 my $user_or_all     = $fields{'userorall'} || $ARGV[2] || 'all';
 
 if ( !length($statement_month) || !length($statement_year) ) {
-    print "Content-type: text/html\n\n";
+    print "Content-Type: text/html; charset=utf-8\n\n";
     print "need month and year for statements\n\n";
     exit 0;
 }
 
 if ( !is_admin ) {
-    print "Content-type: text/html\n\n";
+    print "Content-Type: text/html; charset=utf-8\n\n";
     print $messages{'notadmin'};
     exit 0;
 }
@@ -456,7 +456,7 @@ if ( $user_or_all eq 'all' ) {
 
 # exit if there aren't any
 if ( !length($user_hash_ref) || length($registry_error) ) {
-    print "Content-type: text/html\n\n";
+    print "Content-Type: text/html; charset=utf-8\n\n";
     print "no valid user or database problem\n\n";
     exit 0;
 }

@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Reg nome
+Nome reg
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- Nota percorso esplicito valore nel cookie impostando, altrimenti percorso è impostato per cgi-bin -->
+<!-- Nota percorso esplicito nel cookie impostando, altrimenti percorso &Atilde;&uml; impostato per cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,8 +47,8 @@ Reg nome
 
 <tr class="pme-row-1">
 
-<td title="Ha bisogno di essere più di 3 caratteri, lettere, numeri e _ solo" class="pme-key-0">
-Nome dell'account
+<td title="Deve essere pi&Atilde;&sup1; di 3 caratteri, lettere, numeri e _ solo" class="pme-key-0">
+Nome account
 <br>
 
 </td>
@@ -108,7 +108,7 @@ Posta elettronica
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Nome numero/House
+Nome-numero House
 </td>
 
 <td class="pme-value-1">
@@ -123,7 +123,7 @@ Nome numero/House
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Nome della via
+Nome della strada
 </td>
 
 <td class="pme-value-1">
@@ -138,7 +138,7 @@ Nome della via
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Città
+Citt&Atilde;&nbsp;
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ Telefono cellulare
 
 <td class="pme-value-1">
 
-<input title="Si prega di inserire questo numero in formato internazionale 44777766666" class="pme-input-1"
+<input title="Si prega di mettere questo numero in formato internazionale 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ Telefono cellulare
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Pin per le transazioni di telefonia Mobile
+Pin per le operazioni di telefonia Mobile
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ Pin per le transazioni di telefonia Mobile
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Confermare il Pin per le transazioni di telefonia Mobile
+Conferma Pin per le operazioni di telefonia Mobile
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ Ricevute di pagamento SMS
 
 <tr class="pme-row-1">
 
-<td title="Questo è l'id chiave pubblica per le transazioni crittografate" class="pme-key-0">
-Id chiave pubblica
+<td title="Questo &Atilde;&uml; l&#39;id di chiave pubblica per le transazioni crittografate" class="pme-key-0">
+Public Key Id
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ Nome e cognome
 
 <td class="pme-buttons">
 
-<!-- abbiamo cancellare il cookie del Registro di sistema qui, altrimenti sarò impedire un accesso pulito più tardi -->
+<!-- Noi di cancellare il cookie di registro qui, altrimenti potrai prevenire un accesso pulito dopo -->
 
 <input class="pme-save"
  name="saveadd" value="Creare" onClick="eraseCookie('registry');" type="submit">

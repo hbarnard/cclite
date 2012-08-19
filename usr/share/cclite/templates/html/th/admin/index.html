@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- ออกแบบ โดยฟรี CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
+<!-- ออกแบบ โดยแม่แบบ CSS ฟรี&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,7 +32,7 @@ Cclite ! fieldsref $ {รุ่น} Admin
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- ต -->
+<!-- stylesheets -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -54,9 +54,9 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- ไลบรารี javascript ต้องการแทนที่การบีบอัดรุ่นบางขั้นตอน -->
+<!-- ไลบรารีของ javascript จำเป็นต้องแทนที่การบีบอัดรุ่นบางขั้นตอน -->
 
-<!-- jquery รายการ -->
+<!-- รายการที่ jquery -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -78,7 +78,7 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!-- ผู้อื่นไม่ใช่ jquery -->
+<!-- คนอื่นไม่ใช่ jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- เป็นสคริปต์ที่ล็อกผู้ใช้ออกเมื่อมีการนำระบบลง -->
+<!-- นี้คือสคริปต์ที่ล็อกผู้ใช้ออกเมื่อจะมีการนำระบบลง -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +118,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- สวิตช์นี้เป็นการ เปิด/ปิดสิ่งจุดทศนิยม -->
+<!-- สวิตช์นี้เปิด on/off สิ่งจุดทศนิยม -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -153,91 +153,41 @@ Adverts
 
 </select>
 
-<input value="ไป" class="small" type="submit" title="ค้นหาการเทรด โฆษณา หรือผู้ใช้">
+<input value="ไป" class="small" type="submit" title="ค้นหาเทรด โฆษณา หรือผู้ใช้">
 
 </form>
 
-<!-- จุดสิ้นสุดของกล่องค้นหาทำให้สมบูรณ์อัตโนมัติ -->
+<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องการค้นหา -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- ภาษาตัวเลือกรุ่น 1 -->
+<!-- รุ่นตัวเลือกภาษา 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-อังกฤษ
-</option>
-
-<option value='ar'>
-อาหรับ
-</option>
-
-<option value='bn'>
-เบงกาลี [บางส่วน]
-</option>
-
-<option value='zh'>
-จีน
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-ดัทช์
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-กรีก
-</option>
-
-<option value='ja'>
-ญี่ปุ่น
-</option>
-
-<option value='ko'>
-เกาหลี
-</option>
-
-<option value='pt'>
-โปรตุกิช
-</option>
-
-<option value='ro'>
-โรมาเนีย
-</option>
-
-<option value='ru'>
-รัสเซีย
-</option>
-
-<option value='th'>
-ไทย
-</option>
-
-<option value='vi'>
-เวียดนาม
-</option>
+<!--	<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- ภาษาตัวเลือกรุ่นที่ 1 จบ -->
+<!-- ภาษาเลือกรุ่น 1 จบ -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -258,7 +208,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a title="อินเทอร์เฟซสำหรับผู้ดูแลที่ Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+<a title="อินเทอร์เฟซสำหรับผู้ดูแลสำหรับ Cclite" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite Admin
 </a>
 </h1>
@@ -277,19 +227,19 @@ Cclite Admin
 
 <li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-เปลี่ยนแปลงสถานะของ! $ fieldsref{รีจิสทรี}
+เปลี่ยนแปลงสถานะของ! fieldsref $ {รีจิสทรี}
 </a>
 
 </li>
 
 <li>
-<a class="bodytext" title="แสดงการเชื่อมโยง Partner Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="แสดงการเชื่อมโยงคู่ค้า Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 คู่ค้า
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="สร้างเป็นสกุลเงินใหม่" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+<a class="bodytext" title="สร้างสกุลเงินใหม่" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
 สร้างสกุลเงิน
 </a>
 </li>
@@ -323,14 +273,14 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<a title="สร้างระยะไกล หรือภายในรีจิสทรี Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="สร้างจากระยะไกล หรือภายในรีจิสทรี Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 สร้างหุ้นส่วนของรีจิสทรี
 </a>
 </li>
 
 <li>
 <a title="ค่าธรรมเนียมการบริการกับบัญชีทั้งหมด" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-ใช้ค่าธรรมเนียมบริการ
+ค่าธรรมเนียมการบริการที่นำไปใช้
 </a>
 </li>
 
@@ -342,7 +292,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-ปรับเปลี่ยน! $ fieldsref{รีจิสทรี}
+ปรับเปลี่ยน! fieldsref $ {รีจิสทรี}
 </a>
 </li>
 
@@ -350,7 +300,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- แท็กเมฆินทร์และสถิติของผู้ใช้แต่ละ -->
+<!-- แท็กเมฆินทร์และสถิติของแต่ละผู้ใช้ -->
 
 <div id="content">
 
@@ -392,7 +342,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-หน้าแรก
+ภายในบ้าน
 </a>
 |
 <a href="#">

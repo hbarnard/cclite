@@ -309,6 +309,11 @@ subject=Subject
 description=Description
 price=Price
 
+#New Install Messages
+environmentis=The current environment is
+probably=probably
+packagetype=package type
+
 # javascript literals, js- prefix always
 js-lgoff=Logoff
 js-user=Cclite user
@@ -346,6 +351,12 @@ js-bengali=Bengali
 js-korean=Korean
 js-romainian=Romanian
 js-vietnamese=Vietnamese
+js-hungarian=Hungarian
+js-haitian=Haitian Creole
+js-indonesian=Indonesian
+js-finnish=Finnish
+js-ukranian=Ukranian
+#
 js-searchusers=Search Users
 js-searchads=Search Ads
 js-searchtrades=Search Trades

@@ -1,0 +1,79 @@
+
+<div align="left">
+$$fieldsref{error}
+<h3>
+Lisage või muutke kasutaja eelistused
+</h3>
+
+<form  id="form" action="/cgi-bin/protected/ccadmin.cgi" method="post">
+
+<input name="action" value="prefs" type="hidden">
+
+<input name="subaction" value="om_prefs" type="hidden">
+
+<table>
+
+<tr>
+<td>
+Kasutajanimi
+</td>
+<td>
+<input type="text" size=10" value="$$fieldsref{userLogin}" maxsize="10" name="userLogin" id="user">
+</td>
+</tr>
+
+<tr>
+<td>
+Kauplemise piirang
+</td>
+<td>
+<input type="text" size=10" value="$$fieldsref{tradelimit}" maxsize="10" name="tradelimit" id="tradelimit">
+</td>
+</tr>
+
+<tr>
+<td>
+SMS-I e-posti
+</td>
+<td>
+<select name="smsemail" id="smsemail">
+<option value="">
+</option>
+<option value="yes">
+Jah
+</option>
+<option value="no">
+Ei
+</option>
+</select>
+</td>
+</tr>
+
+<tr>
+<td>
+</td>
+<td>
+</td>
+</tr>
+
+<tr>
+<td>
+</td>
+<td>
+</td>
+</tr>
+
+</table>
+
+<input type="submit" value="Värskendus">
+
+<br/>
+
+<br/>
+
+
+<a href="#" onClick="history.go(-1)">
+Tagasi
+</a>
+
+</div>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Lançado gratuitamente sob uma Creative Commons Attribution 2.5 License -->
+<!-- Design por Free CSS Templates&#xD;	http://www.FreeCSStemplates.org&#xD;	Lançado gratuitamente sob uma Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Instalação
+Cclite $$fieldsref{version} Instalar
 </title>
 
 <meta name="keywords" content="" />
@@ -54,7 +54,7 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- bibliotecas JavaScript, precisará versões Substitute compactado em um certo momento -->
+<!-- bibliotecas de JavaScript, precisará substituir comprimido versões em algum estágio -->
 
 <!-- itens de jQuery -->
 
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- representar graficamente -->
+<!-- representação gráfica -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- Este é o script que faz os usuários logoff quando o sistema está sendo trazido para baixo -->
+<!-- Este é o script que faz logoff usuários quando o sistema está sendo trazido para baixo -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,94 +118,54 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Procurar por usuários, comércios, anúncios -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- Desligue a criação direta se cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- final da caixa de pesquisa de AutoCompletar -->
+<!-- fim da caixa de pesquisa do AutoCompletar -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- versão de seletor de idioma 1 -->
+<!-- Versão 1 do seletor de idioma -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-Inglês
-</option>
-
-<option value='ar'>
-Árabe
-</option>
-
-<option value='bn'>
-Bengali [parcial]
-</option>
-
-<option value='zh'>
-Chinês
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-Holandês
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-Grego
-</option>
-
-<option value='ja'>
-Japonês
-</option>
-
-<option value='ko'>
-Coreano
-</option>
-
-<option value='pt'>
-Português
-</option>
-
-<option value='ro'>
-Romeno
-</option>
-
-<option value='ru'>
-Russo
-</option>
-
-<option value='th'>
-Tailandês
-</option>
-
-<option value='vi'>
-Vietnamita
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- final de versão 1 de seletor de idioma -->
+<!-- fim de versão 1 de seletor de idioma -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -227,12 +187,12 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Cclite instalação
+Instalação de Cclite
 </a>
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
@@ -251,26 +211,25 @@ Menu de admin
 </li>
 
 <li>
-<a title="Menu do usuário" href="/cgi-bin/cclite.cgi">
-Menu do usuário
+<a title="Menu de usuário" href="/cgi-bin/cclite.cgi">
+Menu de usuário
 </a>
 </li>
 
 <li>
 <a id="updateconfig" title="Atualização conifguration armazenado em cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
-Atualizar configuração
+Configuração de atualização
 </a>
 </li>
 
 <li>
-<
 <a id="newregistry" title="Criar novo registo" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 Criar novo registo
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="Mostrar registros atuais do Cclite" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+<a id="showregistry" title="Mostrar registros atuais de Cclite" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 Mostrar registos
 </a>
 </li>
@@ -285,7 +244,7 @@ Verifique os requisitos de instalação
 
 </div>
 
-<!-- nuvem de tags e estatísticas de usuário individual -->
+<!-- Estatísticas de usuário individual e tag cloud -->
 
 <div id="content">
 
@@ -311,7 +270,7 @@ Casa
 </a>
 |
 <a href="#">
-Fale conosco
+Contacte-nos
 </a>
 <br />
 

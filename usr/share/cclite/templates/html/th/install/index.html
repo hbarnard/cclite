@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- ออกแบบ โดยฟรี CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
+<!-- ออกแบบ โดยแม่แบบ CSS ฟรี&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,7 +32,7 @@ Cclite ! fieldsref $ {รุ่น} การติดตั้ง
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- ต -->
+<!-- stylesheets -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -54,9 +54,9 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- ไลบรารี javascript ต้องการแทนที่การบีบอัดรุ่นบางขั้นตอน -->
+<!-- ไลบรารีของ javascript จำเป็นต้องแทนที่การบีบอัดรุ่นบางขั้นตอน -->
 
-<!-- jquery รายการ -->
+<!-- รายการที่ jquery -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -81,7 +81,7 @@ $$fieldsref{metarefresh}
 
 <!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
-<!-- ผู้อื่นไม่ใช่ jquery -->
+<!-- คนอื่นไม่ใช่ jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" type="text/javascript">
 </script>
 
-<!-- เป็นสคริปต์ที่ล็อกผู้ใช้ออกเมื่อมีการนำระบบลง -->
+<!-- นี้คือสคริปต์ที่ล็อกผู้ใช้ออกเมื่อจะมีการนำระบบลง -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,94 +118,54 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- ค้นหาผู้ใช้ เทรด โฆษณา -->
+<div id="distribution" class="hidden">
+$$fieldsref{distribution}
+</div>
+<!-- สวิตช์ปิดการสร้างโดยตรงหาก cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- จุดสิ้นสุดของกล่องค้นหาทำให้สมบูรณ์อัตโนมัติ -->
+<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องการค้นหา -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- ภาษาตัวเลือกรุ่น 1 -->
+<!-- รุ่นตัวเลือกภาษา 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
-<option value='en'>
-อังกฤษ
-</option>
-
-<option value='ar'>
-อาหรับ
-</option>
-
-<option value='bn'>
-เบงกาลี [บางส่วน]
-</option>
-
-<option value='zh'>
-จีน
-</option>
-
-<option value='de'>
-Deutsch
-</option>
-
-<option value='nl'>
-ดัทช์
-</option>
-
-<option value='fr'>
-Francais
-</option>
-
-<option value='es'>
-Espagnol
-</option>
-
-<option value='it'>
-Italiano
-</option>
-
-<option value='el'>
-กรีก
-</option>
-
-<option value='ja'>
-ญี่ปุ่น
-</option>
-
-<option value='ko'>
-เกาหลี
-</option>
-
-<option value='pt'>
-โปรตุกิช
-</option>
-
-<option value='ro'>
-โรมาเนีย
-</option>
-
-<option value='ru'>
-รัสเซีย
-</option>
-
-<option value='th'>
-ไทย
-</option>
-
-<option value='vi'>
-เวียดนาม
-</option>
+<!--	
+					<option value='en'>English</option>
+					<option value='ar'>Arabic</option>
+					<option value='bn'>Bengali [partial]</option>
+					<option value='zh'>Chinese</option>
+					<option value='de'>Deutsch</option>
+					<option value='nl'>Dutch</option>
+					<option value='fr'>Francais</option>
+					<option value='es'>Espagnol</option>
+					<option value='it'>Italiano</option>
+					<option value='el'>Greek</option>
+					<option value='ja'>Japanese</option>
+					<option value='ko'>Korean</option>
+					<option value='pt'>Portugese</option>
+					<option value='ro'>Romanian</option>
+					<option value='ru'>Russian</option>
+					<option value='th'>Thai</option>
+					<option value='id'>Indonesian</option>
+					<option value='et'>Estonian</option>
+					<option value='hu'>Hungarian</option>
+					<option value='ht'>Haitian Creole</option>
+					<option value='he'>Vietnamese</option>
+					<option value='uk'>Ukranian</option>
+					<option value='vi'>Vietnamese</option> -->
 
 </select>
 
-<!-- ภาษาตัวเลือกรุ่นที่ 1 จบ -->
+<!-- ภาษาเลือกรุ่น 1 จบ -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -227,19 +187,19 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-ติดตั้ง Cclite
+การติดตั้ง Cclite
 </a>
 </h1>
 
 </div>
-
+$$fieldsref{environment}
 <div id="menu">
 
 <ul>
 
 <li class="first">
 <a title="กลุ่มของ Google สำหรับการสนับสนุน" href="http://groups.google.co.uk/group/cclite?hl=en">
-ต้องการวิธีใช้หรือไม่
+ต้องการความช่วยเหลือหรือไม่
 </a>
 </li>
 
@@ -257,20 +217,19 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 </li>
 
 <li>
-<a id="updateconfig" title="การปรับปรุง conifguration ที่เก็บไว้ใน cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="การปรับปรุงการจัดเก็บไว้ใน cclite.cf conifguration" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
 การปรับปรุงการตั้งค่าคอนฟิก
 </a>
 </li>
 
 <li>
-<
 <a id="newregistry" title="สร้างรีจิสทรีใหม่" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
 สร้างรีจิสทรีใหม่
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="แสดงปัจจุบัน Cclite Registries" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+<a id="showregistry" title="แสดง Registries Cclite ปัจจุบัน" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 แสดง Registries
 </a>
 </li>
@@ -285,7 +244,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 </div>
 
-<!-- แท็กเมฆินทร์และสถิติของผู้ใช้แต่ละ -->
+<!-- แท็กเมฆินทร์และสถิติของแต่ละผู้ใช้ -->
 
 <div id="content">
 
@@ -307,7 +266,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-หน้าแรก
+ภายในบ้าน
 </a>
 |
 <a href="#">
