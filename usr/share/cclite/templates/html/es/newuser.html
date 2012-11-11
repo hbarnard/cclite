@@ -37,7 +37,7 @@ Nombre de reg
 
 <td style="vertical-align: top;">
 
-<!-- Nota ruta de acceso expl&Atilde;&shy;cita valor en cookie ajuste, ruta de lo contrario se establece en cgi-bin -->
+<!-- Nota ruta de acceso explícita valor en cookie ajuste, ruta de lo contrario se establece en cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Nombre de reg
 
 <tr class="pme-row-1">
 
-<td title="Debe ser m&Atilde;&iexcl;s de 3 caracteres, letras, n&Atilde;&ordm;meros y _ s&Atilde;&sup3;lo" class="pme-key-0">
+<td title="Debe ser más de 3 caracteres, letras, números y _ sólo" class="pme-key-0">
 Nombre de cuenta
 <br>
 
@@ -65,7 +65,7 @@ Nombre de cuenta
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Contrase&Atilde;&plusmn;a
+Contraseña
 </td>
 
 <td class="pme-value-0">
@@ -79,7 +79,7 @@ Contrase&Atilde;&plusmn;a
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Confirmar contrase&Atilde;&plusmn;a
+Confirmar contraseña
 </td>
 
 <td class="pme-value-0">
@@ -93,7 +93,7 @@ Confirmar contrase&Atilde;&plusmn;a
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Correo electr&Atilde;&sup3;nico
+Correo electrónico
 </td>
 
 <td class="pme-value-1">
@@ -108,7 +108,7 @@ Correo electr&Atilde;&sup3;nico
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-N&Atilde;&ordm;mero/nombre de casa
+Número/nombre de casa
 </td>
 
 <td class="pme-value-1">
@@ -168,7 +168,7 @@ Condado/Estado
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-C&Atilde;&sup3;digo postal
+Código postal
 </td>
 
 <td class="pme-value-1">
@@ -183,7 +183,7 @@ C&Atilde;&sup3;digo postal
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Tel&Atilde;&copy;fono fijo
+Teléfono fijo
 </td>
 
 <td class="pme-value-1">
@@ -197,12 +197,12 @@ Tel&Atilde;&copy;fono fijo
 <tr class="pme-row-1">
 
 <td  class="pme-key-0">
-Tel&Atilde;&copy;fono m&Atilde;&sup3;vil
+Teléfono móvil
 </td>
 
 <td class="pme-value-1">
 
-<input title="Por favor poner este n&Atilde;&ordm;mero en formato internacional 44777766666" class="pme-input-1"
+<input title="Por favor poner este número en formato internacional 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ Tel&Atilde;&copy;fono m&Atilde;&sup3;vil
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-PIN para las transacciones de tel&Atilde;&copy;fono m&Atilde;&sup3;vil
+PIN para las transacciones de teléfono móvil
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ PIN para las transacciones de tel&Atilde;&copy;fono m&Atilde;&sup3;vil
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Confirmar Pin para transacciones de tel&Atilde;&copy;fono m&Atilde;&sup3;vil
+Confirmar Pin para transacciones de teléfono móvil
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ Recibos de pago de SMS
 
 <tr class="pme-row-1">
 
-<td title="Este es el id de clave p&Atilde;&ordm;blico para transacciones cifradas" class="pme-key-0">
-Id de clave p&Atilde;&ordm;blica
+<td title="Este es el id de clave público para transacciones cifradas" class="pme-key-0">
+Id de clave pública
 </td>
 
 <td class="pme-value-1">
@@ -278,7 +278,7 @@ Idioma
 </option>
 
 <option selected value="en">
-Ingl&Atilde;&copy;s
+Inglés
 </option>
 
 <option value="de">
@@ -324,7 +324,7 @@ Nombre completo
 
 <td class="pme-buttons">
 
-<!-- nos borra la cookie de registro aqu&Atilde;&shy;, de lo contrario te evitar una limpia de inicio de sesi&Atilde;&sup3;n m&Atilde;&iexcl;s tarde -->
+<!-- nos borra la cookie de registro aquí, de lo contrario te evitar una limpia de inicio de sesión más tarde -->
 
 <input class="pme-save"
  name="saveadd" value="Crear" onClick="eraseCookie('registry');" type="submit">

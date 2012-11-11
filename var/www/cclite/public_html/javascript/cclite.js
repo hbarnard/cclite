@@ -675,7 +675,7 @@ $.fn.sort_select_box = function(){
     // cpanel install, grey out registry create if cpanel
     cpanel_install() ;
     
-  
+   $('#transtable').dataTable( {"bSort": true});
 ;
     
     setInterval('blinktext()',10000) ;

@@ -7,7 +7,7 @@ Homepage: http://www.hughbarnard.org/content/alternative-currency-software
 Pre-Depends: perl,mysql-server
 Package: cclite
 Architecture: i386
-Depends: apache2,perl,libdigest-sha1-perl,libdbi-perl,libwww-perl,libnet-perl,gammu,libxml-rss-perl,libxml-simple-perl
+Depends: apache2,perl,libdigest-sha-perl,libdbi-perl,libwww-perl,libnet-perl,gammu,libxml-rss-perl,libxml-simple-perl
 Recommends: libmail-gnupg-perl
 Description: Alternative currency management software
  This package provides web based server software for LETS, mutual social credit

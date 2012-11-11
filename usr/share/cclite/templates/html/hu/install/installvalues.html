@@ -11,24 +11,24 @@ $$fieldsref{updatemessage}
 <select class="small" name="install_type" id="install_type" onchange="change_install();">
 
 <option selected value="simple">
-Egyszer&amp;Aring;&amp;plusmn;
+Egyszerű
 </option>
 
 <option value="full">
-Minden be&amp;Atilde;&amp;iexcl;ll&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;iexcl;s
+Minden beállítás
 </option>
 
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="A friss&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;s konfigur&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;iexcl;sa" type="submit">
+ name="saveadd" data-simple="yes" value="A frissítés konfigurálása" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
 <tr>
-<td title="Ez r&amp;Atilde;&amp;copy;sz&amp;Atilde;&amp;copy;re mysql db felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;i" class="menu">
+<td title="Ez részére mysql db felhasználói" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -39,7 +39,7 @@ dbuser
 </tr>
 
 <tr>
-<td title="Ez r&amp;Atilde;&amp;copy;sz&amp;Atilde;&amp;copy;re mysql db-jelsz&amp;Atilde;&amp;sup3;" class="menu">
+<td title="Ez részére mysql db-jelszó" class="menu">
 DBPASSWORD
 </td>
 <td class="pme-key-1">
@@ -50,8 +50,8 @@ DBPASSWORD
 </tr>
 
 <tr>
-<td title="k&amp;Atilde;&amp;shy;s&amp;Atilde;&amp;copy;rleti cpanel el&amp;Aring;&amp;#145;taghoz, &amp;Atilde;&amp;sup3;vatosan uusally cpanel felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;n&amp;Atilde;&amp;copy;v haszn&amp;Atilde;&amp;iexcl;lata" class="menu">
-cPanel el&amp;Aring;&amp;#145;taghoz
+<td title="kísérleti cpanel előtaghoz, óvatosan uusally cpanel felhasználónév használata" class="menu">
+cPanel előtaghoz
 </td>
 <td class="pme-key-1">
 
@@ -61,8 +61,8 @@ cPanel el&amp;Aring;&amp;#145;taghoz
 </tr>
 
 <tr>
-<td title="p&amp;Atilde;&amp;copy;nznem tizedes jegy megjelen&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;se" class="menu">
-tizedesjegyek haszn&amp;Atilde;&amp;iexcl;lata
+<td title="pénznem tizedes jegy megjelenítése" class="menu">
+tizedesjegyek használata
 </td>
 <td class="pme-key-1">
 
@@ -72,8 +72,8 @@ tizedesjegyek haszn&amp;Atilde;&amp;iexcl;lata
 </tr>
 
 <tr>
-<td title="szabad form&amp;Atilde;&amp;iexcl;tum&amp;Atilde;&amp;ordm; c&amp;Atilde;&amp;shy;mk&amp;Atilde;&amp;copy;k haszn&amp;Atilde;&amp;iexcl;lat&amp;Atilde;&amp;iexcl;val a yellow pages helyett r&amp;Atilde;&amp;para;gz&amp;Atilde;&amp;shy;tett kateg&amp;Atilde;&amp;sup3;ri&amp;Atilde;&amp;iexcl;t" class="menu">
-c&amp;Atilde;&amp;shy;mk&amp;Atilde;&amp;copy;k haszn&amp;Atilde;&amp;iexcl;lat&amp;Atilde;&amp;iexcl;val
+<td title="szabad formátumú címkék használatával a yellow pages helyett rögzített kategóriát" class="menu">
+címkék használatával
 </td>
 <td class="pme-key-1">
 
@@ -82,11 +82,11 @@ c&amp;Atilde;&amp;shy;mk&amp;Atilde;&amp;copy;k haszn&amp;Atilde;&amp;iexcl;lat&
 </td>
 </tr>
 
-<!-- Itt alul van a teljes param&amp;Atilde;&amp;copy;terek -->
+<!-- Itt alul van a teljes paraméterek -->
 
 <tr>
-<td title="Ez az a tartom&amp;Atilde;&amp;iexcl;ny, mint a seg&amp;Atilde;&amp;shy;ts&amp;Atilde;&amp;copy;g&amp;Atilde;&amp;copy;vel hat&amp;Atilde;&amp;iexcl;rozhat&amp;Atilde;&amp;sup3; meg a parancsf&amp;Atilde;&amp;iexcl;jl el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;tj&amp;Atilde;&amp;iexcl;t, megfelel-e a cookie-kat a munk&amp;Atilde;&amp;iexcl;t kell" class="menu">
-tartom&amp;Atilde;&amp;iexcl;ny
+<td title="Ez az a tartomány, mint a segítségével határozható meg a parancsfájl elérési útját, megfelel-e a cookie-kat a munkát kell" class="menu">
+tartomány
 </td>
 <td class="pme-key-1">
 
@@ -96,8 +96,8 @@ tartom&amp;Atilde;&amp;iexcl;ny
 </tr>
 
 <tr>
-<td title="Ez a levelet, cpanel az smtp-kiszolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3; &amp;Atilde;&amp;iexcl;ltal&amp;Atilde;&amp;iexcl;ban ugyanaz, mint a tartom&amp;Atilde;&amp;iexcl;nyn&amp;Atilde;&amp;copy;v, a localhost vagy a bels&amp;Aring;&amp;#145; kiszolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;k IP-" class="menu">
-SMTP-kiszolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;
+<td title="Ez a levelet, cpanel az smtp-kiszolgáló általában ugyanaz, mint a tartománynév, a localhost vagy a belső kiszolgálók IP-" class="menu">
+SMTP-kiszolgáló
 </td>
 <td class="pme-key-1">
 
@@ -107,7 +107,7 @@ SMTP-kiszolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;
 </tr>
 
 <tr>
-<td title="f&amp;Aring;&amp;#145; felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;i parancsf&amp;Atilde;&amp;iexcl;jl cclite" class="menu">
+<td title="fő felhasználói parancsfájl cclite" class="menu">
 Home
 </td>
 <td class="pme-key-1">
@@ -118,8 +118,8 @@ Home
 </tr>
 
 <tr>
-<td title="Ez a jelsz&amp;Atilde;&amp;sup3; &amp;Atilde;&amp;copy;s a token sz&amp;Atilde;&amp;iexcl;m&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;iexcl;sokhoz haszn&amp;Atilde;&amp;iexcl;lt &amp;Atilde;&amp;frac14;zenetkivonat t&amp;Atilde;&amp;shy;pusa, sha2 a el&amp;Aring;&amp;#145;nyben r&amp;Atilde;&amp;copy;szes&amp;Atilde;&amp;shy;tett, nem kell v&amp;Atilde;&amp;iexcl;ltoztatni/vegyes egyszer be&amp;Atilde;&amp;iexcl;ll&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;iexcl;sa" class="menu">
-&amp;Atilde;&amp;frac14;zenetkivonat t&amp;Atilde;&amp;shy;pusa
+<td title="Ez a jelszó és a token számításokhoz használt üzenetkivonat típusa, sha2 a előnyben részesített, nem kell változtatni/vegyes egyszer beállítása" class="menu">
+üzenetkivonat típusa
 </td>
 <td class="pme-key-1">
 
@@ -129,7 +129,7 @@ Home
 </tr>
 
 <tr>
-<td title="HTML, rss, kimeneti f&amp;Atilde;&amp;iexcl;jlok &amp;Atilde;&amp;copy;s diagramokat, a document root-kiszolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;n bel&amp;Atilde;&amp;frac14;l kell levezetni" class="menu">
+<td title="HTML, rss, kimeneti fájlok és diagramokat, a document root-kiszolgálón belül kell levezetni" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,8 +140,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="a kifizet&amp;Atilde;&amp;copy;st, ha a v&amp;Atilde;&amp;iexcl;rakoz&amp;Atilde;&amp;sup3; meger&amp;Aring;&amp;#145;s&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;st k&amp;Atilde;&amp;copy;r a felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3; kezdeti &amp;Atilde;&amp;iexcl;llapota" class="pme-key-title">
-els&amp;Aring;&amp;#145; kifizet&amp;Atilde;&amp;copy;s &amp;Atilde;&amp;iexcl;llapota
+<td title="a kifizetést, ha a várakozó megerősítést kér a felhasználó kezdeti állapota" class="pme-key-title">
+első kifizetés állapota
 </td>
 <td class="pme-key-1">
 
@@ -151,8 +151,8 @@ els&amp;Aring;&amp;#145; kifizet&amp;Atilde;&amp;copy;s &amp;Atilde;&amp;iexcl;l
 </tr>
 
 <tr>
-<td title="a felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;, ha a felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3; e-mailben meger&amp;Aring;&amp;#145;s&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;st k&amp;Atilde;&amp;copy;r nem meger&amp;Aring;&amp;#145;s&amp;Atilde;&amp;shy;tett kezdeti &amp;Atilde;&amp;iexcl;llapota" class="pme-key-title">
-kezdeti felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;i &amp;Atilde;&amp;iexcl;llapot
+<td title="a felhasználó, ha a felhasználó e-mailben megerősítést kér nem megerősített kezdeti állapota" class="pme-key-title">
+kezdeti felhasználói állapot
 </td>
 <td class="pme-key-1">
 
@@ -162,7 +162,7 @@ kezdeti felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;i &amp;Atilde;&amp
 </tr>
 
 <tr>
-<td title="&amp;Atilde;&amp;frac14;zenetek &amp;Atilde;&amp;copy;s a sablonok alap&amp;Atilde;&amp;copy;rtelmezett nyelv" class="pme-key-title">
+<td title="üzenetek és a sablonok alapértelmezett nyelv" class="pme-key-title">
 nyelv
 </td>
 <td class="pme-key-1">
@@ -179,8 +179,8 @@ nyelv
 -->
 
 <tr>
-<td title="a t&amp;Atilde;&amp;iexcl;bl&amp;Atilde;&amp;iexcl;zatos jelent&amp;Atilde;&amp;copy;st a k&amp;Atilde;&amp;copy;perny&amp;Aring;&amp;#145; sorok sz&amp;Atilde;&amp;iexcl;ma" class="pme-key-title">
-az oldalank&amp;Atilde;&amp;copy;nti sorok
+<td title="a táblázatos jelentést a képernyő sorok száma" class="pme-key-title">
+az oldalankénti sorok
 </td>
 <td class="pme-key-1">
 
@@ -190,8 +190,8 @@ az oldalank&amp;Atilde;&amp;copy;nti sorok
 </tr>
 
 <tr>
-<td title="&amp;Atilde;&amp;frac14;zenetek f&amp;Atilde;&amp;iexcl;jl el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;tja, ezen int&amp;Atilde;&amp;copy;zked&amp;Atilde;&amp;copy;seket semmi sem fog m&amp;Aring;&amp;plusmn;k&amp;Atilde;&amp;para;dni, ha ez a baj!" class="menu">
-PATH &amp;Atilde;&amp;frac14;zenetek
+<td title="üzenetek fájl elérési útja, ezen intézkedéseket semmi sem fog működni, ha ez a baj!" class="menu">
+PATH üzenetek
 </td>
 <td class="pme-key-1">
 
@@ -209,7 +209,7 @@ PATH &amp;Atilde;&amp;frac14;zenetek
 </tr>
 
 <tr>
-<td title="Ha nem, nincs sz&amp;Atilde;&amp;frac14;ks&amp;Atilde;&amp;copy;g a Soap::Lite modulok" class="menu">
+<td title="Ha nem, nincs szükség a Soap::Lite modulok" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -240,8 +240,8 @@ multiregistry?
 </tr>
 
 <tr>
-<td title="nem k&amp;Atilde;&amp;para;zvetlen&amp;Atilde;&amp;frac14;l, hanem is bele kell foglalni az egy&amp;Atilde;&amp;copy;ni sablonok" class="pme-key-title">
-mail t&amp;Atilde;&amp;iexcl;mogat&amp;Atilde;&amp;iexcl;sa
+<td title="nem közvetlenül, hanem is bele kell foglalni az egyéni sablonok" class="pme-key-title">
+mail támogatása
 </td>
 <td class="pme-key-1">
 
@@ -250,11 +250,11 @@ mail t&amp;Atilde;&amp;iexcl;mogat&amp;Atilde;&amp;iexcl;sa
 </td>
 </tr>
 
-<!-- Ez nem felt&amp;Atilde;&amp;copy;tlen&amp;Atilde;&amp;frac14;l egy &amp;Atilde;&amp;copy;rv&amp;Atilde;&amp;copy;nyes elektronikus lev&amp;Atilde;&amp;copy;l c&amp;Atilde;&amp;shy;m, lehet, hogy csak egy bels&amp;Aring;&amp;#145; felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;nak, a mail server szolg&amp;Atilde;&amp;iexcl;ltat&amp;Atilde;&amp;iexcl;sba val&amp;Atilde;&amp;sup3; bejelentkez&amp;Atilde;&amp;copy;sre -->
+<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználónak, a mail server szolgáltatásba való bejelentkezésre -->
 
 <tr>
-<td title="lev&amp;Atilde;&amp;copy;l k&amp;Atilde;&amp;frac14;ld&amp;Atilde;&amp;copy;se, &amp;Atilde;&amp;copy;s jelentkezzen be, hogy sz&amp;Atilde;&amp;frac14;ks&amp;Atilde;&amp;copy;g eset&amp;Atilde;&amp;copy;n cpanel, be&amp;Atilde;&amp;iexcl;ll&amp;Atilde;&amp;shy;tott smtp-kiszolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3; els&amp;Aring;&amp;#145;" class="menu">
-rendszer mail-c&amp;Atilde;&amp;shy;m
+<td title="levél küldése, és jelentkezzen be, hogy szükség esetén cpanel, beállított smtp-kiszolgáló első" class="menu">
+rendszer mail-cím
 </td>
 <td >
 
@@ -263,11 +263,11 @@ rendszer mail-c&amp;Atilde;&amp;shy;m
 </td>
 </tr>
 
-<!-- Ez nem felt&amp;Atilde;&amp;copy;tlen&amp;Atilde;&amp;frac14;l egy &amp;Atilde;&amp;copy;rv&amp;Atilde;&amp;copy;nyes elektronikus lev&amp;Atilde;&amp;copy;l c&amp;Atilde;&amp;shy;m, lehet, hogy csak egy bels&amp;Aring;&amp;#145; felhaszn&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;nak, a mail server szolg&amp;Atilde;&amp;iexcl;ltat&amp;Atilde;&amp;iexcl;sba val&amp;Atilde;&amp;sup3; bejelentkez&amp;Atilde;&amp;copy;sre -->
+<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználónak, a mail server szolgáltatásba való bejelentkezésre -->
 
 <tr>
-<td title="k&amp;Atilde;&amp;para;z&amp;Atilde;&amp;para;tti v&amp;Atilde;&amp;iexcl;lt&amp;Atilde;&amp;iexcl;sra szolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3; Net::SMTP sz&amp;Atilde;&amp;sup3;l&amp;Atilde;&amp;sup3; &amp;Atilde;&amp;copy;rtes&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;copy;sek stb ez els&amp;Aring;&amp;#145;dleges, &amp;Atilde;&amp;copy;s lesz a j&amp;Atilde;&amp;para;v&amp;Aring;&amp;#145;ben csak a be&amp;Atilde;&amp;iexcl;ll&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;iexcl;s 0 vagy 1" class="menu">
-nett&amp;Atilde;&amp;sup3; smtp?
+<td title="közötti váltásra szolgáló Net::SMTP szóló értesítések stb ez elsődleges, és lesz a jövőben csak a beállítás 0 vagy 1" class="menu">
+nettó smtp?
 </td>
 <td >
 
@@ -277,8 +277,8 @@ nett&amp;Atilde;&amp;sup3; smtp?
 </tr>
 
 <tr>
-<td title="rendszer elektronikus lev&amp;Atilde;&amp;copy;l c&amp;Atilde;&amp;shy;m bel&amp;Atilde;&amp;frac14;l smtp-kiszolg&amp;Atilde;&amp;iexcl;l&amp;Atilde;&amp;sup3;ra val&amp;Atilde;&amp;sup3; bejelentkez&amp;Atilde;&amp;copy;shez jelsz&amp;Atilde;&amp;sup3;t" class="menu">
-rendszer mail jelsz&amp;Atilde;&amp;sup3;
+<td title="rendszer elektronikus levél cím belül smtp-kiszolgálóra való bejelentkezéshez jelszót" class="menu">
+rendszer mail jelszó
 </td>
 <td >
 
@@ -288,8 +288,8 @@ rendszer mail jelsz&amp;Atilde;&amp;sup3;
 </tr>
 
 <tr>
-<td title="a V&amp;Atilde;&amp;iexcl;laszc&amp;Atilde;&amp;shy;m sz&amp;Atilde;&amp;iexcl;m&amp;Atilde;&amp;iexcl;ra l&amp;Atilde;&amp;copy;trehozott e-mailek, gyakran a do not-v&amp;Atilde;&amp;iexcl;lasz" class="pme-key-title">
-a V&amp;Atilde;&amp;iexcl;laszc&amp;Atilde;&amp;shy;m rendszer mail
+<td title="a Válaszcím számára létrehozott e-mailek, gyakran a do not-válasz" class="pme-key-title">
+a Válaszcím rendszer mail
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +299,7 @@ a V&amp;Atilde;&amp;iexcl;laszc&amp;Atilde;&amp;shy;m rendszer mail
 </tr>
 
 <tr>
-<td title="a webes fel&amp;Atilde;&amp;frac14;leten haszn&amp;Atilde;&amp;iexcl;lt sablonf&amp;Atilde;&amp;iexcl;jlok el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;tj&amp;Atilde;&amp;iexcl;t, semmi sok fog m&amp;Aring;&amp;plusmn;k&amp;Atilde;&amp;para;dni, ha ez a baj!" class="menu">
+<td title="a webes felületen használt sablonfájlok elérési útját, semmi sok fog működni, ha ez a baj!" class="menu">
 sablonok
 </td>
 <td class="pme-key-1">
@@ -309,11 +309,11 @@ sablonok
 </td>
 </tr>
 
-<!-- k&amp;Atilde;&amp;para;tegf&amp;Atilde;&amp;iexcl;jlok foglalkoz&amp;Atilde;&amp;sup3; r&amp;Atilde;&amp;copy;sz -->
+<!-- kötegfájlok foglalkozó rész -->
 
 <tr>
-<td title="base kimeneti el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;t a tev&amp;Atilde;&amp;copy;kenys&amp;Atilde;&amp;copy;g diagramok web gy&amp;Atilde;&amp;para;k&amp;Atilde;&amp;copy;rk&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;ra alatt, a rendszerle&amp;Atilde;&amp;shy;r&amp;Atilde;&amp;sup3; adatb&amp;Atilde;&amp;iexcl;zis n&amp;Atilde;&amp;copy;v hozz&amp;Atilde;&amp;iexcl;ad&amp;Atilde;&amp;sup3;dik az el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;t" class="pme-key-title">
-diagram k&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;r
+<td title="base kimeneti elérési út a tevékenység diagramok web gyökérkönyvtára alatt, a rendszerleíró adatbázis név hozzáadódik az elérési út" class="pme-key-title">
+diagram könyvtár
 </td>
 <td class="pme-key-1">
 
@@ -323,7 +323,7 @@ diagram k&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;r
 </tr>
 
 <tr>
-<td title="ig&amp;Atilde;&amp;copy;nyel perl rss modulok el&amp;Aring;&amp;#145;&amp;Atilde;&amp;iexcl;ll&amp;Atilde;&amp;shy;t&amp;Atilde;&amp;iexcl;sa rss, ha igen" class="pme-key-title">
+<td title="igényel perl rss modulok előállítása rss, ha igen" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,8 +344,8 @@ userss
 </tr>
 
 <tr>
-<td title="Alap felt&amp;Atilde;&amp;para;lteni a k&amp;Atilde;&amp;para;tegelt tranzakci&amp;Atilde;&amp;sup3;kkal kapcsolatos el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;t, nem kell az web gy&amp;Atilde;&amp;para;k&amp;Atilde;&amp;copy;rk&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;ra" class="pme-key-title">
-CSV-k&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;r
+<td title="Alap feltölteni a kötegelt tranzakciókkal kapcsolatos elérési út, nem kell az web gyökérkönyvtára" class="pme-key-title">
+CSV-könyvtár
 </td>
 <td class="pme-key-1">
 
@@ -355,8 +355,8 @@ CSV-k&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;r
 </tr>
 
 <tr>
-<td title="gammu kapott SMS, http sms &amp;Atilde;&amp;iexcl;tj&amp;Atilde;&amp;iexcl;r&amp;Atilde;&amp;sup3;k eset&amp;Atilde;&amp;copy;n nem sz&amp;Atilde;&amp;frac14;ks&amp;Atilde;&amp;copy;ges a Be&amp;Atilde;&amp;copy;rkezett &amp;Atilde;&amp;frac14;zenetek mapp&amp;Atilde;&amp;iexcl;ba" class="pme-key-title">
-SMS Be&amp;Atilde;&amp;copy;rkezett &amp;Atilde;&amp;frac14;zenetek
+<td title="gammu kapott SMS, http sms átjárók esetén nem szükséges a Beérkezett üzenetek mappába" class="pme-key-title">
+SMS Beérkezett üzenetek
 </td>
 <td class="pme-key-1">
 
@@ -366,7 +366,7 @@ SMS Be&amp;Atilde;&amp;copy;rkezett &amp;Atilde;&amp;frac14;zenetek
 </tr>
 
 <tr>
-<td title="Be&amp;Atilde;&amp;copy;rkezett &amp;Atilde;&amp;frac14;zenetek, levelek, hely&amp;Atilde;&amp;copy;be az egyes kibocs&amp;Atilde;&amp;iexcl;t&amp;Atilde;&amp;iexcl;siegys&amp;Atilde;&amp;copy;g pop levelez&amp;Atilde;&amp;copy;si r&amp;Atilde;&amp;copy;gebbi m&amp;Atilde;&amp;sup3;dszer" class="pme-key-title">
+<td title="Beérkezett üzenetek, levelek, helyébe az egyes kibocsátásiegység pop levelezési régebbi módszer" class="pme-key-title">
 readmail.pl directory
 </td>
 <td class="pme-key-1">
@@ -377,7 +377,7 @@ readmail.pl directory
 </tr>
 
 <tr>
-<td title="base kimeneti csv tranzakci&amp;Atilde;&amp;sup3;k alapj&amp;Atilde;&amp;iexcl;n web gy&amp;Atilde;&amp;para;k&amp;Atilde;&amp;copy;rk&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;ra el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;tj&amp;Atilde;&amp;iexcl;t" class="pme-key-title">
+<td title="base kimeneti csv tranzakciók alapján web gyökérkönyvtára elérési útját" class="pme-key-title">
 CSV-ki
 </td>
 <td class="pme-key-1">
@@ -388,8 +388,8 @@ CSV-ki
 </tr>
 
 <tr>
-<td title="a k&amp;Atilde;&amp;para;vetkez&amp;Aring;&amp;#145; kimeneti nyomdatechnikai web gy&amp;Atilde;&amp;para;k&amp;Atilde;&amp;copy;rk&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;ra, a rendszerle&amp;Atilde;&amp;shy;r&amp;Atilde;&amp;sup3; adatb&amp;Atilde;&amp;iexcl;zis n&amp;Atilde;&amp;copy;v &amp;Atilde;&amp;copy;s nyelv szerinti el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;t hozz&amp;Atilde;&amp;iexcl;ad&amp;Atilde;&amp;sup3;dik ez az el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;t" class="pme-key-title">
-nyomtat&amp;Atilde;&amp;iexcl;si el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;tja
+<td title="a következő kimeneti nyomdatechnikai web gyökérkönyvtára, a rendszerleíró adatbázis név és nyelv szerinti elérési út hozzáadódik ez az elérési út" class="pme-key-title">
+nyomtatási elérési útja
 </td>
 <td class="pme-key-1">
 
@@ -399,8 +399,8 @@ nyomtat&amp;Atilde;&amp;iexcl;si el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;
 </tr>
 
 <tr>
-<td title="a k&amp;Atilde;&amp;para;vetkez&amp;Aring;&amp;#145; kimeneti rss, a rendszerle&amp;Atilde;&amp;shy;r&amp;Atilde;&amp;sup3; adatb&amp;Atilde;&amp;iexcl;zis nev&amp;Atilde;&amp;copy;t &amp;Atilde;&amp;copy;s a nyelvi el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;tj&amp;Atilde;&amp;iexcl;t az erre az &amp;Atilde;&amp;ordm;tra eg&amp;Atilde;&amp;copy;sz&amp;Atilde;&amp;frac14;l ki." class="pme-key-title">
-base directory takarm&amp;Atilde;&amp;iexcl;ny
+<td title="a következő kimeneti rss, a rendszerleíró adatbázis nevét és a nyelvi elérési útját az erre az útra egészül ki." class="pme-key-title">
+base directory takarmány
 </td>
 <td class="pme-key-1">
 
@@ -410,7 +410,7 @@ base directory takarm&amp;Atilde;&amp;iexcl;ny
 </tr>
 
 <tr>
-<td title="ki a k&amp;Atilde;&amp;para;nyvt&amp;Atilde;&amp;iexcl;rban gammu eredm&amp;Atilde;&amp;copy;nyeit, nem sz&amp;Atilde;&amp;frac14;ks&amp;Atilde;&amp;copy;ges az sms-&amp;Atilde;&amp;iexcl;tj&amp;Atilde;&amp;iexcl;r&amp;Atilde;&amp;sup3;k http base" class="pme-key-title">
+<td title="ki a könyvtárban gammu eredményeit, nem szükséges az sms-átjárók http base" class="pme-key-title">
 SMS-el
 </td>
 <td class="pme-key-1">
@@ -421,7 +421,7 @@ SMS-el
 </tr>
 
 <tr>
-<td title="gammu input helyben feldolgozott, ha 1, egy&amp;Atilde;&amp;copy;bk&amp;Atilde;&amp;copy;nt ez soap feldolgoz&amp;Atilde;&amp;iexcl;s&amp;Atilde;&amp;iexcl;hoz haszn&amp;Atilde;&amp;iexcl;l t&amp;Atilde;&amp;iexcl;voli" class="pme-key-title">
+<td title="gammu input helyben feldolgozott, ha 1, egyébként ez soap feldolgozásához használ távoli" class="pme-key-title">
 helyi sms?
 </td>
 <td class="pme-key-1">
@@ -442,8 +442,8 @@ helyi sms?
 </tr>
 
 <tr>
-<td title="Log4perl konfigur&amp;Atilde;&amp;iexcl;ci&amp;Atilde;&amp;sup3;s f&amp;Atilde;&amp;iexcl;jl el&amp;Atilde;&amp;copy;r&amp;Atilde;&amp;copy;si &amp;Atilde;&amp;ordm;tja" class="pme-key-title">
-napl&amp;Atilde;&amp;sup3;z&amp;Atilde;&amp;sup3; config path
+<td title="Log4perl konfigurációs fájl elérési útja" class="pme-key-title">
+naplózó config path
 </td>
 <td class="pme-key-1">
 
@@ -454,7 +454,7 @@ napl&amp;Atilde;&amp;sup3;z&amp;Atilde;&amp;sup3; config path
 
 <tr>
 <td ctitle="current cclite version" lass="pme-key-title">
-v&amp;Atilde;&amp;iexcl;ltozat
+változat
 </td>
 <td class="pme-key-1">
 
@@ -468,10 +468,10 @@ v&amp;Atilde;&amp;iexcl;ltozat
 <td class="pme-buttons">
 
 <input class="pme-save"
- name="saveadd" data-simple="yes" value="A friss&Atilde;&shy;t&Atilde;&copy;s" type="submit">
+ name="saveadd" data-simple="yes" value="A frissítés" type="submit">
 &nbsp;
 <input class="pme-cancel"
- name="cancel" data-simple="yes" value="Vil&Atilde;&iexcl;gos" type="reset">
+ name="cancel" data-simple="yes" value="Világos" type="reset">
 
 </td>
 

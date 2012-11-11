@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Free CSS Templates mukainen suunnittelu&amp;#xD;	http://www.freecsstemplates.org&amp;#xD;	Ilmainen lisenssill&Atilde;&curren; Creative Commons Attribution 2.5 License -->
+<!-- Free CSS Templates mukainen suunnittelu&#xD;	http://www.freecsstemplates.org&#xD;	Ilmainen lisenssillä Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} K&Atilde;&curren;ytt&Atilde;&curren;j&Atilde;&curren;
+Cclite $$fieldsref{version} Käyttäjä
 </title>
 
 <meta name="keywords" content="" />
@@ -49,7 +49,7 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- my&Atilde;&para;hemmin dataTables -->
+<!-- myöhemmin dataTables -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
@@ -105,10 +105,10 @@ $$fieldsref{metarefresh}
 <script src="/javascript/striper.js" type="text/javascript">
 </script>
 
-<script src="/javascript/cclite.js" type="text/javascript">
+<script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- T&Atilde;&curren;m&Atilde;&curren; on komentosarja, joka kirjaa k&Atilde;&curren;ytt&Atilde;&curren;j&Atilde;&curren;t ulos, kun j&Atilde;&curren;rjestelm&Atilde;&curren; on nyt nostanut kanteen -->
+<!-- Tämä on komentosarja, joka kirjaa käyttäjät ulos, kun järjestelmä on nyt nostanut kanteen -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +118,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- T&Atilde;&curren;m&Atilde;&curren; valitsin poistaa k&Atilde;&curren;yt&Atilde;&para;st&Atilde;&curren; desimaalipilkun jutut -->
+<!-- Tämä valitsin poistaa käytöstä desimaalipilkun jutut -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Etsi k&Atilde;&curren;ytt&Atilde;&curren;j&Atilde;&curren;t, kaupat, mainokset -->
+<!-- Etsi käyttäjät, kaupat, mainokset -->
 
 <br/>
 
@@ -144,7 +144,7 @@ Tapahtumat
 </option>
 
 <option value='user'>
-K&Atilde;&curren;ytt&Atilde;&curren;j&Atilde;&curren;t
+Käyttäjät
 </option>
 
 <option value='ad'>
@@ -153,11 +153,11 @@ Mainonnassa
 
 </select>
 
-<input value="Siirry" class="small" type="submit" title="Etsi&Atilde;&curren; kaupat, mainoksia tai k&Atilde;&curren;ytt&Atilde;&curren;j&Atilde;&curren;t">
+<input value="Siirry" class="small" type="submit" title="Etsiä kaupat, mainoksia tai käyttäjät">
 
 </form>
 
-<!-- automaattisen t&Atilde;&curren;ydennyksen Etsi-ruudun loppuun -->
+<!-- automaattisen täydennyksen Etsi-ruudun loppuun -->
 
 <span id="status_message">
 $$fieldsref{status_message}
@@ -209,7 +209,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Cclite k&Atilde;&curren;ytt&Atilde;&curren;j&Atilde;&curren;
+Cclite käyttäjä
 </a>
 </h1>
 
@@ -224,7 +224,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="J&Atilde;&curren;rjestelm&Atilde;&curren;nvalvoja-valikon" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Järjestelmänvalvoja-valikon" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -234,7 +234,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="J&Atilde;&curren;rjestelm&Atilde;&curren;nvalvoja-valikon uudessa v&Atilde;&curren;lilehdess&Atilde;&curren;" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="Järjestelmänvalvoja-valikon uudessa välilehdessä" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -244,7 +244,7 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Siirt&Atilde;&curren;&Atilde;&curren; valuutan tai tuntia" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+<a title="Siirtää valuutan tai tuntia" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
 Maksu
 </a>
 </li>
@@ -257,8 +257,8 @@ Oletko unohtanut salasanan?
 </li>
 
 <li>
-<a title="Lis&Atilde;&curren;&Atilde;&curren; Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Lis&amp;Atilde;&amp;curren;&amp;Atilde;&amp;curren; Openid
+<a title="Lisää Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Lisää Openid
 </a>
 
 </li>
@@ -279,7 +279,7 @@ Uusi tili
 
 <li>
 <a title="Muuttaa tietojasi" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Muokkaa tili&Atilde;&curren;
+Muokkaa tiliä
 </a>
 </li>
 
@@ -290,25 +290,25 @@ Jaa maksu
 </li>
 
 <li>
-<a title="N&Atilde;&curren;yt&Atilde;&curren; omat tapahtumat" href="/cgi-bin/cclite.cgi?action=showtrans">
+<a title="Näytä omat tapahtumat" href="/cgi-bin/cclite.cgi?action=showtrans">
 Tapahtumat
 </a>
 </li>
 
 <li>
-<a title="N&Atilde;&curren;yt&Atilde;&curren; omat varat" href="/cgi-bin/cclite.cgi?action=showbalvol">
+<a title="Näytä omat varat" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Saldot
 </a>
 </li>
 
 <li>
-<a title="N&Atilde;&curren;yt&Atilde;&curren; tavaroiden ja palvelujen hakemiston" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+<a title="Näytä tavaroiden ja palvelujen hakemiston" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Tavaroiden tai palvelujen
 </a>
 </li>
 
 <li>
-<a title="N&Atilde;&curren;yt&Atilde;&curren; mainokset tavaroiden ja palvelujen hakemiston" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+<a title="Näytä mainokset tavaroiden ja palvelujen hakemiston" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Mainokset
 </a>
 </li>
@@ -323,7 +323,7 @@ Paikka-Ad
 
 </div>
 
-<!-- tag cloud ja yksitt&Atilde;&curren;isten K&Atilde;&curren;ytt&Atilde;&curren;j&Atilde;&curren;tilastot -->
+<!-- tag cloud ja yksittäisten Käyttäjätilastot -->
 
 <div id="content">
 
@@ -362,7 +362,7 @@ Etusivu
 </a>
 |
 <a href="#">
-Ota meihin yhteytt&Atilde;&curren;
+Ota meihin yhteyttä
 </a>
 <br />
 

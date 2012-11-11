@@ -2412,11 +2412,11 @@ EOT
 
     # if there's more than one page and not csv show paging
     if ( length($paging_html) && $fieldsref->{mode} ne 'csv' ) {
-        $header .= <<EOT;
-   <tr>
-         <td class="pme-key-title" colspan="$thisspan">$messages{pages} $paging_html</td>
-   </tr>
-EOT
+###        $header .= <<EOT;
+###   <tr>
+###         <td class="pme-key-title" colspan="$thisspan">$messages{pages} $paging_html</td>
+###   </tr>
+###EOT
 
     }
 
@@ -2452,11 +2452,11 @@ EOT
           ? ( $type_literal = $messages{$trade_type} )
           : ( $type_literal = '' );
 
-        $header .= <<EOT;
-      <tr>
-         <td class="pme-key-1" colspan="$thisspan">$messages{'found'} $total_count $type_literal $messages{'in'} $table_title</td>
-     </tr>
-EOT
+###        $header .= <<EOT;
+###      <tr>
+###         <td class="pme-key-1" colspan="$thisspan">$messages{'found'} $total_count $type_literal $messages{'in'} $table_title</td>
+###     </tr>
+###EOT
 
     }
 
