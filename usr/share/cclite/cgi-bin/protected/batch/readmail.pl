@@ -79,8 +79,8 @@ opendir( DIR, $mail_dir );
 
 my $mail_file = "$mail_dir/$registry\.cclite";
 
-read_mail_transactions( 'local', $registry, 'om_trades', $mail_file, $token, "",
-    "" );
+read_mail_transactions( 'local', $registry, 'om_trades', $mail_file, $token,
+    "", "" );
 
 closedir(DIR);
 exit 0;

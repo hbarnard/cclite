@@ -139,7 +139,7 @@ sub _guess_config_values {
 
     #FIXME: eliminate double separators, check_path?
     $configuration{literalspath} =~ s/\/\//\//;
-    $configuration{templates}    =~ s/\/\//\//;
+    $configuration{templates} =~ s/\/\//\//;
 
     $configuration{hash_type} = $hash_type;
 
@@ -589,8 +589,7 @@ EOT
 
     # eval block for this 7/2010
     eval {
-        if ( length($dbh) )
-        {
+        if ( length($dbh) ) {
             $dbh->do("create database if not exists $fieldsref->{newregistry}");
             $dbh->disconnect();
         }
@@ -1009,8 +1008,7 @@ sub get_set_batch_files {
 
     if ( $operation eq 'set' ) {
         eval {
-            foreach my $key ( sort keys %file )
-            {
+            foreach my $key ( sort keys %file ) {
                 if ( $os ne 'windows' ) {
                     `mkdir -p $file{$key}`;
                 } else {

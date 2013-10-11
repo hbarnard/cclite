@@ -205,7 +205,7 @@ sub _format_base_directory {
     my ($base_directory) = @_;
 
     chomp $base_directory;
-    $base_directory =~ s/\s+$//;           # if cgi called
+    $base_directory =~ s/\s+$//;    # if cgi called
     $base_directory =~ s/\/cgi-bin.*$//;
     $libpath = "$base_directory/lib";
 
@@ -354,22 +354,33 @@ sub test_sha {
     my $type;
     my $message;
 
-    eval { require Digest::SHA2 };
+    eval { require Digest::SHA };
 
     if ($@) {
-        eval { require Digest::SHA1 };
-        $type = "sha1";
-        if ($@) {
+        if ( $type != 2 ) {
             $message = <<EOT;
     <table><tr class="even"><td>
  <h5>Error 1:Ccinstall: Cclite installer</h5>
  $@
  </td></tr></table>
  <br/>
- Can't find either Digest::SHA1 or Digest::SHA2
+ Can't find Digest::SHA 
  Please use perl -MCPAN -e shell or other tool to install
 EOT
             undef $type;
+        } else {
+
+            $message = <<EOT;
+    <table><tr class="even"><td>
+ <h5>Error 1:Ccinstall: Cclite installer</h5>
+ $@
+ </td></tr></table>
+ <br/>
+ Can't find Digest::SHA 
+ Please use perl -MCPAN -e shell or apt-get libdigest-sha-perl
+ For older releases < 12.04, ask for help
+EOT
+
         }
 
     } else {
@@ -450,7 +461,6 @@ sub check_log_path {
     #FIXME: remove double slash in some log paths
     $log_path =~ s/\/\//\//;
 
- 
     # can't find log directory or can't write to it..
     if ( !-e $log_path || !-w $log_path ) {
         $message = <<EOT;
@@ -578,7 +588,7 @@ BEGIN {
         $messages[5] = check_log_path($dir);
     }
 
-    ( $messages[1], $hash_type ) = test_sha();       # test for sha2 module
+    ( $messages[1], $hash_type ) = test_sha();       # test for sha module
     $messages[2] = test_dbi();                       # for dbi module
     ###$messages[4] = test_log();                    # log4perl no longer necessary
 
@@ -622,10 +632,8 @@ $fields{hash_type} = $hash_type if ($newinstall);
 #FIXME: no configuration file at this stage, but hard-code horror...
 $fields{version} ||= "0.9.1";
 
-
 # read here to announce OS, cpanel etc.
-our %sys_message = readmessages() ;
-
+our %sys_message = readmessages();
 
 # number of records per page in lists ex-db tables, provided in cclite.cf
 my $limit = $fields{limit} || 15;
@@ -633,8 +641,8 @@ my $limit = $fields{limit} || 15;
 ( $fields{home}, $fields{domain} ) =
   get_server_details();    # this is in Ccsecure, may need extra measures
 
-my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db, $cookies,
-    $templatename, $registry_private_value );    # for the moment
+my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $db,
+    $cookies, $templatename, $registry_private_value );    # for the moment
 
 my $cookieref = get_cookie();
 my $pagename = $fields{name} || "registry.html";    # default is the index page
@@ -662,7 +670,8 @@ $fields{package_type} = $package_type;
 $fields{distribution} = $distribution;
 
 # message at top of install fields, helpful for remote support...
-$fields{environment}  = "$sys_message{environmentis}  $fields{os} $fields{distribution} : $sys_message{packagetype} $fields{package_type}" ;
+$fields{environment} =
+"$sys_message{environmentis}  $fields{os} $fields{distribution} : $sys_message{packagetype} $fields{package_type}";
 
 #
 my $fieldsref = \%fields;
@@ -699,8 +708,8 @@ if ( $action eq "checkinstall" ) {
 
 ( $action eq "updateconfig2" )
   && (
-    ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies ) =
-    update_config2( $default_config, $fieldsref ) );
+    ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies )
+    = update_config2( $default_config, $fieldsref ) );
 
 # this will guess at values, if newinstall is signalled
 if ( $action eq "updateconfig1" ) {

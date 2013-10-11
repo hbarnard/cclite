@@ -156,8 +156,10 @@ off at the moment, but will be 'on' within a couple of releases</p>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Digest::SHA</span> <span class="q">qw(sha1 sha512)</span><span class="sc">;</span>
 
-<span class="c">#use MIME::Base64;</span>
+<span class="c"># these should be core modules now...</span>
+<span class="k">use</span> <span class="w">MIME::Base64</span> <span class="q">qw(encode_base64url decode_base64url)</span><span class="sc">;</span>
 
 <span class="c"># use Net::OAuth;       # for Oauth in a while...</span>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>    <span class="c"># new style configuration, read hash type...</span>
@@ -199,24 +201,23 @@ is potentially collision prone but available on
 many commodity hosting platforms, so it's default
 if cclite can't find SHA2</p>
 <p>FIXME: 7/2010 use Digest changed to require, so these are invoked at runtime,
-performance hit but easier setup, also they are in a function, at present
-=cut</p>
+performance hit but easier setup, also they are in a function, at present</p>
+<p>Changed 7/2013 to use Digest::SHA others are now deprecated and this is in
+core Perl...</p>
 <pre>
 <a name="_get_digest-"></a><span class="k">sub </span><span class="m">_get_digest</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">@hash_items</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$digest</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$sha2obj</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$sha_obj</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$type</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$0</span> !~ <span class="q">/ccinstall/</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">eval</span> <span class="s">{</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">hash_type</span>} <span class="k">eq</span> <span class="q">&#39;sha2&#39;</span> &amp;&amp; <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span>
-        <span class="s">{</span>
-            <span class="k">require</span> <span class="w">Digest::SHA2</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">hash_type</span>} <span class="k">eq</span> <span class="q">&#39;sha2&#39;</span> &amp;&amp; <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$type</span> = <span class="q">&quot;sha2&quot;</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">hash_type</span>} <span class="k">eq</span> <span class="q">&#39;sha1&#39;</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="k">require</span> <span class="w">Digest::SHA1</span><span class="sc">;</span>
             <span class="i">$type</span> = <span class="q">&quot;sha1&quot;</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
             <span class="k">die</span>
@@ -229,30 +230,30 @@ performance hit but easier setup, also they are in a function, at present
     <span class="s">}</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&quot;sha2&quot;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$sha2obj</span> = <span class="w">new</span> <span class="w">Digest::SHA2</span> <span class="n">512</span><span class="sc">;</span>
+        <span class="i">$sha_obj</span> = <span class="i">sha512</span><span class="s">(</span><span class="i">@hash_items</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&quot;sha1&quot;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$sha2obj</span> = <span class="w">new</span> <span class="w">Digest::SHA1</span><span class="sc">;</span>
+        <span class="i">$sha_obj</span> = <span class="i">sha1</span><span class="s">(</span><span class="i">@hash_items</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
-    <span class="i">$sha2obj</span><span class="i">-&gt;add</span><span class="s">(</span><span class="i">@hash_items</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$digest</span> = <span class="i">$sha2obj</span><span class="i">-&gt;b64digest</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># make base64 digest URL safe without using encoder/decoder 12/2008</span>
-    <span class="c"># only do this for strings to be put into urls...</span>
-    <span class="c">###$digest =~ s/([^A-Za-z0-9])/sprintf(&quot;%%%02X&quot;, ord($1))/seg if ($url_type);</span>
-    <span class="c">###$digest =~ tr!\+\|\=!\\-\_! if ($url_type);    # transform dificult escapes</span>
-    <span class="i">$digest</span> =~ <span class="q">s/[\+\\\s\/\|\=]+//g</span> <span class="k">if</span> <span class="s">(</span><span class="i">$url_type</span><span class="s">)</span><span class="sc">;</span>   <span class="c"># remove difficult escapes</span>
-       <span class="c">#$digest = encode_base64($digest) if ($url_type);   # remove spaces newlines, experimental</span>
+    <span class="c"># now turn into base64, pad if not url, urlencode if url</span>
+    <span class="k">if</span> <span class="s">(</span><span class="i">$url_type</span><span class="s">)</span> <span class="s">{</span>
+        <span class="i">$digest</span> = <span class="i">encode_base64url</span><span class="s">(</span><span class="i">$sha_obj</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="i">$digest</span> = <span class="i">encode_base64</span><span class="s">(</span><span class="i">$sha_obj</span><span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
     <span class="k">return</span> <span class="i">$digest</span><span class="sc">;</span>
 <span class="s">}</span>
 
 </pre><p></p>
 <h3><a name="text_to_hash">text_to_hash</a></h3>
-<p>This is a tramp function that exposes _get_digest</p>
+<p>This is a tramp function that exposes _get_digest
+Passwords should now be stored as base64 url safe
+rather than plain base64</p>
 <pre>
 <a name="text_to_hash-"></a><span class="k">sub </span><span class="m">text_to_hash</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$text</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$url_type</span> = <span class="n">0</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$url_type</span> = <span class="n">1</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$hash</span> = <span class="i">_get_digest</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="s">(</span><span class="i">$text</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">return</span> <span class="i">$hash</span><span class="sc">;</span>
 
@@ -265,6 +266,7 @@ Normally this would take place over an https connection too.</p>
 <pre>
 <a name="compare_password-"></a><span class="k">sub </span><span class="m">compare_password</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$password_in</span><span class="cm">,</span> <span class="i">$cleartext</span><span class="cm">,</span> <span class="i">$password_stored</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
     <span class="k">if</span> <span class="s">(</span> <span class="i">$password_in</span> <span class="k">ne</span> <span class="i">$password_stored</span> <span class="s">)</span> <span class="s">{</span>    <span class="c"># already hashed</span>
         <span class="k">return</span> <span class="n">0</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
@@ -728,7 +730,7 @@ method in previous releases....</p>
 <pre>
     my ( $class, $db, $fields_ref, $token ) = @_;</pre>
 <pre>
-    print &quot;Content-type: text/html\n\n&quot;;
+    print &quot;Content-Type: text/html; charset=utf-8\n\n&quot;;
     print &quot;in do auth $fields_ref-&gt;{'registry'}&quot;;</pre>
 <pre>
     ###require &quot;Net::OAuth&quot; ;</pre>

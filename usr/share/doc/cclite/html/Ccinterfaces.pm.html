@@ -337,7 +337,7 @@ example mail text
         <span class="s">}</span>
         <span class="s">(</span><span class="i">$description</span><span class="s">)</span> =
           <span class="i">$input</span> =~ <span class="q">/for\s+(\w.*)$/mi</span><span class="sc">;</span>    <span class="c"># description is everything at end</span>
-             <span class="c"># look up sending user, receiving user and currency</span>
+            <span class="c"># look up sending user, receiving user and currency</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span>      <span class="i">$fromregistry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span>
             <span class="q">&#39;userEmail&#39;</span><span class="cm">,</span> <span class="i">$from</span>{<span class="i">$key</span>}<span class="cm">,</span>   <span class="i">$token</span><span class="cm">,</span>     <span class="i">$offset</span><span class="cm">,</span>
@@ -821,8 +821,8 @@ done to generate a merchant key: hotbits + hashing probably for the moment.</p>
             <span class="c"># call ordinary transaction</span>
             <span class="k">my</span> <span class="i">$transaction_ref</span> = \<span class="i">%transaction</span><span class="sc">;</span>
             <span class="k">if</span> <span class="s">(</span><span class="i">$ok</span><span class="s">)</span> <span class="s">{</span>
-                <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span> =
-                  <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;osc&#39;</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">fromregistry</span>}<span class="cm">,</span>
+                <span class="k">my</span> <span class="s">(</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$output_message</span><span class="cm">,</span> <span class="i">$page</span><span class="cm">,</span> <span class="i">$c</span> <span class="s">)</span>
+                  = <span class="i">transaction</span><span class="s">(</span> <span class="q">&#39;osc&#39;</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="w">fromregistry</span>}<span class="cm">,</span>
                     <span class="q">&#39;om_trades&#39;</span><span class="cm">,</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
             <span class="s">}</span>    <span class="c"># endif</span>
         <span class="s">}</span>    <span class="c"># endif: search for manufacturers</span>

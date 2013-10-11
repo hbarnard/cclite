@@ -465,8 +465,8 @@ sub _gateway_sms_join {
         # check that it isn't duplicated
         $fieldsref->{'userEmail'} = $email;
         my $user_ref =
-          check_email_exists( 'local', $registry, $fieldsref, \%messages, undef,
-            undef, undef );
+          check_email_exists( 'local', $registry, $fieldsref, \%messages,
+            undef, undef, undef );
 
         # user with this email already exist they must be distinct
         if ( length( $user_ref->{'userId'} ) ) {
@@ -590,8 +590,7 @@ sub _gateway_sms_pay {
         my $message;
         if ( $from_user_ref->{'userSmsreceipt'} ) {
 
-            $message =
-                $messages{'registryclosing'} . ':'
+            $message = $messages{'registryclosing'} . ':'
               . $messages{'notransfersallowed'};
             _send_textmarketer_sms_message( $class, $registry, 'error',
                 $message, $from_user_ref, undef, {} );
@@ -757,7 +756,8 @@ EOT
 
 # note that the mail/sms messages are not the same for payment, the person paying
 # gets an email and the paid person gets an sms advising them of payment arrival...
-    my $mail_error = _send_sms_mail_message( 'local', $registry, $mail_message,
+    my $mail_error =
+      _send_sms_mail_message( 'local', $registry, $mail_message,
         $from_user_ref );
 
     debug( undef, $transaction_ref );

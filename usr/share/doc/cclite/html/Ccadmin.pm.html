@@ -254,7 +254,7 @@ for a new installation, the current software version is 'guessed' here...</p>
 
     <span class="c">#FIXME: eliminate double separators, check_path?</span>
     <span class="i">$configuration</span>{<span class="w">literalspath</span>} =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
-    <span class="i">$configuration</span>{<span class="w">templates</span>}    =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
+    <span class="i">$configuration</span>{<span class="w">templates</span>} =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
 
     <span class="i">$configuration</span>{<span class="w">hash_type</span>} = <span class="i">$hash_type</span><span class="sc">;</span>
 
@@ -689,8 +689,7 @@ one for local, one for remote..messier but more efficient?</p>
 
     <span class="c"># eval block for this 7/2010</span>
     <span class="k">eval</span> <span class="s">{</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span>
-        <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$dbh</span><span class="i">-&gt;do</span><span class="s">(</span><span class="q">&quot;create database if not exists $fieldsref-&gt;{newregistry}&quot;</span><span class="s">)</span><span class="sc">;</span>
             <span class="i">$dbh</span><span class="i">-&gt;disconnect</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
@@ -1091,8 +1090,7 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$operation</span> <span class="k">eq</span> <span class="q">&#39;set&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">eval</span> <span class="s">{</span>
-            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%file</span> <span class="s">)</span>
-            <span class="s">{</span>
+            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%file</span> <span class="s">)</span> <span class="s">{</span>
                 <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
                     <span class="q">`mkdir -p $file{$key}`</span><span class="sc">;</span>
                 <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>

@@ -88,7 +88,7 @@ ccsmsgate.cgi</pre>
 
 <span class="k">my</span> <span class="i">$test</span> = <span class="n">0</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$test</span><span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
@@ -130,7 +130,7 @@ ccsmsgate.cgi</pre>
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>         <span class="c"># new way of doing configuration</span>
 <span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
-<span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
 
 <span class="c"># please de-comment to suit interface, only Cardboardfish has been heavily</span>
 <span class="c"># tested recently as of August 2010</span>

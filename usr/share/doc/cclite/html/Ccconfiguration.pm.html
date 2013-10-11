@@ -181,7 +181,7 @@ information, always!</p>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> = <span class="i">_dying_message</span><span class="s">(</span><span class="i">$configfile</span><span class="s">)</span><span class="sc">;</span>
-        <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+        <span class="k">print</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
         <span class="k">print</span> <span class="i">$message</span><span class="sc">;</span>
         <span class="k">die</span><span class="sc">;</span>
     <span class="s">}</span>

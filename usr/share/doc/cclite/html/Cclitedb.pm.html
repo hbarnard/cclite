@@ -1712,8 +1712,8 @@ of the action in the controller.</p>
 <pre>
 <a name="makebutton-"></a><span class="k">sub </span><span class="m">makebutton</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$label</span><span class="cm">,</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$action</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> =
-      <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$label</span><span class="cm">,</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$action</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span>
+      = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$formfields</span><span class="cm">,</span> <span class="i">$x</span><span class="cm">,</span> <span class="i">$senddetected</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>

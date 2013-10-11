@@ -221,8 +221,8 @@ sub show_yellow_dir1 {
     foreach my $key ( sort keys %$yellowdirectory_hash_ref ) {
 
         my $type =
-          $yellowdirectory_hash_ref->{$key}
-          ->{'type'};           #just for convenience to shorten it
+          $yellowdirectory_hash_ref->{$key}->{'type'}
+          ;                     #just for convenience to shorten it
 
         $yellowdirectory_hash_ref->{$key}->{'type'} =
           $messages{$type};   # replace offered/wanted with multilingual message

@@ -251,7 +251,7 @@ sub read_mail_transactions {
         }
         ($description) =
           $input =~ /for\s+(\w.*)$/mi;    # description is everything at end
-             # look up sending user, receiving user and currency
+            # look up sending user, receiving user and currency
         my ( $error, $fromuserref ) = get_where(
             $class,      $fromregistry, 'om_users', '*',
             'userEmail', $from{$key},   $token,     $offset,
@@ -748,8 +748,8 @@ sub oscommerce_transaction {
             # call ordinary transaction
             my $transaction_ref = \%transaction;
             if ($ok) {
-                my ( $metarefresh, $home, $error, $output_message, $page, $c ) =
-                  transaction( 'osc', $transaction{fromregistry},
+                my ( $metarefresh, $home, $error, $output_message, $page, $c )
+                  = transaction( 'osc', $transaction{fromregistry},
                     'om_trades', $transaction_ref, "", $token );
             }    # endif
         }    # endif: search for manufacturers

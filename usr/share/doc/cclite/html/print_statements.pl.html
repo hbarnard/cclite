@@ -451,13 +451,13 @@ my ($document) = @_;</pre>
 <span class="k">my</span> <span class="i">$user_or_all</span>     = <span class="i">$fields</span>{<span class="q">&#39;userorall&#39;</span>} || <span class="i">$ARGV</span>[<span class="n">2</span>] || <span class="q">&#39;all&#39;</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$statement_month</span><span class="s">)</span> || !<span class="k">length</span><span class="s">(</span><span class="i">$statement_year</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
     <span class="k">print</span> <span class="q">&quot;need month and year for statements\n\n&quot;</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="k">if</span> <span class="s">(</span> !<span class="w">is_admin</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
     <span class="k">print</span> <span class="i">$messages</span>{<span class="q">&#39;notadmin&#39;</span>}<span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -508,7 +508,7 @@ my ($document) = @_;</pre>
 
 <span class="c"># exit if there aren&#39;t any</span>
 <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$user_hash_ref</span><span class="s">)</span> || <span class="k">length</span><span class="s">(</span><span class="i">$registry_error</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
     <span class="k">print</span> <span class="q">&quot;no valid user or database problem\n\n&quot;</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>

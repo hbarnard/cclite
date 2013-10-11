@@ -118,7 +118,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 
 <span class="k">my</span> <span class="i">$test</span> = <span class="n">0</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$test</span><span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
@@ -230,7 +230,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="i">$fields</span>{<span class="w">domain</span>} = <span class="i">$configuration</span>{<span class="w">domain</span>}<span class="sc">;</span>
 
 <span class="c"># old style hash set type = 0</span>
-<span class="k">my</span> <span class="i">$url_type</span> = <span class="n">0</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$url_type</span> = <span class="n">1</span><span class="sc">;</span>
 
 <span class="i">$fields</span>{<span class="w">userHash</span>} = <span class="i">hash_password</span><span class="s">(</span> <span class="i">$url_type</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="w">userPassword</span>} <span class="s">)</span><span class="sc">;</span>
 
@@ -477,8 +477,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c"># logon to a registry</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;logon&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
-    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-    <span class="i">logon_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span>
+    = <span class="i">logon_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># logoff, doesn&#39;t return, exits</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;logoff&#39;</span> <span class="s">)</span>
@@ -618,8 +618,8 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 <span class="c"># make a newly created user active</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&#39;confirmuser&#39;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
-    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-    <span class="i">confirm_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span>
+    = <span class="i">confirm_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># add an openid to the logged on user</span>
 <span class="c"># add a user with status unconfirmed</span>

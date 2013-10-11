@@ -86,7 +86,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
 </pre><pre>
 <span class="c"># rough equivalent of fatals to browser, will print anything that goes wrong</span>
 
-<span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
 <span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>

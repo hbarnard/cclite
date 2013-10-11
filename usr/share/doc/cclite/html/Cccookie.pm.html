@@ -161,7 +161,7 @@ Hugh Barnard</p>
         <span class="s">(</span> <span class="i">$chip</span><span class="cm">,</span> <span class="i">$val</span> <span class="s">)</span> = <span class="k">split</span><span class="s">(</span> <span class="q">/=/</span><span class="cm">,</span> <span class="i">$_</span><span class="cm">,</span> <span class="n">2</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># splits on the first =.</span>
                 <span class="c"># Convert %XX from hex numbers to alphanumeric</span>
         <span class="i">$chip</span> =~ <span class="q">s/%([A-Fa-f0-9]{2})/pack(&quot;c&quot;,hex($1))/ge</span><span class="sc">;</span>
-        <span class="i">$val</span>  =~ <span class="q">s/%([A-Fa-f0-9]{2})/pack(&quot;c&quot;,hex($1))/ge</span><span class="sc">;</span>
+        <span class="i">$val</span> =~ <span class="q">s/%([A-Fa-f0-9]{2})/pack(&quot;c&quot;,hex($1))/ge</span><span class="sc">;</span>
 
         <span class="c"># Associate key and value</span>
         <span class="i">$cookie</span>{<span class="i">$chip</span>} .= <span class="q">&quot;\1&quot;</span>
@@ -248,8 +248,8 @@ Set-cookie etc.</p>
     <span class="k">my</span> <span class="i">$header</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%cookie</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">undef</span> <span class="i">$cookie</span>{ <span class="i">$key</span>
-          }<span class="sc">;</span> <span class="c">#undefines cookie so if you call set_cookie, it doesn&#39;t reset the cookie.</span>
+        <span class="k">undef</span> <span class="i">$cookie</span>{<span class="i">$key</span>}
+          <span class="sc">;</span> <span class="c">#undefines cookie so if you call set_cookie, it doesn&#39;t reset the cookie.</span>
         <span class="i">$header</span> .=
           <span class="q">&quot;Set-Cookie: $key=deleted; expires=Thu, 01-Jan-1970 00:00:00 GMT;\n&quot;</span><span class="sc">;</span>
 

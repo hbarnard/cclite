@@ -199,7 +199,7 @@ pre { color: #000000;
 
 <a name="header-"></a>    <span class="k">sub </span><span class="m">header</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$status</span> = <span class="k">shift</span> || <span class="n">200</span><span class="sc">;</span>
-        <span class="k">my</span> <span class="i">$type</span>   = <span class="k">shift</span> || <span class="q">&quot;text/html&quot;</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$type</span>   = <span class="k">shift</span> || <span class="q">&quot;text/html; charset=utf-8&quot;</span><span class="sc">;</span>
         <span class="k">if</span> <span class="s">(</span> !<span class="i">$done_header</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">plog</span> <span class="q">&quot;Sending header with status $status and type $type&quot;</span><span class="sc">;</span>
             <span class="k">print</span> <span class="q">&quot;Status: $status Blahblah\n&quot;</span><span class="sc">;</span>
@@ -213,7 +213,7 @@ pre { color: #000000;
         <span class="k">if</span> <span class="s">(</span> !<span class="i">$done_header</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">plog</span> <span class="q">&quot;Redirecting to $url\n&quot;</span><span class="sc">;</span>
             <span class="k">print</span> <span class="q">&quot;Status: 302 Found\n&quot;</span><span class="sc">;</span>
-            <span class="k">print</span> <span class="q">&quot;Content-type: text/html\n&quot;</span><span class="sc">;</span>
+            <span class="k">print</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n&quot;</span><span class="sc">;</span>
             <span class="k">print</span> <span class="q">&quot;Location: $url\n\n&quot;</span><span class="sc">;</span>
             <span class="k">print</span> <span class="q">&#39;&lt;a href=&quot;&#39;</span> . <span class="i">$url</span> . <span class="q">&#39;&quot;&gt;&#39;</span> . <span class="i">$url</span> . <span class="q">&#39;&lt;/a&gt;&#39;</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>

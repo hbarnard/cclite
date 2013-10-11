@@ -195,8 +195,8 @@ EOT
     my $feed_file_name = "$fieldsref->{'type'}\.rdf";
     my $full_name      = "$rss_directory\/$feed_file_name";
     if ( !( -w $full_name ) ) {
-        log_entry( $class, $db, "cannot write to rss feed file:$feed_file_name",
-            '' );
+        log_entry( $class, $db,
+            "cannot write to rss feed file:$feed_file_name", '' );
     }
     $rss->save($full_name)
       if ( length($db) );    # ugly but removes empty file bug

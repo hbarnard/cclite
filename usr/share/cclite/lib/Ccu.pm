@@ -60,7 +60,6 @@ my $VERSION = 1.00;
   result
   printhead
   pretty_caller
-  pretty_status
   sql_timestamp
   get_os_and_distribution
   check_paths
@@ -73,8 +72,6 @@ $ENV{IFS} = '';
 
 Lightweight cgi parser routine. Can be modified to not accept html,
 possible system commands etc. 
-
-Removed , from disallowed characters May 2012, to permit french style decimals in sms
 
 =cut
 
@@ -96,7 +93,7 @@ sub cgiparse {
         s/\+/ /g;
         s/%(..)/pack("c",hex($1))/ge;
         ( $key, $value ) = split(/=/);
-        $value =~ s/[\<\>\;]//g;    # remove command separators etc.
+        $value =~ s/[\<\>\,\;]//g;    # remove command separators etc.
         $fields{$key} = $value;
 
     }
@@ -336,10 +333,8 @@ EOT
 
     }
 
-# changed to utf-8 8/2012 to deal with multiple languages...
-
     print <<EOT;
-Content-Type: text/html; charset=utf-8
+Content-type: text/html
 $cookies
 EOT
 
@@ -468,7 +463,7 @@ This is also probably dead code
 
 sub printhead {
     print <<EOT;
-Content-Type: text/html; charset=utf-8
+Content-type: text/html
 
 EOT
     return;
@@ -640,13 +635,7 @@ sub get_os_and_distribution {
     # guessing at cpanel because the whole thing is under the document root
     my $path = ( getcwd() || `pwd` ) if ( $os eq 'linux' );
     if ( $path =~ /public_html/i && $os eq 'linux' ) {
-        my $cpanel =
-          `/usr/local/cpanel/cpanel -V`;    # better test for cpanel 07/2012
-        if ( length($cpanel) ) {
-            $distribution .= ' cpanel';
-        } else {
-            $distribution .= ' probably cpanel';
-        }
+        $distribution .= ' probably cpanel';
     }
     return ( $os, $distribution, $package_type );
 }
@@ -798,7 +787,9 @@ delivery and doesn't break a lot of fairly useful things in the legacy part...
 
 It does need to distinguish between multdimensional and flat
 
-FIXME: This probably needs replacing by the JSON modules in the medium term...
+FIXME: This probably needs replacing by the JSON modules in the medium term,
+however this will require non-core modules, something that's avoided so far.
+
 
 Also, we're probably going introduce a detailed 'status' part with an array
 of status objects as of 11/2011. This is in response to complaints by tiki-wiki
@@ -1009,6 +1000,69 @@ sub debug_message {
     }
     close $fh;
     return;
+}
+
+=head3 deliver_datatables_data
+
+Handle returns to datatables via deliver_remote_data, this will deal
+with lists of transactions, small ads etc. etc.
+
+Should do anything that is an array of json
+objects representing table rows....may not do anything useful with
+something that is not organised like this...
+=cut
+
+sub deliver_datatables_data {
+
+    my ( $hash_ref, $fieldsref, $registry_error, $total, $token ) = @_;
+
+    # turn the database lookup into json..., last one should be $token
+    # FIXME: force status from registry error, shouldn't work that way
+    my $status = 1 if ( length($registry_error) );
+
+    my $json_array_ref = deliver_remote_data(
+        $fieldsref->{'registry'},
+        $fieldsref->{'subaction'},
+        $registry_error, $hash_ref, $status, $token
+    );
+
+    my $end_array_slice =
+      ( $fieldsref->{'iDisplayStart'} + $fieldsref->{'iDisplayLength'} ) - 1;
+
+    my @slice;
+    if ( $total >= $end_array_slice ) {
+        @slice =
+          @$json_array_ref[ $fieldsref->{'iDisplayStart'} .. $end_array_slice ];
+    } elsif ( $total == 0 ) {
+        @slice = ();    # this will make datatables display 'no data in table'
+    } elsif ( $total < $end_array_slice ) {
+        @slice =
+          @$json_array_ref[ $fieldsref->{'iDisplayStart'} .. ( $total - 1 ) ];
+    } else {
+        @slice = @$json_array_ref;
+    }
+
+    #FIXME: This shouldn't happen but...
+    @slice = grep defined, @slice;
+
+    # in the datatables context, give 'frosting' otherwise give back raw array
+    # to be done raw.html, raw.rss etc...
+
+    my @json;
+    if (1) {
+        @json = @$json_array_ref;
+    } else {
+        @json = [
+            {
+                "sEcho"                => $fieldsref->{'sEcho'},
+                "iTotalRecords"        => $total,
+                "iTotalDisplayRecords" => $total,
+                'aaData'               => \@slice
+            }
+        ];
+    }
+
+    return @json;
 }
 
 =head3 pretty_status

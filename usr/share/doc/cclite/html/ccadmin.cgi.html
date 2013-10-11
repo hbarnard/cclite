@@ -71,7 +71,7 @@ pre { color: #000000;
 <pre>#!/usr/bin/perl
 <span class="k">my</span> <span class="i">$test</span> = <span class="n">0</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$test</span><span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
@@ -169,24 +169,24 @@ to change these, just substitute a translated hash</p>
 <span class="c"># no rss and XML::Rss and associated modules required,</span>
 <span class="c"># if you declare userss=no in cclite.cf</span>
 <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">userss</span>} <span class="k">eq</span> <span class="q">&quot;yes&quot;</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="k">require</span> <span class="w">Ccrss</span><span class="sc">;</span>         <span class="c"># uses this for remote lookups etc.</span>
+    <span class="k">require</span> <span class="w">Ccrss</span><span class="sc">;</span>    <span class="c"># uses this for remote lookups etc.</span>
     <span class="w">import</span> <span class="w">Ccrss</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="k">use</span> <span class="w">HTML::SimpleTemplate</span><span class="sc">;</span>
 
-<span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>              <span class="c"># use the cookie module</span>
-<span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>                   <span class="c"># use the utilities module</span>
-<span class="k">use</span> <span class="w">Ccvalidate</span><span class="sc">;</span>            <span class="c"># use the validation and javascript routines</span>
-<span class="k">use</span> <span class="w">Cclite</span><span class="sc">;</span>                <span class="c"># use the main motor</span>
-<span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>       <span class="c"># new style configuration</span>
+<span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>           <span class="c"># use the cookie module</span>
+<span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>                <span class="c"># use the utilities module</span>
+<span class="k">use</span> <span class="w">Ccvalidate</span><span class="sc">;</span>         <span class="c"># use the validation and javascript routines</span>
+<span class="k">use</span> <span class="w">Cclite</span><span class="sc">;</span>             <span class="c"># use the main motor</span>
+<span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>    <span class="c"># new style configuration</span>
 
 <span class="k">use</span> <span class="w">Ccadmin</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccchecker</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
-<span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>              <span class="c"># probably should be via Cclite.pm only, not directly</span>
+<span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>           <span class="c"># probably should be via Cclite.pm only, not directly</span>
 
 <span class="k">my</span> <span class="s">(</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$cookies</span><span class="cm">,</span>
     <span class="i">$templatename</span><span class="cm">,</span> <span class="i">$registry_private_value</span> <span class="s">)</span><span class="sc">;</span>    <span class="c"># for the moment</span>
@@ -456,8 +456,8 @@ to change these, just substitute a translated hash</p>
 <span class="c">#</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;logon&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
-    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-    <span class="i">logon_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span>
+    = <span class="i">logon_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$table</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;logoff&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="i">logoff_user</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="i">$user_pages</span><span class="cm">,</span> <span class="i">$cookieref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>

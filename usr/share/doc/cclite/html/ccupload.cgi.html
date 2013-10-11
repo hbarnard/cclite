@@ -112,7 +112,7 @@ pre { color: #000000;
 <span class="c"># these batch scripts are kept as eval, if they fail they print their problems</span>
 <span class="c"># onto the status web page</span>
 
-<span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-type: text/html\n\n&quot;</span><span class="sc">;</span>
+<span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
 <span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
 <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>

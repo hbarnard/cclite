@@ -75,6 +75,7 @@ pre { color: #000000;
 			<li><a href="#decide_language">decide_language</a></li>
 			<li><a href="#debug_hash_contents">debug_hash_contents</a></li>
 			<li><a href="#debug_message">debug_message</a></li>
+			<li><a href="#deliver_datatables_data">deliver_datatables_data</a></li>
 			<li><a href="#pretty_status">pretty_status</a></li>
 		</ul>
 
@@ -109,6 +110,7 @@ pre { color: #000000;
 <li><a href="#decide_language-">decide_language</a></li>
 <li><a href="#debug_hash_contents-">debug_hash_contents</a></li>
 <li><a href="#debug_message-">debug_message</a></li>
+<li><a href="#deliver_datatables_data-">deliver_datatables_data</a></li>
 <li><a href="#pretty_status-">pretty_status</a></li>
 </ul>
 </li>
@@ -179,7 +181,6 @@ read in and localise web forms etc.</p>
   <span class="q">result</span>
   <span class="q">printhead</span>
   <span class="q">pretty_caller</span>
-  <span class="q">pretty_status</span>
   <span class="q">sql_timestamp</span>
   <span class="q">get_os_and_distribution</span>
   <span class="q">check_paths</span>
@@ -192,7 +193,6 @@ read in and localise web forms etc.</p>
 <h3><a name="cgiparse">cgiparse</a></h3>
 <p>Lightweight cgi parser routine. Can be modified to not accept html,
 possible system commands etc.</p>
-<p>Removed , from disallowed characters May 2012, to permit french style decimals in sms</p>
 <pre>
 <a name="cgiparse-"></a><span class="k">sub </span><span class="m">cgiparse</span> <span class="s">{</span>
     <span class="k">my</span> <span class="i">$key</span><span class="sc">;</span>
@@ -212,7 +212,7 @@ possible system commands etc.</p>
         <span class="q">s/\+/ /g</span><span class="sc">;</span>
         <span class="q">s/%(..)/pack(&quot;c&quot;,hex($1))/ge</span><span class="sc">;</span>
         <span class="s">(</span> <span class="i">$key</span><span class="cm">,</span> <span class="i">$value</span> <span class="s">)</span> = <span class="k">split</span><span class="s">(</span><span class="q">/=/</span><span class="s">)</span><span class="sc">;</span>
-        <span class="i">$value</span> =~ <span class="q">s/[\&lt;\&gt;\;]//g</span><span class="sc">;</span>    <span class="c"># remove command separators etc.</span>
+        <span class="i">$value</span> =~ <span class="q">s/[\&lt;\&gt;\,\;]//g</span><span class="sc">;</span>    <span class="c"># remove command separators etc.</span>
         <span class="i">$fields</span>{<span class="i">$key</span>} = <span class="i">$value</span><span class="sc">;</span>
 
     <span class="s">}</span>
@@ -724,12 +724,7 @@ configuration should work...</p>
     <span class="c"># guessing at cpanel because the whole thing is under the document root</span>
     <span class="k">my</span> <span class="i">$path</span> = <span class="s">(</span> <span class="i">getcwd</span><span class="s">(</span><span class="s">)</span> || <span class="q">`pwd`</span> <span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;linux&#39;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$path</span> =~ <span class="q">/public_html/i</span> &amp;&amp; <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;linux&#39;</span> <span class="s">)</span> <span class="s">{</span>
-       <span class="k">my</span> <span class="i">$cpanel</span> = <span class="q">`/usr/local/cpanel/cpanel -V`</span> <span class="sc">;</span>  <span class="c"># better test for cpanel 07/2012</span>
-        <span class="k">if</span> <span class="s">(</span><span class="k">length</span><span class="s">(</span><span class="i">$cpanel</span><span class="s">)</span><span class="s">)</span> <span class="s">{</span>
-		  <span class="i">$distribution</span> .= <span class="q">&#39; cpanel&#39;</span><span class="sc">;</span>	
-		<span class="s">}</span> <span class="k">else</span> <span class="s">{</span>	   
-          <span class="i">$distribution</span> .= <span class="q">&#39; probably cpanel&#39;</span><span class="sc">;</span>
-	    <span class="s">}</span>
+        <span class="i">$distribution</span> .= <span class="q">&#39; probably cpanel&#39;</span><span class="sc">;</span>
     <span class="s">}</span>
     <span class="k">return</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
@@ -868,7 +863,8 @@ to remote gateways such as Drupal, Elgg, Joomla,Tiki-Wiki and Openclass</p>
 a pragmatic one that preserves some consistency of access and
 delivery and doesn't break a lot of fairly useful things in the legacy part...</p>
 <p>It does need to distinguish between multdimensional and flat</p>
-<p>FIXME: This probably needs replacing by the JSON modules in the medium term...</p>
+<p>FIXME: This probably needs replacing by the JSON modules in the medium term,
+however this will require non-core modules, something that's avoided so far.</p>
 <p>Also, we're probably going introduce a detailed 'status' part with an array
 of status objects as of 11/2011. This is in response to complaints by tiki-wiki
 that there's no much diagnostic etc. information flowing back in the json
@@ -1063,6 +1059,68 @@ Probably should use data dumper, but that's 'yam', yet another module</p>
     <span class="s">}</span>
     <span class="k">close</span> <span class="i">$fh</span><span class="sc">;</span>
     <span class="k">return</span><span class="sc">;</span>
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="deliver_datatables_data">deliver_datatables_data</a></h3>
+<p>Handle returns to datatables via deliver_remote_data, this will deal
+with lists of transactions, small ads etc. etc.</p>
+<p>Should do anything that is an array of json
+objects representing table rows....may not do anything useful with
+something that is not organised like this...
+=cut</p>
+<pre>
+<a name="deliver_datatables_data-"></a><span class="k">sub </span><span class="m">deliver_datatables_data</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$hash_ref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$total</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c"># turn the database lookup into json..., last one should be $token</span>
+    <span class="c"># FIXME: force status from registry error, shouldn&#39;t work that way</span>
+    <span class="k">my</span> <span class="i">$status</span> = <span class="n">1</span> <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$registry_error</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$json_array_ref</span> = <span class="i">deliver_remote_data</span><span class="s">(</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;subaction&#39;</span>}<span class="cm">,</span>
+        <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span><span class="cm">,</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$token</span>
+    <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$end_array_slice</span> =
+      <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;iDisplayStart&#39;</span>} + <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;iDisplayLength&#39;</span>} <span class="s">)</span> - <span class="n">1</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">@slice</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$total</span> &gt;= <span class="i">$end_array_slice</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">@slice</span> =
+          <span class="i">@$json_array_ref</span>[ <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;iDisplayStart&#39;</span>} .. <span class="i">$end_array_slice</span> ]<span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$total</span> == <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">@slice</span> = <span class="s">(</span><span class="s">)</span><span class="sc">;</span>    <span class="c"># this will make datatables display &#39;no data in table&#39;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$total</span> &lt; <span class="i">$end_array_slice</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">@slice</span> =
+          <span class="i">@$json_array_ref</span>[ <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;iDisplayStart&#39;</span>} .. <span class="s">(</span> <span class="i">$total</span> - <span class="n">1</span> <span class="s">)</span> ]<span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="i">@slice</span> = <span class="i">@$json_array_ref</span><span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="c">#FIXME: This shouldn&#39;t happen but...</span>
+    <span class="i">@slice</span> = <span class="k">grep</span> <span class="k">defined</span><span class="cm">,</span> <span class="i">@slice</span><span class="sc">;</span>
+
+    <span class="c"># in the datatables context, give &#39;frosting&#39; otherwise give back raw array</span>
+    <span class="c"># to be done raw.html, raw.rss etc...</span>
+
+    <span class="k">my</span> <span class="i">@json</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span><span class="n">1</span><span class="s">)</span> <span class="s">{</span>
+        <span class="i">@json</span> = <span class="i">@$json_array_ref</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="i">@json</span> = <span class="s">[</span>
+            <span class="s">{</span>
+                <span class="q">&quot;sEcho&quot;</span>                <span class="cm">=&gt;</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;sEcho&#39;</span>}<span class="cm">,</span>
+                <span class="q">&quot;iTotalRecords&quot;</span>        <span class="cm">=&gt;</span> <span class="i">$total</span><span class="cm">,</span>
+                <span class="q">&quot;iTotalDisplayRecords&quot;</span> <span class="cm">=&gt;</span> <span class="i">$total</span><span class="cm">,</span>
+                <span class="q">&#39;aaData&#39;</span>               <span class="cm">=&gt;</span> \<span class="i">@slice</span>
+            <span class="s">}</span>
+        <span class="s">]</span><span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="k">return</span> <span class="i">@json</span><span class="sc">;</span>
 <span class="s">}</span>
 
 </pre><p></p>

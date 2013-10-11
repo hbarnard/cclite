@@ -169,7 +169,7 @@ $fields{home}   = $configuration{home};
 $fields{domain} = $configuration{domain};
 
 # old style hash set type = 0
-my $url_type = 0;
+my $url_type = 1;
 
 $fields{userHash} = hash_password( $url_type, $fields{userPassword} );
 
@@ -416,8 +416,8 @@ if ( length( $cookieref->{'userLogin'} ) ) {
 # logon to a registry
 ( $action eq 'logon' )
   && (
-    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies ) =
-    logon_user( 'local', $db, $table, $fieldsref, $cookieref, $token ) );
+    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies )
+    = logon_user( 'local', $db, $table, $fieldsref, $cookieref, $token ) );
 
 # logoff, doesn't return, exits
 ( $action eq 'logoff' )
@@ -557,8 +557,8 @@ if ( $action eq 'modifyuser' ) {
 # make a newly created user active
 ( $action eq 'confirmuser' )
   && (
-    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies ) =
-    confirm_user( 'local', $db, $table, $fieldsref, $token ) );
+    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies )
+    = confirm_user( 'local', $db, $table, $fieldsref, $token ) );
 
 # add an openid to the logged on user
 # add a user with status unconfirmed

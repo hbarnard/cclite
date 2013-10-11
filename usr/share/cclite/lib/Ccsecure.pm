@@ -55,8 +55,10 @@ use Exporter;
 use Ccu;
 use Cclitedb;
 use Cccookie;
+use Digest::SHA qw(sha1 sha512);
 
-#use MIME::Base64;
+# these should be core modules now...
+use MIME::Base64 qw(encode_base64url decode_base64url);
 
 # use Net::OAuth;       # for Oauth in a while...
 use Ccconfiguration;    # new style configuration, read hash type...
@@ -101,23 +103,25 @@ if cclite can't find SHA2
 
 FIXME: 7/2010 use Digest changed to require, so these are invoked at runtime,
 performance hit but easier setup, also they are in a function, at present
+
+Changed 7/2013 to use Digest::SHA others are now deprecated and this is in
+core Perl...
+
 =cut
 
 sub _get_digest {
 
     my ( $url_type, @hash_items ) = @_;
     my $digest;
-    my $sha2obj;
+    my $sha_obj;
     my $type;
     my %configuration = readconfiguration() if ( $0 !~ /ccinstall/ );
+
     my ( $os, $distribution, $package_type ) = get_os_and_distribution();
     eval {
-        if ( $configuration{hash_type} eq 'sha2' && $os ne 'windows' )
-        {
-            require Digest::SHA2;
+        if ( $configuration{hash_type} eq 'sha2' && $os ne 'windows' ) {
             $type = "sha2";
         } elsif ( $configuration{hash_type} eq 'sha1' ) {
-            require Digest::SHA1;
             $type = "sha1";
         } else {
             die
@@ -130,32 +134,32 @@ sub _get_digest {
     }
 
     if ( $type eq "sha2" ) {
-        $sha2obj = new Digest::SHA2 512;
+        $sha_obj = sha512(@hash_items);
     } elsif ( $type eq "sha1" ) {
-        $sha2obj = new Digest::SHA1;
+        $sha_obj = sha1(@hash_items);
     }
-    $sha2obj->add(@hash_items);
-    $digest = $sha2obj->b64digest();
 
-    # make base64 digest URL safe without using encoder/decoder 12/2008
-    # only do this for strings to be put into urls...
-    ###$digest =~ s/([^A-Za-z0-9])/sprintf("%%%02X", ord($1))/seg if ($url_type);
-    ###$digest =~ tr!\+\|\=!\\-\_! if ($url_type);    # transform dificult escapes
-    $digest =~ s/[\+\\\s\/\|\=]+//g if ($url_type);   # remove difficult escapes
-       #$digest = encode_base64($digest) if ($url_type);   # remove spaces newlines, experimental
+    # now turn into base64, pad if not url, urlencode if url
+    if ($url_type) {
+        $digest = encode_base64url($sha_obj);
+    } else {
+        $digest = encode_base64($sha_obj);
+    }
     return $digest;
 }
 
 =head3 text_to_hash
 
 This is a tramp function that exposes _get_digest
+Passwords should now be stored as base64 url safe
+rather than plain base64
 
 =cut
 
 sub text_to_hash {
 
     my ($text) = @_;
-    my $url_type = 0;
+    my $url_type = 1;
     my $hash = _get_digest( $url_type, ($text) );
     return $hash;
 
@@ -170,6 +174,7 @@ Normally this would take place over an https connection too.
 
 sub compare_password {
     my ( $password_in, $cleartext, $password_stored ) = @_;
+
     if ( $password_in ne $password_stored ) {    # already hashed
         return 0;
     } else {
