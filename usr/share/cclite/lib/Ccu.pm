@@ -35,6 +35,7 @@ use Exporter;
 use Data::Dumper;
 
 #use Log::Message::Simple qw[msg error debug carp croak cluck confess];
+# removed pretty_caller 24/01/2014
 
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
@@ -59,7 +60,6 @@ my $VERSION = 1.00;
   error
   result
   printhead
-  pretty_caller
   sql_timestamp
   get_os_and_distribution
   check_paths

@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-my $test = 0;
+my $test = 1;
 if ($test) {
     print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
     my $data = join( '', <DATA> );
@@ -12,7 +12,7 @@ if ($test) {
         exit;
     }
 }
-###__END__
+__END__
 
 =head1 NAME
 
@@ -98,6 +98,7 @@ sub readconfiguration {
     $dir =~ s/\bcgi-bin.*//;
     $default_config = "${dir}config/cclite.cf";
     $default_config =~ s/\s//g;
+
 
     # either supply it explicitly with full path or it will guess..
     my $configfile = $_[0] || $default_config;
@@ -448,7 +449,7 @@ on Fedora/Redhat and commodity hosting this is often of form:
 /home/<domain>/var/cclite/log/cclite.log
 /home/<domain>/domains/<subdomain>/var/cclite/log/cclite.log
 
-Dead code now, as of 2012
+Dead code now, as of 2012, no it's not apparently Jan 2013
 
 =cut
 
@@ -457,13 +458,8 @@ sub check_log_path {
     my ($dir) = @_;
     my $message;
     my $log_path = "$dir/var/cclite/log";
-
-    #FIXME: remove double slash in some log paths
-    $log_path =~ s/\/\//\//;
-
-    # can't find log directory or can't write to it..
-    if ( !-e $log_path || !-w $log_path ) {
-        $message = <<EOT;
+    my $found    = 0;                       #find the path flag
+    my $message  = <<EOT;
     <table><tr class="even"><td>
 <h5>Error 5:Ccinstall: Cclite installer</h5>
 Can't find or write to the log directory: $log_path
@@ -473,9 +469,22 @@ The owner should be the web server or virtual server user
 Please fix this manually
 EOT
 
+    #FIXME: remove double slash in some log paths
+    $log_path =~ s/\/\//\//;
+
+    # find this log directory and am able to write to it
+    # second test added for redhat etc. Jan 2014
+    if ( -e $log_path && -w $log_path ) {
+        $found = 1;
+    } else {
+        $log_path = '/var/cclite/log';
+        if ( -e $log_path && -w $log_path ) {
+            $found = 1;
+        }
     }
 
-    return $message;
+    # log path no found, so error message
+    return $message if ( $found == 0 );
 
 }
 
@@ -534,9 +543,9 @@ use strict;
 use locale;
 
 my (
-    %configuration, $libpath,      $dir,        @messages,
+    %configuration, %sms_configuration, $libpath,      $dir,        @messages,
     $os,            $distribution, $log_config, $login,
-    $package_type,  $newinstall,   $default_config,
+    $package_type,  $newinstall, $new_sms_install,   $default_config, $default_sms_config,
 );
 
 my $hash_type;    # contains the hash type used for hashing
@@ -564,6 +573,12 @@ BEGIN {
     #FIXME: duplicate slash somewhere in this....
     $default_config =~ s/\/\//\//g;
 
+
+    # and the readsms config file
+    $default_sms_config = "${dir}config/readsms.cf";
+    $default_sms_config =~  s/\s//g ;     
+
+
     %configuration = main::readconfiguration($default_config);
 
     if ( length( $configuration{error} ) ) {
@@ -573,6 +588,19 @@ BEGIN {
         $newinstall = 1;
 
     }
+
+    %sms_configuration = main::readconfiguration($default_sms_config);
+
+    if ( length( $configuration{error} ) ) {
+
+        # currently the default is not implemented, most values
+        # are supplied in _guess_configuration
+        $new_sms_install = 1;
+         
+    }
+
+
+    
 
 # if this is a windows or debian style package, already setup, so don't do this...
 # but if it's a tarball or non-standard debian/ubuntu need to set up log config...
@@ -622,6 +650,7 @@ use Ccadmin;
 use Ccsecure;
 use Cclitedb;              # probably should be via Cclite.pm only, not directly
 use Ccchecker;
+use Data::Dumper ;
 
 my %fields = cgiparse();
 my $offset = $fields{offset};
@@ -711,12 +740,22 @@ if ( $action eq "checkinstall" ) {
     ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies )
     = update_config2( $default_config, $fieldsref ) );
 
+
+# update readsms.cf, new in February 2014
+( $action eq "updategammuconfig" )
+  && (
+    ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies )
+    = update_config2($default_sms_config,$fieldsref ) );
+    
+
 # this will guess at values, if newinstall is signalled
 if ( $action eq "updateconfig1" ) {
 
+  
+
+    
     ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =
-      update_config1( $newinstall, $default_config, $fields{home},
-        $fields{domain}, $fields{hash_type}, $dir );
+      update_config1( $newinstall, $new_sms_install, $default_config, $fieldsref, $dir );
 
     # get the second set of fields, this is for display convenience...
     $fieldsref->{righthandside} =
@@ -725,6 +764,23 @@ if ( $action eq "updateconfig1" ) {
       check_cclite_preinstall();
 
 }
+
+# this will guess at values, if new_sms_install is signalled
+if ( $action eq "updategammuconfig" ) {
+    
+    ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =
+      update_config1( $newinstall, $new_sms_install, $default_sms_config, $fieldsref, $dir );
+
+    # get the second set of fields, this is for display convenience...
+    $fieldsref->{righthandside} =
+      $pages->Assemble( "installvalues_parttwo.html", $fieldsref );
+    ( $fieldsref->{'usable'}, $fieldsref->{'diagnosis'} ) =
+      check_cclite_preinstall();
+
+}
+ 
+
+
 
 # display the a template, if requested
 $action =~ /template/

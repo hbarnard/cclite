@@ -330,6 +330,7 @@ if (
         log_entry(
             'local',
             $db,
+            'error',
 "corrupt token or spoofing attempt from: $$cookieref{userLogin} $ENV{REMOTE_ADDR}",
             ''
         );

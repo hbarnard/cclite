@@ -47,7 +47,7 @@ Hugh Barnard
 
 =head1 COPYRIGHT
 
-(c) Hugh Barnard 2005-2010 GPL Licenced 
+(c) Hugh Barnard 2005-2014 GPL Licenced 
 
 =cut
 
@@ -71,6 +71,9 @@ print "Content-Type: text/html; charset=utf-8\n\n";
 # tested recently as of August 2010
 # Textmarketer tested heavily with added functions May 2012
 #
+# Gammu extended and tested February 2014, in general, this will be preferred
+# now because it removes dependency on http style commercial sms services
+# towards a more autonomous 'bank in a box' model
 
 use Ccsms::Textmarketer;
 my $type = 'txt';

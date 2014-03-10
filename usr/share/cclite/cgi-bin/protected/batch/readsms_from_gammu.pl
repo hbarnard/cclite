@@ -61,6 +61,48 @@ will probably work...ymmv...
 
 =cut
 
+
+=head3 sort_file_names
+
+This sorts the incoming file names chronologically
+
+
+=cut
+
+
+sub sort_file_names {
+
+my (@file_names) = @_ ;
+my @sts ;
+
+foreach my $file_name (@file_names) {
+	
+   next
+      if ( $file_name !~ /\056txt$/i );  # not a txt extension, standard for gammu sms
+
+	
+$file_name =~
+m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
+
+
+    my ( $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute, $sms_second,
+        $sms_int_code, $sms_phone_number )
+      = ( $1, $2, $3, $4, $5, $6, $7, $8 );
+    my $entry = ["$sms_year$sms_month$sms_day$sms_hour$sms_minute$sms_second" ,$file_name] ;
+
+push @sts, $entry ;
+
+}
+
+
+my @sorted_sts = sort{ $a->[ 0 ] <=> $b->[ 0 ] } @sts;
+my @sorted = map{ $_->[ 1 ] } @sorted_sts ; ;
+
+return @sorted ;
+
+}
+
+
 #-------------------------------------------------------------
 
 use strict;    
@@ -74,42 +116,65 @@ use Ccadmin ;
 use Cccookie ;
 use Ccsms::Gammu ;
 use Ccconfiguration;
+use Data::Dumper;
 
+#use Time::HiRes qw( usleep ualarm gettimeofday  tv_interval nanosleep
+#clock_gettime clock_getres clock_nanosleep clock
+#stat );
+
+#my $t0 = [gettimeofday];
 # hardcode configuration path, if running from a cron
 my %configuration = readconfiguration();
+my %sms_configuration = readconfiguration('../../../config/readsms.cf');
 
 # fixed needs testing
-if ( !$configuration{'smslocal'} ) {
-    use SOAP::Lite;
+if ( !$sms_configuration{'smslocal'} ) {
+    require SOAP::Lite;
 }
 
-my $token;
-my $file;
+my ($token, $file) ;
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
 
+
+
+# emulation code in here, to create the test file from the form input
+if ($fields{'emulate'}) {
+my $return = emulate_sms_file($fields{'originator'}, $fields{'message'}) ;
+exit 0 ;
+}	
+
+
+
+
 # for cron: hardcode registry, cannot be read from web cookie
-my $registry = $cookieref->{'registry'};
+# read from cookie, but if not, from  sms configuration
+my $registry = $cookieref->{'registry'} || $sms_configuration{'registry'};
 
 my $domain =
   $configuration{'domain'};    # remote domain if the script is not local
 
 # inbox for gammu, so gammu must put messages there..
-my $sms_dir = "$configuration{'smspath'}/$registry"
+my $sms_dir = "$sms_configuration{'smsinpath'}/$registry"
   ;    # sms inbox for gammu, now divided by registry 11/2009
 
 # outbox for this script, processed messages placed there..
+#FIXME: smsout in main config and smsoutpath in sms config...
 my $sms_done_dir = "$configuration{'smsout'}/$registry";
 
+# Feburary 2014 testing shows that we need to sort chronologically
+# otherwise sequence of transactions may be lost
+
 opendir( DIR, $sms_dir );
+my @files = readdir(DIR);
+closedir DIR ;
 
-while ( defined( $file = readdir(DIR) ) ) {
+@files = sort_file_names(@files) ;
 
-    next
-      if ( $file !~ /\056txt$/ );  # not a txt extension, standard for gammu sms
+foreach my $file  (@files) {
+
     my $sms_file  = "$sms_dir/$file";
-    my $file_done = "$sms_done_dir/$file";
 
 # parse file name and extract timing data and phone number, timing not used at present
 # but useful if, for example, interface is off-lined
@@ -146,7 +211,8 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
     my ( $status, $class, $array_ref, $soap, $token );
 
 # remote transactions are transported via soap, local ones use the local library...
-    if ( ! $configuration{ 'smslocal'} ) {
+# TODO: SOAP access has never, never been tested as of 2014
+    if ( ! $sms_configuration{'smslocal'} ) {
         eval {
             $soap =
               SOAP::Lite->uri("http://$domain/Ccsmsgateway")
@@ -161,9 +227,8 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
     }
 
     # move the processed file to a done directory, don't process twice
-    system("mv $sms_file $file_done");
+    # FIXME: The out file is under the web root and still in the main configuration
+    system("mv $sms_file $configuration{smsout}/$registry");
 }
 
-closedir(DIR);
 exit 0;
-

@@ -519,20 +519,15 @@ Now deprecated, since Log4perl isn't required 03/2012</p>
 on Fedora/Redhat and commodity hosting this is often of form:</p>
 <p>/home/&lt;domain&gt;/var/cclite/log/cclite.log
 /home/&lt;domain&gt;/domains/&lt;subdomain&gt;/var/cclite/log/cclite.log</p>
-<p>Dead code now, as of 2012</p>
+<p>Dead code now, as of 2012, no it's not apparently Jan 2013</p>
 <pre>
 <a name="check_log_path-"></a><span class="k">sub </span><span class="m">check_log_path</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$dir</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$message</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$log_path</span> = <span class="q">&quot;$dir/var/cclite/log&quot;</span><span class="sc">;</span>
-
-    <span class="c">#FIXME: remove double slash in some log paths</span>
-    <span class="i">$log_path</span> =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
-
-    <span class="c"># can&#39;t find log directory or can&#39;t write to it..</span>
-    <span class="k">if</span> <span class="s">(</span> !<span class="k">-e</span> <span class="i">$log_path</span> || !<span class="k">-w</span> <span class="i">$log_path</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$message</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$found</span>    = <span class="n">0</span><span class="sc">;</span>                       <span class="c">#find the path flag</span>
+    <span class="k">my</span> <span class="i">$message</span>  = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">    &lt;table&gt;&lt;tr class=&quot;even&quot;&gt;&lt;td&gt;</span>
 <span class="hh">&lt;h5&gt;Error 5:Ccinstall: Cclite installer&lt;/h5&gt;</span>
 <span class="hh">Can&#39;t find or write to the log directory: $log_path</span>
@@ -542,9 +537,22 @@ on Fedora/Redhat and commodity hosting this is often of form:</p>
 <span class="hh">Please fix this manually</span>
 <span class="h">EOT</span>
 
+    <span class="c">#FIXME: remove double slash in some log paths</span>
+    <span class="i">$log_path</span> =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
+
+    <span class="c"># find this log directory and am able to write to it</span>
+    <span class="c"># second test added for redhat etc. Jan 2014</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$log_path</span> &amp;&amp; <span class="k">-w</span> <span class="i">$log_path</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$found</span> = <span class="n">1</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="i">$log_path</span> = <span class="q">&#39;/var/cclite/log&#39;</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$log_path</span> &amp;&amp; <span class="k">-w</span> <span class="i">$log_path</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$found</span> = <span class="n">1</span><span class="sc">;</span>
+        <span class="s">}</span>
     <span class="s">}</span>
 
-    <span class="k">return</span> <span class="i">$message</span><span class="sc">;</span>
+    <span class="c"># log path no found, so error message</span>
+    <span class="k">return</span> <span class="i">$message</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$found</span> == <span class="n">0</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
 

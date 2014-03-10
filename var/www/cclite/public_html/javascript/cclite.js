@@ -674,10 +674,13 @@ $.fn.sort_select_box = function(){
     
     // cpanel install, grey out registry create if cpanel
     cpanel_install() ;
+
+    // only use datatables where there are some February 2014
+    if ($('#transtable').length) {
     
-   $('#transtable').dataTable( {"bSort": true});
-;
-    
+       $('#transtable').dataTable( {"bSort": true});
+;   
+}
     setInterval('blinktext()',10000) ;
     
     // make the language menu follow the current language

@@ -12,14 +12,17 @@ body {font-family: sans-serif; font-size:12px}
 <h3>Emulator for Testing SMS Interface</h3>
 
 <b>Please ensure that readsms.cf and ccsmsgate.cgi is set up correctly for the interface that you are testing Cardboardfish, Aql or Gammu</b><br/><br>
-
+<b>There's a problem in that some interfaces use 'number' and others 'originator' watch out!</b>
 <table >
-<form method="post" action="/cgi-bin/protected/ccsmsgate.cgi" name="sms emulation">
+<!--<form method="post" action="/cgi-bin/protected/ccsmsgate.cgi" name="sms emulation">-->
+<form method="post" action="/cgi-bin/protected/batch/readsms_from_gammu.pl" name="sms emulation">	
 <tr><td> Message</td><td><input size="80" name="message"></td></tr>
 <!--<tr><td>INCOMING use for Textmarketer</td><td><input size="80" name="INCOMING"></td></tr>-->
-<tr><td>Sender Mobile Number (in format: 446666777777)</td><td><input name="number"></td></tr>
-<tr><td>Network</td><td><input name="network"></td></tr>
+<tr><td title="in format: 446666777777">Sender Mobile Number </td><td><input name="originator"></td></tr>
+<tr><td title="will produce doc format, not sent by Gammu">Debug flag</td><td><input name="debug" type="text" size="1"></td></tr>
+<tr><td title="not used by Gammu">Network</td><td><input name="network"></td></tr>
 <!--<tr><td>Status</td/><td><input name="status"></td></tr>-->
+<tr><td>Status</td/><td><input name="emulate" value="1" type="hidden"></td></tr>
 <tr><td><input name="Go" value="go" type="submit"><td></td></td></tr>
 </form>
 </table>

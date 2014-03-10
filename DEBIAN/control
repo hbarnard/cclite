@@ -1,13 +1,13 @@
 Source: cclite
 Section: unknown
-Version: 0.9.2
+Version: 0.9.3
 Priority: extra
 Maintainer: Hugh Barnard <hugh.barnard@gmail.com>
 Homepage: http://www.hughbarnard.org/content/alternative-currency-software
 Pre-Depends: perl,mysql-server
 Package: cclite
 Architecture: all
-Depends: apache2,libdbi-perl,libwww-perl,libnet-perl
+Depends: apache2,libdbi-perl,libnet-perl
 Recommends: libmail-gnupg-perl, gammu, libxml-rss-perl, libxml-simple-perl
 Description: Alternative currency management software
  This package provides web based server software for LETS, mutual social credit

@@ -1,4 +1,34 @@
-registry=my-registry
-currency=my-sms-currency
+# the sms and readsms_from_gammu is local to the rest of cclite
+smslocal=1
+# where sms messages come in, must match /etc/gammu-smsdrc
+smsinpath=/var/cclite/sms/inbox
+# where sms messages go out, must match /etc/gammu-smsdrc
+smsoutpath=/var/cclite/sms/outbox
+sponsor5=test sponsor5
+# default country prefix, added if not included in number within sms transaction
+sms_prefix=44
+os=linux
+# default currency, if not mentioned
+currency=dally
+domain=cclite.private.trunk
+sponsor3=test sponsor3
+# debug flag, normally off
+debug=1
+# web home for the rest of cclite
+home=http://cclite.private.trunk/cgi-bin/cclite.cgi
+# sms error files
+smserrorpath=/var/cclite/sms/error
+sponsor1=test sponsor 1
+# payment status for sms payments, normally 'accepted' rather than 'waiting'
+initialpaymentstatus=accepted
+version=0.9.1
+distribution=ubuntu
+sponsor2=test sponsor2
+# sent sms messages
+smssentpath=/var/cclite/sms/sent
+sponsor_message_status=0
+# sleep for readsms_from_gammu.pl loop
+smssleep=120
+package_type=3
 
 

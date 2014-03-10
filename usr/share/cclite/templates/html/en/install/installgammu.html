@@ -6,7 +6,7 @@ See the example in the <span class="system">config</span> sub-directory which is
 <br/><br/>
 You may also need to use the <a title="Mode switch utility" href="http://www.draisberghof.de/usb_modeswitch/">Mode Switch Utility</a> if a phone dongle declares itself as a storage device
 <br/><br/>
-<table><tbody class="stripy">
+<table border><tbody class="stripy">
 <form  name="installgammu" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
 
 <input class="small"
@@ -15,73 +15,120 @@ You may also need to use the <a title="Mode switch utility" href="http://www.dra
 
 <input name="action"    value="updategammuconfig" type="hidden">
 
-<tr><td title="this is the sleep time in seconds for reading and sending sms messages" class="menu">sms sleep</td><td class="pme-key-1">
-    <input id="smssleep"  class="required" type="text" name="smssleep" size="3" value="120">
-</td></tr>
+<tr>
+	<td title="this is the sleep time in seconds for reading and sending sms messages" class="menu">sms sleep</td>
+    <td class="pme-key-1">
+    <input id="smssleep"  class="required" type="text" name="smssleep" size="3" value="$$fieldsref{smssleep}">
+    </td>
+<td title="sms interface language, only english available at present" class="menu">language</td><td class="pme-key-1"><input readonly id="language"  class="required" type="" name="language" size="2" value="en"></td>
+ </tr>
 
 <tr><td title="1 if readsms_from_gammu.pl is on the same system as cclite, if zero SOAP is used but this has never been tested" class="menu">sms script is local</td><td class="pme-key-1">
-    <input id="smslocal"  class="required" type="text"  name="smslocal" size="1" value="1">
-</td></tr>
+    <input id="smslocal"  class="required" type="text"  name="smslocal" size="1" value="$$fieldsref{smslocal}">
+</td>
+<td title="web password status, normally active" class="menu">web password status</td><td class="pme-key-1"><input readonly id="userpasswordstatus"  class="required" type="text" readonly name="userpasswordstatus" size="6" value="active"></td>
+</tr>
 
 <tr><td title="Sms root inwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root inwards path</td><td class="pme-key-1">
-    <input type="text"   class="required" name="smsinpath" size="30" value="/var/cclite/sms/inbox">
-</td></tr>
+    <input type="text"   class="required" name="smsinpath" size="30" value="$$fieldsref{smsinpath}">
+</td>
+<td title="status for mobile user pin, normally active, if we're allowing joins from mobile phone" class="menu">user pin status</td><td class="pme-key-1"><input id="userpinstatus"  class="required" type="text" name="userpinstatus" size="8" value="$$fieldsref{userpinstatus}"></td>
+</tr>
 
 <tr><td title="Sms root outwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root outwards path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smsoutpath" size="30" value="/var/cclite/sms/outbox">
+    <input type="text"  class="required" name="smsoutpath" size="30" value="$$fieldsref{smsoutpath}">
+<td title="status for user record, normally active, if we're allowing joins from mobile phone" class="menu">user status</td><td class="pme-key-1"><input id="userstatus"  class="required" type="text" name="userstatus" size="8" value="$$fieldsref{userstatus}"></td>
 </td></tr>
 
 <tr><td title="Sms root sent path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root sent sms path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smssentpath" size="30" value="/var/cclite/sms/sent">
-</td></tr>
+    <input type="text"  class="required" name="smssentpath" size="30" value="$$fieldsref{smssentpath}">
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 <tr><td title="Sms root error path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root error sms path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smserrorpath" size="30" value="/var/cclite/sms/error">
-</td></tr>
+    <input type="text"  class="required" name="smserrorpath" size="30" value="$$fieldsref{smserrorpath}">
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 
 <tr><td title="registry for sms transactions, can only enable one registry at present" class="menu">registry for sms</td><td class="pme-key-1">
-    <input type="text"  class="required" name="registry" size="20" value="">
-</td></tr>
+    <input type="text"  class="required" name="registry" size="20" value="$$fieldsref{registry}">
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 <tr><td title="currency for sms transactions, can only enable one currency at present" class="menu">currency for sms</td><td class="pme-key-1">
-    <input type="text"  class="required" name="currency" size="20" value="">
- </td></tr>
+    <input type="text"  class="required" name="currency" size="20" value="$$fieldsref{currency}">
+ </td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+ </tr>
+ 
+<tr><td title="this is needed if you don't include full internation number for pay transactions, for example 44 for UK, easier to use username anyway!" class="menu">country prefix</td><td class="pme-key-1">
+    <input type="text"  class="required" name="sms_prefix" size="2" value="$$fieldsref{sms_prefix}">
+ </td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+ </tr>
 
 <tr><td title="switch on debug for sms, 0 for off, 1 for on" class="menu">debug sms subsystem</td><td class="pme-key-1">
-    <input type="text"  class="required" name="debug" size="1" value="0">
-</td></tr>
+    <input type="text"  class="required" name="debug" size="1" value="$$fieldsref{debug}">
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 <tr><td title="debug file for debugging" class="menu">sms debug log</td><td class="pme-key-1">
-    <input type="text" class="required" name="sms_debug_file" size="60" value="/var/cclite/log/sms_debug.txt">
-</td></tr>
+    <input type="text" class="required" name="sms_debug_file" size="15" value="$$fieldsref{sms_debug_file}">
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 <tr><td title="initial payment status for sms transactions, normally accepted, you cannot alter this from the phone at present" class="menu">initial payment status</td><td class="pme-key-1">
-    <input type="text" class="required"  name="initialpaymentstatus" size="15" value="accepted">
-</td></tr>
+    <input type="text" class="required"  name="initialpaymentstatus" size="15" value="$$fieldsref{initialpaymentstatus}">
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 <tr><td title="switch on/off sponsor messages at end of sent smses" class="menu">sponsor messages</td><td class="pme-key-1">
-    <input type="text" class="required"  name="sponsor_message_status" size="1" value="0">
+    <input type="text" class="required"  name="sponsor_message_status" size="1" value="$$fieldsref{sponsor_message_status}">
 </td></tr>
 
 <tr><td title="sponsor message 1 for bottom of sms messages, see manual" class="menu">sponsor message 1</td><td class="pme-key-1">
-    <input type="text" name="sponsor1" size="60" value="">
-</td></tr>
+<textarea cols="15" rows="4" name="sponsor1" wrap="soft" >
+$$fieldsref{sponsor1}
+</textarea>
+
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 <tr><td title="sponsor message 2 for bottom of sms messages, see manual" class="menu">sponsor message 2</td><td class="pme-key-1">
-    <input type="text" name="sponsor2" size="60" value="">
+    <textarea cols="15" rows="4" name="sponsor2"  wrap="soft">
+$$fieldsref{sponsor2}
+</textarea>
 </td></tr>
 
 <tr><td title="sponsor message 3 for bottom of sms messages, see manual" class="menu">sponsor message 3</td><td class="pme-key-1">
-    <input type="text" name="sponsor3" size="60" value="">
-</td></tr>
+    <textarea cols="15" rows="4" name="sponsor3" wrap="soft">
+$$fieldsref{sponsor3}
+</textarea>
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 
 <tr><td title="sponsor message 4 for bottom of sms messages, see manual" class="menu">sponsor message 4</td><td class="pme-key-1">
-    <input type="text"  name="sponsor4" size="60" value="">
+<textarea cols="15" rows="4" name="sponsor4" wrap="soft">
+$$fieldsref{sponsor4}
+</textarea>
+<td title="" class="menu"></td><td class="pme-key-1">
 </td></tr>
 
 <tr><td title="sponsor message 5 for bottom of sms messages, see manual" class="menu">sponsor message 5</td><td class="pme-key-1">
-    <input type="text" name="sponsor5" size="60" value="">
-</td></tr>
+    <textarea cols="15" rows="4" name="sponsor5" wrap="soft">
+$$fieldsref{sponsor5}
+</textarea>
+</td>
+<td title="" class="menu"></td><td class="pme-key-1"></td>
+</tr>
 </tbody></table>
 </form>

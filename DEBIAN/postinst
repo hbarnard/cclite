@@ -52,10 +52,12 @@ if ( $operation =~ /configure/ ) {
     # copy current hosts file and
     # write cclite.private.server into the hosts file...
 
-    write_server_entry();
+    # don't do cclite private server anymore 7/2/2014
+    # write_server_entry();
 
     # make configuration file writable by apache
-    `chown -R www-data /usr/share/cclite/config/`;
+    # change ownership of the whole tree, since EC2 wants this 7/2/2014
+    `chown -R www-data /usr/share/cclite/`;
     `chmod -R u+w /usr/share/cclite/config/`;
 
     # make var/cclite owned by apache, gammu must be in this group therefore
@@ -72,8 +74,11 @@ if ( $operation =~ /configure/ ) {
     
     # enable mod_rewrite and cclite server the apache2 way...then
     # bounce apache to pick up 000-default config file
+    # this gives an EC2 style install at present 7/02/2014
     `a2enmod rewrite`;
-    `a2ensite cclite.private.server`;
+    `a2ensite debian.default.server`;
+    `a2dissite 000-default`;
+    #`a2ensite cclite.private.server`;
 
     # `/etc/init.d/apache2 reload` ;
     `/etc/init.d/apache2 restart`;

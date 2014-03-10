@@ -30,7 +30,7 @@ Cclite.pm
 
 =head1 COPYRIGHT
 
-(c) Hugh Barnard 2005-2007 GPL Licenced 
+(c) Hugh Barnard 2005-20013 GPL Licenced 
 =cut
 
 package Cclitedb;
@@ -242,8 +242,9 @@ sub update_database_record {
         }
 
         # hash password: corrected 18/10/2009 for 0 zero url type
-        $$fieldsref{userPassword} =
-          Ccsecure::hash_password( 0, $$fieldsref{userPassword} )
+        # recorrected 5/02/2014 url_type = 1
+        $fieldsref->{userPassword} =
+          Ccsecure::hash_password( 1, $fieldsref->{userPassword} )
           if length( $$fieldsref{userPassword} );
 
         # unlock the password if administrator and Password changed
@@ -677,17 +678,6 @@ sub get_user_display_data {
 
     #FIXME: need to remove the simpler version
 
-=item cut-this    
-    $sqlstring = <<EOT;
-  SELECT  u.userLogin,u.userName, userStatus,
-                  u.userPostcode, u.userEmail,u.userMobile,
-                  u.userTelephone
-  FROM om_users u
-  WHERE (
-  u.userLogin = '$user')
-EOT
-=cut
-
     $sqlstring = <<EOT;
   SELECT DISTINCT u.userLogin,u.userName, userStatus,
                   u.userPostcode, u.userEmail,u.userMobile,
@@ -907,7 +897,7 @@ sub get_where {
 
         log_entry(
             $class,
-            $db,
+            $db, 'fatal',
 "$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line",
             $token
         );
@@ -1492,17 +1482,6 @@ EOT
 
 }
 
-=item
-
-SELECT tradeId,substr(tradeStamp,1,10) as slice, tradeCurrency as currency, sum(tradeAmount) as sum from om_trades 
-where tradeType = 'credit' and
-tradeDestination = 'test2' and
-( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) and
-tradeDestination != 'cash'
-group by substr(tradeStamp,1,10), currency
-
-=cut
-
 sub _sql_get_balance_by_currency {
 
     my ( $user, $date, $token ) = @_;
@@ -2028,17 +2007,35 @@ sub whos_online {
 
 =head3 log_entry
 
-Log entry into logging table
+Log entry into logging table. $type is taken from the standard list of types
+
+    trace;  # Log a trace message
+    debug;  # Log a debug message
+    info ;  # Log a info message
+    warn;   # Log a warn message
+    error;  # Log a error message
+    fatal;  # Log a fatal message
+
+So that there's compatiblity with log4perl etc.
+
 
 =cut
 
 sub log_entry {
 
-    my ( $class, $db, $message, $token ) = @_;
+    my ( $class, $db, $type, $message, $token ) = @_;
+    
+    my $fieldsref = {};    
+    my %type_value = qw(trace 5 debug 4 info 3 warn 2 error 1 fatal 0) ;
 
+    # something wrong in the code, if a valid logging type is not delivered
+    if (! exists $type_value{$type} ) { 
+      $fieldsref->{'type'} = 'fatal' ;
+    } else{
+      $fieldsref->{'type'} = $type ;
+    }	
     my $timestamp = sql_timestamp();
-    my $fieldsref = {};
-
+    
     $fieldsref->{'message'} = $message;
     $fieldsref->{'stamp'}   = $timestamp;
 

@@ -203,7 +203,7 @@ my ( $error, $registryref ) = get_where(
 );
 
 if ( length($error) ) {
-    log_entry( $class, $registry, "database error for $registry: $error",
+    log_entry( $class, $registry, 'fatal', "database error for $registry: $error",
         $token );
     exit 0;
 }
@@ -333,7 +333,7 @@ while (1) {
                 # pgp not detected, mail is thrown away...
             } else {
 
-                log_entry( $class, $registry, "discarded non-pgp transaction\n",
+                log_entry( $class, $registry,'error', "discarded non-pgp transaction\n",
                     $token );
             }
 

@@ -441,11 +441,7 @@ All the html has been moved into installvalues.html now, as of 11/2008</p>
 
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-</pre><dl><dt><strong><a name="remove_for_present" class="item">remove_for_present</a></strong></dt>
-
-<dd>
-<pre>
-        my $dberror = check_db_and_version($token);</pre>
+</pre><pre>        my $dberror = check_db_and_version($token);</pre>
 <pre>
         if ( length($dberror) ) {
             if ( $dberror =~ /access denied/i ) {
@@ -465,8 +461,7 @@ All the html has been moved into installvalues.html now, as of 11/2008</p>
             }</pre>
 <pre>
             # no db error
-        } else {
-=cut</pre>
+        } else {</pre>
 <pre>
         <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields</span>{<span class="w">installer2</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span>
@@ -492,9 +487,7 @@ All the html has been moved into installvalues.html now, as of 11/2008</p>
     <span class="s">}</span>
 <span class="s">}</span>
 
-</pre></dd></dl>
-<p>
-</p>
+</pre><p></p>
 <h3><a name="add_currency">add_currency</a></h3>
 <p>Create a currency. A currency belongs to a 
 a specific registry within the root, this means

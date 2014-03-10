@@ -382,6 +382,7 @@ sub logon_user {
             log_entry(
                 $class,
                 $db,
+                'error', 
 "logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}",
                 ''
             );
@@ -413,6 +414,7 @@ sub logon_user {
         log_entry(
             $class,
             $db,
+            'error', 
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found",
             ''
         );
@@ -435,6 +437,7 @@ sub logon_user {
         log_entry(
             $class,
             $db,
+            'error', 
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : password failed",
             ''
         );
@@ -1494,6 +1497,7 @@ EOT
 
     # test commitment, this can be zero for an issuance local currency
     # null means no commitlimit
+ 
     my $commitment_limit = $registry_ref->{'commitlimit'};
     if ( defined($commitment_limit) ) {
 
@@ -1676,7 +1680,7 @@ EOT
             my $output_message = join( $separator, @local_status );
 
             # warn about rejections at this level in log
-            log_entry( $class, $db, "rejected transaction: $output_message",
+            log_entry( $class, $db, 'error',  "rejected transaction: $output_message",
                 '' );
 
             if ( $transaction{'mode'} ne 'json' ) {
@@ -2594,6 +2598,9 @@ so this bit is correcting itself...
 Amended not to display closed or suspended currencies in 12/2005
 Amended in 2010 to use hashes, as with all the other listing functions
 
+Amended in 2014 to deliver values in a hash ref, for currency checking
+SMS but useful for other stuff put $mode = values 
+
 =cut
 
 sub collect_items {
@@ -2710,11 +2717,16 @@ sub collect_items {
 "<input type=\"checkbox\" name=\"$name\" $checked value=\"$item\">\u$item &nbsp;";
                 undef $checked;
                 $x++;
-            }
+            } 
+		    
             $duplicates{$item} = 'y';
         }
     }
+    if ($mode ne 'values') {
     return ( $option_string, $count );
+    } else {
+     return ($filtered_hash_ref, $count)
+    }	
 }
 
 =head3 notify_by_mail
@@ -2919,7 +2931,7 @@ EOT
     }
 
     if ($@) {
-        log_entry( $class, $registry, "mail error is: $@ $message", '' );
+        log_entry( $class, $registry,'error',  "mail error is: $@ $message", '' );
     }
 
     return $@;
@@ -3158,7 +3170,7 @@ sub get_registry_status {
     if ( length($status) ) {
         my $message =
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : registry record not found";
-        log_entry( $class, $db, $message, '' );
+        log_entry( $class, $db, 'error', $message, '' );
         return $message;
     } else {
         return $registry_ref->{'status'};
@@ -3183,8 +3195,8 @@ sub check_ip_is_allowed {
 
 # test registry record, can't logon if registry status is down or in closing process
     if ( length($status) ) {
-        my $message = "get_llowed_ips: registry record not found";
-        log_entry( $class, $db, $message, '' );
+        my $message = "get_allowed_ips: registry record not found";
+        log_entry( $class, $db, 'error',  $message, '' );
         return $message;
     } else {
 

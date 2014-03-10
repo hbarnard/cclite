@@ -202,7 +202,9 @@ if ( $method ne 'POST' ) {
             do_login( $fieldsref, $registry, $userref,
                 $registry_private_value );
 
-=item not_in_released_code
+=pod
+
+not_in_released_code
 
             # Leave this at present, probably needed for debugging
             header( 200, 'text/plain' );

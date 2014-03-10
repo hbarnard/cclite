@@ -897,7 +897,8 @@ sleep($sleep);
 #
 
 
-=item cut
+=pod
+
 # turn sms receipts for test2 off
 $sel->click_ok("link=Modify Account");
 $sel->wait_for_page_to_load_ok("30000");
@@ -906,14 +907,16 @@ $sel->click_ok("saveadd");
 $sel->wait_for_page_to_load_ok("30000");
 $sel->click_ok("logoff");
 $sel->wait_for_page_to_load_ok("30000");
+
 =cut
+
 
 $sel->click_ok("logoff");
 sleep($sleep);
 
 #login to manager and change password and back again
 
-=item cut
+=pod
 
 $sel->open_ok("/cgi-bin/cclite.cgi");
 $sel->type_ok("registry", $registry1);
@@ -1436,7 +1439,9 @@ sleep($sleep) ;
 
 # test file upload facility
 
-=item upload, security problem in javascript with this, test by hand
+=pod
+
+upload, security problem in javascript with this, test by hand
 $sel->open_ok("/cgi-bin/cclite.cgi");
 $sel->type_ok("registry", $registry1);
 $sel->type_ok("userLogin", "manager");
@@ -1452,6 +1457,7 @@ $sel->wait_for_page_to_load_ok("30000");
 $sel->click_ok("logoff");
 $sel->wait_for_page_to_load_ok("30000");
 sleep($sleep) ;
+
 =cut
 
 # cash pay in at counter to test3

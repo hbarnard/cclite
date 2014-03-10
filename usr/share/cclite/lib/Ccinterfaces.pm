@@ -583,7 +583,7 @@ EOT
     return ( \%report );
 }
 
-=header2  _prettify_dumper
+=head2  _prettify_dumper
 
 miniature hack to get dumper output nicer to keep a record
 for csv transactions but could be useful later for other batchy

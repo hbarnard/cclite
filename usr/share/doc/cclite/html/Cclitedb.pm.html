@@ -202,7 +202,7 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
 </p>
 <hr />
 <h1><a name="copyright">COPYRIGHT</a></h1>
-<p>(c) Hugh Barnard 2005-2007 GPL Licenced 
+<p>(c) Hugh Barnard 2005-20013 GPL Licenced 
 =cut</p>
 <pre>
 <a name="package-Cclitedb-"></a><span class="k">package </span><span class="i">Cclitedb</span><span class="sc">;</span>
@@ -403,8 +403,9 @@ modify_database_record2 : where</p>
         <span class="s">}</span>
 
         <span class="c"># hash password: corrected 18/10/2009 for 0 zero url type</span>
-        <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>} =
-          <span class="i">Ccsecure::hash_password</span><span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>} <span class="s">)</span>
+        <span class="c"># recorrected 5/02/2014 url_type = 1</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="w">userPassword</span>} =
+          <span class="i">Ccsecure::hash_password</span><span class="s">(</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span>-&gt;{<span class="w">userPassword</span>} <span class="s">)</span>
           <span class="k">if</span> <span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="w">userPassword</span>} <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># unlock the password if administrator and Password changed</span>
@@ -815,18 +816,6 @@ less fragile with respect to database changes...</p>
 
     <span class="c">#FIXME: need to remove the simpler version</span>
 
-</pre><dl><dt><strong><a name="where" class="item">cut-this    
-    $sqlstring = &lt;&lt;EOT;
-  SELECT  u.userLogin,u.userName, userStatus,
-                  u.userPostcode, u.userEmail,u.userMobile,
-                  u.userTelephone
-  FROM om_users u
-  WHERE (
-  u.userLogin = '$user')
-EOT
-=cut</a></strong></dt>
-
-<pre>
     <span class="i">$sqlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">  SELECT DISTINCT u.userLogin,u.userName, userStatus,</span>
 <span class="hh">                  u.userPostcode, u.userEmail,u.userMobile,</span>
@@ -843,8 +832,7 @@ EOT
     <span class="k">return</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
-</pre></dl><p>
-</p>
+</pre><p></p>
 <h3><a name="get_yellowpages_directory_data">get_yellowpages_directory_data</a></h3>
 <p>This moves all the sql and retrieval for the Craigslist style directory
 into its correct place, since it contains sql May 2010</p>
@@ -1579,15 +1567,6 @@ counts transactions for the logged in user.</p>
 
 <span class="s">}</span>
 
-</pre><dl><dt>
-<dd>
-<p>SELECT tradeId,substr(tradeStamp,1,10) as slice, tradeCurrency as currency, sum(tradeAmount) as sum from om_trades 
-where tradeType = 'credit' and
-tradeDestination = 'test2' and
-( tradeStatus = 'waiting' or tradeStatus = 'accepted' ) and
-tradeDestination != 'cash'
-group by substr(tradeStamp,1,10), currency</p>
-<pre>
 <a name="_sql_get_balance_by_currency-"></a><span class="k">sub </span><span class="m">_sql_get_balance_by_currency</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$user</span><span class="cm">,</span> <span class="i">$date</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
@@ -1630,9 +1609,7 @@ group by substr(tradeStamp,1,10), currency</p>
 
 <span class="s">}</span>
 
-</pre></dd></dl>
-<p>
-</p>
+</pre><p></p>
 <h3><a name="_sql_balances_for_time_slices">_sql_balances_for_time_slices</a></h3>
 <p>Two queries, one to get the credits per unixtime
 The second, indexed by unixtime to identifiy th corresponding debits

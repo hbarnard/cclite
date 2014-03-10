@@ -127,7 +127,7 @@ sub gateway_sms_transaction {
     if ( defined( $$fieldsref{'status'} ) && $$fieldsref{'status'} > 0 ) {
         my $message =
 "$$fieldsref{'message'} from $$fieldsref{'originator'} rejected with status $$fieldsref{'status'}";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry, 'error',  $message, $token );
         return;
     }
 
@@ -135,14 +135,14 @@ sub gateway_sms_transaction {
     if ( !length( $$fieldsref{'originator'} ) ) {
         my $message =
 "$$fieldsref{'message'} from $$fieldsref{'originator'} $messages{'smsoriginblank'}";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry,'error',  $message, $token );
         return;
     }
 
     # no originator, so no lookup or no message...reject
     if ( !length( $$fieldsref{'message'} ) ) {
         my $message = "$$fieldsref{'originator'} $messages{'smsmessageblank'}";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry,'error',  $message, $token );
         return;
     }
 
@@ -150,7 +150,7 @@ sub gateway_sms_transaction {
     if ( !length( $$fromuserref{'userLogin'} ) ) {
         my $message =
           "$$fieldsref{'originator'} $messages{'smsnumbernotfound'}";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry, 'error',  $message, $token );
         return;
     }
 
@@ -167,7 +167,7 @@ sub gateway_sms_transaction {
     } else {
         my $message =
           "from: $$fieldsref{'originator'} $input -malformed transaction";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry, 'error',  $message, $token );
         my ($mail_error) = _send_sms_mail_message(
             'local',
             $registry,
@@ -200,7 +200,7 @@ sub gateway_sms_transaction {
     } else {
         my $message =
           "from: $$fieldsref{'originator'} $input -unrecognised transaction";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry, 'error', $message, $token );
         return 'unrecognisable transaction';
 
         # this is a 'bad' transaction of some kind...
@@ -267,7 +267,7 @@ sub _gateway_sms_pay {
     if ( $parse_type == 0 ) {
         my $message =
 "pay attempt from $fields{'originator'} to $$transaction_description_ref{'tomobilenumber'} : $messages{'smsinvalidsyntax'}";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry, 'error', $message, $token );
         my ($mail_error) =
           _send_sms_mail_message( 'local', $registry, $message, $fromuserref );
         return;
@@ -311,7 +311,7 @@ sub _gateway_sms_pay {
             $fromuserref );
         my $message =
 "pay attempt from $fields{'originator'} to $$transaction_description_ref{'tomobilenumber'} : $errors";
-        log_entry( 'local', $registry, $message, $token );
+        log_entry( 'local', $registry,'error',  $message, $token );
         return;
     }
 
@@ -516,7 +516,7 @@ sub _sms_message_parse {
     } else {
 
         my $message = "unparsed pay transaction is:$save_input  $input";
-        log_entry( 'local', $registry, $message, '' );
+        log_entry( 'local', $registry, 'error',  $message, '' );
 
     }
 

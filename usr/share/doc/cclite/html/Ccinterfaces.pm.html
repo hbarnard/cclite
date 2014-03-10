@@ -61,6 +61,11 @@ pre { color: #000000;
 			<li><a href="#sms_transaction">sms_transaction</a></li>
 			<li><a href="#read_mail_transactions">read_mail_transactions</a></li>
 			<li><a href="#read_csv_transactions">read_csv_transactions</a></li>
+		</ul>
+
+		<li><a href="#_prettify_dumper">_prettify_dumper</a></li>
+		<ul>
+
 			<li><a href="#oscommerce_transaction">oscommerce_transaction</a></li>
 		</ul>
 
@@ -664,7 +669,10 @@ themselves. It's there to keep the function signatures consistent.</p>
     <span class="k">return</span> <span class="s">(</span> \<span class="i">%report</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
-</pre><p>miniature hack to get dumper output nicer to keep a recordfor csv transactions but could be useful later for other batchy
+</pre><p></p>
+<h2><a name="_prettify_dumper">_prettify_dumper</a></h2>
+<p>miniature hack to get dumper output nicer to keep a record
+for csv transactions but could be useful later for other batchy
 stuff</p>
 <pre>
 <a name="_prettify_dumper-"></a><span class="k">sub </span><span class="m">_prettify_dumper</span> <span class="s">{</span>

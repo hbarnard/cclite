@@ -484,7 +484,8 @@ sub decode_base64 {
     return $data;
 }
 
-=item cut
+=pod
+
 #
 # Author:       David Shu
 # Created:      5/26/2005
@@ -716,6 +717,7 @@ sub do_oauth {
     }
     exit 0;
 }
+
 =cut
 
 1;

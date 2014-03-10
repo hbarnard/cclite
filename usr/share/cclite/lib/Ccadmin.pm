@@ -45,6 +45,7 @@ use Exporter;
 use Cclitedb;
 use Ccvalidate;
 use Ccu;
+use Data::Dumper ;
 
 # should be a core module both *nix and Windows
 # given the problems with this and, from the microsoft doc:
@@ -87,14 +88,17 @@ to change these, just substitute a translated hash
 our %messages    = readmessages();
 our $messagesref = \%messages;
 
-=head3 _guess_config_values
+=head3 _guess_main_config_values
 
 present fairly sensible configuration values
 for a new installation, the current software version is 'guessed' here...
 
+Called guess_main etc. now because there will also be a guess_sms_config etc.
+very shortly.
+
 =cut
 
-sub _guess_config_values {
+sub _guess_main_config_values {
 
     my ( $home, $domain, $hash_type, $currdir ) = @_;
     ###print "root is $ENV{DOCUMENT_ROOT}" ;
@@ -147,12 +151,10 @@ sub _guess_config_values {
 #
     if ( $currdir !~ /public_html/ && $os ne 'windows' ) {
         $configuration{csvpath} = "/var/cclite/batch";
-        $configuration{smspath} = "/var/cclite/sms/inbox";
 
         # cpanel
     } elsif ( $currdir =~ /public_html/ && $os ne 'windows' ) {
         $configuration{csvpath} = "$ENV{DOCUMENT_ROOT}/var/cclite/batch";
-        $configuration{smspath} = "$ENV{DOCUMENT_ROOT}/var/cclite/sms/inbox";
 
         # windows
     } elsif ( $os eq 'windows' ) {
@@ -164,8 +166,6 @@ sub _guess_config_values {
         # print "base directory is $base_directory\n" ;
         $base_directory =~ s/\/www\/cclite\/public_html//;
         $configuration{csvpath} = "$base_directory/cclite/batch";
-        $configuration{smspath} = "$base_directory/cclite/sms/inbox";
-
     }
 
     $configuration{csvout} = "$ENV{DOCUMENT_ROOT}/out/csv";
@@ -194,53 +194,61 @@ sub _guess_config_values {
 
 First part of configuration update, guess values and display
 All the html has been moved into installvalues.html now, as of 11/2008
+
+FIXME: Tests depend on hardcoded file names, this is fragile, will
+break if the config file names are rationalised
  
 =cut
 
 sub update_config1 {
-    my ( $new, $configuration, $home, $domain, $hash_type, $dir ) = @_;
-    my %fields;
+    my ( $new_main_install, $new_sms_install, $configuration, $fields_ref, $dir ) = @_;
     my $title;
 
     # guess values, if new install otherwise read existing
-    if ($new) {
-        my $configuration_ref =
-          _guess_config_values( $home, $domain, $hash_type, $dir );
-        %fields = %$configuration_ref;
-        $fields{updatemessage} .= $messages{newinstall};
+    if ($new_main_install && $configuration =~ /cclite.cf/) {
+        $fields_ref =
+          _guess_main_config_values( $fields_ref->{'home'}, $fields_ref->{'domain'}, $fields_ref->{'hash_type'}, $dir );
+        $fields_ref->{'updatemessage'} .= $messages{newinstall};
+
+    } elsif ($new_sms_install && $configuration =~ /readsms.cf/) {
+      # $fields_ref =
+      #    _guess_config_values( $fields_ref->{'home'}, $fields_ref->{'domain'}, $fields_ref->{'hash_type'}, $dir );
+        $fields_ref->{'updatemessage'} .= 'new sms install';
+        
     } else {
 
-        %fields = &main::readconfiguration($configuration);
-        $fields{uhome} = $fields{home};
+        my %fields = &main::readconfiguration($configuration);     
+        $fields_ref = \%fields ;
+        
+        $fields_ref->{'uhome'} = $fields_ref->{'home'};
 
         # complain if config is not writable
         unless ( -w $configuration ) {
-            $fields{updatemessage} .=
+            $fields_ref->{'updatemessage'} .=
               "$configuration $messages{cannotbewritten}";
-            return ( 0, "", "", \%fields, "installvalues.html", "" );
+            return ( 0, "", "",$fields_ref, "installvalues.html", "" );
         }
     }
 
     #FIXME: this is ugly, called in main script and called here...
-    my ( $os, $distribution, $package_type ) = get_os_and_distribution();
-    $fields{os}           = $os;
-    $fields{package_type} = $package_type;
-    $fields{distribution} = $distribution;
-
+    ( $fields_ref->{'os'}, $fields_ref->{'distribution'}, $fields_ref->{'package_type'} ) = get_os_and_distribution();
+ 
     # grey out sendmail path in installer, if windows...
-    $fields{disablesendmail} = "disabled=\"disabled\"" if ( $os eq 'windows' );
+    $fields_ref->{'disablesendmail'} = "disabled=\"disabled\"" if ( $fields_ref->{'os'} eq 'windows' );
 
     # complain about hash only for new installs, otherwise too late
-    if ( $hash_type eq "sha1" && $new ) {
-        $fields{updatemessage} .= "<br/>$messages{sha1warning}";
+    if ( $fields_ref->{'hash_type'} eq "sha1" && $new_main_install && $configuration =~ /cclite.cf/) {
+        $fields_ref->{'updatemessage'} .= "<br/>$messages{sha1warning}";
     }
 
  # for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )
 
-    return ( 0, '', '', \%fields, "installvalues.html", "" );
+    if ($configuration =~ /cclite.cf/) {
+       return ( 0, '', '', $fields_ref, "installvalues.html", "" );
+    } elsif($configuration =~ /readsms.cf/) {
+        return ( 0, '', '', $fields_ref, "installgammu.html", "" );
+    }	
 
-    ### return ( 0, '', '/cgi-bin/protected/ccinstall.cgi',
-    ###     \%fields, "installvalues.html", "" );
 }
 
 =head3 update_configuration2
@@ -252,21 +260,20 @@ create configuration file, if writable, otherwise display
 sub update_config2 {
     my ( $configuration, $fieldsref ) = @_;
     my %fields = %$fieldsref;
-    my $html;
-    my $token;
+    my ($html, $token, @registries) ;
 
     # write the new configuration to screen with a message
     # if it can't be written directly into the configuration file
 
-    my $configuration_string;    # this hold a cumulated set of text values
+    my $configuration_string;    # this holds a cumulated set of text values
                                  # so that people can cut and paste if necessary
 
     foreach my $key ( sort keys %fields ) {
-        next if ( $key =~ /action|saveadd/i );
+
+		next if ( $key =~ /action|saveadd|environment/i );     
 
         #FIXME: kludge to deal with name collision between
         # discovering the installer and what's needed as home
-
         $fields{$key} =~ s!protected/ccinstall.cgi!cclite.cgi!
           if ( $key eq 'home' );
         $configuration_string .= "$key=$fields{$key}<br/>\n";
@@ -295,21 +302,58 @@ EOT
         if ( !( -w $configuration ) ) {
 
             my $error =
-"<span class=\"errors\">attempted update: $configuration $messages{cannotbewritten}</span>";
+"<span class=\"failedcheck\">attempted update: $configuration $messages{cannotbewritten}</span>";
             return ( 0, "", $error, \%fields, $configuration_string,
                 "result.html", "" );
         }
     }
 
+    
+    # checking for gammu setup, does nominated registry exist, for example
+    if ($configuration =~ /readsms/) {
+     @registries =
+       show_registries(
+        'local', $fields{registry}, '', $fieldsref, 'values', $token
+       ) ;		
+      my $found = 0 ;
+      foreach my $registry (@registries) {
+        if ($registry eq $fields{'registry'}) {
+           $found = 1 ;
+	    }
+	  }
+	  # no registry by that name
+      if (! $found) {
+       my $error =
+"<span class=\"failedcheck\">attempted update: $configuration $messages{'unknownregistry'}</span>";
+            return ( 0, "", $error, \%fields, $configuration_string,
+                "result.html", "" );
+	   }
+	  # no currency by that name in the given registry 
+	  if  ( ! sqlcount( 'local', $fields{'registry'}, 'om_currencies', undef, 'name', $fields{'currency'}, $token) ) {
+ my $error =
+"<span class=\"failedcheck\">attempted update: $configuration $messages{'invalidcurrency'}</span>";
+            return ( 0, "", $error, \%fields, $configuration_string,
+                "result.html", "" );
+      } 
+     }
+     
+
+     
+
     eval {
         open( CONFIG, ">$configuration" ) or die $@;
         foreach my $key ( keys %fields ) {
+
+          next if ( $key =~ /action|saveadd|environment/i );
 
             #FIXME: kludge to deal with name collision between
             # discovering the installer and what's needed as home
             $fields{$key} =~ s!protected/ccinstall.cgi!cclite.cgi!
               if ( $key eq 'home' );
 
+           $fields{$key} =~ s!\s$!!g
+              if ( $key =~ /sponsor\d+$/ );
+            
             print CONFIG "$key\=$fields{$key}\n";
 
         }
@@ -328,7 +372,8 @@ EOT
 
     } else {
 
-=item remove_for_present
+=pod
+
 
         my $dberror = check_db_and_version($token);
 
@@ -351,6 +396,7 @@ EOT
 
             # no db error
         } else {
+
 =cut
 
         if ( !length( $fields{installer2} ) ) {
@@ -659,6 +705,9 @@ EOT
         'om_registry', 1, $fieldsref, 'en', $token );
 
     # set up directories for all batch processes
+
+
+    
     my ( $error, $report_ref, $file_ref ) =
       get_set_batch_files( 'set', $configref, $fieldsref, $cookieref );
     my $display_files = join( "<br/>\n", %$file_ref );
@@ -969,9 +1018,8 @@ sub get_set_batch_files {
     my $error;
 
 # FIXME: this is not quite right, get should use cookies, set newregistry, probably
-    my $registry = $$cookieref{registry} || $fieldsref->{newregistry};
-
-    my $language = $$cookieref{language} || $$configref{language} || 'en';
+    my $registry = $cookieref->{'registry'} || $fieldsref->{newregistry};
+    my $language = $cookieref->{'language'} || $configref->{'language'} || 'en';
 
     my %configuration = %$configref;
 
@@ -1118,6 +1166,41 @@ EOT
 
     return $link;
 }
+
+
+=head3 display_gammu_config
+
+FIXME: This is an ugly hack to deal with the increasing complexity
+of setting up gammu:
+
+1. All gammu values moved to readsms.cf
+2. Displayed and updatable here in the same way as main config
+
+=cut
+
+
+
+sub display_gammu_config {
+
+
+
+
+my $parameter_html_line =<<EOT;
+<tr><td title="" class="menu">dbuser</td><td class="pme-key-1">
+    <input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="">
+</td></tr>
+
+EOT
+
+
+
+return ;
+
+}
+	
+
+
+
 
 1;
 

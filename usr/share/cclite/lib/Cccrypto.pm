@@ -36,9 +36,6 @@ use MIME::Decoder;
 use GnuPG;
 use Ccu;
 
-# this is used to parse addresses (logically enough...)
-#use Email::Address;
-
 # jabber client library
 use Net::XMPP;
 

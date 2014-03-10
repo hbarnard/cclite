@@ -87,7 +87,7 @@ pre { color: #000000;
 
 </pre><p></p>
 <h3><a name="stop">stop</a></h3>
-<p>stop the scriot, on signal</p>
+<p>stop the script, on signal</p>
 <pre>
 <a name="stop-"></a><span class="k">sub </span><span class="m">stop</span> <span class="s">{</span>
     <span class="k">print</span> <span class="q">&quot;Exiting...\n&quot;</span><span class="sc">;</span>
@@ -243,11 +243,7 @@ receipts at present...</p>
 
     <span class="s">}</span>
 
-</pre><dl><dt><strong><a name="message_fields" class="item">message_fields</a></strong></dt>
-
-<dd>
-<p>message fields for refereence...</p>
-<pre>
+</pre><p>message fields for refereence...</p><pre>
              to=&gt;string|JID,    - set multiple fields in the &lt;message/&gt;
              from=&gt;string|JID,    at one time.  This is a cumulative
              type=&gt;string,        and over writing action.  If you set
@@ -399,10 +395,7 @@ receipts at present...</p>
     <span class="k">exit</span><span class="s">(</span><span class="n">0</span><span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
-</pre></dd><dt><strong><a name="signed_presence_not_working" class="item">signed_presence_not_working</a></strong></dt>
-
-<dd>
-<p>#my $gpg = new GnuPG( 'trace' =&gt; $trace );</p>
+</pre><p>signed_presence_not_working</p><p>#my $gpg = new GnuPG( 'trace' =&gt; $trace );</p>
 <p>#FIXME: Signed prssence to be sorted out, something in the Perl libraries
 # input but not put into the presence XML stanza</p>
 <p>$gpg-&gt;sign(
@@ -411,8 +404,6 @@ receipts at present...</p>
     output     =&gt; &quot;/tmp/sign.txt&quot;,
     'armor'    =&gt; 1
 );</p>
-</dd>
-</dl>
 
 <pre>
 <span class="k">my</span> <span class="i">$signature</span> = <span class="q">&#39;dummy signature for testing&#39;</span><span class="sc">;</span>

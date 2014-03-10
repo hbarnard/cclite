@@ -85,7 +85,7 @@ my ( $error, $registryref ) =
     '' );
     
 if (length($error) ) {
-    log_entry($class, $registry,"database error for $registry: $error",$token) ;
+    log_entry($class, $registry,'fatal',"database error for $registry: $error",$token) ;
     exit 0 ;
 }       
     

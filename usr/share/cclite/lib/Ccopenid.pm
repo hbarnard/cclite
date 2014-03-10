@@ -38,17 +38,7 @@ use CGI::Carp qw(fatalsToBrowser);
 use Data::Dumper;
 use Net::OpenID::Consumer;
 
-#use File::Temp;
-#use Cache::File;
-
-###my $base_url = $ENV{BASE_URL};
 my $base_url = 'http://cclite.private.trunk';
-
-#my $cache_dir = '/tmp/openid-consumer-test';
-
-#my $cache = Cache::File->new(
-#    cache_root => $cache_dir,
-#);
 
 my $cgi = CGI->new();
 my $csr = Net::OpenID::Consumer->new(

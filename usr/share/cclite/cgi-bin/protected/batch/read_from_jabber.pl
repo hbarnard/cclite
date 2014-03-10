@@ -2,7 +2,7 @@
 
 =head3 stop
 
-stop the scriot, on signal
+stop the script, on signal
 
 =cut
 
@@ -171,8 +171,7 @@ sub process_cclite_message {
 
     }
 
-=item message_fields
-
+=pod
 
 message fields for refereence...
 
@@ -302,7 +301,7 @@ my ( $error, $registryref ) = get_where(
 );
 
 if ( length($error) ) {
-    log_entry( $class, $registry, "database error for $registry: $error",
+    log_entry( $class, $registry, 'fatal', "database error for $registry: $error",
         $token );
     exit 0;
 }
@@ -329,7 +328,9 @@ if ( !( defined($status) ) ) {
     exit(0);
 }
 
-=item signed_presence_not_working
+=pod
+
+signed_presence_not_working
 
 #my $gpg = new GnuPG( 'trace' => $trace );
 

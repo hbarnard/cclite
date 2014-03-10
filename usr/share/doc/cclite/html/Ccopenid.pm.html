@@ -120,17 +120,7 @@ pre { color: #000000;
 <span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Net::OpenID::Consumer</span><span class="sc">;</span>
 
-<span class="c">#use File::Temp;</span>
-<span class="c">#use Cache::File;</span>
-
-<span class="c">###my $base_url = $ENV{BASE_URL};</span>
 <span class="k">my</span> <span class="i">$base_url</span> = <span class="q">&#39;http://cclite.private.trunk&#39;</span><span class="sc">;</span>
-
-<span class="c">#my $cache_dir = &#39;/tmp/openid-consumer-test&#39;;</span>
-
-<span class="c">#my $cache = Cache::File-&gt;new(</span>
-<span class="c">#    cache_root =&gt; $cache_dir,</span>
-<span class="c">#);</span>
 
 <span class="k">my</span> <span class="i">$cgi</span> = <span class="w">CGI</span><span class="w">-&gt;new</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$csr</span> = <span class="w">Net::OpenID::Consumer</span><span class="w">-&gt;new</span><span class="s">(</span>
