@@ -43,8 +43,8 @@ use Ccsecure;
 use Ccconfiguration;
 use Data::Dumper;
 
-###DBI->trace( 4, '../debug/debug.dbi' );      # Database abstraction
-###DBI->trace( 2, '/home/hbarnard/trunk/var/cclite/log/debug.dbi.log' );
+# use this for tracing database calls
+#DBI->trace( 2, '/var/cclite/log/debug.dbi.log' );
 
 use Ccu;    # for paging routine, at least
 
@@ -284,7 +284,7 @@ sub update_database_record {
         $fieldsref->{'righthandside'} = '';
         undef $fieldsref->{'action'};
 
-# don't allow direct add_user if non-allowed ip or non-exuistent login or duplicate email
+# don't allow direct add_user if non-allowed ip or non-existent login or duplicate email
         if ( !$allowed || ( !length($user_ref1) ) || length($user_ref2) ) {
             $message = 'NOK';
             undef $fieldsref; #FIXME: don't tell why, perhaps this is a misteake
@@ -400,13 +400,13 @@ sub sqlraw {
     my ( $registryerror, $dbh ) = _registry_connect( $db, $token );
     if ( length($dbh) ) {
         my $sth = $dbh->prepare($sqlstring);
-        my $rv  = $sth->execute();
+        $rv  = $sth->execute();
         $hash_ref = $sth->fetchall_hashref($id);
         $sth->finish();
     }
 
-    ###print "$sqlstring $rv" ;
-    ###print Dumper $hash_ref ;
+    #print "$sqlstring $rv $id $dbh" ;
+    #print Dumper $hash_ref ;
     # --- example of use---------------------------------
     # $hash_ref = $sth->fetchall_hashref('id');
     # print "Name for id 42 is $hash_ref->{42}->{name}\n";

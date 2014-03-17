@@ -321,6 +321,18 @@ if ( $action eq "offline" ) {
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     update_prefs( 'local', $db, "om_prefs", $fieldsref, $token ) );
 
+# get locked accounts
+( $action eq "getlocked" )
+  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+    get_locked( 'local', $db, $fieldsref, $token ) );
+
+# get locked accounts
+( $action eq "unlockuser" )
+  && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
+    unlock_user( 'local', $db, $fieldsref, $token ) );
+
+
+
 #
 ( $action eq "template" )
   && (

@@ -137,12 +137,25 @@ sub gateway_sms_transaction {
 
     my ( $class, $configurationref, $fields_ref, $token ) = @_;
 
-    my ( $offset, $limit, $pin, $transaction_type, $return_value );
-
     # debugging and testing whether the transaction was emulated by a web form
     $debug = $sms_configuration{'debug'}
         || $fields_ref->{'debug'};    # don't use LWP just log etc.
     $emulate = $fields_ref->{'emulate'};    # transactions from the emulator page
+
+    my ( $offset, $limit, $pin, $transaction_type, $return_value );
+   
+    debug ("in change config $fields_ref->{'message'}", undef ) ;
+    if ($fields_ref->{'message'} =~ s/^(c\d+)\s+//i ) {
+	   my $configuration_file = "../../../config/readsms-$1.cf" ;
+	   if (-e $configuration_file) {
+         %sms_configuration = readconfiguration($configuration_file) ;
+       } else {
+		 #FIXME: This message needs to be multilingual  
+         log_entry( 'local', $registry, 'error', 'configuration file not found', $token );
+         return 'nok:configuration file not found';
+       }	   
+       debug ("in change config $configuration_file", undef ) ;
+    }
 
     # no number, so no lookup or no message...reject
     if ( !length( $fields_ref->{'originator'} ) ) {
@@ -407,7 +420,7 @@ sub _gateway_sms_join {
         return "nok:$input $messages{'smsbadjoin'}";
     }
 
-    debug( " f:$first_name, l:$last_name, e:$email", $fieldsref );
+    ###debug( " f:$first_name, l:$last_name, e:$email", $fieldsref );
 
     # validation for email if supplied
     if ( length($email) ) {
@@ -519,6 +532,7 @@ sub _gateway_sms_pay {
 
     my ( %fields, %transaction, $offset, $limit, $class, $pages, @status, $return_value );
 
+    
     %fields = %$fields_ref;
 
     #FUXME: note $registry is global, probably should be fixed
@@ -548,8 +562,8 @@ sub _gateway_sms_pay {
 
     my ( $parse_type, $transaction_description_ref ) = _sms_payment_parse($input);
 
-    debug( "payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref )
-        if ( $parse_type != 0 );
+    ###debug( "payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref )
+    ###    if ( $parse_type != 0 );
 
     # sms pay message didn't parse, not worth proceeding
     if ( $parse_type == 0 ) {
@@ -560,6 +574,17 @@ sub _gateway_sms_pay {
         return "nok:$input $message";
     }
 
+
+    # toregistry is base registry if not specified
+    # February 2014
+    
+    if ($parse_type != 5 || (! length($transaction_description_ref->{'toregistry'})) ) {
+      $transaction{'toregistry'} = $registry ;
+    } else {
+       $transaction{'toregistry'} = $transaction_description_ref->{'toregistry'} ;
+    }	
+
+
     # numbers are stored as 447855667524 for example
     $transaction_description_ref->{'tomobilenumber'} =
         format_for_standard_mobile( $transaction_description_ref->{'tomobilenumber'} );
@@ -568,7 +593,7 @@ sub _gateway_sms_pay {
     # contains only figures so it's a mobile number
     if ( $transaction_description_ref->{'touserormobile'} =~ /^\d+\z/ ) {
         ( $error1, $to_user_ref ) =
-            get_where( $class, $registry, 'om_users', '*', 'userMobile',
+            get_where( $class, $transaction{'toregistry'}, 'om_users', '*', 'userMobile',
                        $transaction_description_ref->{'touserormobile'},
                        $token, $offset, $limit );
     }
@@ -576,7 +601,7 @@ sub _gateway_sms_pay {
 
         # else it's a userLogin ...
         ( $error1, $to_user_ref ) =
-            get_where( $class, $registry, 'om_users', '*', 'userLogin',
+            get_where( $class, $transaction{'toregistry'}, 'om_users', '*', 'userLogin',
                        $transaction_description_ref->{'touserormobile'},
                        $token, $offset, $limit );
     }
@@ -598,7 +623,16 @@ sub _gateway_sms_pay {
         push @status, $messages{invalidcurrency};
     }
 
+    # check on the currency at the receiving end too, since inter-registry is allowed February 2014
+    if ( !_check_valid_currency( $transaction{'toregistry'}, $transaction_description_ref->{'currency'}, undef ) ) {
+        push @status, $messages{invalidcurrency};
+    }
+    ###debug( "1 payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref ) ;
+
+
     my $errors = join( ':', @status );
+
+    ###debug("here $errors",undef) ;
 
     # one or more errors in status array
     if ( scalar(@status) > 0 ) {
@@ -609,8 +643,10 @@ sub _gateway_sms_pay {
         return "nok:$message";
     }
 
+    ###debug( "2 payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref ) ;
+
     # convert to standard transaction input format, fields etc.
-    #fromregistry : chelsea
+    # FIXME: fromregistry : dalston, always one base 'from' registry in 2014
     $transaction{'fromregistry'} = $registry;
 
     # no home, not a web transaction
@@ -619,9 +655,8 @@ sub _gateway_sms_pay {
     #subaction : om_trades
     $transaction{'subaction'} = 'om_trades';
 
-    #toregistry : dalston
-    $transaction{'toregistry'} = $registry;
 
+    ###debug("here $parse_type  $transaction{'toregistry'}",\%transaction) ;
     #tradeAmount : 23
     $transaction{'tradeAmount'} = $transaction_description_ref->{'quantity'};
 
@@ -658,6 +693,8 @@ sub _gateway_sms_pay {
     # call ordinary transaction
     my $transaction_ref = \%transaction;
 
+    ###debug( "2 payment parse type is: p:$parse_type \n$input\n", $transaction_ref ) ;
+    
     my ( $metarefresh, $home, $error3, $output_message, $page, $c ) =
         transaction( 'sms', $transaction{fromregistry}, 'om_trades', $transaction_ref, $pages, $token );
 
@@ -702,19 +739,9 @@ EOT
 
     }
 
-    # note that the mail/sms messages are not the same for payment, the person paying
-    # gets an email and the paid person gets an sms advising them of payment arrival...
-    #FIXME: How to notify payment errors without using mail
-    # my $mail_error =
-    #   _send_sms_message( 'local', $registry, $mail_message,
-    #     $from_user_ref );
-
-    #debug( undef, $transaction_ref );
-
     # send SMS receipt, only if turned on for the user...
     #FIXME: doesn't deal with SMS for failed transactions, does it to be defined!
     if ( $to_user_ref->{'userSmsreceipt'} && ( !length($error3) ) ) {
-
         _send_sms_message( $class, $registry, 'pay', $message, $from_user_ref, $to_user_ref, $transaction_ref );
     }
 
@@ -757,7 +784,7 @@ sub _gateway_sms_send_balance {
     # May 2012 reveal all currencies in the registry, towards sms multicurrency
     my $balance = $balance_ref->{$currency};
 
-    debug( "balance processing for $currency \n", $balance_ref );
+    ###debug( "balance processing for $currency \n", $balance_ref );
 
     #FIXME: if currency balance spaces, not trading etc.?
     my $balance_table;
@@ -775,7 +802,7 @@ sub _gateway_sms_send_balance {
 
     my $balance_message =
 "$messages{smsthebalancefor} $from_user_ref->{userLogin} $messages{at} $registry $messages{is}:\n$balance_table";
-    debug( "balance message\n $balance_message\n", undef );
+    ###debug( "balance message\n $balance_message\n", undef );
 
     # send SMS balance, only if turned on for the user...new 16.08.2010
     # blank transaction ref, need to make 1 unit sms currency transaction
@@ -913,12 +940,14 @@ sub _sms_payment_parse {
         $transaction_description{'description'}    = $5;
 
     }
+    # The registry is now used as a 'to' registry now, for parse type 5
+    # February 2014
     elsif ( $parse_type == 5 ) {
         ###debug("variables are 1:$1 2:$2 3:$3 4:$4 5:$5 6:$6", undef) ;
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'currency'}       = $2;
         $transaction_description{'touserormobile'} = $3;
-        $transaction_description{'registryunused'} = $5;    # this is the registry unused at present
+        $transaction_description{'toregistry'}     = $5;    
         $transaction_description{'description'}    = $6;
 
     }
@@ -1057,25 +1086,9 @@ sub _check_pin {
     my ( undef, $home_ref, undef, $html, $template, undef ) =
         update_database_record( 'local', $registry, 'om_users', 1, $from_user_ref, $token );
 
-    # send mail to registry supervisor, if pin locked
-    # FIXME: Need to send logging message
+    # Send logging message if pin locked
     if ( $message eq $messages{'smslocked'} ) {
-
-        # FIXME: Notfiy supervisor for pin locked, probably via Log levels
-        ###my ( $status, $registry_ref ) =
-        ###  get_where( 'local', $registry, 'om_registry', '*', 'id', '1', $token,
-        ###    '', '' );
-        ###
-        ###notify_by_mail(
-        ###    'local',                       $registry,
-        ###    undef,                         $registry_ref->{'admemail'},
-        ###    undef,                         $registry_ref->{'admemail'},
-        ###    $from_user_ref->{'userLogin'}, undef,
-        ###    undef,                         $message,
-        ###    6,                             undef
-        ###);
-
-        # end of send mail to registry supervisor
+       log_entry( 'local', $registry, 'error', "$from_user_ref->{'userLogin'}: $message", '' );
     }
 
     if ( length($message) ) {
@@ -1148,15 +1161,13 @@ sub _send_sms_message {
 
     my ( $class, $registry, $type, $message, $from_user_ref, $to_user_ref, $transaction_ref ) = @_;
 
-    debug( "in sms message send: $type", undef );
+    ###debug( "in sms message send: $type", undef );
 
-    #TODO: need weights for the messages, very probably
+    #TODO: need weights for the messages, very probably, so some appear more often
     my @sms_sponsor_messages  = _collect_sponsor_messages();
     my $sponsor_message_count = scalar(@sms_sponsor_messages);
 
-    # switch for sponsor messages, no need to blank them/restore them
-
-    debug( "switch and count: $sms_configuration{'sponsor_message_status'} $sponsor_message_count", undef );
+    # switch for sponsor messages, no need to blank them/restore them   
     if (    $sms_configuration{'sponsor_message_status'}
          && $sponsor_message_count )
     {
@@ -1351,7 +1362,7 @@ Debug into file, as opposed to using logging...
 sub debug {
 
     my ( $message, $hash_ref ) = @_;
-
+  
     my ( $date, $time ) = getdateandtime( time() );
     my ( $package, $filename, $line ) = caller $time =~ s/(\d\d)(\d\d)(\d\d)/$1:$2:$3/;
     $date =~ s/(\d{4})(\d\d)(\d\d)/$3:$2:$1/;
@@ -1360,7 +1371,7 @@ sub debug {
 
         # just check that it's being accessed for the moment...
         open( my $debug_file, '>>', $sms_configuration{'sms_debug_file'} );
-        $| = 1;    # Before writing!
+        #$| = 1;    # Before writing!
 
         print $debug_file "$date $time $line -> message is $message\n"
             if ( length($message) );
@@ -1370,7 +1381,7 @@ sub debug {
         close $debug_file;
     }
 
-    $| = 0;
+    #$| = 0;
     return;
 
 }

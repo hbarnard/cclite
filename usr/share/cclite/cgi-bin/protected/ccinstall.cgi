@@ -1,6 +1,6 @@
 #!/usr/bin/perl -w
 
-my $test = 1;
+my $test = 0;
 if ($test) {
     print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
     my $data = join( '', <DATA> );
@@ -12,7 +12,7 @@ if ($test) {
         exit;
     }
 }
-__END__
+###__END__
 
 =head1 NAME
 

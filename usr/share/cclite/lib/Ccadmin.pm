@@ -61,12 +61,14 @@ my $VERSION = 1.00;
 @EXPORT = qw(add_currency
   update_config1
   update_config2
+  unlock_user
   add_category
   do_modify_currency
   do_delete_currency
   add_registry
   add_partner
   get_installer_link
+  get_locked
   get_logged_in_count
   get_set_batch_files
   go_offline
@@ -1180,6 +1182,10 @@ of setting up gammu:
 
 
 
+
+
+
+
 sub display_gammu_config {
 
 
@@ -1197,9 +1203,78 @@ EOT
 return ;
 
 }
+
+
+=head3 get_locked
+
+Get users where the pin and/or password is locked
+display as table to unlock
+
+FIXME: html and literals etc. in here, this is first
+cut as of February 2014
+
+=cut
 	
 
+sub get_locked {
 
+my ($class, $registry, $fields_ref, $token) = @_ ;
+
+#print "$class, $registry, $fields_ref, $token" ;
+#print Dumper $fields_ref ;
+my $html ;
+my $header = "<tr><td>$messages{'unlock'}</td><td>userPinStatus</td><td>userPasswordStatus</td></tr>" ;
+
+my ($registry_error, $hash_ref) = sqlraw  ( $class, $registry,
+     'select userId,userPinStatus,userPasswordStatus,userLogin from om_users where (userPinStatus = \'locked\' or userPasswordStatus = \'locked\')', 'userId', $token );
+
+if (! $registry_error) {
+
+if ($fields_ref->{'mode'} eq 'json') {
+
+} elsif ($fields_ref->{'mode'} eq 'html') {
+
+
+	
+foreach my $key (sort keys $hash_ref) {
+my $line .= <<EOT;
+
+<tr><td><a href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userLogin'}</a></td>
+    <td>$hash_ref->{$key}->{'userPinStatus'}</td>
+    <td>$hash_ref->{$key}->{'userPasswordStatus'}</td>
+</tr>
+EOT
+
+
+$html .= $line ;
+
+}
+
+		
+} elsif ($fields_ref->{'mode'} eq 'values') {
+# FIXME: not implemented currently, mabye not useful
+
+}	
+
+} else  {	
+return "nok: $registry_error"
+}
+
+ return  (undef, undef, undef, "<table id=\"transtable\">$header<tbody>$html</tbody></table>", 'result.html', undef ) ;
+}	
+
+
+sub unlock_user {
+
+my ($class, $registry, $fields_ref, $token) = @_ ;
+
+$fields_ref->{'userPasswordStatus'} = 'active' ;
+$fields_ref->{'userPinStatus'} = 'active' ;
+
+my ( $a, $b, $c, $d ) = update_database_record( 'local', $registry, "om_users", 1, $fields_ref, undef, $token );
+
+return get_locked  ($class, $registry, $fields_ref, $token) ;
+}	
 
 
 1;

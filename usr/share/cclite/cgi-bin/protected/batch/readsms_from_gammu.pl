@@ -113,6 +113,7 @@ use lib '../../../lib' ;
 
 use Ccu;
 use Ccadmin ;
+use Cclitedb ; #FIXME: for log_entry
 use Cccookie ;
 use Ccsms::Gammu ;
 use Ccconfiguration;
@@ -223,7 +224,10 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
         ( $class, $status, $array_ref ) = $soap->paramsout;
 
     } else {
-        gateway_sms_transaction( 'local', \%configuration, \%fields, $token );
+       my $return_value = gateway_sms_transaction( 'local', \%configuration, \%fields, $token );
+       if ($return_value =~ /nok/) {
+          log_entry( 'local', $registry, 'error', 'transaction error', undef );
+       }	   
     }
 
     # move the processed file to a done directory, don't process twice

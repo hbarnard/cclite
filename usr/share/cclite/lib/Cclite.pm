@@ -1433,6 +1433,8 @@ sub transaction {
 
     my %transaction = %$transaction_ref;
 
+    debug_message ($transaction_ref, 1 ) ;
+
     # default separator is for html
     my $separator = "<br/>\n";
 

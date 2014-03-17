@@ -173,6 +173,7 @@ newpassword1=new password
 passwordsent=Password sent to your email address (could be in spam folder!!!)
 configordbproblem=configuration or database problem: wrong user or password?
 # literals for sms gateway
+unlock=Unlock
 smslocked=Account locked for sms: please contact your administrator to unlock!
 smspinactive=Pin checked ok: your account is active!
 smspinfail=Pin invalid: please try again!
