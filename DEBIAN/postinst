@@ -73,11 +73,14 @@ if ( $operation =~ /configure/ ) {
     `chmod -R  u+w /var/cclite/log/` ;
     
     # enable mod_rewrite and cclite server the apache2 way...then
-    # bounce apache to pick up 000-default config file
+    # bounce apache to pick up debian.default.server config file
     # this gives an EC2 style install at present 7/02/2014
     `a2enmod rewrite`;
     `a2ensite debian.default.server`;
     `a2dissite 000-default`;
+    # this appears to be necessary on Ubuntu 14.04 at least
+    `a2enmod cgi`;
+    
     #`a2ensite cclite.private.server`;
 
     # `/etc/init.d/apache2 reload` ;

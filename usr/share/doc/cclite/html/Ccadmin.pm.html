@@ -58,7 +58,7 @@ pre { color: #000000;
 		<ul>
 
 			<li><a href="#messagehash">messagehash</a></li>
-			<li><a href="#_guess_config_values">_guess_config_values</a></li>
+			<li><a href="#_guess_main_config_values">_guess_main_config_values</a></li>
 			<li><a href="#update_configuration">update_configuration</a></li>
 			<li><a href="#update_configuration2">update_configuration2</a></li>
 			<li><a href="#add_currency">add_currency</a></li>
@@ -78,6 +78,12 @@ pre { color: #000000;
 		<li><a href="#go_offline">go_offline</a></li>
 		<li><a href="#go_online">go_online</a></li>
 		<li><a href="#get_installer_link">get_installer_link</a></li>
+		<ul>
+
+			<li><a href="#display_gammu_config">display_gammu_config</a></li>
+			<li><a href="#get_locked">get_locked</a></li>
+		</ul>
+
 	</ul>
 
 </ul>
@@ -90,7 +96,8 @@ pre { color: #000000;
 <ul>
 <li><a href="#package-Ccadmin-">package Ccadmin</a>
 <ul>
-<li><a href="#_guess_config_values-">_guess_config_values</a></li>
+<li><a href="#_guess_main_config_values-">_guess_main_config_values</a></li>
+<li><a href="#_guess_gammu_config_values-">_guess_gammu_config_values</a></li>
 <li><a href="#update_config1-">update_config1</a></li>
 <li><a href="#update_config2-">update_config2</a></li>
 <li><a href="#add_currency-">add_currency</a></li>
@@ -108,6 +115,9 @@ pre { color: #000000;
 <li><a href="#go_offline-">go_offline</a></li>
 <li><a href="#go_online-">go_online</a></li>
 <li><a href="#get_installer_link-">get_installer_link</a></li>
+<li><a href="#display_gammu_config-">display_gammu_config</a></li>
+<li><a href="#get_locked-">get_locked</a></li>
+<li><a href="#unlock_user-">unlock_user</a></li>
 </ul>
 </li>
 <li><a href="#EOF-">EOF</a></li>
@@ -164,6 +174,7 @@ Ccu.pm</p>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccvalidate</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
 <span class="c"># should be a core module both *nix and Windows</span>
 <span class="c"># given the problems with this and, from the microsoft doc:</span>
@@ -179,12 +190,14 @@ Ccu.pm</p>
 <span class="i">@EXPORT</span> = <span class="q">qw(add_currency</span>
   <span class="q">update_config1</span>
   <span class="q">update_config2</span>
+  <span class="q">unlock_user</span>
   <span class="q">add_category</span>
   <span class="q">do_modify_currency</span>
   <span class="q">do_delete_currency</span>
   <span class="q">add_registry</span>
   <span class="q">add_partner</span>
   <span class="q">get_installer_link</span>
+  <span class="q">get_locked</span>
   <span class="q">get_logged_in_count</span>
   <span class="q">get_set_batch_files</span>
   <span class="q">go_offline</span>
@@ -205,11 +218,13 @@ to change these, just substitute a translated hash</p>
 <span class="k">our</span> <span class="i">$messagesref</span> = \<span class="i">%messages</span><span class="sc">;</span>
 
 </pre><p></p>
-<h3><a name="_guess_config_values">_guess_config_values</a></h3>
+<h3><a name="_guess_main_config_values">_guess_main_config_values</a></h3>
 <p>present fairly sensible configuration values
 for a new installation, the current software version is 'guessed' here...</p>
+<p>Called guess_main etc. now because there will also be a guess_sms_config etc.
+very shortly.</p>
 <pre>
-<a name="_guess_config_values-"></a><span class="k">sub </span><span class="m">_guess_config_values</span> <span class="s">{</span>
+<a name="_guess_main_config_values-"></a><span class="k">sub </span><span class="m">_guess_main_config_values</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$hash_type</span><span class="cm">,</span> <span class="i">$currdir</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="c">###print &quot;root is $ENV{DOCUMENT_ROOT}&quot; ;</span>
@@ -245,7 +260,7 @@ for a new installation, the current software version is 'guessed' here...</p>
     <span class="i">$configuration</span>{<span class="w">userss</span>}                 = <span class="q">&quot;no&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">usedecimals</span>}            = <span class="q">&quot;yes&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">usetags</span>}                = <span class="q">&quot;yes&quot;</span><span class="sc">;</span>
-    <span class="i">$configuration</span>{<span class="w">version</span>}                = <span class="q">&quot;0.9.1&quot;</span><span class="sc">;</span>
+    <span class="i">$configuration</span>{<span class="w">version</span>}                = <span class="q">&quot;0.9.3&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">servicechargelimit</span>}     = <span class="q">&quot;notused&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">smslocal</span>}               = <span class="q">&quot;1&quot;</span><span class="sc">;</span>
 
@@ -262,12 +277,10 @@ for a new installation, the current software version is 'guessed' here...</p>
 <span class="c">#</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$currdir</span> !~ <span class="q">/public_html/</span> &amp;&amp; <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$configuration</span>{<span class="w">csvpath</span>} = <span class="q">&quot;/var/cclite/batch&quot;</span><span class="sc">;</span>
-        <span class="i">$configuration</span>{<span class="w">smspath</span>} = <span class="q">&quot;/var/cclite/sms/inbox&quot;</span><span class="sc">;</span>
 
         <span class="c"># cpanel</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$currdir</span> =~ <span class="q">/public_html/</span> &amp;&amp; <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$configuration</span>{<span class="w">csvpath</span>} = <span class="q">&quot;$ENV{DOCUMENT_ROOT}/var/cclite/batch&quot;</span><span class="sc">;</span>
-        <span class="i">$configuration</span>{<span class="w">smspath</span>} = <span class="q">&quot;$ENV{DOCUMENT_ROOT}/var/cclite/sms/inbox&quot;</span><span class="sc">;</span>
 
         <span class="c"># windows</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
@@ -275,12 +288,10 @@ for a new installation, the current software version is 'guessed' here...</p>
         <span class="k">my</span> <span class="i">$base_directory</span> = <span class="i">$ENV</span>{<span class="w">DOCUMENT_ROOT</span>}<span class="sc">;</span>
 
         <span class="c"># strip back to var, from document root, stay with c:\cclite..etc..</span>
-        <span class="c"># C:/cclite-0.9.1-xp/var/www/cclite/public_html</span>
+        <span class="c"># C:/cclite-0.9.3-xp/var/www/cclite/public_html</span>
         <span class="c"># print &quot;base directory is $base_directory\n&quot; ;</span>
         <span class="i">$base_directory</span> =~ <span class="q">s/\/www\/cclite\/public_html//</span><span class="sc">;</span>
         <span class="i">$configuration</span>{<span class="w">csvpath</span>} = <span class="q">&quot;$base_directory/cclite/batch&quot;</span><span class="sc">;</span>
-        <span class="i">$configuration</span>{<span class="w">smspath</span>} = <span class="q">&quot;$base_directory/cclite/sms/inbox&quot;</span><span class="sc">;</span>
-
     <span class="s">}</span>
 
     <span class="i">$configuration</span>{<span class="w">csvout</span>} = <span class="q">&quot;$ENV{DOCUMENT_ROOT}/out/csv&quot;</span><span class="sc">;</span>
@@ -304,58 +315,138 @@ for a new installation, the current software version is 'guessed' here...</p>
     <span class="k">return</span> \<span class="i">%configuration</span><span class="sc">;</span>
 <span class="s">}</span>
 
+<a name="_guess_gammu_config_values-"></a><span class="k">sub </span><span class="m">_guess_gammu_config_values</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$hash_type</span><span class="cm">,</span> <span class="i">$currdir</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="i">$sms_configuration</span> = <span class="s">{</span><span class="s">}</span><span class="sc">;</span>
+
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sponsor4&#39;</span>}       = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sms_debug_file&#39;</span>} = <span class="q">&#39;/var/cclite/log/sms_debug.txt&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;registry&#39;</span>}       = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;userpinstatus&#39;</span>}  = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;smslocal&#39;</span>}       = <span class="n">1</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;smsinpath&#39;</span>}      = <span class="q">&#39;/var/cclite/sms/inbox&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;smsoutpath&#39;</span>}     = <span class="q">&#39;/var/cclite/sms/outbox&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sponsor5&#39;</span>}       = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sms_prefix&#39;</span>}     = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;os&#39;</span>}             = <span class="q">&#39;linux&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;currency&#39;</span>}       = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;domain&#39;</span>}         = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sponsor3&#39;</span>}       = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;debug&#39;</span>}          = <span class="n">0</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;userstatus&#39;</span>}     = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;home&#39;</span>}           = <span class="i">$home</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;smserrorpath&#39;</span>}   = <span class="q">&#39;/var/cclite/sms/error&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;initialpaymentstatus&#39;</span>}   = <span class="q">&#39;accepted&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sponsor1&#39;</span>}               = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;language&#39;</span>}               = <span class="q">&#39;en&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;version&#39;</span>}                = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;distribution&#39;</span>}           = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sponsor2&#39;</span>}               = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;sponsor_message_status&#39;</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;smssentpath&#39;</span>}            = <span class="q">&#39;/var/cclite/sms/sent&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;smssleep&#39;</span>}               = <span class="n">120</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;userpasswordstatus&#39;</span>}     = <span class="q">&#39;active&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;package_type&#39;</span>}           = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;send_key&#39;</span>}               = <span class="q">&#39;pay&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;join_key&#39;</span>}               = <span class="q">&#39;join&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;suspend_key&#39;</span>}            = <span class="q">&#39;suspend&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;balance_key&#39;</span>}            = <span class="q">&#39;balance&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;confirm_key&#39;</span>}            = <span class="q">&#39;confirm&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;pinchange_key&#39;</span>}          = <span class="q">&#39;change&#39;</span><span class="sc">;</span>
+    <span class="i">$sms_configuration</span>-&gt;{<span class="q">&#39;language_key&#39;</span>}           = <span class="q">&#39;lang&#39;</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="i">$sms_configuration</span><span class="sc">;</span>
+<span class="s">}</span>
+
 </pre><p></p>
 <h3><a name="update_configuration">update_configuration</a></h3>
 <p>First part of configuration update, guess values and display
 All the html has been moved into installvalues.html now, as of 11/2008</p>
+<p>FIXME: Tests depend on hardcoded file names, this is fragile, will
+break if the config file names are rationalised</p>
 <pre>
 
 =cut</pre>
 <pre>
 <a name="update_config1-"></a><span class="k">sub </span><span class="m">update_config1</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$new</span><span class="cm">,</span> <span class="i">$configuration</span><span class="cm">,</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$hash_type</span><span class="cm">,</span> <span class="i">$dir</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">%fields</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$title</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$new_main_install</span><span class="cm">,</span> <span class="i">$new_sms_install</span><span class="cm">,</span> <span class="i">$configuration</span><span class="cm">,</span>
+        <span class="i">$sms_configuration</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$dir</span> <span class="s">)</span>
+      = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$title</span><span class="cm">,</span> <span class="i">$template</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$type</span> = <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>}<span class="sc">;</span>
 
     <span class="c"># guess values, if new install otherwise read existing</span>
-    <span class="k">if</span> <span class="s">(</span><span class="i">$new</span><span class="s">)</span> <span class="s">{</span>
-        <span class="k">my</span> <span class="i">$configuration_ref</span> =
-          <span class="i">_guess_config_values</span><span class="s">(</span> <span class="i">$home</span><span class="cm">,</span> <span class="i">$domain</span><span class="cm">,</span> <span class="i">$hash_type</span><span class="cm">,</span> <span class="i">$dir</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">%fields</span> = <span class="i">%$configuration_ref</span><span class="sc">;</span>
-        <span class="i">$fields</span>{<span class="w">updatemessage</span>} .= <span class="i">$messages</span>{<span class="w">newinstall</span>}<span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$new_main_install</span> &amp;&amp; <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;main&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$fields_ref</span> = <span class="i">_guess_main_config_values</span><span class="s">(</span>
+            <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;home&#39;</span>}<span class="cm">,</span>
+            <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;domain&#39;</span>}<span class="cm">,</span>
+            <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;hash_type&#39;</span>}<span class="cm">,</span> <span class="i">$dir</span>
+        <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;updatemessage&#39;</span>} .= <span class="i">$messages</span>{<span class="w">newinstall</span>}<span class="sc">;</span>
+
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$new_sms_install</span> &amp;&amp; <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;gammu&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="i">$fields_ref</span> = <span class="i">_guess_gammu_config_values</span><span class="s">(</span>
+            <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;home&#39;</span>}<span class="cm">,</span>
+            <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;domain&#39;</span>}<span class="cm">,</span>
+            <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;hash_type&#39;</span>}<span class="cm">,</span> <span class="i">$dir</span>
+        <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;updatemessage&#39;</span>} .= <span class="q">&#39;new sms install&#39;</span><span class="sc">;</span>
+
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">%fields</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;main&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">%fields</span> = <span class="i">&amp;main::readconfiguration</span><span class="s">(</span><span class="i">$configuration</span><span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+            <span class="i">%fields</span> = <span class="i">&amp;main::readconfiguration</span><span class="s">(</span><span class="i">$sms_configuration</span><span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span>
+        <span class="i">$fields_ref</span> = \<span class="i">%fields</span><span class="sc">;</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;uhome&#39;</span>} = <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;home&#39;</span>}<span class="sc">;</span>
 
-        <span class="i">%fields</span> = <span class="i">&amp;main::readconfiguration</span><span class="s">(</span><span class="i">$configuration</span><span class="s">)</span><span class="sc">;</span>
-        <span class="i">$fields</span>{<span class="w">uhome</span>} = <span class="i">$fields</span>{<span class="w">home</span>}<span class="sc">;</span>
+        <span class="c"># FIXME: ugly new condition based on &#39;type&#39;</span>
 
-        <span class="c"># complain if config is not writable</span>
-        <span class="k">unless</span> <span class="s">(</span> <span class="k">-w</span> <span class="i">$configuration</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">$fields</span>{<span class="w">updatemessage</span>} .=
+        <span class="k">print</span><span class="sc">;</span>
+
+        <span class="k">if</span> <span class="s">(</span> !<span class="s">(</span> <span class="k">-w</span> <span class="i">$configuration</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;updatemessage&#39;</span>} .=
               <span class="q">&quot;$configuration $messages{cannotbewritten}&quot;</span><span class="sc">;</span>
-            <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="q">&quot;installvalues.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span> =~ <span class="q">/cclite.cf/</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="q">&quot;installvalues.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$configuration</span> =~ <span class="q">/readsms.cf/</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="q">&quot;installgammu.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="s">}</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
     <span class="c">#FIXME: this is ugly, called in main script and called here...</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="i">$fields</span>{<span class="w">os</span>}           = <span class="i">$os</span><span class="sc">;</span>
-    <span class="i">$fields</span>{<span class="w">package_type</span>} = <span class="i">$package_type</span><span class="sc">;</span>
-    <span class="i">$fields</span>{<span class="w">distribution</span>} = <span class="i">$distribution</span><span class="sc">;</span>
+    <span class="s">(</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;os&#39;</span>}<span class="cm">,</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;distribution&#39;</span>}<span class="cm">,</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;package_type&#39;</span>}
+    <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># grey out sendmail path in installer, if windows...</span>
-    <span class="i">$fields</span>{<span class="w">disablesendmail</span>} = <span class="q">&quot;disabled=\&quot;disabled\&quot;&quot;</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;disablesendmail&#39;</span>} = <span class="q">&quot;disabled=\&quot;disabled\&quot;&quot;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;os&#39;</span>} <span class="k">eq</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># complain about hash only for new installs, otherwise too late</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="i">$hash_type</span> <span class="k">eq</span> <span class="q">&quot;sha1&quot;</span> &amp;&amp; <span class="i">$new</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$fields</span>{<span class="w">updatemessage</span>} .= <span class="q">&quot;&lt;br/&gt;$messages{sha1warning}&quot;</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span>   <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;hash_type&#39;</span>} <span class="k">eq</span> <span class="q">&quot;sha1&quot;</span>
+        &amp;&amp; <span class="i">$new_main_install</span>
+        &amp;&amp; <span class="i">$configuration</span> =~ <span class="q">/cclite.cf/</span> <span class="s">)</span>
+    <span class="s">{</span>
+        <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;updatemessage&#39;</span>} .= <span class="q">&quot;&lt;br/&gt;$messages{sha1warning}&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
  <span class="c"># for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )</span>
 
-    <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="q">&quot;installvalues.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;main&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="q">&quot;installvalues.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;gammu&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="q">&quot;installgammu.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
 
-    <span class="c">### return ( 0, &#39;&#39;, &#39;/cgi-bin/protected/ccinstall.cgi&#39;,</span>
-    <span class="c">###     \%fields, &quot;installvalues.html&quot;, &quot;&quot; );</span>
 <span class="s">}</span>
 
 </pre><p></p>
@@ -364,22 +455,24 @@ All the html has been moved into installvalues.html now, as of 11/2008</p>
 <pre>
 <a name="update_config2-"></a><span class="k">sub </span><span class="m">update_config2</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$configuration</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
     <span class="k">my</span> <span class="i">%fields</span> = <span class="i">%$fieldsref</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$html</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$token</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">@registries</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># write the new configuration to screen with a message</span>
     <span class="c"># if it can&#39;t be written directly into the configuration file</span>
 
-    <span class="k">my</span> <span class="i">$configuration_string</span><span class="sc">;</span>    <span class="c"># this hold a cumulated set of text values</span>
+    <span class="k">my</span> <span class="i">$configuration_string</span><span class="sc">;</span>    <span class="c"># this holds a cumulated set of text values</span>
                                  <span class="c"># so that people can cut and paste if necessary</span>
 
+    <span class="c">###print &quot;in config2  $fieldsref-&gt;{&#39;type&#39;}\n&quot; ;</span>
+
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%fields</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">next</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> =~ <span class="q">/action|saveadd/i</span> <span class="s">)</span><span class="sc">;</span>
+
+        <span class="k">next</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> =~ <span class="q">/action|saveadd|environment/i</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c">#FIXME: kludge to deal with name collision between</span>
         <span class="c"># discovering the installer and what&#39;s needed as home</span>
-
         <span class="i">$fields</span>{<span class="i">$key</span>} =~ <span class="q">s!protected/ccinstall.cgi!cclite.cgi!</span>
           <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> <span class="k">eq</span> <span class="q">&#39;home&#39;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="i">$configuration_string</span> .= <span class="q">&quot;$key=$fields{$key}&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
@@ -408,20 +501,61 @@ All the html has been moved into installvalues.html now, as of 11/2008</p>
         <span class="k">if</span> <span class="s">(</span> !<span class="s">(</span> <span class="k">-w</span> <span class="i">$configuration</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
             <span class="k">my</span> <span class="i">$error</span> =
-<span class="q">&quot;&lt;span class=\&quot;errors\&quot;&gt;attempted update: $configuration $messages{cannotbewritten}&lt;/span&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;&lt;span class=\&quot;failedcheck\&quot;&gt;attempted update: $configuration $messages{cannotbewritten}&lt;/span&gt;&quot;</span><span class="sc">;</span>
             <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="i">$configuration_string</span><span class="cm">,</span>
                 <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
 
+    <span class="c"># checking for gammu setup, does nominated registry exist, for example</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;gammu&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">@registries</span> =
+          <span class="i">show_registries</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="w">registry</span>}<span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+            <span class="q">&#39;values&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$found</span> = <span class="n">0</span><span class="sc">;</span>
+        <span class="k">foreach</span> <span class="k">my</span> <span class="i">$registry</span> <span class="s">(</span><span class="i">@registries</span><span class="s">)</span> <span class="s">{</span>
+            <span class="k">if</span> <span class="s">(</span> <span class="i">$registry</span> <span class="k">eq</span> <span class="i">$fields</span>{<span class="q">&#39;registry&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+                <span class="i">$found</span> = <span class="n">1</span><span class="sc">;</span>
+            <span class="s">}</span>
+        <span class="s">}</span>
+
+        <span class="c"># no registry by that name</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="i">$found</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">my</span> <span class="i">$error</span> =
+<span class="q">&quot;&lt;span class=\&quot;failedcheck\&quot;&gt;attempted update: $configuration $messages{&#39;unknownregistry&#39;}&lt;/span&gt;&quot;</span><span class="sc">;</span>
+            <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="i">$configuration_string</span><span class="cm">,</span>
+                <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span>
+
+        <span class="c"># no currency by that name in the given registry</span>
+        <span class="k">if</span> <span class="s">(</span>
+            !<span class="i">sqlcount</span><span class="s">(</span>
+                <span class="q">&#39;local&#39;</span><span class="cm">,</span>         <span class="i">$fields</span>{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span>
+                <span class="q">&#39;om_currencies&#39;</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span>
+                <span class="q">&#39;name&#39;</span><span class="cm">,</span>          <span class="i">$fields</span>{<span class="q">&#39;currency&#39;</span>}<span class="cm">,</span>
+                <span class="i">$token</span>
+            <span class="s">)</span>
+          <span class="s">)</span>
+        <span class="s">{</span>
+            <span class="k">my</span> <span class="i">$error</span> =
+<span class="q">&quot;&lt;span class=\&quot;failedcheck\&quot;&gt;attempted update: $configuration $messages{&#39;invalidcurrency&#39;}&lt;/span&gt;&quot;</span><span class="sc">;</span>
+            <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="i">$configuration_string</span><span class="cm">,</span>
+                <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span>
+    <span class="s">}</span>
     <span class="k">eval</span> <span class="s">{</span>
         <span class="k">open</span><span class="s">(</span> <span class="w">CONFIG</span><span class="cm">,</span> <span class="q">&quot;&gt;$configuration&quot;</span> <span class="s">)</span> <span class="k">or</span> <span class="k">die</span> <span class="i">$@</span><span class="sc">;</span>
         <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">keys</span> <span class="i">%fields</span> <span class="s">)</span> <span class="s">{</span>
+
+            <span class="k">next</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> =~ <span class="q">/action|saveadd|environment/i</span> <span class="s">)</span><span class="sc">;</span>
 
             <span class="c">#FIXME: kludge to deal with name collision between</span>
             <span class="c"># discovering the installer and what&#39;s needed as home</span>
             <span class="i">$fields</span>{<span class="i">$key</span>} =~ <span class="q">s!protected/ccinstall.cgi!cclite.cgi!</span>
               <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> <span class="k">eq</span> <span class="q">&#39;home&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
+            <span class="i">$fields</span>{<span class="i">$key</span>} =~ <span class="q">s!\s$!!g</span>
+              <span class="k">if</span> <span class="s">(</span> <span class="i">$key</span> =~ <span class="q">/sponsor\d+$/</span> <span class="s">)</span><span class="sc">;</span>
 
             <span class="k">print</span> <span class="i">CONFIG</span> <span class="q">&quot;$key\=$fields{$key}\n&quot;</span><span class="sc">;</span>
 
@@ -463,15 +597,24 @@ All the html has been moved into installvalues.html now, as of 11/2008</p>
             # no db error
         } else {</pre>
 <pre>
-        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields</span>{<span class="w">installer2</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="c"># FIXME: Works but ugly and clumsy condition</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields</span>{<span class="w">installer2</span>} <span class="s">)</span>
+            &amp;&amp; <span class="i">$fields</span>{<span class="q">&#39;action&#39;</span>} <span class="k">ne</span> <span class="q">&#39;updategammuconfig&#39;</span> <span class="s">)</span>
+        <span class="s">{</span>
+
             <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span>
                 <span class="q">&quot;$messages{configurationupdated} $configuration&quot;</span><span class="cm">,</span>
                 <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
-
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;action&#39;</span>} <span class="k">eq</span> <span class="q">&#39;updategammuconfig&#39;</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">$fields</span>{<span class="q">&#39;action&#39;</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
+            <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span>
+                <span class="q">&quot;$messages{configurationupdated} $configuration&quot;</span><span class="cm">,</span>
+                <span class="q">&#39;result.html&#39;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
             <span class="k">my</span> <span class="i">$installer_url</span> =
 <span class="q">&quot;http://$fields{domain}/cgi-bin/protected/ccinstall.cgi?action=template&amp;name=registry.html&quot;</span><span class="sc">;</span>
+
             <span class="k">return</span> <span class="s">(</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$installer_url</span><span class="cm">,</span> <span class="q">&quot;&quot;</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span>
                 <span class="i">$messages</span>{<span class="w">configurationupdated</span>}<span class="cm">,</span>
                 <span class="q">&quot;result.html&quot;</span><span class="cm">,</span> <span class="q">&quot;&quot;</span> <span class="s">)</span><span class="sc">;</span>
@@ -707,6 +850,13 @@ one for local, one for remote..messier but more efficient?</p>
         || <span class="i">$hash_type</span> <span class="k">eq</span> <span class="q">&#39;sha2&#39;</span> <span class="s">)</span>
     <span class="s">{</span>
         <span class="i">$sqlfile</span> = <span class="q">&quot;../../sql/registry_${version}-${hash_type}.sql&quot;</span><span class="sc">;</span>
+
+        <span class="c"># added April 2014 to cover version mismatch</span>
+        <span class="k">if</span> <span class="s">(</span> !<span class="k">-e</span> <span class="i">$sqlfile</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">die</span>
+<span class="q">&quot;ccinstall: non existent sql file for registry creation: $sqlfile&quot;</span><span class="sc">;</span>
+        <span class="s">}</span>
+
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">die</span>
 <span class="q">&quot;ccinstall: bad hash type, must be sha1 or sha2, or perhaps module is missing&quot;</span><span class="sc">;</span>
@@ -752,6 +902,7 @@ one for local, one for remote..messier but more efficient?</p>
         <span class="q">&#39;om_registry&#39;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="q">&#39;en&#39;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># set up directories for all batch processes</span>
+
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$report_ref</span><span class="cm">,</span> <span class="i">$file_ref</span> <span class="s">)</span> =
       <span class="i">get_set_batch_files</span><span class="s">(</span> <span class="q">&#39;set&#39;</span><span class="cm">,</span> <span class="i">$configref</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$cookieref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$display_files</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="cm">,</span> <span class="i">%$file_ref</span> <span class="s">)</span><span class="sc">;</span>
@@ -1044,9 +1195,8 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
     <span class="k">my</span> <span class="i">$error</span><span class="sc">;</span>
 
 <span class="c"># FIXME: this is not quite right, get should use cookies, set newregistry, probably</span>
-    <span class="k">my</span> <span class="i">$registry</span> = <span class="i">$$cookieref</span>{<span class="w">registry</span>} || <span class="i">$fieldsref</span>-&gt;{<span class="w">newregistry</span>}<span class="sc">;</span>
-
-    <span class="k">my</span> <span class="i">$language</span> = <span class="i">$$cookieref</span>{<span class="w">language</span>} || <span class="i">$$configref</span>{<span class="w">language</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$registry</span> = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} || <span class="i">$fieldsref</span>-&gt;{<span class="w">newregistry</span>}<span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$language</span> = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;language&#39;</span>} || <span class="i">$configref</span>-&gt;{<span class="q">&#39;language&#39;</span>} || <span class="q">&#39;en&#39;</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">%configuration</span> = <span class="i">%$configref</span><span class="sc">;</span>
 
@@ -1176,7 +1326,6 @@ FIXME: needs to deliver errors and this is a weakness in update_database_record<
 </pre><p></p>
 <h2><a name="get_installer_link">get_installer_link</a></h2>
 <p>Get the menu link for the installer, for ccadmin.cgi, not displayed if not present</p>
-
 <pre>
 <a name="get_installer_link-"></a><span class="k">sub </span><span class="m">get_installer_link</span> <span class="s">{</span>
 
@@ -1185,6 +1334,104 @@ FIXME: needs to deliver errors and this is a weakness in update_database_record<
 <span class="h">EOT</span>
 
     <span class="k">return</span> <span class="i">$link</span><span class="sc">;</span>
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="display_gammu_config">display_gammu_config</a></h3>
+<p>FIXME: This is an ugly hack to deal with the increasing complexity
+of setting up gammu:</p>
+<p>1. All gammu values moved to readsms.cf
+2. Displayed and updatable here in the same way as main config</p>
+<pre>
+<a name="display_gammu_config-"></a><span class="k">sub </span><span class="m">display_gammu_config</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="i">$parameter_html_line</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">&lt;tr&gt;&lt;td title=&quot;&quot; class=&quot;menu&quot;&gt;dbuser&lt;/td&gt;&lt;td class=&quot;pme-key-1&quot;&gt;</span>
+<span class="hh">    &lt;input id=&quot;dbuser&quot; data-simple=&quot;yes&quot; type=&quot;text&quot; class=&quot;required&quot; name=&quot;dbuser&quot; size=&quot;60&quot; value=&quot;&quot;&gt;</span>
+<span class="hh">&lt;/td&gt;&lt;/tr&gt;</span>
+
+<span class="h">EOT</span>
+
+    <span class="k">return</span><span class="sc">;</span>
+
+<span class="s">}</span>
+
+</pre><p></p>
+<h3><a name="get_locked">get_locked</a></h3>
+<p>Get users where the pin and/or password is locked
+display as table to unlock</p>
+<p>FIXME: html and literals etc. in here, this is first
+cut as of February 2014</p>
+
+<pre>
+<a name="get_locked-"></a><span class="k">sub </span><span class="m">get_locked</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c">#print &quot;$class, $registry, $fields_ref, $token&quot; ;</span>
+    <span class="c">#print Dumper $fields_ref ;</span>
+    <span class="k">my</span> <span class="i">$html</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$header</span> =
+<span class="q">&quot;&lt;tr&gt;&lt;td&gt;$messages{&#39;unlockall&#39;}&lt;/td&gt;&lt;td&gt;userPinStatus&lt;/td&gt;&lt;td&gt;userPasswordStatus&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> = <span class="i">sqlraw</span><span class="s">(</span>
+        <span class="i">$class</span><span class="cm">,</span>
+        <span class="i">$registry</span><span class="cm">,</span>
+<span class="q">&#39;select userId,userPinStatus,userPasswordStatus,userLogin from om_users where (userPinStatus = \&#39;locked\&#39; or userPasswordStatus = \&#39;locked\&#39;)&#39;</span><span class="cm">,</span>
+        <span class="q">&#39;userId&#39;</span><span class="cm">,</span>
+        <span class="i">$token</span>
+    <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> !<span class="i">$registry_error</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;html&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%$hash_ref</span> <span class="s">)</span> <span class="s">{</span>
+                <span class="k">my</span> <span class="i">$line</span> .= <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
+<span class="hh">&lt;tr&gt;&lt;td&gt;&lt;a title=&quot;Unlock All&quot; href=&quot;/cgi-bin/protected/ccadmin.cgi?action=unlockuser&amp;type=all&amp;userId=$hash_ref-&gt;{$key}-&gt;{&#39;userId&#39;}&amp;mode=html&quot;&gt;$hash_ref-&gt;{$key}-&gt;{&#39;userLogin&#39;}&lt;/a&gt;&lt;/td&gt;</span>
+<span class="hh">    &lt;td&gt;&lt;a title=&quot;Unlock SMS Pin&quot; href=&quot;/cgi-bin/protected/ccadmin.cgi?action=unlockuser&amp;type=pin&amp;userId=$hash_ref-&gt;{$key}-&gt;{&#39;userId&#39;}&amp;mode=html&quot;&gt;$hash_ref-&gt;{$key}-&gt;{&#39;userPinStatus&#39;}&lt;/a&gt;&lt;/td&gt;</span>
+<span class="hh">    &lt;td&gt;&lt;a title=&quot;Unlock Password&quot; href=&quot;/cgi-bin/protected/ccadmin.cgi?action=unlockuser&amp;type=password&amp;userId=$hash_ref-&gt;{$key}-&gt;{&#39;userId&#39;}&amp;mode=html&quot;&gt;$hash_ref-&gt;{$key}-&gt;{&#39;userPasswordStatus&#39;}&lt;/a&gt;&lt;/td&gt;</span>
+<span class="hh">&lt;/tr&gt;</span>
+<span class="h">EOT</span>
+
+                <span class="i">$html</span> .= <span class="i">$line</span><span class="sc">;</span>
+
+            <span class="s">}</span>
+
+        <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;mode&#39;</span>} <span class="k">eq</span> <span class="q">&#39;values&#39;</span> <span class="s">)</span> <span class="s">{</span>
+
+            <span class="c"># FIXME: not implemented currently, mabye not useful</span>
+
+        <span class="s">}</span>
+
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="q">&quot;nok: $registry_error&quot;</span><span class="sc">;</span>
+    <span class="s">}</span>
+
+    <span class="k">return</span> <span class="s">(</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span>
+        <span class="q">&quot;&lt;table id=\&quot;transtable\&quot;&gt;$header&lt;tbody&gt;$html&lt;/tbody&gt;&lt;/table&gt;&quot;</span><span class="cm">,</span>
+        <span class="q">&#39;result.html&#39;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
+
+<a name="unlock_user-"></a><span class="k">sub </span><span class="m">unlock_user</span> <span class="s">{</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+    <span class="c">###print Dumper $fields_ref ;</span>
+
+    <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userPasswordStatus&#39;</span>} = <span class="q">&#39;active&#39;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;all&#39;</span>
+        || <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;password&#39;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;active&#39;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;all&#39;</span> || <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;pin&#39;</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
+      <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span>
+        <span class="k">undef</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">return</span> <span class="i">get_locked</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
 <span class="n">1</span><span class="sc">;</span>

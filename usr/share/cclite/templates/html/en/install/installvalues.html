@@ -14,6 +14,8 @@
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr><td title="this is the db user for mysql" class="menu">dbuser</td><td class="pme-key-1">
     <input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="$$fieldsref{dbuser}">
 </td></tr>
@@ -149,9 +151,12 @@
 
 </td></tr>
 
+<!--
 <tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
 </td></tr>
+-->
+
 
 <tr><td title="inbox for mail, old method replaced by pop mail in each registry" class="pme-key-title">readmail.pl directory</td><td class="pme-key-1">
 <input type="text" $$fieldsref{disablesendmail} readonly="1" class="required" name="mailpath" size="60" value="$$fieldsref{mailpath}">

@@ -215,8 +215,8 @@ November 2004: Limit clauses added to _sqlgetwhere _sqlgetall _sqlfind
 <span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
-<span class="c">###DBI-&gt;trace( 4, &#39;../debug/debug.dbi&#39; );      # Database abstraction</span>
-<span class="c">###DBI-&gt;trace( 2, &#39;/home/hbarnard/trunk/var/cclite/log/debug.dbi.log&#39; );</span>
+<span class="c"># use this for tracing database calls</span>
+<span class="c">#DBI-&gt;trace( 2, &#39;/var/cclite/log/debug.dbi.log&#39; );</span>
 
 <span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>    <span class="c"># for paging routine, at least</span>
 
@@ -445,7 +445,7 @@ modify_database_record2 : where</p>
         <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;righthandside&#39;</span>} = <span class="q">&#39;&#39;</span><span class="sc">;</span>
         <span class="k">undef</span> <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;action&#39;</span>}<span class="sc">;</span>
 
-<span class="c"># don&#39;t allow direct add_user if non-allowed ip or non-exuistent login or duplicate email</span>
+<span class="c"># don&#39;t allow direct add_user if non-allowed ip or non-existent login or duplicate email</span>
         <span class="k">if</span> <span class="s">(</span> !<span class="i">$allowed</span> || <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$user_ref1</span><span class="s">)</span> <span class="s">)</span> || <span class="k">length</span><span class="s">(</span><span class="i">$user_ref2</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$message</span> = <span class="q">&#39;NOK&#39;</span><span class="sc">;</span>
             <span class="k">undef</span> <span class="i">$fieldsref</span><span class="sc">;</span> <span class="c">#FIXME: don&#39;t tell why, perhaps this is a misteake</span>
@@ -553,13 +553,13 @@ change to hash_ref, self-describing but problematic in soap calls</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registryerror</span><span class="cm">,</span> <span class="i">$dbh</span> <span class="s">)</span> = <span class="i">_registry_connect</span><span class="s">(</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$sth</span> = <span class="i">$dbh</span><span class="i">-&gt;prepare</span><span class="s">(</span><span class="i">$sqlstring</span><span class="s">)</span><span class="sc">;</span>
-        <span class="k">my</span> <span class="i">$rv</span>  = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+        <span class="i">$rv</span>       = <span class="i">$sth</span><span class="i">-&gt;execute</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$hash_ref</span> = <span class="i">$sth</span><span class="i">-&gt;fetchall_hashref</span><span class="s">(</span><span class="i">$id</span><span class="s">)</span><span class="sc">;</span>
         <span class="i">$sth</span><span class="i">-&gt;finish</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="c">###print &quot;$sqlstring $rv&quot; ;</span>
-    <span class="c">###print Dumper $hash_ref ;</span>
+    <span class="c">#print &quot;$sqlstring $rv $id $dbh&quot; ;</span>
+    <span class="c">#print Dumper $hash_ref ;</span>
     <span class="c"># --- example of use---------------------------------</span>
     <span class="c"># $hash_ref = $sth-&gt;fetchall_hashref(&#39;id&#39;);</span>
     <span class="c"># print &quot;Name for id 42 is $hash_ref-&gt;{42}-&gt;{name}\n&quot;;</span>
@@ -1020,6 +1020,7 @@ should return one record only</p>
         <span class="i">log_entry</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span>
             <span class="i">$db</span><span class="cm">,</span>
+            <span class="q">&#39;fatal&#39;</span><span class="cm">,</span>
 <span class="q">&quot;$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line&quot;</span><span class="cm">,</span>
             <span class="i">$token</span>
         <span class="s">)</span><span class="sc">;</span>
@@ -2062,15 +2063,31 @@ The count is used for closing down the registry</p>
 
 </pre><p></p>
 <h3><a name="log_entry">log_entry</a></h3>
-<p>Log entry into logging table</p>
+<p>Log entry into logging table. $type is taken from the standard list of types</p>
+<pre>
+    trace;  # Log a trace message
+    debug;  # Log a debug message
+    info ;  # Log a info message
+    warn;   # Log a warn message
+    error;  # Log a error message
+    fatal;  # Log a fatal message</pre>
+<p>So that there's compatiblity with log4perl etc.</p>
 
 <pre>
 <a name="log_entry-"></a><span class="k">sub </span><span class="m">log_entry</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
+    <span class="k">my</span> <span class="i">$fieldsref</span>  = <span class="s">{</span><span class="s">}</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">%type_value</span> = <span class="q">qw(trace 5 debug 4 info 3 warn 2 error 1 fatal 0)</span><span class="sc">;</span>
+
+    <span class="c"># something wrong in the code, if a valid logging type is not delivered</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="k">exists</span> <span class="i">$type_value</span>{<span class="i">$type</span>} <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;type&#39;</span>} = <span class="q">&#39;fatal&#39;</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;type&#39;</span>} = <span class="i">$type</span><span class="sc">;</span>
+    <span class="s">}</span>
     <span class="k">my</span> <span class="i">$timestamp</span> = <span class="i">sql_timestamp</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$fieldsref</span> = <span class="s">{</span><span class="s">}</span><span class="sc">;</span>
 
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;message&#39;</span>} = <span class="i">$message</span><span class="sc">;</span>
     <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;stamp&#39;</span>}   = <span class="i">$timestamp</span><span class="sc">;</span>

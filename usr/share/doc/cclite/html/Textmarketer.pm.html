@@ -240,8 +240,7 @@ to change these, just substitute a translated hash</p>
   <span class="k">split</span><span class="s">(</span> <span class="q">/,/</span><span class="cm">,</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;sponsor_messages&#39;</span>} <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># FIXME: need this because the transaction return needs it</span>
-<span class="k">my</span> <span class="i">$pages</span> = <span class="w">new</span> <span class="i">HTML::SimpleTemplate</span><span class="s">(</span>
-    <span class="q">&quot;$configuration{&#39;templates&#39;}/$sms_configuration{&#39;language&#39;}&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">$pages</span> = <span class="s">{</span><span class="s">}</span><span class="sc">;</span>
 
 <span class="c"># set up debugging from readsms configuration file...</span>
 <span class="k">our</span> <span class="i">$debug</span> = <span class="i">$sms_configuration</span>{<span class="q">&#39;debug&#39;</span>}<span class="sc">;</span>    <span class="c"># don&#39;t use LWP just log etc.</span>
@@ -268,7 +267,7 @@ so parsing and validation is different for this...</p>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;number&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;$fields_ref-&gt;{&#39;message&#39;} from $fields_ref-&gt;{&#39;number&#39;} $messages{&#39;smsoriginblank&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$message&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -289,14 +288,14 @@ so parsing and validation is different for this...</p>
     <span class="c"># no number, so no lookup or no message...reject</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;$fields_ref-&gt;{&#39;number&#39;} $messages{&#39;smsmessageblank&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$message&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># no one with this number , so no lookup or no message...reject</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;$fields_ref-&gt;{&#39;number&#39;} $messages{&#39;smsnumbernotfound&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$message&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -324,7 +323,7 @@ so parsing and validation is different for this...</p>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
           <span class="q">&quot;from: $fields_ref-&gt;{&#39;number&#39;} $input -malformed transaction&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> = <span class="i">_send_sms_mail_message</span><span class="s">(</span>
             <span class="q">&#39;local&#39;</span><span class="cm">,</span>
             <span class="i">$registry</span><span class="cm">,</span>
@@ -361,7 +360,7 @@ so parsing and validation is different for this...</p>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
           <span class="q">&quot;from: $fields_ref-&gt;{&#39;number&#39;} $input -unrecognised transaction&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$message&quot;</span><span class="sc">;</span>
 
         <span class="c"># this is a &#39;bad&#39; transaction of some kind...</span>
@@ -411,8 +410,8 @@ so parsing and validation is different for this...</p>
     <span class="c"># but send it to the user&#39;s phone...</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span> <span class="s">{</span>
         <span class="i">$message</span> = <span class="q">&quot;$messages{&#39;smspinchanged&#39;}: $new_pin&quot;</span><span class="sc">;</span>
-        <span class="i">_send_textmarketer_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;credit&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
-            <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">_send_textmarketer_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;pinchange&#39;</span><span class="cm">,</span>
+            <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="q">&#39;ok&#39;</span><span class="sc">;</span>
@@ -712,7 +711,7 @@ using the gateway messaging gateway, may need modification for other gateways</p
     <span class="k">if</span> <span class="s">(</span> <span class="i">$parse_type</span> == <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;pay attempt from $fields{&#39;number&#39;} to $transaction_description_ref-&gt;{&#39;tomobilenumber&#39;} : $messages{&#39;smsinvalidsyntax&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> = <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
             <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$input $message&quot;</span><span class="sc">;</span>
@@ -757,7 +756,7 @@ using the gateway messaging gateway, may need modification for other gateways</p
             <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;pay attempt from $fields{&#39;number&#39;} to $transaction_description_ref-&gt;{&#39;tomobilenumber&#39;} : $errors&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$message&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -1064,7 +1063,7 @@ case the transaction -must- fail and it's not worth continuing</p>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;unparsed pay transaction is:$save_input  $input&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
 
@@ -1300,7 +1299,7 @@ Sends an sms message to confirm payment and send back balances</p>
     <span class="k">my</span> <span class="i">$orig</span> = <span class="i">$sms_configuration</span>{<span class="q">&#39;orig&#39;</span>} . <span class="i">$registry</span><span class="sc">;</span>
     <span class="i">$orig</span> = <span class="k">substr</span><span class="s">(</span> <span class="i">$orig</span><span class="cm">,</span> <span class="n">0</span><span class="cm">,</span> <span class="n">11</span> <span class="s">)</span> <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$orig</span><span class="s">)</span> &gt; <span class="n">11</span> <span class="s">)</span><span class="sc">;</span>
 
-    <span class="c"># credits are notified to the user receiving them...</span>
+    <span class="c"># credits and pinchanges are notified to the user receiving them...</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;credit&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$urlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">$preamble&amp;number=$to_user_ref-&gt;{&#39;userMobile&#39;}&amp;message=$message&amp;orig=$orig&amp;custom=$orig&amp;option=$sms_configuration{&#39;option&#39;}</span>
@@ -1310,7 +1309,7 @@ Sends an sms message to confirm payment and send back balances</p>
     <span class="s">}</span>
 
 <span class="c"># other operations are reported back to the originating user, including failed credit attempts (error type)</span>
-    <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> =~ <span class="q">/balance|join|suspend|language|error/</span> <span class="s">)</span> <span class="s">{</span>
+    <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> =~ <span class="q">/balance|join|suspend|language|error|pinchange/</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="i">$urlstring</span> = <span class="h">&lt;&lt;EOT</span><span class="sc">;</span>
 <span class="hh">$preamble&amp;number=$from_user_ref-&gt;{&#39;userMobile&#39;}&amp;message=$message&amp;orig=$orig&amp;custom=$orig&amp;option=$sms_configuration{&#39;option&#39;}</span>
@@ -1318,7 +1317,7 @@ Sends an sms message to confirm payment and send back balances</p>
 
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$mess</span> = <span class="q">&quot;unknown or unimplemented sms type: $type&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$mess</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$mess</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$mess&quot;</span><span class="sc">;</span>
 
     <span class="s">}</span>
@@ -1340,7 +1339,7 @@ Sends an sms message to confirm payment and send back balances</p>
         <span class="i">debug</span><span class="s">(</span> <span class="q">&quot;status line is $x&quot;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;$messages{smserror} $http_response-&gt;code&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$message&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 <span class="s">}</span>

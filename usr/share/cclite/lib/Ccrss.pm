@@ -105,7 +105,8 @@ SELECT * FROM om_yellowpages o, om_yellowpages w where (
 EOT
 
     } else {
-        log_entry( $class, $db, 'error', "unknown feed type:$$fieldsref{'type'}", '' );
+        log_entry( $class, $db, 'error',
+            "unknown feed type:$$fieldsref{'type'}", '' );
     }
 
     my ( $registryerror, $ad_hash_ref );

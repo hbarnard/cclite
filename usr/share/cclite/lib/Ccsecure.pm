@@ -119,7 +119,8 @@ sub _get_digest {
 
     my ( $os, $distribution, $package_type ) = get_os_and_distribution();
     eval {
-        if ( $configuration{hash_type} eq 'sha2' && $os ne 'windows' ) {
+        # ne windows removed 2014, Digest supporting sha2 now in core modules
+        if ( $configuration{hash_type} eq 'sha2' ) {
             $type = "sha2";
         } elsif ( $configuration{hash_type} eq 'sha1' ) {
             $type = "sha1";

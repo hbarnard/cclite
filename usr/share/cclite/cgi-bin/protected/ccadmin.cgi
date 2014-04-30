@@ -331,8 +331,6 @@ if ( $action eq "offline" ) {
   && ( ( $refresh, $metarefresh, $error, $html, $pagename, $cookies ) =
     unlock_user( 'local', $db, $fieldsref, $token ) );
 
-
-
 #
 ( $action eq "template" )
   && (

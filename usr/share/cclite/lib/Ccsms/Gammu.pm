@@ -89,9 +89,9 @@ use utf8;
 ### open (STDERR, ">&STDOUT"); # send STDERR out to page, then view source when debugging regular expressions
 
 @EXPORT = qw(
-    emulate_sms_file
-    gateway_sms_transaction
-    debug
+  emulate_sms_file
+  gateway_sms_transaction
+  debug
 );
 
 #============== change the configuration to your registry and currency for sms
@@ -109,12 +109,12 @@ our $sms_password = $sms_configuration{'password'};
 
 # hierachy of language decision, probably over the top, really...
 our $language =
-       $sms_configuration{'language'}
-    || $configuration{'language'}
-    || 'en';
+     $sms_configuration{'language'}
+  || $configuration{'language'}
+  || 'en';
 
 our @sms_sponsor_messages =
-    split( /,/, $sms_configuration{'sponsor_messages'} );
+  split( /,/, $sms_configuration{'sponsor_messages'} );
 
 # FIXME: need this because the transaction return needs it
 my $pages = {};
@@ -139,54 +139,58 @@ sub gateway_sms_transaction {
 
     # debugging and testing whether the transaction was emulated by a web form
     $debug = $sms_configuration{'debug'}
-        || $fields_ref->{'debug'};    # don't use LWP just log etc.
-    $emulate = $fields_ref->{'emulate'};    # transactions from the emulator page
+      || $fields_ref->{'debug'};    # don't use LWP just log etc.
+    $emulate = $fields_ref->{'emulate'};   # transactions from the emulator page
 
     my ( $offset, $limit, $pin, $transaction_type, $return_value );
-   
-    debug ("in change config $fields_ref->{'message'}", undef ) ;
-    if ($fields_ref->{'message'} =~ s/^(c\d+)\s+//i ) {
-	   my $configuration_file = "../../../config/readsms-$1.cf" ;
-	   if (-e $configuration_file) {
-         %sms_configuration = readconfiguration($configuration_file) ;
-       } else {
-		 #FIXME: This message needs to be multilingual  
-         log_entry( 'local', $registry, 'error', 'configuration file not found', $token );
-         return 'nok:configuration file not found';
-       }	   
-       debug ("in change config $configuration_file", undef ) ;
+
+    if ( $fields_ref->{'message'} =~ s/^(c\d+)\s+//i ) {
+        my $configuration_file = "../../../config/readsms-$1.cf";
+        if ( -e $configuration_file ) {
+            %sms_configuration = readconfiguration($configuration_file);
+        } else {
+
+            #FIXME: This message needs to be multilingual
+            log_entry( 'local', $registry, 'error',
+                'configuration file not found', $token );
+            return 'nok:configuration file not found';
+        }
     }
 
     # no number, so no lookup or no message...reject
     if ( !length( $fields_ref->{'originator'} ) ) {
-        my $message = "$fields_ref->{'message'} from $fields_ref->{'originator'} $messages{'smsoriginblank'}";
+        my $message =
+"$fields_ref->{'message'} from $fields_ref->{'originator'} $messages{'smsoriginblank'}";
         log_entry( 'local', $registry, 'error', $message, $token );
         return "nok:$message";
     }
 
     # numbers are stored in database as 447855667524 for example
     $fields_ref->{'originator'} =
-        format_for_standard_mobile( $fields_ref->{'originator'} );
+      format_for_standard_mobile( $fields_ref->{'originator'} );
 
     # setup transaction, special case
-    if ( $fields_ref->{'message'} =~ /^join\s+/i ) {
+    if ( $fields_ref->{'message'} =~ /^$sms_configuration{'join_key'}\s+/i ) {
         return _gateway_sms_join( $fields_ref, $token );
     }
 
     my ( $error, $from_user_ref ) =
-        get_where( 'local', $registry, 'om_users', '*', 'userMobile', $fields_ref->{'originator'},
-                   $token, $offset, $limit );
+      get_where( 'local', $registry, 'om_users', '*', 'userMobile',
+        $fields_ref->{'originator'},
+        $token, $offset, $limit );
 
     # no number, so no lookup or no message...reject
     if ( !length( $fields_ref->{'message'} ) ) {
-        my $message = "$fields_ref->{'originator'} $messages{'smsmessageblank'}";
+        my $message =
+          "$fields_ref->{'originator'} $messages{'smsmessageblank'}";
         log_entry( 'local', $registry, 'error', $message, $token );
         return "nok:$message";
     }
 
     # no one with this number , so no lookup or no message...reject
     if ( !length( $from_user_ref->{'userLogin'} ) ) {
-        my $message = "$fields_ref->{'originator'} $messages{'smsnumbernotfound'}";
+        my $message =
+          "$fields_ref->{'originator'} $messages{'smsnumbernotfound'}";
         log_entry( 'local', $registry, 'error', $message, $token );
         return "nok:$message";
     }
@@ -200,7 +204,10 @@ sub gateway_sms_transaction {
     my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
 
     # experimental language change...
-    if ( $input =~ m/\s+lang\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|es|ro|vi|ko|fi|id|bn)\s*$/i ) {
+    if ( $input =~
+m/\s+$sms_configuration{'language_key'}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|es|ro|vi|ko|fi|id|bn)\s*$/i
+      )
+    {
         $fields_ref->{'language'} = $1;
         return _gateway_sms_change_language( $fields_ref, $token );
     }
@@ -209,14 +216,18 @@ sub gateway_sms_transaction {
     if ( $input =~ m/p?(\w+)\s+(\w+)/i ) {
         $pin              = $1;
         $transaction_type = $2;
-    }
-    else {
-        my $message = "from: $fields_ref->{'originator'} $input -malformed transaction";
+    } else {
+        my $message =
+          "from: $fields_ref->{'originator'} $input -malformed transaction";
+
         log_entry( 'local', $registry, 'error', $message, $token );
-        my ($mail_error) =
-            _send_sms_message( 'local', $registry,
-                               "from: $fields_ref->{'originator'} $input $messages{smsnopindetected}",
-                               $from_user_ref );
+        my ($mail_error) = _send_sms_message(
+            'local',
+            $registry,
+            'error',
+"from: $fields_ref->{'originator'} $input $messages{smsnopindetected}",
+            $from_user_ref
+        );
         return "nok:$message";
     }
 
@@ -226,28 +237,29 @@ sub gateway_sms_transaction {
 
     # activation is done in _check_pin, these are the allowed operations
 
-    if ( $transaction_type eq 'confirm' ) {    #  p123456 confirm
+    if ( $transaction_type eq $sms_configuration{'confirm_key'} )
+    {    #  p123456 confirm
         return $pin_status;
-    }
-    elsif ( $transaction_type eq 'change' ) {    # change pin
+    } elsif ( $transaction_type eq $sms_configuration{'pinchange_key'} )
+    {    # change pin
         $return_value = _gateway_sms_pin_change( $fields_ref, $token );
-    }
-    elsif ( $transaction_type eq 'balance' ) {
+    } elsif ( $transaction_type eq $sms_configuration{'balance_key'} ) {
         $return_value = _gateway_sms_send_balance( $fields_ref, $token );
-    }
-    elsif ( $transaction_type eq 'suspend' || $transaction_type eq 'freeze' ) {
+    } elsif ( $transaction_type eq $sms_configuration{'suspend_key'}
+        || $transaction_type eq 'freeze' )
+    {
         $return_value = _gateway_sms_suspend( $fields_ref, $token );
 
-        # allow pay or send as keyword to line up with email style, also '10 to ' is allowed
-    }
-    elsif (    $transaction_type eq 'pay'
-            || $transaction_type eq 'send'
-            || $transaction_type =~ /^\w/ )
+# allow pay or send as keyword to line up with email style, also '10 to ' is allowed
+    } elsif ( $transaction_type eq $sms_configuration{'send_key'}
+        || $transaction_type eq 'send'
+        || $transaction_type =~ /^\w/ )
     {    # payment transaction
-        $return_value = _gateway_sms_pay( $configurationref, $fields_ref, $token );
-    }
-    else {
-        my $message = "from: $fields_ref->{'originator'} $input -unrecognised transaction";
+        $return_value =
+          _gateway_sms_pay( $configurationref, $fields_ref, $token );
+    } else {
+        my $message =
+          "from: $fields_ref->{'originator'} $input -unrecognised transaction";
         log_entry( 'local', $registry, 'error', $message, $token );
         return "nok:$message";
 
@@ -267,7 +279,7 @@ sub _gateway_sms_pin_change {
     my ( $fields_ref, $token ) = @_;
     my ( $offset, $limit, $message, $from_user_ref );
     my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
-    $input =~ m/^p?(\w+)\s+change\s+p?(\w+)\s*$/;
+    $input =~ m/^p?(\w+)\s+$sms_configuration{'pinchange_key'}\s+p?(\w+)\s*$/;
     my $new_pin    = $2;
     my $hashed_pin = text_to_hash($new_pin);
 
@@ -275,18 +287,19 @@ sub _gateway_sms_pin_change {
 
         $message = "$messages{'smspinchanged'}";
         ( my $error, $from_user_ref ) =
-            get_where( 'local', $registry, 'om_users', '*', 'userMobile', $fields_ref->{'originator'},
-                       $token, $offset, $limit );
+          get_where( 'local', $registry, 'om_users', '*', 'userMobile',
+            $fields_ref->{'originator'},
+            $token, $offset, $limit );
 
         $from_user_ref->{'userPin'}        = $hashed_pin;
         $from_user_ref->{'userPinTries'}   = 3;
         $from_user_ref->{'userPinChanged'} = getdateandtime( time() );
 
         my ( undef, $home_ref, undef, $html, $template, undef ) =
-            update_database_record( 'local', $registry, 'om_users', 1, $from_user_ref, $token );
+          update_database_record( 'local', $registry, 'om_users', 1,
+            $from_user_ref, $token );
 
-    }
-    else {
+    } else {
 
         # pin is too short, not changed...
         $message = "$messages{'smspinnotchanged'}";
@@ -295,7 +308,8 @@ sub _gateway_sms_pin_change {
     # but send it to the user's phone...
     if ( $from_user_ref->{'userSmsreceipt'} ) {
         $message = "$messages{'smspinchanged'}: $new_pin";
-        _send_sms_message( 'local', $registry, 'pinchange', $message, $from_user_ref, undef, undef );
+        _send_sms_message( 'local', $registry, 'pinchange', $message,
+            $from_user_ref, undef, undef );
 
     }
 
@@ -315,17 +329,23 @@ sub _gateway_sms_suspend {
     my $message = $messages{'smssuspend'};
 
     my ( $error, $from_user_ref ) =
-        get_where( 'local', $registry, 'om_users', '*', 'userMobile', $fields_ref->{'originator'},
-                   $token, $offset, $limit );
+      get_where( 'local', $registry, 'om_users', '*', 'userMobile',
+        $fields_ref->{'originator'},
+        $token, $offset, $limit );
 
     # suspended status for account
     $from_user_ref->{'userStatus'} = 'suspended';
 
     my ( $dummy, $home_ref, $dummy1, $html, $template, $dummy2 ) =
-        update_database_record( 'local', $registry, 'om_users', 1, $from_user_ref, $token );
+      update_database_record( 'local', $registry, 'om_users', 1,
+        $from_user_ref, $token );
 
     # send mail to user
-    my ($mail_error) = _send_sms_message( 'local', $registry, $message, $from_user_ref );
+    log_entry( 'local', $registry, 'warn',
+        "$message $fields_ref->{'originator'}", $token );
+    my ($mail_error) =
+      _send_sms_message( 'local', $registry, 'suspend', $message,
+        $from_user_ref );
 
     # FIXME: send mail to registry supervisor
     #my ( $status, $registry_ref ) =
@@ -345,17 +365,17 @@ sub _gateway_sms_change_language {
     my ( $fields_ref, $token ) = @_;
     my ( $offset, $limit );
 
-    ###debug ("in change language", $fields_ref ) ;
-
     my ( $error, $from_user_ref ) =
-        get_where( 'local', $registry, 'om_users', '*', 'userMobile', $fields_ref->{'originator'},
-                   $token, $offset, $limit );
+      get_where( 'local', $registry, 'om_users', '*', 'userMobile',
+        $fields_ref->{'originator'},
+        $token, $offset, $limit );
 
     # change the user language preference...
     $language = $from_user_ref->{'userLang'} = $fields_ref->{'language'};
 
     my ( $dummy, $home_ref, $dummy1, $html, $template, $dummy2 ) =
-        update_database_record( 'local', $registry, 'om_users', 1, $from_user_ref, $token );
+      update_database_record( 'local', $registry, 'om_users', 1,
+        $from_user_ref, $token );
 
     # user record available at this point, so change language to user preferred
     %messages = readmessages($language);
@@ -363,7 +383,9 @@ sub _gateway_sms_change_language {
     my $message = "$messages{'smslanguagechanged'} $fields_ref->{'language'}";
 
     if ( $from_user_ref->{'userSmsreceipt'} ) {
-        _send_sms_message( 'local', $registry, 'language', $message, $from_user_ref, undef, undef );
+
+        _send_sms_message( 'local', $registry, 'language', $message,
+            $from_user_ref, undef, undef );
     }
 
     return 'ok';
@@ -375,85 +397,96 @@ Set up new user, warn admin by email?
 tell user with password and pin via text message...
 status of pin and user is defined by readsms.cf
 
+join hugh barnard hugh.barnard\@example.com
+
 =cut
 
 sub _gateway_sms_join {
 
-    my ( $fieldsref, $token ) = @_;
+    my ( $fields_ref, $token ) = @_;
     my ( $offset, $limit, $message );
-    my $input = lc( $fieldsref->{'message'} );    # canonical is lower case
-
-    ###debug ("input is $input", $fieldsref ) ;
+    my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
 
     # check not already inscribed
     my ( $error, $from_user_ref ) =
-        get_where( 'local', $registry, 'om_users', '*', 'userMobile', $fieldsref->{'originator'},
-                   $token, $offset, $limit );
-
-    ###debug ("from user", $from_user_ref ) ;
+      get_where( 'local', $registry, 'om_users', '*', 'userMobile',
+        $fields_ref->{'originator'},
+        $token, $offset, $limit );
 
     # there's a user with this number, send sms and refuse
     if ( length( $from_user_ref->{'userId'} ) ) {
-        _send_sms_message( 'local', $registry, 'join', $messages{'smssetupnumberinuse'}, $from_user_ref, undef, undef );
+        _send_sms_message( 'local', $registry, 'join',
+            $messages{'smssetupnumberinuse'},
+            $from_user_ref, undef, undef );
         return "nok:$messages{'smssetupnumberinuse'}";
     }
 
-    ###debug ("input is $input", $fieldsref ) ;
-
-    # for example -2cc join hugh Barnard- and
-    # in general /2cc join first-name last-name/ or /2cc join first-name last-name email/
-    #  SELECT userLogin FROM om_users where userLogin like 'test%' order by userLogin desc
+#  SELECT userLogin FROM om_users where userLogin like 'test%' order by userLogin desc
     my ( $first_name, $last_name, $email );
 
-    if ( $input =~ m/join\s+(\w+)\s+(\w+)$/i ) {
+    if ( $input =~ m/$sms_configuration{'join_key'}\s+(\w+)\s+(\w+)$/i ) {
         $first_name = $1;
         $last_name  = $2;
-    }
-    elsif ( $input =~ m/join\s+(\w+)\s+(\w+)\s+(\S+)$/i ) {
+    } elsif (
+        $input =~ m/$sms_configuration{'join_key'}\s+(\w+)\s+(\w+)\s+(\S+)$/i )
+    {
         $first_name = $1;
         $last_name  = $2;
         $email      = $3;
-    }
-    else {
+    } else {
+
+        log_entry( 'local', $registry, 'error',
+            "$messages{'smsbadjoin'} $fields_ref->{'originator'} $input",
+            $token );
+
+        _send_sms_message( 'local', $registry, 'error', $messages{'smsbadjoin'},
+            $from_user_ref, undef, undef );
 
         # not enough parseable data to setup
         return "nok:$input $messages{'smsbadjoin'}";
     }
 
-    ###debug( " f:$first_name, l:$last_name, e:$email", $fieldsref );
-
     # validation for email if supplied
     if ( length($email) ) {
 
-        # bad email format, not sure how reliable this is...
-        if ( $email !~ /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/i ) {
-            _send_sms_message( 'local', $registry, 'join', $messages{'bademail'}, $from_user_ref, undef, undef );
+        #FIXME: Bad email format, not sure how reliable this is...
+        if ( $email !~
+/^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/i
+          )
+        {
+            _send_sms_message( 'local', $registry, 'join',
+                $messages{'bademail'}, $from_user_ref, undef, undef );
             return 'nok';
         }
 
         # check that it isn't duplicated
-        $fieldsref->{'userEmail'} = $email;
-        my $user_ref = check_email_exists( 'local', $registry, $fieldsref, \%messages, undef, undef, undef );
+        $fields_ref->{'userEmail'} = $email;
+        my $user_ref =
+          check_email_exists( 'local', $registry, $fields_ref, \%messages,
+            undef, undef, undef );
 
-        # user with this email already exist they must be distinct
+        # user with this email already exists
         if ( length( $user_ref->{'userId'} ) ) {
-            _send_sms_message( 'local', $registry, 'join', $messages{'emailexists'}, $from_user_ref, undef, undef );
+            _send_sms_message( 'local', $registry, 'join',
+                $messages{'emailexists'},
+                $from_user_ref, undef, undef );
             return 'nok';
         }
     }
 
     # screen names are canonical lower case but...
     # candidate screen name is four of first, three of last
-    my $screen_candidate = substr( $first_name, 0, 4 ) . substr( $last_name, 0, 3 );
+    # FIXME: what about 'small' names?!
+    my $screen_candidate =
+      substr( $first_name, 0, 4 ) . substr( $last_name, 0, 3 );
 
-    my ( $registry_error, $hash_ref ) =
-        sqlraw(
+    my ( $registry_error, $hash_ref ) = sqlraw(
         'local',
         $registry,
 "SELECT userId,userLogin FROM om_users where lower(userLogin) like \'$screen_candidate%\' order by userLogin asc limit 1",
         'userId',
         ''
-        );
+    );
 
     # there's something like this already in the database ;
     my $key = ( keys %$hash_ref )[-1];
@@ -468,43 +501,46 @@ sub _gateway_sms_join {
     my ( $date, $time ) = getdateandtime( time() );
 
     # force sms receipt for this kind of setup
-    $fieldsref->{'userSmsreceipt'} = 1;
+    $fields_ref->{'userSmsreceipt'} = 1;
 
     # FIXME: These should not be hardcoded, 3 tries, not test yet + active
-    $fieldsref->{'userPasswordTries'}  = 3;
-    $fieldsref->{'userPasswordStatus'} = $sms_configuration{'userpasswordstatus'};
+    $fields_ref->{'userPasswordTries'} = 3;
+    $fields_ref->{'userPasswordStatus'} =
+      $sms_configuration{'userpasswordstatus'};
 
-    $fieldsref->{'userJoindate'} = $date;
+    $fields_ref->{'userJoindate'} = $date;
 
-    $fieldsref->{'userLevel'} = 'user';
-    $fieldsref->{'userLang'}  = $sms_configuration{'language'};
+    $fields_ref->{'userLevel'} = 'user';
+    $fields_ref->{'userLang'}  = $sms_configuration{'language'};
 
     my $user_password = _generate_password(7);
-    $fieldsref->{'userPassword'} = text_to_hash($user_password);
-    $fieldsref->{'userPasswordChanged'} = $fieldsref->{'userJoindate'} = $date;
+    $fields_ref->{'userPassword'}        = text_to_hash($user_password);
+    $fields_ref->{'userPasswordChanged'} = $fields_ref->{'userJoindate'} =
+      $date;
 
     # add name field
-    $fieldsref->{'userLogin'} = $screen_candidate;
-    $fieldsref->{'userName'}  = "\u$first_name \u$last_name";
+    $fields_ref->{'userLogin'} = $screen_candidate;
+    $fields_ref->{'userName'}  = "\u$first_name \u$last_name";
 
     my $user_pin = _generate_password(5);
-    $fieldsref->{'userPin'}        = text_to_hash($user_pin);
-    $fieldsref->{'userPinChanged'} = $date;
+    $fields_ref->{'userPin'}        = text_to_hash($user_pin);
+    $fields_ref->{'userPinChanged'} = $date;
 
     # this should be OK, because of the gammu input file format
-    $fieldsref->{'userMobile'} =
-        format_for_standard_mobile( $fieldsref->{'originator'} );
-    $fieldsref->{'userPinStatus'} = $sms_configuration{'userpinstatus'};
-    $fieldsref->{'userPinTries'}  = 3;
+    $fields_ref->{'userMobile'} =
+      format_for_standard_mobile( $fields_ref->{'originator'} );
+    $fields_ref->{'userPinStatus'} = $sms_configuration{'userpinstatus'};
+    $fields_ref->{'userPinTries'}  = 3;
 
     # status as in the configuration file...
-    $fieldsref->{'userStatus'} = $sms_configuration{'userstatus'};
+    $fields_ref->{'userStatus'} = $sms_configuration{'userstatus'};
 
-    # FIXME: if the email is blank, then we probably shouldn't make the record active?!
-    $fieldsref->{'userEmail'} = $email;    # may be blank of course
+# FIXME: if the email is blank, then we probably shouldn't make the record active?!
+    $fields_ref->{'userEmail'} = $email;    # may be blank of course
 
     # add the user to the registry database
-    my ( $rc, $rv, $record_id ) = add_database_record( 'local', $registry, 'om_users', $fieldsref, undef );
+    my ( $rc, $rv, $record_id ) =
+      add_database_record( 'local', $registry, 'om_users', $fields_ref, undef );
 
     # send setup done message
     my $setup_complete_message = <<EOT;
@@ -515,7 +551,8 @@ Web password: $user_password
 SMS PIN: $user_pin    
 EOT
 
-    _send_sms_message( 'local', $registry, 'join', $setup_complete_message, $fieldsref, undef, undef );
+    _send_sms_message( 'local', $registry, 'join', $setup_complete_message,
+        $fields_ref, undef, undef );
     return 'ok';
 }
 
@@ -530,17 +567,19 @@ using the gateway messaging gateway, may need modification for other gateways
 sub _gateway_sms_pay {
     my ( $configurationref, $fields_ref, $token ) = @_;
 
-    my ( %fields, %transaction, $offset, $limit, $class, $pages, @status, $return_value );
+    my ( %fields, %transaction, $offset, $limit, $class, $pages, @status,
+        $return_value );
 
-    
     %fields = %$fields_ref;
 
     #FUXME: note $registry is global, probably should be fixed
     my ( $error, $from_user_ref ) =
-        get_where( $class, $registry, 'om_users', '*', 'userMobile', $fields{'originator'}, $token, $offset, $limit );
+      get_where( $class, $registry, 'om_users', '*', 'userMobile',
+        $fields{'originator'}, $token, $offset, $limit );
 
     # FIXME: needs to deliver json etc...
-    my $registry_status = get_registry_status( ( 'local', $registry, 'om_registry', $fields_ref, $token ) );
+    my $registry_status = get_registry_status(
+        ( 'local', $registry, 'om_registry', $fields_ref, $token ) );
 
     # registry is closed or closing...no pay style transactions allowed...
     if ( $registry_status eq 'down' || $registry_status eq 'closing' ) {
@@ -549,8 +588,10 @@ sub _gateway_sms_pay {
         my $message;
         if ( $from_user_ref->{'userSmsreceipt'} ) {
 
-            $message = $messages{'registryclosing'} . ':' . $messages{'notransfersallowed'};
-            _send_sms_message( 'local', $registry, 'error', $message, $from_user_ref, undef, {} );
+            $message = $messages{'registryclosing'} . ':'
+              . $messages{'notransfersallowed'};
+            _send_sms_message( 'local', $registry, 'error', $message,
+                $from_user_ref, undef, {} );
 
         }
         return "nok: $message";
@@ -560,9 +601,11 @@ sub _gateway_sms_pay {
     # begin parse on whitespace
     my $input = lc( $fields{'message'} );    # canonical is lower case
 
-    my ( $parse_type, $transaction_description_ref ) = _sms_payment_parse($input);
+    my ( $parse_type, $transaction_description_ref ) =
+      _sms_payment_parse($input);
 
-    ###debug( "payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref )
+    ###debug( "payment parse type is: p:$parse_type \n$input\n",
+    ###    $transaction_description_ref );
     ###    if ( $parse_type != 0 );
 
     # sms pay message didn't parse, not worth proceeding
@@ -570,40 +613,48 @@ sub _gateway_sms_pay {
         my $message =
 "pay attempt from $fields{'originator'} to $transaction_description_ref->{'tomobilenumber'} : $messages{'smsinvalidsyntax'}";
         log_entry( 'local', $registry, 'error', $message, $token );
-        _send_sms_message( 'local', $registry, 'error', $message, $from_user_ref, undef, undef );
+        _send_sms_message( 'local', $registry, 'error', $message,
+            $from_user_ref, undef, undef );
         return "nok:$input $message";
     }
 
-
     # toregistry is base registry if not specified
     # February 2014
-    
-    if ($parse_type != 5 || (! length($transaction_description_ref->{'toregistry'})) ) {
-      $transaction{'toregistry'} = $registry ;
-    } else {
-       $transaction{'toregistry'} = $transaction_description_ref->{'toregistry'} ;
-    }	
 
+    if ( $parse_type != 5
+        || ( !length( $transaction_description_ref->{'toregistry'} ) ) )
+    {
+        $transaction{'toregistry'} = $registry;
+    } else {
+        $transaction{'toregistry'} =
+          $transaction_description_ref->{'toregistry'};
+    }
 
     # numbers are stored as 447855667524 for example
     $transaction_description_ref->{'tomobilenumber'} =
-        format_for_standard_mobile( $transaction_description_ref->{'tomobilenumber'} );
+      format_for_standard_mobile(
+        $transaction_description_ref->{'tomobilenumber'} );
     my ( $error1, $to_user_ref );
 
     # contains only figures so it's a mobile number
     if ( $transaction_description_ref->{'touserormobile'} =~ /^\d+\z/ ) {
-        ( $error1, $to_user_ref ) =
-            get_where( $class, $transaction{'toregistry'}, 'om_users', '*', 'userMobile',
-                       $transaction_description_ref->{'touserormobile'},
-                       $token, $offset, $limit );
-    }
-    else {
+        ( $error1, $to_user_ref ) = get_where(
+            $class,       $transaction{'toregistry'},
+            'om_users',   '*',
+            'userMobile', $transaction_description_ref->{'touserormobile'},
+            $token,       $offset,
+            $limit
+        );
+    } else {
 
         # else it's a userLogin ...
-        ( $error1, $to_user_ref ) =
-            get_where( $class, $transaction{'toregistry'}, 'om_users', '*', 'userLogin',
-                       $transaction_description_ref->{'touserormobile'},
-                       $token, $offset, $limit );
+        ( $error1, $to_user_ref ) = get_where(
+            $class,      $transaction{'toregistry'},
+            'om_users',  '*',
+            'userLogin', $transaction_description_ref->{'touserormobile'},
+            $token,      $offset,
+            $limit
+        );
     }
 
     # one of the above lookups fails, reject the whole transaction
@@ -612,23 +663,35 @@ sub _gateway_sms_pay {
 
     # recipient didn't confirm pin yet, transaction invalid
     if ( length( $to_user_ref->{'userPinStatus'} )
-         && $to_user_ref->{'userPinStatus'} ne 'active' )
+        && $to_user_ref->{'userPinStatus'} ne 'active' )
     {
         push @status, $messages{smsunconfirmedpin};
 
     }
 
     # check on currency name, since it can be supplied in some formats
-    if ( !_check_valid_currency( $registry, $transaction_description_ref->{'currency'}, undef ) ) {
-        push @status, $messages{invalidcurrency};
+    if (
+        !_check_valid_currency(
+            $registry, $transaction_description_ref->{'currency'}, undef
+        )
+      )
+    {
+        push @status,
+"$messages{'nolocalcurrency'} $transaction_description_ref->{'currency'}";
     }
 
-    # check on the currency at the receiving end too, since inter-registry is allowed February 2014
-    if ( !_check_valid_currency( $transaction{'toregistry'}, $transaction_description_ref->{'currency'}, undef ) ) {
-        push @status, $messages{invalidcurrency};
+# check on the currency at the receiving end too, since inter-registry is allowed February 2014
+    if (
+        !_check_valid_currency(
+            $transaction{'toregistry'},
+            $transaction_description_ref->{'currency'},
+            undef
+        )
+      )
+    {
+        push @status, $messages{'noremotecurrency'};
     }
     ###debug( "1 payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref ) ;
-
 
     my $errors = join( ':', @status );
 
@@ -637,9 +700,10 @@ sub _gateway_sms_pay {
     # one or more errors in status array
     if ( scalar(@status) > 0 ) {
         my $message =
-            "pay attempt from $fields{'originator'} to $transaction_description_ref->{'tomobilenumber'} : $errors";
+"pay attempt from $fields{'originator'} to $transaction_description_ref->{'tomobilenumber'} : $errors";
         log_entry( 'local', $registry, 'error', $message, $token );
-        _send_sms_message( $class, $registry, 'error', $message, $from_user_ref, undef, {} );
+        _send_sms_message( $class, $registry, 'error', $message,
+            $from_user_ref, undef, {} );
         return "nok:$message";
     }
 
@@ -655,14 +719,13 @@ sub _gateway_sms_pay {
     #subaction : om_trades
     $transaction{'subaction'} = 'om_trades';
 
-
     ###debug("here $parse_type  $transaction{'toregistry'}",\%transaction) ;
     #tradeAmount : 23
     $transaction{'tradeAmount'} = $transaction_description_ref->{'quantity'};
 
-    #FIXME: tradeCurrency : if mentioned in sms overrides default: may not be a good idea?
+#FIXME: tradeCurrency : if mentioned in sms overrides default: may not be a good idea?
     $transaction{tradeCurrency} = $transaction_description_ref->{'currency'}
-        || $currency;
+      || $currency;
 
     #tradeDate : this is date of reception and processing, in fact
     my ( $date, $time ) = Ccu::getdateandtime( time() );
@@ -670,10 +733,11 @@ sub _gateway_sms_pay {
 
     #tradeTitle : added by this routine: now improved 12/2008
     $transaction{'tradeTitle'} =
-        "$messages{'smstransactiontitle'} $from_user_ref->{'userLogin'} -> $to_user_ref->{'userLogin'}";
+"$messages{'smstransactiontitle'} $from_user_ref->{'userLogin'} -> $to_user_ref->{'userLogin'}";
 
     #tradeDescription
-    $transaction{'tradeDescription'} = $transaction_description_ref->{'description'};
+    $transaction{'tradeDescription'} =
+      $transaction_description_ref->{'description'};
 
     #tradeDestination : ddawg
     $transaction{'tradeDestination'} = $to_user_ref->{'userLogin'};
@@ -684,19 +748,20 @@ sub _gateway_sms_pay {
     # tradestatus from configured sms config
     $transaction{'tradeStatus'} = $sms_configuration{'initialpaymentstatus'};
 
-    #FIXME: tradeItem not really identifiable from sms message/possible tax problem too!
+#FIXME: tradeItem not really identifiable from sms message/possible tax problem too!
     $transaction{'tradeItem'} = 'other';
 
-    #FIXME: mode for this is csv, this is part of a general format upgrade later...
+ #FIXME: mode for this is csv, this is part of a general format upgrade later...
     $transaction{'mode'} = 'json';
 
     # call ordinary transaction
     my $transaction_ref = \%transaction;
 
     ###debug( "2 payment parse type is: p:$parse_type \n$input\n", $transaction_ref ) ;
-    
+
     my ( $metarefresh, $home, $error3, $output_message, $page, $c ) =
-        transaction( 'sms', $transaction{fromregistry}, 'om_trades', $transaction_ref, $pages, $token );
+      transaction( 'sms', $transaction{fromregistry},
+        'om_trades', $transaction_ref, $pages, $token );
 
     #build explicative message, transaction can fall at last hurdle
     #
@@ -713,9 +778,10 @@ sub _gateway_sms_pay {
         if ( $transaction{'tradeAmount'} > 1 ) {
 
             #FIXME: English language currencies only
-            $transaction{'tradeCurrency'} =~ s/y$/ies/i;    # english language currencies
+            $transaction{'tradeCurrency'} =~
+              s/y$/ies/i;    # english language currencies
             $transaction{'tradeCurrency'} =~ s/$/s/i
-                if ( $transaction{'tradeCurrency'} !~ /s$/i );
+              if ( $transaction{'tradeCurrency'} !~ /s$/i );
         }
 
         $message = <<EOT;
@@ -726,8 +792,7 @@ EOT
 SMS $messages{'transactionaccepted'} $messages{'to'} $transaction{tradeDestination}  $messages{'forvalue'} $transaction{tradeAmount} $transaction{tradeCurrency}
 EOT
 
-    }
-    else {
+    } else {
         $type         = 'error';
         $return_value = 'nok';
 
@@ -740,15 +805,19 @@ EOT
     }
 
     # send SMS receipt, only if turned on for the user...
-    #FIXME: doesn't deal with SMS for failed transactions, does it to be defined!
     if ( $to_user_ref->{'userSmsreceipt'} && ( !length($error3) ) ) {
-        _send_sms_message( $class, $registry, 'pay', $message, $from_user_ref, $to_user_ref, $transaction_ref );
+        _send_sms_message( $class, $registry, 'pay', $message, $from_user_ref,
+            $to_user_ref, $transaction_ref );
+
+        # transaction has failed in the engine part
+    } elsif ( length($error3) ) {
+        _send_sms_message( $class, $registry, 'error', $message, $from_user_ref,
+            $to_user_ref, $transaction_ref );
     }
 
     if ( $return_value eq 'nok' ) {
         return "nok: $error3 $message";
-    }
-    else {
+    } else {
         return 'ok';
     }
 
@@ -767,18 +836,21 @@ sub _gateway_sms_send_balance {
     my ( $offset, $limit, $balance_ref, $volume_ref );
 
     my ( $error, $from_user_ref ) =
-        get_where( 'local', $registry, 'om_users', '*', 'userMobile', $fields_ref->{'originator'},
-                   $token, $offset, $limit );
+      get_where( 'local', $registry, 'om_users', '*', 'userMobile',
+        $fields_ref->{'originator'},
+        $token, $offset, $limit );
 
     my %fields = ( 'userLogin', $from_user_ref->{'userLogin'} );
     my $fields_ref = \%fields;
 
-    # mode is html to return html, mode is values to return raw balances and volumes for each currency
-    # probably should move to json for mobile applications...
+# mode is html to return html, mode is values to return raw balances and volumes for each currency
+# probably should move to json for mobile applications...
     $fields_ref->{'mode'} = 'values';
 
     ( $balance_ref, $volume_ref ) =
-        show_balance_and_volume( 'local', $registry, $from_user_ref->{'userLogin'}, $fields_ref, $token );
+      show_balance_and_volume( 'local', $registry,
+        $from_user_ref->{'userLogin'},
+        $fields_ref, $token );
 
     # current balance for this particular currency
     # May 2012 reveal all currencies in the registry, towards sms multicurrency
@@ -794,7 +866,7 @@ sub _gateway_sms_send_balance {
 
         # make y currencies plural, if user language english
         $literal_currency =~ s/y$/ies/i
-            if ( $from_user_ref->{'userLang'} eq 'en' );
+          if ( $from_user_ref->{'userLang'} eq 'en' );
 
         next if ( $balance_ref->{$key} =~ /^\s+$/ );    # skip space value
         $balance_table .= "$literal_currency:$balance_ref->{$key}\n";
@@ -810,7 +882,7 @@ sub _gateway_sms_send_balance {
 
     if ( $from_user_ref->{'userSmsreceipt'} ) {
         _send_sms_message( $class, $registry, 'balance',
-                           $balance_message, $from_user_ref, $to_user_ref, \%transaction );
+            $balance_message, $from_user_ref, $to_user_ref, \%transaction );
     }
 
     return;
@@ -842,10 +914,10 @@ sub _sms_payment_parse {
 
     # make the parse simpler by stripping pin and keyword
     $input =~ s/^p?(\w+)\s+//i;
-    $input =~ s/^(send|pay)\s+//i;
+    $input =~ s/^(send|$sms_configuration{'send_key'})\s+//i;
     ###debug ("input is $input", undef) ;
 
-    # currently allowed sms pay formats, some flexiblity, people won't remember...
+  # currently allowed sms pay formats, some flexiblity, people won't remember...
 
     # ^(\+44\s?7\d{3}|\(?07\d{3}\)?)\s?\d{3}\s?\d{3}$
     # p2323 pay 5 to 447534038239
@@ -855,84 +927,83 @@ sub _sms_payment_parse {
     # p2323 pay 5 to +447534038239
     # p2323 pay 5 to test1
     $parse_type = 1
-        if ( $input =~
+      if ( $input =~
 /^(\d+|\d+[\,\.]\d{1,2})\s+to\s+((\+*$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s*\z/xmis
-        );
+      );
 
     # 10 limes to 447779159453|test2: allows the currency to be specified
     # p2323 pay 5.2 dally to 07534038239
     # p2323 pay 5.2 dally to test1
     # p2323 pay 5 dally to 07534038239
     $parse_type = 2
-        if ( $input =~
+      if ( $input =~
 /^(\d+|\d+[\,\.]\d{1,2})\s+(\w+)\s+to\s+((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s*\z/xmis
-        );
+      );
 
     # 10 to 447779159453|test2 for numbering
     #
     #
     $parse_type = 3
-        if ( $input =~
+      if ( $input =~
 /^(\d+|\d+[\,\.]\d{1,2})\s+to\s+((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+for\s+(.*)\z/xmis
-        );
+      );
 
     # 10 limes to 447779159453|test2 for numbering
     $parse_type = 4
-        if ( $input =~
+      if ( $input =~
 /^(\d+|\d+[\,\.]\d{1,2})\s+(\w+)\s+to\s+((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+for\s+(.*)\z/xmis
-        );
+      );
 
-    # send 5 limes to test2 at dalston for demo
-    # 10 limes to 447779159453|test2 at dalston for numbering : registry is thrown away, compatiblity with email
-    # this one won't accept currency default, probably correct...
+# send 5 limes to test2 at dalston for demo
+# 10 limes to 447779159453|test2 at dalston for numbering : registry is thrown away, compatiblity with email
+# this one won't accept currency default, probably correct...
     $parse_type = 5
-        if ( $input =~
+      if ( $input =~
 /^(\d+|\d+[\,\.]\d{1,2})\s+(\w+)\s+to\s+((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+at\s+(\w+)\s+for\s+(.*)\z/xmis
-        );
+      );
 
     # 447779159453|test2 10 limes for numbering
     $parse_type = 6
-        if ( $input =~
+      if ( $input =~
 /^((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+(\d+|\d+[\,\.]\d{1,2})\s+(\w+)\s+for\s+(.*)\z/xmis
-        );
+      );
 
     # 447779159453|test2 10 limes
     $parse_type = 7
-        if ( $input =~
+      if ( $input =~
 /^((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+(\d+|\d+[\,\.]\d{1,2})\s+(\w+)\z/xmis
-        );
+      );
 
     # 5 to 07534 038239 for format8
     $parse_type = 8
-        if ( $input =~
+      if ( $input =~
 /^(\d+|\d+[\,\.]\d{1,2})\s+to\s+((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+for\s+(.*)\z/xmis
-        );
+      );
 
     #no re ;
 
     # touserormobile is resolved above when looking up om_users...
     if ( $parse_type == 1 ) {
-        $transaction_description{'quantity'}       = $1;
-        $transaction_description{'currency'}       = $currency;    # taken from top of package
+        $transaction_description{'quantity'} = $1;
+        $transaction_description{'currency'} =
+          $currency;    # taken from top of package
         $transaction_description{'touserormobile'} = $2;
-    }
-    elsif ( $parse_type == 2 ) {
+    } elsif ( $parse_type == 2 ) {
 
         $transaction_description{'quantity'} = $1;
-        $transaction_description{'currency'} = $2;                 # FIXME: dangerous, override with $currency?
+        $transaction_description{'currency'} =
+          $2;           # FIXME: dangerous, override with $currency?
 
         $transaction_description{'touserormobile'} = $3;
 
-    }
-    elsif ( $parse_type == 3 ) {
+    } elsif ( $parse_type == 3 ) {
 
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'currency'}       = $currency;
         $transaction_description{'touserormobile'} = $2;
         $transaction_description{'description'}    = $3;
 
-    }
-    elsif ( $parse_type == 4 ) {
+    } elsif ( $parse_type == 4 ) {
         ###debug("variables are 1:$1 2:$2 3:$3 4:$4 5:$5", undef) ;
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'currency'}       = $2;
@@ -940,6 +1011,7 @@ sub _sms_payment_parse {
         $transaction_description{'description'}    = $5;
 
     }
+
     # The registry is now used as a 'to' registry now, for parse type 5
     # February 2014
     elsif ( $parse_type == 5 ) {
@@ -947,11 +1019,10 @@ sub _sms_payment_parse {
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'currency'}       = $2;
         $transaction_description{'touserormobile'} = $3;
-        $transaction_description{'toregistry'}     = $5;    
+        $transaction_description{'toregistry'}     = $5;
         $transaction_description{'description'}    = $6;
 
-    }
-    elsif ( $parse_type == 6 ) {
+    } elsif ( $parse_type == 6 ) {
 
         $transaction_description{'quantity'}       = $3;
         $transaction_description{'currency'}       = $4;
@@ -959,24 +1030,21 @@ sub _sms_payment_parse {
 
         $transaction_description{'description'} = $5;
 
-    }
-    elsif ( $parse_type == 7 ) {
+    } elsif ( $parse_type == 7 ) {
         ###debug("variables are 1:$1 2:$2 3:$3 4:$4 5:$5 6:$6", undef) ;
         $transaction_description{'quantity'}       = $3;
         $transaction_description{'currency'}       = $4;
         $transaction_description{'touserormobile'} = $1;
 
         $transaction_description{'description'} = 'no description';
-    }
-    elsif ( $parse_type == 8 ) {
+    } elsif ( $parse_type == 8 ) {
 
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'touserormobile'} = $2;
         $transaction_description{'description'}    = $4;
         $transaction_description{'currency'}       = $currency;
 
-    }
-    else {
+    } else {
 
         my $message = "unparsed pay transaction is:$save_input  $input";
         log_entry( 'local', $registry, 'error', $message, '' );
@@ -984,11 +1052,13 @@ sub _sms_payment_parse {
     }
 
     # deal with badly formatted 'to' phone number for most cases remaining
-    $transaction_description{'touserormobile'} =~ s/^0/$sms_configuration{'sms_prefix'}/;
+    $transaction_description{'touserormobile'} =~
+      s/^0/$sms_configuration{'sms_prefix'}/;
     $transaction_description{'touserormobile'} =~ s/\s+//g;
     $transaction_description{'touserormobile'} =~ s/^\+//g;
 
-    $transaction_description{'quantity'} =~ s/\,/\./;    # forward with decimal point only
+    $transaction_description{'quantity'} =~
+      s/\,/\./;    # forward with decimal point only
 
     # make english language plurals singular for currency, if found...
 
@@ -1024,13 +1094,15 @@ sub _check_pin {
     my $hashed_pin = text_to_hash($pin);
 
     my ( $error, $from_user_ref ) =
-        get_where( 'local', $registry, 'om_users', '*', 'userMobile', $fields_ref->{'originator'},
-                   $token, $offset, $limit );
+      get_where( 'local', $registry, 'om_users', '*', 'userMobile',
+        $fields_ref->{'originator'},
+        $token, $offset, $limit );
 
     # already locked
     if ( $from_user_ref->{'userPinStatus'} eq 'locked' ) {
         $message = $messages{'smslocked'};
-        _send_sms_message( 'local', $registry, 'pinchange', $message, $from_user_ref, undef, undef );
+        _send_sms_message( 'local', $registry, 'pinchange', $message,
+            $from_user_ref, undef, undef );
         return 'locked';
     }
 
@@ -1041,40 +1113,37 @@ sub _check_pin {
             $pin_status = 'ok';
 
             return $pin_status
-                if ( $from_user_ref->{'userPinTries'} == 3 );    # this is the main case
-            $from_user_ref->{'userPinTries'} = 3;                # reset to three otherwise
+              if ( $from_user_ref->{'userPinTries'} == 3 )
+              ;    # this is the main case
+            $from_user_ref->{'userPinTries'} = 3;    # reset to three otherwise
 
-        }
-        elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
+        } elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
             $pin_status = 'fail';
             $message    = $messages{'smspinfail'};
-            $from_user_ref->{'userPinTries'}--;                  # used one pin attempt
-        }
-        elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
-            $pin_status                       = 'locked';
-            $message                          = "$registry: $messages{'smslocked'}";
+            $from_user_ref->{'userPinTries'}--;      # used one pin attempt
+        } elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
+            $pin_status = 'locked';
+            $message    = "$registry: $messages{'smslocked'}";
             $from_user_ref->{'userPinStatus'} = 'locked';
             $from_user_ref->{'userPinTries'}  = 0;
         }
     }
 
     # waiting and confirm
-    if (    ( $from_user_ref->{'userPinStatus'} ne 'locked' )
-         && ( $transaction_type eq 'confirm' ) )
+    if (   ( $from_user_ref->{'userPinStatus'} ne 'locked' )
+        && ( $transaction_type eq 'confirm' ) )
     {
 
         if ( $from_user_ref->{'userPin'} eq $hashed_pin ) {
-            $pin_status                       = 'ok';
-            $message                          = $messages{smspinactive};
-            $from_user_ref->{'userPinTries'}  = 3;                         # reset or set pin tries to 3
+            $pin_status = 'ok';
+            $message    = $messages{smspinactive};
+            $from_user_ref->{'userPinTries'} = 3;  # reset or set pin tries to 3
             $from_user_ref->{'userPinStatus'} = 'active';
-        }
-        elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
+        } elsif ( $from_user_ref->{'userPinTries'} > 1 ) {
             $pin_status = 'fail';
             $message    = $messages{'smspinfail'};
-            $from_user_ref->{'userPinTries'}--;                            # used one pin attempt
-        }
-        elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
+            $from_user_ref->{'userPinTries'}--;    # used one pin attempt
+        } elsif ( $from_user_ref->{'userPinTries'} <= 1 ) {
             $pin_status                       = 'locked';
             $from_user_ref->{'userPinTries'}  = 0;
             $message                          = $messages{'smslocked'};
@@ -1084,15 +1153,19 @@ sub _check_pin {
 
     # anything getting to here, needs to update the user record
     my ( undef, $home_ref, undef, $html, $template, undef ) =
-        update_database_record( 'local', $registry, 'om_users', 1, $from_user_ref, $token );
+      update_database_record( 'local', $registry, 'om_users', 1,
+        $from_user_ref, $token );
 
     # Send logging message if pin locked
     if ( $message eq $messages{'smslocked'} ) {
-       log_entry( 'local', $registry, 'error', "$from_user_ref->{'userLogin'}: $message", '' );
+        log_entry( 'local', $registry, 'error',
+            "$from_user_ref->{'userLogin'}: $message", '' );
     }
 
     if ( length($message) ) {
-        $mail_error = _send_sms_message( 'local', $registry, $message, $from_user_ref, undef, undef );
+        $mail_error =
+          _send_sms_message( 'local', $registry, 'error', $message,
+            $from_user_ref, undef, undef );
     }
 
     return $pin_status;
@@ -1120,21 +1193,20 @@ sub _send_sms_mail_message {
     # SMS setup may not include email, so only send email if defined...
     if ( length( $from_user_ref->{'userEmail'} ) ) {
         my $mail_error = notify_by_mail(
-                                         $class,
-                                         $registry,
-                                         $from_user_ref->{'userName'},
-                                         $from_user_ref->{'userEmail'},
-                                         $configuration{'systemmailaddress'},
-                                         $configuration{'systemmailreplyaddress'},
-                                         $from_user_ref->{'userLogin'},
-                                         $smtp,
-                                         $urlstring,
-                                         $message,
-                                         4,
-                                         $hash
+            $class,
+            $registry,
+            $from_user_ref->{'userName'},
+            $from_user_ref->{'userEmail'},
+            $configuration{'systemmailaddress'},
+            $configuration{'systemmailreplyaddress'},
+            $from_user_ref->{'userLogin'},
+            $smtp,
+            $urlstring,
+            $message,
+            4,
+            $hash
         );
-    }
-    else {
+    } else {
         $mail_error = 'no email defined';
     }
 
@@ -1159,17 +1231,19 @@ from commercial http-based texting suppliers
 
 sub _send_sms_message {
 
-    my ( $class, $registry, $type, $message, $from_user_ref, $to_user_ref, $transaction_ref ) = @_;
+    my ( $class, $registry, $type, $message, $from_user_ref, $to_user_ref,
+        $transaction_ref )
+      = @_;
 
     ###debug( "in sms message send: $type", undef );
 
-    #TODO: need weights for the messages, very probably, so some appear more often
+  #TODO: need weights for the messages, very probably, so some appear more often
     my @sms_sponsor_messages  = _collect_sponsor_messages();
     my $sponsor_message_count = scalar(@sms_sponsor_messages);
 
-    # switch for sponsor messages, no need to blank them/restore them   
-    if (    $sms_configuration{'sponsor_message_status'}
-         && $sponsor_message_count )
+    # switch for sponsor messages, no need to blank them/restore them
+    if (   $sms_configuration{'sponsor_message_status'}
+        && $sponsor_message_count )
     {
         # delivers a random sponsor message from the list
         # TODO: Needs to deal with weights in next release
@@ -1177,30 +1251,29 @@ sub _send_sms_message {
         my $message_index         = int( rand($sponsor_message_count) );
 
         my $total_length =
-            length( $sms_sponsor_messages[$message_index] ) + length($message);
+          length( $sms_sponsor_messages[$message_index] ) + length($message);
 
-        # FIXME: Should be tested on input really, 135 not 140 because of the stars added!
+# FIXME: Should be tested on input really, 135 not 140 because of the stars added!
         if ( $total_length > 135 ) {
             $sms_sponsor_messages[$message_index] =
-                substr( $sms_sponsor_messages[$message_index], 0, -( $total_length - 135 ) );
-            log_entry( 'local', $registry, 'error', 'sponsor sms message + message too big', '' );
+              substr( $sms_sponsor_messages[$message_index],
+                0, -( $total_length - 135 ) );
+            log_entry( 'local', $registry, 'error',
+                'sponsor sms message + message too big', '' );
         }
         $message .= "** $sms_sponsor_messages[$message_index] *";
     }
 
-    #FIXME: note that SA source address is cclite for balance, maybe same for credit?
-
-    my $urlstring;
-
-    my $send_to_this_mobile;
+    my ( $urlstring, $send_to_this_mobile );
 
     if ( $type eq 'pay' ) {
         $send_to_this_mobile = $to_user_ref->{'userMobile'};
-    }
-    elsif ( $type =~ /balance|join|suspend|language|error|pinchange/ ) {
+    } elsif ( $type =~
+/$sms_configuration{'balance_key'}|$sms_configuration{'join_key'}|$sms_configuration{'suspend_key'}|$sms_configuration{'language_key'}|error|$sms_configuration{'pinchange_key'}/
+      )
+    {
         $send_to_this_mobile = $from_user_ref->{'userMobile'};
-    }
-    else {
+    } else {
         my $message = "unknown or unimplemented sms type: $type";
         log_entry( 'local', $registry, 'error', $message, '' );
         return "$messages{smserror} $type";
@@ -1211,7 +1284,8 @@ sub _send_sms_message {
     _write_sms_file( $send_to_this_mobile, $message );
 
     # sms scoring per user, sms currency is set up at registry create time
-    _charge_one_sms_unit( $class, $registry, $type, $from_user_ref, $transaction_ref );
+    _charge_one_sms_unit( $class, $registry, $type, $from_user_ref,
+        $transaction_ref );
 
     #FIXME: Deal with errors
     #   my $message = "$messages{smserror} $http_response->code";
@@ -1250,17 +1324,18 @@ sub _charge_one_sms_unit {
         #toregistry : dalston
         $transaction_ref->{'toregistry'} = $registry;
 
-        $transaction_ref->{'tradeDescription'} = "$messages{'smsdebitfor'} $type";
+        $transaction_ref->{'tradeDescription'} =
+          "$messages{'smsdebitfor'} $type";
 
         #tradeSource : manager
         $transaction_ref->{'tradeSource'} = $from_user_ref->{'userLogin'};
 
     }
 
-    #FIXME: tradeItem not really identifiable from sms message/possible tax problem too!
+#FIXME: tradeItem not really identifiable from sms message/possible tax problem too!
     $transaction_ref->{'tradeItem'} = 'other';
 
-    #FIXME: mode for this is csv, this is part of a general format upgrade later...
+ #FIXME: mode for this is csv, this is part of a general format upgrade later...
     $transaction_ref->{'mode'} = 'csv';
 
     #FIXME: tradestatus is always accepted for sms-debit
@@ -1275,7 +1350,8 @@ sub _charge_one_sms_unit {
     $transaction_ref->{'tradeDate'} = $date;
 
     #tradeTitle : sms debit for sms receipt
-    $transaction_ref->{'tradeTitle'} = "$messages{'smsdebitfor'} $messages{'smstransactiontitle'}";
+    $transaction_ref->{'tradeTitle'} =
+      "$messages{'smsdebitfor'} $messages{'smstransactiontitle'}";
 
     #tradeDestination : sysadmin is credited in sms currency
     $transaction_ref->{'tradeDestination'} = 'sysaccount';
@@ -1284,7 +1360,8 @@ sub _charge_one_sms_unit {
     my $token;
 
     my ( $metarefresh, $home, $trans_error, $output_message, $page, $c ) =
-        transaction( 'sms', $registry, 'om_trades', $transaction_ref, $pages, $token );
+      transaction( 'sms', $registry, 'om_trades', $transaction_ref, $pages,
+        $token );
 
     return;
 }
@@ -1315,9 +1392,9 @@ sub _check_digit_iso_7064 {
     my ($input) = @_;
 
     my %lookup = qw(0 0 1 1 2 2 3 3 4 4 5 5 6 6 7 7 8 8 9 9 0 0
-        a 10 b 11 c 12 d 13 e 14 f 15 g 16 h 17 i 18 j 19 k 20 l 21 m 22
-        n 23 o 24 p 25 q 26 r 27
-        s 28 t 29 u 20 v 31 w 32 x 33 y 34 z 35);
+      a 10 b 11 c 12 d 13 e 14 f 15 g 16 h 17 i 18 j 19 k 20 l 21 m 22
+      n 23 o 24 p 25 q 26 r 27
+      s 28 t 29 u 20 v 31 w 32 x 33 y 34 z 35);
     my %out_digits = reverse(%lookup);
 
     my @characters = split( //, $input );
@@ -1348,7 +1425,7 @@ sub _generate_password {
     my $password;
     while ( length($password) < $length ) {
         $password .=
-            substr( $possible, ( int( rand( length($possible) ) ) ), 1 );
+          substr( $possible, ( int( rand( length($possible) ) ) ), 1 );
     }
     return $password;
 }
@@ -1362,21 +1439,23 @@ Debug into file, as opposed to using logging...
 sub debug {
 
     my ( $message, $hash_ref ) = @_;
-  
+
     my ( $date, $time ) = getdateandtime( time() );
-    my ( $package, $filename, $line ) = caller $time =~ s/(\d\d)(\d\d)(\d\d)/$1:$2:$3/;
+    my ( $package, $filename, $line ) =
+      caller $time =~ s/(\d\d)(\d\d)(\d\d)/$1:$2:$3/;
     $date =~ s/(\d{4})(\d\d)(\d\d)/$3:$2:$1/;
 
     if ($debug) {
 
         # just check that it's being accessed for the moment...
         open( my $debug_file, '>>', $sms_configuration{'sms_debug_file'} );
+
         #$| = 1;    # Before writing!
 
         print $debug_file "$date $time $line -> message is $message\n"
-            if ( length($message) );
+          if ( length($message) );
         print $debug_file "$date $time $line -> hash" . Dumper $hash_ref
-            if ( length($hash_ref) );
+          if ( length($hash_ref) );
         print $debug_file "-------------------------\n\n";
         close $debug_file;
     }
@@ -1408,19 +1487,18 @@ sub _write_sms_file {
     # make sure nothing gets sent, if debug, wrong file extension
     if ($debug) {
         $file_extension = 'doc';
-    }
-    else {
+    } else {
         $file_extension = 'txt';
     }
 
     # OUT20081203_211658_00_+447779159452_00.txt
     my $file_name =
-          $sms_configuration{'smsoutpath'} . '/'
-        . $registry . '/' . 'OUT'
-        . $numeric_date . '_'
-        . $time . '_00_+'
-        . $phone_number . '_00.'
-        . $file_extension;
+        $sms_configuration{'smsoutpath'} . '/'
+      . $registry . '/' . 'OUT'
+      . $numeric_date . '_'
+      . $time . '_00_+'
+      . $phone_number . '_00.'
+      . $file_extension;
 
     #debug("sms out $file_name",'') ;
     #FIXME: need something stronger than this for duplicate names
@@ -1428,9 +1506,13 @@ sub _write_sms_file {
         return;
     }
 
-    open my $fh, '>', "$file_name";
-    print $fh $message;
-    close $fh;
+    if ($debug) {
+        debug( "\n$file_name contains\n$message", undef );
+    } else {
+        open my $fh, '>', "$file_name";
+        print $fh $message;
+        close $fh;
+    }
 
     return;
 
@@ -1444,7 +1526,7 @@ and test without sending sms messages.
 
 If you're worried about security/false messages etc.
 delete this part of the library, which is, in fact only called
-from the test script when debug is on:
+from the test script when debug is on. 
 
 =cut
 
@@ -1460,11 +1542,11 @@ sub emulate_sms_file {
     $phone_number =~ s/\s+//g;
 
     $file_name =
-          $sms_configuration{'smsinpath'} . '/'
-        . $registry . '/' . 'IN'
-        . $numeric_date . '_'
-        . $time . '_00_+'
-        . $phone_number . '_00.' . 'txt';
+        $sms_configuration{'smsinpath'} . '/'
+      . $registry . '/' . 'IN'
+      . $numeric_date . '_'
+      . $time . '_00_+'
+      . $phone_number . '_00.' . 'txt';
 
 ###debug("sms out $file_name",'') ;
     #FIXME: need something stronger than this for duplicate names
@@ -1493,11 +1575,14 @@ sub _check_valid_currency {
 
     my ( $registry, $currency, $token ) = @_;
 
-    my ( $hash_ref, $count ) =
-        collect_items( 'local', $registry, 'om_currencies', undef, 'name', 'values', $token, undef, undef );
+    my ( $hash_ref, $count ) = collect_items(
+        'local', $registry, 'om_currencies', undef,
+        'name',  'values',  $token,          undef,
+        undef
+    );
 
     my $found = 0;
-    foreach my $key ( keys $hash_ref ) {
+    foreach my $key ( keys %$hash_ref ) {
         if ( $currency eq $hash_ref->{$key}->{'name'} ) {
             $found = 1;
         }

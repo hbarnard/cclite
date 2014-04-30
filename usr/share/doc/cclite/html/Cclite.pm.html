@@ -523,6 +523,7 @@ start page via print Location. 10/2009</p>
             <span class="i">log_entry</span><span class="s">(</span>
                 <span class="i">$class</span><span class="cm">,</span>
                 <span class="i">$db</span><span class="cm">,</span>
+                <span class="q">&#39;error&#39;</span><span class="cm">,</span>
 <span class="q">&quot;logon database problem: s:$status u:$fieldsref-&gt;{userLogin} r:$fieldsref-&gt;{registry}&quot;</span><span class="cm">,</span>
                 <span class="q">&#39;&#39;</span>
             <span class="s">)</span><span class="sc">;</span>
@@ -548,12 +549,22 @@ start page via print Location. 10/2009</p>
 
     <span class="s">}</span>
 
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordStatus&#39;</span>} <span class="k">eq</span> <span class="q">&#39;locked&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$html</span> =
+<span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry}: $userref-&gt;{&#39;userPasswordStatus&#39;} &quot;</span><span class="sc">;</span>
+
+        <span class="k">return</span> <span class="s">(</span> <span class="n">0</span><span class="cm">,</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="q">&#39;result.html&#39;</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span>
+            <span class="i">$cookieheader</span> <span class="s">)</span><span class="sc">;</span>
+
+    <span class="s">}</span>
+
     <span class="c"># login failed here...need some industrial processing to deal with this</span>
     <span class="c"># no user found</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">log_entry</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span>
             <span class="i">$db</span><span class="cm">,</span>
+            <span class="q">&#39;error&#39;</span><span class="cm">,</span>
 <span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry} : user not found&quot;</span><span class="cm">,</span>
             <span class="q">&#39;&#39;</span>
         <span class="s">)</span><span class="sc">;</span>
@@ -576,13 +587,14 @@ start page via print Location. 10/2009</p>
         <span class="i">log_entry</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span>
             <span class="i">$db</span><span class="cm">,</span>
+            <span class="q">&#39;error&#39;</span><span class="cm">,</span>
 <span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry} : password failed&quot;</span><span class="cm">,</span>
             <span class="q">&#39;&#39;</span>
         <span class="s">)</span><span class="sc">;</span>
 
-<span class="c">#FIXME: The locking mechanism is in place but nothing for resetting and testing, bigger job...</span>
+        <span class="c"># locking now works in February 2014</span>
         <span class="i">$userref</span>-&gt;{<span class="w">userPasswordTries</span>}--<span class="sc">;</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordTries&#39;</span>} &lt;= <span class="n">1</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordTries&#39;</span>} &lt;= <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordStatus&#39;</span>} = <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
             <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordTries&#39;</span>}  = <span class="n">0</span><span class="sc">;</span>
         <span class="s">}</span>
@@ -1503,6 +1515,8 @@ remote systems</p>
 
     <span class="k">my</span> <span class="i">%transaction</span> = <span class="i">%$transaction_ref</span><span class="sc">;</span>
 
+    <span class="i">debug_message</span><span class="s">(</span> <span class="i">$transaction_ref</span><span class="cm">,</span> <span class="n">1</span> <span class="s">)</span><span class="sc">;</span>
+
     <span class="c"># default separator is for html</span>
     <span class="k">my</span> <span class="i">$separator</span> = <span class="q">&quot;&lt;br/&gt;\n&quot;</span><span class="sc">;</span>
 
@@ -1567,6 +1581,7 @@ remote systems</p>
 
     <span class="c"># test commitment, this can be zero for an issuance local currency</span>
     <span class="c"># null means no commitlimit</span>
+
     <span class="k">my</span> <span class="i">$commitment_limit</span> = <span class="i">$registry_ref</span>-&gt;{<span class="q">&#39;commitlimit&#39;</span>}<span class="sc">;</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">defined</span><span class="s">(</span><span class="i">$commitment_limit</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
 
@@ -1627,12 +1642,25 @@ remote systems</p>
         <span class="i">$registry</span>{<span class="q">&#39;type&#39;</span>} = <span class="q">&#39;local&#39;</span><span class="sc">;</span>
         <span class="i">$same_registry</span> = <span class="n">1</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+
+        <span class="c"># local but foreign registry</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$registry_ref</span> <span class="s">)</span> = <span class="i">get_where</span><span class="s">(</span>
             <span class="i">$class</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="q">&#39;fromregistry&#39;</span>}<span class="cm">,</span>
             <span class="q">&#39;om_partners&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;name&#39;</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="q">&#39;toregistry&#39;</span>}<span class="cm">,</span>
             <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span>
         <span class="s">)</span><span class="sc">;</span>
-        <span class="i">%registry</span> = <span class="i">%$registry_ref</span><span class="sc">;</span>
+
+ <span class="c"># FIXME: April 2014 Log error and probably die, if destination registry invalid</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$registry_ref</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">%registry</span> = <span class="i">%$registry_ref</span><span class="sc">;</span>
+        <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+
+            <span class="c"># FIXME: Needs to be multilingual</span>
+            <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$transaction</span>{<span class="q">&#39;fromregistry&#39;</span>}<span class="cm">,</span>
+                <span class="q">&#39;critical&#39;</span><span class="cm">,</span> <span class="q">&quot;bad destination: $transaction{&#39;toregistry&#39;}&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="q">&quot;db8: $status bad $transaction{&#39;toregistry&#39;}&quot;</span><span class="sc">;</span>
+        <span class="s">}</span>
+
         <span class="k">push</span> <span class="i">@local_status</span><span class="cm">,</span> <span class="q">&#39;db2: $status&#39;</span> <span class="k">if</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -1741,8 +1769,8 @@ remote systems</p>
             <span class="k">my</span> <span class="i">$output_message</span> = <span class="k">join</span><span class="s">(</span> <span class="i">$separator</span><span class="cm">,</span> <span class="i">@local_status</span> <span class="s">)</span><span class="sc">;</span>
 
             <span class="c"># warn about rejections at this level in log</span>
-            <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&quot;rejected transaction: $output_message&quot;</span><span class="cm">,</span>
-                <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+            <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span>
+                <span class="q">&quot;rejected transaction: $output_message&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
             <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="q">&#39;mode&#39;</span>} <span class="k">ne</span> <span class="q">&#39;json&#39;</span> <span class="s">)</span> <span class="s">{</span>
                 <span class="k">return</span> <span class="s">(</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$transaction_ref</span>-&gt;{<span class="q">&#39;home&#39;</span>}<span class="cm">,</span>
@@ -2618,6 +2646,8 @@ the hardcoded categories will be dropped for self-defined tag clouds
 so this bit is correcting itself...</p>
 <p>Amended not to display closed or suspended currencies in 12/2005
 Amended in 2010 to use hashes, as with all the other listing functions</p>
+<p>Amended in 2014 to deliver values in a hash ref, for currency checking
+SMS but useful for other stuff put $mode = values</p>
 <pre>
 <a name="collect_items-"></a><span class="k">sub </span><span class="m">collect_items</span> <span class="s">{</span>
     <span class="k">my</span> <span class="s">(</span>
@@ -2734,10 +2764,15 @@ Amended in 2010 to use hashes, as with all the other listing functions</p>
                 <span class="k">undef</span> <span class="i">$checked</span><span class="sc">;</span>
                 <span class="i">$x</span>++<span class="sc">;</span>
             <span class="s">}</span>
+
             <span class="i">$duplicates</span>{<span class="i">$item</span>} = <span class="q">&#39;y&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
     <span class="s">}</span>
-    <span class="k">return</span> <span class="s">(</span> <span class="i">$option_string</span><span class="cm">,</span> <span class="i">$count</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="i">$mode</span> <span class="k">ne</span> <span class="q">&#39;values&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="i">$option_string</span><span class="cm">,</span> <span class="i">$count</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">return</span> <span class="s">(</span> <span class="i">$filtered_hash_ref</span><span class="cm">,</span> <span class="i">$count</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">}</span>
 <span class="s">}</span>
 
 </pre><p></p>
@@ -2937,7 +2972,8 @@ and may be a current problem</p>
     <span class="s">}</span>
 
     <span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;mail error is: $@ $message&quot;</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="q">&quot;mail error is: $@ $message&quot;</span><span class="cm">,</span>
+            <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">return</span> <span class="i">$@</span><span class="sc">;</span>
@@ -3167,7 +3203,7 @@ hence the returns need looking at too</p>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;$messages{loginfailedfor} $fieldsref-&gt;{userLogin} $messages{at} $fieldsref-&gt;{registry} : registry record not found&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="i">$message</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">return</span> <span class="i">$registry_ref</span>-&gt;{<span class="q">&#39;status&#39;</span>}<span class="sc">;</span>
@@ -3190,8 +3226,8 @@ line of defence</p>
 
 <span class="c"># test registry record, can&#39;t logon if registry status is down or in closing process</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$status</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;get_llowed_ips: registry record not found&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;get_allowed_ips: registry record not found&quot;</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="i">$message</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 

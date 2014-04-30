@@ -126,7 +126,8 @@ our @sms_sponsor_messages =
   split( /,/, $sms_configuration{'sponsor_messages'} );
 
 # FIXME: need this because the transaction return needs it
-my $pages = {} ;
+my $pages = {};
+
 # set up debugging from readsms configuration file...
 our $debug = $sms_configuration{'debug'};    # don't use LWP just log etc.
 
@@ -183,7 +184,7 @@ sub gateway_sms_transaction {
     # no one with this number , so no lookup or no message...reject
     if ( !length( $from_user_ref->{'userLogin'} ) ) {
         my $message = "$fields_ref->{'number'} $messages{'smsnumbernotfound'}";
-        log_entry( 'local', $registry, 'error',  $message, $token );
+        log_entry( 'local', $registry, 'error', $message, $token );
         return "nok:$message";
     }
 
@@ -211,7 +212,7 @@ m/^$sms_configuration{shortcode}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|es|ro|vi
     } else {
         my $message =
           "from: $fields_ref->{'number'} $input -malformed transaction";
-        log_entry( 'local', $registry, 'error',  $message, $token );
+        log_entry( 'local', $registry, 'error', $message, $token );
         my ($mail_error) = _send_sms_mail_message(
             'local',
             $registry,
@@ -248,7 +249,7 @@ m/^$sms_configuration{shortcode}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|es|ro|vi
     } else {
         my $message =
           "from: $fields_ref->{'number'} $input -unrecognised transaction";
-        log_entry( 'local', $registry, 'error',  $message, $token );
+        log_entry( 'local', $registry, 'error', $message, $token );
         return "nok:$message";
 
         # this is a 'bad' transaction of some kind...
@@ -300,8 +301,8 @@ sub _gateway_sms_pin_change {
     # but send it to the user's phone...
     if ( $from_user_ref->{'userSmsreceipt'} ) {
         $message = "$messages{'smspinchanged'}: $new_pin";
-        _send_textmarketer_sms_message( 'local', $registry, 'pinchange', $message,
-            $from_user_ref, undef, undef );
+        _send_textmarketer_sms_message( 'local', $registry, 'pinchange',
+            $message, $from_user_ref, undef, undef );
     }
 
     return 'ok';
@@ -655,7 +656,7 @@ sub _gateway_sms_pay {
             $from_user_ref );
         my $message =
 "pay attempt from $fields{'number'} to $transaction_description_ref->{'tomobilenumber'} : $errors";
-        log_entry( 'local', $registry, 'error',  $message, $token );
+        log_entry( 'local', $registry, 'error', $message, $token );
         return "nok:$message";
     }
 
@@ -968,7 +969,7 @@ sub _sms_payment_parse {
     } else {
 
         my $message = "unparsed pay transaction is:$save_input  $input";
-        log_entry( 'local', $registry, 'error',  $message, '' );
+        log_entry( 'local', $registry, 'error', $message, '' );
 
     }
 
@@ -1217,7 +1218,7 @@ sub _send_textmarketer_sms_message {
     $orig = substr( $orig, 0, 11 ) if ( length($orig) > 11 );
 
     # credits and pinchanges are notified to the user receiving them...
-    if ( $type eq 'credit') {
+    if ( $type eq 'credit' ) {
         $urlstring = <<EOT;
 $preamble&number=$to_user_ref->{'userMobile'}&message=$message&orig=$orig&custom=$orig&option=$sms_configuration{'option'}
 
@@ -1256,7 +1257,7 @@ EOT
         debug( "status line is $x", undef );
 
         my $message = "$messages{smserror} $http_response->code";
-        log_entry( 'local', $registry, 'error',  $message, '' );
+        log_entry( 'local', $registry, 'error', $message, '' );
         return "nok:$message";
     }
 }

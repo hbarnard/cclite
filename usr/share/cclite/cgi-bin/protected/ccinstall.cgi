@@ -99,7 +99,6 @@ sub readconfiguration {
     $default_config = "${dir}config/cclite.cf";
     $default_config =~ s/\s//g;
 
-
     # either supply it explicitly with full path or it will guess..
     my $configfile = $_[0] || $default_config;
 
@@ -276,7 +275,7 @@ sub show_problems {
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite 0.9.1 Installer: Problems</title>
+<title>Cclite 0.9.3 Installer: Problems</title>
 
 
 
@@ -543,9 +542,11 @@ use strict;
 use locale;
 
 my (
-    %configuration, %sms_configuration, $libpath,      $dir,        @messages,
-    $os,            $distribution, $log_config, $login,
-    $package_type,  $newinstall, $new_sms_install,   $default_config, $default_sms_config,
+    %configuration,  %sms_configuration, $libpath,
+    $dir,            @messages,          $os,
+    $distribution,   $log_config,        $login,
+    $package_type,   $newinstall,        $new_sms_install,
+    $default_config, $default_sms_config,
 );
 
 my $hash_type;    # contains the hash type used for hashing
@@ -573,11 +574,9 @@ BEGIN {
     #FIXME: duplicate slash somewhere in this....
     $default_config =~ s/\/\//\//g;
 
-
     # and the readsms config file
     $default_sms_config = "${dir}config/readsms.cf";
-    $default_sms_config =~  s/\s//g ;     
-
+    $default_sms_config =~ s/\s//g;
 
     %configuration = main::readconfiguration($default_config);
 
@@ -591,16 +590,13 @@ BEGIN {
 
     %sms_configuration = main::readconfiguration($default_sms_config);
 
-    if ( length( $configuration{error} ) ) {
+    if ( length( $sms_configuration{error} ) ) {
 
         # currently the default is not implemented, most values
         # are supplied in _guess_configuration
         $new_sms_install = 1;
-         
+
     }
-
-
-    
 
 # if this is a windows or debian style package, already setup, so don't do this...
 # but if it's a tarball or non-standard debian/ubuntu need to set up log config...
@@ -650,7 +646,7 @@ use Ccadmin;
 use Ccsecure;
 use Cclitedb;              # probably should be via Cclite.pm only, not directly
 use Ccchecker;
-use Data::Dumper ;
+use Data::Dumper;
 
 my %fields = cgiparse();
 my $offset = $fields{offset};
@@ -659,7 +655,7 @@ my $offset = $fields{offset};
 $fields{hash_type} = $hash_type if ($newinstall);
 
 #FIXME: no configuration file at this stage, but hard-code horror...
-$fields{version} ||= "0.9.1";
+$fields{version} ||= "0.9.3";
 
 # read here to announce OS, cpanel etc.
 our %sys_message = readmessages();
@@ -677,6 +673,7 @@ my $cookieref = get_cookie();
 my $pagename = $fields{name} || "registry.html";    # default is the index page
 
 my $action = $fields{action} || "updateconfig1";
+$fields{type} ||= 'main';    # show main configuration, if no type
 
 my $table = $fields{subaction};
 $db = $fields{registry};
@@ -740,22 +737,20 @@ if ( $action eq "checkinstall" ) {
     ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies )
     = update_config2( $default_config, $fieldsref ) );
 
-
 # update readsms.cf, new in February 2014
 ( $action eq "updategammuconfig" )
   && (
     ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies )
-    = update_config2($default_sms_config,$fieldsref ) );
-    
+    = update_config2( $default_sms_config, $fieldsref ) );
 
+#  print "( r:$refresh, m:$metarefresh, e:$error, fr:$fieldsref, h:$html, p:$pagename, c:$cookies )" ;
 # this will guess at values, if newinstall is signalled
+
 if ( $action eq "updateconfig1" ) {
 
-  
-
-    
     ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =
-      update_config1( $newinstall, $new_sms_install, $default_config, $fieldsref, $dir );
+      update_config1( $newinstall, $new_sms_install, $default_config,
+        $default_sms_config, $fieldsref, $dir );
 
     # get the second set of fields, this is for display convenience...
     $fieldsref->{righthandside} =
@@ -766,21 +761,19 @@ if ( $action eq "updateconfig1" ) {
 }
 
 # this will guess at values, if new_sms_install is signalled
-if ( $action eq "updategammuconfig" ) {
-    
-    ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =
-      update_config1( $newinstall, $new_sms_install, $default_sms_config, $fieldsref, $dir );
-
-    # get the second set of fields, this is for display convenience...
-    $fieldsref->{righthandside} =
-      $pages->Assemble( "installvalues_parttwo.html", $fieldsref );
-    ( $fieldsref->{'usable'}, $fieldsref->{'diagnosis'} ) =
-      check_cclite_preinstall();
-
-}
- 
-
-
+#if ( $action eq "updategammuconfig" ) {
+#
+#    ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =
+#      update_config1( $newinstall, $new_sms_install, $default_sms_config,
+#        $fieldsref, $dir );
+#
+#    # get the second set of fields, this is for display convenience...
+#    $fieldsref->{righthandside} =
+#      $pages->Assemble( "installvalues_parttwo.html", $fieldsref );
+#    ( $fieldsref->{'usable'}, $fieldsref->{'diagnosis'} ) =
+#      check_cclite_preinstall();
+#
+#}
 
 # display the a template, if requested
 $action =~ /template/

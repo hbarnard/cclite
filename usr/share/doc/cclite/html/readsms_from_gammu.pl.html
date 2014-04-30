@@ -52,6 +52,7 @@ pre { color: #000000;
 		<ul>
 
 			<li><a href="#description">description</a></li>
+			<li><a href="#sort_file_names">sort_file_names</a></li>
 		</ul>
 
 	</ul>
@@ -69,35 +70,7 @@ pre { color: #000000;
 </ul>
 <!-- END CODE INDEX -->
 
-<p></p>
-<h3><a name="description">description</a></h3>
-<p>This is the batch program that reads files created by gammu, 
-see <a href="http://www.gammu.org/wiki/index.php?title=Gammu:SMSD">http://www.gammu.org/wiki/index.php?title=Gammu:SMSD</a>
-processes them and unlinks them.</p>
-<pre>
- On a linux system it can be run as a cron job
- or in a default form as a button controlled cgi
- 
- Currently it is designed to read unicode format gammu sms files
- in the directory configured below</pre>
-<pre>
- If the data is not unicode, then removing
- 
-   $sms_data =~ s/\376\377// ; # remove binary stuff at start
-   $sms_data = decode('UCS-2',lc($sms_data));</pre>
-<p>will probably work...ymmv...</p>
-<pre>
- To install as cron:</pre>
-<pre>
- change lib path and hardcode registry name, for example</pre>
-<pre>
- This is the format for the input file name from gammu, contains
- date, time and phone number:
- IN20081112_114152_00_+447779159452_00.txt</pre>
-<pre>
- Note:</pre>
-
-<hr /><pre>#!/usr/bin/perl 
+<pre>#!/usr/bin/perl 
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c">#THE cclite SOFTWARE IS PROVIDED TO YOU &quot;AS IS,&quot; AND WE MAKE NO EXPRESS</span>
 <span class="c">#OR IMPLIED WARRANTIES WHATSOEVER WITH RESPECT TO ITS FUNCTIONALITY,</span>
@@ -129,7 +102,73 @@ processes them and unlinks them.</p>
 
 
 
-</pre><pre>
+</pre><p></p>
+<h3><a name="description">description</a></h3>
+<p>This is the batch program that reads files created by gammu, 
+see <a href="http://www.gammu.org/wiki/index.php?title=Gammu:SMSD">http://www.gammu.org/wiki/index.php?title=Gammu:SMSD</a>
+processes them and unlinks them.</p>
+<pre>
+ On a linux system it can be run as a cron job
+ or in a default form as a button controlled cgi
+ 
+ Currently it is designed to read unicode format gammu sms files
+ in the directory configured below</pre>
+<pre>
+ If the data is not unicode, then removing
+ 
+   $sms_data =~ s/\376\377// ; # remove binary stuff at start
+   $sms_data = decode('UCS-2',lc($sms_data));</pre>
+<p>will probably work...ymmv...</p>
+<pre>
+ To install as cron:</pre>
+<pre>
+ change lib path and hardcode registry name, for example</pre>
+<pre>
+ This is the format for the input file name from gammu, contains
+ date, time and phone number:
+ IN20081112_114152_00_+447779159452_00.txt</pre>
+<pre>
+ Note:</pre>
+<p>
+</p>
+<h3><a name="sort_file_names">sort_file_names</a></h3>
+<p>This sorts the incoming file names chronologically</p>
+
+<pre>
+
+<span class="q">sub sort_file_names {</span>
+
+<span class="q">my (@file_names) = @_ ;</span>
+<span class="q">my @sts ;</span>
+
+<span class="q">foreach my $file_name (@file_names) {</span>
+	
+<span class="q">   next</span>
+<span class="q">      if ( $file_name !~ /\056txt$/i );  # not a txt extension, standard for gammu sms</span>
+
+	
+<span class="q">$file_name =~</span>
+<span class="q">m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;</span>
+
+
+<span class="q">    my ( $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute, $sms_second,</span>
+<span class="q">        $sms_int_code, $sms_phone_number )</span>
+<span class="q">      = ( $1, $2, $3, $4, $5, $6, $7, $8 );</span>
+<span class="q">    my $entry = [&quot;$sms_year$sms_month$sms_day$sms_hour$sms_minute$sms_second&quot; ,$file_name] ;</span>
+
+<span class="q">push @sts, $entry ;</span>
+
+<span class="q">}</span>
+
+
+<span class="q">my @sorted_sts = sort{ $a-&gt;[ 0 ] &lt;=&gt; $b-&gt;[ 0 ] } @sts;</span>
+<span class="q">my @sorted = map{ $_-&gt;[ 1 ] } @sorted_sts ; ;</span>
+
+<span class="q">return @sorted ;</span>
+
+<span class="q">}</span>
+
+
 <span class="q">#-------------------------------------------------------------</span>
 
 <span class="q">use strict;    </span>
@@ -140,45 +179,69 @@ processes them and unlinks them.</p>
 
 <span class="q">use Ccu;</span>
 <span class="q">use Ccadmin ;</span>
+<span class="q">use Cclitedb ; #FIXME: for log_entry</span>
 <span class="q">use Cccookie ;</span>
 <span class="q">use Ccsms::Gammu ;</span>
 <span class="q">use Ccconfiguration;</span>
+<span class="q">use Data::Dumper;</span>
 
+<span class="q">#use Time::HiRes qw( usleep ualarm gettimeofday  tv_interval nanosleep</span>
+<span class="q">#clock_gettime clock_getres clock_nanosleep clock</span>
+<span class="q">#stat );</span>
+
+<span class="q">#my $t0 = [gettimeofday];</span>
 <span class="q"># hardcode configuration path, if running from a cron</span>
 <span class="q">my %configuration = readconfiguration();</span>
+<span class="q">my %sms_configuration = readconfiguration(&#39;../../../config/readsms.cf&#39;);</span>
 
 <span class="q"># fixed needs testing</span>
-<span class="q">if ( !$configuration{&#39;smslocal&#39;} ) {</span>
-<span class="q">    use SOAP::Lite;</span>
+<span class="q">if ( !$sms_configuration{&#39;smslocal&#39;} ) {</span>
+<span class="q">    require SOAP::Lite;</span>
 <span class="q">}</span>
 
-<span class="q">my $token;</span>
-<span class="q">my $file;</span>
+<span class="q">my ($token, $file) ;</span>
 
 <span class="q">my $cookieref = get_cookie();</span>
 <span class="q">my %fields    = cgiparse();</span>
 
+
+
+<span class="q"># emulation code in here, to create the test file from the form input</span>
+<span class="q">if ($fields{&#39;emulate&#39;}) {</span>
+<span class="q">my $return = emulate_sms_file($fields{&#39;originator&#39;}, $fields{&#39;message&#39;}) ;</span>
+<span class="q">exit 0 ;</span>
+<span class="q">}	</span>
+
+
+
+
 <span class="q"># for cron: hardcode registry, cannot be read from web cookie</span>
-<span class="q">my $registry = $cookieref-&gt;{&#39;registry&#39;};</span>
+<span class="q"># read from cookie, but if not, from  sms configuration</span>
+<span class="q">my $registry = $cookieref-&gt;{&#39;registry&#39;} || $sms_configuration{&#39;registry&#39;};</span>
 
 <span class="q">my $domain =</span>
 <span class="q">  $configuration{&#39;domain&#39;};    # remote domain if the script is not local</span>
 
 <span class="q"># inbox for gammu, so gammu must put messages there..</span>
-<span class="q">my $sms_dir = &quot;$configuration{&#39;smspath&#39;}/$registry&quot;</span>
+<span class="q">my $sms_dir = &quot;$sms_configuration{&#39;smsinpath&#39;}/$registry&quot;</span>
 <span class="q">  ;    # sms inbox for gammu, now divided by registry 11/2009</span>
 
 <span class="q"># outbox for this script, processed messages placed there..</span>
+<span class="q">#FIXME: smsout in main config and smsoutpath in sms config...</span>
 <span class="q">my $sms_done_dir = &quot;$configuration{&#39;smsout&#39;}/$registry&quot;;</span>
 
+<span class="q"># Feburary 2014 testing shows that we need to sort chronologically</span>
+<span class="q"># otherwise sequence of transactions may be lost</span>
+
 <span class="q">opendir( DIR, $sms_dir );</span>
+<span class="q">my @files = readdir(DIR);</span>
+<span class="q">closedir DIR ;</span>
 
-<span class="q">while ( defined( $file = readdir(DIR) ) ) {</span>
+<span class="q">@files = sort_file_names(@files) ;</span>
 
-<span class="q">    next</span>
-<span class="q">      if ( $file !~ /\056txt$/ );  # not a txt extension, standard for gammu sms</span>
+<span class="q">foreach my $file  (@files) {</span>
+
 <span class="q">    my $sms_file  = &quot;$sms_dir/$file&quot;;</span>
-<span class="q">    my $file_done = &quot;$sms_done_dir/$file&quot;;</span>
 
 <span class="q"># parse file name and extract timing data and phone number, timing not used at present</span>
 <span class="q"># but useful if, for example, interface is off-lined</span>
@@ -215,7 +278,8 @@ processes them and unlinks them.</p>
 <span class="q">    my ( $status, $class, $array_ref, $soap, $token );</span>
 
 <span class="q"># remote transactions are transported via soap, local ones use the local library...</span>
-<span class="q">    if ( ! $configuration{ &#39;smslocal&#39;} ) {</span>
+<span class="q"># TODO: SOAP access has never, never been tested as of 2014</span>
+<span class="q">    if ( ! $sms_configuration{&#39;smslocal&#39;} ) {</span>
 <span class="q">        eval {</span>
 <span class="q">            $soap =</span>
 <span class="q">              SOAP::Lite-&gt;uri(&quot;http://$domain/Ccsmsgateway&quot;)</span>
@@ -226,16 +290,18 @@ processes them and unlinks them.</p>
 <span class="q">        ( $class, $status, $array_ref ) = $soap-&gt;paramsout;</span>
 
 <span class="q">    } else {</span>
-<span class="q">        gateway_sms_transaction( &#39;local&#39;, \%configuration, \%fields, $token );</span>
+<span class="q">       my $return_value = gateway_sms_transaction( &#39;local&#39;, \%configuration, \%fields, $token );</span>
+<span class="q">       if ($return_value =~ /nok/) {</span>
+<span class="q">          log_entry( &#39;local&#39;, $registry, &#39;error&#39;, &#39;transaction error&#39;, undef );</span>
+<span class="q">       }	   </span>
 <span class="q">    }</span>
 
 <span class="q">    # move the processed file to a done directory, don&#39;t process twice</span>
-<span class="q">    system(&quot;mv $sms_file $file_done&quot;);</span>
+<span class="q">    # FIXME: The out file is under the web root and still in the main configuration</span>
+<span class="q">    system(&quot;mv $sms_file $configuration{smsout}/$registry&quot;);</span>
 <span class="q">}</span>
 
-<span class="q">closedir(DIR);</span>
 <span class="q">exit 0;</span>
-
 <a name="EOF-"></a></pre></body>
 
 </html>

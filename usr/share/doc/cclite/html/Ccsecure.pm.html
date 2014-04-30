@@ -215,7 +215,8 @@ core Perl...</p>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$os</span><span class="cm">,</span> <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$package_type</span> <span class="s">)</span> = <span class="i">get_os_and_distribution</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
     <span class="k">eval</span> <span class="s">{</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">hash_type</span>} <span class="k">eq</span> <span class="q">&#39;sha2&#39;</span> &amp;&amp; <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="c"># ne windows removed 2014, Digest supporting sha2 now in core modules</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">hash_type</span>} <span class="k">eq</span> <span class="q">&#39;sha2&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$type</span> = <span class="q">&quot;sha2&quot;</span><span class="sc">;</span>
         <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$configuration</span>{<span class="w">hash_type</span>} <span class="k">eq</span> <span class="q">&#39;sha1&#39;</span> <span class="s">)</span> <span class="s">{</span>
             <span class="i">$type</span> = <span class="q">&quot;sha1&quot;</span><span class="sc">;</span>

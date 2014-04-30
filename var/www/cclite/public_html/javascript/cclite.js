@@ -706,6 +706,7 @@ $.fn.sort_select_box = function(){
      if ($.cookie('userLogin')) {
          $('#userlink').html(messages.get("user"));
          logoff = messages.get("lgoff") + ' ' + $.cookie('userLogin');
+      //   alert ('logoff '  + logoff) ;
          $("#logoff").html(logoff);
      }
 

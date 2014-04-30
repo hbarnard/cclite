@@ -356,7 +356,7 @@ been found at this stage...</p>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/jquery.autocomplete.css&quot; /&gt;</span>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/lib/thickbox.css&quot; /&gt;</span>
 
-<span class="hh">&lt;title&gt;Cclite 0.9.1 Installer: Problems&lt;/title&gt;</span>
+<span class="hh">&lt;title&gt;Cclite 0.9.3 Installer: Problems&lt;/title&gt;</span>
 
 
 
@@ -608,9 +608,11 @@ and general extra flexibility</p>
 <span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="s">(</span>
-    <span class="i">%configuration</span><span class="cm">,</span> <span class="i">$libpath</span><span class="cm">,</span>      <span class="i">$dir</span><span class="cm">,</span>        <span class="i">@messages</span><span class="cm">,</span>
-    <span class="i">$os</span><span class="cm">,</span>            <span class="i">$distribution</span><span class="cm">,</span> <span class="i">$log_config</span><span class="cm">,</span> <span class="i">$login</span><span class="cm">,</span>
-    <span class="i">$package_type</span><span class="cm">,</span>  <span class="i">$newinstall</span><span class="cm">,</span>   <span class="i">$default_config</span><span class="cm">,</span>
+    <span class="i">%configuration</span><span class="cm">,</span>  <span class="i">%sms_configuration</span><span class="cm">,</span> <span class="i">$libpath</span><span class="cm">,</span>
+    <span class="i">$dir</span><span class="cm">,</span>            <span class="i">@messages</span><span class="cm">,</span>          <span class="i">$os</span><span class="cm">,</span>
+    <span class="i">$distribution</span><span class="cm">,</span>   <span class="i">$log_config</span><span class="cm">,</span>        <span class="i">$login</span><span class="cm">,</span>
+    <span class="i">$package_type</span><span class="cm">,</span>   <span class="i">$newinstall</span><span class="cm">,</span>        <span class="i">$new_sms_install</span><span class="cm">,</span>
+    <span class="i">$default_config</span><span class="cm">,</span> <span class="i">$default_sms_config</span><span class="cm">,</span>
 <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">$hash_type</span><span class="sc">;</span>    <span class="c"># contains the hash type used for hashing</span>
@@ -638,6 +640,10 @@ and general extra flexibility</p>
     <span class="c">#FIXME: duplicate slash somewhere in this....</span>
     <span class="i">$default_config</span> =~ <span class="q">s/\/\//\//g</span><span class="sc">;</span>
 
+    <span class="c"># and the readsms config file</span>
+    <span class="i">$default_sms_config</span> = <span class="q">&quot;${dir}config/readsms.cf&quot;</span><span class="sc">;</span>
+    <span class="i">$default_sms_config</span> =~ <span class="q">s/\s//g</span><span class="sc">;</span>
+
     <span class="i">%configuration</span> = <span class="i">main::readconfiguration</span><span class="s">(</span><span class="i">$default_config</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$configuration</span>{<span class="w">error</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
@@ -645,6 +651,16 @@ and general extra flexibility</p>
         <span class="c"># currently the default is not implemented, most values</span>
         <span class="c"># are supplied in _guess_configuration</span>
         <span class="i">$newinstall</span> = <span class="n">1</span><span class="sc">;</span>
+
+    <span class="s">}</span>
+
+    <span class="i">%sms_configuration</span> = <span class="i">main::readconfiguration</span><span class="s">(</span><span class="i">$default_sms_config</span><span class="s">)</span><span class="sc">;</span>
+
+    <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$sms_configuration</span>{<span class="w">error</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+
+        <span class="c"># currently the default is not implemented, most values</span>
+        <span class="c"># are supplied in _guess_configuration</span>
+        <span class="i">$new_sms_install</span> = <span class="n">1</span><span class="sc">;</span>
 
     <span class="s">}</span>
 
@@ -696,6 +712,7 @@ and general extra flexibility</p>
 <span class="k">use</span> <span class="w">Ccsecure</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>              <span class="c"># probably should be via Cclite.pm only, not directly</span>
 <span class="k">use</span> <span class="w">Ccchecker</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
 <span class="k">my</span> <span class="i">%fields</span> = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$offset</span> = <span class="i">$fields</span>{<span class="w">offset</span>}<span class="sc">;</span>
@@ -704,7 +721,7 @@ and general extra flexibility</p>
 <span class="i">$fields</span>{<span class="w">hash_type</span>} = <span class="i">$hash_type</span> <span class="k">if</span> <span class="s">(</span><span class="i">$newinstall</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#FIXME: no configuration file at this stage, but hard-code horror...</span>
-<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.9.1&quot;</span><span class="sc">;</span>
+<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.9.3&quot;</span><span class="sc">;</span>
 
 <span class="c"># read here to announce OS, cpanel etc.</span>
 <span class="k">our</span> <span class="i">%sys_message</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -722,6 +739,7 @@ and general extra flexibility</p>
 <span class="k">my</span> <span class="i">$pagename</span> = <span class="i">$fields</span>{<span class="w">name</span>} || <span class="q">&quot;registry.html&quot;</span><span class="sc">;</span>    <span class="c"># default is the index page</span>
 
 <span class="k">my</span> <span class="i">$action</span> = <span class="i">$fields</span>{<span class="w">action</span>} || <span class="q">&quot;updateconfig1&quot;</span><span class="sc">;</span>
+<span class="i">$fields</span>{<span class="w">type</span>} ||= <span class="q">&#39;main&#39;</span><span class="sc">;</span>    <span class="c"># show main configuration, if no type</span>
 
 <span class="k">my</span> <span class="i">$table</span> = <span class="i">$fields</span>{<span class="w">subaction</span>}<span class="sc">;</span>
 <span class="i">$db</span> = <span class="i">$fields</span>{<span class="w">registry</span>}<span class="sc">;</span>
@@ -785,12 +803,20 @@ and general extra flexibility</p>
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span>
     = <span class="i">update_config2</span><span class="s">(</span> <span class="i">$default_config</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
+<span class="c"># update readsms.cf, new in February 2014</span>
+<span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;updategammuconfig&quot;</span> <span class="s">)</span>
+  &amp;&amp; <span class="s">(</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span>
+    = <span class="i">update_config2</span><span class="s">(</span> <span class="i">$default_sms_config</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+
+<span class="c">#  print &quot;( r:$refresh, m:$metarefresh, e:$error, fr:$fieldsref, h:$html, p:$pagename, c:$cookies )&quot; ;</span>
 <span class="c"># this will guess at values, if newinstall is signalled</span>
+
 <span class="k">if</span> <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;updateconfig1&quot;</span> <span class="s">)</span> <span class="s">{</span>
 
     <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
-      <span class="i">update_config1</span><span class="s">(</span> <span class="i">$newinstall</span><span class="cm">,</span> <span class="i">$default_config</span><span class="cm">,</span> <span class="i">$fields</span>{<span class="w">home</span>}<span class="cm">,</span>
-        <span class="i">$fields</span>{<span class="w">domain</span>}<span class="cm">,</span> <span class="i">$fields</span>{<span class="w">hash_type</span>}<span class="cm">,</span> <span class="i">$dir</span> <span class="s">)</span><span class="sc">;</span>
+      <span class="i">update_config1</span><span class="s">(</span> <span class="i">$newinstall</span><span class="cm">,</span> <span class="i">$new_sms_install</span><span class="cm">,</span> <span class="i">$default_config</span><span class="cm">,</span>
+        <span class="i">$default_sms_config</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$dir</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># get the second set of fields, this is for display convenience...</span>
     <span class="i">$fieldsref</span>-&gt;{<span class="w">righthandside</span>} =
@@ -799,6 +825,21 @@ and general extra flexibility</p>
       <span class="i">check_cclite_preinstall</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="s">}</span>
+
+<span class="c"># this will guess at values, if new_sms_install is signalled</span>
+<span class="c">#if ( $action eq &quot;updategammuconfig&quot; ) {</span>
+<span class="c">#</span>
+<span class="c">#    ( $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies ) =</span>
+<span class="c">#      update_config1( $newinstall, $new_sms_install, $default_sms_config,</span>
+<span class="c">#        $fieldsref, $dir );</span>
+<span class="c">#</span>
+<span class="c">#    # get the second set of fields, this is for display convenience...</span>
+<span class="c">#    $fieldsref-&gt;{righthandside} =</span>
+<span class="c">#      $pages-&gt;Assemble( &quot;installvalues_parttwo.html&quot;, $fieldsref );</span>
+<span class="c">#    ( $fieldsref-&gt;{&#39;usable&#39;}, $fieldsref-&gt;{&#39;diagnosis&#39;} ) =</span>
+<span class="c">#      check_cclite_preinstall();</span>
+<span class="c">#</span>
+<span class="c">#}</span>
 
 <span class="c"># display the a template, if requested</span>
 <span class="i">$action</span> =~ <span class="q">/template/</span>

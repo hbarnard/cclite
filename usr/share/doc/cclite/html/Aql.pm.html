@@ -213,7 +213,7 @@ then dispatches to the appropriate internal function</p>
     <span class="k">if</span> <span class="s">(</span> <span class="k">defined</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;status&#39;</span>} <span class="s">)</span> &amp;&amp; <span class="i">$$fieldsref</span>{<span class="q">&#39;status&#39;</span>} &gt; <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;$$fieldsref{&#39;message&#39;} from $$fieldsref{&#39;originator&#39;} rejected with status $$fieldsref{&#39;status&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -221,14 +221,14 @@ then dispatches to the appropriate internal function</p>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;$$fieldsref{&#39;message&#39;} from $$fieldsref{&#39;originator&#39;} $messages{&#39;smsoriginblank&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># no originator, so no lookup or no message...reject</span>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fieldsref</span>{<span class="q">&#39;message&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;$$fieldsref{&#39;originator&#39;} $messages{&#39;smsmessageblank&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -236,7 +236,7 @@ then dispatches to the appropriate internal function</p>
     <span class="k">if</span> <span class="s">(</span> !<span class="k">length</span><span class="s">(</span> <span class="i">$$fromuserref</span>{<span class="q">&#39;userLogin&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
           <span class="q">&quot;$$fieldsref{&#39;originator&#39;} $messages{&#39;smsnumbernotfound&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -253,7 +253,7 @@ then dispatches to the appropriate internal function</p>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
           <span class="q">&quot;from: $$fieldsref{&#39;originator&#39;} $input -malformed transaction&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> = <span class="i">_send_sms_mail_message</span><span class="s">(</span>
             <span class="q">&#39;local&#39;</span><span class="cm">,</span>
             <span class="i">$registry</span><span class="cm">,</span>
@@ -286,7 +286,7 @@ then dispatches to the appropriate internal function</p>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
           <span class="q">&quot;from: $$fieldsref{&#39;originator&#39;} $input -unrecognised transaction&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&#39;unrecognisable transaction&#39;</span><span class="sc">;</span>
 
         <span class="c"># this is a &#39;bad&#39; transaction of some kind...</span>
@@ -351,7 +351,7 @@ using the gateway messaging gateway, may need modification for other gateways</p
     <span class="k">if</span> <span class="s">(</span> <span class="i">$parse_type</span> == <span class="n">0</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;pay attempt from $fields{&#39;originator&#39;} to $$transaction_description_ref{&#39;tomobilenumber&#39;} : $messages{&#39;smsinvalidsyntax&#39;}&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> =
           <span class="i">_send_sms_mail_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
@@ -395,7 +395,7 @@ using the gateway messaging gateway, may need modification for other gateways</p
             <span class="i">$fromuserref</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;pay attempt from $fields{&#39;originator&#39;} to $$transaction_description_ref{&#39;tomobilenumber&#39;} : $errors&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -595,7 +595,7 @@ case the transaction -must- fail and it's not worth continuing</p>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;unparsed pay transaction is:$save_input  $input&quot;</span><span class="sc">;</span>
-        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
 

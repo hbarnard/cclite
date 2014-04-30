@@ -14,10 +14,9 @@ Description: Alternative currency management software
  and other possible implementations of alternative and complementary currencies.
  .
  It provides various interfaces, OS-Commerce, Elgg (rough), Drupal (rough), REST, SOAP, batch, email and Mobile Phone
- for current transfer. It provides multiple currency and interserver communication.
+ with Gammu for current transfer. It provides multiple currency and interserver communication.
  .
- It uses Perl and various CPAN modules, Apache, MySql and Cron and Digest::SHA1
- (but Digest::SHA2 is highly recommended).
+ It uses Perl and various CPAN modules, Apache, Cron, MySql server. The basic functions should now work with Perl core modules.
  .
 
 

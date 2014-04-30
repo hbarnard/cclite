@@ -400,7 +400,7 @@ sub sqlraw {
     my ( $registryerror, $dbh ) = _registry_connect( $db, $token );
     if ( length($dbh) ) {
         my $sth = $dbh->prepare($sqlstring);
-        $rv  = $sth->execute();
+        $rv       = $sth->execute();
         $hash_ref = $sth->fetchall_hashref($id);
         $sth->finish();
     }
@@ -897,7 +897,8 @@ sub get_where {
 
         log_entry(
             $class,
-            $db, 'fatal',
+            $db,
+            'fatal',
 "$class, $db, $table, $fieldname, $name, $token, $offset, $limit g:$get  p:$package, f:$filename, l:$line",
             $token
         );
@@ -2024,18 +2025,18 @@ So that there's compatiblity with log4perl etc.
 sub log_entry {
 
     my ( $class, $db, $type, $message, $token ) = @_;
-    
-    my $fieldsref = {};    
-    my %type_value = qw(trace 5 debug 4 info 3 warn 2 error 1 fatal 0) ;
+
+    my $fieldsref  = {};
+    my %type_value = qw(trace 5 debug 4 info 3 warn 2 error 1 fatal 0);
 
     # something wrong in the code, if a valid logging type is not delivered
-    if (! exists $type_value{$type} ) { 
-      $fieldsref->{'type'} = 'fatal' ;
-    } else{
-      $fieldsref->{'type'} = $type ;
-    }	
+    if ( !exists $type_value{$type} ) {
+        $fieldsref->{'type'} = 'fatal';
+    } else {
+        $fieldsref->{'type'} = $type;
+    }
     my $timestamp = sql_timestamp();
-    
+
     $fieldsref->{'message'} = $message;
     $fieldsref->{'stamp'}   = $timestamp;
 

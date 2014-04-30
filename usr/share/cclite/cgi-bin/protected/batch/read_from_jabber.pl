@@ -301,8 +301,8 @@ my ( $error, $registryref ) = get_where(
 );
 
 if ( length($error) ) {
-    log_entry( $class, $registry, 'fatal', "database error for $registry: $error",
-        $token );
+    log_entry( $class, $registry, 'fatal',
+        "database error for $registry: $error", $token );
     exit 0;
 }
 

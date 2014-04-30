@@ -382,7 +382,7 @@ sub logon_user {
             log_entry(
                 $class,
                 $db,
-                'error', 
+                'error',
 "logon database problem: s:$status u:$fieldsref->{userLogin} r:$fieldsref->{registry}",
                 ''
             );
@@ -408,13 +408,22 @@ sub logon_user {
 
     }
 
+    if ( $userref->{'userPasswordStatus'} eq 'locked' ) {
+        $html =
+"$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry}: $userref->{'userPasswordStatus'} ";
+
+        return ( 0, '', $error, $html, 'result.html', $fieldsref,
+            $cookieheader );
+
+    }
+
     # login failed here...need some industrial processing to deal with this
     # no user found
     if ( !length( $userref->{'userId'} ) ) {
         log_entry(
             $class,
             $db,
-            'error', 
+            'error',
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : user not found",
             ''
         );
@@ -437,14 +446,14 @@ sub logon_user {
         log_entry(
             $class,
             $db,
-            'error', 
+            'error',
 "$messages{loginfailedfor} $fieldsref->{userLogin} $messages{at} $fieldsref->{registry} : password failed",
             ''
         );
 
-#FIXME: The locking mechanism is in place but nothing for resetting and testing, bigger job...
+        # locking now works in February 2014
         $userref->{userPasswordTries}--;
-        if ( $userref->{'userPasswordTries'} <= 1 ) {
+        if ( $userref->{'userPasswordTries'} <= 0 ) {
             $userref->{'userPasswordStatus'} = 'locked';
             $userref->{'userPasswordTries'}  = 0;
         }
@@ -1433,7 +1442,7 @@ sub transaction {
 
     my %transaction = %$transaction_ref;
 
-    debug_message ($transaction_ref, 1 ) ;
+    debug_message( $transaction_ref, 1 );
 
     # default separator is for html
     my $separator = "<br/>\n";
@@ -1499,7 +1508,7 @@ EOT
 
     # test commitment, this can be zero for an issuance local currency
     # null means no commitlimit
- 
+
     my $commitment_limit = $registry_ref->{'commitlimit'};
     if ( defined($commitment_limit) ) {
 
@@ -1568,12 +1577,25 @@ EOT
         $registry{'type'} = 'local';
         $same_registry = 1;
     } else {
+
+        # local but foreign registry
         my ( $status, $registry_ref ) = get_where(
             $class, $transaction{'fromregistry'},
             'om_partners', '*', 'name', $transaction{'toregistry'},
             $token, $offset, $limit
         );
-        %registry = %$registry_ref;
+
+ # FIXME: April 2014 Log error and probably die, if destination registry invalid
+        if ( length($registry_ref) ) {
+            %registry = %$registry_ref;
+        } else {
+
+            # FIXME: Needs to be multilingual
+            log_entry( $class, $transaction{'fromregistry'},
+                'critical', "bad destination: $transaction{'toregistry'}", '' );
+            push @local_status, "db8: $status bad $transaction{'toregistry'}";
+        }
+
         push @local_status, 'db2: $status' if length($status);
     }
 
@@ -1682,8 +1704,8 @@ EOT
             my $output_message = join( $separator, @local_status );
 
             # warn about rejections at this level in log
-            log_entry( $class, $db, 'error',  "rejected transaction: $output_message",
-                '' );
+            log_entry( $class, $db, 'error',
+                "rejected transaction: $output_message", '' );
 
             if ( $transaction{'mode'} ne 'json' ) {
                 return ( 1, $transaction_ref->{'home'},
@@ -2719,16 +2741,16 @@ sub collect_items {
 "<input type=\"checkbox\" name=\"$name\" $checked value=\"$item\">\u$item &nbsp;";
                 undef $checked;
                 $x++;
-            } 
-		    
+            }
+
             $duplicates{$item} = 'y';
         }
     }
-    if ($mode ne 'values') {
-    return ( $option_string, $count );
+    if ( $mode ne 'values' ) {
+        return ( $option_string, $count );
     } else {
-     return ($filtered_hash_ref, $count)
-    }	
+        return ( $filtered_hash_ref, $count );
+    }
 }
 
 =head3 notify_by_mail
@@ -2933,7 +2955,8 @@ EOT
     }
 
     if ($@) {
-        log_entry( $class, $registry,'error',  "mail error is: $@ $message", '' );
+        log_entry( $class, $registry, 'error', "mail error is: $@ $message",
+            '' );
     }
 
     return $@;
@@ -3198,7 +3221,7 @@ sub check_ip_is_allowed {
 # test registry record, can't logon if registry status is down or in closing process
     if ( length($status) ) {
         my $message = "get_allowed_ips: registry record not found";
-        log_entry( $class, $db, 'error',  $message, '' );
+        log_entry( $class, $db, 'error', $message, '' );
         return $message;
     } else {
 

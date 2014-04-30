@@ -45,7 +45,7 @@ use Exporter;
 use Cclitedb;
 use Ccvalidate;
 use Ccu;
-use Data::Dumper ;
+use Data::Dumper;
 
 # should be a core module both *nix and Windows
 # given the problems with this and, from the microsoft doc:
@@ -136,7 +136,7 @@ sub _guess_main_config_values {
     $configuration{userss}                 = "no";
     $configuration{usedecimals}            = "yes";
     $configuration{usetags}                = "yes";
-    $configuration{version}                = "0.9.1";
+    $configuration{version}                = "0.9.3";
     $configuration{servicechargelimit}     = "notused";
     $configuration{smslocal}               = "1";
 
@@ -164,7 +164,7 @@ sub _guess_main_config_values {
         my $base_directory = $ENV{DOCUMENT_ROOT};
 
         # strip back to var, from document root, stay with c:\cclite..etc..
-        # C:/cclite-0.9.1-xp/var/www/cclite/public_html
+        # C:/cclite-0.9.3-xp/var/www/cclite/public_html
         # print "base directory is $base_directory\n" ;
         $base_directory =~ s/\/www\/cclite\/public_html//;
         $configuration{csvpath} = "$base_directory/cclite/batch";
@@ -191,6 +191,51 @@ sub _guess_main_config_values {
     return \%configuration;
 }
 
+sub _guess_gammu_config_values {
+
+    my ( $home, $domain, $hash_type, $currdir ) = @_;
+
+    my $sms_configuration = {};
+
+    $sms_configuration->{'sponsor4'}       = '';
+    $sms_configuration->{'sms_debug_file'} = '/var/cclite/log/sms_debug.txt';
+    $sms_configuration->{'registry'}       = '';
+    $sms_configuration->{'userpinstatus'}  = 'active';
+    $sms_configuration->{'smslocal'}       = 1;
+    $sms_configuration->{'smsinpath'}      = '/var/cclite/sms/inbox';
+    $sms_configuration->{'smsoutpath'}     = '/var/cclite/sms/outbox';
+    $sms_configuration->{'sponsor5'}       = '';
+    $sms_configuration->{'sms_prefix'}     = '';
+    $sms_configuration->{'os'}             = 'linux';
+    $sms_configuration->{'currency'}       = '';
+    $sms_configuration->{'domain'}         = '';
+    $sms_configuration->{'sponsor3'}       = '';
+    $sms_configuration->{'debug'}          = 0;
+    $sms_configuration->{'userstatus'}     = 'active';
+    $sms_configuration->{'home'}           = $home;
+    $sms_configuration->{'smserrorpath'}   = '/var/cclite/sms/error';
+    $sms_configuration->{'initialpaymentstatus'}   = 'accepted';
+    $sms_configuration->{'sponsor1'}               = '';
+    $sms_configuration->{'language'}               = 'en';
+    $sms_configuration->{'version'}                = '';
+    $sms_configuration->{'distribution'}           = '';
+    $sms_configuration->{'sponsor2'}               = '';
+    $sms_configuration->{'sponsor_message_status'} = '';
+    $sms_configuration->{'smssentpath'}            = '/var/cclite/sms/sent';
+    $sms_configuration->{'smssleep'}               = 120;
+    $sms_configuration->{'userpasswordstatus'}     = 'active';
+    $sms_configuration->{'package_type'}           = '';
+    $sms_configuration->{'send_key'}               = 'pay';
+    $sms_configuration->{'join_key'}               = 'join';
+    $sms_configuration->{'suspend_key'}            = 'suspend';
+    $sms_configuration->{'balance_key'}            = 'balance';
+    $sms_configuration->{'confirm_key'}            = 'confirm';
+    $sms_configuration->{'pinchange_key'}          = 'change';
+    $sms_configuration->{'language_key'}           = 'lang';
+
+    return $sms_configuration;
+}
+
 =head3 update_configuration
 
 
@@ -203,53 +248,81 @@ break if the config file names are rationalised
 =cut
 
 sub update_config1 {
-    my ( $new_main_install, $new_sms_install, $configuration, $fields_ref, $dir ) = @_;
-    my $title;
+    my ( $new_main_install, $new_sms_install, $configuration,
+        $sms_configuration, $fields_ref, $dir )
+      = @_;
+    my ( $title, $template );
+    my $type = $fields_ref->{'type'};
 
     # guess values, if new install otherwise read existing
-    if ($new_main_install && $configuration =~ /cclite.cf/) {
-        $fields_ref =
-          _guess_main_config_values( $fields_ref->{'home'}, $fields_ref->{'domain'}, $fields_ref->{'hash_type'}, $dir );
+    if ( $new_main_install && $type eq 'main' ) {
+        $fields_ref = _guess_main_config_values(
+            $fields_ref->{'home'},
+            $fields_ref->{'domain'},
+            $fields_ref->{'hash_type'}, $dir
+        );
         $fields_ref->{'updatemessage'} .= $messages{newinstall};
 
-    } elsif ($new_sms_install && $configuration =~ /readsms.cf/) {
-      # $fields_ref =
-      #    _guess_config_values( $fields_ref->{'home'}, $fields_ref->{'domain'}, $fields_ref->{'hash_type'}, $dir );
-        $fields_ref->{'updatemessage'} .= 'new sms install';
-        
-    } else {
+    } elsif ( $new_sms_install && $type eq 'gammu' ) {
 
-        my %fields = &main::readconfiguration($configuration);     
-        $fields_ref = \%fields ;
-        
+        $fields_ref = _guess_gammu_config_values(
+            $fields_ref->{'home'},
+            $fields_ref->{'domain'},
+            $fields_ref->{'hash_type'}, $dir
+        );
+        $fields_ref->{'updatemessage'} .= 'new sms install';
+
+    } else {
+        my %fields;
+        if ( $type eq 'main' ) {
+            %fields = &main::readconfiguration($configuration);
+        } else {
+            %fields = &main::readconfiguration($sms_configuration);
+        }
+        $fields_ref = \%fields;
         $fields_ref->{'uhome'} = $fields_ref->{'home'};
 
-        # complain if config is not writable
-        unless ( -w $configuration ) {
+        # FIXME: ugly new condition based on 'type'
+
+        print;
+
+        if ( !( -w $configuration ) ) {
             $fields_ref->{'updatemessage'} .=
               "$configuration $messages{cannotbewritten}";
-            return ( 0, "", "",$fields_ref, "installvalues.html", "" );
+            if ( $configuration =~ /cclite.cf/ ) {
+                return ( 0, "", "", $fields_ref, "installvalues.html", "" );
+            } elsif ( $configuration =~ /readsms.cf/ ) {
+                return ( 0, "", "", $fields_ref, "installgammu.html", "" );
+            }
         }
     }
 
     #FIXME: this is ugly, called in main script and called here...
-    ( $fields_ref->{'os'}, $fields_ref->{'distribution'}, $fields_ref->{'package_type'} ) = get_os_and_distribution();
- 
+    (
+        $fields_ref->{'os'},
+        $fields_ref->{'distribution'},
+        $fields_ref->{'package_type'}
+    ) = get_os_and_distribution();
+
     # grey out sendmail path in installer, if windows...
-    $fields_ref->{'disablesendmail'} = "disabled=\"disabled\"" if ( $fields_ref->{'os'} eq 'windows' );
+    $fields_ref->{'disablesendmail'} = "disabled=\"disabled\""
+      if ( $fields_ref->{'os'} eq 'windows' );
 
     # complain about hash only for new installs, otherwise too late
-    if ( $fields_ref->{'hash_type'} eq "sha1" && $new_main_install && $configuration =~ /cclite.cf/) {
+    if (   $fields_ref->{'hash_type'} eq "sha1"
+        && $new_main_install
+        && $configuration =~ /cclite.cf/ )
+    {
         $fields_ref->{'updatemessage'} .= "<br/>$messages{sha1warning}";
     }
 
  # for memory: $refresh, $metarefresh, $error, $fieldsref, $pagename, $cookies )
 
-    if ($configuration =~ /cclite.cf/) {
-       return ( 0, '', '', $fields_ref, "installvalues.html", "" );
-    } elsif($configuration =~ /readsms.cf/) {
+    if ( $type eq 'main' ) {
+        return ( 0, '', '', $fields_ref, "installvalues.html", "" );
+    } elsif ( $type eq 'gammu' ) {
         return ( 0, '', '', $fields_ref, "installgammu.html", "" );
-    }	
+    }
 
 }
 
@@ -261,8 +334,9 @@ create configuration file, if writable, otherwise display
 
 sub update_config2 {
     my ( $configuration, $fieldsref ) = @_;
+
     my %fields = %$fieldsref;
-    my ($html, $token, @registries) ;
+    my ( $html, $token, @registries );
 
     # write the new configuration to screen with a message
     # if it can't be written directly into the configuration file
@@ -270,9 +344,11 @@ sub update_config2 {
     my $configuration_string;    # this holds a cumulated set of text values
                                  # so that people can cut and paste if necessary
 
+    ###print "in config2  $fieldsref->{'type'}\n" ;
+
     foreach my $key ( sort keys %fields ) {
 
-		next if ( $key =~ /action|saveadd|environment/i );     
+        next if ( $key =~ /action|saveadd|environment/i );
 
         #FIXME: kludge to deal with name collision between
         # discovering the installer and what's needed as home
@@ -310,52 +386,56 @@ EOT
         }
     }
 
-    
     # checking for gammu setup, does nominated registry exist, for example
-    if ($configuration =~ /readsms/) {
-     @registries =
-       show_registries(
-        'local', $fields{registry}, '', $fieldsref, 'values', $token
-       ) ;		
-      my $found = 0 ;
-      foreach my $registry (@registries) {
-        if ($registry eq $fields{'registry'}) {
-           $found = 1 ;
-	    }
-	  }
-	  # no registry by that name
-      if (! $found) {
-       my $error =
+    if ( $fieldsref->{'type'} eq 'gammu' ) {
+        @registries =
+          show_registries( 'local', $fields{registry}, '', $fieldsref,
+            'values', $token );
+        my $found = 0;
+        foreach my $registry (@registries) {
+            if ( $registry eq $fields{'registry'} ) {
+                $found = 1;
+            }
+        }
+
+        # no registry by that name
+        if ( !$found ) {
+            my $error =
 "<span class=\"failedcheck\">attempted update: $configuration $messages{'unknownregistry'}</span>";
             return ( 0, "", $error, \%fields, $configuration_string,
                 "result.html", "" );
-	   }
-	  # no currency by that name in the given registry 
-	  if  ( ! sqlcount( 'local', $fields{'registry'}, 'om_currencies', undef, 'name', $fields{'currency'}, $token) ) {
- my $error =
+        }
+
+        # no currency by that name in the given registry
+        if (
+            !sqlcount(
+                'local',         $fields{'registry'},
+                'om_currencies', undef,
+                'name',          $fields{'currency'},
+                $token
+            )
+          )
+        {
+            my $error =
 "<span class=\"failedcheck\">attempted update: $configuration $messages{'invalidcurrency'}</span>";
             return ( 0, "", $error, \%fields, $configuration_string,
                 "result.html", "" );
-      } 
-     }
-     
-
-     
-
+        }
+    }
     eval {
         open( CONFIG, ">$configuration" ) or die $@;
         foreach my $key ( keys %fields ) {
 
-          next if ( $key =~ /action|saveadd|environment/i );
+            next if ( $key =~ /action|saveadd|environment/i );
 
             #FIXME: kludge to deal with name collision between
             # discovering the installer and what's needed as home
             $fields{$key} =~ s!protected/ccinstall.cgi!cclite.cgi!
               if ( $key eq 'home' );
 
-           $fields{$key} =~ s!\s$!!g
+            $fields{$key} =~ s!\s$!!g
               if ( $key =~ /sponsor\d+$/ );
-            
+
             print CONFIG "$key\=$fields{$key}\n";
 
         }
@@ -401,15 +481,24 @@ EOT
 
 =cut
 
-        if ( !length( $fields{installer2} ) ) {
+        # FIXME: Works but ugly and clumsy condition
+        if ( !length( $fields{installer2} )
+            && $fields{'action'} ne 'updategammuconfig' )
+        {
+
             return ( 0, "", "", \%fields,
                 "$messages{configurationupdated} $configuration",
                 "result.html", "" );
-
+        } elsif ( $fields{'action'} eq 'updategammuconfig' ) {
+            $fields{'action'} = '';
+            return ( 0, undef, undef, \%fields,
+                "$messages{configurationupdated} $configuration",
+                'result.html', undef );
         } else {
 
             my $installer_url =
 "http://$fields{domain}/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html";
+
             return ( 1, $installer_url, "", \%fields,
                 $messages{configurationupdated},
                 "result.html", "" );
@@ -662,6 +751,13 @@ EOT
         || $hash_type eq 'sha2' )
     {
         $sqlfile = "../../sql/registry_${version}-${hash_type}.sql";
+
+        # added April 2014 to cover version mismatch
+        if ( !-e $sqlfile ) {
+            die
+"ccinstall: non existent sql file for registry creation: $sqlfile";
+        }
+
     } else {
         die
 "ccinstall: bad hash type, must be sha1 or sha2, or perhaps module is missing";
@@ -708,8 +804,6 @@ EOT
 
     # set up directories for all batch processes
 
-
-    
     my ( $error, $report_ref, $file_ref ) =
       get_set_batch_files( 'set', $configref, $fieldsref, $cookieref );
     my $display_files = join( "<br/>\n", %$file_ref );
@@ -1169,7 +1263,6 @@ EOT
     return $link;
 }
 
-
 =head3 display_gammu_config
 
 FIXME: This is an ugly hack to deal with the increasing complexity
@@ -1180,30 +1273,18 @@ of setting up gammu:
 
 =cut
 
-
-
-
-
-
-
 sub display_gammu_config {
 
-
-
-
-my $parameter_html_line =<<EOT;
+    my $parameter_html_line = <<EOT;
 <tr><td title="" class="menu">dbuser</td><td class="pme-key-1">
     <input id="dbuser" data-simple="yes" type="text" class="required" name="dbuser" size="60" value="">
 </td></tr>
 
 EOT
 
-
-
-return ;
+    return;
 
 }
-
 
 =head3 get_locked
 
@@ -1214,68 +1295,76 @@ FIXME: html and literals etc. in here, this is first
 cut as of February 2014
 
 =cut
-	
 
 sub get_locked {
 
-my ($class, $registry, $fields_ref, $token) = @_ ;
+    my ( $class, $registry, $fields_ref, $token ) = @_;
 
-#print "$class, $registry, $fields_ref, $token" ;
-#print Dumper $fields_ref ;
-my $html ;
-my $header = "<tr><td>$messages{'unlock'}</td><td>userPinStatus</td><td>userPasswordStatus</td></tr>" ;
+    #print "$class, $registry, $fields_ref, $token" ;
+    #print Dumper $fields_ref ;
+    my $html;
+    my $header =
+"<tr><td>$messages{'unlockall'}</td><td>userPinStatus</td><td>userPasswordStatus</td></tr>";
 
-my ($registry_error, $hash_ref) = sqlraw  ( $class, $registry,
-     'select userId,userPinStatus,userPasswordStatus,userLogin from om_users where (userPinStatus = \'locked\' or userPasswordStatus = \'locked\')', 'userId', $token );
+    my ( $registry_error, $hash_ref ) = sqlraw(
+        $class,
+        $registry,
+'select userId,userPinStatus,userPasswordStatus,userLogin from om_users where (userPinStatus = \'locked\' or userPasswordStatus = \'locked\')',
+        'userId',
+        $token
+    );
 
-if (! $registry_error) {
+    if ( !$registry_error ) {
 
-if ($fields_ref->{'mode'} eq 'json') {
+        if ( $fields_ref->{'mode'} eq 'json' ) {
 
-} elsif ($fields_ref->{'mode'} eq 'html') {
+        } elsif ( $fields_ref->{'mode'} eq 'html' ) {
 
-
-	
-foreach my $key (sort keys $hash_ref) {
-my $line .= <<EOT;
-
-<tr><td><a href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userLogin'}</a></td>
-    <td>$hash_ref->{$key}->{'userPinStatus'}</td>
-    <td>$hash_ref->{$key}->{'userPasswordStatus'}</td>
+            foreach my $key ( sort keys %$hash_ref ) {
+                my $line .= <<EOT;
+<tr><td><a title="Unlock All" href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&type=all&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userLogin'}</a></td>
+    <td><a title="Unlock SMS Pin" href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&type=pin&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userPinStatus'}</a></td>
+    <td><a title="Unlock Password" href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&type=password&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userPasswordStatus'}</a></td>
 </tr>
 EOT
 
+                $html .= $line;
 
-$html .= $line ;
+            }
 
+        } elsif ( $fields_ref->{'mode'} eq 'values' ) {
+
+            # FIXME: not implemented currently, mabye not useful
+
+        }
+
+    } else {
+        return "nok: $registry_error";
+    }
+
+    return ( undef, undef, undef,
+        "<table id=\"transtable\">$header<tbody>$html</tbody></table>",
+        'result.html', undef );
 }
-
-		
-} elsif ($fields_ref->{'mode'} eq 'values') {
-# FIXME: not implemented currently, mabye not useful
-
-}	
-
-} else  {	
-return "nok: $registry_error"
-}
-
- return  (undef, undef, undef, "<table id=\"transtable\">$header<tbody>$html</tbody></table>", 'result.html', undef ) ;
-}	
-
 
 sub unlock_user {
 
-my ($class, $registry, $fields_ref, $token) = @_ ;
+    my ( $class, $registry, $fields_ref, $token ) = @_;
 
-$fields_ref->{'userPasswordStatus'} = 'active' ;
-$fields_ref->{'userPinStatus'} = 'active' ;
+    ###print Dumper $fields_ref ;
 
-my ( $a, $b, $c, $d ) = update_database_record( 'local', $registry, "om_users", 1, $fields_ref, undef, $token );
+    $fields_ref->{'userPasswordStatus'} = 'active'
+      if ( $fields_ref->{'type'} eq 'all'
+        || $fields_ref->{'type'} eq 'password' );
+    $fields_ref->{'userPinStatus'} = 'active'
+      if ( $fields_ref->{'type'} eq 'all' || $fields_ref->{'type'} eq 'pin' );
 
-return get_locked  ($class, $registry, $fields_ref, $token) ;
-}	
+    my ( $a, $b, $c, $d ) =
+      update_database_record( 'local', $registry, "om_users", 1, $fields_ref,
+        undef, $token );
 
+    return get_locked( $class, $registry, $fields_ref, $token );
+}
 
 1;
 

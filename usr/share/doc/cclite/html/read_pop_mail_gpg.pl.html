@@ -281,8 +281,8 @@ FIXME: Only checks non blank not valid file names</p>
 <span class="s">)</span><span class="sc">;</span>
 
 <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$error</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-    <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;database error for $registry: $error&quot;</span><span class="cm">,</span>
-        <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;fatal&#39;</span><span class="cm">,</span>
+        <span class="q">&quot;database error for $registry: $error&quot;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -411,8 +411,8 @@ FIXME: Only checks non blank not valid file names</p>
                 <span class="c"># pgp not detected, mail is thrown away...</span>
             <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
 
-                <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;discarded non-pgp transaction\n&quot;</span><span class="cm">,</span>
-                    <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+                <span class="i">log_entry</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span>
+                    <span class="q">&quot;discarded non-pgp transaction\n&quot;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
             <span class="s">}</span>
 
             <span class="c"># these should be destroyed asap and possibly done in-memory</span>

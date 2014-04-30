@@ -17,16 +17,16 @@ cpaneldbpassword=your-cpane-dbpassword
 #
 usedecimals=yes
 cpanelprefix=prefix
-trunkurl=http://cclite.private.trunk/
-deburl=http://cclite.private.server/
+trunkurl=http://cclite.example.trunk/
+deburl=http://cclite.example.deb/
 xpurl=http://cclite.xp.server/
-fedoraurl=http://cclite.vectormart.org/
-cpanelurl=http://cclite.cclite.k-hosting.co.uk/
-image_path=/home/hbarnard/cclite-support-files/testimages
+fedoraurl=http://cclite.example.org/
+cpanelurl=http://cclite.example.cpanel/
+image_path=/home/user/cclite-support-files/testimages
 image_key=aaa
-admemail=admin\@youdomain.tld
+admemail=admin\@yourdomain.tld
 admpass=mailpassword 
-postemail=post\@youdomain.tld
+postemail=post\@yourdomain.tld
 postpass=mailpassword2 
 # selenium browserparameters
 browser=*firefox /usr/lib/firefox-10.0.2/firefox
