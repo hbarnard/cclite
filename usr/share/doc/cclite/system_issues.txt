@@ -26,7 +26,7 @@ Issues:
     Registry is type: transaction_charge, equal_time etc. like trades with like
 16. Currency is open or closed (closed won't appear on pick lists)
 17. Need to add checks for easy passwords/pins in validate_xxx
-18. Check that partner registry exists and is not duplicated
+18. 
 19. 
 20. Now authenticated change logic in soap calls : Done: user 'transport' password 'test'
 21. Now authenticated, create interregistry user to transport calls (transport,test at present)
@@ -37,7 +37,7 @@ Issues:
 26. 
 27. 
 28. 
-29. Go through new database and current forms and check for mismatch, new fields
+29. 
 30. majorclass and type changed to varchar in yellow pages, dbi::mysql bug make enum retrieval hard
     remove parastic call in yellow pages directory!
 31.
@@ -149,7 +149,7 @@ soap attempts made...(not done, deprecated nd replaced by REST)
 to be fixed:
 
 1. Protect batch scripts with cookie testing
-2. Remove create rule (done)
+2. 
 3. *test and check out graphs [being converted to flot, done enough for this release]
 4. add tests for REST interface (yes, partially, test-REST)
 5. csv REST Payment delivers file? 

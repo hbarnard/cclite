@@ -1,4 +1,4 @@
-This is the Debian format version of Cclite 0.9.0 as a working repository
+This is the Debian format version of Cclite 0.9.3 as a working repository
 
 The tarballs and debian packages are on Sourceforge at: http://sourceforge.net/projects/cclite/
 
@@ -25,5 +25,13 @@ Cclite is a Perl package for local exchange trading systems (LETS), banking and 
     * If you want help with cclite join the google group:
       http://groups.google.co.uk/group/cclite?hl=en
       
-Many things are changed/improved in 0.9.0 please see /usr/share/doc/cclite which contains release notes.
+Many things are changed/improved in 0.9.3 please see /usr/share/doc/cclite which contains release notes.
+
+The main work that has been done recently is SMS with Gammu.pm and using gammu [qv] to transport the messages.
+This 'frees' Cclite from commercial SMS http gateways.
+
+Also, all installations can use SHA2 now because of the changes to Digest in the Perl core. The core functions
+of Cclite [no RSS etc.] should install without additional modules. Also there's a preliminary Redhat package on
+sourceforge and both the Ubuntu and Redhat have been [somewhat] tested on Amazon EC2 instances. The Chinese and
+French templates are hopefully a little better too, but we'd welcome help for the other languages.
 
