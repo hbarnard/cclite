@@ -88,10 +88,10 @@ sub check_cclite_preinstall {
         'mim|GnuPG'                 => '2:Mail/Jabber Encryption',
         'jab|Net::XMPP'             => '2:Jabber Transport',
         'fpt|File::Path'            => '0:OS Indep File Path',
-        'gde|GD'                    => '2:Graphics for Graphs',
-        'gde|GD::Text'              => '2:Graphics for Graphs',
-        'gde|GD::Graph::lines'      => '2:Graphics for Graphs',
-        'gds|GD::Graph::sparklines' => '2:Graphics for Graphs',
+ #       'gde|GD'                    => '2:Graphics for Graphs',
+ #       'gde|GD::Text'              => '2:Graphics for Graphs',
+ #       'gde|GD::Graph::lines'      => '2:Graphics for Graphs',
+ #       'gds|GD::Graph::sparklines' => '2:Graphics for Graphs',
         'cgi|CGI'                   => '0:CGI Module',
         'ood|OpenOffice::OODoc'     => '2:Open Office for batch printing',
     );
@@ -149,10 +149,10 @@ sub check_cclite_preinstall {
 
     $diagnosis .= "<hr/>\n";
 
-    # GD missing
-    $diagnosis .=
-"<li class=\"optional\">cclite can't produce graphs GD module[s] missing</li>"
-      if ( $counter{'gde'} < 3 );
+#    # GD missing: Don't need April 2014
+#    $diagnosis .=
+# "<li class=\"optional\">cclite can't produce graphs GD module[s] missing</li>"
+#      if ( $counter{'gde'} < 3 );
 
     # GnuPG missing
     $diagnosis .=

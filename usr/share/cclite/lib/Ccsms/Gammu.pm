@@ -39,10 +39,10 @@ SMS Transactions
 -> change language     p123456 lang es
 
 -> pay                 p123456 pay 5 to 07855 524667 for stuff (note need to change strip regex)
-                           p123456 pay 5 to 07855524667 for other stuff
-                           p123456 pay 5 to 4407855 524667 for stuff
-                           p123456 pay test1 10 limes
-                           p123456 pay 4477777777 10 limes 
+                       p123456 pay 5 to 07855524667 for other stuff
+                       p123456 pay 5 to 4407855 524667 for stuff
+                       p123456 pay test1 10 limes
+                       p123456 pay 4477777777 10 limes 
                            
 
 -> query Balance           p123456 balance
@@ -144,6 +144,7 @@ sub gateway_sms_transaction {
 
     my ( $offset, $limit, $pin, $transaction_type, $return_value );
 
+    # shortcode processing to change configuration file
     if ( $fields_ref->{'message'} =~ s/^(c\d+)\s+//i ) {
         my $configuration_file = "../../../config/readsms-$1.cf";
         if ( -e $configuration_file ) {
@@ -955,7 +956,7 @@ sub _sms_payment_parse {
       );
 
 # send 5 limes to test2 at dalston for demo
-# 10 limes to 447779159453|test2 at dalston for numbering : registry is thrown away, compatiblity with email
+# 10 limes to 447779159453|test2 at dalston for numbering 
 # this one won't accept currency default, probably correct...
     $parse_type = 5
       if ( $input =~
