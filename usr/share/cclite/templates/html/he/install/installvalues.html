@@ -21,14 +21,16 @@ $$fieldsref{updatemessage}
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="תצורת העדכון" type="submit">
+ name="saveadd" data-simple="yes" value="לעדכן את תצורת" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="זהו משתמש db עבור mysql" class="menu">
+<td title="זה המשתמש db mysql" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -39,7 +41,7 @@ dbuser
 </tr>
 
 <tr>
-<td title="זוהי הסיסמה db עבור mysql" class="menu">
+<td title=". זו הסיסמה db עבור mysql" class="menu">
 dbpassword
 </td>
 <td class="pme-key-1">
@@ -50,8 +52,8 @@ dbpassword
 </tr>
 
 <tr>
-<td title="פנל ניהול ניסיוני קידומת, השתמש בזהירות, שם המשתמש של uusally פנל ניהול" class="menu">
-קידומת פנל ניהול
+<td title="cpanel ניסיוני קידומת, לשימוש עם טיפול, שם המשתמש cpanel uusally" class="menu">
+קידומת cpanel
 </td>
 <td class="pme-key-1">
 
@@ -72,8 +74,8 @@ dbpassword
 </tr>
 
 <tr>
-<td title="להשתמש בתגיות צורה חופשית עבור דפי זהב במקום קטגוריות קבועות" class="menu">
-להשתמש בתגים
+<td title="להשתמש בתגיות בצורה חופשית עבור דפי זהב במקום קטגוריות קבועות" class="menu">
+להשתמש בתגיות
 </td>
 <td class="pme-key-1">
 
@@ -82,11 +84,11 @@ dbpassword
 </td>
 </tr>
 
-<!-- להלן כאן הפרמטרים מלא -->
+<!-- להלן כאן הפרמטרים המלאה -->
 
 <tr>
-<td title="זה הוא התחום מסיק מנתיב קובץ script, צריך להיות נכונים עבור קבצי cookie לעבוד" class="menu">
-קבוצת מחשבים
+<td title=". זה התחום כפי להסיק את נתיב קובץ script, צריכה להיות נכונות עבור קבצי cookie לעבוד" class="menu">
+תחום
 </td>
 <td class="pme-key-1">
 
@@ -96,7 +98,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="זהו שרת ה-smtp עבור דואר, עבור פנל ניהול בדרך כלל באותו שם קבוצת המחשבים, localhost או ה-ip עבור שרתי פנימי" class="menu">
+<td title="זהו שרת ה-smtp עבור דואר, עבור cpanel בדרך כלל באותו שם תחום, localhost או ip עבור השרתים הפנימיים" class="menu">
 שרת smtp
 </td>
 <td class="pme-key-1">
@@ -107,8 +109,8 @@ dbpassword
 </tr>
 
 <tr>
-<td title="קובץ script של המשתמש הראשי עבור cclite" class="menu">
-דף ראשי
+<td title="המשתמש הראשי script עבור cclite" class="menu">
+דף הבית
 </td>
 <td class="pme-key-1">
 
@@ -118,7 +120,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="זהו סוג hash המשמש עבור סיסמה וחישובים אסימון, sha2 עדיף, לא ניתן לשנות/מעורב לאחר ההגדרה" class="menu">
+<td title="זהו הסוג hash המשמש עבור הסיסמה וחישובים אסימון, sha2 היא עדיפה, לא השתנה שילובי פעם להגדיר" class="menu">
 סוג אלגוריתם hash
 </td>
 <td class="pme-key-1">
@@ -129,7 +131,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="html, rss, קבצי פלט ותרשימים, מסיק מבסיס המסמך בתוך שרת" class="menu">
+<td title="html, rss, קבצי פלט ותרשימים, הסיק מן השורש המסמך בתוך השרת" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,7 +142,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="המצב ההתחלתי של התשלום המבוצע, אם המתנה ידרוש אישור על-ידי קבלת משתמש" class="pme-key-title">
+<td title="המצב הראשוני של התשלום עשוי, אם ההמתנה ידרוש אישור על-ידי קבלת משתמש" class="pme-key-title">
 מצב התשלום הראשוני
 </td>
 <td class="pme-key-1">
@@ -151,7 +153,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="המצב ההתחלתי של משתמש, אם unconfirmed ידרוש אישור בדואר אלקטרוני של משתמש" class="pme-key-title">
+<td title="המצב הראשוני של המשתמש, אם לא מאושרים. ידרוש אישור בדואר אלקטרוני למשתמש" class="pme-key-title">
 מצב משתמש ראשונית
 </td>
 <td class="pme-key-1">
@@ -179,8 +181,8 @@ htmlpath
 -->
 
 <tr>
-<td title="מספר השורות מסך עבור דוחות טבלאי" class="pme-key-title">
-השורות לכל עמוד
+<td title="מספר השורות מסך עבור דוחות טבלאיים" class="pme-key-title">
+שורות בכל עמוד
 </td>
 <td class="pme-key-1">
 
@@ -190,7 +192,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="הנתיב לקובץ הודעות, לא יפעל אם זה לא בסדר!" class="menu">
+<td title="הנתיב לקובץ הודעות, שום דבר לא יעבוד אם זה לא בסדר!" class="menu">
 הנתיב עבור הודעות
 </td>
 <td class="pme-key-1">
@@ -209,7 +211,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="אם לא, אינך צריך מודולים Soap::Lite" class="menu">
+<td title="אם לא, לא צריך מודולים soap:: לייט" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -241,7 +243,7 @@ multiregistry?
 
 <tr>
 <td title="לא להשתמש ישירות, אך ניתן לכלול תבניות מותאמות אישית" class="pme-key-title">
-תמיכת דואר
+תמיכה דואר
 </td>
 <td class="pme-key-1">
 
@@ -250,11 +252,11 @@ multiregistry?
 </td>
 </tr>
 
-<!-- זה לא בהכרח כתובת דואר אלקטרוני חוקית, יכול להיות רק משתמש פנימי להתחבר אל שרת הדואר -->
+<!-- זה לא בהכרח כתובת דוא ל תקפה, יכול להיות רק משתמש פנימי לבצע כניסה אל שרת הדואר -->
 
 <tr>
-<td title="להשתמש כדי לשלוח דואר, להיכנס לשרת smtp, הגדרת בפנל ניהול, במידת הצורך, הראשונה" class="menu">
-כתובת הדואר של המערכת
+<td title="נהגו לשלוח דואר להיכנס לשרת smtp, להגדיר ב cpanel, במידת הצורך, הראשון" class="menu">
+מערכת כתובת דואר
 </td>
 <td >
 
@@ -263,11 +265,11 @@ multiregistry?
 </td>
 </tr>
 
-<!-- זה לא בהכרח כתובת דואר אלקטרוני חוקית, יכול להיות רק משתמש פנימי להתחבר אל שרת הדואר -->
+<!-- זה לא בהכרח כתובת דוא ל תקפה, יכול להיות רק משתמש פנימי לבצע כניסה אל שרת הדואר -->
 
 <tr>
-<td title="משמש כדי להחליף ב- Net::SMTP עבור הודעות וכו '. זה עדיף, תהיה האפשרות היחידה בעתיד, 0 או 1" class="menu">
-net smtp?
+<td title="משמש כדי להחליף ב- Net::SMTP עבור הודעות וכדומה זה הוא המועדף, תהיה האפשרות היחידה בעתיד, 0 או 1" class="menu">
+smtp נטו?
 </td>
 <td >
 
@@ -277,8 +279,8 @@ net smtp?
 </tr>
 
 <tr>
-<td title="סיסמה עבור כניסה למערכת כתובת דואר אלקטרוני בתוך שרת smtp" class="menu">
-סיסמת הדואר של המערכת
+<td title="הסיסמה עבור כניסה למערכת כתובת הדוא ל תוך שרת smtp" class="menu">
+סיסמת מערכת דואר
 </td>
 <td >
 
@@ -288,8 +290,8 @@ net smtp?
 </tr>
 
 <tr>
-<td title="כתובת לתשובה עבור דואר אלקטרוני שנוצר, לעיתים קרובות לעשות-לא-תשובה" class="pme-key-title">
-כתובת לתשובה של מערכת הדואר
+<td title="כתובת לתשובה מיילים שנוצר, לעיתים קרובות דו-לא-תגובה" class="pme-key-title">
+מערכת דואר כתובת לתשובה
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ net smtp?
 </tr>
 
 <tr>
-<td title="נתיב עבור קבצי תבנית המשמשת עבור ממשק האינטרנט, דבר הרבה יפעל אם זה לא בסדר!" class="menu">
+<td title="נתיב עבור קבצי תבנית לשימוש בממשק האינטרנט, אין הרבה יפעל אם זה לא בסדר!" class="menu">
 תבניות
 </td>
 <td class="pme-key-1">
@@ -312,8 +314,8 @@ net smtp?
 <!-- בסעיף העוסק קבצי אצווה -->
 
 <tr>
-<td title="בסיס פלט נתיב עבור פעילות תרשימים תחת בסיס אינטרנט, שם רישום נוסף נתיב זה" class="pme-key-title">
-מדריך כתובות של תרשים
+<td title="בסיס פלט נתיב עבור פעילות תרשימים תחת תיקיית השורש של אינטרנט, רישום השם נוסף במסלול זה" class="pme-key-title">
+תרשים הספריה
 </td>
 <td class="pme-key-1">
 
@@ -323,7 +325,7 @@ net smtp?
 </tr>
 
 <tr>
-<td title="ידרוש מודולי ה-rss של perl ליצירת rss, אם כן" class="pme-key-title">
+<td title="ידרוש perl rss מודולים ליצירת rss, אם כן" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,8 +346,8 @@ userss
 </tr>
 
 <tr>
-<td title="בסיס לטעון נתיב עבור טרנזקציות אצווה, להיות תחת בסיס אינטרנט" class="pme-key-title">
-מדריך csv
+<td title="בסיס להעלות נתיב עבור טרנזקציות אצווה, לא צריך להיות תחת תיקיית השורש של האינטרנט" class="pme-key-title">
+מדריך ה-csv
 </td>
 <td class="pme-key-1">
 
@@ -354,19 +356,14 @@ userss
 </td>
 </tr>
 
-<tr>
-<td title="תיבת הדואר הנכנס עבור gammu התקבל ב- sms, נדרש עבור שערים sms של http" class="pme-key-title">
-sms תיבת הדואר הנכנס
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="תיבת הדואר הנכנס עבור דואר, שיטה ישנה הוחלף על ידי דואר pop ברישום כל" class="pme-key-title">
+<td title="תיבת הדואר הנכנס עבור דואר, השיטה הישנה הוחלף על ידי דואר פופ ברישום כל" class="pme-key-title">
 מדריך readmail.pl
 </td>
 <td class="pme-key-1">
@@ -377,8 +374,8 @@ sms תיבת הדואר הנכנס
 </tr>
 
 <tr>
-<td title="נתיב פלט בסיסי עבור טרנזקציות csv תחת בסיס אינטרנט" class="pme-key-title">
-csv החוצה
+<td title="הפלט הבסיסי נתיב עבור תנועות csv תחת תיקיית השורש של האינטרנט" class="pme-key-title">
+csv.
 </td>
 <td class="pme-key-1">
 
@@ -388,8 +385,8 @@ csv החוצה
 </tr>
 
 <tr>
-<td title="לבסס פלט נתיב עבור חומר מודפס תחת בסיס אינטרנט, שם הרישום, שפה נוספת נתיב זה" class="pme-key-title">
-נתיב הדפסה
+<td title="בסיס פלט נתיב מודפסים תחת השורש אינטרנט, רישום שם ושפה נוספת לדרך זו" class="pme-key-title">
+הדפס נתיב
 </td>
 <td class="pme-key-1">
 
@@ -399,8 +396,8 @@ csv החוצה
 </tr>
 
 <tr>
-<td title="לבסס פלט נתיב עבור rss, שם הרישום והשפה יתווסף נתיב זה" class="pme-key-title">
-בסיס הזנה ספריה
+<td title="בסיס פלט נתיב עבור rss, רישום שם ושפה נוספת לדרך זו" class="pme-key-title">
+בסיס להאכיל מדריך
 </td>
 <td class="pme-key-1">
 
@@ -410,8 +407,8 @@ csv החוצה
 </tr>
 
 <tr>
-<td title="לבסס מתוך ספריה עבור תוצאות gammu, נדרש עבור שערים sms של http" class="pme-key-title">
-sms החוצה
+<td title="לבסס את מדריך לתוצאות gammu, לא נדרש http sms שערים" class="pme-key-title">
+sms.
 </td>
 <td class="pme-key-1">
 
@@ -421,7 +418,7 @@ sms החוצה
 </tr>
 
 <tr>
-<td title="קלט gammu תעובד באופן מקומי אם 1, אחרת זו משתמשת סבון לעבד מרחוק" class="pme-key-title">
+<td title="gammu קלט תעובד באופן מקומי אם 1, אחרת, הוא משתמש בסבון לעבד מרחוק" class="pme-key-title">
 sms מקומי?
 </td>
 <td class="pme-key-1">
@@ -442,8 +439,8 @@ sms מקומי?
 </tr>
 
 <tr>
-<td title="הנתיב לקובץ התצורה של Log4perl" class="pme-key-title">
-נתיב config יוצר הרישום
+<td title="הנתיב לקובץ התצורה Log4perl" class="pme-key-title">
+נתיב config לוגר
 </td>
 <td class="pme-key-1">
 

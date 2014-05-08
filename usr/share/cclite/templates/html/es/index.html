@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Diseño por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo una licencia Creative Commons Attribution 2.5 -->
+<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo licencia Creative Commons Attribution 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- más tarde DataTables -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- librerías JavaScript, necesitan versiones de sustitución comprimido en algún momento -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- librerías JavaScript, necesitamos sustituir comprimido versiones en alguna etapa -->
 
 <!-- elementos de jQuery -->
 
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- otros no jquery -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Este es el script que desconecta los usuarios cuando el sistema está siendo derribado -->
+<!-- Este es el guión que cierra la sesión usuarios cuando el sistema está siendo derribado -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +122,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Este interruptor enciende/apaga las cosas de punto decimal -->
+<!-- Este interruptor enciende/apaga las cosas punto decimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -153,17 +157,17 @@ Anuncios
 
 </select>
 
-<input value="Go" class="small" type="submit" title="Buscar oficios, avisos o usuarios">
+<input value="Ir" class="small" type="submit" title="Buscar comercios, anuncios o usuarios">
 
 </form>
 
-<!-- final del cuadro de búsqueda de Autocompletar -->
+<!-- final del cuadro de búsqueda Autocompletar -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- versión del selector de idioma 1 -->
+<!-- versión 1 del selector de idioma -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +191,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- final de la versión 1 de selector de idioma -->
+<!-- idioma selector versión 1 de fin -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -209,7 +213,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Usuario Cclite
+Cclite usuario
 </a>
 </h1>
 
@@ -251,7 +255,7 @@ Pago
 
 <li>
 <a  title="¿Olvidó su contraseña??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-¿Ha olvidado la contraseña?
+¿Contraseña olvidada?
 </a>
 
 </li>
@@ -264,8 +268,8 @@ Añadir Openid
 </li>
 
 <li>
-<a title="OpenID de lista" href="/cgi-bin/cclite.cgi?action=showopenid">
-OpenID de lista
+<a title="Lista Openids" href="/cgi-bin/cclite.cgi?action=showopenid">
+Lista Openids
 </a>
 
 </li>
@@ -278,13 +282,13 @@ Nueva cuenta
 </li>
 
 <li>
-<a title="Modificar datos de tu cuenta" href="/cgi-bin/cclite.cgi?action=modifyuser">
+<a title="Modificar tu información de cuenta" href="/cgi-bin/cclite.cgi?action=modifyuser">
 Modificar cuenta
 </a>
 </li>
 
 <li>
-<a title="Dividir el pago de bienes o servicios" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+<a title="Dividir el pago por bienes o servicios" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Pago de Split
 </a>
 </li>
@@ -296,14 +300,14 @@ Transacciones
 </li>
 
 <li>
-<a title="Mostrar mis saldos" href="/cgi-bin/cclite.cgi?action=showbalvol">
+<a title="Mostrar mi saldo" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Saldos
 </a>
 </li>
 
 <li>
 <a title="Mostrar los productos y directorio de servicios" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Productos y servicios
+Productos/servicios
 </a>
 </li>
 
@@ -358,11 +362,11 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Página de inicio
 </a>
 |
 <a href="#">
-Póngase en contacto con nosotros
+Contacte con nosotros
 </a>
 <br />
 

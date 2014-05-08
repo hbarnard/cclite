@@ -37,7 +37,7 @@ Reg nume
 
 <td style="vertical-align: top;">
 
-<!-- Notă valoarea calea explicită în cookie-ul setarea, altfel calea este setată pentru cgi-bin -->
+<!-- Notă valoarea explicite calea în cookie-ul setarea, altfel calea este setat pentru cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -48,7 +48,7 @@ Reg nume
 <tr class="pme-row-1">
 
 <td title="Trebuie să fie mai mult de 3 caractere, litere, numere şi _ numai" class="pme-key-0">
-Numele de cont
+Numele contului
 <br>
 
 </td>
@@ -79,7 +79,7 @@ Parola
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Confirma parola
+Confirmă parola
 </td>
 
 <td class="pme-value-0">
@@ -108,7 +108,7 @@ E-mail
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Numărul/casa nume
+Numele de numărul/casa
 </td>
 
 <td class="pme-value-1">
@@ -138,7 +138,7 @@ Numele străzii
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Oraș
+Oraşul
 </td>
 
 <td class="pme-value-1">
@@ -153,7 +153,7 @@ Oraș
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Comitatul/stat
+Judeţul/statul
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ Telefon mobil
 
 <td class="pme-value-1">
 
-<input title="Vă rugăm să pune acest număr în în format internaţional 44777766666" class="pme-input-1"
+<input title="Vă rugăm să pună acest număr în în format internaţional 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ Telefon mobil
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-PIN-ul pentru telefonul mobil tranzacţii
+PIN pentru tranzactii Mobile Telefon
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ Confirmare Pin pentru tranzacţiile de telefon mobil
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Recepţii de plată SMS
+Chitanţe de plata SMS
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ Recepţii de plată SMS
 
 <tr class="pme-row-1">
 
-<td title="Acesta este identificatorul cheie publică pentru tranzacţii criptate" class="pme-key-0">
+<td title="Acesta este id-cheie publică criptată tranzacții" class="pme-key-0">
 Id cheie publică
 </td>
 
@@ -298,7 +298,7 @@ Fran
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Numele complet
+Nume complet
 </td>
 
 <td class="pme-value-0">
@@ -324,10 +324,10 @@ Numele complet
 
 <td class="pme-buttons">
 
-<!-- vom şterge cookie registru aici, altfel veţi împiedică un log on curat mai târziu -->
+<!-- am sterge cookie-ul registru aici, altfel se va preveni un logon curat mai târziu -->
 
 <input class="pme-save"
- name="saveadd" value="Creaţi" onClick="eraseCookie('registry');" type="submit">
+ name="saveadd" value="Crea" onClick="eraseCookie('registry');" type="submit">
 &nbsp;
 <input class="pme-cancel"
  name="cancel" value="Clare" type="reset">

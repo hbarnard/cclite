@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design de CSS template-uri gratuite&#xD;	http://www.freecsstemplates.org&#xD;	Liberă sub un Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +13,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Admin
+Cclite !$$fieldsref{version}! Admin
 </title>
 
 <meta name="keywords" content="" />
@@ -32,7 +34,7 @@ Cclite $$fieldsref{version} Admin
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- foilor de stil -->
+<!-- foi de stil -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -51,8 +53,11 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables pentru mai târziu -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
 
 <!-- biblioteci JavaScript, trebuie să subsitute comprimat versiuni la un moment dat -->
 
@@ -76,6 +81,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- alţii ne jquery -->
@@ -108,7 +116,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Acest lucru este script-ul care utilizatorii se conectează la atunci când sistemul este fiind adus în jos -->
+<!-- Aceasta este script-ul care se conectează utilizatorii afară atunci când sistemul este fiind adus în jos -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +126,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Acest parametru se transformă pornit/oprit chestii punctul zecimal -->
+<!-- Acest parametru se transformă on/off chestii punct zecimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- căutare pentru utilizatori, meserii, anunţurile -->
+<!-- căutare pentru utilizatori, meserii, anunţuri -->
 
 <br/>
 
@@ -153,11 +161,11 @@ Anunţuri
 
 </select>
 
-<input value="Du-te" class="small" type="submit" title="Uita-te pentru meserii, reclame sau utilizatori">
+<input value="Du-te" class="small" type="submit" title="Uita-te pentru meserii, ads sau utilizatori">
 
 </form>
 
-<!-- sfârşitul caseta Căutare completare automată -->
+<!-- sfârşitul de caseta de căutare autocomplete -->
 
 <span id="status_message">
 $$fieldsref{status_message}
@@ -187,7 +195,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- limba selectorul versiunea 1 sfârşitul -->
+<!-- limba selectorul versiunea 1 final -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -221,38 +229,38 @@ Cclite Admin
 
 <li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
-Meniul utilizator
+Utilizator meniu
 </a>
 </li>
 
 <li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-Modificarea statutului $$fieldsref{registry}
+Change Status of !$$fieldsref{registry}!
 </a>
 
 </li>
 
 <li>
-<a class="bodytext" title="Arată legat partener registrele" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Arată partenere conectate registre" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Parteneri
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="Crearea unei noi monede" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
-Creaţi moneda
+<a class="bodytext" title="Creaţi o nouă monedă" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
+Crea moneda
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="Valute arată în" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Arată monede
+<a class="bodytext" title="Arată valute în" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Arată valute
 </a>
 </li>
 
 <li>
-<a class="bodytext"title="Crea Ad categorie" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Creaţi anunţul categorie
+<a class="bodytext"title="Creaţi noi anunţuri categorie" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Creaţi anunţuri categorie
 </a>
 </li>
 
@@ -262,37 +270,43 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Soldurile registru
+Registru solduri
 </a>
 </li>
 
 <li>
-<a title="Creare regulă sau limita de Credit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+<a title="Creare regulă sau limită de Credit" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Limita de credit
 </a>
 </li>
 
 <li>
-<a title="Crea la distanţă sau locale Registry partener" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Crea locale sau Remote Registry partener" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Creare registru partener
 </a>
 </li>
 
 <li>
-<a title="Taxa de Service se aplică tuturor conturilor" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Se aplică taxă de Service
+<a title="Se aplică o taxă de Service la toate conturile" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Se aplică o taxă de Service
+</a>
+</li>
+
+<li>
+<a title="Obţine conturile care au un cod Pin blocat sau o parolă blocat" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Obţine blocat conturile
 </a>
 </li>
 
 <li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
-Creaţi lotul Dirs
+A crea lot Dirs
 </a>
 </li>
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Modifica $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 
@@ -300,7 +314,7 @@ Modifica $$fieldsref{registry}
 
 </div>
 
-<!-- Tag-ul cloud şi statistici utilizator individual -->
+<!-- Tag cloud şi utilizator statistici -->
 
 <div id="content">
 

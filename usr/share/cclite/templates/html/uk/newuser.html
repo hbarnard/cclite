@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Reg ім'я
+REG ім'я
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- Примітка явні шлях у cookie налаштування, інакше шлях значення для cgi-bin -->
+<!-- Примітка явний шлях у cookie налаштування, інакше шлях має значення для cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -79,7 +79,7 @@ Reg ім'я
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Підтвердження пароля
+Підтвердження паролю
 </td>
 
 <td class="pme-value-0">
@@ -123,7 +123,7 @@ Reg ім'я
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Назви вулиці
+Назва вулиці
 </td>
 
 <td class="pme-value-1">
@@ -153,7 +153,7 @@ Reg ім'я
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Повіт/держави
+Повіт/область
 </td>
 
 <td class="pme-value-1">
@@ -183,7 +183,7 @@ Reg ім'я
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Фіксований телефон
+Фіксований телефонний
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ PIN-код для мобільного телефону угод
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Квитанції про сплату SMS
+SMS оплата квитанцій
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ PIN-код для мобільного телефону угод
 
 <tr class="pme-row-1">
 
-<td title="Це громадськості ключових ідентифікатор для зашифрованих угоди" class="pme-key-0">
-Громадська ключа Id
+<td title="Це громадськості ключових id для зашифрованих угоди" class="pme-key-0">
+Громадськості ключових Id
 </td>
 
 <td class="pme-value-1">
@@ -282,11 +282,11 @@ PIN-код для мобільного телефону угод
 </option>
 
 <option value="de">
-Deutsch
+Дейч
 </option>
 
 <option value="fr">
-Френ
+Фран
 </option>
 
 </select>
@@ -324,7 +324,7 @@ Deutsch
 
 <td class="pme-buttons">
 
-<!-- Ми стерти реєстру cookie тут, в іншому випадку вона буде запобігти чистої входу до системи пізніше -->
+<!-- Ми стерти реєстру печива тут, в іншому випадку вона буде запобігти чистої входу пізніше -->
 
 <input class="pme-save"
  name="saveadd" value="Створити" onClick="eraseCookie('registry');" type="submit">

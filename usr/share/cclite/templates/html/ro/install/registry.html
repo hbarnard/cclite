@@ -12,8 +12,8 @@ $$fieldsref{error}
 
 <tr class="pme-row-0">
 
-<td title="numele de definire a grup de tranzacţionare, un singur cuvânt fără spații de date" class="pme-key-0">
-Nume registru
+<td title="numele bazei de date de definire a grup de tranzacţionare, un cuvânt fără spaţii" class="pme-key-0">
+Registru numele
 <br>
 
 </td>
@@ -42,7 +42,7 @@ Descrierea registru
 
 </tr>
 
-<tr title="adresa şi contul utilizat pentru a trimite email-uri oficiale pentru acest grup" class="pme-row-0">
+<tr title="Adresa şi contul utilizat pentru a trimite email-uri oficiale pentru acest grup" class="pme-row-0">
 
 <td class="pme-key-0">
 Manager Email
@@ -57,8 +57,8 @@ Manager Email
 
 </tr>
 
-<td title="parola pentru contul de poştă electronică admin" class="pme-key-0">
-Manager Email parola
+<td title="parola pentru contul de email admin" class="pme-key-0">
+Parola de E-mail Manager
 <br>
 
 </td>
@@ -70,10 +70,10 @@ Manager Email parola
 
 </tr>
 
-<tr title="contul în cazul în care sunt primite tranzacţiilor de e-mailuri pot fi la fel ca admin" class="pme-row-1">
+<tr title="contul în cazul în care sunt primite e-mailuri tranzacţii pot fi la fel ca admin" class="pme-row-1">
 
 <td class="pme-key-1">
-E-mail pentru tranzacţii pe loturi
+E-mail pentru tranzacţiile de lot
 <br>
 
 </td>
@@ -85,8 +85,8 @@ E-mail pentru tranzacţii pe loturi
 
 </tr>
 
-<td title="parola pentru contul de poştă electronică pe loturi" class="pme-key-0">
-Lot E-mail Password
+<td title="parola pentru contul de email lot" class="pme-key-0">
+Parola de E-mail lot
 <br>
 
 </td>
@@ -108,7 +108,7 @@ Sistemul de tarifare Model
 
 <select class="pme-input-1" name="chargetype">
 <option value="equaltime">
-Egalitatea
+Egalitatea de şanse
 </option>
 <option selected value="market">
 Ratele de piaţă
@@ -118,10 +118,10 @@ Ratele de piaţă
 
 </tr>
 
-<tr title="nu utilizează în prezent dar definește modelul Comisiei" class="pme-row-1">
+<tr title="nu utilizează în prezent dar defineşte modelul Comisiei" class="pme-row-1">
 
 <td class="pme-key-1">
-Sistem Comisiei Model
+Model de Comisia sistem
 </td>
 
 <td class="pme-value-1">
@@ -129,11 +129,11 @@ Sistem Comisiei Model
 <select class="pme-input-1" name="commission">
 
 <option selected value="no">
-Comisia nu
+Fara comision
 </option>
 
 <option value="yes">
-Comisia Bazat Registry
+Comisia bazate pe Registry
 </option>
 
 </select>
@@ -152,7 +152,7 @@ Model de abonament
 <select class="pme-input-1" name="subscription">
 
 <option selected value="no">
-Nici un abonament
+Fără abonament
 </option>
 
 <option value="yes">
@@ -164,10 +164,10 @@ Pe bază de abonament
 
 </tr>
 
-<tr title="definește limita angajamentul pentru toate valutele în acest registru, convertite la cenţi automat dacă zecimale moneda" class="pme-row-1">
+<tr title="definește limita de angajament pentru toate monedele în acest registru, convertit la cenţi automat dacă zecimale moneda" class="pme-row-1">
 
 <td class="pme-key-1">
-Limită globală de angajament
+Limita de angajament global
 <br>
 
 </td>
@@ -179,10 +179,10 @@ Limită globală de angajament
 
 </tr>
 
-<tr title="serverul cheie utilizate: id cheie publică pentru acest registru în prezent pentru e-mail tranzacţii numai" class="pme-row-1">
+<tr title="server cheie folosite: public id-cheie pentru acest registru în prezent pentru tranzacţiile de e-mail numai" class="pme-row-1">
 
 <td class="pme-key-1">
-ID-ul Server: Public cheie cheie
+Cheie Server: Public id-cheie
 <br>
 
 </td>
@@ -196,10 +196,10 @@ ID-ul Server: Public cheie cheie
 
 </tr>
 
-<tr title="nu utilizează în prezent dar defineşte dacă geografica zona sau speciale de interes"  class="pme-row-1">
+<tr title="nu utilizează în prezent dar defineşte dacă geografice zona sau interese speciale"  class="pme-row-1">
 
 <td class="pme-key-1">
-Acoperă zonă geografică?
+Zonă geografică acoperă?
 </td>
 
 <td class="pme-value-1">
@@ -219,10 +219,10 @@ nu
 
 </tr>
 
-<tr title="nu folosit în prezent dar defineşte posturi sau codurile zip astfel încât registrele publice poate fi etichetate şi mapate" class="pme-row-1">
+<tr title="nu folosit în prezent dar defineşte mesaje sau zip coduri, astfel încât registre publice poate fi geocoded şi mapate" class="pme-row-1">
 
 <td class="pme-key-1">
-Postcodes sau latitudine, longitudine
+Coduri poştale sau latitudine, longitudine
 </td>
 
 <td class="pme-value-1">
@@ -233,10 +233,10 @@ Postcodes sau latitudine, longitudine
 
 </tr>
 
-<tr title="utilizat pentru a furniza negustor cheie pentru elgg, drupal si conectori os-comerţ" class="pme-row-1">
+<tr title="folosit pentru a oferi comerciant cheie, pentru elgg, drupal şi conectori de os-commerce" class="pme-row-1">
 
 <td class="pme-key-1">
-Negustor cheie
+Comerciant cheie
 </td>
 
 <td class="pme-value-1">
@@ -247,7 +247,7 @@ Negustor cheie
 
 </tr>
 
-<tr title="utilizat, în principiu, să se limiteze conectori pentru anumite IP-urile, cu uşurinţă falsificata, probabil" class="pme-row-1">
+<tr title="utilizate, în principiu, să limiteze conectori la anumite IP-uri, uşor falsificata, probabil" class="pme-row-1">
 
 <td class="pme-key-1">
 Permite comerciant la adrese IP
@@ -265,7 +265,7 @@ Permite comerciant la adrese IP
 
 </table>
 
-<!-- Acest lucru este un experiment, va transforma legătura config rosu, dacă db parola este gresita -->
+<!-- Acesta este un experiment, va transforma link-ul de configurare roşu, dacă db parola este gresita -->
 $$fieldsref{script}
 <hr class="pme-hr">
 

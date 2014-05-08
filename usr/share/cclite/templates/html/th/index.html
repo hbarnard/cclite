@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- ออกแบบ โดยแม่แบบ CSS ฟรี&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
+<!-- ออกแบบ ด้วย CSS ฟรีแม่แบบ&#xD;	http://www.freecsstemplates.org&#xD;	ปล่อยฟรีภายใต้ใบอนุญาตสร้างสรรค์คอมมอนส์แสดงที่มา 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite ! fieldsref $ {รุ่น} ผู้ใช้
+Cclite ! fieldsref$ {รุ่น} ผู้ใช้
 </title>
 
 <meta name="keywords" content="" />
@@ -32,7 +32,7 @@ Cclite ! fieldsref $ {รุ่น} ผู้ใช้
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- stylesheets -->
+<!-- สไตล์ชีต -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -51,12 +51,15 @@ $$fieldsref{metarefresh}
 
 <!-- datatables ในภายหลัง -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- ไลบรารีของ javascript จำเป็นต้องแทนที่การบีบอัดรุ่นบางขั้นตอน -->
 
-<!-- รายการที่ jquery -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- จาวาสคริปต์ไลบรารี ต้องการรุ่นบีบแทนได้ -->
+
+<!-- สินค้า jquery -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- คนอื่นไม่ใช่ jquery -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- นี้คือสคริปต์ที่ล็อกผู้ใช้ออกเมื่อจะมีการนำระบบลง -->
+<!-- เป็นสคริปต์ที่ล็อกผู้ใช้ออกเมื่อมีการนำระบบลง -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +122,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- สวิตช์นี้เปิด on/off สิ่งจุดทศนิยม -->
+<!-- นี้สวิตช์ เปิด/ปิดสิ่งจุดทศนิยม -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -148,22 +152,22 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='ad'>
-Adverts
+โฆษณา
 </option>
 
 </select>
 
-<input value="ไป" class="small" type="submit" title="ค้นหาเทรด โฆษณา หรือผู้ใช้">
+<input value="ไป" class="small" type="submit" title="ค้นหาการค้า โฆษณา หรือผู้ใช้">
 
 </form>
 
-<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องการค้นหา -->
+<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องค้นหา -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- รุ่นตัวเลือกภาษา 1 -->
+<!-- เลือกภาษา 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +191,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- ภาษาเลือกรุ่น 1 จบ -->
+<!-- ภาษาตัวเลือกรุ่น 1 จบ -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -224,7 +228,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="การจัดการเมนู" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="จัดการเมนู" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="การจัดการเมนูในแท็บใหม่" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="จัดการเมนูในแท็บใหม่" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -244,8 +248,8 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="สกุลเงินโอนหรือชั่วโมง" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-ชำระเงิน
+<a title="โอนย้ายสกุลเงินหรือชั่วโมง" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+การชำระเงิน
 </a>
 </li>
 
@@ -264,28 +268,28 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="รายการ Openids" href="/cgi-bin/cclite.cgi?action=showopenid">
-รายการ Openids
+<a title="Openids รายการ" href="/cgi-bin/cclite.cgi?action=showopenid">
+Openids รายการ
 </a>
 
 </li>
 
 <li>
 <a title="สร้างบัญชีใหม่" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-บัญชีผู้ใช้ใหม่
+บัญชีใหม่
 </a>
 
 </li>
 
 <li>
 <a title="ปรับเปลี่ยนรายละเอียดบัญชีของคุณ" href="/cgi-bin/cclite.cgi?action=modifyuser">
-การปรับเปลี่ยนบัญชีผู้ใช้
+แก้ไขบัญชี
 </a>
 </li>
 
 <li>
 <a title="แบ่งการชำระเงินสำหรับสินค้าหรือบริการ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-แยกการชำระเงิน
+แบ่งการชำระเงิน
 </a>
 </li>
 
@@ -302,7 +306,7 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="แสดงสินค้าและการบริการไดเรกทอรี" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+<a title="แสดงสินค้าและบริการไดเรกทอรี" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 สินค้า/บริการ
 </a>
 </li>
@@ -323,7 +327,7 @@ $$fieldsref{latest_news}
 
 </div>
 
-<!-- แท็กเมฆินทร์และสถิติของแต่ละผู้ใช้ -->
+<!-- เมฆแท็กและสถิติของผู้ใช้แต่ละ -->
 
 <div id="content">
 
@@ -338,7 +342,7 @@ $$fieldsref{latest_news}
 <div valign="top" id="secondaryContent">
 
 <h3>
-โฆษณาประเภท
+ประเภทโฆษณา
 </h3>
 $$fieldsref{righthandside}
 <br/>
@@ -358,7 +362,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-ภายในบ้าน
+บ้าน
 </a>
 |
 <a href="#">

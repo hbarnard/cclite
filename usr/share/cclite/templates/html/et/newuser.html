@@ -37,7 +37,7 @@ Reg nimi
 
 <td style="vertical-align: top;">
 
-<!-- Küpsis on seatud, ei tee märkus otseselt tee väärtuseks on seatud cgi-bin puhul -->
+<!-- Märkus otsene tee väärtus küpsise seadmine, muidu teed on seatud cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Reg nimi
 
 <tr class="pme-row-1">
 
-<td title="On vaja rohkem kui 3 märkide, tähtede, numbrite ja ainult _" class="pme-key-0">
+<td title="Peab olema üle 3 märkide, tähtede, numbrite ja _ ainult" class="pme-key-0">
 Konto nimi
 <br>
 
@@ -65,7 +65,7 @@ Konto nimi
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Parool
+Parooli
 </td>
 
 <td class="pme-value-0">
@@ -79,7 +79,7 @@ Parool
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Kinnitage parool
+Kinnita parool
 </td>
 
 <td class="pme-value-0">
@@ -93,7 +93,7 @@ Kinnitage parool
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-E-post
+E-posti
 </td>
 
 <td class="pme-value-1">
@@ -108,7 +108,7 @@ E-post
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Arv/maja nimi
+Number/maja nimi
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ Mobiiltelefon
 
 <td class="pme-value-1">
 
-<input title="Palun asetage see number on rahvusvahelises vormingus 44777766666" class="pme-input-1"
+<input title="Palun panna see number on rahvusvahelises vormingus 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ Mobiiltelefon
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-PIN-koodi mobiiltelefoni tehingute puhul
+Mobiiltelefon tehingud PIN
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ PIN-koodi mobiiltelefoni tehingute puhul
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Kinnitage PIN-kood mobiiltelefoni tehingute puhul
+Kinnitage Pin mobiiltelefon tehingud
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ Kinnitage PIN-kood mobiiltelefoni tehingute puhul
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-SMS-I maksekviitungid
+SMS maksekviitungid
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ SMS-I maksekviitungid
 
 <tr class="pme-row-1">
 
-<td title="see on krüptitud tehingute avaliku võtme id" class="pme-key-0">
+<td title="See on krüpteeritud tehingud avaliku võtme id" class="pme-key-0">
 Avaliku võtme Id
 </td>
 
@@ -298,7 +298,7 @@ Fran
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Täielik nimi
+Täisnimi
 </td>
 
 <td class="pme-value-0">
@@ -324,10 +324,10 @@ Täielik nimi
 
 <td class="pme-buttons">
 
-<!-- Me kustutada registri-küpsise, ta teile takistavad puhta sisselogimise hiljem -->
+<!-- me kustutada registri küpsise siin, muidu saate takistada puhas sisselogimise hiljem -->
 
 <input class="pme-save"
- name="saveadd" value="Loomine" onClick="eraseCookie('registry');" type="submit">
+ name="saveadd" value="Loo" onClick="eraseCookie('registry');" type="submit">
 &nbsp;
 <input class="pme-cancel"
  name="cancel" value="Selge" type="reset">

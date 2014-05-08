@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Nombre de reg
+Nombre de REG
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- Nota ruta de acceso explícita valor en cookie ajuste, ruta de lo contrario se establece en cgi-bin -->
+<!-- Nota ruta explícita valor de cookie ajuste, camino de lo contrario se establece para cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,8 +47,8 @@ Nombre de reg
 
 <tr class="pme-row-1">
 
-<td title="Debe ser más de 3 caracteres, letras, números y _ sólo" class="pme-key-0">
-Nombre de cuenta
+<td title="Debe ser más de tres caracteres, letras, números y _ sólo" class="pme-key-0">
+Nombre de la cuenta
 <br>
 
 </td>
@@ -108,7 +108,7 @@ Correo electrónico
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Número/nombre de casa
+Número/nombre de la casa
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ Confirmar Pin para transacciones de teléfono móvil
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Recibos de pago de SMS
+Recibos de pago SMS
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ Recibos de pago de SMS
 
 <tr class="pme-row-1">
 
-<td title="Este es el id de clave público para transacciones cifradas" class="pme-key-0">
-Id de clave pública
+<td title="Este es el id de clave público para transacciones encriptadas" class="pme-key-0">
+Id de clave público
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ Nombre completo
 
 <td class="pme-buttons">
 
-<!-- nos borra la cookie de registro aquí, de lo contrario te evitar una limpia de inicio de sesión más tarde -->
+<!-- borrar las cookies de registro aquí, de lo contrario podrá prevenir una conexión limpia después -->
 
 <input class="pme-save"
  name="saveadd" value="Crear" onClick="eraseCookie('registry');" type="submit">

@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- تصميم قوالب CSS مجانية&#xD;	http://www.freecsstemplates.org&#xD;	أطلق سراحهم بموجب "الإبداعي العموم تحميل 2.5 رخصة" مجاناً -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +13,7 @@
 
 
 <title>
-ككليتي $$fieldsref{version} تثبيت
+Cclite !$$fieldsref{version}! Install
 </title>
 
 <meta name="keywords" content="" />
@@ -56,7 +58,7 @@ $$fieldsref{metarefresh}
 
 <!-- المكتبات جافا سكريبت، بحاجة إلى إصدارات الرواند ضغطها في مرحلة من المراحل -->
 
-<!-- العناصر مسج -->
+<!-- البنود مسج -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -108,7 +110,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- وهذا هو البرنامج النصي الذي المستخدمين بتسجيل الخروج عند هي التي أسقطت النظام -->
+<!-- وهذا هو البرنامج النصي الذي المستخدمين بتسجيل الخروج عندما يجري أسقطت النظام -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -134,7 +136,7 @@ $$fieldsref{distribution}
 $$fieldsref{status_message}
 </span>
 
-<!-- إصدار محدد اللغة 1 -->
+<!-- لغة محدد الإصدار 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -217,26 +219,32 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a id="updateconfig" title="تحديث كونيفجوريشن المخزنة في cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="تحديث التكوين المخزنة في cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 تحديث التكوين
 </a>
 </li>
 
 <li>
-<a id="newregistry" title="إنشاء سجل جديد" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
-إنشاء سجل جديد
+<a id="newregistry" title="إنشاء تسجيل جديد" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+إنشاء تسجيل جديد
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="وتظهر السجلات ككليتي الحالية" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+<a id="showregistry" title="وتظهر السجلات ككليتي الحالي" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 وتظهر السجلات
 </a>
 </li>
 
 <li>
 <a id="installcheck" title="تشغيل مدقق تثبيت" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-التحقق من متطلبات التثبيت
+التحقق من متطلبات تثبيت
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="عرض وتحديث readsms.cf عن جامو، الحاجة أيضا تحديث/etc/gammu-smsdrc يدوياً، راجع الأمثلة التي تم توفيرها" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+تحديث تكوين جامو
 </a>
 </li>
 
@@ -244,7 +252,7 @@ $$fieldsref{environment}
 
 </div>
 
-<!-- سحابة وإحصاءات المستخدم الفردية -->
+<!-- سحابة الوسم وإحصاءات المستخدم الفردية -->
 
 <div id="content">
 

@@ -88,12 +88,13 @@ sub check_cclite_preinstall {
         'mim|GnuPG'                 => '2:Mail/Jabber Encryption',
         'jab|Net::XMPP'             => '2:Jabber Transport',
         'fpt|File::Path'            => '0:OS Indep File Path',
- #       'gde|GD'                    => '2:Graphics for Graphs',
- #       'gde|GD::Text'              => '2:Graphics for Graphs',
- #       'gde|GD::Graph::lines'      => '2:Graphics for Graphs',
- #       'gds|GD::Graph::sparklines' => '2:Graphics for Graphs',
-        'cgi|CGI'                   => '0:CGI Module',
-        'ood|OpenOffice::OODoc'     => '2:Open Office for batch printing',
+
+        #       'gde|GD'                    => '2:Graphics for Graphs',
+        #       'gde|GD::Text'              => '2:Graphics for Graphs',
+        #       'gde|GD::Graph::lines'      => '2:Graphics for Graphs',
+        #       'gds|GD::Graph::sparklines' => '2:Graphics for Graphs',
+        'cgi|CGI'               => '0:CGI Module',
+        'ood|OpenOffice::OODoc' => '2:Open Office for batch printing',
     );
 
     foreach my $key ( sort keys %module ) {

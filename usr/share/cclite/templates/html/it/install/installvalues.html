@@ -21,14 +21,16 @@ Tutte le opzioni
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="Aggiornare la configurazione" type="submit">
+ name="saveadd" data-simple="yes" value="Configurazione aggiornamento" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="Questo è l'utente db MySQL" class="menu">
+<td title="Questo è l'utente db per mysql" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -39,7 +41,7 @@ dbuser
 </tr>
 
 <tr>
-<td title="Questa è la password del db MySQL" class="menu">
+<td title="Questa è la password per mysql db" class="menu">
 dbpassword
 </td>
 <td class="pme-key-1">
@@ -50,7 +52,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="prefisso di cpanel sperimentale, utilizzare con cura, uusally nome di utente cpanel" class="menu">
+<td title="prefisso sperimentale cpanel, uso con cura, il nome utente di cpanel uusally" class="menu">
 prefisso di cPanel
 </td>
 <td class="pme-key-1">
@@ -72,7 +74,7 @@ utilizzare i decimali
 </tr>
 
 <tr>
-<td title="utilizzare i tag di forma libera per pagine gialle invece categorie fisse" class="menu">
+<td title="utilizzare il tag forma libera per pagine gialle invece categorie fisse" class="menu">
 utilizzare il tag
 </td>
 <td class="pme-key-1">
@@ -82,10 +84,10 @@ utilizzare il tag
 </td>
 </tr>
 
-<!-- di seguito sono i parametri di pieni -->
+<!-- di seguito sono i parametri completo -->
 
 <tr>
-<td title="Questo è il dominio come dedotto dal percorso dello script, deve essere corretto per i cookie di lavorare" class="menu">
+<td title="Questo è il dominio, come dedotto dal percorso dello script, deve essere corretto per i cookie di lavorare" class="menu">
 dominio
 </td>
 <td class="pme-key-1">
@@ -118,7 +120,7 @@ Home
 </tr>
 
 <tr>
-<td title="Questo è il tipo di hash utilizzato per calcoli token e password, sha2 è preferito, non può essere modificato/misto una volta impostare" class="menu">
+<td title="Questo è il tipo di hash utilizzato per password e calcoli token, sha2 è comodo, non può essere cambiato/misto una volta impostato" class="menu">
 tipo di hash
 </td>
 <td class="pme-key-1">
@@ -140,8 +142,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="stato iniziale di un pagamento effettuato, se l'attesa viene richiesta una conferma di ricezione di utente" class="pme-key-title">
-stato del pagamento iniziale
+<td title="stato iniziale di un pagamento effettuato, se attesa richiederà conferma di ricezione dell'utente" class="pme-key-title">
+stato iniziale pagamento
 </td>
 <td class="pme-key-1">
 
@@ -151,7 +153,7 @@ stato del pagamento iniziale
 </tr>
 
 <tr>
-<td title="lo stato iniziale di un utente, se non confermato viene richiesta una conferma via email utente" class="pme-key-title">
+<td title="lo stato iniziale di un utente, se non confermato richiederà conferma via email dell'utente" class="pme-key-title">
 stato iniziale dell'utente
 </td>
 <td class="pme-key-1">
@@ -162,7 +164,7 @@ stato iniziale dell'utente
 </tr>
 
 <tr>
-<td title="lingua predefinita per i messaggi e i modelli" class="pme-key-title">
+<td title="linguaggio predefinito per i messaggi e i modelli" class="pme-key-title">
 lingua
 </td>
 <td class="pme-key-1">
@@ -209,7 +211,7 @@ percorso per i messaggi
 </tr>
 
 <tr>
-<td title="Se no, non hanno bisogno di moduli Soap::Lite" class="menu">
+<td title="Se no, non serve Soap::Lite moduli" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -240,7 +242,7 @@ multiregistry?
 </tr>
 
 <tr>
-<td title="non utilizzata direttamente, ma possono essere inclusi nei modelli personalizzati" class="pme-key-title">
+<td title="non utilizzati direttamente, ma possono essere inclusi nei modelli personalizzati" class="pme-key-title">
 supporto mail
 </td>
 <td class="pme-key-1">
@@ -253,7 +255,7 @@ supporto mail
 <!-- Questo non è necessariamente un indirizzo email valido, può essere solo un utente interno per accedere al server di posta -->
 
 <tr>
-<td title="utilizzato per inviare la posta e collegarsi al server smtp, istituito nel cpanel, se necessario, prima" class="menu">
+<td title="utilizzato per inviare posta e collegarsi al server smtp, istituito nel cpanel, se necessario, prima" class="menu">
 indirizzo di posta di sistema
 </td>
 <td >
@@ -267,7 +269,7 @@ indirizzo di posta di sistema
 
 <tr>
 <td title="utilizzato per accendere Net::SMTP per le notifiche ecc questo è preferito e sarà l'unica opzione in futuro, 0 o 1" class="menu">
-NET smtp?
+netto smtp?
 </td>
 <td >
 
@@ -278,7 +280,7 @@ NET smtp?
 
 <tr>
 <td title="password per accedere a un indirizzo di posta elettronica di sistema all'interno di server smtp" class="menu">
-password di posta elettronica di sistema
+password di posta di sistema
 </td>
 <td >
 
@@ -289,7 +291,7 @@ password di posta elettronica di sistema
 
 <tr>
 <td title="indirizzo di risposta per email generata, spesso una-non-risposta" class="pme-key-title">
-indirizzo di risposta mail System
+indirizzo di posta elettronica di risposta sistema
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ indirizzo di risposta mail System
 </tr>
 
 <tr>
-<td title="percorso per i file di modello utilizzato per l'interfaccia web, niente tanto funzionerà se questo è sbagliato!" class="menu">
+<td title="percorso per i file di modello utilizzato per l'interfaccia web, niente molto funzionerà se questo è sbagliato!" class="menu">
 modelli
 </td>
 <td class="pme-key-1">
@@ -312,8 +314,8 @@ modelli
 <!-- sezione che tratta con i file batch -->
 
 <tr>
-<td title="base di output path per i grafici di attività sotto radice web, nome del Registro di sistema viene aggiunto a questo percorso" class="pme-key-title">
-directory grafico
+<td title="percorso per i grafici di attività sotto radice web base dell'output, nome del registro di sistema viene aggiunto a questo percorso" class="pme-key-title">
+directory di grafico
 </td>
 <td class="pme-key-1">
 
@@ -323,7 +325,7 @@ directory grafico
 </tr>
 
 <tr>
-<td title="richiedono moduli perl rss per la generazione di rss, se sì" class="pme-key-title">
+<td title="richiederà moduli rss perl per la generazione di rss, se sì" class="pme-key-title">
 UseRSS
 </td>
 <td class="pme-key-1">
@@ -344,7 +346,7 @@ UseRSS
 </tr>
 
 <tr>
-<td title="base caricare percorso per le operazioni batch, non dovrebbe essere sotto radice web" class="pme-key-title">
+<td title="base caricare percorso per operazioni batch, non dovrebbe essere sotto radice web" class="pme-key-title">
 CSV directory
 </td>
 <td class="pme-key-1">
@@ -354,19 +356,14 @@ CSV directory
 </td>
 </tr>
 
-<tr>
-<td title="posta in arrivo per gammu ricevuto sms, non è richiesto per gateway sms http" class="pme-key-title">
-SMS inbox
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="posta in arrivo per la posta, vecchio metodo sostituito da posta pop in ciascun registro" class="pme-key-title">
+<td title="posta in arrivo per posta, vecchio metodo sostituito da posta pop in ciascun registro" class="pme-key-title">
 readmail.pl directory
 </td>
 <td class="pme-key-1">
@@ -388,7 +385,7 @@ CSV fuori
 </tr>
 
 <tr>
-<td title="uscita di base path per materiale stampato sotto radice web, nome del Registro di sistema e linguaggio viene aggiunto a questo percorso" class="pme-key-title">
+<td title="base uscita percorso per materiale stampato sotto radice web, nome del registro di sistema e linguaggio viene aggiunto a questo percorso" class="pme-key-title">
 percorso di stampa
 </td>
 <td class="pme-key-1">
@@ -399,8 +396,8 @@ percorso di stampa
 </tr>
 
 <tr>
-<td title="uscita di base path per rss, il nome del Registro di sistema e linguaggio viene aggiunto a questo percorso" class="pme-key-title">
-base feed directory
+<td title="base uscita percorso per rss, nome del registro di sistema e linguaggio viene aggiunto a questo percorso" class="pme-key-title">
+base alimentazione directory
 </td>
 <td class="pme-key-1">
 
@@ -410,7 +407,7 @@ base feed directory
 </tr>
 
 <tr>
-<td title="base di directory per gammu risultati, non è richiesto per gateway sms http" class="pme-key-title">
+<td title="directory per risultati gammu, non necessaria per gateway sms http di base" class="pme-key-title">
 SMS fuori
 </td>
 <td class="pme-key-1">
@@ -421,7 +418,7 @@ SMS fuori
 </tr>
 
 <tr>
-<td title="gammu input elaborato localmente se 1, altrimenti questo utilizza soap per l'elaborazione remota" class="pme-key-title">
+<td title="Gammu ingresso elaborato localmente se è 1, altrimenti questo utilizza soap per elaborare in remoto" class="pme-key-title">
 sms locali?
 </td>
 <td class="pme-key-1">
@@ -443,7 +440,7 @@ sms locali?
 
 <tr>
 <td title="percorso al file di configurazione Log4perl" class="pme-key-title">
-percorso configurazione logger
+percorso configurazione Logger
 </td>
 <td class="pme-key-1">
 

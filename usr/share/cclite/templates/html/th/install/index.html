@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- ออกแบบ โดยแม่แบบ CSS ฟรี&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
+<!-- ออกแบบ ด้วย CSS ฟรีแม่แบบ&#xD;	http://www.freecsstemplates.org&#xD;	ปล่อยฟรีภายใต้ใบอนุญาตสร้างสรรค์คอมมอนส์แสดงที่มา 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite ! fieldsref $ {รุ่น} การติดตั้ง
+Cclite ! fieldsref$ {รุ่น} การติดตั้ง
 </title>
 
 <meta name="keywords" content="" />
@@ -32,7 +32,7 @@ Cclite ! fieldsref $ {รุ่น} การติดตั้ง
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- stylesheets -->
+<!-- สไตล์ชีต -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -54,9 +54,9 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- ไลบรารีของ javascript จำเป็นต้องแทนที่การบีบอัดรุ่นบางขั้นตอน -->
+<!-- จาวาสคริปต์ไลบรารี ต้องการรุ่นบีบแทนได้ -->
 
-<!-- รายการที่ jquery -->
+<!-- สินค้า jquery -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- นี้คือสคริปต์ที่ล็อกผู้ใช้ออกเมื่อจะมีการนำระบบลง -->
+<!-- เป็นสคริปต์ที่ล็อกผู้ใช้ออกเมื่อมีการนำระบบลง -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -121,20 +121,20 @@ $$fieldsref{logout_script}
 <div id="distribution" class="hidden">
 $$fieldsref{distribution}
 </div>
-<!-- สวิตช์ปิดการสร้างโดยตรงหาก cpanel -->
+<!-- ปิดสร้างโดยตรงถ้าอี -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องการค้นหา -->
+<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องค้นหา -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- รุ่นตัวเลือกภาษา 1 -->
+<!-- เลือกภาษา 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -165,7 +165,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- ภาษาเลือกรุ่น 1 จบ -->
+<!-- ภาษาตัวเลือกรุ่น 1 จบ -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -187,7 +187,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-การติดตั้ง Cclite
+ติดตั้ง Cclite
 </a>
 </h1>
 
@@ -198,7 +198,7 @@ $$fieldsref{environment}
 <ul>
 
 <li class="first">
-<a title="กลุ่มของ Google สำหรับการสนับสนุน" href="http://groups.google.co.uk/group/cclite?hl=en">
+<a title="กลุ่ม Google สำหรับการสนับสนุน" href="http://groups.google.co.uk/group/cclite?hl=en">
 ต้องการความช่วยเหลือหรือไม่
 </a>
 </li>
@@ -217,8 +217,8 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a id="updateconfig" title="การปรับปรุงการจัดเก็บไว้ใน cclite.cf conifguration" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
-การปรับปรุงการตั้งค่าคอนฟิก
+<a id="updateconfig" title="กำหนดค่าปรับปรุงที่เก็บไว้ใน cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
+อัพเดตการตั้งค่าคอนฟิก
 </a>
 </li>
 
@@ -229,8 +229,8 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a id="showregistry" title="แสดง Registries Cclite ปัจจุบัน" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
-แสดง Registries
+<a id="showregistry" title="แสดงรีจิสทรี Cclite ปัจจุบัน" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+แสดงรีจิสทรี
 </a>
 </li>
 
@@ -240,11 +240,17 @@ $$fieldsref{environment}
 </a>
 </li>
 
+<li>
+<a id="updategammuconfig" title="แสดง และปรับปรุง readsms.cf สำหรับ Gammu ต้องยังให้อัพเด /etc/gammu-smsdrc ด้วยตนเอง ดูตัวอย่างที่ให้มา" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+อัพเดตการตั้งค่าคอนฟิก Gammu
+</a>
+</li>
+
 </ul>
 
 </div>
 
-<!-- แท็กเมฆินทร์และสถิติของแต่ละผู้ใช้ -->
+<!-- เมฆแท็กและสถิติของผู้ใช้แต่ละ -->
 
 <div id="content">
 
@@ -266,7 +272,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-ภายในบ้าน
+บ้าน
 </a>
 |
 <a href="#">

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Desain oleh Free CSS template&#xD;	http://www.freecsstemplates.org&#xD;	Dirilis secara gratis di bawah Creative Commons Attribution 2.5 License -->
+<!-- Desain Free CSS template&#xD;	http://www.freecsstemplates.org&#xD;	Dirilis secara gratis di bawah Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables kemudian -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript perpustakaan, perlu subsitute dikompresi versi pada tahap tertentu -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript Perpustakaan, perlu versi subsitute dikompresi pada tahap tertentu -->
 
 <!-- jQuery item -->
 
@@ -79,9 +82,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
-<!-- orang lain non jquery -->
+<!-- lain bebas jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- ini adalah script yang log pengguna keluar ketika sistem dibawa turun -->
+<!-- ini adalah script yang log pengguna keluar saat sistem sedang dibawa ke bawah -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +122,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- switch ini ternyata on/off barang titik desimal -->
+<!-- switch ini ternyata/barang titik desimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -224,7 +228,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="Administrasi menu" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Menu administrasi" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="Administrasi menu di tab baru" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="menu administrasi di tab baru" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -244,7 +248,7 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Mentransfer mata uang atau jam" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+<a title="Transfer mata uang atau jam" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
 Pembayaran
 </a>
 </li>
@@ -271,8 +275,8 @@ Daftar Openids
 </li>
 
 <li>
-<a title="Membuat akun baru" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-Account baru
+<a title="Buat akun baru" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Akun baru
 </a>
 
 </li>
@@ -284,13 +288,13 @@ Mengubah Account
 </li>
 
 <li>
-<a title="Split pembayaran atas barang atau jasa" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+<a title="Split pembayaran untuk barang atau jasa" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Split pembayaran
 </a>
 </li>
 
 <li>
-<a title="Tampilkan transaksi saya" href="/cgi-bin/cclite.cgi?action=showtrans">
+<a title="Menunjukkan transaksi saya" href="/cgi-bin/cclite.cgi?action=showtrans">
 Transaksi
 </a>
 </li>
@@ -302,19 +306,19 @@ Saldo
 </li>
 
 <li>
-<a title="Menunjukkan barang dan layanan direktori" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+<a title="Tampilkan barang dan layanan direktori" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Barang/jasa
 </a>
 </li>
 
 <li>
-<a title="Menampilkan iklan saya dalam barang-barang dan layanan direktori" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+<a title="Tampilkan iklan saya di barang-barang dan layanan direktori" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Iklan saya
 </a>
 </li>
 
 <li>
-<a title="Buat halaman untuk barang dan layanan direktori" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
+<a title="Buat halaman untuk barang-barang dan layanan direktori" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 Menempatkan iklan
 </a>
 </li>
@@ -323,7 +327,7 @@ Menempatkan iklan
 
 </div>
 
-<!-- Tag awan dan pengguna individu statistik -->
+<!-- Tag awan dan statistik pengguna individu -->
 
 <div id="content">
 

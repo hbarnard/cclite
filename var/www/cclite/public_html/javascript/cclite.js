@@ -186,6 +186,7 @@ var language_keys = new Array(
 "hungarian-hu",
 "finnish-fi",
 "hebrew-he",
+"romainian-ro",
 "haitian-ht"
 ) ;
 

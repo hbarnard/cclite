@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design von Free CSS-Vorlagen&#xD;	http://www.freecsstemplates.org&#xD;	Kostenlos veröffentlicht unter einer Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +13,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Admin
+Cclite !$$fieldsref{version}! Admin
 </title>
 
 <meta name="keywords" content="" />
@@ -51,10 +53,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables für später -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript-Bibliotheken, müssen irgendwann Subsitute komprimierte Versionen -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript-Bibliotheken müssen Subsitute komprimierte Versionen irgendwann -->
 
 <!-- jQuery-Elemente -->
 
@@ -76,6 +81,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- andere nicht Jquery -->
@@ -118,7 +126,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- durch diese Befehlszeilenoption wird ein-und Ausschalten der Dezimalpunkt-Stoff -->
+<!-- durch diese Befehlszeilenoption wird ein-/ausschalten der Dezimalpunkt-Stoff -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -148,22 +156,22 @@ Benutzer
 </option>
 
 <option value='ad'>
-Werbung
+Anzeigen
 </option>
 
 </select>
 
-<input value="Gehen" class="small" type="submit" title="Für Handel, Werbung oder Benutzer suchen">
+<input value="Gehen" class="small" type="submit" title="Suchen Sie nach Handel, anzeigen oder Benutzer">
 
 </form>
 
-<!-- Ende der AutoVervollständigen-Suchfeld -->
+<!-- Ende des AutoVervollständigen-Suchfeld -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- Selektor Sprachversion 1 -->
+<!-- Language-Selector-Version 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -246,7 +254,7 @@ Währung zu erstellen
 
 <li>
 <a class="bodytext" title="Währungen anzeigen" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Währungen anzeigen
+Karte-Währungen
 </a>
 </li>
 
@@ -273,14 +281,20 @@ Kreditlimit
 </li>
 
 <li>
-<a title="Erstellen Sie entfernte oder lokale Registrierung Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Erstellen Sie lokale oder entfernte Registry-Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Registrierung Partner erstellen
 </a>
 </li>
 
 <li>
 <a title="Service-Gebühr für alle Konten gelten" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Servicegebühr anwenden
+Gelten Servicegebühr
+</a>
+</li>
+
+<li>
+<a title="Konten mit einer Pin gesperrt und/oder ein Kennwort gesperrt zu bekommen" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Erhalten gesperrte Konten
 </a>
 </li>
 
@@ -292,7 +306,7 @@ Erstellen von Batch-Dirs
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Ändern $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 

@@ -11,7 +11,7 @@ $$fieldsref{updatemessage}
 <select class="small" name="install_type" id="install_type" onchange="change_install();">
 
 <option selected value="simple">
-วิ
+ง่าย
 </option>
 
 <option value="full">
@@ -21,14 +21,16 @@ $$fieldsref{updatemessage}
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="การปรับปรุงการตั้งค่าคอนฟิก" type="submit">
+ name="saveadd" data-simple="yes" value="อัพเดตการตั้งค่าคอนฟิก" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="นี้คือผู้ใช้ฐานข้อมูล mysql" class="menu">
+<td title="โดยผู้ใช้ฐานข้อมูลใน mysql" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -50,8 +52,8 @@ dbpassword
 </tr>
 
 <tr>
-<td title="นำหน้าทดลอง cpanel ใช้ ด้วยความระมัดระวัง ชื่อผู้ใช้ cpanel uusally" class="menu">
-คำนำหน้าของ cpanel
+<td title="นำหน้าอีทดลอง ใช้กับดูแล ชื่อผู้ใช้อี uusally" class="menu">
+อีนำหน้า
 </td>
 <td class="pme-key-1">
 
@@ -72,7 +74,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="ใช้แบบฟอร์มฟรีแท็กสำหรับสมุดหน้าเหลืองแทนประเภทถาวร" class="menu">
+<td title="ใช้แบบฟอร์มฟรีแท็กในสมุดหน้าเหลืองแทนประเภทถาวร" class="menu">
 ใช้แท็ก
 </td>
 <td class="pme-key-1">
@@ -82,10 +84,10 @@ dbpassword
 </td>
 </tr>
 
-<!-- ด้านล่างนี่เป็นพารามิเตอร์เต็มรูปแบบ -->
+<!-- ด้านล่างนี่คือพารามิเตอร์ทั้งหมด -->
 
 <tr>
-<td title="นี้คือ โดเมนเป็น deduced จากเส้นทางสคริปต์ จำเป็นต้องถูกต้องสำหรับคุกกี้ในการทำงาน" class="menu">
+<td title="นี้เป็นโดเมน deduced จากเส้นทางสคริปต์ จำเป็นต้องถูกต้องสำหรับคุกกี้ทำงาน" class="menu">
 โดเมน
 </td>
 <td class="pme-key-1">
@@ -96,7 +98,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="นี่คือเซิร์ฟเวอร์ smtp สำหรับ mail สำหรับ cpanel เดียวกันมักจะเป็นชื่อโดเมน localhost หรือ ip สำหรับเซิร์ฟเวอร์ภายใน" class="menu">
+<td title="เป็นเซิร์ฟเวอร์ smtp จดหมาย อีมักจะเหมือนกับชื่อโดเมน localhost หรือ ip สำหรับเซิร์ฟเวอร์ภายใน" class="menu">
 เซิร์ฟเวอร์ smtp
 </td>
 <td class="pme-key-1">
@@ -107,7 +109,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="หลักผู้ใช้สคริปต์สำหรับ cclite" class="menu">
+<td title="สคริปต์ผู้ใช้หลักการ cclite" class="menu">
 หน้าแรก
 </td>
 <td class="pme-key-1">
@@ -118,7 +120,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="นี้เป็นชนิดของการแฮชที่ใช้สำหรับรหัสผ่านและโทเค็นการคำนวณ sha2 พิจารณาเป็นพิเศษ ไม่สามารถเปลี่ยนแปลง/แบบผสมครั้งเดียวตั้ง" class="menu">
+<td title="เป็นแฮใช้รหัสผ่านและโทเค็นการคำนวณ sha2 ถูกต้อง ไม่สามารถเปลี่ยนแปลง/ผสมกันตั้ง" class="menu">
 ชนิดของแฮช
 </td>
 <td class="pme-key-1">
@@ -140,8 +142,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="สถานะเริ่มต้นของการชำระ ถ้ารอจะต้องมีการยืนยัน โดยผู้ใช้ที่ได้รับ" class="pme-key-title">
-สถานะการชำระเงินครั้งแรก
+<td title="สถานะเริ่มต้นของการชำระเงิน ถ้ารอจะต้องยืนยัน โดยผู้ใช้ที่ได้รับ" class="pme-key-title">
+สถานะการชำระเงินเริ่มต้น
 </td>
 <td class="pme-key-1">
 
@@ -151,7 +153,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="สถานะเริ่มต้นของผู้ใช้ ถ้า unconfirmed จะต้องการการยืนยันทางอีเมล์ของผู้ใช้" class="pme-key-title">
+<td title="สถานะเริ่มต้นของผู้ใช้ ถ้าไม่ได้จะต้องมีการยืนยันทางอีเมล์ของผู้ใช้" class="pme-key-title">
 สถานะของผู้ใช้เริ่มต้น
 </td>
 <td class="pme-key-1">
@@ -179,7 +181,7 @@ htmlpath
 -->
 
 <tr>
-<td title="จำนวนบรรทัดที่หน้าจอสำหรับการรายงานแบบตาราง" class="pme-key-title">
+<td title="จำนวนบรรทัดที่หน้าจอสำหรับตารางรายงาน" class="pme-key-title">
 บรรทัดต่อหน้า
 </td>
 <td class="pme-key-1">
@@ -190,7 +192,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="เส้นทางไปยังแฟ้มข้อความ ไม่มีอะไรที่จะทำงานนี้จะไม่ถูกต้อง" class="menu">
+<td title="เส้นทางไปยังแฟ้มข้อความ ไม่มีอะไรจะทำงานถ้าไม่ถูกต้อง" class="menu">
 เส้นทางสำหรับข้อความ
 </td>
 <td class="pme-key-1">
@@ -209,7 +211,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="ถ้าไม่มี ไม่จำเป็นต้องโมดูล Soap::Lite" class="menu">
+<td title="ถ้าไม่ ไม่ต้องโม Soap::Lite" class="menu">
 multiregistry
 </td>
 <td class="pme-key-1">
@@ -240,7 +242,7 @@ multiregistry
 </tr>
 
 <tr>
-<td title="ไม่ใช้โดยตรง แต่สามารถถูกรวมไว้ในแม่แบบกำหนดเอง" class="pme-key-title">
+<td title="ไม่ใช้โดยตรง แต่สามารถรวมแม่แบบกำหนดเอง" class="pme-key-title">
 สนับสนุนจดหมาย
 </td>
 <td class="pme-key-1">
@@ -250,11 +252,11 @@ multiregistry
 </td>
 </tr>
 
-<!-- นี้ไม่จำเป็นต้องเป็น e-mail ถูกต้อง สามารถเป็นเพียงผู้ที่ภายในการเข้าสู่ระบบเซิร์ฟเวอร์จดหมาย -->
+<!-- นี้ไม่จำเป็นต้องมีที่อยู่อีเมล์ที่ถูกต้อง สามารถเพียงภายในผู้ใช้เข้าสู่ระบบเซิร์ฟเวอร์จดหมาย -->
 
 <tr>
-<td title="ใช้ในการส่งจดหมาย และการล็อกอินเข้าสู่เซิร์ฟเวอร์ smtp ตั้งค่าใน cpanel ถ้าจำเป็น แรก" class="menu">
-ระบบเมล์แอดเดรส
+<td title="ใช้ในการส่งจดหมาย และเข้าสู่ระบบไปยังเซิร์ฟเวอร์ smtp ตั้งอี ถ้าจำเป็น แรก" class="menu">
+ระบบที่อยู่
 </td>
 <td >
 
@@ -263,11 +265,11 @@ multiregistry
 </td>
 </tr>
 
-<!-- นี้ไม่จำเป็นต้องเป็น e-mail ถูกต้อง สามารถเป็นเพียงผู้ที่ภายในการเข้าสู่ระบบเซิร์ฟเวอร์จดหมาย -->
+<!-- นี้ไม่จำเป็นต้องมีที่อยู่อีเมล์ที่ถูกต้อง สามารถเพียงภายในผู้ใช้เข้าสู่ระบบเซิร์ฟเวอร์จดหมาย -->
 
 <tr>
-<td title="ใช้เมื่อต้องการสลับบน Net::SMTP สำหรับการแจ้งเตือนฯลฯ นี้ที่ต้องการ และจะเป็นตัวเลือกในอนาคต 0 หรือ 1" class="menu">
-สุทธิ smtp ได้อย่างไร
+<td title="ใช้สลับกับ Net::SMTP สำหรับการแจ้งเตือนเป็นต้นนี้ถูกต้อง และจะมีตัวเลือกเฉพาะในอนาคต 0 หรือ 1" class="menu">
+smtp สุทธิ
 </td>
 <td >
 
@@ -277,8 +279,8 @@ multiregistry
 </tr>
 
 <tr>
-<td title="รหัสผ่านสำหรับเข้าสู่ระบบอีเมล์ภายในเซิร์ฟเวอร์ smtp" class="menu">
-รหัสผ่านของระบบ mail
+<td title="รหัสผ่านสำหรับเข้าสู่ระบบระบบอีเมล์ภายในเซิร์ฟเวอร์ smtp" class="menu">
+รหัสผ่านระบบ
 </td>
 <td >
 
@@ -288,8 +290,8 @@ multiregistry
 </tr>
 
 <tr>
-<td title="ข้อความตอบกลับที่อยู่สำหรับการสร้างอีเมล์ มักจะเลือกทำไม่ตอบกลับ" class="pme-key-title">
-ระบบจดหมายตอบกลับอยู่
+<td title="ที่อยู่ตอบกลับสำหรับสร้างอีเมล์ มักทำไม่ตอบกลับ" class="pme-key-title">
+ตอบระบบที่อยู่
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ multiregistry
 </tr>
 
 <tr>
-<td title="เส้นทางสำหรับแฟ้มแม่แบบที่ใช้สำหรับอินเทอร์เฟซของเว็บ ไม่มีอะไรมากจะทำงานนี้จะไม่ถูกต้อง" class="menu">
+<td title="เส้นทางสำหรับแฟ้มแม่แบบที่ใช้สำหรับอินเทอร์เฟซของเว็บ ไม่มีอะไรมากจะทำงานถ้าไม่ถูกต้อง" class="menu">
 แม่แบบ
 </td>
 <td class="pme-key-1">
@@ -309,10 +311,10 @@ multiregistry
 </td>
 </tr>
 
-<!-- ส่วนจัดการกับชุดแฟ้ม -->
+<!-- ส่วนจัดการกับไฟล์ -->
 
 <tr>
-<td title="ฐานแสดงเส้นทางสำหรับแผนภูมิกิจกรรมภายใต้รากของเว็บ ชื่อของรีจิสทรีถูกเพิ่มเข้าไปเส้นทางนี้" class="pme-key-title">
+<td title="ฐานแสดงเส้นทางสำหรับแผนภูมิกิจกรรมภายใต้เว็บราก ชื่อของรีจิสทรีถูกเพิ่มเข้าไปเส้นทางนี้" class="pme-key-title">
 ไดเรกทอรีของแผนภูมิ
 </td>
 <td class="pme-key-1">
@@ -323,7 +325,7 @@ multiregistry
 </tr>
 
 <tr>
-<td title="จะต้องโม rss perl สำหรับสร้าง rss ถ้าใช่" class="pme-key-title">
+<td title="จะต้องใช้ภาษาเพิร์ล rss โมสำหรับสร้าง rss ถ้าใช่" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,7 +346,7 @@ userss
 </tr>
 
 <tr>
-<td title="base อัปโหลดเส้นทางที่ใช้สำหรับธุรกรรมชุด ไม่ควรภายใต้รากของเว็บ" class="pme-key-title">
+<td title="ฐานอัปโหลดเส้นทางสำหรับธุรกรรมชุด ไม่ควรอยู่ภายใต้เว็บราก" class="pme-key-title">
 ไดเรกทอรี csv
 </td>
 <td class="pme-key-1">
@@ -354,19 +356,14 @@ userss
 </td>
 </tr>
 
-<tr>
-<td title="กล่องขาเข้าสำหรับ gammu ได้รับ sms ไม่จำเป็นสำหรับเกตเวย์ sms http" class="pme-key-title">
-กล่องขาเข้า sms
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="กล่องขาเข้าสำหรับ mail วิธีเก่าที่ถูกแทนที่ ด้วยจดหมายที่ยอดนิยมในแต่ละรีจิสทรี" class="pme-key-title">
+<td title="กล่องขาเข้าจดหมาย วิธีเก่าที่ถูกแทนที่ ด้วยจดหมายปรากฏในรีจิสทรีแต่ละ" class="pme-key-title">
 ไดเรกทอรี readmail.pl
 </td>
 <td class="pme-key-1">
@@ -377,7 +374,7 @@ userss
 </tr>
 
 <tr>
-<td title="เส้นทางเอาท์พุตพื้นฐานสำหรับธุรกรรม csv ภายใต้รากของเว็บ" class="pme-key-title">
+<td title="เส้นทางที่ออกพื้นฐานสำหรับธุรกรรม csv ภายใต้เว็บราก" class="pme-key-title">
 csv ออก
 </td>
 <td class="pme-key-1">
@@ -388,7 +385,7 @@ csv ออก
 </tr>
 
 <tr>
-<td title="พื้นฐานการแสดงผลเส้นทางการสำหรับวัสดุการพิมพ์ภายใต้รากของเว็บ รีจิสทรีชื่อ และภาษาที่ถูกเพิ่มเข้าไปเส้นทางนี้" class="pme-key-title">
+<td title="พื้นฐานออกเส้นทางนี้เพิ่มเส้นทางสำหรับสิ่งพิมพ์ภายใต้เว็บราก รีจิสทรีชื่อ และภาษา" class="pme-key-title">
 พิมพ์เส้นทาง
 </td>
 <td class="pme-key-1">
@@ -399,8 +396,8 @@ csv ออก
 </tr>
 
 <tr>
-<td title="พื้นฐานการแสดงผลเส้นทางสำหรับ rss รีจิสทรีชื่อ และภาษาที่ถูกเพิ่มเข้าไปเส้นทางนี้" class="pme-key-title">
-ไดเรกทอรีที่ตัวดึงข้อมูลของ base
+<td title="ฐานผลเส้นทาง rss รีจิสทรีชื่อ และภาษาเพิ่มเส้นทางนี้" class="pme-key-title">
+ฐานอาหารไดเรกทอรี
 </td>
 <td class="pme-key-1">
 
@@ -410,7 +407,7 @@ csv ออก
 </tr>
 
 <tr>
-<td title="พื้นฐานออกจากไดเรกทอรีสำหรับผลลัพธ์ gammu ไม่จำเป็นสำหรับเกตเวย์ sms http" class="pme-key-title">
+<td title="พื้นฐานออกไดเรกทอรีสำหรับ gammu ผล ไม่จำเป็นสำหรับเกตเวย์ sms http" class="pme-key-title">
 sms ออก
 </td>
 <td class="pme-key-1">
@@ -421,8 +418,8 @@ sms ออก
 </tr>
 
 <tr>
-<td title="ป้อนข้อมูล gammu การประมวลผลในเครื่องถ้า 1 มิฉะนั้นนี้ใช้สบู่ในการประมวลผลจากระยะไกล" class="pme-key-title">
-sms ในเครื่องได้อย่างไร
+<td title="ป้อนข้อมูล gammu ที่ประมวลผลในเครื่องถ้า 1 มิฉะนั้นนี้ใช้สบู่กระบวนการระยะไกล" class="pme-key-title">
+sms ท้องถิ่น
 </td>
 <td class="pme-key-1">
 
@@ -443,7 +440,7 @@ sms ในเครื่องได้อย่างไร
 
 <tr>
 <td title="เส้นทางไปยังแฟ้มการกำหนดค่า Log4perl" class="pme-key-title">
-เส้นทางที่สามารถ config
+เส้นทางที่กำหนดค่าล็อกเกอร์
 </td>
 <td class="pme-key-1">
 

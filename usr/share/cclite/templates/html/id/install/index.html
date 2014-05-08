@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Desain oleh Free CSS template&#xD;	http://www.freecsstemplates.org&#xD;	Dirilis secara gratis di bawah Creative Commons Attribution 2.5 License -->
+<!-- Desain Free CSS template&#xD;	http://www.freecsstemplates.org&#xD;	Dirilis secara gratis di bawah Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -54,7 +54,7 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- JavaScript perpustakaan, perlu subsitute dikompresi versi pada tahap tertentu -->
+<!-- JavaScript Perpustakaan, perlu versi subsitute dikompresi pada tahap tertentu -->
 
 <!-- jQuery item -->
 
@@ -81,7 +81,7 @@ $$fieldsref{metarefresh}
 
 <!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
-<!-- orang lain non jquery -->
+<!-- lain bebas jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- ini adalah script yang log pengguna keluar ketika sistem dibawa turun -->
+<!-- ini adalah script yang log pengguna keluar saat sistem sedang dibawa ke bawah -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -121,7 +121,7 @@ $$fieldsref{logout_script}
 <div id="distribution" class="hidden">
 $$fieldsref{distribution}
 </div>
-<!-- Matikan penciptaan langsung jika cpanel -->
+<!-- mematikan penciptaan langsung jika cpanel -->
 
 <br/>
 
@@ -187,7 +187,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Cclite Install
+Cclite menginstal
 </a>
 </h1>
 
@@ -211,20 +211,20 @@ Admin Menu
 </li>
 
 <li>
-<a title="Pengguna Menu" href="/cgi-bin/cclite.cgi">
-Pengguna Menu
+<a title="Menu pengguna" href="/cgi-bin/cclite.cgi">
+Menu pengguna
 </a>
 </li>
 
 <li>
-<a id="updateconfig" title="Memperbarui conifguration disimpan dalam cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Update konfigurasi disimpan dalam cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 Memperbarui konfigurasi
 </a>
 </li>
 
 <li>
-<a id="newregistry" title="Membuat baru registri" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
-Membuat baru registri
+<a id="newregistry" title="Buat baru Registry" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+Buat baru Registry
 </a>
 </li>
 
@@ -236,7 +236,13 @@ Tujuh
 
 <li>
 <a id="installcheck" title="Menjalankan Pemeriksa Install" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-Periksa persyaratan Install
+Periksa persyaratan instalasi
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Menampilkan dan memperbarui readsms.cf untuk Gammu, perlu juga untuk update /etc/gammu-smsdrc secara manual, lihat contoh-contoh yang diberikan" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Memperbarui konfigurasi Gammu
 </a>
 </li>
 
@@ -244,7 +250,7 @@ Periksa persyaratan Install
 
 </div>
 
-<!-- Tag awan dan pengguna individu statistik -->
+<!-- Tag awan dan statistik pengguna individu -->
 
 <div id="content">
 

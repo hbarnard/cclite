@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Thiết kế miễn phí CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Phát hành miễn phí dưới một Creative Commons Attribution 2.5 License -->
+<!-- Thiết kế bởi miễn phí CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Phát hành miễn phí dưới một Creative Commons Attribution 2,5 giấy phép -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables cho sau này -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- thư viện JavaScript, cần phải nén subsitute Phiên bản ở một số giai đoạn -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- thư viện JavaScript, cần phải subsitute nén Phiên bản ở một số giai đoạn -->
 
 <!-- jQuery mục -->
 
@@ -76,6 +79,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- những người khác không jquery -->
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Đây là kịch bản mà bản ghi người dùng ra ngoài khi hệ thống được được đưa -->
+<!-- đây là kịch bản mà bản ghi người dùng ra ngoài khi hệ thống được được đưa -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +124,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- chuyển đổi này sẽ chuyển thành/tắt những thứ daáu thaäp phaân -->
+<!-- Điều này chuyển biến bật/tắt những thứ daáu thaäp phaân -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- tìm kiếm người dùng, ngành nghề, quảng cáo -->
+<!-- Tìm kiếm cho người sử dụng, giao dịch, quảng cáo -->
 
 <br/>
 
@@ -140,7 +146,7 @@ $$fieldsref{usedecimals}
 <select id="search_type" class="small" name="search_type">
 
 <option selected value='trade'>
-Các giao dịch
+Giao dịch
 </option>
 
 <option value='user'>
@@ -157,13 +163,13 @@ Quảng cáo
 
 </form>
 
-<!-- kết thúc của hộp tìm kiếm tự hoàn tất -->
+<!-- kết thúc của hộp tìm kiếm autocomplete -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- chọn ngôn ngữ phiên bản 1 -->
+<!-- Phiên bản chọn ngôn ngữ 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -208,7 +214,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a title="Giao diện hành chính cho Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+<a title="Các giao diện hành chính cho Cclite" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite Admin
 </a>
 </h1>
@@ -233,14 +239,14 @@ Thay đổi trạng thái của $$fieldsref{registry}
 </li>
 
 <li>
-<a class="bodytext" title="Hiển thị các liên kết đối tác đăng ký" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Hiển thị liên kết đối tác đăng ký" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Đối tác
 </a>
 </li>
 
 <li>
 <a class="bodytext" title="Tạo ra một đồng tiền tệ mới" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
-Tạo tiền tệ
+Tạo ra
 </a>
 </li>
 
@@ -251,8 +257,8 @@ Hiển thị các loại tiền tệ
 </li>
 
 <li>
-<a class="bodytext"title="Tạo thể loại quảng cáo mới" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Tạo ra thể loại quảng cáo
+<a class="bodytext"title="Tạo loại quảng cáo mới" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Tạo quảng cáo thể loại
 </a>
 </li>
 
@@ -273,14 +279,20 @@ Hạn mức tín dụng
 </li>
 
 <li>
-<a title="Tạo từ xa hoặc địa phương đăng ký đối tác" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-Tạo Registry đối tác
+<a title="Tạo đăng ký từ xa hoặc địa phương đối tác" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Tạo đối tác đăng ký
 </a>
 </li>
 
 <li>
 <a title="Áp dụng phí phục vụ cho tất cả tài khoản" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 Áp dụng phí dịch vụ
+</a>
+</li>
+
+<li>
+<a title="Nhận các tài khoản có một Pin khóa và/hoặc một khóa mật khẩu" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Nhận được bị khóa tài khoản
 </a>
 </li>
 
@@ -300,7 +312,7 @@ Sửa đổi $$fieldsref{registry}
 
 </div>
 
-<!-- từ khóa và thống kê người dùng cá nhân -->
+<!-- từ khóa đám mây và số liệu thống kê người dùng cá nhân -->
 
 <div id="content">
 

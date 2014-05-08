@@ -27,6 +27,8 @@ Alle Optionen
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
 <td title="Dies ist der Db-Benutzer für mysql" class="menu">
 dbuser
@@ -50,8 +52,8 @@ dbpassword
 </tr>
 
 <tr>
-<td title="experimentelle Cpanel Präfix, mit Sorgfalt, Uusally Cpanel Benutzername" class="menu">
-cPanel Präfix
+<td title="experimentelle Cpanel Präfix, mit Sorgfalt, Uusally-Cpanel-Benutzernamen" class="menu">
+cPanel-Präfix
 </td>
 <td class="pme-key-1">
 
@@ -72,7 +74,7 @@ Dezimalzahlen verwenden
 </tr>
 
 <tr>
-<td title="Verwenden Sie freie Form-Tags für Gelbe Seiten anstelle von festen Kategorien" class="menu">
+<td title="Verwenden Sie Free-Form-Tags für Gelben Seiten anstelle von festen Kategorien" class="menu">
 Verwenden Sie tags
 </td>
 <td class="pme-key-1">
@@ -85,7 +87,7 @@ Verwenden Sie tags
 <!-- unten hier sind die vollständigen Parameter -->
 
 <tr>
-<td title="Dies ist die Domäne, wie aus der Skriptpfad abgeleitet, für Cookies arbeiten korrekt sein muss" class="menu">
+<td title="Dies ist die Domäne, wie aus der Skriptpfad abgeleitet, muss für Cookies arbeiten korrekt sein" class="menu">
 Domäne
 </td>
 <td class="pme-key-1">
@@ -96,7 +98,7 @@ Domäne
 </tr>
 
 <tr>
-<td title="Dies ist der smtp-Server für Mail, für Cpanel normalerweise genauso wie Domain-Namen, Localhost oder Ip für interne Server" class="menu">
+<td title="Dies ist der smtp-Server für Mail, für Cpanel in der Regel identisch mit Domain-Namen, "localhost" oder Ip für interne Server" class="menu">
 SMTP-server
 </td>
 <td class="pme-key-1">
@@ -108,7 +110,7 @@ SMTP-server
 
 <tr>
 <td title="wichtigsten Benutzerskript für cclite" class="menu">
-Home
+Startseite
 </td>
 <td class="pme-key-1">
 
@@ -118,7 +120,7 @@ Home
 </tr>
 
 <tr>
-<td title="Dies ist der Hash für Passwort und token Berechnungen verwendet, sha2 wird bevorzugt, kann nicht geändert/gemischt einmal eingerichtet werden" class="menu">
+<td title="Dies ist für Passwort und token Berechnungen verwendeten Hash-Typ, sha2 wird bevorzugt, kann nicht geändert/mixed einmal eingerichtet werden" class="menu">
 Hash-Typ
 </td>
 <td class="pme-key-1">
@@ -140,7 +142,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="anfänglichen Status einer Zahlung vorgenommen, wenn wartende Bestätigung benötigen, erhalten Benutzer" class="pme-key-title">
+<td title="Ausgangszustand der eine Zahlung, wenn wartende Bestätigung durch den Benutzer Empfang" class="pme-key-title">
 erste Zahlungsstatus
 </td>
 <td class="pme-key-1">
@@ -151,7 +153,7 @@ erste Zahlungsstatus
 </tr>
 
 <tr>
-<td title="anfänglichen Status eines Benutzers, wenn unbestätigte wird durch Benutzer Email Bestätigung erfordern." class="pme-key-title">
+<td title="Ausgangszustand eines Benutzers, wenn unbestätigte erfordert Benutzer e-Mail Bestätigung" class="pme-key-title">
 anfängliche Anwenderstatus
 </td>
 <td class="pme-key-1">
@@ -209,7 +211,7 @@ Pfad für Nachrichten
 </tr>
 
 <tr>
-<td title="Wenn Nein, brauchen Sie nicht SOAP:: Lite-Module" class="menu">
+<td title="Wenn Nein, brauchst nicht SOAP:: Lite-Module" class="menu">
 Multiregistry?
 </td>
 <td class="pme-key-1">
@@ -250,10 +252,10 @@ Unterstützung für Webmail
 </td>
 </tr>
 
-<!-- Dies kann ist nicht unbedingt eine gültige e-Mail-Adresse, nur ein interner Benutzer zur Anmeldung bei des Mail-Servers -->
+<!-- Dies kann ist nicht unbedingt eine gültige e-Mail-Adresse, nur ein interner Benutzer zur Anmeldung bei der Mail-server -->
 
 <tr>
-<td title="Mail senden und auf smtp-Server, eingerichtet in Cpanel, ggf. zuerst einloggen" class="menu">
+<td title="zum Senden von e-Mail und melden Sie smtp Server, eingerichtet in Cpanel, falls erforderlich, erste" class="menu">
 System-Mail-Adresse
 </td>
 <td >
@@ -263,10 +265,10 @@ System-Mail-Adresse
 </td>
 </tr>
 
-<!-- Dies kann ist nicht unbedingt eine gültige e-Mail-Adresse, nur ein interner Benutzer zur Anmeldung bei des Mail-Servers -->
+<!-- Dies kann ist nicht unbedingt eine gültige e-Mail-Adresse, nur ein interner Benutzer zur Anmeldung bei der Mail-server -->
 
 <tr>
-<td title="zum Umschalten auf Net::SMTP für Benachrichtigungen etc. Dies wird bevorzugt und wird in Zukunft die einzige Möglichkeit, 0 oder 1" class="menu">
+<td title="verwendet, um Net::SMTP zum Benachrichtigungen etc. Dies wird bevorzugt und wird in Zukunft die einzige Option einschalten, 0 oder 1" class="menu">
 net smtp?
 </td>
 <td >
@@ -288,8 +290,8 @@ System-Mail-Kennwort
 </tr>
 
 <tr>
-<td title="Antwortadresse für generierte e-Mails, oft tun-nicht-Antwort" class="pme-key-title">
-System e-Mail-Antwortadresse
+<td title="Antwortadresse für generierte e-Mails, oft eine-Not-reply" class="pme-key-title">
+System-Mail-Antwort-Adresse
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ System e-Mail-Antwortadresse
 </tr>
 
 <tr>
-<td title="Pfad für Template-Dateien für die Webschnittstelle verwendet, funktioniert nichts viel, wenn dies falsch ist!" class="menu">
+<td title="Pfad für Template-Dateien für das Web-Interface verwendet, funktioniert nichts viel, wenn das falsch ist!" class="menu">
 Vorlagen
 </td>
 <td class="pme-key-1">
@@ -344,7 +346,7 @@ userss
 </tr>
 
 <tr>
-<td title="Base upload Pfad für Batchtransaktionen, sollten nicht unter Web-root" class="pme-key-title">
+<td title="Base hochladen Pfad für Batchtransaktionen, sollten nicht unter Web-root" class="pme-key-title">
 CSV-Verzeichnis
 </td>
 <td class="pme-key-1">
@@ -354,19 +356,14 @@ CSV-Verzeichnis
 </td>
 </tr>
 
-<tr>
-<td title="Posteingang für Gammu empfangen Sms, http Sms-Gateways nicht erforderlich" class="pme-key-title">
-SMS-Eingangsbox
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="Posteingang für Mail, alte Methode ersetzt durch Einw Post in jedes Register" class="pme-key-title">
+<td title="Posteingang für Mail, alte Methode ersetzt per pop Post in jeder Registrierung" class="pme-key-title">
 readmail.pl Verzeichnis
 </td>
 <td class="pme-key-1">
@@ -378,7 +375,7 @@ readmail.pl Verzeichnis
 
 <tr>
 <td title="Base Ausgabepfad für Csv-Transaktionen unter Web-root" class="pme-key-title">
-CSV heraus
+CSV aus
 </td>
 <td class="pme-key-1">
 
@@ -389,7 +386,7 @@ CSV heraus
 
 <tr>
 <td title="Basis-Ausgabe Pfad für gedrucktes Material unter Web-Root, Registrierungsname und Sprache wird dieser Pfad hinzugefügt" class="pme-key-title">
-drucken Pfad
+Druckpfad
 </td>
 <td class="pme-key-1">
 
@@ -443,7 +440,7 @@ lokale Sms?
 
 <tr>
 <td title="Pfad zur Konfigurationsdatei Log4perl" class="pme-key-title">
-Datenlogger Config Pfad
+Datenlogger-Config-Pfad
 </td>
 <td class="pme-key-1">
 

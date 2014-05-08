@@ -12,7 +12,7 @@ $$fieldsref{error}
 
 <tr class="pme-row-0">
 
-<td title="andmebaasi määratlemine kaubandusgrupp, ühe sõna ilma tühikuteta nimi" class="pme-key-0">
+<td title="andmebaasi määratlemine kauplemise grupp, ühe sõna ilma tühikuteta nimi" class="pme-key-0">
 Registri nimi
 <br>
 
@@ -29,7 +29,7 @@ Registri nimi
 
 <tr class="pme-row-0">
 
-<td title="kauplemisele rühma lühike kirjeldus" class="pme-key-0">
+<td title="kauplemine rühma Lühikirjeldus" class="pme-key-0">
 Registri kirjeldus
 <br>
 
@@ -42,10 +42,10 @@ Registri kirjeldus
 
 </tr>
 
-<tr title="aadress ja ametlike e-kirju saata selle rühma jaoks kasutatav konto" class="pme-row-0">
+<tr title="aadressi ning saata ametlik e-kirju selle rühma jaoks kasutatav konto" class="pme-row-0">
 
 <td class="pme-key-0">
-Manager e-posti
+Juhi e-posti
 <br>
 
 </td>
@@ -57,7 +57,7 @@ Manager e-posti
 
 </tr>
 
-<td title="admin e-posti konto jaoks parool" class="pme-key-0">
+<td title="admin email konto parool" class="pme-key-0">
 Manager saada salasõna
 <br>
 
@@ -70,10 +70,10 @@ Manager saada salasõna
 
 </tr>
 
-<tr title="Kui e-kirju tehingud on saanud konto võib olla sama admin" class="pme-row-1">
+<tr title="kuhu sai kirju tehingute konto võib olla sama admin" class="pme-row-1">
 
 <td class="pme-key-1">
-Tehinguid e-posti aadressi
+Email pakk-kanded
 <br>
 
 </td>
@@ -85,7 +85,7 @@ Tehinguid e-posti aadressi
 
 </tr>
 
-<td title="partii e-posti konto jaoks parool" class="pme-key-0">
+<td title="partii e-posti konto parool" class="pme-key-0">
 Partii saada salasõna
 <br>
 
@@ -98,10 +98,10 @@ Partii saada salasõna
 
 </tr>
 
-<tr title="praegu ei kasutata, kuid määratletakse kauplemise mudel" class="pme-row-1">
+<tr title="praegu ei kasutata, kuid määratleb kauplemise mudel" class="pme-row-1">
 
 <td nowrap class="pme-key-1">
-Süsteemi maksustamise mudel
+Süsteemi laadimine mudel
 </td>
 
 <td class="pme-value-1">
@@ -111,7 +111,7 @@ Süsteemi maksustamise mudel
 Võrdõiguslikkuse
 </option>
 <option selected value="market">
-Turul
+Alusel
 </option>
 </select>
 </td>
@@ -129,7 +129,7 @@ Süsteemi komisjoni mudel
 <select class="pme-input-1" name="commission">
 
 <option selected value="no">
-Ükski komisjoni
+Puudub komisjoni
 </option>
 
 <option value="yes">
@@ -141,10 +141,10 @@ Komisjon tugines register
 
 </tr>
 
-<tr title="praegu ei kasutata, kuid määratletakse märkimise mudel" class="pme-row-1">
+<tr title="praegu ei kasutata, kuid määratleb tellimise mudel" class="pme-row-1">
 
 <td class="pme-key-1">
-Kordustellimuste mudel
+Tellimise mudel
 </td>
 
 <td class="pme-value-1">
@@ -152,11 +152,11 @@ Kordustellimuste mudel
 <select class="pme-input-1" name="subscription">
 
 <option selected value="no">
-Ole tellitud
+Tellimust ei
 </option>
 
 <option value="yes">
-Tellimuse alusel
+Liitumisleping põhinev
 </option>
 
 </select>
@@ -164,10 +164,10 @@ Tellimuse alusel
 
 </tr>
 
-<tr title="määratakse kindlaks kulukohustuste piirmäära kõigi valuutade puhul selles registris senti teisendatakse automaatselt kui kümnendkoha valuuta" class="pme-row-1">
+<tr title="määratleb kohustuse piirmäär kõikide valuutade selles registris senti teisendatakse automaatselt kui komakohtade valuuta" class="pme-row-1">
 
 <td class="pme-key-1">
-Üldise kohustuse piirmäär
+Üldise kulukohustuse piir
 <br>
 
 </td>
@@ -179,10 +179,10 @@ Tellimuse alusel
 
 </tr>
 
-<tr title="peamised serverist: see register praegu ainult e-posti tehingute puhul avaliku võtme id" class="pme-row-1">
+<tr title="peamised serverist: avaliku võtme id selles registris praegu email tehinguid ainult" class="pme-row-1">
 
 <td class="pme-key-1">
-Sisestage serveri: avaliku võtme ID-d
+Sisestage Server: avaliku võtme id
 <br>
 
 </td>
@@ -196,10 +196,10 @@ Sisestage serveri: avaliku võtme ID-d
 
 </tr>
 
-<tr title="praegu ei kasutata, kuid määratleb, kas geograafilise ala või erilist huvi"  class="pme-row-1">
+<tr title="praegu ei kasutata, kuid määratleb, kas geograafiline piirkond või erilist huvi"  class="pme-row-1">
 
 <td class="pme-key-1">
-Geograafiline piirkond hõlmab?
+Hõlmab geograafilist piirkonda?
 </td>
 
 <td class="pme-value-1">
@@ -219,10 +219,10 @@ Ei
 
 </tr>
 
-<tr title="ei kasutata praegu vaid määratleb ametikohtade või zip koodid nii, et riiklike registrite võib olla geocoded ja vastendatud" class="pme-row-1">
+<tr title="mitte kasutada praegu aga määratleb postitused või Postiindeksid, et avalike registrite saaks geocoded ja vastendatud" class="pme-row-1">
 
 <td class="pme-key-1">
-Postcodes või põhjalaiust, 9o
+Sihtnumbrid või laiuskraad, pikkuskraad
 </td>
 
 <td class="pme-value-1">
@@ -233,10 +233,10 @@ Postcodes või põhjalaiust, 9o
 
 </tr>
 
-<tr title="kasutatakse kaubalaevade võti kommentaar Fetion Alert, drupal ja os-kaubanduse konnektorid" class="pme-row-1">
+<tr title="kasutada kaupmees võti elgg, drupal ja os-kaubanduse konnektorid" class="pme-row-1">
 
 <td class="pme-key-1">
-Kaubalaevade võti
+Kaupmees võti
 </td>
 
 <td class="pme-value-1">
@@ -247,10 +247,10 @@ Kaubalaevade võti
 
 </tr>
 
-<tr title="kasutatakse üldjuhul piirata teatavate ips, kergesti spoofed ilmselt konnektorid" class="pme-row-1">
+<tr title="kasutatakse üldjuhul piirata teatud IP, kergesti võltsitud ilmselt pistikud" class="pme-row-1">
 
 <td class="pme-key-1">
-Võimaldada kaupmehe IP-aadressid
+Luba kaupmees IP-aadressid
 </td>
 
 <td class="pme-value-1">
@@ -265,7 +265,7 @@ Võimaldada kaupmehe IP-aadressid
 
 </table>
 
-<!-- see on eksperiment, muutub punaseks config lingi, kui andmebaasi parool on vale -->
+<!-- See on eksperiment, muutub punaseks config link, kui andmebaasi parooli valesti -->
 $$fieldsref{script}
 <hr class="pme-hr">
 

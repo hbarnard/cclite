@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Conception pa Modèles CSS gratis&#xD;	http://www.freecsstemplates.org&#xD;	Pou granmesi publié anba yon kreyativ Communes Attribution 2.5 lisans -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +13,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Admin
+Cclite !$$fieldsref{version}! Admin
 </title>
 
 <meta name="keywords" content="" />
@@ -51,10 +53,13 @@ $$fieldsref{metarefresh}
 
 <!-- datatables pou pi ta -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- javascript bibliyotèk, bezwen pou subsitute compressés vèsyon sèn nan kèk -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- javascript, bibliyotèk, ou bay vèsyon subsitute compressés ou bezwen nan sèn nan kèk -->
 
 <!-- atik jquery -->
 
@@ -76,6 +81,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- gen lòt ki pa jquery -->
@@ -108,7 +116,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- sa se script sa journaux utilisateurs soti lè sistèm nan te desann -->
+<!-- se sa rele script sa journaux utilisateurs soti lè sistèm lan te ki te desann -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -163,7 +171,7 @@ Annonces
 $$fieldsref{status_message}
 </span>
 
-<!-- lang sélection vèsyon 1 -->
+<!-- lang sélection vèsyon pipiti de youn 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -221,7 +229,7 @@ Cclite Admin
 
 <li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
-Meni utilisateur
+Kat utilisateur
 </a>
 </li>
 
@@ -233,7 +241,7 @@ Chanje estati yon bagay $$fieldsref{registry}
 </li>
 
 <li>
-<a class="bodytext" title="Montre Registres asosye ak lòt" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Montre asosye ak lòt Registres" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Patnè
 </a>
 </li>
@@ -273,7 +281,7 @@ Kredi Limit
 </li>
 
 <li>
-<a title="Kreye à ou asosye lokal rejis" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Kreye à ou lokal rejis asosye" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Kreye rejis asosye
 </a>
 </li>
@@ -285,6 +293,12 @@ Aplike sèvis Frais
 </li>
 
 <li>
+<a title="Koze ki gen yon Code fèmen ak/oubyen yon modpas akle" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Fè fèmen Comptes
+</a>
+</li>
+
+<li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
 Kreye par Répertoires
 </a>
@@ -292,7 +306,7 @@ Kreye par Répertoires
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Motifye $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 

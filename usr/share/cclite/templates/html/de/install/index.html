@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design von Free CSS-Vorlagen&#xD;	http://www.freecsstemplates.org&#xD;	Kostenlos veröffentlicht unter einer Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Kostenlos veröffentlicht unter einer Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Installieren
+Cclite !$$fieldsref{version}! Install
 </title>
 
 <meta name="keywords" content="" />
@@ -54,7 +54,7 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- JavaScript-Bibliotheken, müssen irgendwann Subsitute komprimierte Versionen -->
+<!-- JavaScript-Bibliotheken müssen Subsitute komprimierte Versionen irgendwann -->
 
 <!-- jQuery-Elemente -->
 
@@ -128,13 +128,13 @@ $$fieldsref{distribution}
 
 <div align="right">
 
-<!-- Ende der AutoVervollständigen-Suchfeld -->
+<!-- Ende des AutoVervollständigen-Suchfeld -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- Selektor Sprachversion 1 -->
+<!-- Language-Selector-Version 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -217,7 +217,7 @@ Benutzermenü
 </li>
 
 <li>
-<a id="updateconfig" title="Update Conifguration in cclite.cf gespeichert" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Update-Konfiguration gespeichert in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 Update-Konfiguration
 </a>
 </li>
@@ -229,14 +229,20 @@ Erstellen Sie neue Registrierung
 </li>
 
 <li>
-<a id="showregistry" title="Aktuelle Cclite Register anzeigen" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
-Register anzeigen
+<a id="showregistry" title="Anzeigen der aktuellen Cclite-Register" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+Karte-Register
 </a>
 </li>
 
 <li>
 <a id="installcheck" title="Führen Sie die Installation aus" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 Überprüfen Sie installieren
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Zeigen Sie an und aktualisieren Sie readsms.cf für Gammu, müssen auch /etc/gammu-smsdrc manuell aktualisieren, siehe mitgelieferte Beispiele" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Update Gammu-Konfiguration
 </a>
 </li>
 

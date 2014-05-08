@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Thiết kế miễn phí CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Phát hành miễn phí dưới một Creative Commons Attribution 2.5 License -->
+<!-- Thiết kế bởi miễn phí CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Phát hành miễn phí dưới một Creative Commons Attribution 2,5 giấy phép -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables sau này -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- thư viện JavaScript, cần phải nén subsitute Phiên bản ở một số giai đoạn -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- thư viện JavaScript, cần phải subsitute nén Phiên bản ở một số giai đoạn -->
 
 <!-- jQuery mục -->
 
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- những người khác không jquery -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Đây là kịch bản mà bản ghi người dùng ra ngoài khi hệ thống được được đưa -->
+<!-- đây là kịch bản mà bản ghi người dùng ra ngoài khi hệ thống được được đưa -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- chuyển đổi này sẽ chuyển thành/tắt những thứ daáu thaäp phaân -->
+<!-- Điều này chuyển biến bật/tắt những thứ daáu thaäp phaân -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- tìm kiếm người dùng, ngành nghề, quảng cáo -->
+<!-- Tìm kiếm cho người sử dụng, giao dịch, quảng cáo -->
 
 <br/>
 
@@ -140,7 +144,7 @@ $$fieldsref{usedecimals}
 <select id="search_type" class="small" name="search_type">
 
 <option selected value='trade'>
-Các giao dịch
+Giao dịch
 </option>
 
 <option value='user'>
@@ -157,13 +161,13 @@ Quảng cáo
 
 </form>
 
-<!-- kết thúc của hộp tìm kiếm tự hoàn tất -->
+<!-- kết thúc của hộp tìm kiếm autocomplete -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- chọn ngôn ngữ phiên bản 1 -->
+<!-- Phiên bản chọn ngôn ngữ 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -224,7 +228,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="Trình đơn chính" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Quản lý menu" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="chính quyền đơn trong thẻ mới" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="quản trị đơn trong tab mới" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -244,7 +248,7 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Chuyển tiền tệ hoặc giờ" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+<a title="Chuyển thu hoặc giờ" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
 Thanh toán
 </a>
 </li>
@@ -271,8 +275,8 @@ Danh sách Openids
 </li>
 
 <li>
-<a title="Tạo một tài khoản mới" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-Trương mục mới
+<a title="Tạo tài khoản mới" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Tài khoản mới
 </a>
 
 </li>
@@ -284,14 +288,14 @@ Sửa đổi tài khoản
 </li>
 
 <li>
-<a title="Tách thanh toán cho hàng hóa hoặc dịch vụ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+<a title="Split thanh toán cho hàng hoá hoặc dịch vụ" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 Split thanh toán
 </a>
 </li>
 
 <li>
 <a title="Hiển thị các giao dịch của tôi" href="/cgi-bin/cclite.cgi?action=showtrans">
-Các giao dịch
+Giao dịch
 </a>
 </li>
 
@@ -302,8 +306,8 @@ Số dư
 </li>
 
 <li>
-<a title="Hiển thị các hàng hoá và dịch vụ thư mục" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Hàng hóa/dịch vụ
+<a title="Hiển thị hàng hoá và dịch vụ thư mục" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+Sản phẩm/dịch vụ
 </a>
 </li>
 
@@ -323,7 +327,7 @@ Vị trí quảng cáo
 
 </div>
 
-<!-- từ khóa và thống kê người dùng cá nhân -->
+<!-- từ khóa đám mây và số liệu thống kê người dùng cá nhân -->
 
 <div id="content">
 

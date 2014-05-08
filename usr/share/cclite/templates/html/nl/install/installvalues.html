@@ -27,8 +27,10 @@ Alle opties
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="Dit is de mysql db gebruiker" class="menu">
+<td title="Dit is de db gebruiker voor mysql" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -62,7 +64,7 @@ cPanel voorvoegsel
 
 <tr>
 <td title="decimale komma display voor valuta 's" class="menu">
-decimalen gebruiken
+gebruiken decimalen
 </td>
 <td class="pme-key-1">
 
@@ -85,7 +87,7 @@ Labels gebruiken
 <!-- Hieronder hier zijn de volledige parameters -->
 
 <tr>
-<td title="Dit is het domein zoals afgeleid uit de aanmeldingsscriptpad, moet worden juiste voor cookies om te werken" class="menu">
+<td title="Dit is het domein zoals afgeleid uit het pad van het script, moet worden juiste voor cookies om te werken" class="menu">
 domein
 </td>
 <td class="pme-key-1">
@@ -129,7 +131,7 @@ Hash-type
 </tr>
 
 <tr>
-<td title="HTML, rss, uitvoerbestanden en grafieken, afgeleid van de document root binnen server" class="menu">
+<td title="HTML, rss, uitvoerbestanden en grafieken, afgeleid van de documenthoofdmap binnen server" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,7 +142,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="aanvankelijke status van een betaling, als wachten bevestiging vergt door gebruiker ontvangen" class="pme-key-title">
+<td title="aanvankelijke status van een betaling, als wachten bevestiging vergt door het ontvangen van de gebruiker" class="pme-key-title">
 eerste betalingsstatus
 </td>
 <td class="pme-key-1">
@@ -190,7 +192,7 @@ regels per pagina
 </tr>
 
 <tr>
-<td title="pad naar berichten bestand, niets werkt als dit verkeerd is!" class="menu">
+<td title="pad naar berichten bestand, niets zal werken als dit verkeerd is!" class="menu">
 pad voor berichten
 </td>
 <td class="pme-key-1">
@@ -253,7 +255,7 @@ ondersteuning e-mail
 <!-- Dit kan is niet noodzakelijkerwijs een geldig e-mailadres, alleen een interne gebruiker aanmelden bij de e-mailserver -->
 
 <tr>
-<td title="gebruikt voor het verzenden van e-mail en meld u aan bij SMTP-server instellen in cpanel, indien nodig, eerste" class="menu">
+<td title="gebruikt voor het verzenden van e-mail en log in op de SMTP-server instellen in cpanel, indien nodig, eerste" class="menu">
 systeem mailadres
 </td>
 <td >
@@ -266,7 +268,7 @@ systeem mailadres
 <!-- Dit kan is niet noodzakelijkerwijs een geldig e-mailadres, alleen een interne gebruiker aanmelden bij de e-mailserver -->
 
 <tr>
-<td title="gebruikt om over te schakelen op Net::SMTP voor meldingen etc. Dit heeft de voorkeur en zullen in de toekomst, de enige optie 0 of 1" class="menu">
+<td title="gebruikt om over te schakelen op Net::SMTP voor meldingen enz. Dit heeft de voorkeur en de enige optie in de toekomst zal zijn 0 of 1" class="menu">
 netto smtp?
 </td>
 <td >
@@ -277,7 +279,7 @@ netto smtp?
 </tr>
 
 <tr>
-<td title="wachtwoord voor aanmelding bij het systeem e-mailadres in SMTP-server" class="menu">
+<td title="wachtwoord voor aanmelding bij het systeem e-mailadres binnen SMTP-server" class="menu">
 systeem mailwachtwoord
 </td>
 <td >
@@ -289,7 +291,7 @@ systeem mailwachtwoord
 
 <tr>
 <td title="antwoordadres voor gegenereerde e-mails, vaak een-niet-antwoord" class="pme-key-title">
-Postadres antwoord systeem
+systeem antwoord postadres
 </td>
 <td class="pme-key-1">
 
@@ -354,16 +356,11 @@ CSV-directory
 </td>
 </tr>
 
-<tr>
-<td title="Postvak in voor gammu ontvangen sms, niet vereist voor http sms-gateways" class="pme-key-title">
-SMS inbox
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
 <td title="Postvak in voor e-mail, oude methode vervangen door pop mail in elk register" class="pme-key-title">
@@ -377,7 +374,7 @@ readmail.pl directory
 </tr>
 
 <tr>
-<td title="basis output pad voor CSV-transacties onder web root" class="pme-key-title">
+<td title="Base output pad voor CSV-transacties onder web root" class="pme-key-title">
 CSV uit
 </td>
 <td class="pme-key-1">
@@ -389,7 +386,7 @@ CSV uit
 
 <tr>
 <td title="baseren output pad voor gedrukt materiaal onder web root, registernaam en taal is toegevoegd aan dit pad" class="pme-key-title">
-Print path
+afdrukken van pad
 </td>
 <td class="pme-key-1">
 

@@ -4,12 +4,12 @@
 
 <tr>
 
-<td title="Käynnistä graphing komentosarja">
-Graphing
+<td title="myös graafinen asettaa">
+Kuvaajat
 </td>
 
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-Sähköposti syöttö
+Sähköposti syöte
 </td>
 
 <!--
@@ -18,16 +18,16 @@ Sähköposti syöttö
 </td>
 -->
 
-<td title="alkaa tuottaa rss-syötteiden keltaiset sivut pieni mainokset">
+<td title="alkaa tuottaa keltaiset sivut pieniä mainoksia rss-syötteet">
 RSS-syöte
 </td>
 
-<td title="Käynnistä hyväksymisestä paikallisen matkapuhelimen välityksellä gammu käyttäjän toimia">
-Gammu syöttö
+<td title="aloittaa hyväksymisestä panos kautta gammu paikallisia matkapuhelin">
+Gammu input
 </td>
 
-<td title="Lataa ja prosessin Erätapahtumat">
-Siirtoprosessi/erän tapahtumat
+<td title="upload ja prosessin Erätapahtumien">
+Latausprosessi Erätapahtumien
 </td>
 
 </tr>
@@ -41,19 +41,19 @@ Siirtoprosessi/erän tapahtumat
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-Lopeta Stats
+Lopettaa tilastot
 </option>
 
 <option value="5">
-Jokainen 5 min
+5 minuutin välein
 </option>
 
 <option value="10">
-Jokainen 10 min
+Joka 10min
 </option>
 
 <option value="30">
-Jokainen 30 min
+Joka 30min
 </option>
 
 </select>
@@ -65,19 +65,19 @@ Jokainen 30 min
 <select class="small"  onchange="on_select_change('mail');" id="mail_value" >
 
 <option value="0">
-Lopeta sähköposti
+Lopeta Mail
 </option>
 
 <option value="5">
-Jokainen 5 min
+5 minuutin välein
 </option>
 
 <option value="10">
-Jokainen 10 min
+Joka 10min
 </option>
 
 <option value="30">
-Jokainen 30 min
+Joka 30min
 </option>
 
 </select>
@@ -102,19 +102,19 @@ Jokainen 30 min
 <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
 
 <option value="0">
-Lopeta Rss
+Lopettaa Rss
 </option>
 
 <option value="5">
-Jokainen 5 min
+5 minuutin välein
 </option>
 
 <option value="10">
-Jokainen 10 min
+Joka 10min
 </option>
 
 <option value="30">
-Jokainen 30 min
+Joka 30min
 </option>
 
 </select>
@@ -126,19 +126,19 @@ Jokainen 30 min
 <select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
 
 <option value="0">
-Lopeta SMS
+Lopettaa SMS
 </option>
 
 <option value="5">
-Jokainen 5 min
+5 minuutin välein
 </option>
 
 <option value="10">
-Jokainen 10 min
+Joka 10min
 </option>
 
 <option value="30">
-Jokainen 30 min
+Joka 30min
 </option>
 
 </select>
@@ -147,15 +147,15 @@ Jokainen 30 min
 
 <td>
 
-<div id="file-uploader" title="Hae erätapahtumien csv-tiedostona: oppaassa">
+<div id="file-uploader" title="Saada Erätapahtumien csv-tiedostona: oppaassa">
 
 <noscript>
 
 <p>
-Ota JavaScript käyttämään tiedoston uploader.
+Ota käyttöön JavaScript käyttää tiedostojen uploader.
 </p>
 
-<!-- tai laittaa palvelimeen lataamisen yksinkertainen lomake tähän -->
+<!-- tai yksinkertainen lomake ladata täällä -->
 
 </noscript>
 
@@ -207,13 +207,13 @@ Odota
 <tr>
 
 <td class="front">
-Imuroi OpenOffice lausumat
+Lataa OpenOffice lausunnot
 <table>
 
 <tr>
 
 <td>
-Kuukauden
+Kuukausi
 </td>
 <td>
 
@@ -285,7 +285,7 @@ Vuoden
 
 <tr>
 <td>
-Kirjautumisnimi
+Käyttäjätunnus
 </td>
 <td>
 <input type="text" name="username" size="10">
@@ -294,7 +294,7 @@ Kirjautumisnimi
 
 <tr>
 <td>
-<input type="submit" class="small" name="go" value="Siirry">
+<input type="submit" class="small" name="go" value="Go">
 </td>
 <td>
 </td>
@@ -306,10 +306,10 @@ Kirjautumisnimi
 </td>
 
 <td class="front" valign="top">
-Imuroi OpenOffice Directory
+Lataa OpenOffice Directory
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
-<input class="small" type="submit" name="go" value="Siirry">
+<input class="small" type="submit" name="go" value="Go">
 
 </form>
 

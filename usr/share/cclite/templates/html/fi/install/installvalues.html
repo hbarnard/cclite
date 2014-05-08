@@ -15,20 +15,22 @@ Yksinkertainen
 </option>
 
 <option value="full">
-Kaikki asetukset
+Kaikki vaihtoehdot
 </option>
 
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="Lataa kuva" type="submit">
+ name="saveadd" data-simple="yes" value="Päivitä konfiguraatio" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="Tämä on mysql db-käyttäjä" class="menu">
+<td title="Tämä on mysql db-käyttö" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -39,7 +41,7 @@ dbuser
 </tr>
 
 <tr>
-<td title="Tämä on mysql db-salasana" class="menu">
+<td title="Tämä on MySQL db salasana" class="menu">
 dbpassword
 </td>
 <td class="pme-key-1">
@@ -50,7 +52,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="kokeellinen cpanel etuliite, käyttää varoen, uusally cpanel käyttäjänimi" class="menu">
+<td title="kokeellinen cpanel etuliite, käytä harkiten uusally-cpanel käyttäjätunnus" class="menu">
 cPanel etuliite
 </td>
 <td class="pme-key-1">
@@ -61,8 +63,8 @@ cPanel etuliite
 </tr>
 
 <tr>
-<td title="desimaalipilkun näytön valuutat" class="menu">
-desimaalien käyttäminen
+<td title="desimaalipilkun näyttö valuuttojen" class="menu">
+käytetä desimaaleja
 </td>
 <td class="pme-key-1">
 
@@ -72,8 +74,8 @@ desimaalien käyttäminen
 </tr>
 
 <tr>
-<td title="Käytä vapaassa muodossa tunnisteet keltaiset sivut kiinteä luokkien sijasta" class="menu">
-Käytä Tagit
+<td title="käyttää vapaamuotoinen tageja keltaiset sivut kiinteä luokkien sijasta" class="menu">
+Käytä Tunnisteet
 </td>
 <td class="pme-key-1">
 
@@ -82,11 +84,11 @@ Käytä Tagit
 </td>
 </tr>
 
-<!-- jäljempänä tässä on täydellinen parametrit -->
+<!-- alla tässä on koko parametrit -->
 
 <tr>
-<td title="Tämä on toimialueen Komentosarjapolku johdetaan, on oltava evästeitä toimiakseen oikein" class="menu">
-toimialue
+<td title="Tämä on kuten päätellä Komentosarjapolku, täytyy olla oikea evästeitä toimiakseen" class="menu">
+toimialueen
 </td>
 <td class="pme-key-1">
 
@@ -96,7 +98,7 @@ toimialue
 </tr>
 
 <tr>
-<td title="mail, cpanel smtp-palvelin on yleensä sama kuin toimialuenimi, localhost tai sisäinen palvelimien ip" class="menu">
+<td title="Tämä on posti, cpanel smtp-palvelinta yleensä sama kuin verkkotunnus, localhost tai sisäisten palvelimien ip" class="menu">
 SMTP-palvelin
 </td>
 <td class="pme-key-1">
@@ -107,7 +109,7 @@ SMTP-palvelin
 </tr>
 
 <tr>
-<td title="cclite komentosarjaa pääasiallinen käyttäjä" class="menu">
+<td title="pääkäyttäjä käsikirjoituksen cclite" class="menu">
 Etusivu
 </td>
 <td class="pme-key-1">
@@ -118,8 +120,8 @@ Etusivu
 </tr>
 
 <tr>
-<td title="Tämä on salasana ja tunnussanoma laskelmissa käytetyt hash-laji, sha2 pidetään parempana, ei voi muuttaa/sekoitettu kerran perustaa" class="menu">
-Hash-laji
+<td title="Tämä on hash käytettävä salasana ja token laskelmat, sha2 suositellaan, ei voi muuttaa/sekoittaa kun määrittää" class="menu">
+Hash tyyppi
 </td>
 <td class="pme-key-1">
 
@@ -129,7 +131,7 @@ Hash-laji
 </tr>
 
 <tr>
-<td title="HTML, rss, kohdetiedostot ja kaavioita, johdetaan pääkansio Serveristä" class="menu">
+<td title="HTML, rss, Tulostiedostot ja kaavioita, päätellä palvelimen pääkansio" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,8 +142,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="alkutilan maksua, jos odottaa edellyttää vahvistuksen vastaanottamalla käyttäjä" class="pme-key-title">
-ensimmäisen maksun tila
+<td title="alkutilan maksua, jos odottaa vaatii vahvistuksen vastaanottamisesta käyttäjä" class="pme-key-title">
+alkuperäisen maksun tila
 </td>
 <td class="pme-key-1">
 
@@ -151,7 +153,7 @@ ensimmäisen maksun tila
 </tr>
 
 <tr>
-<td title="alkutilan käyttäjä, jos vahvistamaton käyttäjälle sähköpostitse edellyttää vahvistus" class="pme-key-title">
+<td title="alkutilan käyttäjä, jos vahvistamaton vaatii vahvistuksen käyttäjä sähköposti" class="pme-key-title">
 alkuperäinen käyttäjä tila
 </td>
 <td class="pme-key-1">
@@ -162,7 +164,7 @@ alkuperäinen käyttäjä tila
 </tr>
 
 <tr>
-<td title="oletuskielen viestit ja mallit" class="pme-key-title">
+<td title="oletuskielen viestit ja malleja" class="pme-key-title">
 kieli
 </td>
 <td class="pme-key-1">
@@ -179,8 +181,8 @@ kieli
 -->
 
 <tr>
-<td title="näytön rivien taulukkomuotoinen raportti" class="pme-key-title">
-rivejä sivulla
+<td title="näytön rivien taulukon raportit" class="pme-key-title">
+riviä / sivu
 </td>
 <td class="pme-key-1">
 
@@ -190,8 +192,8 @@ rivejä sivulla
 </tr>
 
 <tr>
-<td title="viestien tiedoston polku, tässä mitään eivät toimi jos se on väärä!" class="menu">
-viestien polku
+<td title="viestit tiedoston polku, mikään ei toimi, jos se on väärässä!" class="menu">
+polku viestit
 </td>
 <td class="pme-key-1">
 
@@ -209,7 +211,7 @@ viestien polku
 </tr>
 
 <tr>
-<td title="Jos ei, ei tarvitse Soap::Lite moduulit" class="menu">
+<td title="Jos ei, ei tarvitse Soap::Lite moduuleja" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -240,8 +242,8 @@ multiregistry?
 </tr>
 
 <tr>
-<td title="ei käytetty suoraan, mutta voi sisältää mukautetut mallit" class="pme-key-title">
-Tuen sähköposti
+<td title="ei käytetä suoraan mutta käytettävissä olevat mukautetut mallit" class="pme-key-title">
+apu lähettää postissa
 </td>
 <td class="pme-key-1">
 
@@ -250,11 +252,11 @@ Tuen sähköposti
 </td>
 </tr>
 
-<!-- Tämä ei välttämättä ole kelvollinen sähköpostiosoite, voi olla vain sisäisen käyttäjän kirjautuminen sähköpostipalvelimeen -->
+<!-- Tämä ei välttämättä ole kelvollinen sähköpostiosoite, voi olla vain sisäinen käyttäjän kirjautuminen sähköpostipalvelimeen -->
 
 <tr>
-<td title="lähettää sähköpostia ja kirjaudu smtp-palvelinta, määritä cpanel, jos tarpeen, ensimmäisen" class="menu">
-järjestelmän sähköpostiosoite
+<td title="lähettää postia ja kirjaudu smtp-palvelinta, cpanel, tarvittaessa ensimmäisen" class="menu">
+järjestelmä lähettää postissa kohdistaa
 </td>
 <td >
 
@@ -263,11 +265,11 @@ järjestelmän sähköpostiosoite
 </td>
 </tr>
 
-<!-- Tämä ei välttämättä ole kelvollinen sähköpostiosoite, voi olla vain sisäisen käyttäjän kirjautuminen sähköpostipalvelimeen -->
+<!-- Tämä ei välttämättä ole kelvollinen sähköpostiosoite, voi olla vain sisäinen käyttäjän kirjautuminen sähköpostipalvelimeen -->
 
 <tr>
-<td title="Voit vaihtaa Net::SMTP ilmoituksia jne. Tämä on ensisijainen ja tulevaisuudessa, ainoa vaihtoehto on 0 tai 1 käyttää" class="menu">
-net smtp?
+<td title="joilla vaihdetaan Net::SMTP ilmoitukset jne tämä on ensisijainen ja ainoa vaihtoehto tulevaisuudessa, 0 tai 1" class="menu">
+NET smtp?
 </td>
 <td >
 
@@ -277,8 +279,8 @@ net smtp?
 </tr>
 
 <tr>
-<td title="salasanan järjestelmän sähköpostiosoite, smtp-palvelin" class="menu">
-järjestelmän sähköposti salasana
+<td title="salasanan järjestelmän sähköpostiosoitteesi smtp-palvelin" class="menu">
+järjestelmä lähettää postissa tunnussana
 </td>
 <td >
 
@@ -288,8 +290,8 @@ järjestelmän sähköposti salasana
 </tr>
 
 <tr>
-<td title="luotu sähköpostit, usein-ei-vastauksen vastausosoite" class="pme-key-title">
-järjestelmän vastaus sähköpostiosoite
+<td title="vastausosoitteen sähköpostiviestin, usein-ei-vastauksen" class="pme-key-title">
+järjestelmän sähköpostin vastausosoitteen
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ järjestelmän vastaus sähköpostiosoite
 </tr>
 
 <tr>
-<td title="web-liittymä käyttää mallitiedostot polku, mitään paljon eivät toimi jos se on väärä!" class="menu">
+<td title="polku mallitiedostot käytetään web-käyttöliittymä, ei mitään paljon ei toimi jos se on väärässä!" class="menu">
 mallit
 </td>
 <td class="pme-key-1">
@@ -309,10 +311,10 @@ mallit
 </td>
 </tr>
 
-<!-- Komentojonotiedostojen koskevassa kohdassa -->
+<!-- jaksossa käsitellään erä arkistoida -->
 
 <tr>
-<td title="Base tulosteen polku web-juuressa mukaisesti toiminnan merkeissä, rekisterinimi lisätään tämä polku" class="pme-key-title">
+<td title="Base lähtö polku toimintaa kaavioiden mukaan web root, rekisterinimi lisätään polkuun" class="pme-key-title">
 kaavion hakemisto
 </td>
 <td class="pme-key-1">
@@ -323,7 +325,7 @@ kaavion hakemisto
 </tr>
 
 <tr>
-<td title="edellyttää perl rss moduuleita luodaan rss, jos Kyllä" class="pme-key-title">
+<td title="edellyttää perl rss-moduulit tuottaa rss, jos kyllä" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,8 +346,8 @@ userss
 </tr>
 
 <tr>
-<td title="Base Lataa polku erätapahtumien, ei saisi olla web-juuressa mukaisesti" class="pme-key-title">
-CSV-kansio
+<td title="tukikohta ladata polku Erätapahtumien, ei tule web root" class="pme-key-title">
+CSV hakemisto
 </td>
 <td class="pme-key-1">
 
@@ -354,20 +356,15 @@ CSV-kansio
 </td>
 </tr>
 
-<tr>
-<td title="Saapuneet-kansion saanut gammu SMS: lle, ei vaadita http sms yhdyskäytävät" class="pme-key-title">
-SMS Saapuneet-kansioon
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="Saapuneet-kansion Mail, pop posti kullekin rekisterin Korvataan vanhaa menetelmää" class="pme-key-title">
-readmail.PL hakemisto
+<td title="Saapuneet-kansion viestejä, vanha menetelmä korvattiin isäukko lähettää postissa kunkin rekisterin" class="pme-key-title">
+readmail.pl hakemisto
 </td>
 <td class="pme-key-1">
 
@@ -377,8 +374,8 @@ readmail.PL hakemisto
 </tr>
 
 <tr>
-<td title="Base kohdepolkua csv web-juuressa mukaisten liiketoimien osalta" class="pme-key-title">
-CSV ulos
+<td title="csv toimet web root-tulostuspolku pohja" class="pme-key-title">
+CSV
 </td>
 <td class="pme-key-1">
 
@@ -388,8 +385,8 @@ CSV ulos
 </tr>
 
 <tr>
-<td title="perustaa tuotoksen painetun aineiston web-juuressa, rekisterinimi ja kielen polku lisätään tämä polku" class="pme-key-title">
-Tulosta polku
+<td title="perustaa tuotoksen polku painotuotteet web root, rekisterinimi ja kieli lisätään polkuun" class="pme-key-title">
+tulostuspolkua
 </td>
 <td class="pme-key-1">
 
@@ -399,8 +396,8 @@ Tulosta polku
 </tr>
 
 <tr>
-<td title="perustaa tuotoksen polku, rss, rekisterinimi ja kieli lisätään tämä polku" class="pme-key-title">
-Base-syötteen kansio
+<td title="perustaa tuotoksen polku rss, rekisterinimi ja kieli lisätään polkuun" class="pme-key-title">
+Base rehu hakemisto
 </td>
 <td class="pme-key-1">
 
@@ -410,8 +407,8 @@ Base-syötteen kansio
 </tr>
 
 <tr>
-<td title="perustaa ulos gammu tulokset, ei vaadita http sms gateways-hakemistosta" class="pme-key-title">
-SMS ulos
+<td title="perustaa hakemistoon gammu tulokset, ei vaadita http sms Gateway" class="pme-key-title">
+SMS
 </td>
 <td class="pme-key-1">
 
@@ -421,8 +418,8 @@ SMS ulos
 </tr>
 
 <tr>
-<td title="gammu syöttö-käsitelty paikallisesti, jos arvo on 1, muuten tämä käyttää SOAPia käsittelemään etäyhteyden välityksellä" class="pme-key-title">
-paikallinen sms?
+<td title="gammu input käsitellä paikallisesti, jos arvo on 1, muuten tämä käyttää saippuaa etänä" class="pme-key-title">
+paikallisten sms?
 </td>
 <td class="pme-key-1">
 

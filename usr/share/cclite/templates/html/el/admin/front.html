@@ -4,12 +4,12 @@
 
 <tr>
 
-<td title="ξεκινήσετε τη γραφική δέσμη ενεργειών">
+<td title="ξεκινήσει το γραφικά σενάριο">
 Γραφική απεικόνιση
 </td>
 
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-Email εισόδου
+Εισαγωγής του ηλεκτρονικού ταχυδρομείου
 </td>
 
 <!--
@@ -18,16 +18,16 @@ Email εισόδου
 </td>
 -->
 
-<td title="έναρξη παραγωγής τροφοδοτήσεων rss για Κίτρινες σελίδες μικρές αγγελίες">
-Τροφοδοσία RSS
+<td title="Έναρξη παραγωγής των rss feeds για κίτρινες σελίδες μικρές αγγελίες">
+RSS Feed
 </td>
 
-<td title="Ξεκινήστε την αποδοχή εισόδου μέσω gammu από ένα τοπικό κινητό τηλέφωνο">
+<td title="αρχίσει να δέχεται είσοδο μέσω gammu από ένα τοπικό κινητό τηλέφωνο">
 Gammu εισόδου
 </td>
 
-<td title="συναλλαγές μαζική αποστολή και διαδικασία">
-Upload/διαδικασία δέσμης συναλλαγών
+<td title="Ανεβάστε και διαδικασία δέσμης συναλλαγών">
+Διαδικασία φόρτωσης/μαζική συναλλαγές
 </td>
 
 </tr>
@@ -41,7 +41,7 @@ Upload/διαδικασία δέσμης συναλλαγών
 <select class="small"  onchange="on_select_change('stats');" id="stats_value" >
 
 <option value="0">
-Διακοπή Stats
+Σταματήσει στατιστικά
 </option>
 
 <option value="5">
@@ -49,11 +49,11 @@ Upload/διαδικασία δέσμης συναλλαγών
 </option>
 
 <option value="10">
-Κάθε 10 min
+Κάθε 10 λεπτά
 </option>
 
 <option value="30">
-Κάθε 30 min
+Κάθε 30 λεπτά
 </option>
 
 </select>
@@ -73,11 +73,11 @@ Upload/διαδικασία δέσμης συναλλαγών
 </option>
 
 <option value="10">
-Κάθε 10 min
+Κάθε 10 λεπτά
 </option>
 
 <option value="30">
-Κάθε 30 min
+Κάθε 30 λεπτά
 </option>
 
 </select>
@@ -102,7 +102,7 @@ Upload/διαδικασία δέσμης συναλλαγών
 <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
 
 <option value="0">
-Διακοπή Rss
+Σταματήσει Rss
 </option>
 
 <option value="5">
@@ -110,11 +110,11 @@ Upload/διαδικασία δέσμης συναλλαγών
 </option>
 
 <option value="10">
-Κάθε 10 min
+Κάθε 10 λεπτά
 </option>
 
 <option value="30">
-Κάθε 30 min
+Κάθε 30 λεπτά
 </option>
 
 </select>
@@ -126,7 +126,7 @@ Upload/διαδικασία δέσμης συναλλαγών
 <select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
 
 <option value="0">
-Διακοπή SMS
+Σταματήσει SMS
 </option>
 
 <option value="5">
@@ -134,11 +134,11 @@ Upload/διαδικασία δέσμης συναλλαγών
 </option>
 
 <option value="10">
-Κάθε 10 min
+Κάθε 10 λεπτά
 </option>
 
 <option value="30">
-Κάθε 30 min
+Κάθε 30 λεπτά
 </option>
 
 </select>
@@ -147,15 +147,15 @@ Upload/διαδικασία δέσμης συναλλαγών
 
 <td>
 
-<div id="file-uploader" title="Λήψη της δέσμης συναλλαγών ως αρχείο csv: δείτε το εγχειρίδιο">
+<div id="file-uploader" title="Πάρετε μαζική συναλλαγές ως αρχείο csv: ανατρέξτε στο εγχειρίδιο">
 
 <noscript>
 
 <p>
-Please enable JavaScript για να χρησιμοποιήσετε το αρχείο uploader.
+Παρακαλώ ενεργοποιήστε την JavaScript για να χρησιμοποιήσετε το αρχείο uploader.
 </p>
 
-<!-- ή θέσει εδώ σε μια απλή φόρμα για αποστολή -->
+<!-- ή βάλτε μια απλή φόρμα για upload εδώ -->
 
 </noscript>
 
@@ -207,7 +207,7 @@ Please enable JavaScript για να χρησιμοποιήσετε το αρχ�
 <tr>
 
 <td class="front">
-Λήψη OpenOffice δηλώσεις
+Κατεβάστε το OpenOffice δηλώσεις
 <table>
 
 <tr>
@@ -285,7 +285,7 @@ Please enable JavaScript για να χρησιμοποιήσετε το αρχ�
 
 <tr>
 <td>
-Ονομα χρήστη
+Όνομα σύνδεσης
 </td>
 <td>
 <input type="text" name="username" size="10">
@@ -294,7 +294,7 @@ Please enable JavaScript για να χρησιμοποιήσετε το αρχ�
 
 <tr>
 <td>
-<input type="submit" class="small" name="go" value="Μετάβαση">
+<input type="submit" class="small" name="go" value="Πάει">
 </td>
 <td>
 </td>
@@ -306,10 +306,10 @@ Please enable JavaScript για να χρησιμοποιήσετε το αρχ�
 </td>
 
 <td class="front" valign="top">
-Λήψη καταλόγου OpenOffice
+Κατεβάστε το OpenOffice Κατάλογος Ξενοδοχεία
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
-<input class="small" type="submit" name="go" value="Μετάβαση">
+<input class="small" type="submit" name="go" value="Πάει">
 
 </form>
 

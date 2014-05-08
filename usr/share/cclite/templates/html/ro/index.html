@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design de CSS template-uri gratuite&#xD;	http://www.freecsstemplates.org&#xD;	Liberă sub un Creative Commons Attribution 2.5 License -->
+<!-- Design de Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Gratuit lansat sub un Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,7 +32,7 @@ Cclite $$fieldsref{version} Utilizator
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- foilor de stil -->
+<!-- foi de stil -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -51,8 +51,11 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables mai târziu -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
 
 <!-- biblioteci JavaScript, trebuie să subsitute comprimat versiuni la un moment dat -->
 
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- alţii ne jquery -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Acest lucru este script-ul care utilizatorii se conectează la atunci când sistemul este fiind adus în jos -->
+<!-- Aceasta este script-ul care se conectează utilizatorii afară atunci când sistemul este fiind adus în jos -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Acest parametru se transformă pornit/oprit chestii punctul zecimal -->
+<!-- Acest parametru se transformă on/off chestii punct zecimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- căutare pentru utilizatori, meserii, anunţurile -->
+<!-- căutare pentru utilizatori, meserii, anunţuri -->
 
 <br/>
 
@@ -153,11 +157,11 @@ Anunţuri
 
 </select>
 
-<input value="Du-te" class="small" type="submit" title="Uita-te pentru meserii, reclame sau utilizatori">
+<input value="Du-te" class="small" type="submit" title="Uita-te pentru meserii, ads sau utilizatori">
 
 </form>
 
-<!-- sfârşitul caseta Căutare completare automată -->
+<!-- sfârşitul de caseta de căutare autocomplete -->
 
 <span id="status_message">
 $$fieldsref{status_message}
@@ -187,7 +191,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- limba selectorul versiunea 1 sfârşitul -->
+<!-- limba selectorul versiunea 1 final -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -224,7 +228,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="Meniu de administrare" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Meniul de administraţie" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="administrarea Meniu înãuntru nou tab" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="meniul de administraţie în filă nouă" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -251,14 +255,14 @@ Plata
 
 <li>
 <a  title="Ai uitat parola??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-Parolă uitată?
+Parola uitata?
 </a>
 
 </li>
 
 <li>
-<a title="Adăugaţi Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Adăugaţi Openid
+<a title="Adauga Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Adauga Openid
 </a>
 
 </li>
@@ -279,43 +283,43 @@ Cont nou
 
 <li>
 <a title="Modifica detaliile de cont" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Modificaţi contul
+Modificare cont
 </a>
 </li>
 
 <li>
 <a title="Split plata pentru bunuri sau servicii" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Plata Split
+Split de plată
 </a>
 </li>
 
 <li>
-<a title="Arată mele tranzacţii" href="/cgi-bin/cclite.cgi?action=showtrans">
+<a title="Arată tranzacţiile mele" href="/cgi-bin/cclite.cgi?action=showtrans">
 Tranzacţii
 </a>
 </li>
 
 <li>
-<a title="Afişează solduri meu" href="/cgi-bin/cclite.cgi?action=showbalvol">
+<a title="Arată mele solduri" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Soldurile
 </a>
 </li>
 
 <li>
-<a title="Afişare bunuri şi servicii director" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Bunuri/servicii
+<a title="Bunuri şi servicii de Director" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+Produse/servicii
 </a>
 </li>
 
 <li>
-<a title="Afişează anunţurile mele din bunurile și serviciile director" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+<a title="Arată anunţurile mele în mărfuri şi servicii de Director" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Anunţurile mele
 </a>
 </li>
 
 <li>
-<a title="Creaţi o pagină pentru bunuri și servicii director" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
-Locul Ad
+<a title="Creați o pagină pentru bunuri şi servicii de Director" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
+Locul de anunţuri
 </a>
 </li>
 
@@ -323,7 +327,7 @@ Locul Ad
 
 </div>
 
-<!-- Tag-ul cloud şi statistici utilizator individual -->
+<!-- Tag cloud şi utilizator statistici -->
 
 <div id="content">
 

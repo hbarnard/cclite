@@ -82,6 +82,7 @@ pre { color: #000000;
 
 			<li><a href="#display_gammu_config">display_gammu_config</a></li>
 			<li><a href="#get_locked">get_locked</a></li>
+			<li><a href="#unlock_user">unlock_user</a></li>
 		</ul>
 
 	</ul>
@@ -1362,7 +1363,6 @@ of setting up gammu:</p>
 display as table to unlock</p>
 <p>FIXME: html and literals etc. in here, this is first
 cut as of February 2014</p>
-
 <pre>
 <a name="get_locked-"></a><span class="k">sub </span><span class="m">get_locked</span> <span class="s">{</span>
 
@@ -1372,12 +1372,12 @@ cut as of February 2014</p>
     <span class="c">#print Dumper $fields_ref ;</span>
     <span class="k">my</span> <span class="i">$html</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$header</span> =
-<span class="q">&quot;&lt;tr&gt;&lt;td&gt;$messages{&#39;unlockall&#39;}&lt;/td&gt;&lt;td&gt;userPinStatus&lt;/td&gt;&lt;td&gt;userPasswordStatus&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="sc">;</span>
+<span class="q">&quot;&lt;tr&gt;&lt;td&gt;$messages{&#39;unlockall&#39;}&lt;/td&gt;&lt;td&gt;userPinStatus&lt;/td&gt;&lt;td&gt;userPasswordStatus&lt;/td&gt;&lt;td&gt;userStatus&lt;/td&gt;&lt;/tr&gt;&quot;</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$registry_error</span><span class="cm">,</span> <span class="i">$hash_ref</span> <span class="s">)</span> = <span class="i">sqlraw</span><span class="s">(</span>
         <span class="i">$class</span><span class="cm">,</span>
         <span class="i">$registry</span><span class="cm">,</span>
-<span class="q">&#39;select userId,userPinStatus,userPasswordStatus,userLogin from om_users where (userPinStatus = \&#39;locked\&#39; or userPasswordStatus = \&#39;locked\&#39;)&#39;</span><span class="cm">,</span>
+<span class="q">&#39;select userId,userPinStatus,userPasswordStatus,userLogin, userStatus from om_users where (userPinStatus = \&#39;locked\&#39; or userPasswordStatus = \&#39;locked\&#39; or userStatus = \&#39;suspended\&#39;)&#39;</span><span class="cm">,</span>
         <span class="q">&#39;userId&#39;</span><span class="cm">,</span>
         <span class="i">$token</span>
     <span class="s">)</span><span class="sc">;</span>
@@ -1393,6 +1393,7 @@ cut as of February 2014</p>
 <span class="hh">&lt;tr&gt;&lt;td&gt;&lt;a title=&quot;Unlock All&quot; href=&quot;/cgi-bin/protected/ccadmin.cgi?action=unlockuser&amp;type=all&amp;userId=$hash_ref-&gt;{$key}-&gt;{&#39;userId&#39;}&amp;mode=html&quot;&gt;$hash_ref-&gt;{$key}-&gt;{&#39;userLogin&#39;}&lt;/a&gt;&lt;/td&gt;</span>
 <span class="hh">    &lt;td&gt;&lt;a title=&quot;Unlock SMS Pin&quot; href=&quot;/cgi-bin/protected/ccadmin.cgi?action=unlockuser&amp;type=pin&amp;userId=$hash_ref-&gt;{$key}-&gt;{&#39;userId&#39;}&amp;mode=html&quot;&gt;$hash_ref-&gt;{$key}-&gt;{&#39;userPinStatus&#39;}&lt;/a&gt;&lt;/td&gt;</span>
 <span class="hh">    &lt;td&gt;&lt;a title=&quot;Unlock Password&quot; href=&quot;/cgi-bin/protected/ccadmin.cgi?action=unlockuser&amp;type=password&amp;userId=$hash_ref-&gt;{$key}-&gt;{&#39;userId&#39;}&amp;mode=html&quot;&gt;$hash_ref-&gt;{$key}-&gt;{&#39;userPasswordStatus&#39;}&lt;/a&gt;&lt;/td&gt;</span>
+<span class="hh">    &lt;td&gt;&lt;a title=&quot;Undo Suspend&quot; href=&quot;/cgi-bin/protected/ccadmin.cgi?action=unlockuser&amp;type=userstatus&amp;userId=$hash_ref-&gt;{$key}-&gt;{&#39;userId&#39;}&amp;mode=html&quot;&gt;$hash_ref-&gt;{$key}-&gt;{&#39;userStatus&#39;}&lt;/a&gt;&lt;/td&gt;</span>
 <span class="hh">&lt;/tr&gt;</span>
 <span class="h">EOT</span>
 
@@ -1415,6 +1416,11 @@ cut as of February 2014</p>
         <span class="q">&#39;result.html&#39;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 <span class="s">}</span>
 
+</pre><p></p>
+<h3><a name="unlock_user">unlock_user</a></h3>
+<p>Unlock locked pins, passwords and suspended users</p>
+
+<pre>
 <a name="unlock_user-"></a><span class="k">sub </span><span class="m">unlock_user</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
@@ -1426,6 +1432,9 @@ cut as of February 2014</p>
         || <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;password&#39;</span> <span class="s">)</span><span class="sc">;</span>
     <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="q">&#39;active&#39;</span>
       <span class="k">if</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;all&#39;</span> || <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;pin&#39;</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userStatus&#39;</span>} = <span class="q">&#39;active&#39;</span>
+      <span class="k">if</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;all&#39;</span>
+        || <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">eq</span> <span class="q">&#39;userstatus&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
       <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&quot;om_users&quot;</span><span class="cm">,</span> <span class="n">1</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span>

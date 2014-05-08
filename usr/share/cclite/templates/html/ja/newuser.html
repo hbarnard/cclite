@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-登録名
+Reg の名前
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- 注明示的なパス設定、クッキーそれ以外のパスで cgi ビンの値は -->
+<!-- 注明示的なパスの cookie 設定は、それ以外の場合のパス設定は cgi-bin の -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ $$fields{errors}
 
 <tr class="pme-row-1">
 
-<td title="3 以上の文字、文字、数字、_ のみする必要があります。" class="pme-key-0">
+<td title="3 以上の文字、文字、数字、_ だけをする必要があります。" class="pme-key-0">
 アカウント名
 <br>
 
@@ -79,7 +79,7 @@ $$fields{errors}
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-パスワードの確認入力します。
+パスワードの確認入力
 </td>
 
 <td class="pme-value-0">
@@ -108,7 +108,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-家番号/名前
+数/住宅名
 </td>
 
 <td class="pme-value-1">
@@ -153,7 +153,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-郡/州
+州/郡
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ $$fields{errors}
 
 <td class="pme-value-1">
 
-<input title="この番号の国際電話の形式で 44777766666 を入れてください。" class="pme-input-1"
+<input title="国際電話の形式 44777766666 でこの番号を入れてください。" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-携帯電話取引用暗証番号
+携帯電話での取引のためのピン
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-携帯電話取引用のピンを確認します。
+携帯電話取引用暗証番号を確認します。
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ SMS の支払いの領収書
 
 <tr class="pme-row-1">
 
-<td title="この暗号化されたトランザクションはパブリック キー id です。" class="pme-key-0">
+<td title="これは暗号化されたトランザクションのパブリック キー id です。" class="pme-key-0">
 パブリック キー Id
 </td>
 
@@ -324,7 +324,7 @@ SMS の支払いの領収書
 
 <td class="pme-buttons">
 
-<!-- ここでのレジストリのクッキーを消去、それ以外の場合は後できれいなログオンを防止します -->
+<!-- 我々 はここで、レジストリのクッキーを消去、それ以外の場合それクリーン ログオンが防ぐ後 -->
 
 <input class="pme-save"
  name="saveadd" value="作成します。" onClick="eraseCookie('registry');" type="submit">

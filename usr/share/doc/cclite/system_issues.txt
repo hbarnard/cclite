@@ -207,7 +207,7 @@ to be fixed:
 52. History -1 as back doesn't seem to work nowadays?
 53. SMS: Check cannot change to same pin, mistake
 54. SMS: Should not accept and process pay transaction when account suspended by own hands!
-55. SMS: How does suspended via SMS get unsuspended
+55. SMS: How does suspended via SMS get unsuspended?
 56. Send suspended and locked messages to the registry supervisor
 
 
@@ -222,7 +222,9 @@ Contact the cclite trading network (registry) manager [email or link to intratik
 (5) Message to the cclite registry manager (not to the client tiki?, to avoid robots trynig differnt Merchant Id continuously until matching it]: "The Merchant Id used from ip|user|whatever-info-from-the-client-tiki is invalid".
 
 
+06.05.2014
 
+57. FIXME and TODO now for new system issues in code, nearly everywhere
 
 
 

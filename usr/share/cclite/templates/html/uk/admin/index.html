@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Дизайн Безкоштовні CSS шаблонів&#xD;	http://www.freecsstemplates.org&#xD;	Випущений безкоштовно під Creative Commons Attribution 2.5 ліцензії -->
+<!-- Дизайн безкоштовні CSS шаблонів&#xD;	http://www.freecsstemplates.org&#xD;	Безкоштовно розповсюджується за ліцензією Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Admin
+Cclite $$fieldsref{version} Адмін
 </title>
 
 <meta name="keywords" content="" />
@@ -49,14 +49,17 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- DataTables для пізніше -->
+<!-- DataTables для подальшого -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript бібліотек, необхідно subsitute стиснутий версії на певному етапі -->
 
-<!-- Jquery елементів -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript бібліотек, необхідно subsitute стиснуті версії на певному етапі -->
+
+<!-- JQuery елементів -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -78,7 +81,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!-- Інші номери jquery -->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
+
+<!-- інші номери jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- це сценарій, який реєструє користувачів, коли система представлена -->
+<!-- це сценарій, який користувачі виходить з системи коли система представлена -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +124,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Цей ключ виявляється включення/вимикання десяткової коми речі -->
+<!-- Цей ключ перетворює вкл/викл десяткової коми речі -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Пошук користувачів, торги, оголошення -->
+<!-- шукати користувачів, торги, оголошення -->
 
 <br/>
 
@@ -148,22 +154,22 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='ad'>
-Реклами
+Оголошення
 </option>
 
 </select>
 
-<input value="Перейти" class="small" type="submit" title="Шукайте торгів, оголошення або користувачів">
+<input value="Піти" class="small" type="submit" title="Шукайте торгів, оголошень чи користувачів">
 
 </form>
 
-<!-- Кінець поля пошуку автозаповнення -->
+<!-- кінець поля пошуку автозаповнення -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- мова селектор версії 1 -->
+<!-- мова селектор версія 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +193,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- мова селектор Версія 1 кінця -->
+<!-- мова селектор версія 1 кінця -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -221,7 +227,7 @@ Cclite Admin
 
 <li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
-Меню користувача
+Користувача меню
 </a>
 </li>
 
@@ -233,7 +239,7 @@ Cclite Admin
 </li>
 
 <li>
-<a class="bodytext" title="Показати зв'язані реєстрами партнер" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Показати приєднаними партнерськими реєстри" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Партнери
 </a>
 </li>
@@ -245,14 +251,14 @@ Cclite Admin
 </li>
 
 <li>
-<a class="bodytext" title="Показати валют в" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+<a class="bodytext" title="Показати валюти, що" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
 Показати валют
 </a>
 </li>
 
 <li>
 <a class="bodytext"title="Створити нову категорію оголошення" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Створення оголошення категорії
+Створити оголошення категорії
 </a>
 </li>
 
@@ -267,20 +273,26 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<a title="Створити правило або кредитний ліміт" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+<a title="Створити правило або кредитного ліміту" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Кредитний ліміт
 </a>
 </li>
 
 <li>
-<a title="Створити віддалене або місцевим партнером реєстру" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Створення локального або віддаленого комп'ютера реєстру партнер" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Створення реєстру партнер
 </a>
 </li>
 
 <li>
-<a title="Застосувати тарифікація послуг для всіх облікових записів" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Застосувати тарифікація послуг
+<a title="Застосувати плата за обслуговування до всіх облікових записів" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Застосувати плата за обслуговування
+</a>
+</li>
+
+<li>
+<a title="Отримати облікові записи, які мають заблокований PIN-код та/або пароль заблоковано" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Отримати заблоковано рахунки
 </a>
 </li>
 
@@ -292,7 +304,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Змінити $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 
@@ -300,7 +312,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- Статистика окремого користувача та хмара тегів -->
+<!-- Хмара тегів та індивідуальних користувачів статистика -->
 
 <div id="content">
 

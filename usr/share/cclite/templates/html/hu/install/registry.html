@@ -12,8 +12,8 @@ $$fieldsref{error}
 
 <tr class="pme-row-0">
 
-<td title="meghatározása a kereskedelmi csoportba, szóköz nélkül egy szó adatbázis név" class="pme-key-0">
-Rendszerleíró adatbázis neve
+<td title="meghatározó kereskedelmi csoport, egy szó, szóközök nélkül-adatbázis neve" class="pme-key-0">
+Iktató hivatal név
 <br>
 
 </td>
@@ -29,7 +29,7 @@ Rendszerleíró adatbázis neve
 
 <tr class="pme-row-0">
 
-<td title="kereskedelmi csoport rövid leírása" class="pme-key-0">
+<td title="a kereskedelmi csoport rövid leírása" class="pme-key-0">
 Rendszerleíró adatbázis leírása
 <br>
 
@@ -42,10 +42,10 @@ Rendszerleíró adatbázis leírása
 
 </tr>
 
-<tr title="címet és a hivatalos e-mailt küld a csoport használt fiók" class="pme-row-0">
+<tr title="cím és számlainformáció használt hivatalos e-maileket küldeni a csoport" class="pme-row-0">
 
 <td class="pme-key-0">
-Kezelő e-mailben
+E-mail igazgató
 <br>
 
 </td>
@@ -57,8 +57,8 @@ Kezelő e-mailben
 
 </tr>
 
-<td title="admin email azonosφt≤ jelszava" class="pme-key-0">
-Kezelő elektronikus levél jelszó
+<td title="admin e-mail fiókhoz tartozó jelszót" class="pme-key-0">
+Manager E-mail jelszó
 <br>
 
 </td>
@@ -70,10 +70,10 @@ Kezelő elektronikus levél jelszó
 
 </tr>
 
-<tr title="Ha a tranzakciók e-maileket kapott fiók lehet, ugyanaz, mint admin" class="pme-row-1">
+<tr title="ahol a tranzakciók e-maileket kapott számla is lehet ugyanaz, mint admin" class="pme-row-1">
 
 <td class="pme-key-1">
-Kötegelt tranzakciókkal kapcsolatos e-mailben
+A kötegelt tranzakciókkal kapcsolatos elektronikus levél
 <br>
 
 </td>
@@ -85,7 +85,7 @@ Kötegelt tranzakciókkal kapcsolatos e-mailben
 
 </tr>
 
-<td title="kötegelt e-mail fiók jelszava" class="pme-key-0">
+<td title="kötegelt e-mail fiókhoz tartozó jelszót" class="pme-key-0">
 Kötegelt elektronikus levél jelszó
 <br>
 
@@ -98,10 +98,10 @@ Kötegelt elektronikus levél jelszó
 
 </tr>
 
-<tr title="jelenleg nem használt, de határozza meg a kereskedelmi minta" class="pme-row-1">
+<tr title="jelenleg nem használt, de határozza meg a kereskedelmi modell" class="pme-row-1">
 
 <td nowrap class="pme-key-1">
-Töltés rendszermodell
+Rendszer töltési modell
 </td>
 
 <td class="pme-value-1">
@@ -111,7 +111,7 @@ Töltés rendszermodell
 Egyenlőség
 </option>
 <option selected value="market">
-Piaci hozamok
+Piaci árak
 </option>
 </select>
 </td>
@@ -121,7 +121,7 @@ Piaci hozamok
 <tr title="jelenleg nem használt, de határozza meg a Bizottság modell" class="pme-row-1">
 
 <td class="pme-key-1">
-A Bizottság rendszermodell
+Rendszer Bizottság modell
 </td>
 
 <td class="pme-value-1">
@@ -129,11 +129,11 @@ A Bizottság rendszermodell
 <select class="pme-input-1" name="commission">
 
 <option selected value="no">
-Nem a Bizottság
+Nincs jutalék
 </option>
 
 <option value="yes">
-A Bizottság a rendszerleíró adatbázis alapú
+A Bizottság alapú nyilvántartó
 </option>
 
 </select>
@@ -141,10 +141,10 @@ A Bizottság a rendszerleíró adatbázis alapú
 
 </tr>
 
-<tr title="jelenleg nem használt, de az előfizetési modell határozza meg" class="pme-row-1">
+<tr title="jelenleg nem használt, de határozza meg az előfizetés modell" class="pme-row-1">
 
 <td class="pme-key-1">
-Előfizetési modell
+Előfizetéses modell
 </td>
 
 <td class="pme-value-1">
@@ -164,10 +164,10 @@ Előfizetés alapú
 
 </tr>
 
-<tr title="határozza meg minden pénznem esetében a kötelezettségvállalási határérték a rendszerleíró adatbázisban cent automatikusan alakulnak, ha decimális pénznem" class="pme-row-1">
+<tr title="határozza meg, kötelezettségvállalási határ minden pénznem esetében a rendszerleíró adatbázisban, automatikusan konvertálja cent, ha Decimális valuta" class="pme-row-1">
 
 <td class="pme-key-1">
-Globális kötelezettségvállalás határérték
+Globális elkötelezettség Limit
 <br>
 
 </td>
@@ -179,10 +179,10 @@ Globális kötelezettségvállalás határérték
 
 </tr>
 
-<tr title="használt kulcsfontosságú kiszolgáló: nyilvános kulcs jelenleg tranzakciókhoz email csak e rendszerleíró azonosítója" class="pme-row-1">
+<tr title="használt kulcs kiszolgálón: nyilvános kulcs azonosítás részére ez iktató hivatal, jelenleg-a elektronikus levél tranzakciók csak" class="pme-row-1">
 
 <td class="pme-key-1">
-Kiszolgáló: nyilvános kulcs kulcsazonosítója
+Kulcs kiszolgálón: nyilvános kulcs id
 <br>
 
 </td>
@@ -196,10 +196,10 @@ Kiszolgáló: nyilvános kulcs kulcsazonosítója
 
 </tr>
 
-<tr title="jelenleg nem használt, de az határozza meg, hogy a földrajzi terület vagy a különleges érdeklődésre számot tartó"  class="pme-row-1">
+<tr title="jelenleg nem használt, de határozza meg, hogy a földrajzi terület vagy a különleges érdeklődésre számot tartó"  class="pme-row-1">
 
 <td class="pme-key-1">
-Magában foglalja a földrajzi terület?
+Magában foglalja a földrajzi területen?
 </td>
 
 <td class="pme-value-1">
@@ -219,10 +219,10 @@ nem
 
 </tr>
 
-<tr title="nem a jelenleg használt, hanem határozza meg a hozzászólás vagy irányítószámok, hogy nyilvános kibocsátásiegység-forgalmi geokódolt és a csatlakoztatott" class="pme-row-1">
+<tr title="nem a jelenleg használt, de határozza meg a hozzászólás vagy irányítószámok, hogy állami nyilvántartások geokódolt és a csatlakoztatott" class="pme-row-1">
 
 <td class="pme-key-1">
-Postcodes vagy a szélesség, hosszúság
+Postai irányítószámok vagy földrajzi szélesség és hosszúság
 </td>
 
 <td class="pme-value-1">
@@ -233,10 +233,10 @@ Postcodes vagy a szélesség, hosszúság
 
 </tr>
 
-<tr title="biztosítja a bankkártya-elfogadói kulcs elgg, drupal és os-kereskedelem csatlakozók" class="pme-row-1">
+<tr title="használt kereskedelmi kulcs elgg, drupal és a os-kereskedelem csatlakozók" class="pme-row-1">
 
 <td class="pme-key-1">
-Bankkártya-elfogadói kulcs
+Kereskedő kulcs
 </td>
 
 <td class="pme-value-1">
@@ -247,10 +247,10 @@ Bankkártya-elfogadói kulcs
 
 </tr>
 
-<tr title="elvben a csatlakozók egyes ips könnyen svindli valószínűleg korlátozására használt" class="pme-row-1">
+<tr title="használt, elvileg korlátozni bizonyos IP-címek, könnyen hamisítani valószínűleg csatlakozók" class="pme-row-1">
 
 <td class="pme-key-1">
-Lehetővé teszi a kereskedő IP-címekről érkező
+Lehetővé teszi a kereskedő IP-címről
 </td>
 
 <td class="pme-value-1">
@@ -265,7 +265,7 @@ Lehetővé teszi a kereskedő IP-címekről érkező
 
 </table>
 
-<!-- Ez a kísérlet, piros színűre változik a config link, ha a db jelszó helytelen -->
+<!-- Ez egy kísérlet, viszont a config link piros, ha db jelszó rossz -->
 $$fieldsref{script}
 <hr class="pme-hr">
 
@@ -280,7 +280,7 @@ $$fieldsref{script}
 <td class="pme-buttons">
 
 <input class="pme-save"
- name="saveadd" value="Go" type="submit">
+ name="saveadd" value="Megy" type="submit">
 &nbsp;
 <input
  class="pme-cancel" name="cancel" value="Mégse"

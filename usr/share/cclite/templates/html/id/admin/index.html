@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Desain oleh Free CSS template&#xD;	http://www.freecsstemplates.org&#xD;	Dirilis secara gratis di bawah Creative Commons Attribution 2.5 License -->
+<!-- Desain Free CSS template&#xD;	http://www.freecsstemplates.org&#xD;	Dirilis secara gratis di bawah Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables untuk nanti -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript perpustakaan, perlu subsitute dikompresi versi pada tahap tertentu -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript Perpustakaan, perlu versi subsitute dikompresi pada tahap tertentu -->
 
 <!-- jQuery item -->
 
@@ -78,7 +81,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!-- orang lain non jquery -->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
+
+<!-- lain bebas jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- ini adalah script yang log pengguna keluar ketika sistem dibawa turun -->
+<!-- ini adalah script yang log pengguna keluar saat sistem sedang dibawa ke bawah -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +124,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- switch ini ternyata on/off barang titik desimal -->
+<!-- switch ini ternyata/barang titik desimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -221,7 +227,7 @@ Cclite Admin
 
 <li class="first">
 <a class="bodytext" href="/cgi-bin/cclite.cgi">
-Pengguna Menu
+Menu pengguna
 </a>
 </li>
 
@@ -251,8 +257,8 @@ Menunjukkan mata uang
 </li>
 
 <li>
-<a class="bodytext"title="Buat kategori iklan baru" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Membuat iklan Kategori
+<a class="bodytext"title="Buat kategori iklan" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Buat kategori iklan
 </a>
 </li>
 
@@ -273,14 +279,20 @@ Batas kredit
 </li>
 
 <li>
-<a title="Membuat Remote atau lokal registri mitra" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-Membuat mitra Registry
+<a title="Membuat mitra registri Remote atau lokal" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Membuat Mitra Registry
 </a>
 </li>
 
 <li>
-<a title="Berlaku biaya pelayanan untuk semua account" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Berlaku biaya pelayanan
+<a title="Berlaku biaya layanan untuk semua account" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Berlaku biaya layanan
+</a>
+</li>
+
+<li>
+<a title="Mendapatkan account yang memiliki terkunci Pin dan/atau Password dikunci" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Mendapatkan terkunci account
 </a>
 </li>
 
@@ -300,7 +312,7 @@ Memodifikasi $$fieldsref{registry}
 
 </div>
 
-<!-- Tag awan dan pengguna individu statistik -->
+<!-- Tag awan dan statistik pengguna individu -->
 
 <div id="content">
 

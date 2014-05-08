@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Gratis vrijgegeven onder een Creative Commons Attribution 2.5 License -->
+<!-- Design by gratis CSS sjablonen&#xD;	http://www.freecsstemplates.org&#xD;	Gratis vrijgegeven onder een Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -121,7 +121,7 @@ $$fieldsref{logout_script}
 <div id="distribution" class="hidden">
 $$fieldsref{distribution}
 </div>
-<!-- uitschakelen direct creatie als cpanel -->
+<!-- Schakel uit directe creatie als cpanel -->
 
 <br/>
 
@@ -217,7 +217,7 @@ Gebruikersmenu
 </li>
 
 <li>
-<a id="updateconfig" title="Update conifguration opgeslagen in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Configuratie van de updates opgeslagen in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 De configuratie-updates
 </a>
 </li>
@@ -235,8 +235,14 @@ Toon registers
 </li>
 
 <li>
-<a id="installcheck" title="Voer de installatie Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+<a id="installcheck" title="Voer het Install-Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 Controleer de vereisten voor installeren
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Toon en update readsms.cf voor Gammu, noodzaak ook handmatig bijwerken van /etc/gammu-smsdrc, zie de meegeleverde voorbeelden" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Gammu configuratie bij te werken
 </a>
 </li>
 
@@ -244,7 +250,7 @@ Controleer de vereisten voor installeren
 
 </div>
 
-<!-- tag cloud en individuele gebruikersstatistieken -->
+<!-- wolk van de markering en individuele gebruikersstatistieken -->
 
 <div id="content">
 

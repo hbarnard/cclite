@@ -1304,12 +1304,12 @@ sub get_locked {
     #print Dumper $fields_ref ;
     my $html;
     my $header =
-"<tr><td>$messages{'unlockall'}</td><td>userPinStatus</td><td>userPasswordStatus</td></tr>";
+"<tr><td>$messages{'unlockall'}</td><td>userPinStatus</td><td>userPasswordStatus</td><td>userStatus</td></tr>";
 
     my ( $registry_error, $hash_ref ) = sqlraw(
         $class,
         $registry,
-'select userId,userPinStatus,userPasswordStatus,userLogin from om_users where (userPinStatus = \'locked\' or userPasswordStatus = \'locked\')',
+'select userId,userPinStatus,userPasswordStatus,userLogin, userStatus from om_users where (userPinStatus = \'locked\' or userPasswordStatus = \'locked\' or userStatus = \'suspended\')',
         'userId',
         $token
     );
@@ -1325,6 +1325,7 @@ sub get_locked {
 <tr><td><a title="Unlock All" href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&type=all&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userLogin'}</a></td>
     <td><a title="Unlock SMS Pin" href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&type=pin&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userPinStatus'}</a></td>
     <td><a title="Unlock Password" href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&type=password&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userPasswordStatus'}</a></td>
+    <td><a title="Undo Suspend" href="/cgi-bin/protected/ccadmin.cgi?action=unlockuser&type=userstatus&userId=$hash_ref->{$key}->{'userId'}&mode=html">$hash_ref->{$key}->{'userStatus'}</a></td>
 </tr>
 EOT
 
@@ -1347,6 +1348,12 @@ EOT
         'result.html', undef );
 }
 
+=head3 unlock_user
+
+Unlock locked pins, passwords and suspended users
+
+=cut
+
 sub unlock_user {
 
     my ( $class, $registry, $fields_ref, $token ) = @_;
@@ -1358,6 +1365,9 @@ sub unlock_user {
         || $fields_ref->{'type'} eq 'password' );
     $fields_ref->{'userPinStatus'} = 'active'
       if ( $fields_ref->{'type'} eq 'all' || $fields_ref->{'type'} eq 'pin' );
+    $fields_ref->{'userStatus'} = 'active'
+      if ( $fields_ref->{'type'} eq 'all'
+        || $fields_ref->{'type'} eq 'userstatus' );
 
     my ( $a, $b, $c, $d ) =
       update_database_record( 'local', $registry, "om_users", 1, $fields_ref,

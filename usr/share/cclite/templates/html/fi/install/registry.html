@@ -12,7 +12,7 @@ $$fieldsref{error}
 
 <tr class="pme-row-0">
 
-<td title="määritellään kaupankäynnin ryhmän, yksi sana ilman välilyöntejä tietokannan nimi" class="pme-key-0">
+<td title="tietokannan määrittely kaupan ryhmä, yksi sana ilman välilyöntejä" class="pme-key-0">
 Rekisterinimi
 <br>
 
@@ -29,7 +29,7 @@ Rekisterinimi
 
 <tr class="pme-row-0">
 
-<td title="kaupankäynnin ryhmän lyhyt kuvaus" class="pme-key-0">
+<td title="Lyhyt kuvaus tradingryhmä" class="pme-key-0">
 Rekisterin kuvaus
 <br>
 
@@ -42,10 +42,10 @@ Rekisterin kuvaus
 
 </tr>
 
-<tr title="osoite ja tili, jota käytetään lähettää tälle ryhmälle virallisen sähköpostit" class="pme-row-0">
+<tr title="osoite ja käytettävä virallista sähköpostia tälle ryhmälle" class="pme-row-0">
 
 <td class="pme-key-0">
-Sähköpostin hallinta
+Sähköposti Manager
 <br>
 
 </td>
@@ -57,8 +57,8 @@ Sähköpostin hallinta
 
 </tr>
 
-<td title="järjestelmänvalvoja sähköposti tilin salasana" class="pme-key-0">
-Managerin sähköpostin salasana
+<td title="admin sähköpostitilin salasana" class="pme-key-0">
+Managerin sähköpostiosoite salasana
 <br>
 
 </td>
@@ -70,10 +70,10 @@ Managerin sähköpostin salasana
 
 </tr>
 
-<tr title="Jos sähköpostit tapahtumia on saanut tili voi olla sama kuin admin" class="pme-row-1">
+<tr title="Jos sähköpostia tapahtumat saadaan tili voi olla sama kuin admin" class="pme-row-1">
 
 <td class="pme-key-1">
-Erätapahtumien sähköposti
+Sähköposti Erätapahtumien
 <br>
 
 </td>
@@ -85,8 +85,8 @@ Erätapahtumien sähköposti
 
 </tr>
 
-<td title="erän sähköpostin tilin salasana" class="pme-key-0">
-Erän sähköpostin salasana
+<td title="erä sähköpostitilin salasana" class="pme-key-0">
+Erä Sähköposti salasana
 <br>
 
 </td>
@@ -98,10 +98,10 @@ Erän sähköpostin salasana
 
 </tr>
 
-<tr title="hindi kasalukuyang ginagamit mutta määritellään kaupankäynnin malli" class="pme-row-1">
+<tr title="kaupankäynnin mallin mukaan, vaan ole nyt käytettävissä." class="pme-row-1">
 
 <td nowrap class="pme-key-1">
-Järjestelmän kantamisen malli
+Järjestelmän hinnoittelu malli
 </td>
 
 <td class="pme-value-1">
@@ -111,14 +111,14 @@ Järjestelmän kantamisen malli
 Tasa-arvo
 </option>
 <option selected value="market">
-Markkinakorot
+Markkinakorkojen
 </option>
 </select>
 </td>
 
 </tr>
 
-<tr title="hindi kasalukuyang ginagamit mutta määritellään komission malli" class="pme-row-1">
+<tr title="ei käytetä tällä hetkellä mutta määritellään komission malli" class="pme-row-1">
 
 <td class="pme-key-1">
 Järjestelmän komission malli
@@ -129,11 +129,11 @@ Järjestelmän komission malli
 <select class="pme-input-1" name="commission">
 
 <option selected value="no">
-Ei ole komission
+Ei komissio
 </option>
 
 <option value="yes">
-Komissio perusti rekisterin
+Komissio on perustanut rekisterin
 </option>
 
 </select>
@@ -141,10 +141,10 @@ Komissio perusti rekisterin
 
 </tr>
 
-<tr title="tilauksen mallin mukaan, vaan hindi kasalukuyang ginagamit" class="pme-row-1">
+<tr title="ei käytetä tällä hetkellä mutta määritellään tilaus malli" class="pme-row-1">
 
 <td class="pme-key-1">
-Tilauksen malli
+Tilaus malli
 </td>
 
 <td class="pme-value-1">
@@ -152,11 +152,11 @@ Tilauksen malli
 <select class="pme-input-1" name="subscription">
 
 <option selected value="no">
-Ei tilausta
+Tilausta ei
 </option>
 
 <option value="yes">
-Tilattavia, maksullisia
+Merkintähinta perustuu
 </option>
 
 </select>
@@ -164,10 +164,10 @@ Tilattavia, maksullisia
 
 </tr>
 
-<tr title="määrittää sitoumuksen raja kaikkien valuuttojen osalta tämän rekisterin muunnetaan senttiä automaattisesti, jos desimaali valuutta" class="pme-row-1">
+<tr title="määrittää sitoutumista raja kaikille valuutoille tämän rekisterin muunnetaan senttiä automaattisesti jos desimaali valuutta" class="pme-row-1">
 
 <td class="pme-key-1">
-Yleinen sitoutuminen raja
+Kokonaissitoumus raja
 <br>
 
 </td>
@@ -179,10 +179,10 @@ Yleinen sitoutuminen raja
 
 </tr>
 
-<tr title="avaimen palvelin käyttää: tämän rekisterin tällä hetkellä sähköposti tapahtumat vain julkisen avaimen tunnus" class="pme-row-1">
+<tr title="keskeinen palvelin käyttää: julkisen avaimen tunnus tämän rekisterin tällä hetkellä vain sähköposti-tapahtumat" class="pme-row-1">
 
 <td class="pme-key-1">
-Avaimen Server: julkisen avaimen tunnus
+Avain Server: Julkinen avaintunnus
 <br>
 
 </td>
@@ -196,10 +196,10 @@ Avaimen Server: julkisen avaimen tunnus
 
 </tr>
 
-<tr title="hindi kasalukuyang ginagamit mutta määrittää, onko maantieteellisen alueen tai erityisen mielenkiintoisen"  class="pme-row-1">
+<tr title="ei käytetä tällä hetkellä mutta määrittää, onko maantieteellisen alueen tai erityisen kiinnostunut"  class="pme-row-1">
 
 <td class="pme-key-1">
-Maantieteellinen alue kattaa?
+Kannet maantieteellisellä alueella?
 </td>
 
 <td class="pme-value-1">
@@ -219,10 +219,10 @@ Ei
 
 </tr>
 
-<tr title="ei käytössä mutta virkaa tai postinumerot määritellään siten, että julkista rekistereissä voi olla geocoded ja yhdistetyt" class="pme-row-1">
+<tr title="ei käytetä tällä hetkellä mutta määritellään virkaa tai postinumerot yleiset kirjaamot voidaan geocoded ja kartoitettu" class="pme-row-1">
 
 <td class="pme-key-1">
-Postinumeroiden tai leveysaste, pituusaste
+Postinumeroiden tai leveys-ja pituuspiirit
 </td>
 
 <td class="pme-value-1">
@@ -233,10 +233,10 @@ Postinumeroiden tai leveysaste, pituusaste
 
 </tr>
 
-<tr title="käytetään alalta avaimen elgg, drupal ja os kaupankäynti yhdistimet" class="pme-row-1">
+<tr title="käyttää kauppias avain elgg, drupal ja os commerce liittimet" class="pme-row-1">
 
 <td class="pme-key-1">
-Alalta avain
+Kauppa Key
 </td>
 
 <td class="pme-value-1">
@@ -247,7 +247,7 @@ Alalta avain
 
 </tr>
 
-<tr title="käytetään periaatteessa rajoittaa tiettyjen tutkimusajanjaksojen väärentää helposti todennäköisesti yhdistimet" class="pme-row-1">
+<tr title="käytetään periaatteessa rajoittaa tiettyjen ips, helposti väärentää luultavasti liittimet" class="pme-row-1">
 
 <td class="pme-key-1">
 Salli kauppias IP-osoitteista
@@ -265,7 +265,7 @@ Salli kauppias IP-osoitteista
 
 </table>
 
-<!-- Tämä on koe, muuttuu punaiseksi config-linkkiä, jos db salasana on väärä -->
+<!-- Tämä on kokeilu, muuttuu punaiseksi config-linkki, jos db salasana on väärä -->
 $$fieldsref{script}
 <hr class="pme-hr">
 
@@ -280,7 +280,7 @@ $$fieldsref{script}
 <td class="pme-buttons">
 
 <input class="pme-save"
- name="saveadd" value="Siirry" type="submit">
+ name="saveadd" value="Go" type="submit">
 &nbsp;
 <input
  class="pme-cancel" name="cancel" value="Peruuta"

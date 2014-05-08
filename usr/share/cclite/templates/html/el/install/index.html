@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Ελεύθερη υπό την Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,7 +34,7 @@ Cclite $$fieldsref{version} Εγκατάσταση
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- φύλλα στυλ -->
+<!-- stylesheets -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -49,12 +51,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- αργότερα dataTables -->
+<!-- DataTables αργότερα -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- Javascript βιβλιοθήκες, που πρέπει να αντικαταστήστε συμπιεσμένα εκδόσεις σε κάποιο στάδιο -->
+<!-- JavaScript βιβλιοθήκες, πρέπει να εκδόσεις αντικαταστείστε συμπιεσμένα σε κάποιο στάδιο -->
 
 <!-- jQuery στοιχεία -->
 
@@ -108,7 +110,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- αυτή είναι η δέσμη ενεργειών που πραγματοποιεί χρήστες όταν το σύστημα είναι τα παράπονα -->
+<!-- Αυτό είναι το σενάριο που καταγράφει τους χρήστες έξω όταν το σύστημα έχει μπει -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -121,20 +123,20 @@ $$fieldsref{logout_script}
 <div id="distribution" class="hidden">
 $$fieldsref{distribution}
 </div>
-<!-- Απενεργοποιήστε την άμεση δημιουργία εάν cpanel -->
+<!-- απενεργοποιείτε άμεση δημιουργία αν cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- Τέλος, του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
+<!-- τέλος του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- επιλογέας έκδοση 1 -->
+<!-- Επιλογέας γλώσσα 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -165,7 +167,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- γλώσσα επιλογέα έκδοση 1 τέλος -->
+<!-- Τέλος έκδοση 1 επιλογέα γλώσσας -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -187,7 +189,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Εγκατάσταση Cclite
+Cclite εγκατάσταση
 </a>
 </h1>
 
@@ -198,7 +200,7 @@ $$fieldsref{environment}
 <ul>
 
 <li class="first">
-<a title="Ομάδα της Google για υποστήριξη" href="http://groups.google.co.uk/group/cclite?hl=en">
+<a title="Ομάδα Google για υποστήριξη" href="http://groups.google.co.uk/group/cclite?hl=en">
 Θέλετε βοήθεια;
 </a>
 </li>
@@ -217,26 +219,32 @@ Admin μενού
 </li>
 
 <li>
-<a id="updateconfig" title="Conifguration ενημερωμένη έκδοση που αποθηκεύονται σε cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Ενημέρωση ρύθμισης παραμέτρων που αποθηκεύονται σε cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 Ενημέρωση ρύθμισης παραμέτρων
 </a>
 </li>
 
 <li>
-<a id="newregistry" title="Δημιουργία νέου μητρώου" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
-Δημιουργία νέου μητρώου
+<a id="newregistry" title="Δημιουργήστε νέο μητρώο" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+Δημιουργήστε νέο μητρώο
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="Εμφάνιση της τρέχουσας Cclite γραμματείες" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
-Εμφάνιση γραμματείες
+<a id="showregistry" title="Δείχνουν την τρέχουσα Cclite μητρώα" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+Εμφάνιση μητρώων
 </a>
 </li>
 
 <li>
-<a id="installcheck" title="Εκτελέστε την εγκατάσταση Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-Απαιτήσεις εγκατάστασης ελέγχου
+<a id="installcheck" title="Εκτελέστε τον έλεγχο της εγκατάστασης" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+Ελέγξτε τις απαιτήσεις εγκατάστασης
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Εμφάνιση και την ενημέρωση readsms.cf για την Gammu, χρειάζεται επίσης να ενημερώσετε το /etc/gammu-smsdrc με το χέρι, δείτε τα παραδείγματα που παρέχονται" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Ενημέρωση ρύθμισης παραμέτρων Gammu
 </a>
 </li>
 
@@ -244,7 +252,7 @@ Admin μενού
 
 </div>
 
-<!-- tag σύννεφο και μεμονωμένους χρήστες στατιστικών -->
+<!-- σύννεφο ετικεττών και μεμονωμένος χρήστης στατιστικών -->
 
 <div id="content">
 
@@ -266,7 +274,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Αρχική σελίδα
+Σπίτι
 </a>
 |
 <a href="#">

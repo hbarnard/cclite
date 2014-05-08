@@ -51,12 +51,15 @@ $$fieldsref{metarefresh}
 
 <!-- datatables في وقت لاحق -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
 
 <!-- المكتبات جافا سكريبت، بحاجة إلى إصدارات الرواند ضغطها في مرحلة من المراحل -->
 
-<!-- العناصر مسج -->
+<!-- البنود مسج -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -76,6 +79,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- الآخرين غير مسج -->
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- وهذا هو البرنامج النصي الذي المستخدمين بتسجيل الخروج عند هي التي أسقطت النظام -->
+<!-- وهذا هو البرنامج النصي الذي المستخدمين بتسجيل الخروج عندما يجري أسقطت النظام -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +124,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- رمز التبديل هذا تشغيل/إيقاف الأشياء العشرية -->
+<!-- رمز التبديل هذا تشغيل/إيقاف الأشياء النقطة العشرية -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- البحث عن المستخدمين، والحرف، والإعلانات -->
+<!-- البحث عن المستخدمين، والحرف، وإعلان -->
 
 <br/>
 
@@ -163,7 +169,7 @@ $$fieldsref{usedecimals}
 $$fieldsref{status_message}
 </span>
 
-<!-- إصدار محدد اللغة 1 -->
+<!-- لغة محدد الإصدار 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -233,7 +239,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 </li>
 
 <li>
-<a class="bodytext" title="وتظهر السجلات شريك مرتبط" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="وتظهر السجلات المرتبطة شريك" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 الشركاء
 </a>
 </li>
@@ -252,7 +258,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <li>
 <a class="bodytext"title="إنشاء فئة جديدة من الإعلان" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-إنشاء فئة الإعلانات
+إنشاء فئة إعلانية
 </a>
 </li>
 
@@ -268,12 +274,12 @@ $$fieldsref{installer_link}
 
 <li>
 <a title="إنشاء قاعدة أو الحد الائتماني" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
-الحد الائتماني
+حد الائتمان
 </a>
 </li>
 
 <li>
-<a title="إنشاء البعيدة أو المحلية الشريكة التسجيل" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="إنشاء شريك التسجيل البعيد أو المحلي" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 إنشاء شريك التسجيل
 </a>
 </li>
@@ -285,6 +291,12 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
+<a title="الحصول على الحسابات التي لها تأمين رقم التعريف الشخصي و/أو تأمين كلمة المرور" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+الحصول على تأمين الحسابات
+</a>
+</li>
+
+<li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
 إنشاء Dirs دفعة
 </a>
@@ -292,7 +304,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-تعديل $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 
@@ -300,7 +312,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- سحابة وإحصاءات المستخدم الفردية -->
+<!-- سحابة الوسم وإحصاءات المستخدم الفردية -->
 
 <div id="content">
 

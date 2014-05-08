@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Дизайн Безкоштовні CSS шаблонів&#xD;	http://www.freecsstemplates.org&#xD;	Випущений безкоштовно під Creative Commons Attribution 2.5 ліцензії -->
+<!-- Дизайн безкоштовні CSS шаблонів&#xD;	http://www.freecsstemplates.org&#xD;	Безкоштовно розповсюджується за ліцензією Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,12 +51,15 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables пізніше -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript бібліотек, необхідно subsitute стиснутий версії на певному етапі -->
 
-<!-- Jquery елементів -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript бібліотек, необхідно subsitute стиснуті версії на певному етапі -->
+
+<!-- JQuery елементів -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -79,9 +82,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
-<!-- Інші номери jquery -->
+<!-- інші номери jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- це сценарій, який реєструє користувачів, коли система представлена -->
+<!-- це сценарій, який користувачі виходить з системи коли система представлена -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Цей ключ виявляється включення/вимикання десяткової коми речі -->
+<!-- Цей ключ перетворює вкл/викл десяткової коми речі -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Пошук користувачів, торги, оголошення -->
+<!-- шукати користувачів, торги, оголошення -->
 
 <br/>
 
@@ -148,22 +152,22 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='ad'>
-Реклами
+Оголошення
 </option>
 
 </select>
 
-<input value="Перейти" class="small" type="submit" title="Шукайте торгів, оголошення або користувачів">
+<input value="Піти" class="small" type="submit" title="Шукайте торгів, оголошень чи користувачів">
 
 </form>
 
-<!-- Кінець поля пошуку автозаповнення -->
+<!-- кінець поля пошуку автозаповнення -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- мова селектор версії 1 -->
+<!-- мова селектор версія 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +191,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- мова селектор Версія 1 кінця -->
+<!-- мова селектор версія 1 кінця -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -224,7 +228,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="Управління меню" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Адміністрування меню" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="управління меню в новій вкладці" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="адміністрування меню у новій вкладці" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -244,8 +248,8 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Валюти переказу або годин" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Оплата
+<a title="Валюта переказу або годин" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
+Оплати
 </a>
 </li>
 
@@ -271,26 +275,26 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Створити новий обліковий запис" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
-Нова облікового запису
+<a title="Створити новий акаунт" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+Новий обліковий запис
 </a>
 
 </li>
 
 <li>
-<a title="Змінювати дані облікового запису" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Змінити обліковий запис
+<a title="Змінити ваші дані" href="/cgi-bin/cclite.cgi?action=modifyuser">
+Змінити параметри облікового запису
 </a>
 </li>
 
 <li>
-<a title="Розділити оплати за товари або послуги" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Розділити оплату
+<a title="Спліт оплати за товари або послуги" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+Спліт оплати
 </a>
 </li>
 
 <li>
-<a title="Показати мої угоди" href="/cgi-bin/cclite.cgi?action=showtrans">
+<a title="Показати мій угоди" href="/cgi-bin/cclite.cgi?action=showtrans">
 Угоди
 </a>
 </li>
@@ -303,18 +307,18 @@ $$fieldsref{latest_news}
 
 <li>
 <a title="Показати товарів і послуг каталогів" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Товари/Послуги
+Товари/послуги
 </a>
 </li>
 
 <li>
-<a title="Показати мої оголошення в товарів і послуг каталогів" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+<a title="Показати мої оголошення в товари та послуги каталог" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Мої оголошення
 </a>
 </li>
 
 <li>
-<a title="Створити сторінку для товарів і послуг каталогів" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
+<a title="Створення сторінки за товари та послуги каталог" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 Місце оголошення
 </a>
 </li>
@@ -323,7 +327,7 @@ $$fieldsref{latest_news}
 
 </div>
 
-<!-- Статистика окремого користувача та хмара тегів -->
+<!-- Хмара тегів та індивідуальних користувачів статистика -->
 
 <div id="content">
 

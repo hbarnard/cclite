@@ -25,11 +25,11 @@
 <link rel="stylesheet" type="text/css" href="/styles/print.css" media="print" />
 
 
-<link rel="alternate" type="application/rss+xml" title="実験的 cclite リンク" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
+<link rel="alternate" type="application/rss+xml" title="実験 cclite リンク" href="http://cclite.caca-cola:83/html/en/rdf/chelsea.rdf"/>
 
 
 <title>
-Cclite ！$ $fieldsref{のバージョン} ！管理者
+Cclite ！ fieldsref$ ${} のバージョン ！管理者
 </title>
 !$$fieldsref{jscript}
 <script src="/javascript/prototype.js">
@@ -47,7 +47,7 @@ Cclite ！$ $fieldsref{のバージョン} ！管理者
 <a 
  class="toptab" title="パスワードをお忘れですか？?"
  href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-パスワードをお忘れですか？
+パスワードを忘れた
 </a>
 
 <a class="toptabstrikethrough" title="ドイツ"
@@ -71,14 +71,14 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 </span>
 
 <a class="toptab" title="Logout $$fieldsref{user}" href="/cgi-bin/cclite.cgi?action=logoff">
-ログオフ ！$ $fieldsref{ユーザー}!
+ログオフ $$fieldsref{user}
 </a>
 <span class="hide">
 |
 </span>
 
 <a class="toptab" title="ユーザー メニューに戻る" href="/cgi-bin/cclite.cgi?action=template&name=logon.html">
-ユーザーのメニュー
+ユーザー メニュー
 </a>
 <span class="hide">
 |
@@ -91,7 +91,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="container">
 
 <h1>
-Cclite ！$ $fieldsref{のバージョン} ！管理
+Cclite !$$fieldsref{version}! Administration
 </h1>
 
 <div id="navitabs">
@@ -151,8 +151,8 @@ Cclite ！$ $fieldsref{のバージョン} ！管理
 |
 </span>
 
-<a class="navitab" title="レジストリのパートナーを作成します。" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-レジストリのパートナーを作成します。
+<a class="navitab" title="レジストリのパートナーを作成します" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+レジストリのパートナーを作成します
 </a>
 <span class="hide">
 |
@@ -178,7 +178,7 @@ Cclite ！$ $fieldsref{のバージョン} ！管理
 |
 </span>
 
-<a class="navitab" title="オープン オフィス印刷可能なディレクトリを作成します。" href="/cgi-bin/protected/ccdirectory.cgi">
+<a class="navitab" title="オープン オフィスの印刷可能なディレクトリを作成します。" href="/cgi-bin/protected/ccdirectory.cgi">
 オープン オフィス ディレクトリ
 </a>
 <span class="hide">
@@ -186,21 +186,21 @@ Cclite ！$ $fieldsref{のバージョン} ！管理
 </span>
 
 <a class="navitab" title="Modify $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&id=1&subaction=om_registry&action=modify">
-変更 ！$ $fieldsref{レジストリ}!
+Modify !$$fieldsref{registry}!
 </a>
 <span class="hide">
 |
 </span>
 
-<a class="navitab" title="レジストリ、インストーラ構成" href="/cgi-bin/protected/ccinstall.cgi">
+<a class="navitab" title="レジストリと構成インストーラー" href="/cgi-bin/protected/ccinstall.cgi">
 インストーラー
 </a>
 <span class="hide">
 |
 </span>
 
-<a class="toptabstrikethrough" title="システムの正常性と統計" href="/">
-システムの健康/統計
+<a class="toptabstrikethrough" title="システムの正常性と統計情報" href="/">
+システム状態の統計
 </a>
 <span class="hide">
 |
@@ -215,7 +215,7 @@ Cclite ！$ $fieldsref{のバージョン} ！管理
 <div id="footer">
 Cclite 著作権
 <a href="http://andreasviklund.com">
-ヴィクルンド
+アンドレアス Viklund
 </a>
 .
 </div>

@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design por Free CSS Templates&#xD;	http://www.FreeCSStemplates.org&#xD;	Lançado gratuitamente sob uma Creative Commons Attribution 2.5 License -->
+<!-- Design por Free CSS Templates&#xD;	http://www.FreeCSStemplates.org&#xD;	Livre liberado sob uma licença Creative Commons Attribution 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables mais tarde -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- bibliotecas de JavaScript, precisará substituir comprimido versões em algum estágio -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- bibliotecas JavaScript, precisa substituir comprimido versões em algum estágio -->
 
 <!-- itens de jQuery -->
 
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- outros não jquery -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Este é o script que faz logoff usuários quando o sistema está sendo trazido para baixo -->
+<!-- Este é o script que registra os usuários para fora quando o sistema está sendo trazido para baixo -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Este interruptor liga e desliga as coisas de ponto decimal -->
+<!-- Este interruptor liga e desliga as coisas do ponto decimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Procurar por usuários, comércios, anúncios -->
+<!-- procurar por usuários, negócios, anúncios -->
 
 <br/>
 
@@ -157,13 +161,13 @@ Anúncios
 
 </form>
 
-<!-- fim da caixa de pesquisa do AutoCompletar -->
+<!-- fim da caixa de pesquisa do autocomplete -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- Versão 1 do seletor de idioma -->
+<!-- versão 1 do seletor de idioma -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -209,7 +213,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Cclite usuário
+Usuário Cclite
 </a>
 </h1>
 
@@ -285,7 +289,7 @@ Modificar conta
 
 <li>
 <a title="Dividir o pagamento por bens ou serviços" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Pagamento de divisão
+Dividir o pagamento
 </a>
 </li>
 
@@ -302,20 +306,20 @@ Saldos
 </li>
 
 <li>
-<a title="Mostrar os produtos e serviços de diretório" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+<a title="Mostrar os produtos e diretório de serviços" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Produtos e serviços
 </a>
 </li>
 
 <li>
-<a title="Mostrar meus anúncios em bens e serviços de diretório" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+<a title="Mostrar meus anúncios em bens e diretório de serviços" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Meus anúncios
 </a>
 </li>
 
 <li>
-<a title="Criar uma página para os bens e serviços de diretório" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
-4Shared
+<a title="Criar uma página para os bens e diretório de serviços" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
+Lugar Ad
 </a>
 </li>
 
@@ -323,7 +327,7 @@ Meus anúncios
 
 </div>
 
-<!-- Estatísticas de usuário individual e tag cloud -->
+<!-- nuvem de Tags e estatísticas de usuário individual -->
 
 <div id="content">
 
@@ -362,7 +366,7 @@ Casa
 </a>
 |
 <a href="#">
-Contacte-nos
+Contate-nos
 </a>
 <br />
 

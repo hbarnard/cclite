@@ -15,7 +15,7 @@ Egyszerű
 </option>
 
 <option value="full">
-Minden beállítás
+Minden választások
 </option>
 
 </select>
@@ -27,8 +27,10 @@ Minden beállítás
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="Ez részére mysql db felhasználói" class="menu">
+<td title="Ez az a db felhasználó részére mysql" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -39,8 +41,8 @@ dbuser
 </tr>
 
 <tr>
-<td title="Ez részére mysql db-jelszó" class="menu">
-DBPASSWORD
+<td title="Ez a mysql db jelszót" class="menu">
+dbpassword
 </td>
 <td class="pme-key-1">
 
@@ -50,8 +52,8 @@ DBPASSWORD
 </tr>
 
 <tr>
-<td title="kísérleti cpanel előtaghoz, óvatosan uusally cpanel felhasználónév használata" class="menu">
-cPanel előtaghoz
+<td title="kísérleti cpanel előtag, gonddal, uusally cpanel felhasználói név használata" class="menu">
+cPanel előtag
 </td>
 <td class="pme-key-1">
 
@@ -61,7 +63,7 @@ cPanel előtaghoz
 </tr>
 
 <tr>
-<td title="pénznem tizedes jegy megjelenítése" class="menu">
+<td title="valuták tizedes pont megjelenítése" class="menu">
 tizedesjegyek használata
 </td>
 <td class="pme-key-1">
@@ -72,8 +74,8 @@ tizedesjegyek használata
 </tr>
 
 <tr>
-<td title="szabad formátumú címkék használatával a yellow pages helyett rögzített kategóriát" class="menu">
-címkék használatával
+<td title="használja szabad formában címkék sárga oldalak helyett rögzített kategóriák" class="menu">
+Címkék használata
 </td>
 <td class="pme-key-1">
 
@@ -82,10 +84,10 @@ címkék használatával
 </td>
 </tr>
 
-<!-- Itt alul van a teljes paraméterek -->
+<!-- Itt az alábbiakban teljes paraméterek -->
 
 <tr>
-<td title="Ez az a tartomány, mint a segítségével határozható meg a parancsfájl elérési útját, megfelel-e a cookie-kat a munkát kell" class="menu">
+<td title="Ez a tartomány lehet következtetni a parancsfájl elérési útját, kell lennie a cookie-k, hogy a munka megfelelő" class="menu">
 tartomány
 </td>
 <td class="pme-key-1">
@@ -96,7 +98,7 @@ tartomány
 </tr>
 
 <tr>
-<td title="Ez a levelet, cpanel az smtp-kiszolgáló általában ugyanaz, mint a tartománynév, a localhost vagy a belső kiszolgálók IP-" class="menu">
+<td title="Ez az smtp-kiszolgálója mail, a cpanel általában ugyanaz, mint a domain név, a localhost vagy a belső szerver ip" class="menu">
 SMTP-kiszolgáló
 </td>
 <td class="pme-key-1">
@@ -107,8 +109,8 @@ SMTP-kiszolgáló
 </tr>
 
 <tr>
-<td title="fő felhasználói parancsfájl cclite" class="menu">
-Home
+<td title="fő felhasználó kézírás részére cclite" class="menu">
+haza
 </td>
 <td class="pme-key-1">
 
@@ -118,7 +120,7 @@ Home
 </tr>
 
 <tr>
-<td title="Ez a jelszó és a token számításokhoz használt üzenetkivonat típusa, sha2 a előnyben részesített, nem kell változtatni/vegyes egyszer beállítása" class="menu">
+<td title="Ez a vagdalék jelszó és token számítások, sha2 preferált, nem lehet változtatni, vegyes egyszer beállítani" class="menu">
 üzenetkivonat típusa
 </td>
 <td class="pme-key-1">
@@ -129,7 +131,7 @@ Home
 </tr>
 
 <tr>
-<td title="HTML, rss, kimeneti fájlok és diagramokat, a document root-kiszolgálón belül kell levezetni" class="menu">
+<td title="HTML, rss, kimeneti fájlok és diagramok, levezethető a dokumentum gyökér-kiszolgálón belül" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,7 +142,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="a kifizetést, ha a várakozó megerősítést kér a felhasználó kezdeti állapota" class="pme-key-title">
+<td title="a kifizetést, ha vár megerősítést kér a fogadó felhasználó kezdeti állapota" class="pme-key-title">
 első kifizetés állapota
 </td>
 <td class="pme-key-1">
@@ -151,8 +153,8 @@ első kifizetés állapota
 </tr>
 
 <tr>
-<td title="a felhasználó, ha a felhasználó e-mailben megerősítést kér nem megerősített kezdeti állapota" class="pme-key-title">
-kezdeti felhasználói állapot
+<td title="kezdeti állapotát a felhasználó, ha meg nem erősített meg felhasználó e-mailben megerősítést kér" class="pme-key-title">
+kezdő felhasználó állapot
 </td>
 <td class="pme-key-1">
 
@@ -179,8 +181,8 @@ nyelv
 -->
 
 <tr>
-<td title="a táblázatos jelentést a képernyő sorok száma" class="pme-key-title">
-az oldalankénti sorok
+<td title="táblázatos jelentések esetében a képernyő sorok száma" class="pme-key-title">
+Oldalankénti sorok
 </td>
 <td class="pme-key-1">
 
@@ -190,7 +192,7 @@ az oldalankénti sorok
 </tr>
 
 <tr>
-<td title="üzenetek fájl elérési útja, ezen intézkedéseket semmi sem fog működni, ha ez a baj!" class="menu">
+<td title="üzenetek fájl elérési útját, semmi sem fog működni, ha ez a baj!" class="menu">
 PATH üzenetek
 </td>
 <td class="pme-key-1">
@@ -209,7 +211,7 @@ PATH üzenetek
 </tr>
 
 <tr>
-<td title="Ha nem, nincs szükség a Soap::Lite modulok" class="menu">
+<td title="Ha nem, nem kell Soap::Lite modulok" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -240,7 +242,7 @@ multiregistry?
 </tr>
 
 <tr>
-<td title="nem közvetlenül, hanem is bele kell foglalni az egyéni sablonok" class="pme-key-title">
+<td title="nem közvetlenül felhasználni, de egyéni sablonokat is szerepelnek" class="pme-key-title">
 mail támogatása
 </td>
 <td class="pme-key-1">
@@ -250,11 +252,11 @@ mail támogatása
 </td>
 </tr>
 
-<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználónak, a mail server szolgáltatásba való bejelentkezésre -->
+<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználó-hoz fatörzs-ra-a mail szerver -->
 
 <tr>
-<td title="levél küldése, és jelentkezzen be, hogy szükség esetén cpanel, beállított smtp-kiszolgáló első" class="menu">
-rendszer mail-cím
+<td title="e-mail küldése, és jelentkezzen be smtp-kiszolgáló beállítása a cpanel, ha szükséges, első" class="menu">
+rendszer e-mail cím
 </td>
 <td >
 
@@ -263,10 +265,10 @@ rendszer mail-cím
 </td>
 </tr>
 
-<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználónak, a mail server szolgáltatásba való bejelentkezésre -->
+<!-- Ez nem feltétlenül egy érvényes elektronikus levél cím, lehet, hogy csak egy belső felhasználó-hoz fatörzs-ra-a mail szerver -->
 
 <tr>
-<td title="közötti váltásra szolgáló Net::SMTP szóló értesítések stb ez elsődleges, és lesz a jövőben csak a beállítás 0 vagy 1" class="menu">
+<td title="használni, hogy kapcsol-ra Net::SMTP-értesítések stb ez és lesz a jövőben, az egyetlen lehetőség a 0 vagy 1" class="menu">
 nettó smtp?
 </td>
 <td >
@@ -277,7 +279,7 @@ nettó smtp?
 </tr>
 
 <tr>
-<td title="rendszer elektronikus levél cím belül smtp-kiszolgálóra való bejelentkezéshez jelszót" class="menu">
+<td title="jelszó rendszer e-mail cím smtp-kiszolgálóhoz való bejelentkezéshez" class="menu">
 rendszer mail jelszó
 </td>
 <td >
@@ -288,8 +290,8 @@ rendszer mail jelszó
 </tr>
 
 <tr>
-<td title="a Válaszcím számára létrehozott e-mailek, gyakran a do not-válasz" class="pme-key-title">
-a Válaszcím rendszer mail
+<td title="a generált e-maileket, gyakran egy do-nem-válaszol a válaszcímet" class="pme-key-title">
+rendszer e-mail Válaszcím
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ a Válaszcím rendszer mail
 </tr>
 
 <tr>
-<td title="a webes felületen használt sablonfájlok elérési útját, semmi sok fog működni, ha ez a baj!" class="menu">
+<td title="a webes felületen használt sablon fájlok elérési útja, semmi sok fog működni, ha ez a baj!" class="menu">
 sablonok
 </td>
 <td class="pme-key-1">
@@ -309,10 +311,10 @@ sablonok
 </td>
 </tr>
 
-<!-- kötegfájlok foglalkozó rész -->
+<!-- foglalkozó részben egy tétel fájlokat -->
 
 <tr>
-<td title="base kimeneti elérési út a tevékenység diagramok web gyökérkönyvtára alatt, a rendszerleíró adatbázis név hozzáadódik az elérési út" class="pme-key-title">
+<td title="alap kimenet elérési útját tevékenység térképek internetes legfelső szintű, iktató hivatal név van hozzá, hogy ezt az utat" class="pme-key-title">
 diagram könyvtár
 </td>
 <td class="pme-key-1">
@@ -323,7 +325,7 @@ diagram könyvtár
 </tr>
 
 <tr>
-<td title="igényel perl rss modulok előállítása rss, ha igen" class="pme-key-title">
+<td title="lesz szükség perl rss-elemek létrehozása rss, ha igen" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,7 +346,7 @@ userss
 </tr>
 
 <tr>
-<td title="Alap feltölteni a kötegelt tranzakciókkal kapcsolatos elérési út, nem kell az web gyökérkönyvtára" class="pme-key-title">
+<td title="alap feltölteni elérési útját a kötegelt tranzakciókkal kapcsolatos, a web gyökérkönyvtára alatt nem kell" class="pme-key-title">
 CSV-könyvtár
 </td>
 <td class="pme-key-1">
@@ -354,20 +356,15 @@ CSV-könyvtár
 </td>
 </tr>
 
-<tr>
-<td title="gammu kapott SMS, http sms átjárók esetén nem szükséges a Beérkezett üzenetek mappába" class="pme-key-title">
-SMS Beérkezett üzenetek
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="Beérkezett üzenetek, levelek, helyébe az egyes kibocsátásiegység pop levelezési régebbi módszer" class="pme-key-title">
-readmail.pl directory
+<td title="Bejövõ levelek, helyébe az egyes kibocsátásiegység-forgalmi pukkanás felad régi módszer" class="pme-key-title">
+readmail.pl könyvtár
 </td>
 <td class="pme-key-1">
 
@@ -377,8 +374,8 @@ readmail.pl directory
 </tr>
 
 <tr>
-<td title="base kimeneti csv tranzakciók alapján web gyökérkönyvtára elérési útját" class="pme-key-title">
-CSV-ki
+<td title="alap kimenet elérési útját csv ügyletek web gyökérkönyvtára" class="pme-key-title">
+CSV
 </td>
 <td class="pme-key-1">
 
@@ -388,8 +385,8 @@ CSV-ki
 </tr>
 
 <tr>
-<td title="a következő kimeneti nyomdatechnikai web gyökérkönyvtára, a rendszerleíró adatbázis név és nyelv szerinti elérési út hozzáadódik ez az elérési út" class="pme-key-title">
-nyomtatási elérési útja
+<td title="alap kimenet elérési útját a nyomtatott anyag a web gyökérkönyvtára, iktató hivatal név és nyelv egészül ki ezt az utat" class="pme-key-title">
+nyomtatási útvonal
 </td>
 <td class="pme-key-1">
 
@@ -399,8 +396,8 @@ nyomtatási elérési útja
 </tr>
 
 <tr>
-<td title="a következő kimeneti rss, a rendszerleíró adatbázis nevét és a nyelvi elérési útját az erre az útra egészül ki." class="pme-key-title">
-base directory takarmány
+<td title="alap kimenet elérési útját, rss, a iktató hivatal név és a nyelvi egészül ki ezt az utat" class="pme-key-title">
+alap feed directory
 </td>
 <td class="pme-key-1">
 
@@ -410,8 +407,8 @@ base directory takarmány
 </tr>
 
 <tr>
-<td title="ki a könyvtárban gammu eredményeit, nem szükséges az sms-átjárók http base" class="pme-key-title">
-SMS-el
+<td title="alap könyvtár a gammu eredmény nem szükséges a http sms Gateway-EK" class="pme-key-title">
+SMS-ben
 </td>
 <td class="pme-key-1">
 
@@ -421,7 +418,7 @@ SMS-el
 </tr>
 
 <tr>
-<td title="gammu input helyben feldolgozott, ha 1, egyébként ez soap feldolgozásához használ távoli" class="pme-key-title">
+<td title="Gammu bemeneti feldolgozása helyben, ha 1, egyébként ez szappan folyamatot használja távolról" class="pme-key-title">
 helyi sms?
 </td>
 <td class="pme-key-1">
@@ -443,7 +440,7 @@ helyi sms?
 
 <tr>
 <td title="Log4perl konfigurációs fájl elérési útja" class="pme-key-title">
-naplózó config path
+Logger config path
 </td>
 <td class="pme-key-1">
 

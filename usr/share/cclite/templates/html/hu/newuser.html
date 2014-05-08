@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-Reg neve
+Reg név
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- Megjegyzés: explicit elérési utat cookie-ban elintézés, egyébként path értéke a cgi-bin -->
+<!-- Megjegyzés: explicit elérési utat cookie beállítás, egyébként elérési út értéke a cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Reg neve
 
 <tr class="pme-row-1">
 
-<td title="Szükséges-hoz lenni több mint 3 karakter, betűket, számokat és csak _" class="pme-key-0">
+<td title="Több mint 3 karakter, betűket, számokat és _ csak kell" class="pme-key-0">
 Fiók neve
 <br>
 
@@ -153,7 +153,7 @@ Város
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Megye/állami
+Megye/állam
 </td>
 
 <td class="pme-value-1">
@@ -183,7 +183,7 @@ Postai irányítószám
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Rögzített telefon
+Helyhez kötött telefon
 </td>
 
 <td class="pme-value-1">
@@ -211,7 +211,7 @@ Mozgatható telefon
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Mobiltelefon ügyleteket PIN-kódja
+PIN-kódot a mobiltelefon-tranzakciók
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ Mobiltelefon ügyleteket PIN-kódja
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Erősítse meg a PIN-kódot a mobiltelefon ügyleteket
+Pin megerősítése mobiltelefon tranzakciókhoz
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ SMS fizetési bizonylatait
 
 <tr class="pme-row-1">
 
-<td title="a titkosított tranzakciók nyilvános kulcs azonosítója" class="pme-key-0">
-Nyilvános kulcs azonosítója
+<td title="Ez a nyilvános kulcs id, titkosított tranzakciók számára" class="pme-key-0">
+Nyilvános kulcs Id
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ Teljes név
 
 <td class="pme-buttons">
 
-<!-- Mi törli a rendszerleíró adatbázis cookie itt, egyébként ez lesz megakadályozná tiszta bejelentkezési később -->
+<!-- Mi töröl a iktató hivatal cookie-t, egyébként ez megakadályozza a tiszta bejelentkezési később -->
 
 <input class="pme-save"
  name="saveadd" value="Létrehozása" onClick="eraseCookie('registry');" type="submit">

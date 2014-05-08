@@ -21,14 +21,16 @@ Toate opţiunile
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="Actualizare configurare" type="submit">
+ name="saveadd" data-simple="yes" value="Actualizaţi configuraţia" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="Acest lucru este utilizatorul db pentru mysql" class="menu">
+<td title="Aceasta este de utilizator pe db mysql" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -39,7 +41,7 @@ dbuser
 </tr>
 
 <tr>
-<td title="Aceasta este parola pentru mysql db" class="menu">
+<td title="Acest lucru este parola pe db mysql" class="menu">
 dbpassword
 </td>
 <td class="pme-key-1">
@@ -50,7 +52,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="cpanel experimentale prefixul, utilizarea cu grijă, numele de utilizator cpanel uusally" class="menu">
+<td title="experimentale cpanel prefixul, utilizarea cu grija, numele de utilizator uusally cpanel" class="menu">
 cPanel prefixul
 </td>
 <td class="pme-key-1">
@@ -61,8 +63,8 @@ cPanel prefixul
 </tr>
 
 <tr>
-<td title="afişare punct zecimal pentru monede" class="menu">
-Utilizaţi zecimale
+<td title="Afişare zecimală pentru valute" class="menu">
+folosi zecimale
 </td>
 <td class="pme-key-1">
 
@@ -72,8 +74,8 @@ Utilizaţi zecimale
 </tr>
 
 <tr>
-<td title="utilizaţi forma liber Tag-uri pentru pagini aurii în loc de categorii fixe" class="menu">
-utiliza Tag-uri
+<td title="utilizaţi Tag-uri sub formă liberă pentru pagini aurii în loc fix categorii" class="menu">
+utilizaţi Tag-uri
 </td>
 <td class="pme-key-1">
 
@@ -82,10 +84,10 @@ utiliza Tag-uri
 </td>
 </tr>
 
-<!-- mai jos aici sunt parametrii plin -->
+<!-- aici de mai jos sunt complet parametrii -->
 
 <tr>
-<td title="Acest lucru este un domeniu ca deduse din calea script-ul, trebuie să fie corecte pentru cookie-uri pentru a lucra" class="menu">
+<td title="Acesta este un domeniu ca deduse din calea script-ul, trebuie să fie corecte pentru cookie-uri pentru a lucra" class="menu">
 domeniu
 </td>
 <td class="pme-key-1">
@@ -96,7 +98,7 @@ domeniu
 </tr>
 
 <tr>
-<td title="Acest lucru este serverul smtp pentru e-mail, pentru cpanel obicei acelaşi nume de domeniu, localhost sau ip pentru serverele interne" class="menu">
+<td title="Acest lucru este server smtp pentru mail, pentru cpanel, de obicei, la fel ca nume de domeniu, localhost sau ip pentru serverele interne" class="menu">
 serverul SMTP
 </td>
 <td class="pme-key-1">
@@ -107,8 +109,8 @@ serverul SMTP
 </tr>
 
 <tr>
-<td title="principalul utilizator de script pentru cclite" class="menu">
-Prima pagina
+<td title="principalul utilizator script-ul pentru cclite" class="menu">
+acasă
 </td>
 <td class="pme-key-1">
 
@@ -118,8 +120,8 @@ Prima pagina
 </tr>
 
 <tr>
-<td title="Acesta este tipul haşiş utilizate pentru parolă şi calculele simbolică, sha2 este de preferat, nu poate fi schimbat/amestecat instituit o dată" class="menu">
-haşiş tip
+<td title="Acesta este tipul de hash utilizate pentru parola şi token calcule, sha2 este de preferat, nu poate fi schimbat/amestecat o dată înfiinţat" class="menu">
+hash tip
 </td>
 <td class="pme-key-1">
 
@@ -129,7 +131,7 @@ haşiş tip
 </tr>
 
 <tr>
-<td title="HTML, rss, fişierele de ieşire şi diagrame, deduse din rădăcina documentului în cadrul serverului" class="menu">
+<td title="HTML, rss, fişiere de ieşire şi diagrame, deduse din radacina în server" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,8 +142,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="starea inițială a o plată efectuată, dacă aşteptare vor necesita și confirmarea prin primirea utilizator" class="pme-key-title">
-starea plăţii iniţiale
+<td title="starea iniţială de o plată efectuată, dacă aşteptare va cere o confirmare primind utilizator" class="pme-key-title">
+statut plata inițială
 </td>
 <td class="pme-key-1">
 
@@ -151,8 +153,8 @@ starea plăţii iniţiale
 </tr>
 
 <tr>
-<td title="starea inițială a unui utilizator, dacă neconfirmate vor necesita și confirmarea prin e-mail utilizator" class="pme-key-title">
-statutul de utilizator inițială
+<td title="starea iniţială a unui utilizator, dacă neconfirmate va cere o confirmare prin e-mail de utilizator" class="pme-key-title">
+statutul de utilizator iniţială
 </td>
 <td class="pme-key-1">
 
@@ -162,7 +164,7 @@ statutul de utilizator inițială
 </tr>
 
 <tr>
-<td title="limba implicită pentru şabloanele şi programele mesaje" class="pme-key-title">
+<td title="limba implicită pentru mesaje şi şabloane" class="pme-key-title">
 limba
 </td>
 <td class="pme-key-1">
@@ -190,8 +192,8 @@ linii pe pagină
 </tr>
 
 <tr>
-<td title="calea către fişierul de mesaje, nimic nu va funcţiona dacă acest lucru este greşit!" class="menu">
-calea pentru mesaje
+<td title="calea mesajelor fişierul, nimic nu va funcţiona în cazul în care acest lucru este greşit!" class="menu">
+calea mesajelor
 </td>
 <td class="pme-key-1">
 
@@ -209,7 +211,7 @@ calea pentru mesaje
 </tr>
 
 <tr>
-<td title="Dacă nu, nu nevoie Soap::Lite module" class="menu">
+<td title="Dacă nu, nu au nevoie de module de Soap::Lite" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -240,8 +242,8 @@ multiregistry?
 </tr>
 
 <tr>
-<td title="neutilizate direct, dar pot fi incluse în şabloane particularizate" class="pme-key-title">
-suport corespondenţă
+<td title="nu folosit direct, dar pot fi incluse în template-uri personalizate" class="pme-key-title">
+mail de sprijin
 </td>
 <td class="pme-key-1">
 
@@ -250,11 +252,11 @@ suport corespondenţă
 </td>
 </tr>
 
-<!-- Acest lucru nu este neapărat un valid poştă electronică adresă, poate fi doar un utilizator interne spre log onto serverul de poştă electronică -->
+<!-- Acest lucru nu este neapărat o adresă de e-mail validă, poate fi doar un utilizator interne a log pe server de mail -->
 
 <tr>
-<td title="utilizat pentru a trimite corespondenţă şi conectarea la serverul smtp, creat în cpanel, dacă este necesar, prima" class="menu">
-adresă de sistem
+<td title="folosit pentru a trimite mail şi conectaţi la serverul smtp, înfiinţat în cpanel, dacă este necesar, primul" class="menu">
+adresa de mail sistem
 </td>
 <td >
 
@@ -263,11 +265,11 @@ adresă de sistem
 </td>
 </tr>
 
-<!-- Acest lucru nu este neapărat un valid poştă electronică adresă, poate fi doar un utilizator interne spre log onto serverul de poştă electronică -->
+<!-- Acest lucru nu este neapărat o adresă de e-mail validă, poate fi doar un utilizator interne a log pe server de mail -->
 
 <tr>
-<td title="utilizat pentru a comuta pe Net::SMTP pentru notificări etc. aceasta este preferată şi va fi singura opţiune în viitor, 0 sau 1" class="menu">
-smtp netă?
+<td title="utilizate pentru a comuta pe Net::SMTP pentru notificări etc acest lucru este de preferat si va fi singura opţiune în viitor, 0 sau 1" class="menu">
+net smtp?
 </td>
 <td >
 
@@ -277,8 +279,8 @@ smtp netă?
 </tr>
 
 <tr>
-<td title="parola de logare pe adresa de e-mail a sistemului în serverul smtp" class="menu">
-sistem de corespondenţă parola
+<td title="parola de logare pe adresa de e-mail de sistem în cadrul smtp server" class="menu">
+sistemul de mail parola
 </td>
 <td >
 
@@ -288,7 +290,7 @@ sistem de corespondenţă parola
 </tr>
 
 <tr>
-<td title="adresă de răspuns pentru email-uri generate, adesea un face-nu-răspuns" class="pme-key-title">
+<td title="adresă de răspuns pentru email-uri generate, adesea un-nu-răspuns" class="pme-key-title">
 adresă de răspuns sistem
 </td>
 <td class="pme-key-1">
@@ -299,8 +301,8 @@ adresă de răspuns sistem
 </tr>
 
 <tr>
-<td title="calea pentru fişierele şablon utilizat pentru interfaţa web, nimic de mult va funcţiona dacă acest lucru este greşit!" class="menu">
-şabloane
+<td title="calea pentru fişierele şablon utilizat pentru interfaţa web, nimic nu de mult va funcţiona în cazul în care acest lucru este greşit!" class="menu">
+template-uri
 </td>
 <td class="pme-key-1">
 
@@ -309,11 +311,11 @@ adresă de răspuns sistem
 </td>
 </tr>
 
-<!-- secțiunea care tratează batch dosar -->
+<!-- secţiune se ocupă de fişiere lot -->
 
 <tr>
-<td title="bază de ieşire calea pentru diagramele de activitate în temeiul web rădăcină, registru nume este adăugat la această cale" class="pme-key-title">
-diagramă director
+<td title="baza de ieşire calea pentru diagrame de activitate în cadrul web rădăcină, nume de registru este adăugat la această cale" class="pme-key-title">
+diagramă Director
 </td>
 <td class="pme-key-1">
 
@@ -323,7 +325,7 @@ diagramă director
 </tr>
 
 <tr>
-<td title="va necesita perl rss module pentru generarea rss, dacă da" class="pme-key-title">
+<td title="va necesita perl rss module pentru a genera rss, dacă da" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,8 +346,8 @@ userss
 </tr>
 
 <tr>
-<td title="bază încărcaţi calea pentru tranzacţii pe loturi, nu trebuie să fie sub web rădăcină" class="pme-key-title">
-directorul CSV
+<td title="baza încărcaţi calea pentru tranzacţiile de lot, nu trebuie să fie sub web rădăcină" class="pme-key-title">
+CSV Director
 </td>
 <td class="pme-key-1">
 
@@ -354,20 +356,15 @@ directorul CSV
 </td>
 </tr>
 
-<tr>
-<td title="Inbox pentru gammu primit sms, nu e necesară pentru http sms gateway-uri" class="pme-key-title">
-SMS inbox
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="Inbox pentru corespondenţă, metoda veche înlocuit prin poștă pop în fiecare registru" class="pme-key-title">
-Director readmail.pl
+<td title="Inbox de mail, metoda veche înlocuit de mail pop în fiecare registru" class="pme-key-title">
+readmail.pl Director
 </td>
 <td class="pme-key-1">
 
@@ -377,8 +374,8 @@ Director readmail.pl
 </tr>
 
 <tr>
-<td title="ieşire bază calea pentru tranzacțiile csv la rădăcină web" class="pme-key-title">
-CSV afară
+<td title="cale bază de ieşire csv tranzacții sub web rădăcină" class="pme-key-title">
+CSV în
 </td>
 <td class="pme-key-1">
 
@@ -388,7 +385,7 @@ CSV afară
 </tr>
 
 <tr>
-<td title="producția de bază calea pentru materialul tipărit în web rădăcină, registru nume şi limba se adaugă la această cale" class="pme-key-title">
+<td title="producția de bază calea pentru materialul tipărit sub web rădăcină, nume de registru şi limba este adăugată la această cale" class="pme-key-title">
 calea de imprimare
 </td>
 <td class="pme-key-1">
@@ -399,8 +396,8 @@ calea de imprimare
 </tr>
 
 <tr>
-<td title="producția de bază calea pentru rss, registru nume şi limba se adaugă la această cale" class="pme-key-title">
-baza hrana director
+<td title="producția de bază calea pentru rss, nume de registru şi limba este adăugată la această cale" class="pme-key-title">
+baza feed Director
 </td>
 <td class="pme-key-1">
 
@@ -410,8 +407,8 @@ baza hrana director
 </tr>
 
 <tr>
-<td title="la directorul pentru gammu rezultate, nu e necesară pentru http sms gateway-uri de bază" class="pme-key-title">
-SMS la
+<td title="baza afară Director pentru gammu rezultatele, nu este necesar pentru http sms gateway-uri" class="pme-key-title">
+SMS afară
 </td>
 <td class="pme-key-1">
 
@@ -421,8 +418,8 @@ SMS la
 </tr>
 
 <tr>
-<td title="intrare gammu prelucrate pe plan local în cazul în care 1, altfel acesta utilizează săpun pentru a procesa la distanţă" class="pme-key-title">
-SMS-uri locale?
+<td title="gammu intrare prelucrate la nivel local, dacă 1, altfel acest lucru foloseste săpun la procesul de la distanţă" class="pme-key-title">
+sms locale?
 </td>
 <td class="pme-key-1">
 
@@ -443,7 +440,7 @@ SMS-uri locale?
 
 <tr>
 <td title="calea către fişierul de configurare Log4perl" class="pme-key-title">
-Logger config calea
+calea de configurare Logger
 </td>
 <td class="pme-key-1">
 

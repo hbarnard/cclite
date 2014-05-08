@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Free CSS Templates mukainen suunnittelu&#xD;	http://www.freecsstemplates.org&#xD;	Ilmainen lisenssillä Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,7 +34,7 @@ Cclite $$fieldsref{version} Admin
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- tyylilomakkeet -->
+<!-- tyylitaulukkoja -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -49,14 +51,17 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- dataTables myöhempää käyttöä varten -->
+<!-- DataTables myöhemmin -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript-Kirjastot, on pakattu subsitute versiot jotkin vaiheessa -->
 
-<!-- jQuery kohteet -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript-kirjastot, täytyy subsitute pakattuja versioita jossain vaiheessa -->
+
+<!-- jQuery kohteita -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -78,7 +83,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!-- muiden kuin jquery -->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
+
+<!-- Muut kuin jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -92,7 +100,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
-<!-- graphing -->
+<!-- kuvaajat -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +116,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Tämä on komentosarja, joka kirjaa käyttäjät ulos, kun järjestelmä on nyt nostanut kanteen -->
+<!-- Tämä on skripti, joka kirjaa käyttäjät ulos, kun järjestelmä kaatoi -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +126,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Tämä valitsin poistaa käytöstä desimaalipilkun jutut -->
+<!-- Tällä säätimellä säädät päälle/pois desimaalipilkun tavaraa -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Etsi käyttäjät, kaupat, mainokset -->
+<!-- Etsi käyttäjät, kaupat, mainoksia -->
 
 <br/>
 
@@ -148,22 +156,22 @@ Käyttäjät
 </option>
 
 <option value='ad'>
-Mainonnassa
+Ilmoitukset
 </option>
 
 </select>
 
-<input value="Siirry" class="small" type="submit" title="Etsiä kaupat, mainoksia tai käyttäjät">
+<input value="Go" class="small" type="submit" title="Kaupat, mainoksia tai käyttäjien">
 
 </form>
 
-<!-- automaattisen täydennyksen Etsi-ruudun loppuun -->
+<!-- loppuun autocomplete hakukenttään -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- kielen valitseminen versio 1 -->
+<!-- kielen valitsin versio 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +195,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- kielen valitseminen versio 1 loppu -->
+<!-- kielen valitsin versio 1 lopussa -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -208,7 +216,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a title="Hallintaliittymän Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+<a title="Ylläpito käyttöliittymä Cclite" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite Admin
 </a>
 </h1>
@@ -233,14 +241,14 @@ Tilan muuttaminen $$fieldsref{registry}
 </li>
 
 <li>
-<a class="bodytext" title="Näyttää linkitetyn kumppani rekisterit" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Näytä hotelli liitetyillä rekisterit" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Kumppanit
 </a>
 </li>
 
 <li>
 <a class="bodytext" title="Luo uusi valuutta" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
-Luo valuutta
+Rahan luomista
 </a>
 </li>
 
@@ -251,7 +259,7 @@ Näytä valuutat
 </li>
 
 <li>
-<a class="bodytext"title="Luo uusi Mainosluokka" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+<a class="bodytext"title="Luo uusi mainos luokka" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
 Luo Ad luokka
 </a>
 </li>
@@ -273,20 +281,26 @@ Luottoraja
 </li>
 
 <li>
-<a title="Luo etätietokoneen tai paikallisen rekisterin kumppani" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Luominen etätietokoneissa tai paikallisissa rekisterin kumppani" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Luo rekisterin kumppani
 </a>
 </li>
 
 <li>
-<a title="Koskee kaikkia tilejä palvelumaksu" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Sovelletaan palvelumaksu
+<a title="Palvelumaksu koskee kaikkia tilejä" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Sovellettava Palvelumaksu
+</a>
+</li>
+
+<li>
+<a title="Saada tileille, joilla on PIN-koodi lukittu ja/tai salasana lukittu" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Saada lukittu tilit
 </a>
 </li>
 
 <li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
-Luo erän dirs liittyvät paketit
+Luo erän Dirs
 </a>
 </li>
 
@@ -300,7 +314,7 @@ Muokkaa $$fieldsref{registry}
 
 </div>
 
-<!-- tag cloud ja yksittäisten Käyttäjätilastot -->
+<!-- Tag cloud ja yksittäisten käyttäjien tilastot -->
 
 <div id="content">
 
@@ -346,7 +360,7 @@ Etusivu
 </a>
 |
 <a href="#">
-Ota meihin yhteyttä
+Ota yhteyttä
 </a>
 <br />
 

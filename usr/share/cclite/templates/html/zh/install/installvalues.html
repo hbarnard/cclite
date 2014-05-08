@@ -27,6 +27,8 @@ $$fieldsref{updatemessage}
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
 <td title="这是为 mysql 数据库用户" class="menu">
 dbuser
@@ -163,7 +165,7 @@ htmlpath
 
 <tr>
 <td title="消息和模板的默认语言" class="pme-key-title">
-??
+语言
 </td>
 <td class="pme-key-1">
 
@@ -354,16 +356,11 @@ csv 目录
 </td>
 </tr>
 
-<tr>
-<td title="gammu 收到短信，不需要 http sms 网关的收件箱" class="pme-key-title">
-短信收件箱
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
 <td title="收件箱中的邮件，取而代之的是流行邮件的每个注册表的老方法" class="pme-key-title">
@@ -421,7 +418,7 @@ readmail.pl 目录
 </tr>
 
 <tr>
-<td title="gammu 输入本地处理如果为 1，否则这使用 soap 处理远程" class="pme-key-title">
+<td title="gammu 输入本地处理如果为 1，否则这将使用 soap 远程处理" class="pme-key-title">
 当地的短信吗？
 </td>
 <td class="pme-key-1">
@@ -468,10 +465,10 @@ readmail.pl 目录
 <td class="pme-buttons">
 
 <input class="pme-save"
- name="saveadd" data-simple="yes" value="??" type="submit">
+ name="saveadd" data-simple="yes" value="更新" type="submit">
 &nbsp;
 <input class="pme-cancel"
- name="cancel" data-simple="yes" value="??" type="reset">
+ name="cancel" data-simple="yes" value="明确" type="reset">
 
 </td>
 

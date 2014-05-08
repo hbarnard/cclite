@@ -30,14 +30,14 @@ $$fields{errors}
 <tr>
 
 <td class="pme-key-0">
-שם הפקודה Reg
+. רג ' שם
 <br>
 
 </td>
 
 <td style="vertical-align: top;">
 
-<!-- הערה ערך נתיב מדויק בקובץ cookie הגדרת, אחרת נתיב מוגדר עבור cgi-bin -->
+<!-- הערה ערך נתיב מפורש בקובץ cookie, הגדרת נתיב אחרת מוגדר עבור cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,8 +47,8 @@ $$fields{errors}
 
 <tr class="pme-row-1">
 
-<td title="יש יותר מ- 3 תווים, אותיות, מספרים ותווי _ רק" class="pme-key-0">
-שם חשבון
+<td title="צריך להיות יותר מ 3 תווים, אותיות, מספרים, _ בלבד" class="pme-key-0">
+שם החשבון
 <br>
 
 </td>
@@ -108,7 +108,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-שם מספר/בית
+מספר/בית שם
 </td>
 
 <td class="pme-value-1">
@@ -123,7 +123,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-שם רחוב
+שם הרחוב
 </td>
 
 <td class="pme-value-1">
@@ -197,12 +197,12 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td  class="pme-key-0">
-טלפון נייד
+טלפון סלולרי
 </td>
 
 <td class="pme-value-1">
 
-<input title="בבקשה במספר זה בתבנית בינלאומית 44777766666" class="pme-input-1"
+<input title="בבקשה לשים את המספר. הזה בפורמט הבינלאומי 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-ה-pin עבור טרנזקציות טלפון נייד
+ה-pin עבור תנועות טלפון סלולרי
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-אישור Pin עבור טרנזקציות טלפון נייד
+לאשר את ה-Pin עבור תנועות טלפון סלולרי
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ $$fields{errors}
 
 <tr class="pme-row-1">
 
-<td title="זהו מזהה מפתח ציבורי עבור טרנזקציות מוצפנות" class="pme-key-0">
+<td title=". זה מזהה מפתח ציבורי עבור תנועות מוצפן" class="pme-key-0">
 מזהה מפתח ציבורי
 </td>
 
@@ -324,7 +324,7 @@ $$fields{errors}
 
 <td class="pme-buttons">
 
-<!-- אנו למחוק קובץ cookie הרישום כאן, אחרת זה למנוע כניסה נקי מאוחר יותר -->
+<!-- נוכל למחוק את הרישום העוגייה כאן, אחרת זה למנוע כניסה נקי יותר מאוחר -->
 
 <input class="pme-save"
  name="saveadd" value="צור" onClick="eraseCookie('registry');" type="submit">

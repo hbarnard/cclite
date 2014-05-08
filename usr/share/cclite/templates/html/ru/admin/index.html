@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Дизайн Бесплатные CSS шаблоны&#xD;	http://www.freecsstemplates.org&#xD;	Выпустила бесплатно по лицензии Creative Commons Attribution 2,5 -->
+<!-- Дизайн Бесплатные CSS шаблоны&#xD;	http://www.freecsstemplates.org&#xD;	Выпущен бесплатно под лицензии Creative Commons Attribution 2,5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,12 +51,15 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables позже -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript библиотеки, необходимо subsitute сжатых версий на каком-то этапе -->
 
-<!-- JQuery-предметов -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript-библиотеки, нужно обычную сжатых версий на определенном этапе -->
+
+<!-- jQuery элементы -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -76,6 +79,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- другие не jquery -->
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Это скрипт, который регистрирует пользователей, когда системы доводится -->
+<!-- Это скрипт, который регистрирует пользователей, когда система доводится -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -124,7 +130,7 @@ $$fieldsref{logout_script}
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Поиск для пользователей, торгов, объявления -->
+<!-- Поиск для пользователей, сделки, ads -->
 
 <br/>
 
@@ -209,7 +215,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a title="Административный интерфейс для Cclite" href="/cgi-bin/protected/ccadmin.cgi">
-Cclite Admin
+Cclite администратор
 </a>
 </h1>
 
@@ -233,20 +239,20 @@ Cclite Admin
 </li>
 
 <li>
-<a class="bodytext" title="Показать связанные Регистры-партнеры" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Показать связанный партнер реестров" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Партнеры
 </a>
 </li>
 
 <li>
 <a class="bodytext" title="Создать новую валюту" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=currency.html">
-Создайте валюты
+Создание валюты
 </a>
 </li>
 
 <li>
-<a class="bodytext" title="Показать валют" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Показать валют
+<a class="bodytext" title="Показать валюты в" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Показать валюты
 </a>
 </li>
 
@@ -262,18 +268,18 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Остатки реестра
+Реестр остатков
 </a>
 </li>
 
 <li>
-<a title="Создание правила или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
+<a title="Создать правило или кредитного лимита" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=rule.html">
 Кредитный лимит
 </a>
 </li>
 
 <li>
-<a title="Создание удаленного или локального реестра партнера" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Создание локального или удаленного реестра партнера" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Создание реестра партнера
 </a>
 </li>
@@ -281,6 +287,12 @@ $$fieldsref{installer_link}
 <li>
 <a title="Применение плата за обслуживание для всех учетных записей" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 Применение плата за обслуживание
+</a>
+</li>
+
+<li>
+<a title="Получить учетные записи, которые имеют заблокирован Pin или пароль заблокирован" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Получить заблокированные учетные записи
 </a>
 </li>
 
@@ -342,7 +354,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Дом
+Главная
 </a>
 |
 <a href="#">

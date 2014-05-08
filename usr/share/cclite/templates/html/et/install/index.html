@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Arvutuslik vaba CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Litsentsi Creative Commons Attribution 2.5 vabasse ringlusesse -->
+<!-- Vaba CSS Templates Design&#xD;	http://www.freecsstemplates.org&#xD;	Tasuta eralduda Creative Commons Attribution 2.5 litsents -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Installimine
+Cclite $$fieldsref{version} Paigaldada
 </title>
 
 <meta name="keywords" content="" />
@@ -32,7 +32,7 @@ Cclite $$fieldsref{version} Installimine
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- laadilehte -->
+<!-- tyylitaulukkoja -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -49,12 +49,12 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- hiljem datatables -->
+<!-- datatables hiljem -->
 
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- JavaScript raamatukogud, on vaja tihendatud subsitute versioonide etapis -->
+<!-- JavaScript raamatukogud vajavad subsitute tihendatud versioonidele mingis etapis -->
 
 <!-- jQuery üksused -->
 
@@ -81,7 +81,7 @@ $$fieldsref{metarefresh}
 
 <!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
-<!-- teised ei ole jquery -->
+<!-- teised mitte jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -92,7 +92,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- graphing -->
+<!-- graafilises -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- see on skripti, mis logib kasutajate esitatud süsteemi on kostjale -->
+<!-- See on skript, mis logib kasutaja välja kui süsteem on toonud -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -121,20 +121,20 @@ $$fieldsref{logout_script}
 <div id="distribution" class="hidden">
 $$fieldsref{distribution}
 </div>
-<!-- Lülitage otse loomine kui cpanel -->
+<!-- Lülitage otsene loomist kui cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- Automaatteksti otsinguvälja lõppu -->
+<!-- automaatteksti otsinguväljale lõpp -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- valija keeleversiooni 1 -->
+<!-- keelne valija versioon 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -165,7 +165,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- keele valija versioon 1 lõpp -->
+<!-- keele valijat versioon 1 lõpp -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -187,7 +187,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Cclite installimine
+Cclite paigaldamine
 </a>
 </h1>
 
@@ -198,8 +198,8 @@ $$fieldsref{environment}
 <ul>
 
 <li class="first">
-<a title="Google grupi toetuse saamiseks" href="http://groups.google.co.uk/group/cclite?hl=en">
-Kui soovite abi?
+<a title="Google grupi tugi" href="http://groups.google.co.uk/group/cclite?hl=en">
+Tahan aidata?
 </a>
 </li>
 
@@ -211,14 +211,14 @@ Administraatori valikuid
 </li>
 
 <li>
-<a title="Kasutajamenüü" href="/cgi-bin/cclite.cgi">
-Kasutajamenüü
+<a title="Kasutaja menüü" href="/cgi-bin/cclite.cgi">
+Kasutaja menüü
 </a>
 </li>
 
 <li>
-<a id="updateconfig" title="Värskenduse conifguration cclite.cf salvestatakse" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
-Värskenduste konfigureerimine
+<a id="updateconfig" title="Update konfiguratsioon salvestatud cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
+Konfiguratsiooni värskendamine
 </a>
 </li>
 
@@ -230,13 +230,19 @@ Saate luua uue registri
 
 <li>
 <a id="showregistry" title="Kuva praeguse Cclite registrid" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
-Kuva registrid
+Näita registrid
 </a>
 </li>
 
 <li>
 <a id="installcheck" title="Käivitage Install Checker" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-Kontrollige installi nõuded
+Kontrollige installi nõuetele
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Kuvada ja värskendada readsms.cf Gammu, on vaja ka /etc/gammu-smsdrc käsitsi värskendama, vaadake esitatud näited" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Gammu konfiguratsiooni värskendamine
 </a>
 </li>
 
@@ -266,7 +272,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Avaleht
+Kodu
 </a>
 |
 <a href="#">

@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite! $$ {版本} ！安装
+Cclite !$$fieldsref{version}! Install
 </title>
 
 <meta name="keywords" content="" />
@@ -204,8 +204,8 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a title="????" href="/cgi-bin/protected/ccadmin.cgi">
-????
+<a title="管理菜单" href="/cgi-bin/protected/ccadmin.cgi">
+管理菜单
 </a>
 
 </li>
@@ -217,7 +217,7 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a id="updateconfig" title="更新存储在 cclite.cf 中的 conifguration" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="存储在 cclite.cf 中的更新配置" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 更新配置
 </a>
 </li>
@@ -237,6 +237,12 @@ $$fieldsref{environment}
 <li>
 <a id="installcheck" title="运行安装检查程序" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 检查安装要求
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="显示和更新 readsms.cf 为 Gammu，需要也要手动更新 /etc/gammu-smsdrc，请参阅提供的示例" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+更新 Gammu 配置
 </a>
 </li>
 

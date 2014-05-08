@@ -31,7 +31,7 @@
 <tr>
 
 <td class="pme-key-0">
-アカウント
+アカウントから
 <br>
 
 </td>
@@ -55,7 +55,7 @@
 
 <td class="pme-value-1">
 
-<!-- アヤックスをしたくない場合これを decomment し、次の行を置くupto のコメントに&lt;input class="pme-input-1" name="tradeDestination" size="11" maxlength="11" type="text"&gt; -->
+<!-- オートサジェストしたくない場合この decomment を持っているし、下の行を置くコメントを件まで&lt;input class="pme-input-1" name="tradeDestination" size="11" maxlength="11" type="text"&gt; -->
 
 <input type="text" class="required" name="tradeDestination" id="tradeDestination" autocomplete="off"/>
 
@@ -86,7 +86,7 @@ $$fieldsref{selectpartners}
 <td nowrap class="pme-value-0">
 $$fieldsref{selectcurrency}
 <span class="pme-key-0">
-金額
+量
 </span>
 
 <input class="required" id="tradeAmount" onChange="validatedecimals(this,this.value);" name="tradeAmount" size="11" maxlength="11" type="text">
@@ -182,7 +182,7 @@ $$fieldsref{sselectcurrency}
 <td class="pme-buttons">
 
 <input class="pme-save"
- name="saveadd"  value="転送" type="submit">
+ name="saveadd"  value="作る転送" type="submit">
 &nbsp;
 <input class="pme-cancel"
  name="cancel" value="クリア" type="reset">

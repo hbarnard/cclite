@@ -15,20 +15,22 @@ Lihtne
 </option>
 
 <option value="full">
-Kõik suvandid
+Kõik valikud
 </option>
 
 </select>
 
 <input class="small"
- name="saveadd" data-simple="yes" value="Värskenduste konfigureerimine" type="submit">
+ name="saveadd" data-simple="yes" value="Konfiguratsiooni värskendamine" type="submit">
 
 <input class="small" data-simple="yes"  id="installer2" name="installer2" class="pme-save" type="submit"  value=">>Create Registry [Trading Group]">
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
-<td title="see on mysql andmebaasi kasutaja" class="menu">
+<td title="See on mysql andmebaasi kasutaja" class="menu">
 dbuser
 </td>
 <td class="pme-key-1">
@@ -39,7 +41,7 @@ dbuser
 </tr>
 
 <tr>
-<td title="see on mysql andmebaasi parooli" class="menu">
+<td title="mysql andmebaasi parool" class="menu">
 dbpassword
 </td>
 <td class="pme-key-1">
@@ -50,8 +52,8 @@ dbpassword
 </tr>
 
 <tr>
-<td title="katse cpanel eesliide, kasutamist hoolikalt, uusally cpanel kasutaja nimi" class="menu">
-cPanel prefiks
+<td title="eksperimentaalne cpanel eesliide, kasutada ettevaatlikult, uusally cpanel kasutajanimi" class="menu">
+cPanel eesliide
 </td>
 <td class="pme-key-1">
 
@@ -61,7 +63,7 @@ cPanel prefiks
 </tr>
 
 <tr>
-<td title="valuutade koma Kuva" class="menu">
+<td title="koma display valuutad" class="menu">
 Kasutage kümnendkohta.
 </td>
 <td class="pme-key-1">
@@ -72,7 +74,7 @@ Kasutage kümnendkohta.
 </tr>
 
 <tr>
-<td title="kollased leheküljed fikseeritud kategooriate asemel vabas vormis siltide kasutamine" class="menu">
+<td title="kasutada vabas vormis silte kollased leheküljed asemel fikseeritud Kategooriad" class="menu">
 siltide kasutamine
 </td>
 <td class="pme-key-1">
@@ -82,10 +84,10 @@ siltide kasutamine
 </td>
 </tr>
 
-<!-- Siin allpool on täielik parameetrid -->
+<!-- siin allpool on täis parameetrid -->
 
 <tr>
-<td title="see on domeeni skripti tee pikkuse põhjal, vajab õigeks töötamiseks küpsiste kohta" class="menu">
+<td title="See on domeeni tuletada skripti tee, peab olema õige küpsised tööle" class="menu">
 domeen
 </td>
 <td class="pme-key-1">
@@ -96,8 +98,8 @@ domeen
 </tr>
 
 <tr>
-<td title="see on e-posti cpanel smtp-serveri tavaliselt sama domeeni nimi, localhost või sisemise serverite ip" class="menu">
-SMTP-server
+<td title="See on e-posti jaoks cpanel smtp-server tavaliselt sama domeeninimi, localhost või sisemiste serverite ip" class="menu">
+SMTP server
 </td>
 <td class="pme-key-1">
 
@@ -107,7 +109,7 @@ SMTP-server
 </tr>
 
 <tr>
-<td title="peamine kasutaja skripti cclite" class="menu">
+<td title="kasutajaskripti peamised cclite" class="menu">
 Avaleht
 </td>
 <td class="pme-key-1">
@@ -118,7 +120,7 @@ Avaleht
 </tr>
 
 <tr>
-<td title="see on parool ja sümboolne arvutustes kasutatud räsi tüüp, eelistatud on sha2, ei saa muuta/kombineeritud kord moodustada" class="menu">
+<td title="See on parool ja sümboolne arvutustes kasutatavad räsi tüüp, sha2 on eelistatud, muutunud/kombineeritud ühe korra loomisel on" class="menu">
 räsi tüüp
 </td>
 <td class="pme-key-1">
@@ -129,7 +131,7 @@ räsi tüüp
 </tr>
 
 <tr>
-<td title="HTML, rss, väljundfailide ja diagrammid, mahtuvustegurist dokumendi juurkaust jooksul server" class="menu">
+<td title="HTML rss väljund faili ja diagramme, tuletada dokumendi juurkaust jooksul server" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,8 +142,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="esialgse makse kui ootel nõuab kinnituse saamist kasutaja olek" class="pme-key-title">
-Esialgne makse olek
+<td title="algolukorra opereerimisõiguse, kui oodanud nõuab kinnitust saanud kasutaja" class="pme-key-title">
+esialgne makse olek
 </td>
 <td class="pme-key-1">
 
@@ -151,8 +153,8 @@ Esialgne makse olek
 </tr>
 
 <tr>
-<td title="kasutaja, kui kinnitamata esialgne seisund nõuab kinnitust kasutaja e-posti teel" class="pme-key-title">
-esialgne kasutaja olek
+<td title="kasutaja kui kinnitamata algolukorra nõuab kinnituse kasutaja e-posti teel" class="pme-key-title">
+algse oleku
 </td>
 <td class="pme-key-1">
 
@@ -162,7 +164,7 @@ esialgne kasutaja olek
 </tr>
 
 <tr>
-<td title="Tekstisõnumid ja Blanketid vaikekeele" class="pme-key-title">
+<td title="vaikekeele Tekstisõnumid ja Blanketid" class="pme-key-title">
 keel
 </td>
 <td class="pme-key-1">
@@ -179,8 +181,8 @@ keel
 -->
 
 <tr>
-<td title="tabeli aruannete jaoks ekraani ridade arv" class="pme-key-title">
-ridu lehekülje kohta
+<td title="ekraani kriipse tabelina aruandeid" class="pme-key-title">
+ridu lehel
 </td>
 <td class="pme-key-1">
 
@@ -190,8 +192,8 @@ ridu lehekülje kohta
 </tr>
 
 <tr>
-<td title="sõnumite faili tee, toimib midagi juhul, kui see on vale!" class="menu">
-tee sõnumite puhul
+<td title="sõnumid faili tee, midagi toimib juhul, kui see on vale!" class="menu">
+tee sõnumeid
 </td>
 <td class="pme-key-1">
 
@@ -209,7 +211,7 @@ tee sõnumite puhul
 </tr>
 
 <tr>
-<td title="Kui ei, ei pea Soap::Lite moodulid" class="menu">
+<td title="Kui ei, siis ei pea Soap::Lite moodulid" class="menu">
 multiregistry?
 </td>
 <td class="pme-key-1">
@@ -240,8 +242,8 @@ multiregistry?
 </tr>
 
 <tr>
-<td title="ei kasutata otseselt, vaid saate lisada kohandatud mallid" class="pme-key-title">
-toetab e-posti
+<td title="mitte otse aga saab kaasata kohandatud Mallid" class="pme-key-title">
+toetada e-posti
 </td>
 <td class="pme-key-1">
 
@@ -250,10 +252,10 @@ toetab e-posti
 </td>
 </tr>
 
-<!-- see ei ole kindlasti kehtiv e-posti aadress, võib olla lihtsalt sisemine kasutaja e-posti serverisse sisselogimiseks -->
+<!-- See ei ole tingimata ebakorrektne, saab lihtsalt sisemine kasutaja e-posti serverisse sisselogimiseks -->
 
 <tr>
-<td title="saata e-posti ja smtp-server, vajaduse korral cpanel, seadistada siseneda esimese" class="menu">
+<td title="saata e-posti ja smtp server, saate seadistada cpanel, vajadusel Logi esimese" class="menu">
 süsteemi e-posti aadress
 </td>
 <td >
@@ -263,11 +265,11 @@ süsteemi e-posti aadress
 </td>
 </tr>
 
-<!-- see ei ole kindlasti kehtiv e-posti aadress, võib olla lihtsalt sisemine kasutaja e-posti serverisse sisselogimiseks -->
+<!-- See ei ole tingimata ebakorrektne, saab lihtsalt sisemine kasutaja e-posti serverisse sisselogimiseks -->
 
 <tr>
-<td title="0 või 1 teatised jne see on eelistatud ja tulevikus ainus võimalus Net::SMTP lülitada abil" class="menu">
-neto smtp?
+<td title="saab lülitada Net::SMTP teated jne see on eelistatud ja on ainuke võimalus tulevikus, 0 või 1" class="menu">
+net smtp?
 </td>
 <td >
 
@@ -277,8 +279,8 @@ neto smtp?
 </tr>
 
 <tr>
-<td title="süsteemi e-posti aadress smtp-serveri sisselogimiseks parooli" class="menu">
-e-posti süsteemi parool
+<td title="sisselogimine süsteemi e-posti aadress jooksul smtp serveri parool" class="menu">
+süsteemi e-posti parooli
 </td>
 <td >
 
@@ -288,8 +290,8 @@ e-posti süsteemi parool
 </tr>
 
 <tr>
-<td title="vastuse aadress loodud meile, sageli ei-ei-vastuse" class="pme-key-title">
-süsteemi vastuse meiliaadress
+<td title="vastuseaadressi loodud e-kirju, tihti ei-ei-vastuse" class="pme-key-title">
+süsteemi e-posti vastuseaadressi
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ süsteemi vastuse meiliaadress
 </tr>
 
 <tr>
-<td title="mallifailid veebiliidese kasutatava tee, midagi palju toimib juhul, kui see on vale!" class="menu">
+<td title="tee kasutatud veebiliidese mallifailid, midagi palju töötab, kui see on vale!" class="menu">
 Mallid
 </td>
 <td class="pme-key-1">
@@ -309,11 +311,11 @@ Mallid
 </td>
 </tr>
 
-<!-- jaotises, mis käsitleb partii failidega -->
+<!-- jaotises, mis käsitleb partii faile -->
 
 <tr>
-<td title="Base toodangu tee tegevuse diagrammide veebi juurkataloogi alusel, registri nimi lisatakse see tee" class="pme-key-title">
-Diagrammi register
+<td title="baasi väljund teed tegevuse diagrammide alusel veebi root, registri nimi lisatakse seda teed" class="pme-key-title">
+Diagrammi kataloog
 </td>
 <td class="pme-key-1">
 
@@ -323,8 +325,8 @@ Diagrammi register
 </tr>
 
 <tr>
-<td title="nõuab perl rss moodulite genereerimiseks, rss, kui jah" class="pme-key-title">
-userss
+<td title="on vaja perl rss moodulite tekitama rss, kui jah" class="pme-key-title">
+UseRSS
 </td>
 <td class="pme-key-1">
 
@@ -344,8 +346,8 @@ userss
 </tr>
 
 <tr>
-<td title="Base laadida tee tehinguid, ei tohiks veebi juurkataloogi alusel" class="pme-key-title">
-CSV register
+<td title="baasi upload tee tehinguid, peaksid olema veebi root" class="pme-key-title">
+CSV kataloog
 </td>
 <td class="pme-key-1">
 
@@ -354,20 +356,15 @@ CSV register
 </td>
 </tr>
 
-<tr>
-<td title="gammu sai SMS-i, ei ole vaja http sms lüüsid sisse" class="pme-key-title">
-SMS-i sisse
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="sisendkausta meili, pop e-posti igas registris asendada vana meetod" class="pme-key-title">
-readmail.PL register
+<td title="saabunud posti, vana meetod asendada pop mail igas registris" class="pme-key-title">
+readmail.pl kataloog
 </td>
 <td class="pme-key-1">
 
@@ -377,7 +374,7 @@ readmail.PL register
 </tr>
 
 <tr>
-<td title="Base toodangu tee csv veebi juurkataloogi kohaste tehingute puhul" class="pme-key-title">
+<td title="baasi väljundi tee csv tehingute alusel veebi root" class="pme-key-title">
 CSV läbi
 </td>
 <td class="pme-key-1">
@@ -388,8 +385,8 @@ CSV läbi
 </tr>
 
 <tr>
-<td title="Base toodangu trükitud materjali veebi juurkataloogi, registri nimi ja keele tee täiendatakse seda teed" class="pme-key-title">
-Prindi tee
+<td title="baasi väljundi tee trükised veebi root, registri nimi ja keele alusel lisatakse seda teed" class="pme-key-title">
+prinditeed
 </td>
 <td class="pme-key-1">
 
@@ -399,8 +396,8 @@ Prindi tee
 </tr>
 
 <tr>
-<td title="Base toodangu rss, registri nimi ja keele tee täiendatakse seda teed" class="pme-key-title">
-Base sööda register
+<td title="baasi väljundi tee rss registri nimi ja keel lisatakse seda teed" class="pme-key-title">
+baasi feed directory
 </td>
 <td class="pme-key-1">
 
@@ -410,8 +407,8 @@ Base sööda register
 </tr>
 
 <tr>
-<td title="Base directory gammu tulemusi, ei ole vaja http sms lüüsid läbi" class="pme-key-title">
-SMS läbi
+<td title="Base directory ei nõutud http sms väravaid gammu tulemused" class="pme-key-title">
+läbi SMSi
 </td>
 <td class="pme-key-1">
 
@@ -421,8 +418,8 @@ SMS läbi
 </tr>
 
 <tr>
-<td title="gammu sisend kui 1 kohapeal töödeldud, muul see kasutab seep eemalt töödelda" class="pme-key-title">
-kohaliku sms?
+<td title="gammu sisend kohapeal töödeldud kui 1, muidu see kasutab soap töötlemiseks eemalt" class="pme-key-title">
+Kohalik sms?
 </td>
 <td class="pme-key-1">
 
@@ -442,8 +439,8 @@ kohaliku sms?
 </tr>
 
 <tr>
-<td title="Log4perl konfiguratsioon faili tee" class="pme-key-title">
-logger config tee
+<td title="Log4perl konfiguratsiooni faili tee" class="pme-key-title">
+puuraidur config tee
 </td>
 <td class="pme-key-1">
 

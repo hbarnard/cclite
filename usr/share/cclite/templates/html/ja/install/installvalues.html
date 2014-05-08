@@ -27,6 +27,8 @@ $$fieldsref{updatemessage}
 
 <input name="action"  data-simple="yes"  value="updateconfig2" type="hidden">
 
+<input name="type"  data-simple="yes"  value="main" type="hidden">
+
 <tr>
 <td title="これは mysql の db ユーザーです。" class="menu">
 dbuser
@@ -50,7 +52,7 @@ dbpassword
 </tr>
 
 <tr>
-<td title="実験的 cpanel プレフィックス、ケア、uusally cpanel のユーザー名を使用します。" class="menu">
+<td title="実験的 cpanel プレフィックス、ケア、uusally cpanel ユーザー名で使用します。" class="menu">
 cpanel のプレフィックス
 </td>
 <td class="pme-key-1">
@@ -62,7 +64,7 @@ cpanel のプレフィックス
 
 <tr>
 <td title="通貨の小数点表示" class="menu">
-小数を使用します。
+小数を使用します
 </td>
 <td class="pme-key-1">
 
@@ -72,7 +74,7 @@ cpanel のプレフィックス
 </tr>
 
 <tr>
-<td title="固定カテゴリ代わりのイエロー ページのフリー フォームのタグを使用します。" class="menu">
+<td title="固定カテゴリの代わりにイエロー ・ ページの自由形式のタグを使用します。" class="menu">
 タグを使用します。
 </td>
 <td class="pme-key-1">
@@ -82,10 +84,10 @@ cpanel のプレフィックス
 </td>
 </tr>
 
-<!-- ここでは以下についてのパラメーターは -->
+<!-- 以下は、完全なパラメーター -->
 
 <tr>
-<td title="このドメインからのスクリプトのパスをみた、仕事にクッキーの正しいする必要があります。" class="menu">
+<td title="このドメイン スクリプト パスから推測としては、動作するようにクッキーの正しいする必要があります。" class="menu">
 ドメイン
 </td>
 <td class="pme-key-1">
@@ -96,7 +98,7 @@ cpanel のプレフィックス
 </tr>
 
 <tr>
-<td title="これは、smtp サーバーのメールは、cpanel のです通常のドメイン名、localhost または ip の内部サーバーとして同じ" class="menu">
+<td title="これは cpanel のメール用の smtp サーバーのドメイン名、localhost または内部サーバーの ip アドレスとして、通常と同じ" class="menu">
 smtp サーバー
 </td>
 <td class="pme-key-1">
@@ -118,7 +120,7 @@ smtp サーバー
 </tr>
 
 <tr>
-<td title="このパスワードとトークンの計算に使用されるハッシュ型 sha2 優先は、変更/混合一度セットアップすることはできません。" class="menu">
+<td title="これはパスワードやトークンの計算に使用されるハッシュ型、sha2 が好ましい、変更混合一度を設定できません。" class="menu">
 ハッシュ型
 </td>
 <td class="pme-key-1">
@@ -129,7 +131,7 @@ smtp サーバー
 </tr>
 
 <tr>
-<td title="サーバー内のドキュメント ルートからみたチャート、出力ファイル、rss html" class="menu">
+<td title="html、rss、出力ファイルおよびサーバー内のドキュメント ルートからみたチャート" class="menu">
 htmlpath
 </td>
 <td class="pme-key-1">
@@ -140,7 +142,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="初期状態の待機中のユーザーを受信確認必要とする場合、支払" class="pme-key-title">
+<td title="待機は受信ユーザーによる確認が必要な場合になされる支払の初期ステータス" class="pme-key-title">
 初回のお支払いのステータス
 </td>
 <td class="pme-key-1">
@@ -151,7 +153,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="初期状態ユーザー メールで未確認の確認を必要とする場合、ユーザーの" class="pme-key-title">
+<td title="未確認ユーザー メールでの確認が必要になる場合、ユーザーの初期ステータス" class="pme-key-title">
 初期のユーザー ステータス
 </td>
 <td class="pme-key-1">
@@ -162,7 +164,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="既定の言語のメッセージやテンプレート" class="pme-key-title">
+<td title="メッセージとテンプレートの既定の言語" class="pme-key-title">
 言語
 </td>
 <td class="pme-key-1">
@@ -179,7 +181,7 @@ htmlpath
 -->
 
 <tr>
-<td title="表形式のレポートのスクリーン線数" class="pme-key-title">
+<td title="表形式のレポートのためのスクリーン線数" class="pme-key-title">
 ページあたりの行数
 </td>
 <td class="pme-key-1">
@@ -190,7 +192,7 @@ htmlpath
 </tr>
 
 <tr>
-<td title="これは間違っている場合メッセージ ファイルへのパス、何も動作します ！" class="menu">
+<td title="メッセージ ファイルへのパス、何もこれが間違っている場合を動作します ！" class="menu">
 メッセージのパス
 </td>
 <td class="pme-key-1">
@@ -209,8 +211,8 @@ htmlpath
 </tr>
 
 <tr>
-<td title="ない場合は、soap::lite モジュールを必要はありません。" class="menu">
-multiregistry？
+<td title="場合は、soap::lite モジュールは必要ありません。" class="menu">
+multiregistry ですか？
 </td>
 <td class="pme-key-1">
 
@@ -240,7 +242,7 @@ multiregistry？
 </tr>
 
 <tr>
-<td title="ない直接使用しますが、カスタム テンプレートに含めることができます" class="pme-key-title">
+<td title="直接使用ではなくカスタム テンプレートに含めることができます" class="pme-key-title">
 メールをサポートします。
 </td>
 <td class="pme-key-1">
@@ -250,11 +252,11 @@ multiregistry？
 </td>
 </tr>
 
-<!-- これは必ずしも有効なメール アドレスで、内部ユーザーはメール サーバーにログオンすることができます。 -->
+<!-- これは必ずしも有効なメール アドレス、メール サーバーへのログオンには、内部のユーザーをすることができます。 -->
 
 <tr>
-<td title="メールを送信し、cpanel では、必要な場合は、セットアップの smtp サーバーには、最初のログインを使用" class="menu">
-システムのメール アドレス
+<td title="メールを送信し、smtp サーバーを必要に応じて、cpanel では、セットアップを最初にログインするために使用" class="menu">
+システム メール アドレス
 </td>
 <td >
 
@@ -263,11 +265,11 @@ multiregistry？
 </td>
 </tr>
 
-<!-- これは必ずしも有効なメール アドレスで、内部ユーザーはメール サーバーにログオンすることができます。 -->
+<!-- これは必ずしも有効なメール アドレス、メール サーバーへのログオンには、内部のユーザーをすることができます。 -->
 
 <tr>
-<td title="0 または 1 これをお勧めされ唯一のオプションは、将来的には、通知などの Net::SMTP を切り替えるために使用" class="menu">
-ネットの smtp ですか？
+<td title="0 または 1 の通知等この優先であり、将来的には、唯一のオプションになります Net::SMTP を切り替えに使用" class="menu">
+net の smtp ですか？
 </td>
 <td >
 
@@ -277,7 +279,7 @@ multiregistry？
 </tr>
 
 <tr>
-<td title="システムのメール アドレスの smtp サーバーにログオンするためのパスワード" class="menu">
+<td title="システム メール アドレス内の smtp サーバーへのログオンにパスワード" class="menu">
 システム メール パスワード
 </td>
 <td >
@@ -288,8 +290,8 @@ multiregistry？
 </tr>
 
 <tr>
-<td title="生成されたメールを多くの場合は-ない-返信に対する返信先アドレス" class="pme-key-title">
-システム メール返信アドレス
+<td title="頻繁か-ない-返信生成されたメールの返信先アドレス" class="pme-key-title">
+システム メールの返信先アドレス
 </td>
 <td class="pme-key-1">
 
@@ -299,7 +301,7 @@ multiregistry？
 </tr>
 
 <tr>
-<td title="これは間違っている場合の web インターフェイスを使用するテンプレート ファイルのパス、何も多く働く!" class="menu">
+<td title="web インターフェイスで使用するテンプレート ファイルのパス、何も多くは動作しますこれが間違っている場合 ！" class="menu">
 テンプレート
 </td>
 <td class="pme-key-1">
@@ -309,11 +311,11 @@ multiregistry？
 </td>
 </tr>
 
-<!-- バッチ ファイルのセクションに対処 -->
+<!-- バッチ ファイルを扱った -->
 
 <tr>
-<td title="ベース アクティビティ グラフ web ルートの下のパスの出力は、レジストリの名前がこのパスに追加されます。" class="pme-key-title">
-グラフのディレクトリ
+<td title="基本出力アクティビティ グラフ web ルートの下のパスは、レジストリの名前がこのパスに追加されます。" class="pme-key-title">
+グラフ ディレクトリ
 </td>
 <td class="pme-key-1">
 
@@ -323,7 +325,7 @@ multiregistry？
 </tr>
 
 <tr>
-<td title="rss の perl モジュール、rss を生成するためはい場合が必要です。" class="pme-key-title">
+<td title="必要になります rss の perl モジュールの rss を生成するためはい」の場合" class="pme-key-title">
 userss
 </td>
 <td class="pme-key-1">
@@ -344,7 +346,7 @@ userss
 </tr>
 
 <tr>
-<td title="ベース パス バッチ トランザクションのアップロード、web ルートの下でべきでないです。" class="pme-key-title">
+<td title="ベースでバッチ トランザクションのパスのアップロード、web ルートの下にしないでください。" class="pme-key-title">
 csv ディレクトリ
 </td>
 <td class="pme-key-1">
@@ -354,19 +356,14 @@ csv ディレクトリ
 </td>
 </tr>
 
-<tr>
-<td title="受信トレイの受信 gammu sms、http sms ゲートウェイには不要" class="pme-key-title">
-sms 受信トレイ
-</td>
-<td class="pme-key-1">
-
+<!--
+<tr><td title="inbox for gammu received sms, not required for http sms gateways" class="pme-key-title">sms inbox</td><td class="pme-key-1">
 <input type="text" readonly="1" class="required" name="smspath" size="60" value="$$fieldsref{smspath}">
-
-</td>
-</tr>
+</td></tr>
+-->
 
 <tr>
-<td title="受信トレイのメール、古いメソッドの各レジストリのポップのメールに置き換え" class="pme-key-title">
+<td title="各レジストリで pop メールに置き換え、古い方法、メールの受信トレイ" class="pme-key-title">
 readmail.pl ディレクトリ
 </td>
 <td class="pme-key-1">
@@ -377,8 +374,8 @@ readmail.pl ディレクトリ
 </tr>
 
 <tr>
-<td title="csv トランザクション web ルートの下の基本出力パス" class="pme-key-title">
-csv
+<td title="web ルートの下の csv トランザクションの基本出力パス" class="pme-key-title">
+csv ファイル形式
 </td>
 <td class="pme-key-1">
 
@@ -388,7 +385,7 @@ csv
 </tr>
 
 <tr>
-<td title="基本出力パス web ルートは、レジストリの名前、言語で印刷物をこのパスに追加" class="pme-key-title">
+<td title="出力基本 web ルート、レジストリの名前および言語の下で印刷物のパスはこのパスに追加されます" class="pme-key-title">
 印刷パス
 </td>
 <td class="pme-key-1">
@@ -399,8 +396,8 @@ csv
 </tr>
 
 <tr>
-<td title="基本出力の rss、レジストリの名前および言語パスはこのパスに追加" class="pme-key-title">
-ベース ディレクトリのフィード
+<td title="出力基本 rss、レジストリの名前および言語のためのパスはこのパスに追加されます" class="pme-key-title">
+ベース ディレクトリをフィード
 </td>
 <td class="pme-key-1">
 
@@ -410,8 +407,8 @@ csv
 </tr>
 
 <tr>
-<td title="gammu 結果、http sms ゲートウェイには不要のためのディレクトリ ベースします。" class="pme-key-title">
-sms
+<td title="結果については gammu、いない http sms ゲートウェイに必要なディレクトリをベースします。" class="pme-key-title">
+うちの sms
 </td>
 <td class="pme-key-1">
 
@@ -421,7 +418,7 @@ sms
 </tr>
 
 <tr>
-<td title="場合は 1 をローカルで処理、gammu 入力それ以外の場合この soap リモート処理を使用してください。" class="pme-key-title">
+<td title="gammu 入力 1 の場合、ローカルで処理される、それ以外の場合これは soap を使ってリモート処理" class="pme-key-title">
 ローカルの sms ですか？
 </td>
 <td class="pme-key-1">

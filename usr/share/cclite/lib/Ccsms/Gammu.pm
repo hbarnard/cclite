@@ -605,10 +605,6 @@ sub _gateway_sms_pay {
     my ( $parse_type, $transaction_description_ref ) =
       _sms_payment_parse($input);
 
-    ###debug( "payment parse type is: p:$parse_type \n$input\n",
-    ###    $transaction_description_ref );
-    ###    if ( $parse_type != 0 );
-
     # sms pay message didn't parse, not worth proceeding
     if ( $parse_type == 0 ) {
         my $message =
@@ -692,11 +688,8 @@ sub _gateway_sms_pay {
     {
         push @status, $messages{'noremotecurrency'};
     }
-    ###debug( "1 payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref ) ;
 
     my $errors = join( ':', @status );
-
-    ###debug("here $errors",undef) ;
 
     # one or more errors in status array
     if ( scalar(@status) > 0 ) {
@@ -708,8 +701,6 @@ sub _gateway_sms_pay {
         return "nok:$message";
     }
 
-    ###debug( "2 payment parse type is: p:$parse_type \n$input\n", $transaction_description_ref ) ;
-
     # convert to standard transaction input format, fields etc.
     # FIXME: fromregistry : dalston, always one base 'from' registry in 2014
     $transaction{'fromregistry'} = $registry;
@@ -720,7 +711,6 @@ sub _gateway_sms_pay {
     #subaction : om_trades
     $transaction{'subaction'} = 'om_trades';
 
-    ###debug("here $parse_type  $transaction{'toregistry'}",\%transaction) ;
     #tradeAmount : 23
     $transaction{'tradeAmount'} = $transaction_description_ref->{'quantity'};
 
@@ -757,8 +747,6 @@ sub _gateway_sms_pay {
 
     # call ordinary transaction
     my $transaction_ref = \%transaction;
-
-    ###debug( "2 payment parse type is: p:$parse_type \n$input\n", $transaction_ref ) ;
 
     my ( $metarefresh, $home, $error3, $output_message, $page, $c ) =
       transaction( 'sms', $transaction{fromregistry},
@@ -857,8 +845,6 @@ sub _gateway_sms_send_balance {
     # May 2012 reveal all currencies in the registry, towards sms multicurrency
     my $balance = $balance_ref->{$currency};
 
-    ###debug( "balance processing for $currency \n", $balance_ref );
-
     #FIXME: if currency balance spaces, not trading etc.?
     my $balance_table;
     foreach my $key ( sort keys %$balance_ref ) {
@@ -875,7 +861,6 @@ sub _gateway_sms_send_balance {
 
     my $balance_message =
 "$messages{smsthebalancefor} $from_user_ref->{userLogin} $messages{at} $registry $messages{is}:\n$balance_table";
-    ###debug( "balance message\n $balance_message\n", undef );
 
     # send SMS balance, only if turned on for the user...new 16.08.2010
     # blank transaction ref, need to make 1 unit sms currency transaction
@@ -916,7 +901,6 @@ sub _sms_payment_parse {
     # make the parse simpler by stripping pin and keyword
     $input =~ s/^p?(\w+)\s+//i;
     $input =~ s/^(send|$sms_configuration{'send_key'})\s+//i;
-    ###debug ("input is $input", undef) ;
 
   # currently allowed sms pay formats, some flexiblity, people won't remember...
 
@@ -955,9 +939,9 @@ sub _sms_payment_parse {
 /^(\d+|\d+[\,\.]\d{1,2})\s+(\w+)\s+to\s+((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+for\s+(.*)\z/xmis
       );
 
-# send 5 limes to test2 at dalston for demo
-# 10 limes to 447779159453|test2 at dalston for numbering 
-# this one won't accept currency default, probably correct...
+    # send 5 limes to test2 at dalston for demo
+    # 10 limes to 447779159453|test2 at dalston for numbering
+    # this one won't accept currency default, probably correct...
     $parse_type = 5
       if ( $input =~
 /^(\d+|\d+[\,\.]\d{1,2})\s+(\w+)\s+to\s+((\+$sms_configuration{'sms_prefix'}\s*7\d{3}|\(?07\d{3}\)?)\s*\d{3}\s*\d{3}|[A-Za-z]\w+)\s+at\s+(\w+)\s+for\s+(.*)\z/xmis
@@ -1005,7 +989,7 @@ sub _sms_payment_parse {
         $transaction_description{'description'}    = $3;
 
     } elsif ( $parse_type == 4 ) {
-        ###debug("variables are 1:$1 2:$2 3:$3 4:$4 5:$5", undef) ;
+
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'currency'}       = $2;
         $transaction_description{'touserormobile'} = $3;
@@ -1016,7 +1000,7 @@ sub _sms_payment_parse {
     # The registry is now used as a 'to' registry now, for parse type 5
     # February 2014
     elsif ( $parse_type == 5 ) {
-        ###debug("variables are 1:$1 2:$2 3:$3 4:$4 5:$5 6:$6", undef) ;
+
         $transaction_description{'quantity'}       = $1;
         $transaction_description{'currency'}       = $2;
         $transaction_description{'touserormobile'} = $3;
@@ -1032,7 +1016,7 @@ sub _sms_payment_parse {
         $transaction_description{'description'} = $5;
 
     } elsif ( $parse_type == 7 ) {
-        ###debug("variables are 1:$1 2:$2 3:$3 4:$4 5:$5 6:$6", undef) ;
+
         $transaction_description{'quantity'}       = $3;
         $transaction_description{'currency'}       = $4;
         $transaction_description{'touserormobile'} = $1;
@@ -1235,8 +1219,6 @@ sub _send_sms_message {
     my ( $class, $registry, $type, $message, $from_user_ref, $to_user_ref,
         $transaction_ref )
       = @_;
-
-    ###debug( "in sms message send: $type", undef );
 
   #TODO: need weights for the messages, very probably, so some appear more often
     my @sms_sponsor_messages  = _collect_sponsor_messages();
@@ -1549,7 +1531,6 @@ sub emulate_sms_file {
       . $time . '_00_+'
       . $phone_number . '_00.' . 'txt';
 
-###debug("sms out $file_name",'') ;
     #FIXME: need something stronger than this for duplicate names
     if ( -e $file_name ) {
         return;

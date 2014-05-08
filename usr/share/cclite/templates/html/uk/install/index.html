@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Дизайн Безкоштовні CSS шаблонів&#xD;	http://www.freecsstemplates.org&#xD;	Випущений безкоштовно під Creative Commons Attribution 2.5 ліцензії -->
+<!-- Дизайн безкоштовні CSS шаблонів&#xD;	http://www.freecsstemplates.org&#xD;	Безкоштовно розповсюджується за ліцензією Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -54,9 +54,9 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- JavaScript бібліотек, необхідно subsitute стиснутий версії на певному етапі -->
+<!-- JavaScript бібліотек, необхідно subsitute стиснуті версії на певному етапі -->
 
-<!-- Jquery елементів -->
+<!-- JQuery елементів -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -81,7 +81,7 @@ $$fieldsref{metarefresh}
 
 <!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
 
-<!-- Інші номери jquery -->
+<!-- інші номери jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -108,7 +108,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- це сценарій, який реєструє користувачів, коли система представлена -->
+<!-- це сценарій, який користувачі виходить з системи коли система представлена -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -121,20 +121,20 @@ $$fieldsref{logout_script}
 <div id="distribution" class="hidden">
 $$fieldsref{distribution}
 </div>
-<!-- Вимкніть пряме створення, якщо cpanel -->
+<!-- Вимикайте безпосереднім створенням, якщо cpanel -->
 
 <br/>
 
 
 <div align="right">
 
-<!-- Кінець поля пошуку автозаповнення -->
+<!-- кінець поля пошуку автозаповнення -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- мова селектор версії 1 -->
+<!-- мова селектор версія 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -165,7 +165,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- мова селектор Версія 1 кінця -->
+<!-- мова селектор версія 1 кінця -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -211,13 +211,13 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a title="Меню користувача" href="/cgi-bin/cclite.cgi">
-Меню користувача
+<a title="Користувача меню" href="/cgi-bin/cclite.cgi">
+Користувача меню
 </a>
 </li>
 
 <li>
-<a id="updateconfig" title="Оновлення conifguration, зберігаються в cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Оновлення конфігурації зберігаються у cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 Оновлення конфігурації
 </a>
 </li>
@@ -229,14 +229,20 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a id="showregistry" title="Показати поточну реєстрами Cclite" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
-Показати реєстрами
+<a id="showregistry" title="Показати поточний Cclite реєстри" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+Показати реєстри
 </a>
 </li>
 
 <li>
-<a id="installcheck" title="Запуску установки перевірки" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-Перевірте вимоги до установки
+<a id="installcheck" title="Запустіть засіб перевірки установки" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+Ознайомтеся з вимогами щодо встановлення
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Показати і оновити readsms.cf для Gammu, необхідно також вручну оновити /etc/gammu-smsdrc, переданої зразки" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Оновити конфігурацію Gammu
 </a>
 </li>
 
@@ -244,7 +250,7 @@ $$fieldsref{environment}
 
 </div>
 
-<!-- Статистика окремого користувача та хмара тегів -->
+<!-- Хмара тегів та індивідуальних користувачів статистика -->
 
 <div id="content">
 

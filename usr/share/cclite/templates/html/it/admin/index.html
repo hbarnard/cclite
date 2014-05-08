@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Admin
+Cclite !$$fieldsref{version}! Admin
 </title>
 
 <meta name="keywords" content="" />
@@ -51,8 +51,11 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables per più tardi -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
 
 <!-- librerie JavaScript, bisogno di versioni EPROM compresso in qualche fase -->
 
@@ -76,6 +79,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- gli altri non jquery -->
@@ -118,13 +124,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Questa opzione attiva/disattiva la roba del punto decimale -->
+<!-- Questo interruttore attiva/disattiva la roba del punto decimale -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- la ricerca di utenti, mestieri, annunci -->
+<!-- ricerca per gli utenti, mestieri, annunci -->
 
 <br/>
 
@@ -187,7 +193,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- fine di versione 1 Selettore lingua -->
+<!-- fine versione 1 selettore di lingua -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -227,13 +233,13 @@ Menu utente
 
 <li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-Cambiare lo Status di $$fieldsref{registry}
+Change Status of !$$fieldsref{registry}!
 </a>
 
 </li>
 
 <li>
-<a class="bodytext" title="Visualizza registri Partner collegati" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Mostrano registri Partner collegati" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Partner
 </a>
 </li>
@@ -252,7 +258,7 @@ Visualizza valute
 
 <li>
 <a class="bodytext"title="Creare la nuova categoria di annuncio" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Creare annunci categoria
+Creare annuncio categoria
 </a>
 </li>
 
@@ -262,7 +268,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Equilibri del Registro di sistema
+Saldi del registro di sistema
 </a>
 </li>
 
@@ -273,14 +279,20 @@ Limite di credito
 </li>
 
 <li>
-<a title="Creare remoti o locali Partner del Registro di sistema" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-Creare Partner del Registro di sistema
+<a title="Creare Partner del registro di sistema locale o remoto" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Creare registri Partner
 </a>
 </li>
 
 <li>
 <a title="Applicare la tassa di servizio a tutti gli account" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Applicare Service Charge
+Applicare la tassa di servizio
+</a>
+</li>
+
+<li>
+<a title="Ottieni account che dispongono di un Pin bloccato e/o una Password bloccata" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Ottenere bloccato conti
 </a>
 </li>
 
@@ -292,7 +304,7 @@ Creare Batch Dirs
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Modificare $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 
@@ -300,7 +312,7 @@ Modificare $$fieldsref{registry}
 
 </div>
 
-<!-- Tag cloud e statistiche individuali degli utenti -->
+<!-- tag cloud e statistiche utente individuale -->
 
 <div id="content">
 
@@ -342,7 +354,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Casa
 </a>
 |
 <a href="#">

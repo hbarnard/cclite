@@ -37,7 +37,7 @@ Reg 이름
 
 <td style="vertical-align: top;">
 
-<!-- cgi-bin에 대 한 쿠키 설정 하 고, 그렇지 않으면 경로에 참고 명시적 경로 값 설정 -->
+<!-- 참고 명시적 경로 값 쿠키 설정, 그렇지 않으면 경로에 cgi-bin에 대 한 설정 -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -65,7 +65,7 @@ Reg 이름
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-암호
+비밀 번호
 </td>
 
 <td class="pme-value-0">
@@ -138,7 +138,7 @@ Reg 이름
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-마을
+마
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ SMS 지불 영수증
 
 <td class="pme-buttons">
 
-<!-- 우리는 여기에 레지스트리 쿠키 지우기, 그렇지 않으면 그것 나중에 깨끗 한 로그온을 방지 거 야 -->
+<!-- 우리 여기 레지스트리 쿠키 지우기, 그렇지 않으면 그것 나중에 깨끗 한 로그온을 방지 거 야 -->
 
 <input class="pme-save"
  name="saveadd" value="만들기" onClick="eraseCookie('registry');" type="submit">

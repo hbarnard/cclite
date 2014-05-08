@@ -37,7 +37,7 @@ Nama reg
 
 <td style="vertical-align: top;">
 
-<!-- catatan eksplisit jalan nilai dalam cookie pengaturan, jalan sebaliknya diatur untuk cgi-bin -->
+<!-- Catatan nilai eksplisit path cookie pengaturan, sebaliknya jalan diatur untuk cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Nama reg
 
 <tr class="pme-row-1">
 
-<td title="Perlu lebih dari 3 karakter, huruf, angka dan _ hanya" class="pme-key-0">
+<td title="Harus lebih dari 3 karakter, huruf, angka dan _ hanya" class="pme-key-0">
 Nama account
 <br>
 
@@ -108,7 +108,7 @@ Email
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Nama nomor/rumah
+Nama nomor rumah
 </td>
 
 <td class="pme-value-1">
@@ -153,7 +153,7 @@ Kota
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Kabupaten/negara bagian
+County State
 </td>
 
 <td class="pme-value-1">
@@ -211,7 +211,7 @@ Ponsel
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-PIN untuk transaksi ponsel
+PIN transaksi ponsel
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ PIN untuk transaksi ponsel
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Mengkonfirmasi Pin untuk transaksi ponsel
+Mengkonfirmasi Pin transaksi ponsel
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ Mengkonfirmasi Pin untuk transaksi ponsel
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Tanda terima pembayaran SMS
+Kwitansi pembayaran SMS
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ Tanda terima pembayaran SMS
 
 <tr class="pme-row-1">
 
-<td title="ini adalah id kunci publik untuk transaksi yang dienkripsi" class="pme-key-0">
-Id kunci publik
+<td title="ini adalah id kunci yang umum untuk transaksi dienkripsi" class="pme-key-0">
+Id kunci umum
 </td>
 
 <td class="pme-value-1">
@@ -324,7 +324,7 @@ Nama lengkap
 
 <td class="pme-buttons">
 
-<!-- kami menghapus cookie registri berikut, jika tidak akan mencegah logon bersih kemudian -->
+<!-- kita menghapus cookie registri di sini, sebaliknya hal itu akan mencegah logon bersih kemudian -->
 
 <input class="pme-save"
  name="saveadd" value="Membuat" onClick="eraseCookie('registry');" type="submit">

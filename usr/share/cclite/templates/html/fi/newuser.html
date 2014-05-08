@@ -37,7 +37,7 @@ Reg nimi
 
 <td style="vertical-align: top;">
 
-<!-- Huomautus polku arvon evästeen asettaminen, muuten polku on määritetty cgi-bin -->
+<!-- Huomautus polku evästeen asettaminen, muuten polku arvo cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ Reg nimi
 
 <tr class="pme-row-1">
 
-<td title="On oltava enemmän kuin 3 merkkiä, kirjaimet, numerot ja _ vain" class="pme-key-0">
+<td title="On oltava enemmän kuin 3 merkkiä, kirjaimia, numeroita ja _ vain" class="pme-key-0">
 Tilin nimi
 <br>
 
@@ -108,7 +108,7 @@ Sähköposti
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Numeron/House nimi
+Numero/talon nimi
 </td>
 
 <td class="pme-value-1">
@@ -123,7 +123,7 @@ Numeron/House nimi
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Katuosoite
+Kadun nimi
 </td>
 
 <td class="pme-value-1">
@@ -138,7 +138,7 @@ Katuosoite
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Town
+Kaupunki
 </td>
 
 <td class="pme-value-1">
@@ -153,7 +153,7 @@ Town
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Lääni/valtion
+County/State
 </td>
 
 <td class="pme-value-1">
@@ -183,7 +183,7 @@ Postinumero
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Kiinteä puhelin
+Kiinteä Puhelin
 </td>
 
 <td class="pme-value-1">
@@ -197,12 +197,12 @@ Kiinteä puhelin
 <tr class="pme-row-1">
 
 <td  class="pme-key-0">
-Matkapuhelin
+Eloisa soittaa puhelimella
 </td>
 
 <td class="pme-value-1">
 
-<input title="Ota käyttöön tämän numeron kansainvälisessä muodossa 44777766666" class="pme-input-1"
+<input title="Laittakaa tähän numeroon kansainvälisessä muodossa 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ Matkapuhelin
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Matkapuhelimen tapahtumien PIN-tunnus
+PIN matkapuhelin tapahtumille
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ Matkapuhelimen tapahtumien PIN-tunnus
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Vahvista Pin matkapuhelimen tapahtumat
+Vahvista Pin matkapuhelin tapahtumille
 </td>
 
 <td class="pme-value-1">
@@ -252,7 +252,7 @@ SMS maksukuitit
 
 <tr class="pme-row-1">
 
-<td title="Tämä on salattu tapahtumat julkisen avaimen tunnus" class="pme-key-0">
+<td title="julkisen avaimen tunnus, salattu tapahtumille" class="pme-key-0">
 Julkisen avaimen tunnus
 </td>
 
@@ -298,7 +298,7 @@ Fran
 <tr class="pme-row-0">
 
 <td class="pme-key-0">
-Täydellinen nimi
+Koko nimi
 </td>
 
 <td class="pme-value-0">
@@ -324,7 +324,7 @@ Täydellinen nimi
 
 <td class="pme-buttons">
 
-<!-- Me poistaa rekisterin evästeen tähän, muuten se estää puhtaan kirjautumisen myöhemmin -->
+<!-- Me poistaa rekisterin evästeen, muuten se estää puhdas kirjautuminen myöhemmin -->
 
 <input class="pme-save"
  name="saveadd" value="Luo" onClick="eraseCookie('registry');" type="submit">

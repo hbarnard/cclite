@@ -37,7 +37,7 @@ $$fields{errors}
 
 <td style="vertical-align: top;">
 
-<!-- Примечание явный путь в cookie установки, в противном случае путь имеет значение для cgi-bin -->
+<!-- Примечание явный путь в cookie настройки, в противном случае путь имеет значение для cgi-bin -->
 
 <input type="text" class="required" id="chooseregistry" onfocus="$.cookie('registry1', null, {expires: -2});" onblur="$.cookie('registry1', this.value, {path: '/'});" name="registry">
 
@@ -47,7 +47,7 @@ $$fields{errors}
 
 <tr class="pme-row-1">
 
-<td title="Должна быть более 3 символов, букв, цифр и _ только" class="pme-key-0">
+<td title="Должен быть более 3 символов, буквы, цифры и _ только" class="pme-key-0">
 Имя учетной записи
 <br>
 
@@ -108,7 +108,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Имя номер/дом
+Номер/название
 </td>
 
 <td class="pme-value-1">
@@ -153,7 +153,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Округ/область
+Округ/штат
 </td>
 
 <td class="pme-value-1">
@@ -202,7 +202,7 @@ $$fields{errors}
 
 <td class="pme-value-1">
 
-<input title="Пожалуйста, поставьте этот номер в международном формате 44777766666" class="pme-input-1"
+<input title="Пожалуйста, поместите этот номер в международном формате 44777766666" class="pme-input-1"
  name="userMobile" id="nuserMobile" size="20" maxlength="20" value="$$fieldsref{userMobile}" type="text">
 </td>
 
@@ -211,7 +211,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Контактный мобильный телефон сделок
+ПИН-код для мобильного телефона сделок
 </td>
 
 <td class="pme-value-1">
@@ -225,7 +225,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-Подтвердите Pin для мобильного телефона сделок
+Подтвердите PIN-код для мобильного телефона сделок
 </td>
 
 <td class="pme-value-1">
@@ -239,7 +239,7 @@ $$fields{errors}
 <tr class="pme-row-1">
 
 <td class="pme-key-0">
-SMS платежных квитанций
+SMS оплата квитанций
 </td>
 
 <td class="pme-value-1">
@@ -252,8 +252,8 @@ SMS платежных квитанций
 
 <tr class="pme-row-1">
 
-<td title="Это идентификатор публичных ключей для зашифрованных транзакций" class="pme-key-0">
-Открытый идентификатор ключа
+<td title="Это идентификатор общественный ключа для зашифрованных транзакций" class="pme-key-0">
+Общественный ключ Id
 </td>
 
 <td class="pme-value-1">
@@ -282,7 +282,7 @@ SMS платежных квитанций
 </option>
 
 <option value="de">
-Дойч
+Deutsch
 </option>
 
 <option value="fr">
@@ -324,7 +324,7 @@ SMS платежных квитанций
 
 <td class="pme-buttons">
 
-<!-- Мы стереть куки реестра здесь, в противном случае он будет предотвратить чистой входа позже -->
+<!-- Мы стереть куки-файл реестра здесь, иначе она будет предотвратить чистого входа позже -->
 
 <input class="pme-save"
  name="saveadd" value="Создание" onClick="eraseCookie('registry');" type="submit">

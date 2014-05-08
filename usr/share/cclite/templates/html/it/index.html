@@ -51,8 +51,11 @@ $$fieldsref{metarefresh}
 
 <!-- più tardi DataTables -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
 
 <!-- librerie JavaScript, bisogno di versioni EPROM compresso in qualche fase -->
 
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- gli altri non jquery -->
 
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Questa opzione attiva/disattiva la roba del punto decimale -->
+<!-- Questo interruttore attiva/disattiva la roba del punto decimale -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- la ricerca di utenti, mestieri, annunci -->
+<!-- ricerca per gli utenti, mestieri, annunci -->
 
 <br/>
 
@@ -187,7 +191,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- fine di versione 1 Selettore lingua -->
+<!-- fine versione 1 selettore di lingua -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="menu di amministrazione in una nuova scheda" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="menu amministrazione in nuova scheda" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -251,7 +255,7 @@ Pagamento
 
 <li>
 <a  title="Hai dimenticato la Password??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-Dimenticato la Password?
+Password dimenticata?
 </a>
 
 </li>
@@ -285,7 +289,7 @@ Modificare Account
 
 <li>
 <a title="Dividere il pagamento per beni o servizi" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Pagamento di Split
+Pagamento di Spalato
 </a>
 </li>
 
@@ -303,13 +307,13 @@ Saldi
 
 <li>
 <a title="Visualizza i prodotti e i servizi di Directory" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Beni/servizi
+Beni e servizi
 </a>
 </li>
 
 <li>
-<a title="Visualizza tutti i miei annunci in beni e servizi di Directory" href="/cgi-bin/cclite.cgi?action=showmyyellow">
-Miei annunci
+<a title="Visualizza i miei annunci in beni e servizi di Directory" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+I miei annunci
 </a>
 </li>
 
@@ -323,7 +327,7 @@ Luogo Ad
 
 </div>
 
-<!-- Tag cloud e statistiche individuali degli utenti -->
+<!-- tag cloud e statistiche utente individuale -->
 
 <div id="content">
 
@@ -338,7 +342,7 @@ Luogo Ad
 <div valign="top" id="secondaryContent">
 
 <h3>
-Categorie annunci
+Categorie di annunci
 </h3>
 $$fieldsref{righthandside}
 <br/>
@@ -358,7 +362,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Casa
 </a>
 |
 <a href="#">

@@ -165,7 +165,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- fine di versione 1 Selettore lingua -->
+<!-- fine versione 1 selettore di lingua -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -217,26 +217,32 @@ Menu utente
 </li>
 
 <li>
-<a id="updateconfig" title="Aggiornamento conifguration memorizzati in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
-Aggiornare la configurazione
+<a id="updateconfig" title="Configurazione aggiornamento archiviati in cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
+Configurazione aggiornamento
 </a>
 </li>
 
 <li>
-<a id="newregistry" title="Creare nuovo del Registro di sistema" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
-Creare nuovo del Registro di sistema
+<a id="newregistry" title="Creare nuovo registro" href="/cgi-bin/protected/ccinstall.cgi?action=template&name=registry.html">
+Creare nuovo registro
 </a>
 </li>
 
 <li>
-<a id="showregistry" title="Visualizza registri Cclite corrente" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
-Visualizza registri
+<a id="showregistry" title="Visualizza attuale dei registri Cclite" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+Mostrano registri
 </a>
 </li>
 
 <li>
 <a id="installcheck" title="Eseguire il controllo di installazione" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
-Verificare i requisiti di installazione
+Verifica i requisiti di installazione
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Visualizza aggiornamento e readsms.cf per Gammu, necessità anche aggiornare manualmente /etc/gammu-smsdrc, vedere esempi forniti" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Aggiornamento Gammu configurazione
 </a>
 </li>
 
@@ -244,7 +250,7 @@ Verificare i requisiti di installazione
 
 </div>
 
-<!-- Tag cloud e statistiche individuali degli utenti -->
+<!-- tag cloud e statistiche utente individuale -->
 
 <div id="content">
 
@@ -266,7 +272,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Casa
 </a>
 |
 <a href="#">

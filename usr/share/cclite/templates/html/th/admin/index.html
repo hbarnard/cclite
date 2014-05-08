@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- ออกแบบ โดยแม่แบบ CSS ฟรี&#xD;	http://www.freecsstemplates.org&#xD;	เผยแพร่ฟรีภายใต้ใบอนุญาต Creative Commons Attribution 2.5 -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +13,7 @@
 
 
 <title>
-Cclite ! fieldsref $ {รุ่น} Admin
+Cclite !$$fieldsref{version}! Admin
 </title>
 
 <meta name="keywords" content="" />
@@ -32,7 +34,7 @@ Cclite ! fieldsref $ {รุ่น} Admin
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- stylesheets -->
+<!-- สไตล์ชีต -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -51,12 +53,15 @@ $$fieldsref{metarefresh}
 
 <!-- datatables สำหรับภายหลัง -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- ไลบรารีของ javascript จำเป็นต้องแทนที่การบีบอัดรุ่นบางขั้นตอน -->
 
-<!-- รายการที่ jquery -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- จาวาสคริปต์ไลบรารี ต้องการรุ่นบีบแทนได้ -->
+
+<!-- สินค้า jquery -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -76,6 +81,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- คนอื่นไม่ใช่ jquery -->
@@ -108,7 +116,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- นี้คือสคริปต์ที่ล็อกผู้ใช้ออกเมื่อจะมีการนำระบบลง -->
+<!-- เป็นสคริปต์ที่ล็อกผู้ใช้ออกเมื่อมีการนำระบบลง -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +126,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- สวิตช์นี้เปิด on/off สิ่งจุดทศนิยม -->
+<!-- นี้สวิตช์ เปิด/ปิดสิ่งจุดทศนิยม -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -148,22 +156,22 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='ad'>
-Adverts
+โฆษณา
 </option>
 
 </select>
 
-<input value="ไป" class="small" type="submit" title="ค้นหาเทรด โฆษณา หรือผู้ใช้">
+<input value="ไป" class="small" type="submit" title="ค้นหาการค้า โฆษณา หรือผู้ใช้">
 
 </form>
 
-<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องการค้นหา -->
+<!-- จุดสิ้นสุดของการทำให้สมบูรณ์อัตโนมัติกล่องค้นหา -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- รุ่นตัวเลือกภาษา 1 -->
+<!-- เลือกภาษา 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +195,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- ภาษาเลือกรุ่น 1 จบ -->
+<!-- ภาษาตัวเลือกรุ่น 1 จบ -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -227,13 +235,13 @@ Cclite Admin
 
 <li>
 <a title="Shutdown or online registry $$fieldsref{registry}" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=changestatus.html">
-เปลี่ยนแปลงสถานะของ! fieldsref $ {รีจิสทรี}
+เปลี่ยนสถานะของ! fieldsref$ {รีจิสทรี}
 </a>
 
 </li>
 
 <li>
-<a class="bodytext" title="แสดงการเชื่อมโยงคู่ค้า Registries" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="แสดงการเชื่อมโยงคู่รีจิสทรี" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 คู่ค้า
 </a>
 </li>
@@ -273,14 +281,20 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<a title="สร้างจากระยะไกล หรือภายในรีจิสทรี Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-สร้างหุ้นส่วนของรีจิสทรี
+<a title="สร้างรีจิสทรีระยะไกล หรือภายในบริษัท" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+สร้างหุ้นส่วนรีจิสทรี
 </a>
 </li>
 
 <li>
-<a title="ค่าธรรมเนียมการบริการกับบัญชีทั้งหมด" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-ค่าธรรมเนียมการบริการที่นำไปใช้
+<a title="ค่าบริการกับบัญชีทั้งหมด" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+ใช้ค่าบริการ
+</a>
+</li>
+
+<li>
+<a title="ได้รับบัญชีที่มีการล็อก Pin หรือรหัสผ่านล็อค" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+รับล็อกบัญชี
 </a>
 </li>
 
@@ -292,7 +306,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-ปรับเปลี่ยน! fieldsref $ {รีจิสทรี}
+ปรับเปลี่ยน! fieldsref$ {รีจิสทรี}
 </a>
 </li>
 
@@ -300,7 +314,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- แท็กเมฆินทร์และสถิติของแต่ละผู้ใช้ -->
+<!-- เมฆแท็กและสถิติของผู้ใช้แต่ละ -->
 
 <div id="content">
 
@@ -342,7 +356,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-ภายในบ้าน
+บ้าน
 </a>
 |
 <a href="#">

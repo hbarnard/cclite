@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- 無料の CSS テンプレートによるデザインhttp://www.freecsstemplates.org無料、クリエイティブコモンズ帰属 2.5 ライセンスの下で公開 -->
+<!-- 無料の CSS テンプレートによるデザインhttp://www.freecsstemplates.org無料クリエイティブコモンズ帰属 2.5 ライセンスの下で公開 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite ！$ $fieldsref{のバージョン} ！ユーザー
+Cclite ！ fieldsref$ ${} のバージョン ！ユーザー
 </title>
 
 <meta name="keywords" content="" />
@@ -49,14 +49,17 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- データ テーブルを後で -->
+<!-- 後でデータ テーブル -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- javascript ライブラリ、必要な圧縮 subsitute バージョンにいくつかの段階で -->
 
-<!-- jquery のアイテム -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- いくつかの段階で圧縮 subsitute バージョンする必要があります javascript ライブラリ -->
+
+<!-- jquery の項目 -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -79,9 +82,10 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
-<!-- その他非 jquery -->
+<!-- 他の非 jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
 </script>
@@ -92,7 +96,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/json_parse.js" type="text/javascript">
 </script>
 
-<!-- グラフの作成 -->
+<!-- グラフ作成 -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- これは、システムをダウンされているときにユーザーがログアウト スクリプトです。 -->
+<!-- これは、システムがダウンされているときユーザーがログアウト スクリプトです。 -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- このスイッチにオン/オフの小数点もの -->
+<!-- このスイッチまたは小数点ものオフにします -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- 検索ユーザー、取引、広告 -->
+<!-- ユーザー、取引、広告を検索します。 -->
 
 <br/>
 
@@ -153,7 +157,7 @@ $$fieldsref{usedecimals}
 
 </select>
 
-<input value="行く" class="small" type="submit" title="貿易、広告やユーザーを探す">
+<input value="行く" class="small" type="submit" title="取引、広告、またはユーザーを探す">
 
 </form>
 
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="管理メニューを新しいタブで" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="新しいタブで管理メニュー" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -251,7 +255,7 @@ $$fieldsref{latest_news}
 
 <li>
 <a  title="パスワードをお忘れですか？?" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-パスワードをお忘れですか？
+パスワードを忘れた
 </a>
 
 </li>
@@ -278,19 +282,19 @@ Openid を追加します。
 </li>
 
 <li>
-<a title="あなたのアカウントの詳細を変更します。" href="/cgi-bin/cclite.cgi?action=modifyuser">
+<a title="アカウント詳細を変更します。" href="/cgi-bin/cclite.cgi?action=modifyuser">
 アカウントを変更します。
 </a>
 </li>
 
 <li>
-<a title="商品やサービスの支払いを分割します。" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+<a title="商品やサービスに対する支払いを分割します。" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
 分割支払
 </a>
 </li>
 
 <li>
-<a title="私のトランザクションを表示します。" href="/cgi-bin/cclite.cgi?action=showtrans">
+<a title="私の取引を表示します。" href="/cgi-bin/cclite.cgi?action=showtrans">
 トランザクション
 </a>
 </li>
@@ -315,7 +319,7 @@ Openid を追加します。
 
 <li>
 <a title="商品やサービスのディレクトリのページを作成します。" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
-場所広告
+広告をプレイス
 </a>
 </li>
 
@@ -323,7 +327,7 @@ Openid を追加します。
 
 </div>
 
-<!-- タグの雲と個々 のユーザーの統計 -->
+<!-- タグクラウドと個々 のユーザーの統計情報 -->
 
 <div id="content">
 
@@ -338,7 +342,7 @@ Openid を追加します。
 <div valign="top" id="secondaryContent">
 
 <h3>
-広告のカテゴリ
+広告カテゴリ
 </h3>
 $$fieldsref{righthandside}
 <br/>

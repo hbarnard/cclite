@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Дизайн Бесплатные CSS шаблоны&#xD;	http://www.freecsstemplates.org&#xD;	Выпустила бесплатно по лицензии Creative Commons Attribution 2,5 -->
+<!-- Дизайн Бесплатные CSS шаблоны&#xD;	http://www.freecsstemplates.org&#xD;	Выпущен бесплатно под лицензии Creative Commons Attribution 2,5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,12 +51,15 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables позже -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript библиотеки, необходимо subsitute сжатых версий на каком-то этапе -->
 
-<!-- JQuery-предметов -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript-библиотеки, нужно обычную сжатых версий на определенном этапе -->
+
+<!-- jQuery элементы -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- другие не jquery -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Это скрипт, который регистрирует пользователей, когда системы доводится -->
+<!-- Это скрипт, который регистрирует пользователей, когда система доводится -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -124,7 +128,7 @@ $$fieldsref{logout_script}
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Поиск для пользователей, торгов, объявления -->
+<!-- Поиск для пользователей, сделки, ads -->
 
 <br/>
 
@@ -209,7 +213,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Cclite пользователя
+Пользователь Cclite
 </a>
 </h1>
 
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="Администрирование меню в новой вкладке" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="меню «Администрирование» в новой вкладке" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -250,7 +254,7 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a  title="Забыли пароль??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
+<a  title="Забыли ваш пароль??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
 Забыли пароль?
 </a>
 
@@ -271,21 +275,21 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Создание учетной записи" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+<a title="Создание новой учетной записи" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
 Новая учетная запись
 </a>
 
 </li>
 
 <li>
-<a title="Изменить ваши данные учетной записи" href="/cgi-bin/cclite.cgi?action=modifyuser">
+<a title="Изменить данные вашего счета" href="/cgi-bin/cclite.cgi?action=modifyuser">
 Изменение учетной записи
 </a>
 </li>
 
 <li>
-<a title="Сплит оплата за товары или услуги" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Оплата Сплит
+<a title="Разделение оплаты за товары или услуги" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+Разделить платеж
 </a>
 </li>
 
@@ -296,14 +300,14 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Показать мои сальдо" href="/cgi-bin/cclite.cgi?action=showbalvol">
+<a title="Показать мои остатки" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Остатки
 </a>
 </li>
 
 <li>
 <a title="Показать товары и услуги Каталог" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Товары/услуги
+Товары/Услуги
 </a>
 </li>
 
@@ -314,7 +318,7 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Создание страницы для товаров и услуг каталог" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
+<a title="Создание страницы на товары и услуги Каталог" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
 Место объявлений
 </a>
 </li>
@@ -358,7 +362,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Дом
+Главная
 </a>
 |
 <a href="#">

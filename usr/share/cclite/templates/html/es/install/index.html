@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Diseño por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo una licencia Creative Commons Attribution 2.5 -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +13,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Instalar
+Cclite !$$fieldsref{version}! Install
 </title>
 
 <meta name="keywords" content="" />
@@ -54,7 +56,7 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- librerías JavaScript, necesitan versiones de sustitución comprimido en algún momento -->
+<!-- librerías JavaScript, necesitamos sustituir comprimido versiones en alguna etapa -->
 
 <!-- elementos de jQuery -->
 
@@ -108,7 +110,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Este es el script que desconecta los usuarios cuando el sistema está siendo derribado -->
+<!-- Este es el guión que cierra la sesión usuarios cuando el sistema está siendo derribado -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -128,13 +130,13 @@ $$fieldsref{distribution}
 
 <div align="right">
 
-<!-- final del cuadro de búsqueda de Autocompletar -->
+<!-- final del cuadro de búsqueda Autocompletar -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- versión del selector de idioma 1 -->
+<!-- versión 1 del selector de idioma -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -165,7 +167,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- final de la versión 1 de selector de idioma -->
+<!-- idioma selector versión 1 de fin -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -187,7 +189,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 
 <h1>
 <a href="/cgi-bin/cclite.cgi">
-Instalación del Cclite
+Instalar Cclite
 </a>
 </h1>
 
@@ -198,8 +200,8 @@ $$fieldsref{environment}
 <ul>
 
 <li class="first">
-<a title="Grupo de Google para soporte" href="http://groups.google.co.uk/group/cclite?hl=en">
-¿Quieres ayuda?
+<a title="Google grupo apoyo" href="http://groups.google.co.uk/group/cclite?hl=en">
+¿Necesitas ayuda?
 </a>
 </li>
 
@@ -217,7 +219,7 @@ Menú de usuario
 </li>
 
 <li>
-<a id="updateconfig" title="Actualización conifguration almacenado en cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Configuración de la actualización almacenado en cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 Configuración de la actualización
 </a>
 </li>
@@ -229,14 +231,20 @@ Crear nuevo registro
 </li>
 
 <li>
-<a id="showregistry" title="Mostrar registros de Cclite actual" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+<a id="showregistry" title="Mostrar los registros actuales de Cclite" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 Mostrar registros
 </a>
 </li>
 
 <li>
-<a id="installcheck" title="Ejecutar el comprobador de instalación" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+<a id="installcheck" title="Ejecutar el verificador de la instalación" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 Verifique los requisitos de instalación
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Mostrar y actualizar readsms.cf de Gammu, necesidad también actualizar manualmente /etc/gammu-smsdrc, véanse los ejemplos suministrados" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Actualizar configuración de Gammu
 </a>
 </li>
 
@@ -266,11 +274,11 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Página de inicio
 </a>
 |
 <a href="#">
-Póngase en contacto con nosotros
+Contacte con nosotros
 </a>
 <br />
 

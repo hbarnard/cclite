@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design por Free CSS Templates&#xD;	http://www.FreeCSStemplates.org&#xD;	Lançado gratuitamente sob uma Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +53,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables para mais tarde -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- bibliotecas de JavaScript, precisará substituir comprimido versões em algum estágio -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- bibliotecas JavaScript, precisa substituir comprimido versões em algum estágio -->
 
 <!-- itens de jQuery -->
 
@@ -76,6 +81,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- outros não jquery -->
@@ -108,7 +116,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Este é o script que faz logoff usuários quando o sistema está sendo trazido para baixo -->
+<!-- Este é o script que registra os usuários para fora quando o sistema está sendo trazido para baixo -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +126,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Este interruptor liga e desliga as coisas de ponto decimal -->
+<!-- Este interruptor liga e desliga as coisas do ponto decimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Procurar por usuários, comércios, anúncios -->
+<!-- procurar por usuários, negócios, anúncios -->
 
 <br/>
 
@@ -157,13 +165,13 @@ Anúncios
 
 </form>
 
-<!-- fim da caixa de pesquisa do AutoCompletar -->
+<!-- fim da caixa de pesquisa do autocomplete -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- Versão 1 do seletor de idioma -->
+<!-- versão 1 do seletor de idioma -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -233,7 +241,7 @@ Alterar Status de $$fieldsref{registry}
 </li>
 
 <li>
-<a class="bodytext" title="Visualizar registos de sócio vinculado" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Mostrar registros de sócio vinculado" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Parceiros
 </a>
 </li>
@@ -262,7 +270,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Saldos de registro
+Registro saldos
 </a>
 </li>
 
@@ -273,7 +281,7 @@ Limite de crédito
 </li>
 
 <li>
-<a title="Criar remoto ou parceiro Local de registro" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Criar parceiro de registro Local ou remoto" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Criar parceiro de registro
 </a>
 </li>
@@ -281,6 +289,12 @@ Criar parceiro de registro
 <li>
 <a title="Aplicar a taxa de serviço para todas as contas" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
 Aplicar a taxa de serviço
+</a>
+</li>
+
+<li>
+<a title="As contas que têm um Pin fechados e/ou uma senha bloqueada" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Obter bloqueado contas
 </a>
 </li>
 
@@ -300,7 +314,7 @@ Modificar $$fieldsref{registry}
 
 </div>
 
-<!-- Estatísticas de usuário individual e tag cloud -->
+<!-- nuvem de Tags e estatísticas de usuário individual -->
 
 <div id="content">
 
@@ -346,7 +360,7 @@ Casa
 </a>
 |
 <a href="#">
-Contacte-nos
+Contate-nos
 </a>
 <br />
 

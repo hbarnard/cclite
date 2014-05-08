@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Diseño por Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo una licencia Creative Commons Attribution 2.5 -->
+<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Despachadas a libre bajo licencia Creative Commons Attribution 2.5 -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables para más tarde -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- librerías JavaScript, necesitan versiones de sustitución comprimido en algún momento -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- librerías JavaScript, necesitamos sustituir comprimido versiones en alguna etapa -->
 
 <!-- elementos de jQuery -->
 
@@ -76,6 +79,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- otros no jquery -->
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Este es el script que desconecta los usuarios cuando el sistema está siendo derribado -->
+<!-- Este es el guión que cierra la sesión usuarios cuando el sistema está siendo derribado -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,7 +124,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Este interruptor enciende/apaga las cosas de punto decimal -->
+<!-- Este interruptor enciende/apaga las cosas punto decimal -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -153,17 +159,17 @@ Anuncios
 
 </select>
 
-<input value="Go" class="small" type="submit" title="Buscar oficios, avisos o usuarios">
+<input value="Ir" class="small" type="submit" title="Buscar comercios, anuncios o usuarios">
 
 </form>
 
-<!-- final del cuadro de búsqueda de Autocompletar -->
+<!-- final del cuadro de búsqueda Autocompletar -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- versión del selector de idioma 1 -->
+<!-- versión 1 del selector de idioma -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +193,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- final de la versión 1 de selector de idioma -->
+<!-- idioma selector versión 1 de fin -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -233,7 +239,7 @@ Cambiar estado de $$fieldsref{registry}
 </li>
 
 <li>
-<a class="bodytext" title="Mostrar registros de socio vinculado" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Mostrar los registros vinculados socio" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Socios
 </a>
 </li>
@@ -245,14 +251,14 @@ Crear moneda
 </li>
 
 <li>
-<a class="bodytext" title="Mostrar monedas en" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Mostrar monedas
+<a class="bodytext" title="Mostrar las monedas en" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Mostrar las monedas
 </a>
 </li>
 
 <li>
-<a class="bodytext"title="Crear una nueva categoría de Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Crear la categoría de Ad
+<a class="bodytext"title="Crear nueva categoría Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Crear categoría Ad
 </a>
 </li>
 
@@ -262,7 +268,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Registro de saldos
+Saldos del registro
 </a>
 </li>
 
@@ -273,26 +279,32 @@ Límite de crédito
 </li>
 
 <li>
-<a title="Crear remoto o socio Local de registro" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+<a title="Crear a socio registro remoto o Local" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
 Crear socio de registro
 </a>
 </li>
 
 <li>
-<a title="Cargo de servicio se aplican a todas las cuentas" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Aplica cargo
+<a title="Cargo por servicio se aplican a todas las cuentas" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Aplica cargo por servicio
+</a>
+</li>
+
+<li>
+<a title="Obtener cuentas que tienen bloqueado un Pin o una contraseña bloqueada" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Haz bloqueado cuentas
 </a>
 </li>
 
 <li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
-Crear directorios de lote
+Crear directorios por lotes
 </a>
 </li>
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Modificar $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 
@@ -342,11 +354,11 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Página de inicio
 </a>
 |
 <a href="#">
-Póngase en contacto con nosotros
+Contacte con nosotros
 </a>
 <br />
 

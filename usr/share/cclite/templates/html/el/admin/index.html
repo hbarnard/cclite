@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Ελεύθερη υπό την Creative Commons Attribution 2.5 License -->
+<!-- Σχεδιασμός από δωρεάν CSS πρότυπα&#xD;	http://www.freecsstemplates.org&#xD;	Διατίθεται δωρεάν βάσει ένα Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -32,7 +32,7 @@ Cclite $$fieldsref{version} Admin
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- φύλλα στυλ -->
+<!-- stylesheets -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -49,12 +49,15 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- dataTables για αργότερα -->
+<!-- DataTables για αργότερα -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- Javascript βιβλιοθήκες, που πρέπει να αντικαταστήστε συμπιεσμένα εκδόσεις σε κάποιο στάδιο -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript βιβλιοθήκες, πρέπει να εκδόσεις αντικαταστείστε συμπιεσμένα σε κάποιο στάδιο -->
 
 <!-- jQuery στοιχεία -->
 
@@ -76,6 +79,9 @@ $$fieldsref{metarefresh}
 <!--<script type='text/javascript' src='/javascript/jquery-tooltip/jquery.qtip-1.0.0-rc3.min.js'></script>-->
 
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
+</script>
+
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
 </script>
 
 <!-- άλλοι μη jquery -->
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- αυτή είναι η δέσμη ενεργειών που πραγματοποιεί χρήστες όταν το σύστημα είναι τα παράπονα -->
+<!-- Αυτό είναι το σενάριο που καταγράφει τους χρήστες έξω όταν το σύστημα έχει μπει -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +124,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Αυτός ο διακόπτης απενεργοποιεί on/off το δεκαδικό σημείο stuff -->
+<!-- Αυτός ο διακόπτης Ενεργοποιεί/απενεργοποιεί τα πράγματα υποδιαστολή -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Αναζήτηση για χρήστες, εμπόριο, διαφημίσεις -->
+<!-- Ψάξτε για χρήστες, επαγγέλματα, διαφημίσεις -->
 
 <br/>
 
@@ -148,22 +154,22 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='ad'>
-Διαφημίσεις
+Αγγελίες
 </option>
 
 </select>
 
-<input value="Μετάβαση" class="small" type="submit" title="Αναζητήστε επαγγελματικών, διαφημίσεις ή χρήστες">
+<input value="Πάει" class="small" type="submit" title="Ψάξτε για επαγγέλματα, διαφημίσεις ή χρήστες">
 
 </form>
 
-<!-- Τέλος, του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
+<!-- τέλος του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- επιλογέας έκδοση 1 -->
+<!-- Επιλογέας γλώσσα 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +193,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- γλώσσα επιλογέα έκδοση 1 τέλος -->
+<!-- Τέλος έκδοση 1 επιλογέα γλώσσας -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -208,7 +214,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a title="Διοικητικές διασύνδεση για Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+<a title="Διοικητική διεπαφή για Cclite" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite Admin
 </a>
 </h1>
@@ -233,7 +239,7 @@ Cclite Admin
 </li>
 
 <li>
-<a class="bodytext" title="Εμφάνιση συνδεδεμένου εταίρος γραμματείες" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Εμφάνιση συνδεδεμένες εταίρο μητρώων" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Συνεργάτες
 </a>
 </li>
@@ -251,8 +257,8 @@ Cclite Admin
 </li>
 
 <li>
-<a class="bodytext"title="Δημιουργήστε νέα κατηγορία Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Δημιουργία κατηγορίας Ad
+<a class="bodytext"title="Δημιουργία νέας κατηγορίας Ad" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
+Δημιουργία διαφημίσεων κατηγορίας
 </a>
 </li>
 
@@ -262,7 +268,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Τα υπόλοιπα μητρώου
+Υπόλοιπα μητρώου
 </a>
 </li>
 
@@ -273,26 +279,32 @@ $$fieldsref{installer_link}
 </li>
 
 <li>
-<a title="Δημιουργία απομακρυσμένης ή τοπικής μητρώου εταίρος" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-Δημιουργία μητρώου εταίρος
+<a title="Δημιουργία μητρώου απομακρυσμένη ή τοπική συνεργάτη" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Δημιουργία μητρώου συνεργάτη
 </a>
 </li>
 
 <li>
-<a title="Ισχύουν επιπλέον χρέωση υπηρεσιών για όλους τους λογαριασμούς" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Εφαρμόζεται επιπλέον χρέωση υπηρεσιών
+<a title="Ισχύει χρέωση υπηρεσιών για όλους τους λογαριασμούς" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Ισχύει χρέωση υπηρεσιών
+</a>
+</li>
+
+<li>
+<a title="Πάρετε τους λογαριασμούς που έχουν ένα Pin κλειδωμένη και/ή ένας κωδικός πρόσβασης κλειδωμένο" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Πάρετε κλειδωμένα λογαριασμούς
 </a>
 </li>
 
 <li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
-Δημιουργία δέσμης Dirs
+Δημιουργία μαζική Dirs
 </a>
 </li>
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Τροποποιήσετε $$fieldsref{registry}
+Modify !$$fieldsref{registry}!
 </a>
 </li>
 
@@ -300,7 +312,7 @@ $$fieldsref{installer_link}
 
 </div>
 
-<!-- tag σύννεφο και μεμονωμένους χρήστες στατιστικών -->
+<!-- σύννεφο ετικεττών και μεμονωμένος χρήστης στατιστικών -->
 
 <div id="content">
 
@@ -342,7 +354,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Αρχική σελίδα
+Σπίτι
 </a>
 |
 <a href="#">

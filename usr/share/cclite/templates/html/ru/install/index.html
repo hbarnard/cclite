@@ -1,7 +1,9 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Дизайн Бесплатные CSS шаблоны&#xD;	http://www.freecsstemplates.org&#xD;	Выпустила бесплатно по лицензии Creative Commons Attribution 2,5 -->
+<!-- Design by Free CSS Templates
+	http://www.freecsstemplates.org
+	Released for free under a Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +13,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Установка
+Cclite !$$fieldsref{version}! Install
 </title>
 
 <meta name="keywords" content="" />
@@ -54,9 +56,9 @@ $$fieldsref{metarefresh}
 <!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
         <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
 
-<!-- JavaScript библиотеки, необходимо subsitute сжатых версий на каком-то этапе -->
+<!-- JavaScript-библиотеки, нужно обычную сжатых версий на определенном этапе -->
 
-<!-- JQuery-предметов -->
+<!-- jQuery элементы -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -108,7 +110,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Это скрипт, который регистрирует пользователей, когда системы доводится -->
+<!-- Это скрипт, который регистрирует пользователей, когда система доводится -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -121,7 +123,7 @@ $$fieldsref{logout_script}
 <div id="distribution" class="hidden">
 $$fieldsref{distribution}
 </div>
-<!-- выключить прямого создания если cpanel -->
+<!-- Выключите прямого создания если cpanel -->
 
 <br/>
 
@@ -198,7 +200,7 @@ $$fieldsref{environment}
 <ul>
 
 <li class="first">
-<a title="Google Группа поддержки" href="http://groups.google.co.uk/group/cclite?hl=en">
+<a title="Google группа поддержки" href="http://groups.google.co.uk/group/cclite?hl=en">
 Хотите помочь?
 </a>
 </li>
@@ -217,7 +219,7 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a id="updateconfig" title="Обновление conifguration, хранящиеся в cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1">
+<a id="updateconfig" title="Обновление конфигурации, хранящиеся в cclite.cf" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=main">
 Обновить конфигурацию
 </a>
 </li>
@@ -229,14 +231,20 @@ $$fieldsref{environment}
 </li>
 
 <li>
-<a id="showregistry" title="Показать текущие Cclite регистры" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
+<a id="showregistry" title="Показать текущие регистры Cclite" href="/cgi-bin/protected/ccinstall.cgi?action=showregistries">
 Показать реестров
 </a>
 </li>
 
 <li>
-<a id="installcheck" title="Запустите средство проверки установки" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
+<a id="installcheck" title="Выполнение проверки установки" href="/cgi-bin/protected/ccinstall.cgi?action=checkinstall">
 Проверить требования установки
+</a>
+</li>
+
+<li>
+<a id="updategammuconfig" title="Показать и обновление readsms.cf для Gammu, необходимо также вручную обновлять /etc/gammu-smsdrc, предоставленных примеры" href="/cgi-bin/protected/ccinstall.cgi?action=updateconfig1&type=gammu">
+Обновление конфигурации Gammu
 </a>
 </li>
 
@@ -266,7 +274,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Дом
+Главная
 </a>
 |
 <a href="#">

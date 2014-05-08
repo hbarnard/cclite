@@ -1,132 +1,376 @@
-<div class="failedcheck"> $$fieldsref{updatemessage}</div>
-You can use sms transactions with several registries in the current release, but this one is default, see the manual! The <b>registry and currency must already exist</b>.
-<br/><br/>
-You also need to configure <span class="system">/etc/gammu-smsdrc</span> for the phone or dongle that you are using and for inbox/outbox etc.
-See the example in the <span class="system">config</span> sub-directory which is for name=Huawei 1750 giving an AT style connection. This is the hardware used for testing the current version.
-<br/><br/>
-You may also need to use the <a title="Mode switch utility" href="http://www.draisberghof.de/usb_modeswitch/">Mode Switch Utility</a> if a phone dongle declares itself as a storage device
-<br/><br/>
-<table><tbody class="stripy">
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+Puteţi utiliza sms tranzacţii cu mai multe registre în versiunea curentă, dar aceasta este implicit, consultaţi manualul! The
+<b>
+registru şi moneda trebuie să existe deja
+</b>
+.
+<br/>
+
+<br/>
+
+De asemenea, trebuie să configuraţi
+<span class="system">
+/etc/gammu-smsdrc
+</span>
+pentru telefon sau dongle-ul pe care îl utilizaţi şi pentru inbox/outbox etc.A se vedea exemplul din
+<span class="system">
+config
+</span>
+sub-director pentru nume = 1750 Huawei, oferind o conexiune la stilul AT. Acest lucru este hardware-ul utilizat pentru testarea versiunea curentă.
+<br/>
+
+<br/>
+
+De asemenea, trebuie să utilizaţi
+<a title="Modul de switch utilitate" href="http://www.draisberghof.de/usb_modeswitch/">
+Modul de Switch utilitate
+</a>
+în cazul în care un dongle telefon declară ca dispozitiv de stocare
+<br/>
+
+<br/>
+
+
+<table>
+<tbody class="stripy">
+
 <form  name="installgammu" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
 
-<input class="small" name="saveadd"  value="Update Gammu Configuration" type="submit"> 
+<input class="small" name="saveadd"  value="Actualizare Gammu configurare" type="submit">
+
 <input name="action"  value="updategammuconfig" type="hidden">
+
 <input name="type"  data-simple="yes"  value="gammu" type="hidden">
 
 <tr>
-	<td title="this is the sleep time in seconds for reading and sending sms messages" class="menu">sms sleep</td>
-    <td class="pme-key-1">
-    <input id="smssleep"  class="required" type="text" name="smssleep" size="3" value="$$fieldsref{smssleep}">
-    </td>
-<td title="sms interface language, only english has been tested at present!" class="menu">language</td><td class="pme-key-1"><input id="language"  class="required" type="" name="language" size="2" value="$$fieldsref{language}"></td>
- </tr>
 
-<tr><td title="1 if readsms_from_gammu.pl is on the same system as cclite, if zero SOAP is used but this has never been tested" class="menu">sms script is local</td><td class="pme-key-1">
-    <input id="smslocal"  class="required" type="text"  name="smslocal" size="1" value="$$fieldsref{smslocal}">
+<td title="Acest lucru este somn timp în secunde pentru citirea şi trimiterea mesajelor sms" class="menu">
+SMS-uri de somn
 </td>
-<td title="web password status, normally active" class="menu">web password status</td><td class="pme-key-1"><input readonly id="userpasswordstatus"  class="required" type="text" readonly name="userpasswordstatus" size="6" value="active"></td>
+
+<td class="pme-key-1">
+
+<input id="smssleep"  class="required" type="text" name="smssleep" size="3" value="$$fieldsref{smssleep}">
+
+</td>
+
+<td title="SMS limba interfata, singurul român a fost testat în prezent!" class="menu">
+limba
+</td>
+<td class="pme-key-1">
+<input id="language"  class="required" type="" name="language" size="2" value="$$fieldsref{language}">
+</td>
+
 </tr>
 
-<tr><td title="Sms root inwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root inwards path</td><td class="pme-key-1">
-    <input type="text"   class="required" name="smsinpath" size="30" value="$$fieldsref{smsinpath}">
+<tr>
+<td title="1 dacă readsms_from_gammu.pl este acelaşi sistem ca cclite, în cazul în care săpun zero este folosit, dar acest lucru nu a fost testat" class="menu">
+SMS-uri script-ul este locale
 </td>
-<td title="status for mobile user pin, normally active, if we're allowing joins from mobile phone" class="menu">user pin status</td><td class="pme-key-1"><input id="userpinstatus"  class="required" type="text" name="userpinstatus" size="8" value="$$fieldsref{userpinstatus}"></td>
+<td class="pme-key-1">
+
+<input id="smslocal"  class="required" type="text"  name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+
+<td title="statutul de parolă web, în mod normal, activ" class="menu">
+statutul de parolă web
+</td>
+<td class="pme-key-1">
+<input readonly id="userpasswordstatus"  class="required" type="text" readonly name="userpasswordstatus" size="6" value="active">
+</td>
+
 </tr>
 
-<tr><td title="Sms root outwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root outwards path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smsoutpath" size="30" value="$$fieldsref{smsoutpath}">
-<td title="status for user record, normally active, if we're allowing joins from mobile phone" class="menu">user status</td><td class="pme-key-1"><input id="userstatus"  class="required" type="text" name="userstatus" size="8" value="$$fieldsref{userstatus}"></td>
-</td></tr>
-
-<tr><td title="Sms root sent path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root sent sms path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smssentpath" size="30" value="$$fieldsref{smssentpath}">
+<tr>
+<td title="Sms root inwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS rădăcină calea spre interior
 </td>
-<td title="keyword for pay in sms messages" class="menu">pay keyword</td><td class="pme-key-1"><input id="send"  class="required" type="text" name="send_key" size="8" value="$$fieldsref{send_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"   class="required" name="smsinpath" size="30" value="$$fieldsref{smsinpath}">
+
+</td>
+
+<td title="statutul pentru utilizatorul mobil pin, în mod normal, activ, dacă ne sunteţi permiţându-se alătură de pe telefonul mobil" class="menu">
+statutul de pin utilizator
+</td>
+<td class="pme-key-1">
+<input id="userpinstatus"  class="required" type="text" name="userpinstatus" size="8" value="$$fieldsref{userpinstatus}">
+</td>
+
 </tr>
 
-<tr><td title="Sms root error path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root error sms path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smserrorpath" size="30" value="$$fieldsref{smserrorpath}">
+<tr>
+<td title="Sms root outwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS rădăcină calea spre exterior
 </td>
-<td title="keyword for balance in sms messages" class="menu">balance keyword</td><td class="pme-key-1"><input id="balance"  class="required" type="text" name="balance_key" size="8" value="$$fieldsref{balance_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="smsoutpath" size="30" value="$$fieldsref{smsoutpath}">
+
+<td title="statutul pentru înregistrarea utilizatorului, în mod normal, activ, dacă ne sunteţi permiţându-se alătură de pe telefonul mobil" class="menu">
+statutul de utilizator
+</td>
+<td class="pme-key-1">
+<input id="userstatus"  class="required" type="text" name="userstatus" size="8" value="$$fieldsref{userstatus}">
+</td>
+
+</td>
 </tr>
 
-
-<tr><td title="base registry for sms transactions, can only enable one registry at present" class="menu">base registry</td><td class="pme-key-1">
-    <input type="text"  class="required" name="registry" size="20" value="$$fieldsref{registry}">
+<tr>
+<td title="Sms root sent path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS rădăcină trimis sms calea
 </td>
-<td title="keyword for join in sms messages" class="menu">join keyword</td><td class="pme-key-1"><input id="join"  class="required" type="text" name="join_key" size="8" value="$$fieldsref{join_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="smssentpath" size="30" value="$$fieldsref{smssentpath}">
+
+</td>
+
+<td title="cuvinte cheie pentru plata în mesaje sms" class="menu">
+plătească cuvinte cheie
+</td>
+<td class="pme-key-1">
+<input id="send"  class="required" type="text" name="send_key" size="8" value="$$fieldsref{send_key}">
+</td>
+
 </tr>
 
-<tr><td title="currency for sms transactions, this is the default. if no currency is specified" class="menu">default currency</td><td class="pme-key-1">
-    <input type="text"  class="required" name="currency" size="20" value="$$fieldsref{currency}">
- </td>
-<td title="keyword for pin confirm in sms messages" class="menu">pin confirm keyword</td><td class="pme-key-1"><input id="confirm"  class="required" type="text" name="confirm_key" size="8" value="$$fieldsref{confirm_key}"></td>
- </tr>
- 
-<tr><td title="this is needed if you don't include full internation number for pay transactions, for example 44 for UK, easier to use username anyway!" class="menu">country prefix</td><td class="pme-key-1">
-    <input type="text"  class="required" name="sms_prefix" size="2" value="$$fieldsref{sms_prefix}">
- </td>
-<td title="keyword for pin change in sms messages" class="menu">pin change keyword</td><td class="pme-key-1"><input id="pinchange"  class="required" type="text" name="pinchange_key" size="8" value="$$fieldsref{pinchange_key}"></td>
- </tr>
-
-<tr><td title="switch on debug for sms, 0 for off, 1 for on" class="menu">debug sms subsystem</td><td class="pme-key-1">
-    <input type="text"  class="required" name="debug" size="1" value="$$fieldsref{debug}">
+<tr>
+<td title="Sms root error path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS rădăcină eroare sms calea
 </td>
-<td title="keyword for suspend account in sms messages" class="menu">suspend keyword</td><td class="pme-key-1"><input id="suspend"  class="required" type="text" name="suspend_key" size="8" value="$$fieldsref{suspend_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="smserrorpath" size="30" value="$$fieldsref{smserrorpath}">
+
+</td>
+
+<td title="cuvinte cheie pentru echilibrul în mesaje sms" class="menu">
+echilibrul de cuvinte cheie
+</td>
+<td class="pme-key-1">
+<input id="balance"  class="required" type="text" name="balance_key" size="8" value="$$fieldsref{balance_key}">
+</td>
+
 </tr>
 
-<tr><td title="debug file for debugging" class="menu">sms debug log</td><td class="pme-key-1">
-    <input type="text" class="required" name="sms_debug_file" size="30" value="$$fieldsref{sms_debug_file}">
+<tr>
+<td title="registru pentru tranzacţiile de SMS-uri de bază, poate numai activează un registru în prezent" class="menu">
+registru de baza
 </td>
-<td title="keyword for change language in sms messages" class="menu">change language keyword</td><td class="pme-key-1"><input id="language"  class="required" type="text" name="language_key" size="8" value="$$fieldsref{language_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="registry" size="20" value="$$fieldsref{registry}">
+
+</td>
+
+<td title="cuvinte cheie pentru asociere în mesaje sms" class="menu">
+Alăturaţi-vă de cuvinte cheie
+</td>
+<td class="pme-key-1">
+<input id="join"  class="required" type="text" name="join_key" size="8" value="$$fieldsref{join_key}">
+</td>
+
 </tr>
 
-<tr><td title="initial payment status for sms transactions, normally accepted, you cannot alter this from the phone at present" class="menu">initial payment status</td><td class="pme-key-1">
-    <input type="text" class="required"  name="initialpaymentstatus" size="15" value="$$fieldsref{initialpaymentstatus}">
+<tr>
+<td title="monedă pentru tranzacții de SMS-uri, acest lucru este implicit. Dacă nu se specifică nici o moneda" class="menu">
+valutar implicit
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="currency" size="20" value="$$fieldsref{currency}">
+
+</td>
+
+<td title="cuvinte cheie pentru pin confirma în mesaje sms" class="menu">
+PIN confirmarea cuvinte cheie
+</td>
+<td class="pme-key-1">
+<input id="confirm"  class="required" type="text" name="confirm_key" size="8" value="$$fieldsref{confirm_key}">
+</td>
+
 </tr>
 
-<tr><td title="switch on/off sponsor messages at end of sent smses" class="menu">sponsor messages</td><td class="pme-key-1">
-    <input type="text" class="required"  name="sponsor_message_status" size="1" value="$$fieldsref{sponsor_message_status}">
-</td></tr>
+<tr>
+<td title="Acest lucru este necesar dacă nu includeţi numărul complet internaţională pentru tranzacţiile de plată, de exemplu 44 pentru Marea Britanie, mai uşor de utilizat de utilizator oricum!" class="menu">
+prefix de ţară
+</td>
+<td class="pme-key-1">
 
-<tr><td title="sponsor message 1 for bottom of sms messages, see manual" class="menu">sponsor message 1</td><td class="pme-key-1">
+<input type="text"  class="required" name="sms_prefix" size="2" value="$$fieldsref{sms_prefix}">
+
+</td>
+
+<td title="cuvinte cheie pentru pin schimbare în sms mesaje" class="menu">
+cheie de schimbare PIN
+</td>
+<td class="pme-key-1">
+<input id="pinchange"  class="required" type="text" name="pinchange_key" size="8" value="$$fieldsref{pinchange_key}">
+</td>
+
+</tr>
+
+<tr>
+<td title="porniþi depanare pentru SMS-uri, 0 pentru off, 1 pentru pe" class="menu">
+subsistemul de SMS-uri depanare
+</td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="debug" size="1" value="$$fieldsref{debug}">
+
+</td>
+
+<td title="cuvinte cheie pentru contul de suspendare in mesaje sms" class="menu">
+suspenda de cuvinte cheie
+</td>
+<td class="pme-key-1">
+<input id="suspend"  class="required" type="text" name="suspend_key" size="8" value="$$fieldsref{suspend_key}">
+</td>
+
+</tr>
+
+<tr>
+<td title="depanare fişier pentru depanare" class="menu">
+jurnal de depanare SMS
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" name="sms_debug_file" size="30" value="$$fieldsref{sms_debug_file}">
+
+</td>
+
+<td title="cuvinte cheie pentru schimbarea limbii în mesaje sms" class="menu">
+schimba limba de cuvinte cheie
+</td>
+<td class="pme-key-1">
+<input id="language"  class="required" type="text" name="language_key" size="8" value="$$fieldsref{language_key}">
+</td>
+
+</tr>
+
+<tr>
+<td title="iniţială starea plăţii pentru tranzacţiile de SMS-uri, în mod normal acceptate, aveţi posibilitatea de a modifica acest lucru la telefon în prezent" class="menu">
+statut plata inițială
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required"  name="initialpaymentstatus" size="15" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
+</tr>
+
+<tr>
+<td title="porni/opri mesajele de sponsor la sfârşitul de SMS-uri trimise" class="menu">
+sponsorul mesaje
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required"  name="sponsor_message_status" size="1" value="$$fieldsref{sponsor_message_status}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sponsorul mesaj 1 pentru partea de jos de mesaje sms, consultaţi manualul" class="menu">
+mesajul sponsorului 1
+</td>
+<td class="pme-key-1">
+
 <textarea cols="15" rows="4" name="sponsor1" wrap="soft" >
 $$fieldsref{sponsor1}
 </textarea>
 
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
 </tr>
 
-<tr><td title="sponsor message 2 for bottom of sms messages, see manual" class="menu">sponsor message 2</td><td class="pme-key-1">
-    <textarea cols="15" rows="4" name="sponsor2"  wrap="soft">
+<tr>
+<td title="sponsorul mesaj 2 pentru partea de jos de mesaje sms, consultaţi manualul" class="menu">
+sponsorul mesaj 2
+</td>
+<td class="pme-key-1">
+
+<textarea cols="15" rows="4" name="sponsor2"  wrap="soft">
 $$fieldsref{sponsor2}
 </textarea>
-</td></tr>
 
-<tr><td title="sponsor message 3 for bottom of sms messages, see manual" class="menu">sponsor message 3</td><td class="pme-key-1">
-    <textarea cols="15" rows="4" name="sponsor3" wrap="soft">
-$$fieldsref{sponsor3}
-</textarea>
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
 </tr>
 
-<tr><td title="sponsor message 4 for bottom of sms messages, see manual" class="menu">sponsor message 4</td><td class="pme-key-1">
+<tr>
+<td title="sponsorul mesaj 3 pentru partea de jos de mesaje sms, consultaţi manualul" class="menu">
+mesajul sponsorului 3
+</td>
+<td class="pme-key-1">
+
+<textarea cols="15" rows="4" name="sponsor3" wrap="soft">
+$$fieldsref{sponsor3}
+</textarea>
+
+</td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
+</tr>
+
+<tr>
+<td title="sponsorul mesaj 4 pentru partea de jos de mesaje sms, consultaţi manualul" class="menu">
+sponsorul mesaj 4
+</td>
+<td class="pme-key-1">
+
 <textarea cols="15" rows="4" name="sponsor4" wrap="soft">
 $$fieldsref{sponsor4}
 </textarea>
-<td title="" class="menu"></td><td class="pme-key-1">
-</td></tr>
 
-<tr><td title="sponsor message 5 for bottom of sms messages, see manual" class="menu">sponsor message 5</td><td class="pme-key-1">
-    <textarea cols="15" rows="4" name="sponsor5" wrap="soft">
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="sponsorul mesaj 5 pentru partea de jos de mesaje sms, consultaţi manualul" class="menu">
+sponsorul mesaj 5
+</td>
+<td class="pme-key-1">
+
+<textarea cols="15" rows="4" name="sponsor5" wrap="soft">
 $$fieldsref{sponsor5}
 </textarea>
+
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
 </tr>
-</tbody></table>
+
+</tbody>
+</table>
+
 </form>

@@ -559,6 +559,8 @@ sub do_login {
 
     my ( $fieldsref, $registry, $userref, $registry_private_value ) = @_;
 
+    ###print "in here" ;
+
     my %cookie;
 
     $cookie{'language'} = $userref->{'userLang'};
@@ -599,6 +601,8 @@ sub do_login {
       update_database_record( 'local', $cookie{'registry'}, 'om_users', 2,
         $userref, $userref->{'language'},
         $cookie{'token'} );
+
+    ###print Dumper $userref ;
 
     print $cookieheader ;
     print "Location:$fieldsref->{home}\n\n";

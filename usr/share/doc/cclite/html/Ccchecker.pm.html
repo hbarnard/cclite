@@ -171,12 +171,13 @@ Ccchecker.pm</pre>
         <span class="q">&#39;mim|GnuPG&#39;</span>                 <span class="cm">=&gt;</span> <span class="q">&#39;2:Mail/Jabber Encryption&#39;</span><span class="cm">,</span>
         <span class="q">&#39;jab|Net::XMPP&#39;</span>             <span class="cm">=&gt;</span> <span class="q">&#39;2:Jabber Transport&#39;</span><span class="cm">,</span>
         <span class="q">&#39;fpt|File::Path&#39;</span>            <span class="cm">=&gt;</span> <span class="q">&#39;0:OS Indep File Path&#39;</span><span class="cm">,</span>
-        <span class="q">&#39;gde|GD&#39;</span>                    <span class="cm">=&gt;</span> <span class="q">&#39;2:Graphics for Graphs&#39;</span><span class="cm">,</span>
-        <span class="q">&#39;gde|GD::Text&#39;</span>              <span class="cm">=&gt;</span> <span class="q">&#39;2:Graphics for Graphs&#39;</span><span class="cm">,</span>
-        <span class="q">&#39;gde|GD::Graph::lines&#39;</span>      <span class="cm">=&gt;</span> <span class="q">&#39;2:Graphics for Graphs&#39;</span><span class="cm">,</span>
-        <span class="q">&#39;gds|GD::Graph::sparklines&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;2:Graphics for Graphs&#39;</span><span class="cm">,</span>
-        <span class="q">&#39;cgi|CGI&#39;</span>                   <span class="cm">=&gt;</span> <span class="q">&#39;0:CGI Module&#39;</span><span class="cm">,</span>
-        <span class="q">&#39;ood|OpenOffice::OODoc&#39;</span>     <span class="cm">=&gt;</span> <span class="q">&#39;2:Open Office for batch printing&#39;</span><span class="cm">,</span>
+
+        <span class="c">#       &#39;gde|GD&#39;                    =&gt; &#39;2:Graphics for Graphs&#39;,</span>
+        <span class="c">#       &#39;gde|GD::Text&#39;              =&gt; &#39;2:Graphics for Graphs&#39;,</span>
+        <span class="c">#       &#39;gde|GD::Graph::lines&#39;      =&gt; &#39;2:Graphics for Graphs&#39;,</span>
+        <span class="c">#       &#39;gds|GD::Graph::sparklines&#39; =&gt; &#39;2:Graphics for Graphs&#39;,</span>
+        <span class="q">&#39;cgi|CGI&#39;</span>               <span class="cm">=&gt;</span> <span class="q">&#39;0:CGI Module&#39;</span><span class="cm">,</span>
+        <span class="q">&#39;ood|OpenOffice::OODoc&#39;</span> <span class="cm">=&gt;</span> <span class="q">&#39;2:Open Office for batch printing&#39;</span><span class="cm">,</span>
     <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%module</span> <span class="s">)</span> <span class="s">{</span>
@@ -232,10 +233,10 @@ Ccchecker.pm</pre>
 
     <span class="i">$diagnosis</span> .= <span class="q">&quot;&lt;hr/&gt;\n&quot;</span><span class="sc">;</span>
 
-    <span class="c"># GD missing</span>
-    <span class="i">$diagnosis</span> .=
-<span class="q">&quot;&lt;li class=\&quot;optional\&quot;&gt;cclite can&#39;t produce graphs GD module[s] missing&lt;/li&gt;&quot;</span>
-      <span class="k">if</span> <span class="s">(</span> <span class="i">$counter</span>{<span class="q">&#39;gde&#39;</span>} &lt; <span class="n">3</span> <span class="s">)</span><span class="sc">;</span>
+<span class="c">#    # GD missing: Don&#39;t need April 2014</span>
+<span class="c">#    $diagnosis .=</span>
+<span class="c"># &quot;&lt;li class=\&quot;optional\&quot;&gt;cclite can&#39;t produce graphs GD module[s] missing&lt;/li&gt;&quot;</span>
+<span class="c">#      if ( $counter{&#39;gde&#39;} &lt; 3 );</span>
 
     <span class="c"># GnuPG missing</span>
     <span class="i">$diagnosis</span> .=

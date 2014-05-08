@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design von Free CSS-Vorlagen&#xD;	http://www.freecsstemplates.org&#xD;	Kostenlos veröffentlicht unter einer Creative Commons Attribution 2.5 License -->
+<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Kostenlos veröffentlicht unter einer Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -51,10 +51,13 @@ $$fieldsref{metarefresh}
 
 <!-- DataTables später -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- JavaScript-Bibliotheken, müssen irgendwann Subsitute komprimierte Versionen -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript-Bibliotheken müssen Subsitute komprimierte Versionen irgendwann -->
 
 <!-- jQuery-Elemente -->
 
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- andere nicht Jquery -->
 
@@ -118,7 +122,7 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- durch diese Befehlszeilenoption wird ein-und Ausschalten der Dezimalpunkt-Stoff -->
+<!-- durch diese Befehlszeilenoption wird ein-/ausschalten der Dezimalpunkt-Stoff -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
@@ -148,22 +152,22 @@ Benutzer
 </option>
 
 <option value='ad'>
-Werbung
+Anzeigen
 </option>
 
 </select>
 
-<input value="Gehen" class="small" type="submit" title="Für Handel, Werbung oder Benutzer suchen">
+<input value="Gehen" class="small" type="submit" title="Suchen Sie nach Handel, anzeigen oder Benutzer">
 
 </form>
 
-<!-- Ende der AutoVervollständigen-Suchfeld -->
+<!-- Ende des AutoVervollständigen-Suchfeld -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- Selektor Sprachversion 1 -->
+<!-- Language-Selector-Version 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -224,7 +228,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="Administrationsmenü" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Menü "Administration"" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -285,7 +289,7 @@ Konto ändern
 
 <li>
 <a title="Zahlung für Waren oder Dienstleistungen aufteilen" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Split-Zahlung
+Zahlung aufteilen
 </a>
 </li>
 
@@ -302,13 +306,13 @@ Salden
 </li>
 
 <li>
-<a title="Die waren und Dienstleistungen Verzeichnis anzeigen" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+<a title="Die waren und Services Directory" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
 Waren/Dienstleistungen
 </a>
 </li>
 
 <li>
-<a title="Meine Anzeigen in waren und Dienstleistungen Verzeichnis anzeigen" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+<a title="Zeigen Sie meine in der waren und Dienstleistungen Directory an" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 Meine anzeigen
 </a>
 </li>

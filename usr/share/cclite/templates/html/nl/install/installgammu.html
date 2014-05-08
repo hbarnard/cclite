@@ -1,132 +1,377 @@
-<div class="failedcheck"> $$fieldsref{updatemessage}</div>
-You can use sms transactions with several registries in the current release, but this one is default, see the manual! The <b>registry and currency must already exist</b>.
-<br/><br/>
-You also need to configure <span class="system">/etc/gammu-smsdrc</span> for the phone or dongle that you are using and for inbox/outbox etc.
-See the example in the <span class="system">config</span> sub-directory which is for name=Huawei 1750 giving an AT style connection. This is the hardware used for testing the current version.
-<br/><br/>
-You may also need to use the <a title="Mode switch utility" href="http://www.draisberghof.de/usb_modeswitch/">Mode Switch Utility</a> if a phone dongle declares itself as a storage device
-<br/><br/>
-<table><tbody class="stripy">
+
+<div class="failedcheck">
+$$fieldsref{updatemessage}
+</div>
+U kunt sms transacties met verschillende registers in de huidige versie, maar deze is standaard, Raadpleeg de handleiding! De
+<b>
+register en valuta moeten al bestaan
+</b>
+.
+<br/>
+
+<br/>
+
+U moet ook configureren
+<span class="system">
+/etc/gammu-smsdrc
+</span>
+for the phone or dongle that you are using and for inbox/outbox etc.
+See the example in the
+<span class="system">
+config
+</span>
+sub directory die voor naam is = Huawei 1750 geven een AT stijl verbinding. Dit is de hardware die wordt gebruikt voor het testen van de huidige versie.
+<br/>
+
+<br/>
+
+Mogelijk moet u ook gebruik van de
+<a title="Modus-schakelaar hulpprogramma" href="http://www.draisberghof.de/usb_modeswitch/">
+Modus Switch Utility
+</a>
+Als een telefoon dongle zich als een apparaat voor gegevensopslag verklaart
+<br/>
+
+<br/>
+
+
+<table>
+<tbody class="stripy">
+
 <form  name="installgammu" id="form" action="/cgi-bin/protected/ccinstall.cgi" method="post">
 
-<input class="small" name="saveadd"  value="Update Gammu Configuration" type="submit"> 
+<input class="small" name="saveadd"  value="Gammu configuratie bij te werken" type="submit">
+
 <input name="action"  value="updategammuconfig" type="hidden">
+
 <input name="type"  data-simple="yes"  value="gammu" type="hidden">
 
 <tr>
-	<td title="this is the sleep time in seconds for reading and sending sms messages" class="menu">sms sleep</td>
-    <td class="pme-key-1">
-    <input id="smssleep"  class="required" type="text" name="smssleep" size="3" value="$$fieldsref{smssleep}">
-    </td>
-<td title="sms interface language, only english has been tested at present!" class="menu">language</td><td class="pme-key-1"><input id="language"  class="required" type="" name="language" size="2" value="$$fieldsref{language}"></td>
- </tr>
 
-<tr><td title="1 if readsms_from_gammu.pl is on the same system as cclite, if zero SOAP is used but this has never been tested" class="menu">sms script is local</td><td class="pme-key-1">
-    <input id="smslocal"  class="required" type="text"  name="smslocal" size="1" value="$$fieldsref{smslocal}">
+<td title="Dit is de tijd van de slaap in seconden voor het lezen en verzenden van sms-berichten" class="menu">
+SMS slaap
 </td>
-<td title="web password status, normally active" class="menu">web password status</td><td class="pme-key-1"><input readonly id="userpasswordstatus"  class="required" type="text" readonly name="userpasswordstatus" size="6" value="active"></td>
+
+<td class="pme-key-1">
+
+<input id="smssleep"  class="required" type="text" name="smssleep" size="3" value="$$fieldsref{smssleep}">
+
+</td>
+
+<td title="SMS interface taal, alleen Engels is getest op dit moment!" class="menu">
+taal
+</td>
+<td class="pme-key-1">
+<input id="language"  class="required" type="" name="language" size="2" value="$$fieldsref{language}">
+</td>
+
 </tr>
 
-<tr><td title="Sms root inwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root inwards path</td><td class="pme-key-1">
-    <input type="text"   class="required" name="smsinpath" size="30" value="$$fieldsref{smsinpath}">
+<tr>
+<td title="1 als readsms_from_gammu.pl zich op hetzelfde systeem als cclite, als nul SOAP wordt gebruikt, maar dit is nooit getest" class="menu">
+SMS script is lokale
 </td>
-<td title="status for mobile user pin, normally active, if we're allowing joins from mobile phone" class="menu">user pin status</td><td class="pme-key-1"><input id="userpinstatus"  class="required" type="text" name="userpinstatus" size="8" value="$$fieldsref{userpinstatus}"></td>
+<td class="pme-key-1">
+
+<input id="smslocal"  class="required" type="text"  name="smslocal" size="1" value="$$fieldsref{smslocal}">
+
+</td>
+
+<td title="Web wachtwoord status, normaal actief" class="menu">
+status van Web wachtwoord
+</td>
+<td class="pme-key-1">
+<input readonly id="userpasswordstatus"  class="required" type="text" readonly name="userpasswordstatus" size="6" value="active">
+</td>
+
 </tr>
 
-<tr><td title="Sms root outwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root outwards path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smsoutpath" size="30" value="$$fieldsref{smsoutpath}">
-<td title="status for user record, normally active, if we're allowing joins from mobile phone" class="menu">user status</td><td class="pme-key-1"><input id="userstatus"  class="required" type="text" name="userstatus" size="8" value="$$fieldsref{userstatus}"></td>
-</td></tr>
-
-<tr><td title="Sms root sent path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root sent sms path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smssentpath" size="30" value="$$fieldsref{smssentpath}">
+<tr>
+<td title="Sms root inwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS hoofdpad naar binnen
 </td>
-<td title="keyword for pay in sms messages" class="menu">pay keyword</td><td class="pme-key-1"><input id="send"  class="required" type="text" name="send_key" size="8" value="$$fieldsref{send_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"   class="required" name="smsinpath" size="30" value="$$fieldsref{smsinpath}">
+
+</td>
+
+<td title="status voor mobiele gebruiker pin, normaal actief, als we de toestemming toetreedt van mobiele telefoon" class="menu">
+pin Gebruikersstatus
+</td>
+<td class="pme-key-1">
+<input id="userpinstatus"  class="required" type="text" name="userpinstatus" size="8" value="$$fieldsref{userpinstatus}">
+</td>
+
 </tr>
 
-<tr><td title="Sms root error path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">sms root error sms path</td><td class="pme-key-1">
-    <input type="text"  class="required" name="smserrorpath" size="30" value="$$fieldsref{smserrorpath}">
+<tr>
+<td title="Sms root outwards path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS hoofdpad naar buiten
 </td>
-<td title="keyword for balance in sms messages" class="menu">balance keyword</td><td class="pme-key-1"><input id="balance"  class="required" type="text" name="balance_key" size="8" value="$$fieldsref{balance_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="smsoutpath" size="30" value="$$fieldsref{smsoutpath}">
+
+<td title="status voor de gebruikersrecord, normaal actief, als we de toestemming toetreedt van mobiele telefoon" class="menu">
+Gebruikersstatus
+</td>
+<td class="pme-key-1">
+<input id="userstatus"  class="required" type="text" name="userstatus" size="8" value="$$fieldsref{userstatus}">
+</td>
+
+</td>
 </tr>
 
-
-<tr><td title="base registry for sms transactions, can only enable one registry at present" class="menu">base registry</td><td class="pme-key-1">
-    <input type="text"  class="required" name="registry" size="20" value="$$fieldsref{registry}">
+<tr>
+<td title="Sms root sent path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS verzonden sms hoofdpad
 </td>
-<td title="keyword for join in sms messages" class="menu">join keyword</td><td class="pme-key-1"><input id="join"  class="required" type="text" name="join_key" size="8" value="$$fieldsref{join_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="smssentpath" size="30" value="$$fieldsref{smssentpath}">
+
+</td>
+
+<td title="zoekwoorden voor betalen in sms-berichten" class="menu">
+betalen trefwoord
+</td>
+<td class="pme-key-1">
+<input id="send"  class="required" type="text" name="send_key" size="8" value="$$fieldsref{send_key}">
+</td>
+
 </tr>
 
-<tr><td title="currency for sms transactions, this is the default. if no currency is specified" class="menu">default currency</td><td class="pme-key-1">
-    <input type="text"  class="required" name="currency" size="20" value="$$fieldsref{currency}">
- </td>
-<td title="keyword for pin confirm in sms messages" class="menu">pin confirm keyword</td><td class="pme-key-1"><input id="confirm"  class="required" type="text" name="confirm_key" size="8" value="$$fieldsref{confirm_key}"></td>
- </tr>
- 
-<tr><td title="this is needed if you don't include full internation number for pay transactions, for example 44 for UK, easier to use username anyway!" class="menu">country prefix</td><td class="pme-key-1">
-    <input type="text"  class="required" name="sms_prefix" size="2" value="$$fieldsref{sms_prefix}">
- </td>
-<td title="keyword for pin change in sms messages" class="menu">pin change keyword</td><td class="pme-key-1"><input id="pinchange"  class="required" type="text" name="pinchange_key" size="8" value="$$fieldsref{pinchange_key}"></td>
- </tr>
-
-<tr><td title="switch on debug for sms, 0 for off, 1 for on" class="menu">debug sms subsystem</td><td class="pme-key-1">
-    <input type="text"  class="required" name="debug" size="1" value="$$fieldsref{debug}">
+<tr>
+<td title="Sms root error path, the registry [trading group] name is added to this, see note above about configuring gammu-smsrdc too" class="menu">
+SMS wortel fout sms pad
 </td>
-<td title="keyword for suspend account in sms messages" class="menu">suspend keyword</td><td class="pme-key-1"><input id="suspend"  class="required" type="text" name="suspend_key" size="8" value="$$fieldsref{suspend_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="smserrorpath" size="30" value="$$fieldsref{smserrorpath}">
+
+</td>
+
+<td title="trefwoord voor evenwicht in sms-berichten" class="menu">
+evenwicht trefwoord
+</td>
+<td class="pme-key-1">
+<input id="balance"  class="required" type="text" name="balance_key" size="8" value="$$fieldsref{balance_key}">
+</td>
+
 </tr>
 
-<tr><td title="debug file for debugging" class="menu">sms debug log</td><td class="pme-key-1">
-    <input type="text" class="required" name="sms_debug_file" size="30" value="$$fieldsref{sms_debug_file}">
+<tr>
+<td title="register voor sms transacties baseren, alleen inschakelen één register kunnen op dit moment" class="menu">
+basis register
 </td>
-<td title="keyword for change language in sms messages" class="menu">change language keyword</td><td class="pme-key-1"><input id="language"  class="required" type="text" name="language_key" size="8" value="$$fieldsref{language_key}"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="registry" size="20" value="$$fieldsref{registry}">
+
+</td>
+
+<td title="trefwoord voor join in sms-berichten" class="menu">
+sleutelwoord JOIN
+</td>
+<td class="pme-key-1">
+<input id="join"  class="required" type="text" name="join_key" size="8" value="$$fieldsref{join_key}">
+</td>
+
 </tr>
 
-<tr><td title="initial payment status for sms transactions, normally accepted, you cannot alter this from the phone at present" class="menu">initial payment status</td><td class="pme-key-1">
-    <input type="text" class="required"  name="initialpaymentstatus" size="15" value="$$fieldsref{initialpaymentstatus}">
+<tr>
+<td title="valuta voor sms transacties, dit is de standaardinstelling. Als er geen geld is opgegeven" class="menu">
+automatisch de standaardvaluta
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="currency" size="20" value="$$fieldsref{currency}">
+
+</td>
+
+<td title="trefwoord voor pin bevestigen in sms-berichten" class="menu">
+PIN bevestigen trefwoord
+</td>
+<td class="pme-key-1">
+<input id="confirm"  class="required" type="text" name="confirm_key" size="8" value="$$fieldsref{confirm_key}">
+</td>
+
 </tr>
 
-<tr><td title="switch on/off sponsor messages at end of sent smses" class="menu">sponsor messages</td><td class="pme-key-1">
-    <input type="text" class="required"  name="sponsor_message_status" size="1" value="$$fieldsref{sponsor_message_status}">
-</td></tr>
+<tr>
+<td title="Dit is nodig als u geen volledige internationale nummer voor betaal transacties, bijvoorbeeld 44 voor UK, eenvoudiger in het gebruik van gebruikersnaam toch!" class="menu">
+land voorvoegsel
+</td>
+<td class="pme-key-1">
 
-<tr><td title="sponsor message 1 for bottom of sms messages, see manual" class="menu">sponsor message 1</td><td class="pme-key-1">
+<input type="text"  class="required" name="sms_prefix" size="2" value="$$fieldsref{sms_prefix}">
+
+</td>
+
+<td title="trefwoord voor pin wijzigen in sms berichten" class="menu">
+PIN wijzigen trefwoord
+</td>
+<td class="pme-key-1">
+<input id="pinchange"  class="required" type="text" name="pinchange_key" size="8" value="$$fieldsref{pinchange_key}">
+</td>
+
+</tr>
+
+<tr>
+<td title="foutopsporing voor sms inschakelen, 0 voor korting, 1 voor op" class="menu">
+debug subsysteem "sms"
+</td>
+<td class="pme-key-1">
+
+<input type="text"  class="required" name="debug" size="1" value="$$fieldsref{debug}">
+
+</td>
+
+<td title="trefwoord voor Suspend-modus account in sms-berichten" class="menu">
+schorten trefwoord
+</td>
+<td class="pme-key-1">
+<input id="suspend"  class="required" type="text" name="suspend_key" size="8" value="$$fieldsref{suspend_key}">
+</td>
+
+</tr>
+
+<tr>
+<td title="debug-bestand voor foutopsporing" class="menu">
+logboek voor foutopsporing van SMS
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required" name="sms_debug_file" size="30" value="$$fieldsref{sms_debug_file}">
+
+</td>
+
+<td title="trefwoord voor Verander taal in sms-berichten" class="menu">
+taal trefwoord wijzigen
+</td>
+<td class="pme-key-1">
+<input id="language"  class="required" type="text" name="language_key" size="8" value="$$fieldsref{language_key}">
+</td>
+
+</tr>
+
+<tr>
+<td title="aanvankelijke status van de betaling voor sms transacties, normaal geaccepteerd, u kunt niet wijzigen dit vanaf de telefoon op dit moment" class="menu">
+eerste betalingsstatus
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required"  name="initialpaymentstatus" size="15" value="$$fieldsref{initialpaymentstatus}">
+
+</td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
+</tr>
+
+<tr>
+<td title="schakelt sponsor berichten aan einde van verzonden sms'en" class="menu">
+sponsor berichten
+</td>
+<td class="pme-key-1">
+
+<input type="text" class="required"  name="sponsor_message_status" size="1" value="$$fieldsref{sponsor_message_status}">
+
+</td>
+</tr>
+
+<tr>
+<td title="sponsor bericht 1 voor onderkant van sms-berichten, zie handleiding" class="menu">
+sponsor bericht 1
+</td>
+<td class="pme-key-1">
+
 <textarea cols="15" rows="4" name="sponsor1" wrap="soft" >
 $$fieldsref{sponsor1}
 </textarea>
 
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
 </tr>
 
-<tr><td title="sponsor message 2 for bottom of sms messages, see manual" class="menu">sponsor message 2</td><td class="pme-key-1">
-    <textarea cols="15" rows="4" name="sponsor2"  wrap="soft">
+<tr>
+<td title="sponsor bericht 2 voor onderkant van sms-berichten, zie handleiding" class="menu">
+sponsor bericht 2
+</td>
+<td class="pme-key-1">
+
+<textarea cols="15" rows="4" name="sponsor2"  wrap="soft">
 $$fieldsref{sponsor2}
 </textarea>
-</td></tr>
 
-<tr><td title="sponsor message 3 for bottom of sms messages, see manual" class="menu">sponsor message 3</td><td class="pme-key-1">
-    <textarea cols="15" rows="4" name="sponsor3" wrap="soft">
-$$fieldsref{sponsor3}
-</textarea>
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
 </tr>
 
-<tr><td title="sponsor message 4 for bottom of sms messages, see manual" class="menu">sponsor message 4</td><td class="pme-key-1">
+<tr>
+<td title="sponsor bericht 3 voor onderkant van sms-berichten, zie handleiding" class="menu">
+sponsor bericht 3
+</td>
+<td class="pme-key-1">
+
+<textarea cols="15" rows="4" name="sponsor3" wrap="soft">
+$$fieldsref{sponsor3}
+</textarea>
+
+</td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
+</tr>
+
+<tr>
+<td title="sponsor bericht 4 voor onderkant van sms-berichten, zie handleiding" class="menu">
+sponsor bericht 4
+</td>
+<td class="pme-key-1">
+
 <textarea cols="15" rows="4" name="sponsor4" wrap="soft">
 $$fieldsref{sponsor4}
 </textarea>
-<td title="" class="menu"></td><td class="pme-key-1">
-</td></tr>
 
-<tr><td title="sponsor message 5 for bottom of sms messages, see manual" class="menu">sponsor message 5</td><td class="pme-key-1">
-    <textarea cols="15" rows="4" name="sponsor5" wrap="soft">
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+
+</td>
+</tr>
+
+<tr>
+<td title="sponsor bericht 5 voor onderkant van sms-berichten, zie handleiding" class="menu">
+sponsor bericht 5
+</td>
+<td class="pme-key-1">
+
+<textarea cols="15" rows="4" name="sponsor5" wrap="soft">
 $$fieldsref{sponsor5}
 </textarea>
+
 </td>
-<td title="" class="menu"></td><td class="pme-key-1"></td>
+
+<td title="" class="menu">
+</td>
+<td class="pme-key-1">
+</td>
+
 </tr>
-</tbody></table>
+
+</tbody>
+</table>
+
 </form>

@@ -51,12 +51,15 @@ $$fieldsref{metarefresh}
 
 <!-- datatables في وقت لاحق -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
+
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
 
 <!-- المكتبات جافا سكريبت، بحاجة إلى إصدارات الرواند ضغطها في مرحلة من المراحل -->
 
-<!-- العناصر مسج -->
+<!-- البنود مسج -->
 
 <script src="/javascript/jquery-1.3.2.js">
 </script>
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- الآخرين غير مسج -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- وهذا هو البرنامج النصي الذي المستخدمين بتسجيل الخروج عند هي التي أسقطت النظام -->
+<!-- وهذا هو البرنامج النصي الذي المستخدمين بتسجيل الخروج عندما يجري أسقطت النظام -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- رمز التبديل هذا تشغيل/إيقاف الأشياء العشرية -->
+<!-- رمز التبديل هذا تشغيل/إيقاف الأشياء النقطة العشرية -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- البحث عن المستخدمين، والحرف، والإعلانات -->
+<!-- البحث عن المستخدمين، والحرف، وإعلان -->
 
 <br/>
 
@@ -163,7 +167,7 @@ $$fieldsref{usedecimals}
 $$fieldsref{status_message}
 </span>
 
-<!-- إصدار محدد اللغة 1 -->
+<!-- لغة محدد الإصدار 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -278,19 +282,19 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="تعديل تفاصيل حسابك" href="/cgi-bin/cclite.cgi?action=modifyuser">
+<a title="تعديل تفاصيل الحساب الخاص بك" href="/cgi-bin/cclite.cgi?action=modifyuser">
 تعديل حساب
 </a>
 </li>
 
 <li>
-<a title="تقسيم دفع ثمن السلع أو الخدمات" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-انقسام الدفع
+<a title="تقسيم الدفع للبضائع أو الخدمات" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+تقسيم الدفع
 </a>
 </li>
 
 <li>
-<a title="إظهار الحركات بلدي" href="/cgi-bin/cclite.cgi?action=showtrans">
+<a title="إظهار بلدي المعاملات" href="/cgi-bin/cclite.cgi?action=showtrans">
 المعاملات
 </a>
 </li>
@@ -308,7 +312,7 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="عرض إعلاناتي في سلع وخدمات الدليل" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+<a title="تظهر لي إعلانات في سلع وخدمات الدليل" href="/cgi-bin/cclite.cgi?action=showmyyellow">
 إعلاناتي
 </a>
 </li>
@@ -323,7 +327,7 @@ $$fieldsref{latest_news}
 
 </div>
 
-<!-- سحابة وإحصاءات المستخدم الفردية -->
+<!-- سحابة الوسم وإحصاءات المستخدم الفردية -->
 
 <div id="content">
 

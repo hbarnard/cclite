@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by a Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	A Creative Commons Attribution 2.5 License alapján szabad forgalomba -->
+<!-- Design by Free CSS sablonok&#xD;	http://www.freecsstemplates.org&#xD;	Alatt a Creative Commons Attribution 2.5 License ingyen kiadott -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -49,12 +49,15 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- későbbi datatables -->
+<!-- a későbbi DataTables -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- -on némely színpad helyett tömörített változatának kell JavaScript library -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript könyvtárak, kell subsitute tömörített változat egy bizonyos szakaszában -->
 
 <!-- jQuery elemek -->
 
@@ -78,6 +81,9 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
+
 <!-- mások nem jquery -->
 
 <script type='text/javascript' src='/javascript/jshashtable-2.1.js'>
@@ -92,7 +98,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/fileuploader.js" type="text/javascript">
 </script>
 
-<!-- grafikonozás -->
+<!-- ábrázolása -->
 
 <script  src="/javascript/flot/jquery.flot.js" type="text/javascript" >
 </script>
@@ -108,7 +114,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- Ez a bejelentkező felhasználók, amikor a rendszer webhelycsoportról parancsfájl -->
+<!-- Ez a szkript, amely naplózza a felhasználók ki, mikor a rendszer van lét hozta le -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +124,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Ez a kapcsoló bekapcsolja a be- / kikapcsolása a tizedesvessző megtöm -->
+<!-- ezt a kapcsolót menstruáció be/ki a tizedesvessző cucc -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- a felhasználók, a kereskedelem, a hirdetések keresése -->
+<!-- keressen felhasználók, szakmák, hirdetések -->
 
 <br/>
 
@@ -153,17 +159,17 @@ Reklámok
 
 </select>
 
-<input value="Go" class="small" type="submit" title="Keres a kereskedelem, a hirdetések vagy a felhasználók">
+<input value="Megy" class="small" type="submit" title="Keresse meg a kereskedés, a hirdetések és a felhasználók">
 
 </form>
 
-<!-- a keresőmező automatikus kiegészítés végére -->
+<!-- az automatikus kiegészítés keresési mezőbe vége -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- a nyelvet 1 kijelölője -->
+<!-- nyelv választó változat 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +193,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- nyelv választó 1-es verziójú vége -->
+<!-- nyelv választó változat 1 vége -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -208,7 +214,7 @@ $$fieldsref{youare} $$fieldsref{atregistry}
 <div id="header">
 
 <h1>
-<a title="Felügyeleti felület az Cclite" href="/cgi-bin/protected/ccadmin.cgi">
+<a title="Adminisztrációs felület a Cclite" href="/cgi-bin/protected/ccadmin.cgi">
 Cclite Admin
 </a>
 </h1>
@@ -233,7 +239,7 @@ Felhasználó menü
 </li>
 
 <li>
-<a class="bodytext" title="Kibocsátásiegység-forgalmi jegyzékek csatolt Partner megjelenítése" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
+<a class="bodytext" title="Kapcsolódó nyilvántartások megjelenítése" href="/cgi-bin/protected/ccadmin.cgi?action=showpartners">
 Partnerek
 </a>
 </li>
@@ -245,14 +251,14 @@ Valuta létrehozása
 </li>
 
 <li>
-<a class="bodytext" title="Pénznemek megjelenítése" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
-Pénznemek megjelenítése
+<a class="bodytext" title="A pénznemek mutatása" href="/cgi-bin/protected/ccadmin.cgi?action=showcurrencies">
+Pénznemek mutatása
 </a>
 </li>
 
 <li>
 <a class="bodytext"title="Hozzon létre új hirdetés kategória" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=category.html">
-Ad-kategória létrehozása
+Hirdetés kategória létrehozása
 </a>
 </li>
 
@@ -262,7 +268,7 @@ $$fieldsref{installer_link}
 
 <li>
 <a  title="Show Registry Balances for $$fieldsref{registrytitle}" href="/cgi-bin/protected/ccadmin.cgi?action=showbalvol">
-Rendszerleíró adatbázis egyenlegek
+Egyenlegek iktató hivatal
 </a>
 </li>
 
@@ -273,26 +279,32 @@ Hitelkeret
 </li>
 
 <li>
-<a title="Hozza létre a távoli vagy a helyi rendszerleíró adatbázis-Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
-Hozza létre a rendszerleíró adatbázis Partner
+<a title="Hozzon létre egy helyi vagy Távoli rendszerleíró Partner" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=partners.html">
+Hozzon létre a rendszerleíró adatbázis Partner
 </a>
 </li>
 
 <li>
-<a title="Szolgáltatási díj vonatkozik minden fiók" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
-Alkalmazása a szolgáltatási díj
+<a title="Szolgáltatási díj vonatkozik minden számlák" href="/cgi-bin/protected/ccadmin.cgi?action=template&name=servicechg.html">
+Alkalmazni a szolgáltatási díj
+</a>
+</li>
+
+<li>
+<a title="Kap a számlákhoz, amelyek esetében a PIN-kód zárolva van, vagy egy jelszó zárt" href="/cgi-bin/protected/ccadmin.cgi?action=getlocked&mode=html">
+Kap zárolt számlák
 </a>
 </li>
 
 <li>
 <a title="Create Batch Directories for $$fieldsref{registry}, use especially for cpanel" href="/cgi-bin/protected/ccadmin.cgi?action=setbatchdirs">
-Kötegelt könyvtárak létrehozása
+Hozzon létre egy tétel Dirs
 </a>
 </li>
 
 <li>
 <a title="Modify values for the $$fieldsref{registry} registry" href="/cgi-bin/protected/ccadmin.cgi?template=modregistry.html&name=$$fieldsref{registry}&subaction=om_registry&id=1&&action=modify">
-Módosítása $$fieldsref{registry}
+Módosít $$fieldsref{registry}
 </a>
 </li>
 
@@ -300,7 +312,7 @@ Módosítása $$fieldsref{registry}
 
 </div>
 
-<!-- Címke felhő és egyéni felhasználói statisztikák -->
+<!-- cédula felhő és egyéni felhasználói statisztikák -->
 
 <div id="content">
 
@@ -342,7 +354,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Home
+Haza
 </a>
 |
 <a href="#">

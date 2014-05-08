@@ -1,7 +1,7 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<!-- Design by Free CSS Templates&#xD;	http://www.freecsstemplates.org&#xD;	Ελεύθερη υπό την Creative Commons Attribution 2.5 License -->
+<!-- Σχεδιασμός από δωρεάν CSS πρότυπα&#xD;	http://www.freecsstemplates.org&#xD;	Διατίθεται δωρεάν βάσει ένα Creative Commons Attribution 2.5 License -->
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 
@@ -11,7 +11,7 @@
 
 
 <title>
-Cclite $$fieldsref{version} Χρήστης
+Cclite $$fieldsref{version} Χρήστη
 </title>
 
 <meta name="keywords" content="" />
@@ -32,7 +32,7 @@ Cclite $$fieldsref{version} Χρήστης
 <meta name="author" content="hugh barnard" />
 
 $$fieldsref{metarefresh}
-<!-- φύλλα στυλ -->
+<!-- stylesheets -->
 
 <link href="/styles/default.css" rel="stylesheet" type="text/css" />
 
@@ -49,12 +49,15 @@ $$fieldsref{metarefresh}
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 
 
-<!-- αργότερα dataTables -->
+<!-- DataTables αργότερα -->
 
-<!--<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
-        <link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/> -->
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_page.css" />
 
-<!-- Javascript βιβλιοθήκες, που πρέπει να αντικαταστήστε συμπιεσμένα εκδόσεις σε κάποιο στάδιο -->
+
+<link rel="stylesheet" type="text/css" href="/javascript/jquery-datatables/js/css/demo_table.css"/>
+
+
+<!-- JavaScript βιβλιοθήκες, πρέπει να εκδόσεις αντικαταστείστε συμπιεσμένα σε κάποιο στάδιο -->
 
 <!-- jQuery στοιχεία -->
 
@@ -79,7 +82,8 @@ $$fieldsref{metarefresh}
 <script type='text/javascript' src='/javascript/jquery-autocomplete/lib/jquery.bgiframe.min.js'>
 </script>
 
-<!--<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'></script>-->
+<script type='text/javascript' src='/javascript/jquery-datatables/js/jquery.dataTables.js'>
+</script>
 
 <!-- άλλοι μη jquery -->
 
@@ -108,7 +112,7 @@ $$fieldsref{metarefresh}
 <script src="/javascript/cclite.js" charset="utf-8" type="text/javascript">
 </script>
 
-<!-- αυτή είναι η δέσμη ενεργειών που πραγματοποιεί χρήστες όταν το σύστημα είναι τα παράπονα -->
+<!-- Αυτό είναι το σενάριο που καταγράφει τους χρήστες έξω όταν το σύστημα έχει μπει -->
 
 <script type="text/javascript">
 $$fieldsref{logout_script}
@@ -118,13 +122,13 @@ $$fieldsref{logout_script}
 
 <body>
 
-<!-- Αυτός ο διακόπτης απενεργοποιεί on/off το δεκαδικό σημείο stuff -->
+<!-- Αυτός ο διακόπτης Ενεργοποιεί/απενεργοποιεί τα πράγματα υποδιαστολή -->
 
 <div id="usedecimals" class="hidden">
 $$fieldsref{usedecimals}
 </div>
 
-<!-- Αναζήτηση για χρήστες, εμπόριο, διαφημίσεις -->
+<!-- Ψάξτε για χρήστες, επαγγέλματα, διαφημίσεις -->
 
 <br/>
 
@@ -148,22 +152,22 @@ $$fieldsref{usedecimals}
 </option>
 
 <option value='ad'>
-Διαφημίσεις
+Αγγελίες
 </option>
 
 </select>
 
-<input value="Μετάβαση" class="small" type="submit" title="Αναζητήστε επαγγελματικών, διαφημίσεις ή χρήστες">
+<input value="Πάει" class="small" type="submit" title="Ψάξτε για επαγγέλματα, διαφημίσεις ή χρήστες">
 
 </form>
 
-<!-- Τέλος, του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
+<!-- τέλος του πλαισίου αναζήτησης "Αυτόματη καταχώρηση" -->
 
 <span id="status_message">
 $$fieldsref{status_message}
 </span>
 
-<!-- επιλογέας έκδοση 1 -->
+<!-- Επιλογέας γλώσσα 1 -->
 
 <select id="language_value" class="small" onchange="change_language(this);" name="language">
 
@@ -187,7 +191,7 @@ $$fieldsref{status_message}
 
 </select>
 
-<!-- γλώσσα επιλογέα έκδοση 1 τέλος -->
+<!-- Τέλος έκδοση 1 επιλογέα γλώσσας -->
 
 <span id="logoninfo">
 $$fieldsref{youare} $$fieldsref{atregistry}
@@ -224,7 +228,7 @@ $$fieldsref{latest_news}
 <ul>
 
 <li class="first">
-<a id="adminlinkhref" title="Μενού "Διαχείριση"" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhref" title="Διοίκηση μενού" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlink">
 </span>
@@ -234,7 +238,7 @@ $$fieldsref{latest_news}
 
 <li>
 
-<a id="adminlinkhrefnt" title="μενού διαχείρισης σε νέα καρτέλα" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
+<a id="adminlinkhrefnt" title="διοίκηση μενού σε νέα καρτέλα" target="_blank" href="/cgi-bin/protected/ccadmin.cgi">
 
 <span id="adminlinknewtab">
 </span>
@@ -245,20 +249,20 @@ $$fieldsref{latest_news}
 
 <li>
 <a title="Μεταφορά νόμισμα ή ώρες" href="/cgi-bin/cclite.cgi?action=template&amp;name=trades.html">
-Πληρωμή
+Πληρωμής
 </a>
 </li>
 
 <li>
 <a  title="Ξέχασες τον κωδικό πρόσβασης??" href="/cgi-bin/cclite.cgi?action=template&name=forgotpass.html">
-Ξεχάσατε τον κωδικό?
+Ξέχασες τον κωδικό;
 </a>
 
 </li>
 
 <li>
-<a title="Προσθήκη Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
-Προσθήκη Openid
+<a title="Προσθέστε το Openid" href="/cgi-bin/cclite.cgi?action=template&name=openid.html">
+Προσθέστε το Openid
 </a>
 
 </li>
@@ -271,51 +275,51 @@ $$fieldsref{latest_news}
 </li>
 
 <li>
-<a title="Δημιουργήστε ένα νέο λογαριασμό" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
+<a title="Δημιουργήσετε ένα νέο λογαριασμό" href="/cgi-bin/cclite.cgi?action=template&amp;name=newuser.html">
 Νέο λογαριασμό
 </a>
 
 </li>
 
 <li>
-<a title="Τροποποιήστε τα στοιχεία λογαριασμού σας" href="/cgi-bin/cclite.cgi?action=modifyuser">
-Τροποποιήσετε λογαριασμό
+<a title="Τροποποιήστε τα στοιχεία του λογαριασμού σας" href="/cgi-bin/cclite.cgi?action=modifyuser">
+Τροποποίηση λογαριασμού
 </a>
 </li>
 
 <li>
-<a title="Διαίρεση της πληρωμής για αγαθά ή υπηρεσίες" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
-Διαίρεση πληρωμής
+<a title="Split πληρωμή για αγαθά ή υπηρεσίες" href="/cgi-bin/cclite.cgi?action=template&amp;name=splittrade.html">
+Split πληρωμή
 </a>
 </li>
 
 <li>
-<a title="Εμφάνιση μου συναλλαγές" href="/cgi-bin/cclite.cgi?action=showtrans">
+<a title="Δείχνουν τις συναλλαγές μου" href="/cgi-bin/cclite.cgi?action=showtrans">
 Συναλλαγές
 </a>
 </li>
 
 <li>
-<a title="Εμφάνιση μου υπολοίπων" href="/cgi-bin/cclite.cgi?action=showbalvol">
+<a title="Εμφάνιση των υπολοίπων μου" href="/cgi-bin/cclite.cgi?action=showbalvol">
 Τα υπόλοιπα
 </a>
 </li>
 
 <li>
-<a title="Εμφάνιση των αγαθών και των υπηρεσιών καταλόγου" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
-Προϊόντα/υπηρεσίες
+<a title="Δείχνουν τα αγαθά και τις υπηρεσίες καταλόγου" href="/cgi-bin/cclite.cgi?action=showyellowdir1&getdetail=1">
+Προϊόντων/υπηρεσιών
 </a>
 </li>
 
 <li>
-<a title="Εμφάνιση των διαφημίσεών μου σε τα αγαθά και οι υπηρεσίες καταλόγου" href="/cgi-bin/cclite.cgi?action=showmyyellow">
-Διαφημίσεις μου
+<a title="Εμφανίζονται οι διαφημίσεις μου με τα αγαθά και τις υπηρεσίες καταλόγου" href="/cgi-bin/cclite.cgi?action=showmyyellow">
+Τις διαφημίσεις μου
 </a>
 </li>
 
 <li>
 <a title="Δημιουργήστε μια σελίδα για τα αγαθά και τις υπηρεσίες καταλόγου" href="/cgi-bin/cclite.cgi?action=template&name=yellowpages.html">
-Τόπος Ad
+Τόπος διαφημίσεων
 </a>
 </li>
 
@@ -323,7 +327,7 @@ $$fieldsref{latest_news}
 
 </div>
 
-<!-- tag σύννεφο και μεμονωμένους χρήστες στατιστικών -->
+<!-- σύννεφο ετικεττών και μεμονωμένος χρήστης στατιστικών -->
 
 <div id="content">
 
@@ -338,7 +342,7 @@ $$fieldsref{latest_news}
 <div valign="top" id="secondaryContent">
 
 <h3>
-Οι κατηγορίες διαφημίσεων
+Κατηγορίες διαφημίσεων
 </h3>
 $$fieldsref{righthandside}
 <br/>
@@ -358,7 +362,7 @@ $$fieldsref{righthandside}
 <div id="footer">
 
 <a href="/cgi-bin/cclite.cgi">
-Αρχική σελίδα
+Σπίτι
 </a>
 |
 <a href="#">

@@ -4,12 +4,12 @@
 
 <tr>
 
-<td title="a grafikonrajzoló parancsfájl futtatásához">
-Grafikonozás
+<td title="a grafikonrajzoló parancsfájl indítása">
+Ábrázolása
 </td>
 
 <td title="start accepting email input from the batch mailbox for $$fieldsref{registry} via POP">
-Email beviteli
+E-mailben bemenet
 </td>
 
 <!--
@@ -18,16 +18,16 @@ Email beviteli
 </td>
 -->
 
-<td title="Indítsa el a yellow pages apróhirdetések rss-hírcsatornák előállító">
+<td title="kezdeni termelő rss eszik részére sárga oldalak apró hirdetések">
 RSS Feed
 </td>
 
-<td title="Indítsa el a bemeneti gammu keresztül egy helyi mobiltelefonról elfogadásáról">
+<td title="Start elfogadva bemenet keresztül gammu, a helyi mobiltelefon">
 Gammu bemenet
 </td>
 
-<td title="feltölteni, és a folyamat kötegelt ügyletek">
-Upload/folyamat kötegelt ügyletek
+<td title="feltölt és folyamat kötegelt ügyletek">
+Feltöltés kötegelt ügyletek
 </td>
 
 </tr>
@@ -49,7 +49,7 @@ Minden 5 perc
 </option>
 
 <option value="10">
-Minden 10 perc
+Minden 10min
 </option>
 
 <option value="30">
@@ -65,7 +65,7 @@ Minden 30 perc
 <select class="small"  onchange="on_select_change('mail');" id="mail_value" >
 
 <option value="0">
-Mail Stop
+Mail stop
 </option>
 
 <option value="5">
@@ -73,7 +73,7 @@ Minden 5 perc
 </option>
 
 <option value="10">
-Minden 10 perc
+Minden 10min
 </option>
 
 <option value="30">
@@ -102,7 +102,7 @@ Minden 30 perc
 <select class="small"  onchange="on_select_change('rss');" id="rss_value" >
 
 <option value="0">
-Állítsa le az Rss
+Stop Rss
 </option>
 
 <option value="5">
@@ -110,7 +110,7 @@ Minden 5 perc
 </option>
 
 <option value="10">
-Minden 10 perc
+Minden 10min
 </option>
 
 <option value="30">
@@ -126,7 +126,7 @@ Minden 30 perc
 <select class="small"  onchange="on_select_change('gammu');" id="gammu_value" >
 
 <option value="0">
-Állítsa le az SMS
+Stop SMS
 </option>
 
 <option value="5">
@@ -134,7 +134,7 @@ Minden 5 perc
 </option>
 
 <option value="10">
-Minden 10 perc
+Minden 10min
 </option>
 
 <option value="30">
@@ -147,15 +147,15 @@ Minden 30 perc
 
 <td>
 
-<div id="file-uploader" title="Kap a kötegelt tranzakció egy csv-fájlként: lásd a kézikönyv">
+<div id="file-uploader" title="Kap a kötegelt tranzakciókkal kapcsolatos csv-fájlként: lásd a kézikönyv">
 
 <noscript>
 
 <p>
-Kérjük, engedélyezze a JavaScript használatát a feltöltött fájl.
+Kérjük, engedélyezze a JavaScript használatát a fájl feltöltő.
 </p>
 
-<!-- vagy egy egyszerű űrlapot feltölt itt -->
+<!-- vagy tesz egy egyszerű űrlap feltöltés itt -->
 
 </noscript>
 
@@ -207,7 +207,7 @@ várj
 <tr>
 
 <td class="front">
-Download OpenOffice kimutatások
+Letölt OpenOffice nyilatkozatok
 <table>
 
 <tr>
@@ -294,7 +294,7 @@ Bejelentkezési név
 
 <tr>
 <td>
-<input type="submit" class="small" name="go" value="Go">
+<input type="submit" class="small" name="go" value="Megy">
 </td>
 <td>
 </td>
@@ -309,7 +309,7 @@ Bejelentkezési név
 Download OpenOffice könyvtár
 <form class="pme-form" id="form" action="/cgi-bin/protected/batch/print_yellowpages.pl" method="post">
 
-<input class="small" type="submit" name="go" value="Go">
+<input class="small" type="submit" name="go" value="Megy">
 
 </form>
 
