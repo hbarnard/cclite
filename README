@@ -1,5 +1,4 @@
-This is the Debian format version of Cclite 0.9.3 as a working repository. Since it's development, code here
-is NOT regression tested, the regression-tested versions are on sourceforge.
+This is the Debian format version of Cclite 0.9.3 as a working repository. Since it's development, code here is NOT regression tested, the regression-tested versions are on sourceforge.
 
 The tarballs and debian packages are on Sourceforge at: http://sourceforge.net/projects/cclite/
 
