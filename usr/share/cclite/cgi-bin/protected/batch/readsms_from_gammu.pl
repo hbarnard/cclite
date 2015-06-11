@@ -15,17 +15,14 @@
 #---------------------------------------------------------------------------
 #
 
-print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
-
 # this should give errors in the status line of the admin page
-my $data = join( '', <DATA> );
-eval $data;
-if ($@) {
-    print $@;
-    exit 1;
-}
-
-__END__
+# decomment if there are problems running this as a web task
+#my $data = join( '', <DATA> );
+#eval $data;
+#if ($@) {
+#    print $@;
+#    exit 1;
+#}
 
 
 
@@ -103,12 +100,16 @@ return @sorted ;
 }
 
 
+
 #-------------------------------------------------------------
+use constant IS_MOD_PERL => exists $ENV{'MOD_PERL'};
+use constant IS_CGI      => IS_MOD_PERL || exists $ENV{'GATEWAY_INTERFACE'};
 
 use strict;    
 use warnings ;
 use locale;
-use lib '../../../lib' ;	
+# full path for cron and read on receive April 2015
+use lib '/usr/share/cclite/lib' ;	
 #-------------------------------------------------------------
 
 use Ccu;
@@ -119,14 +120,18 @@ use Ccsms::Gammu ;
 use Ccconfiguration;
 use Data::Dumper;
 
+if (IS_CGI) {
+print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
+}
+
 #use Time::HiRes qw( usleep ualarm gettimeofday  tv_interval nanosleep
 #clock_gettime clock_getres clock_nanosleep clock
 #stat );
 
 #my $t0 = [gettimeofday];
 # hardcode configuration path, if running from a cron
-my %configuration = readconfiguration();
-my %sms_configuration = readconfiguration('../../../config/readsms.cf');
+my %configuration = readconfiguration('/usr/share/cclite/config/cclite.cf');
+my %sms_configuration = readconfiguration('/usr/share/cclite/config/readsms.cf');
 
 # fixed needs testing
 if ( !$sms_configuration{'smslocal'} ) {

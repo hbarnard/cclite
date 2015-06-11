@@ -1,0 +1,7 @@
+# put this into /root/.config/gnokii/config on the Raspberry Pi
+# and remove these comment lines!
+# this example is for Huawei 1750
+[global]
+model = AT
+port = /dev/phone
+connection = serial

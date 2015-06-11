@@ -1,7 +1,7 @@
 
 =head1 NAME
 
-Gammu.pm
+Gnokii.pm
 
 =head1 SYNOPSIS
 
@@ -64,7 +64,10 @@ Cchooks.pm
  
 =cut    
 
-package Ccsms::Gammu;
+package Ccsms::Gnokii;
+
+use GSM::Gnokii;
+use Data::Dumper ;
 
 use strict;
 
@@ -138,7 +141,7 @@ then dispatches to the appropriate internal function
 
 sub gateway_sms_transaction {
 
-    my ( $class, $configurationref, $fields_ref, $token ) = @_;
+    my ( $class, $gsm, $configurationref, $fields_ref, $token ) = @_;
 
      
 
@@ -180,7 +183,7 @@ sub gateway_sms_transaction {
  
     # setup transaction, special case
     if ( $fields_ref->{'message'} =~ /^$sms_configuration{'join_key'}\s+/i ) {
-        return _gateway_sms_join( $fields_ref, $token );
+        return _gateway_sms_join($gsm, $fields_ref, $token );
     }
 
     my ( $error, $from_user_ref ) =
@@ -218,7 +221,7 @@ m/\s+$sms_configuration{'language_key'}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|e
       )
     {
         $fields_ref->{'language'} = $1;
-        return _gateway_sms_change_language( $fields_ref, $token );
+        return _gateway_sms_change_language($gsm, $fields_ref, $token );
     }
 
     # if it hasn't got a pin, not worth carrying on, tell user
@@ -230,7 +233,7 @@ m/\s+$sms_configuration{'language_key'}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|e
           "from: $fields_ref->{'originator'} $input -malformed transaction";
 
         log_entry( 'local', $registry, 'error', $message, $token );
-        my ($mail_error) = _send_sms_message(
+        my ($mail_error) = _send_sms_message($gsm,
             'local',
             $registry,
             'error',
@@ -240,7 +243,7 @@ m/\s+$sms_configuration{'language_key'}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|e
         return "nok:$message";
     }
 
-    my $pin_status = _check_pin( $pin, $transaction_type, $fields_ref, $token );
+    my $pin_status = _check_pin($gsm, $pin, $transaction_type, $fields_ref, $token );
 
     return "nok:$pin_status" if ( $pin_status ne 'ok' );
 
@@ -251,13 +254,13 @@ m/\s+$sms_configuration{'language_key'}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|e
         return $pin_status;
     } elsif ( $transaction_type eq $sms_configuration{'pinchange_key'} )
     {    # change pin
-        $return_value = _gateway_sms_pin_change( $fields_ref, $token );
+        $return_value = _gateway_sms_pin_change($gsm, $fields_ref, $token );
     } elsif ( $transaction_type eq $sms_configuration{'balance_key'} ) {
-        $return_value = _gateway_sms_send_balance( $fields_ref, $token );
+        $return_value = _gateway_sms_send_balance($gsm, $fields_ref, $token );
     } elsif ( $transaction_type eq $sms_configuration{'suspend_key'}
         || $transaction_type eq 'freeze' )
     {
-        $return_value = _gateway_sms_suspend( $fields_ref, $token );
+        $return_value = _gateway_sms_suspend($gsm, $fields_ref, $token );
 
 # allow pay or send as keyword to line up with email style, also '10 to ' is allowed
     } elsif ( $transaction_type eq $sms_configuration{'send_key'}
@@ -265,7 +268,7 @@ m/\s+$sms_configuration{'language_key'}\s+(en|zh|ar|pt|nl|el|it|ja|ru|fr|th|de|e
         || $transaction_type =~ /^\w/ )
     {    # payment transaction
         $return_value =
-          _gateway_sms_pay( $configurationref, $fields_ref, $token );
+          _gateway_sms_pay($gsm, $configurationref, $fields_ref, $token );
     } else {
         my $message =
           "from: $fields_ref->{'originator'} $input -unrecognised transaction";
@@ -285,7 +288,7 @@ Change pin, same rules (three tries) about pin locking
 =cut
 
 sub _gateway_sms_pin_change {
-    my ( $fields_ref, $token ) = @_;
+    my ($gsm, $fields_ref, $token ) = @_;
     my ( $offset, $limit, $message, $from_user_ref );
     my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
     $input =~ m/^p?(\w+)\s+$sms_configuration{'pinchange_key'}\s+p?(\w+)\s*$/;
@@ -317,7 +320,7 @@ sub _gateway_sms_pin_change {
     # but send it to the user's phone...
     if ( $from_user_ref->{'userSmsreceipt'} ) {
         $message = "$messages{'smspinchanged'}: $new_pin";
-        _send_sms_message( 'local', $registry, 'pinchange', $message,
+        _send_sms_message( 'local', $gsm, $registry, 'pinchange', $message,
             $from_user_ref, undef, undef );
 
     }
@@ -333,7 +336,7 @@ FIXME: Admin needs to be notified in admin interface
 =cut
 
 sub _gateway_sms_suspend {
-    my ( $fields_ref, $token ) = @_;
+    my ($gsm, $fields_ref, $token ) = @_;
     my ( $offset, $limit );
     my $message = $messages{'smssuspend'};
 
@@ -353,7 +356,7 @@ sub _gateway_sms_suspend {
     log_entry( 'local', $registry, 'warn',
         "$message $fields_ref->{'originator'}", $token );
     my ($mail_error) =
-      _send_sms_message( 'local', $registry, 'suspend', $message,
+      _send_sms_message( 'local', $gsm, $registry, 'suspend', $message,
         $from_user_ref );
 
     # FIXME: send mail to registry supervisor
@@ -371,7 +374,7 @@ Change user language
 =cut
 
 sub _gateway_sms_change_language {
-    my ( $fields_ref, $token ) = @_;
+    my ($gsm, $fields_ref, $token ) = @_;
     my ( $offset, $limit );
 
     my ( $error, $from_user_ref ) =
@@ -393,7 +396,7 @@ sub _gateway_sms_change_language {
 
     if ( $from_user_ref->{'userSmsreceipt'} ) {
 
-        _send_sms_message( 'local', $registry, 'language', $message,
+        _send_sms_message( 'local', $gsm, $registry, 'language', $message,
             $from_user_ref, undef, undef );
     }
 
@@ -412,7 +415,7 @@ join hugh barnard hugh.barnard\@example.com
 
 sub _gateway_sms_join {
 
-    my ( $fields_ref, $token ) = @_;
+    my ($gsm, $fields_ref, $token ) = @_;
     my ( $offset, $limit, $message );
     my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
 
@@ -425,7 +428,7 @@ sub _gateway_sms_join {
 
     # there's a user with this number, send sms and refuse
     if ( length( $from_user_ref->{'userId'} ) ) {
-        _send_sms_message( 'local', $registry, 'join',
+        _send_sms_message( 'local', $gsm, $registry, 'join',
             $messages{'smssetupnumberinuse'},
             $from_user_ref, undef, undef );
         return "nok:$messages{'smssetupnumberinuse'}";
@@ -449,7 +452,7 @@ sub _gateway_sms_join {
             "$messages{'smsbadjoin'} $fields_ref->{'originator'} $input",
             $token );
 
-        _send_sms_message( 'local', $registry, 'error', $messages{'smsbadjoin'},
+        _send_sms_message( 'local', $gsm, $registry, 'error', $messages{'smsbadjoin'},
             $from_user_ref, undef, undef );
 
         # not enough parseable data to setup
@@ -464,7 +467,7 @@ sub _gateway_sms_join {
 /^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/i
           )
         {
-            _send_sms_message( 'local', $registry, 'join',
+            _send_sms_message( 'local', $gsm, $registry, 'join',
                 $messages{'bademail'}, $from_user_ref, undef, undef );
             return 'nok';
         }
@@ -477,7 +480,7 @@ sub _gateway_sms_join {
 
         # user with this email already exists
         if ( length( $user_ref->{'userId'} ) ) {
-            _send_sms_message( 'local', $registry, 'join',
+            _send_sms_message( 'local', $gsm, $registry, 'join',
                 $messages{'emailexists'},
                 $from_user_ref, undef, undef );
             return 'nok';
@@ -536,7 +539,7 @@ sub _gateway_sms_join {
     $fields_ref->{'userPin'}        = text_to_hash($user_pin);
     $fields_ref->{'userPinChanged'} = $date;
 
-    # this should be OK, because of the gammu input file format
+    # this should be OK, because of the Gnokii input file format
     $fields_ref->{'userMobile'} =
       format_for_standard_mobile( $fields_ref->{'originator'} );
     $fields_ref->{'userPinStatus'} = $sms_configuration{'userpinstatus'};
@@ -561,7 +564,7 @@ Web password: $user_password
 SMS PIN: $user_pin    
 EOT
 
-    _send_sms_message( 'local', $registry, 'join', $setup_complete_message,
+    _send_sms_message( 'local', $gsm, $registry, 'join', $setup_complete_message,
         $fields_ref, undef, undef );
     return 'ok';
 }
@@ -575,14 +578,14 @@ using the gateway messaging gateway, may need modification for other gateways
 =cut
 
 sub _gateway_sms_pay {
-    my ( $configurationref, $fields_ref, $token ) = @_;
+    my ($gsm, $configurationref, $fields_ref, $token ) = @_;
 
     my ( %fields, %transaction, $offset, $limit, $class, $pages, @status,
         $return_value );
 
     %fields = %$fields_ref;
 
-    #FUXME: note $registry is global, probably should be fixed
+    #FIXME: note $registry is global, probably should be fixed
     my ( $error, $from_user_ref ) =
       get_where( $class, $registry, 'om_users', '*', 'userMobile',
         $fields{'originator'}, $token, $offset, $limit );
@@ -600,7 +603,7 @@ sub _gateway_sms_pay {
 
             $message = $messages{'registryclosing'} . ':'
               . $messages{'notransfersallowed'};
-            _send_sms_message( 'local', $registry, 'error', $message,
+            _send_sms_message( 'local', $gsm, $registry, 'error', $message,
                 $from_user_ref, undef, {} );
 
         }
@@ -619,7 +622,7 @@ sub _gateway_sms_pay {
         my $message =
 "pay attempt from $fields{'originator'} to $transaction_description_ref->{'tomobilenumber'} : $messages{'smsinvalidsyntax'}";
         log_entry( 'local', $registry, 'error', $message, $token );
-        _send_sms_message( 'local', $registry, 'error', $message,
+        _send_sms_message( 'local', $gsm, $registry, 'error', $message,
             $from_user_ref, undef, undef );
         return "nok:$input $message";
     }
@@ -735,9 +738,9 @@ sub _gateway_sms_pay {
     $transaction{'tradeTitle'} =
 "$messages{'smstransactiontitle'} $from_user_ref->{'userLogin'} -> $to_user_ref->{'userLogin'}";
 
-    #tradeDescription
+    #tradeDescription 5/2015 added service centre date to end of description, deal with contention, perhaps
     $transaction{'tradeDescription'} =
-      $transaction_description_ref->{'description'};
+      $transaction_description_ref->{'description'} . ' smscdate:' . $fields{'smscdate'};
 
     #tradeDestination : ddawg
     $transaction{'tradeDestination'} = $to_user_ref->{'userLogin'};
@@ -778,6 +781,9 @@ sub _gateway_sms_pay {
             #FIXME: English language currencies only
             $transaction{'tradeCurrency'} =~
               s/y$/ies/i;    # english language currencies
+            $transaction{'tradeCurrency'} =~
+              s/f$/ves/i;    # english language currencies
+              
             $transaction{'tradeCurrency'} =~ s/$/s/i
               if ( $transaction{'tradeCurrency'} !~ /s$/i );
         }
@@ -804,12 +810,12 @@ EOT
 
     # send SMS receipt, only if turned on for the user...
     if ( $to_user_ref->{'userSmsreceipt'} && ( !length($error3) ) ) {
-        _send_sms_message( $class, $registry, 'pay', $message, $from_user_ref,
+        _send_sms_message( $class, $gsm, $registry, 'pay', $message, $from_user_ref,
             $to_user_ref, $transaction_ref );
 
         # transaction has failed in the engine part
     } elsif ( length($error3) ) {
-        _send_sms_message( $class, $registry, 'error', $message, $from_user_ref,
+        _send_sms_message( $class, $gsm, $registry, 'error', $message, $from_user_ref,
             $to_user_ref, $transaction_ref );
     }
 
@@ -830,7 +836,7 @@ To be done...
 
 sub _gateway_sms_send_balance {
 
-    my ( $fields_ref, $token ) = @_;
+    my ($gsm, $fields_ref, $token ) = @_;
     my ( $offset, $limit, $balance_ref, $volume_ref );
 
     my ( $error, $from_user_ref ) =
@@ -876,7 +882,7 @@ sub _gateway_sms_send_balance {
     my ( %transaction, $class, $to_user_ref );
 
     if ( $from_user_ref->{'userSmsreceipt'} ) {
-        _send_sms_message( $class, $registry, 'balance',
+        _send_sms_message( $class, $gsm, $registry, 'balance',
             $balance_message, $from_user_ref, $to_user_ref, \%transaction );
     }
 
@@ -908,6 +914,7 @@ sub _sms_payment_parse {
     my $parse_type = 0;
 
     # make the parse simpler by stripping pin and keyword
+    $input =~ s/^\s+//i; # strip accidental blanks at front
     $input =~ s/^p?(\w+)\s+//i;
     $input =~ s/^(send|$sms_configuration{'send_key'})\s+//i;
 
@@ -1082,7 +1089,7 @@ less than 1 is test for try count, just-in-case
 
 sub _check_pin {
 
-    my ( $pin, $transaction_type, $fields_ref, $token ) = @_;
+    my ($gsm, $pin, $transaction_type, $fields_ref, $token ) = @_;
     my ( $offset, $limit, $mail_error, $pin_status, $message );
 
     my $hashed_pin = text_to_hash($pin);
@@ -1095,7 +1102,7 @@ sub _check_pin {
     # already locked
     if ( $from_user_ref->{'userPinStatus'} eq 'locked' ) {
         $message = $messages{'smslocked'};
-        _send_sms_message( 'local', $registry, 'pinchange', $message,
+        _send_sms_message( 'local', $gsm, $registry, 'pinchange', $message,
             $from_user_ref, undef, undef );
         return 'locked';
     }
@@ -1158,7 +1165,7 @@ sub _check_pin {
 
     if ( length($message) ) {
         $mail_error =
-          _send_sms_message( 'local', $registry, 'error', $message,
+          _send_sms_message( 'local', $gsm, $registry, 'error', $message,
             $from_user_ref, undef, undef );
     }
 
@@ -1211,7 +1218,7 @@ sub _send_sms_mail_message {
 =head3 _send_sms_message
 
 Implemented February 2014, Still incomplete
-and partially tested. Works on gammu, since that makes
+and partially tested. Works on Gnokii, since that makes
 the whole project more 'autonomous' and separates it
 from commercial http-based texting suppliers
 
@@ -1225,7 +1232,7 @@ from commercial http-based texting suppliers
 
 sub _send_sms_message {
 
-    my ( $class, $registry, $type, $message, $from_user_ref, $to_user_ref,
+    my ( $class, $gsm, $registry, $type, $message, $from_user_ref, $to_user_ref,
         $transaction_ref )
       = @_;
 
@@ -1259,22 +1266,35 @@ sub _send_sms_message {
     my ( $urlstring, $send_to_this_mobile );
 
     if ( $type eq 'pay' ) {
-        $send_to_this_mobile = $to_user_ref->{'userMobile'};
+        $send_to_this_mobile = '+' . $to_user_ref->{'userMobile'};
     } elsif ( $type =~
 /$sms_configuration{'balance_key'}|$sms_configuration{'join_key'}|$sms_configuration{'suspend_key'}|$sms_configuration{'language_key'}|error|$sms_configuration{'pinchange_key'}/
       )
     {
-        $send_to_this_mobile = $from_user_ref->{'userMobile'};
+        $send_to_this_mobile = '+' . $from_user_ref->{'userMobile'};
     } else {
         my $message = "unknown or unimplemented sms type: $type";
         log_entry( 'local', $registry, 'error', $message, '' );
         return "$messages{smserror} $type";
 
     }
+=head2 complete
 
-    # write into gammu smsd outbox
-    _write_sms_file( $send_to_this_mobile, $message );
+ destination      => "+31612345678", # * Recipient phone number
+  message          => "Hello there",  # * Message text (max 160 characters)
+  smscindex        => 1,              #   Index  of the SMS Center to use or
+  smscnumber       => "+31612345678", #   Number of the SMS Center to use
+  report           => 1,              #   Delivery report (default off )
+  eightbit         => 1,              #   Use 8bit data   (default 7bit)
+  validity         => 4320,           #   SMS validity in minutes
+  animation        => ".....",        #   Animation ...              (NYI)
+  ringtone         => ".....",        #   Filename with ringtone ... (NYI)
+=cut
 
+
+    # write into Gnokii smsd outbox
+    my $attributes = {'destination' => $send_to_this_mobile, 'message' => $message} ;
+    my $err = $gsm->SendSMS ($attributes) ;
     # sms scoring per user, sms currency is set up at registry create time
     _charge_one_sms_unit( $class, $registry, $type, $from_user_ref,
         $transaction_ref );
@@ -1460,7 +1480,7 @@ sub debug {
 =head3 write_sms_file
 
 Write an output sms file to to be picked up by
-the gammu sms daemon
+the Gnokii sms daemon
 
 Normally this is written to: 
 /var/cclite/sms/outbox/<registryname>/
@@ -1469,44 +1489,21 @@ For example:
 
 =cut
 
-sub _write_sms_file {
+sub _write_sms_message {
 
-    my ( $phone_number, $message ) = @_;
-    my $file_extension;
-    my ( $numeric_date, $time ) = getdateandtime( time() );
-    $numeric_date =~ s/\.//g;
+=head2
+  destination      => "+31612345678", # * Recipient phone number
+  message          => "Hello there",  # * Message text (max 160 characters)
+  smscindex        => 1,              #   Index  of the SMS Center to use or
+  smscnumber       => "+31612345678", #   Number of the SMS Center to use
+  report           => 1,              #   Delivery report (default off )
+  eightbit         => 1,              #   Use 8bit data   (default 7bit)
+  validity         => 4320,           #   SMS validity in minutes
+  animation        => ".....",        #   Animation ...              (NYI)
+  ringtone         => ".....",        #   Filename with ringtone ... (NYI)
+=cut
 
-    # make sure nothing gets sent, if debug, wrong file extension
-    if ($debug) {
-        $file_extension = 'doc';
-    } else {
-        $file_extension = 'txt';
-    }
 
-    # OUT20081203_211658_00_+447779159452_00.txt
-    my $file_name =
-        $sms_configuration{'smsoutpath'} . '/'
-      . $registry . '/' . 'OUT'
-      . $numeric_date . '_'
-      . $time . '_00_+'
-      . $phone_number . '_00.'
-      . $file_extension;
-
-    #debug("sms out $file_name",'') ;
-    #FIXME: need something stronger than this for duplicate names
-    if ( -e $file_name ) {
-        return;
-    }
-
-    if ($debug) {
-        debug( "\n$file_name contains\n$message", undef );
-    } else {
-        open my $fh, '>', "$file_name";
-        print $fh $message;
-        close $fh;
-    }
-
-    return;
 
 }
 

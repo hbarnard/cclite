@@ -591,7 +591,7 @@ changed into milliseconds here */
              } else if (type == 'csv') {
                  window[interval_id] = setInterval("do_task( 'csv', '/cgi-bin/protected/batch/readcsv.pl')", window[interval]);
              } else if (type == 'gammu') {
-                 window[interval_id] = setInterval("do_task( 'gammu', '/cgi-bin/protected/batch/readsms_from_gammu.pl')", window[interval]);
+                 window[interval_id] = setInterval("do_task( 'gammu', '/cgi-bin/protected/batch/readsms_from_gammu.pl?type=web')", window[interval]);
              }
              
          } catch (error) {
@@ -759,7 +759,7 @@ $.fn.sort_select_box = function(){
      avoid using userLogin, this is probably the way to generalise all of them...*/
      
     // 'user' is used in preferences.html 
-    $("#user").autocomplete("/cgi-bin/ccsuggest.cgi", {
+    $("#user").autocomplete("/suggest", {
          extraParams: {
              type: function () {
                  return 'user';
@@ -768,7 +768,7 @@ $.fn.sort_select_box = function(){
      });
 
 
-     $("#tradeDestination").autocomplete("/cgi-bin/ccsuggest.cgi", {
+     $("#tradedestination").autocomplete("/suggest", {
          extraParams: {
              type: function () {
                  return 'user';
@@ -776,7 +776,7 @@ $.fn.sort_select_box = function(){
          }
      });
 
-     $("#tradeSource").autocomplete("/cgi-bin/ccsuggest.cgi", {
+     $("#tradesource").autocomplete("/suggest", {
          extraParams: {
              type: function () {
                  return 'user';
@@ -786,7 +786,7 @@ $.fn.sort_select_box = function(){
 
 
      $('#yellowtags').tagSuggest({
-         url: '/cgi-bin/ccsuggest.cgi',
+         url: '/suggest',
          delay: 250
      });
 

@@ -5,8 +5,14 @@
 #
 # Gammu library configuration, see gammurc(5)
 [gammu]
-# example for USB configured modem
-port=/dev/ttyUSB2
+
+# example for USB configured modem, this uses /etc/udev/rules.d serial rule
+# in /etc/udev/rules.d/99-usb-serial-rules: 
+# SUBSYSTEM=="tty", ATTRS{idVendor}=="12d1", ATTRS{idProduct}=="140c", SYMLINK+="phone"
+# This is for a Huwei, see: http://hintshop.ludvig.co.nz/show/persistent-names-usb-serial-devices/
+
+#port=/dev/phone
+port=/dev/phone
 #connection=at 
 
 # huawei  1750
@@ -20,6 +26,8 @@ logformat = textall
 
 # SMSD configuration, see gammu-smsdrc(5)
 # this processes messages using files, the current cclite method
+
+
 [smsd]
 service = files
 
@@ -39,6 +47,11 @@ DeliveryReport=log
 # don't loop too fast...this is the gammu daemon, there's another setting
 # for readsms_from_gammu.pl in readsms.cf
 LoopSleep=60
+
+# experimental will give more immediate response to sms
+# do not use with web admin!
+RunOnReceive=/usr/share/cclite/cgi-bin/protected/batch/readsms_from_gammu.pl
+
 
 # Paths where messages are stored, must line up with the registry declared
 # in readsms_from_gammu.pl

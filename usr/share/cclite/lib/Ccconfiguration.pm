@@ -2,11 +2,11 @@
 
 =head1 NAME
 
-Ccconfiguration.pm
+Ccconfiguration.pm 
 
 =head1 SYNOPSIS
 
-Read configuration information
+Read configuration information 
 
 =head1 DESCRIPTION
 
@@ -36,6 +36,8 @@ use strict;
 use vars qw(@ISA @EXPORT);
 use Exporter;
 use Cwd;
+use Storable qw(freeze thaw);
+use Data::Dumper ;
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
 
@@ -55,11 +57,23 @@ information, always!
 Included here, needs to be executed within BEGIN
 
 Revised 1/2009 for Windows...
+Revised 4/2015 to deal logically with cron etc.
+
 =cut
 
 sub readconfiguration {
 
-    my ($force_configuration_path) = @_;
+    my ($force_configuration_path) =  @_ ;
+
+=cut      
+    print "forced config0: $force_configuration_path \n" ;
+    my ($package, $filename, $line, $subroutine, $hasargs, $wantarray, $evaltext, $is_require, $hints, $bitmask, $hinthash) = caller(1);
+print "1: $package, $filename, $line, $subroutine, $hasargs, $wantarray, $evaltext, $is_require, $hints, $bitmask, $hinthash \n" ;
+($package, $filename, $line, $subroutine, $hasargs, $wantarray, $evaltext, $is_require, $hints, $bitmask, $hinthash) = caller(2);
+print "2: $package, $filename, $line, $subroutine, $hasargs, $wantarray, $evaltext, $is_require, $hints, $bitmask, $hinthash \n------------------\n\n" ;
+=cut
+
+
     my $dir;
     my $default_config;
 
@@ -71,11 +85,21 @@ sub readconfiguration {
     } else {
         $dir = getcwd() || `pwd`;
     }
-
+    
     # make an informed guess at the config file not explictly supplied
+    # augmented a little to deal with crons and batch generally April 2015
+    # may or may not deal with Windows
+
     $dir =~ s/\bcgi-bin.*//;
     $default_config = "${dir}config/cclite.cf";
     $default_config =~ s/\s//g;
+
+ 
+    # standard place for debian style and rpm
+    my $standard_config = '/usr/share/cclite/config/cclite.cf' ;
+    if ((! -e $default_config) && (-e $standard_config)) {
+     $default_config = '/usr/share/cclite/config/cclite.cf' ;
+    }	
 
     # either supply it explicitly with full path or it will guess..
     my $configfile = $force_configuration_path || $default_config;
