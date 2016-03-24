@@ -2,7 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Gammu.pm</title>
+<title>Gnokii.pm</title>
 <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 <link rev="made" href="mailto:root@localhost" />
 </head>
@@ -38,7 +38,7 @@ pre { color: #000000;
 </style>
 <body style="background-color: white">
 <a name="-top-"></a>
-<h1>Gammu.pm</h1>
+<h1>Gnokii.pm</h1>
 
 
 <!-- INDEX BEGIN -->
@@ -68,11 +68,21 @@ pre { color: #000000;
 			<li><a href="#_check_pin">_check_pin</a></li>
 			<li><a href="#_send_sms_mail_message">_send_sms_mail_message</a></li>
 			<li><a href="#_send_sms_message">_send_sms_message</a></li>
+		</ul>
+
+		<li><a href="#complete">complete</a></li>
+		<ul>
+
 			<li><a href="#_charge_one_sms_unit">_charge_one_sms_unit</a></li>
 			<li><a href="#_check_digit_iso_7064">_check_digit_iso_7064</a></li>
 			<li><a href="#_generate_password">_generate_password</a></li>
 			<li><a href="#debug">debug</a></li>
 			<li><a href="#write_sms_file">write_sms_file</a></li>
+		</ul>
+
+		<li><a href="#destination_____31612345678______recipient_phone_number">destination      =&gt; &quot;+31612345678&quot;, # * Recipient phone number</a></li>
+		<ul>
+
 			<li><a href="#_emulate_sms_file">_emulate_sms_file</a></li>
 			<li><a href="#_check_valid_currency">_check_valid_currency</a></li>
 			<li><a href="#_collect_sponsor_messages">_collect_sponsor_messages</a></li>
@@ -88,7 +98,7 @@ pre { color: #000000;
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
 <ul>
-<li><a href="#package-Ccsms::Gammu-">package Ccsms::Gammu</a>
+<li><a href="#package-Ccsms::Gnokii-">package Ccsms::Gnokii</a>
 <ul>
 <li><a href="#gateway_sms_transaction-">gateway_sms_transaction</a></li>
 <li><a href="#_gateway_sms_pin_change-">_gateway_sms_pin_change</a></li>
@@ -107,7 +117,7 @@ pre { color: #000000;
 <li><a href="#_check_digit_iso_7064-">_check_digit_iso_7064</a></li>
 <li><a href="#_generate_password-">_generate_password</a></li>
 <li><a href="#debug-">debug</a></li>
-<li><a href="#_write_sms_file-">_write_sms_file</a></li>
+<li><a href="#_write_sms_message-">_write_sms_message</a></li>
 <li><a href="#emulate_sms_file-">emulate_sms_file</a></li>
 <li><a href="#_check_valid_currency-">_check_valid_currency</a></li>
 <li><a href="#_collect_sponsor_messages-">_collect_sponsor_messages</a></li>
@@ -120,7 +130,7 @@ pre { color: #000000;
 <p>
 </p>
 <h1><a name="name">NAME</a></h1>
-<p>Gammu.pm</p>
+<p>Gnokii.pm</p>
 <p>
 </p>
 <hr />
@@ -179,7 +189,10 @@ rather than a 5 figure number</p>
 
 =cut</pre>
 <pre>
-<a name="package-Ccsms::Gammu-"></a><span class="k">package </span><span class="i">Ccsms::Gammu</span><span class="sc">;</span>
+<a name="package-Ccsms::Gnokii-"></a><span class="k">package </span><span class="i">Ccsms::Gnokii</span><span class="sc">;</span>
+
+<span class="k">use</span> <span class="w">GSM::Gnokii</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
 <span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
 
@@ -249,7 +262,7 @@ then dispatches to the appropriate internal function</p>
 <pre>
 <a name="gateway_sms_transaction-"></a><span class="k">sub </span><span class="m">gateway_sms_transaction</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="c"># debugging and testing whether the transaction was emulated by a web form</span>
     <span class="i">$debug</span> = <span class="i">$sms_configuration</span>{<span class="q">&#39;debug&#39;</span>}
@@ -286,7 +299,7 @@ then dispatches to the appropriate internal function</p>
 
     <span class="c"># setup transaction, special case</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>} =~ <span class="q">/^$sms_configuration{&#39;join_key&#39;}\s+/i</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">return</span> <span class="i">_gateway_sms_join</span><span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="i">_gateway_sms_join</span><span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
@@ -324,7 +337,7 @@ then dispatches to the appropriate internal function</p>
       <span class="s">)</span>
     <span class="s">{</span>
         <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;language&#39;</span>} = <span class="i">$1</span><span class="sc">;</span>
-        <span class="k">return</span> <span class="i">_gateway_sms_change_language</span><span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">return</span> <span class="i">_gateway_sms_change_language</span><span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="c"># if it hasn&#39;t got a pin, not worth carrying on, tell user</span>
@@ -337,6 +350,7 @@ then dispatches to the appropriate internal function</p>
 
         <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> = <span class="i">_send_sms_message</span><span class="s">(</span>
+            <span class="i">$gsm</span><span class="cm">,</span>
             <span class="q">&#39;local&#39;</span><span class="cm">,</span>
             <span class="i">$registry</span><span class="cm">,</span>
             <span class="q">&#39;error&#39;</span><span class="cm">,</span>
@@ -346,7 +360,8 @@ then dispatches to the appropriate internal function</p>
         <span class="k">return</span> <span class="q">&quot;nok:$message&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="k">my</span> <span class="i">$pin_status</span> = <span class="i">_check_pin</span><span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$pin_status</span> =
+      <span class="i">_check_pin</span><span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">return</span> <span class="q">&quot;nok:$pin_status&quot;</span> <span class="k">if</span> <span class="s">(</span> <span class="i">$pin_status</span> <span class="k">ne</span> <span class="q">&#39;ok&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
@@ -357,13 +372,13 @@ then dispatches to the appropriate internal function</p>
         <span class="k">return</span> <span class="i">$pin_status</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;pinchange_key&#39;</span>} <span class="s">)</span>
     <span class="s">{</span>    <span class="c"># change pin</span>
-        <span class="i">$return_value</span> = <span class="i">_gateway_sms_pin_change</span><span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$return_value</span> = <span class="i">_gateway_sms_pin_change</span><span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;balance_key&#39;</span>} <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$return_value</span> = <span class="i">_gateway_sms_send_balance</span><span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$return_value</span> = <span class="i">_gateway_sms_send_balance</span><span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;suspend_key&#39;</span>}
         || <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="q">&#39;freeze&#39;</span> <span class="s">)</span>
     <span class="s">{</span>
-        <span class="i">$return_value</span> = <span class="i">_gateway_sms_suspend</span><span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">$return_value</span> = <span class="i">_gateway_sms_suspend</span><span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># allow pay or send as keyword to line up with email style, also &#39;10 to &#39; is allowed</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$transaction_type</span> <span class="k">eq</span> <span class="i">$sms_configuration</span>{<span class="q">&#39;send_key&#39;</span>}
@@ -371,7 +386,7 @@ then dispatches to the appropriate internal function</p>
         || <span class="i">$transaction_type</span> =~ <span class="q">/^\w/</span> <span class="s">)</span>
     <span class="s">{</span>    <span class="c"># payment transaction</span>
         <span class="i">$return_value</span> =
-          <span class="i">_gateway_sms_pay</span><span class="s">(</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+          <span class="i">_gateway_sms_pay</span><span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> =
           <span class="q">&quot;from: $fields_ref-&gt;{&#39;originator&#39;} $input -unrecognised transaction&quot;</span><span class="sc">;</span>
@@ -389,7 +404,7 @@ then dispatches to the appropriate internal function</p>
 <p>Change pin, same rules (three tries) about pin locking</p>
 <pre>
 <a name="_gateway_sms_pin_change-"></a><span class="k">sub </span><span class="m">_gateway_sms_pin_change</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$input</span> = <span class="k">lc</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># canonical is lower case</span>
     <span class="i">$input</span> =~ <span class="q">m/^p?(\w+)\s+$sms_configuration{&#39;pinchange_key&#39;}\s+p?(\w+)\s*$/</span><span class="sc">;</span>
@@ -421,7 +436,7 @@ then dispatches to the appropriate internal function</p>
     <span class="c"># but send it to the user&#39;s phone...</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span> <span class="s">{</span>
         <span class="i">$message</span> = <span class="q">&quot;$messages{&#39;smspinchanged&#39;}: $new_pin&quot;</span><span class="sc">;</span>
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;pinchange&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;pinchange&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
             <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="s">}</span>
@@ -435,7 +450,7 @@ then dispatches to the appropriate internal function</p>
 FIXME: Admin needs to be notified in admin interface</p>
 <pre>
 <a name="_gateway_sms_suspend-"></a><span class="k">sub </span><span class="m">_gateway_sms_suspend</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$message</span> = <span class="i">$messages</span>{<span class="q">&#39;smssuspend&#39;</span>}<span class="sc">;</span>
 
@@ -455,7 +470,7 @@ FIXME: Admin needs to be notified in admin interface</p>
     <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;warn&#39;</span><span class="cm">,</span>
         <span class="q">&quot;$message $fields_ref-&gt;{&#39;originator&#39;}&quot;</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span><span class="i">$mail_error</span><span class="s">)</span> =
-      <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;suspend&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+      <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;suspend&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
         <span class="i">$from_user_ref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># FIXME: send mail to registry supervisor</span>
@@ -471,7 +486,7 @@ FIXME: Admin needs to be notified in admin interface</p>
 <p>Change user language</p>
 <pre>
 <a name="_gateway_sms_change_language-"></a><span class="k">sub </span><span class="m">_gateway_sms_change_language</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
@@ -493,7 +508,7 @@ FIXME: Admin needs to be notified in admin interface</p>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span> <span class="s">{</span>
 
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;language&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;language&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
             <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -509,7 +524,7 @@ status of pin and user is defined by readsms.cf</p>
 <pre>
 <a name="_gateway_sms_join-"></a><span class="k">sub </span><span class="m">_gateway_sms_join</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$input</span> = <span class="k">lc</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>    <span class="c"># canonical is lower case</span>
 
@@ -521,7 +536,7 @@ status of pin and user is defined by readsms.cf</p>
 
     <span class="c"># there&#39;s a user with this number, send sms and refuse</span>
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span>
             <span class="i">$messages</span>{<span class="q">&#39;smssetupnumberinuse&#39;</span>}<span class="cm">,</span>
             <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$messages{&#39;smssetupnumberinuse&#39;}&quot;</span><span class="sc">;</span>
@@ -545,8 +560,8 @@ status of pin and user is defined by readsms.cf</p>
             <span class="q">&quot;$messages{&#39;smsbadjoin&#39;} $fields_ref-&gt;{&#39;originator&#39;} $input&quot;</span><span class="cm">,</span>
             <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$messages</span>{<span class="q">&#39;smsbadjoin&#39;</span>}<span class="cm">,</span>
-            <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span>
+            <span class="i">$messages</span>{<span class="q">&#39;smsbadjoin&#39;</span>}<span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># not enough parseable data to setup</span>
         <span class="k">return</span> <span class="q">&quot;nok:$input $messages{&#39;smsbadjoin&#39;}&quot;</span><span class="sc">;</span>
@@ -560,7 +575,7 @@ status of pin and user is defined by readsms.cf</p>
 <span class="q">/^\+?[a-z0-9](([-+.]|[_]+)?[a-z0-9]+)*@([a-z0-9]+(\.|\-))+[a-z]{2,6}$/i</span>
           <span class="s">)</span>
         <span class="s">{</span>
-            <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span>
+            <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span>
                 <span class="i">$messages</span>{<span class="q">&#39;bademail&#39;</span>}<span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
             <span class="k">return</span> <span class="q">&#39;nok&#39;</span><span class="sc">;</span>
         <span class="s">}</span>
@@ -573,7 +588,7 @@ status of pin and user is defined by readsms.cf</p>
 
         <span class="c"># user with this email already exists</span>
         <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span> <span class="i">$user_ref</span>-&gt;{<span class="q">&#39;userId&#39;</span>} <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-            <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span>
+            <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span>
                 <span class="i">$messages</span>{<span class="q">&#39;emailexists&#39;</span>}<span class="cm">,</span>
                 <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
             <span class="k">return</span> <span class="q">&#39;nok&#39;</span><span class="sc">;</span>
@@ -632,7 +647,7 @@ status of pin and user is defined by readsms.cf</p>
     <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userPin&#39;</span>}        = <span class="i">text_to_hash</span><span class="s">(</span><span class="i">$user_pin</span><span class="s">)</span><span class="sc">;</span>
     <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userPinChanged&#39;</span>} = <span class="i">$date</span><span class="sc">;</span>
 
-    <span class="c"># this should be OK, because of the gammu input file format</span>
+    <span class="c"># this should be OK, because of the Gnokii input file format</span>
     <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>} =
       <span class="i">format_for_standard_mobile</span><span class="s">(</span> <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;originator&#39;</span>} <span class="s">)</span><span class="sc">;</span>
     <span class="i">$fields_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} = <span class="i">$sms_configuration</span>{<span class="q">&#39;userpinstatus&#39;</span>}<span class="sc">;</span>
@@ -657,8 +672,8 @@ status of pin and user is defined by readsms.cf</p>
 <span class="hh">SMS PIN: $user_pin    </span>
 <span class="h">EOT</span>
 
-    <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span> <span class="i">$setup_complete_message</span><span class="cm">,</span>
-        <span class="i">$fields_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;join&#39;</span><span class="cm">,</span>
+        <span class="i">$setup_complete_message</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
     <span class="k">return</span> <span class="q">&#39;ok&#39;</span><span class="sc">;</span>
 <span class="s">}</span>
 
@@ -668,14 +683,14 @@ status of pin and user is defined by readsms.cf</p>
 using the gateway messaging gateway, may need modification for other gateways</p>
 <pre>
 <a name="_gateway_sms_pay-"></a><span class="k">sub </span><span class="m">_gateway_sms_pay</span> <span class="s">{</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$configurationref</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">%fields</span><span class="cm">,</span> <span class="i">%transaction</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$pages</span><span class="cm">,</span> <span class="i">@status</span><span class="cm">,</span>
         <span class="i">$return_value</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="i">%fields</span> = <span class="i">%$fields_ref</span><span class="sc">;</span>
 
-    <span class="c">#FUXME: note $registry is global, probably should be fixed</span>
+    <span class="c">#FIXME: note $registry is global, probably should be fixed</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
       <span class="i">get_where</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="q">&#39;*&#39;</span><span class="cm">,</span> <span class="q">&#39;userMobile&#39;</span><span class="cm">,</span>
         <span class="i">$fields</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span> <span class="s">)</span><span class="sc">;</span>
@@ -693,7 +708,7 @@ using the gateway messaging gateway, may need modification for other gateways</p
 
             <span class="i">$message</span> = <span class="i">$messages</span>{<span class="q">&#39;registryclosing&#39;</span>} . <span class="q">&#39;:&#39;</span>
               . <span class="i">$messages</span>{<span class="q">&#39;notransfersallowed&#39;</span>}<span class="sc">;</span>
-            <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+            <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
                 <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="s">{</span><span class="s">}</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="s">}</span>
@@ -712,7 +727,7 @@ using the gateway messaging gateway, may need modification for other gateways</p
         <span class="k">my</span> <span class="i">$message</span> =
 <span class="q">&quot;pay attempt from $fields{&#39;originator&#39;} to $transaction_description_ref-&gt;{&#39;tomobilenumber&#39;} : $messages{&#39;smsinvalidsyntax&#39;}&quot;</span><span class="sc">;</span>
         <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
             <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&quot;nok:$input $message&quot;</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -828,9 +843,11 @@ using the gateway messaging gateway, may need modification for other gateways</p
     <span class="i">$transaction</span>{<span class="q">&#39;tradeTitle&#39;</span>} =
 <span class="q">&quot;$messages{&#39;smstransactiontitle&#39;} $from_user_ref-&gt;{&#39;userLogin&#39;} -&gt; $to_user_ref-&gt;{&#39;userLogin&#39;}&quot;</span><span class="sc">;</span>
 
-    <span class="c">#tradeDescription</span>
+<span class="c">#tradeDescription 5/2015 added service centre date to end of description, deal with contention, perhaps</span>
     <span class="i">$transaction</span>{<span class="q">&#39;tradeDescription&#39;</span>} =
-      <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;description&#39;</span>}<span class="sc">;</span>
+        <span class="i">$transaction_description_ref</span>-&gt;{<span class="q">&#39;description&#39;</span>}
+      . <span class="q">&#39; smscdate:&#39;</span>
+      . <span class="i">$fields</span>{<span class="q">&#39;smscdate&#39;</span>}<span class="sc">;</span>
 
     <span class="c">#tradeDestination : ddawg</span>
     <span class="i">$transaction</span>{<span class="q">&#39;tradeDestination&#39;</span>} = <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userLogin&#39;</span>}<span class="sc">;</span>
@@ -871,6 +888,9 @@ using the gateway messaging gateway, may need modification for other gateways</p
             <span class="c">#FIXME: English language currencies only</span>
             <span class="i">$transaction</span>{<span class="q">&#39;tradeCurrency&#39;</span>} =~
               <span class="q">s/y$/ies/i</span><span class="sc">;</span>    <span class="c"># english language currencies</span>
+            <span class="i">$transaction</span>{<span class="q">&#39;tradeCurrency&#39;</span>} =~
+              <span class="q">s/f$/ves/i</span><span class="sc">;</span>    <span class="c"># english language currencies</span>
+
             <span class="i">$transaction</span>{<span class="q">&#39;tradeCurrency&#39;</span>} =~ <span class="q">s/$/s/i</span>
               <span class="k">if</span> <span class="s">(</span> <span class="i">$transaction</span>{<span class="q">&#39;tradeCurrency&#39;</span>} !~ <span class="q">/s$/i</span> <span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
@@ -897,13 +917,13 @@ using the gateway messaging gateway, may need modification for other gateways</p
 
     <span class="c"># send SMS receipt, only if turned on for the user...</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} &amp;&amp; <span class="s">(</span> !<span class="k">length</span><span class="s">(</span><span class="i">$error3</span><span class="s">)</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;pay&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
-            <span class="i">$to_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;pay&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+            <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
 
         <span class="c"># transaction has failed in the engine part</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$error3</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
-            <span class="i">$to_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+            <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span> <span class="i">$transaction_ref</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$return_value</span> <span class="k">eq</span> <span class="q">&#39;nok&#39;</span> <span class="s">)</span> <span class="s">{</span>
@@ -921,7 +941,7 @@ To be done...</p>
 <pre>
 <a name="_gateway_sms_send_balance-"></a><span class="k">sub </span><span class="m">_gateway_sms_send_balance</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$balance_ref</span><span class="cm">,</span> <span class="i">$volume_ref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="s">(</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$from_user_ref</span> <span class="s">)</span> =
@@ -967,7 +987,7 @@ To be done...</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">%transaction</span><span class="cm">,</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$to_user_ref</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userSmsreceipt&#39;</span>} <span class="s">)</span> <span class="s">{</span>
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;balance&#39;</span><span class="cm">,</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;balance&#39;</span><span class="cm">,</span>
             <span class="i">$balance_message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span> \<span class="i">%transaction</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -995,6 +1015,7 @@ case the transaction -must- fail and it's not worth continuing</p>
     <span class="k">my</span> <span class="i">$parse_type</span> = <span class="n">0</span><span class="sc">;</span>
 
     <span class="c"># make the parse simpler by stripping pin and keyword</span>
+    <span class="i">$input</span> =~ <span class="q">s/^\s+//i</span><span class="sc">;</span>    <span class="c"># strip accidental blanks at front</span>
     <span class="i">$input</span> =~ <span class="q">s/^p?(\w+)\s+//i</span><span class="sc">;</span>
     <span class="i">$input</span> =~ <span class="q">s/^(send|$sms_configuration{&#39;send_key&#39;})\s+//i</span><span class="sc">;</span>
 
@@ -1165,7 +1186,7 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
 <pre>
 <a name="_check_pin-"></a><span class="k">sub </span><span class="m">_check_pin</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$pin</span><span class="cm">,</span> <span class="i">$transaction_type</span><span class="cm">,</span> <span class="i">$fields_ref</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$offset</span><span class="cm">,</span> <span class="i">$limit</span><span class="cm">,</span> <span class="i">$mail_error</span><span class="cm">,</span> <span class="i">$pin_status</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">my</span> <span class="i">$hashed_pin</span> = <span class="i">text_to_hash</span><span class="s">(</span><span class="i">$pin</span><span class="s">)</span><span class="sc">;</span>
@@ -1178,7 +1199,7 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
     <span class="c"># already locked</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userPinStatus&#39;</span>} <span class="k">eq</span> <span class="q">&#39;locked&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$message</span> = <span class="i">$messages</span>{<span class="q">&#39;smslocked&#39;</span>}<span class="sc">;</span>
-        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;pinchange&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+        <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;pinchange&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
             <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
         <span class="k">return</span> <span class="q">&#39;locked&#39;</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -1241,7 +1262,7 @@ fail	- pin fail, counts down one off counter/locks if zero</p>
 
     <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$message</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
         <span class="i">$mail_error</span> =
-          <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
+          <span class="i">_send_sms_message</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span>
             <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="k">undef</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
 
@@ -1290,7 +1311,7 @@ probably be via phone and email de-emphasised</p>
 </pre><p></p>
 <h3><a name="_send_sms_message">_send_sms_message</a></h3>
 <p>Implemented February 2014, Still incomplete
-and partially tested. Works on gammu, since that makes
+and partially tested. Works on Gnokii, since that makes
 the whole project more 'autonomous' and separates it
 from commercial http-based texting suppliers</p>
 <pre>
@@ -1302,7 +1323,7 @@ from commercial http-based texting suppliers</p>
 <pre>
 <a name="_send_sms_message-"></a><span class="k">sub </span><span class="m">_send_sms_message</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$gsm</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span> <span class="i">$to_user_ref</span><span class="cm">,</span>
         <span class="i">$transaction_ref</span> <span class="s">)</span>
       = <span class="i">@_</span><span class="sc">;</span>
 
@@ -1336,12 +1357,12 @@ from commercial http-based texting suppliers</p>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$urlstring</span><span class="cm">,</span> <span class="i">$send_to_this_mobile</span> <span class="s">)</span><span class="sc">;</span>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$type</span> <span class="k">eq</span> <span class="q">&#39;pay&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="i">$send_to_this_mobile</span> = <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>}<span class="sc">;</span>
+        <span class="i">$send_to_this_mobile</span> = <span class="q">&#39;+&#39;</span> . <span class="i">$to_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span> <span class="k">elsif</span> <span class="s">(</span> <span class="i">$type</span> =~
 <span class="q">/$sms_configuration{&#39;balance_key&#39;}|$sms_configuration{&#39;join_key&#39;}|$sms_configuration{&#39;suspend_key&#39;}|$sms_configuration{&#39;language_key&#39;}|error|$sms_configuration{&#39;pinchange_key&#39;}/</span>
       <span class="s">)</span>
     <span class="s">{</span>
-        <span class="i">$send_to_this_mobile</span> = <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>}<span class="sc">;</span>
+        <span class="i">$send_to_this_mobile</span> = <span class="q">&#39;+&#39;</span> . <span class="i">$from_user_ref</span>-&gt;{<span class="q">&#39;userMobile&#39;</span>}<span class="sc">;</span>
     <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
         <span class="k">my</span> <span class="i">$message</span> = <span class="q">&quot;unknown or unimplemented sms type: $type&quot;</span><span class="sc">;</span>
         <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="i">$message</span><span class="cm">,</span> <span class="q">&#39;&#39;</span> <span class="s">)</span><span class="sc">;</span>
@@ -1349,8 +1370,24 @@ from commercial http-based texting suppliers</p>
 
     <span class="s">}</span>
 
-    <span class="c"># write into gammu smsd outbox</span>
-    <span class="i">_write_sms_file</span><span class="s">(</span> <span class="i">$send_to_this_mobile</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span><span class="sc">;</span>
+</pre><p></p>
+<h2><a name="complete">complete</a></h2>
+<pre>
+ destination      =&gt; &quot;+31612345678&quot;, # * Recipient phone number
+  message          =&gt; &quot;Hello there&quot;,  # * Message text (max 160 characters)
+  smscindex        =&gt; 1,              #   Index  of the SMS Center to use or
+  smscnumber       =&gt; &quot;+31612345678&quot;, #   Number of the SMS Center to use
+  report           =&gt; 1,              #   Delivery report (default off )
+  eightbit         =&gt; 1,              #   Use 8bit data   (default 7bit)
+  validity         =&gt; 4320,           #   SMS validity in minutes
+  animation        =&gt; &quot;.....&quot;,        #   Animation ...              (NYI)
+  ringtone         =&gt; &quot;.....&quot;,        #   Filename with ringtone ... (NYI)
+=cut</pre>
+<pre>
+    <span class="c"># write into Gnokii smsd outbox</span>
+    <span class="k">my</span> <span class="i">$attributes</span> =
+      <span class="s">{</span> <span class="q">&#39;destination&#39;</span> <span class="cm">=&gt;</span> <span class="i">$send_to_this_mobile</span><span class="cm">,</span> <span class="q">&#39;message&#39;</span> <span class="cm">=&gt;</span> <span class="i">$message</span> <span class="s">}</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">$err</span> = <span class="i">$gsm</span><span class="i">-&gt;SendSMS</span><span class="s">(</span><span class="i">$attributes</span><span class="s">)</span><span class="sc">;</span>
 
     <span class="c"># sms scoring per user, sms currency is set up at registry create time</span>
     <span class="i">_charge_one_sms_unit</span><span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="i">$type</span><span class="cm">,</span> <span class="i">$from_user_ref</span><span class="cm">,</span>
@@ -1526,51 +1563,26 @@ needs to be changed afterwards..</p>
 </pre><p></p>
 <h3><a name="write_sms_file">write_sms_file</a></h3>
 <p>Write an output sms file to to be picked up by
-the gammu sms daemon</p>
+the Gnokii sms daemon</p>
 <p>Normally this is written to: 
 /var/cclite/sms/outbox/&lt;registryname&gt;/
 For example:
 /var/cclite/sms/outbox/dalston/</p>
 <pre>
-<a name="_write_sms_file-"></a><span class="k">sub </span><span class="m">_write_sms_file</span> <span class="s">{</span>
+<a name="_write_sms_message-"></a><span class="k">sub </span><span class="m">_write_sms_message</span> <span class="s">{</span>
 
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$phone_number</span><span class="cm">,</span> <span class="i">$message</span> <span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="i">$file_extension</span><span class="sc">;</span>
-    <span class="k">my</span> <span class="s">(</span> <span class="i">$numeric_date</span><span class="cm">,</span> <span class="i">$time</span> <span class="s">)</span> = <span class="i">getdateandtime</span><span class="s">(</span> <span class="k">time</span><span class="s">(</span><span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="i">$numeric_date</span> =~ <span class="q">s/\.//g</span><span class="sc">;</span>
-
-    <span class="c"># make sure nothing gets sent, if debug, wrong file extension</span>
-    <span class="k">if</span> <span class="s">(</span><span class="i">$debug</span><span class="s">)</span> <span class="s">{</span>
-        <span class="i">$file_extension</span> = <span class="q">&#39;doc&#39;</span><span class="sc">;</span>
-    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="i">$file_extension</span> = <span class="q">&#39;txt&#39;</span><span class="sc">;</span>
-    <span class="s">}</span>
-
-    <span class="c"># OUT20081203_211658_00_+447779159452_00.txt</span>
-    <span class="k">my</span> <span class="i">$file_name</span> =
-        <span class="i">$sms_configuration</span>{<span class="q">&#39;smsoutpath&#39;</span>} . <span class="q">&#39;/&#39;</span>
-      . <span class="i">$registry</span> . <span class="q">&#39;/&#39;</span> . <span class="q">&#39;OUT&#39;</span>
-      . <span class="i">$numeric_date</span> . <span class="q">&#39;_&#39;</span>
-      . <span class="i">$time</span> . <span class="q">&#39;_00_+&#39;</span>
-      . <span class="i">$phone_number</span> . <span class="q">&#39;_00.&#39;</span>
-      . <span class="i">$file_extension</span><span class="sc">;</span>
-
-    <span class="c">#debug(&quot;sms out $file_name&quot;,&#39;&#39;) ;</span>
-    <span class="c">#FIXME: need something stronger than this for duplicate names</span>
-    <span class="k">if</span> <span class="s">(</span> <span class="k">-e</span> <span class="i">$file_name</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">return</span><span class="sc">;</span>
-    <span class="s">}</span>
-
-    <span class="k">if</span> <span class="s">(</span><span class="i">$debug</span><span class="s">)</span> <span class="s">{</span>
-        <span class="i">debug</span><span class="s">(</span> <span class="q">&quot;\n$file_name contains\n$message&quot;</span><span class="cm">,</span> <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
-    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
-        <span class="k">open</span> <span class="k">my</span> <span class="i">$fh</span><span class="cm">,</span> <span class="q">&#39;&gt;&#39;</span><span class="cm">,</span> <span class="q">&quot;$file_name&quot;</span><span class="sc">;</span>
-        <span class="k">print</span> <span class="i">$fh</span> <span class="i">$message</span><span class="sc">;</span>
-        <span class="k">close</span> <span class="i">$fh</span><span class="sc">;</span>
-    <span class="s">}</span>
-
-    <span class="k">return</span><span class="sc">;</span>
-
+</pre><p></p>
+<h2><a name="destination_____31612345678______recipient_phone_number_message____hello_there______message_text__max_160_characters__smscindex____1____index_of_the_sms_center_to_use_or_smscnumber_____31612345678____number_of_the_sms_center_to_use_report____1____delivery_report__default_off___eightbit____1____use_8bit_data__default_7bit__validity____4320____sms_validity_in_minutes_animation_____________animation______nyi__ringtone_____________filename_with_ringtone______nyi___cut">destination      =&gt; &quot;+31612345678&quot;, # * Recipient phone number
+  message          =&gt; &quot;Hello there&quot;,  # * Message text (max 160 characters)
+  smscindex        =&gt; 1,              #   Index  of the SMS Center to use or
+  smscnumber       =&gt; &quot;+31612345678&quot;, #   Number of the SMS Center to use
+  report           =&gt; 1,              #   Delivery report (default off )
+  eightbit         =&gt; 1,              #   Use 8bit data   (default 7bit)
+  validity         =&gt; 4320,           #   SMS validity in minutes
+  animation        =&gt; &quot;.....&quot;,        #   Animation ...              (NYI)
+  ringtone         =&gt; &quot;.....&quot;,        #   Filename with ringtone ... (NYI)
+=cut</a></h2>
+<pre>
 <span class="s">}</span>
 
 </pre><p></p>

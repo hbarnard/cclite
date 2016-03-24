@@ -97,9 +97,10 @@ use utf8;
 #============== change the configuration to your registry and currency for sms
 # messages will now use decide_language to get language, in Ccu.pm 08/2011
 
-our %messages          = readmessages();
-our %configuration     = readconfiguration();
-our %sms_configuration = readconfiguration('/usr/share/cclite/config/readsms.cf');
+our %messages      = readmessages();
+our %configuration = readconfiguration();
+our %sms_configuration =
+  readconfiguration('/usr/share/cclite/config/readsms.cf');
 
 # this is a little unnecessary, but can stay for a while
 our $registry     = $sms_configuration{'registry'};
@@ -125,7 +126,6 @@ our $emulate;
 
 #=============================================================
 
-
 =head3 gateway_sms_transaction
 
 This does a validation (could move to ccvalidate) and
@@ -134,13 +134,9 @@ then dispatches to the appropriate internal function
 
 =cut
 
-
-
 sub gateway_sms_transaction {
 
     my ( $class, $configurationref, $fields_ref, $token ) = @_;
-
-     
 
     # debugging and testing whether the transaction was emulated by a web form
     $debug = $sms_configuration{'debug'}
@@ -163,8 +159,6 @@ sub gateway_sms_transaction {
         }
     }
 
-  
-
     # no number, so no lookup or no message...reject
     if ( !length( $fields_ref->{'originator'} ) ) {
         my $message =
@@ -177,7 +171,6 @@ sub gateway_sms_transaction {
     $fields_ref->{'originator'} =
       format_for_standard_mobile( $fields_ref->{'originator'} );
 
- 
     # setup transaction, special case
     if ( $fields_ref->{'message'} =~ /^$sms_configuration{'join_key'}\s+/i ) {
         return _gateway_sms_join( $fields_ref, $token );
@@ -415,7 +408,6 @@ sub _gateway_sms_join {
     my ( $fields_ref, $token ) = @_;
     my ( $offset, $limit, $message );
     my $input = lc( $fields_ref->{'message'} );    # canonical is lower case
-
 
     # check not already inscribed
     my ( $error, $from_user_ref ) =

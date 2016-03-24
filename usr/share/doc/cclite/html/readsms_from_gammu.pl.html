@@ -65,7 +65,11 @@ pre { color: #000000;
 <h2>Code Index:</h2>
 <!-- BEGIN CODE INDEX --><a name="code-index"></a>
 <ul>
-<li><a href="#__END__-">__END__</a></li>
+<li><a href="#sort_file_names-">package main</a>
+<ul>
+<li><a href="#sort_file_names-">sort_file_names</a></li>
+</ul>
+</li>
 <li><a href="#EOF-">EOF</a></li>
 </ul>
 <!-- END CODE INDEX -->
@@ -87,20 +91,14 @@ pre { color: #000000;
 <span class="c">#---------------------------------------------------------------------------</span>
 <span class="c">#</span>
 
-<span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
-
 <span class="c"># this should give errors in the status line of the admin page</span>
-<span class="k">my</span> <span class="i">$data</span> = <span class="k">join</span><span class="s">(</span> <span class="q">&#39;&#39;</span><span class="cm">,</span> <span class="q">&lt;DATA&gt;</span> <span class="s">)</span><span class="sc">;</span>
-<span class="k">eval</span> <span class="i">$data</span><span class="sc">;</span>
-<span class="k">if</span> <span class="s">(</span><span class="i">$@</span><span class="s">)</span> <span class="s">{</span>
-    <span class="k">print</span> <span class="i">$@</span><span class="sc">;</span>
-    <span class="k">exit</span> <span class="n">1</span><span class="sc">;</span>
-<span class="s">}</span>
-
-<a name="__END__-"></a><span class="k">__END__</span>
-
-
-
+<span class="c"># decomment if there are problems running this as a web task</span>
+<span class="c">#my $data = join( &#39;&#39;, &lt;DATA&gt; );</span>
+<span class="c">#eval $data;</span>
+<span class="c">#if ($@) {</span>
+<span class="c">#    print $@;</span>
+<span class="c">#    exit 1;</span>
+<span class="c">#}</span>
 
 </pre><p></p>
 <h3><a name="description">description</a></h3>
@@ -135,173 +133,179 @@ processes them and unlinks them.</p>
 <p>This sorts the incoming file names chronologically</p>
 
 <pre>
+<a name="sort_file_names-"></a><span class="k">sub </span><span class="m">sort_file_names</span> <span class="s">{</span>
 
-<span class="q">sub sort_file_names {</span>
+    <span class="k">my</span> <span class="s">(</span><span class="i">@file_names</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">@sts</span><span class="sc">;</span>
 
-<span class="q">my (@file_names) = @_ ;</span>
-<span class="q">my @sts ;</span>
+    <span class="k">foreach</span> <span class="k">my</span> <span class="i">$file_name</span> <span class="s">(</span><span class="i">@file_names</span><span class="s">)</span> <span class="s">{</span>
 
-<span class="q">foreach my $file_name (@file_names) {</span>
-	
-<span class="q">   next</span>
-<span class="q">      if ( $file_name !~ /\056txt$/i );  # not a txt extension, standard for gammu sms</span>
+        <span class="k">next</span>
+          <span class="k">if</span> <span class="s">(</span> <span class="i">$file_name</span> !~ <span class="q">/\056txt$/i</span> <span class="s">)</span>
+          <span class="sc">;</span>    <span class="c"># not a txt extension, standard for gammu sms</span>
 
-	
-<span class="q">$file_name =~</span>
-<span class="q">m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;</span>
+        <span class="i">$file_name</span> =~
+<span class="q">m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/</span><span class="sc">;</span>
 
+        <span class="k">my</span> <span class="s">(</span> <span class="i">$sms_year</span><span class="cm">,</span> <span class="i">$sms_month</span><span class="cm">,</span> <span class="i">$sms_day</span><span class="cm">,</span> <span class="i">$sms_hour</span><span class="cm">,</span> <span class="i">$sms_minute</span><span class="cm">,</span>
+            <span class="i">$sms_second</span><span class="cm">,</span> <span class="i">$sms_int_code</span><span class="cm">,</span> <span class="i">$sms_phone_number</span> <span class="s">)</span>
+          = <span class="s">(</span> <span class="i">$1</span><span class="cm">,</span> <span class="i">$2</span><span class="cm">,</span> <span class="i">$3</span><span class="cm">,</span> <span class="i">$4</span><span class="cm">,</span> <span class="i">$5</span><span class="cm">,</span> <span class="i">$6</span><span class="cm">,</span> <span class="i">$7</span><span class="cm">,</span> <span class="i">$8</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$entry</span> = <span class="s">[</span>
+            <span class="q">&quot;$sms_year$sms_month$sms_day$sms_hour$sms_minute$sms_second&quot;</span><span class="cm">,</span>
+            <span class="i">$file_name</span>
+        <span class="s">]</span><span class="sc">;</span>
 
-<span class="q">    my ( $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute, $sms_second,</span>
-<span class="q">        $sms_int_code, $sms_phone_number )</span>
-<span class="q">      = ( $1, $2, $3, $4, $5, $6, $7, $8 );</span>
-<span class="q">    my $entry = [&quot;$sms_year$sms_month$sms_day$sms_hour$sms_minute$sms_second&quot; ,$file_name] ;</span>
+        <span class="k">push</span> <span class="i">@sts</span><span class="cm">,</span> <span class="i">$entry</span><span class="sc">;</span>
 
-<span class="q">push @sts, $entry ;</span>
+    <span class="s">}</span>
 
-<span class="q">}</span>
+    <span class="k">my</span> <span class="i">@sorted_sts</span> = <span class="k">sort</span> <span class="s">{</span> <span class="i">$a</span>-&gt;[<span class="n">0</span>] &lt;=&gt; <span class="i">$b</span>-&gt;[<span class="n">0</span>] <span class="s">}</span> <span class="i">@sts</span><span class="sc">;</span>
+    <span class="k">my</span> <span class="i">@sorted</span>     = <span class="k">map</span>  <span class="s">{</span> <span class="i">$_</span>-&gt;[<span class="n">1</span>] <span class="s">}</span> <span class="i">@sorted_sts</span><span class="sc">;</span>
 
+    <span class="k">return</span> <span class="i">@sorted</span><span class="sc">;</span>
 
-<span class="q">my @sorted_sts = sort{ $a-&gt;[ 0 ] &lt;=&gt; $b-&gt;[ 0 ] } @sts;</span>
-<span class="q">my @sorted = map{ $_-&gt;[ 1 ] } @sorted_sts ; ;</span>
+<span class="s">}</span>
 
-<span class="q">return @sorted ;</span>
+<span class="c">#-------------------------------------------------------------</span>
+<span class="k">use</span> <span class="w">constant</span> <span class="i">IS_MOD_PERL</span> <span class="cm">=&gt;</span> <span class="k">exists</span> <span class="i">$ENV</span>{<span class="q">&#39;MOD_PERL&#39;</span>}<span class="sc">;</span>
+<span class="k">use</span> <span class="w">constant</span> <span class="i">IS_CGI</span> <span class="cm">=&gt;</span> <span class="i">IS_MOD_PERL</span> || <span class="k">exists</span> <span class="i">$ENV</span>{<span class="q">&#39;GATEWAY_INTERFACE&#39;</span>}<span class="sc">;</span>
 
-<span class="q">}</span>
+<span class="k">use</span> <span class="w">strict</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">warnings</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">locale</span><span class="sc">;</span>
 
+<span class="c"># full path for cron and read on receive April 2015</span>
+<span class="k">use</span> <span class="w">lib</span> <span class="q">&#39;/usr/share/cclite/lib&#39;</span><span class="sc">;</span>
 
-<span class="q">#-------------------------------------------------------------</span>
+<span class="c">#-------------------------------------------------------------</span>
 
-<span class="q">use strict;    </span>
-<span class="q">use warnings ;</span>
-<span class="q">use locale;</span>
-<span class="q">use lib &#39;../../../lib&#39; ;	</span>
-<span class="q">#-------------------------------------------------------------</span>
+<span class="k">use</span> <span class="w">Ccu</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccadmin</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Cclitedb</span><span class="sc">;</span>    <span class="c">#FIXME: for log_entry</span>
+<span class="k">use</span> <span class="w">Cccookie</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccsms::Gammu</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Ccconfiguration</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 
-<span class="q">use Ccu;</span>
-<span class="q">use Ccadmin ;</span>
-<span class="q">use Cclitedb ; #FIXME: for log_entry</span>
-<span class="q">use Cccookie ;</span>
-<span class="q">use Ccsms::Gammu ;</span>
-<span class="q">use Ccconfiguration;</span>
-<span class="q">use Data::Dumper;</span>
+<span class="k">if</span> <span class="s">(</span><span class="i">IS_CGI</span><span class="s">)</span> <span class="s">{</span>
+    <span class="k">print</span> <span class="i">STDOUT</span> <span class="q">&quot;Content-Type: text/html; charset=utf-8\n\n&quot;</span><span class="sc">;</span>
+<span class="s">}</span>
 
-<span class="q">#use Time::HiRes qw( usleep ualarm gettimeofday  tv_interval nanosleep</span>
-<span class="q">#clock_gettime clock_getres clock_nanosleep clock</span>
-<span class="q">#stat );</span>
+<span class="c">#use Time::HiRes qw( usleep ualarm gettimeofday  tv_interval nanosleep</span>
+<span class="c">#clock_gettime clock_getres clock_nanosleep clock</span>
+<span class="c">#stat );</span>
 
-<span class="q">#my $t0 = [gettimeofday];</span>
-<span class="q"># hardcode configuration path, if running from a cron</span>
-<span class="q">my %configuration = readconfiguration();</span>
-<span class="q">my %sms_configuration = readconfiguration(&#39;../../../config/readsms.cf&#39;);</span>
+<span class="c">#my $t0 = [gettimeofday];</span>
+<span class="c"># hardcode configuration path, if running from a cron</span>
+<span class="k">my</span> <span class="i">%configuration</span> = <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;/usr/share/cclite/config/cclite.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">%sms_configuration</span> =
+  <span class="i">readconfiguration</span><span class="s">(</span><span class="q">&#39;/usr/share/cclite/config/readsms.cf&#39;</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="q"># fixed needs testing</span>
-<span class="q">if ( !$sms_configuration{&#39;smslocal&#39;} ) {</span>
-<span class="q">    require SOAP::Lite;</span>
-<span class="q">}</span>
+<span class="c"># fixed needs testing</span>
+<span class="k">if</span> <span class="s">(</span> !<span class="i">$sms_configuration</span>{<span class="q">&#39;smslocal&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+    <span class="k">require</span> <span class="w">SOAP::Lite</span><span class="sc">;</span>
+<span class="s">}</span>
 
-<span class="q">my ($token, $file) ;</span>
+<span class="k">my</span> <span class="s">(</span> <span class="i">$token</span><span class="cm">,</span> <span class="i">$file</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="q">my $cookieref = get_cookie();</span>
-<span class="q">my %fields    = cgiparse();</span>
+<span class="k">my</span> <span class="i">$cookieref</span> = <span class="i">get_cookie</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">%fields</span>    = <span class="i">cgiparse</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
 
+<span class="c"># emulation code in here, to create the test file from the form input</span>
+<span class="k">if</span> <span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;emulate&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+    <span class="k">my</span> <span class="i">$return</span> = <span class="i">emulate_sms_file</span><span class="s">(</span> <span class="i">$fields</span>{<span class="q">&#39;originator&#39;</span>}<span class="cm">,</span> <span class="i">$fields</span>{<span class="q">&#39;message&#39;</span>} <span class="s">)</span><span class="sc">;</span>
+    <span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
+<span class="s">}</span>
 
+<span class="c"># for cron: hardcode registry, cannot be read from web cookie</span>
+<span class="c"># read from cookie, but if not, from  sms configuration</span>
+<span class="k">my</span> <span class="i">$registry</span> = <span class="i">$cookieref</span>-&gt;{<span class="q">&#39;registry&#39;</span>} || <span class="i">$sms_configuration</span>{<span class="q">&#39;registry&#39;</span>}<span class="sc">;</span>
 
-<span class="q"># emulation code in here, to create the test file from the form input</span>
-<span class="q">if ($fields{&#39;emulate&#39;}) {</span>
-<span class="q">my $return = emulate_sms_file($fields{&#39;originator&#39;}, $fields{&#39;message&#39;}) ;</span>
-<span class="q">exit 0 ;</span>
-<span class="q">}	</span>
+<span class="k">my</span> <span class="i">$domain</span> =
+  <span class="i">$configuration</span>{<span class="q">&#39;domain&#39;</span>}<span class="sc">;</span>    <span class="c"># remote domain if the script is not local</span>
 
+<span class="c"># inbox for gammu, so gammu must put messages there..</span>
+<span class="k">my</span> <span class="i">$sms_dir</span> = <span class="q">&quot;$sms_configuration{&#39;smsinpath&#39;}/$registry&quot;</span>
+  <span class="sc">;</span>    <span class="c"># sms inbox for gammu, now divided by registry 11/2009</span>
 
+<span class="c"># outbox for this script, processed messages placed there..</span>
+<span class="c">#FIXME: smsout in main config and smsoutpath in sms config...</span>
+<span class="k">my</span> <span class="i">$sms_done_dir</span> = <span class="q">&quot;$configuration{&#39;smsout&#39;}/$registry&quot;</span><span class="sc">;</span>
 
+<span class="c"># Feburary 2014 testing shows that we need to sort chronologically</span>
+<span class="c"># otherwise sequence of transactions may be lost</span>
 
-<span class="q"># for cron: hardcode registry, cannot be read from web cookie</span>
-<span class="q"># read from cookie, but if not, from  sms configuration</span>
-<span class="q">my $registry = $cookieref-&gt;{&#39;registry&#39;} || $sms_configuration{&#39;registry&#39;};</span>
+<span class="k">opendir</span><span class="s">(</span> <span class="w">DIR</span><span class="cm">,</span> <span class="i">$sms_dir</span> <span class="s">)</span><span class="sc">;</span>
+<span class="k">my</span> <span class="i">@files</span> = <span class="k">readdir</span><span class="s">(</span><span class="w">DIR</span><span class="s">)</span><span class="sc">;</span>
+<span class="k">closedir</span> <span class="w">DIR</span><span class="sc">;</span>
 
-<span class="q">my $domain =</span>
-<span class="q">  $configuration{&#39;domain&#39;};    # remote domain if the script is not local</span>
+<span class="i">@files</span> = <span class="i">sort_file_names</span><span class="s">(</span><span class="i">@files</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="q"># inbox for gammu, so gammu must put messages there..</span>
-<span class="q">my $sms_dir = &quot;$sms_configuration{&#39;smsinpath&#39;}/$registry&quot;</span>
-<span class="q">  ;    # sms inbox for gammu, now divided by registry 11/2009</span>
+<span class="k">foreach</span> <span class="k">my</span> <span class="i">$file</span> <span class="s">(</span><span class="i">@files</span><span class="s">)</span> <span class="s">{</span>
 
-<span class="q"># outbox for this script, processed messages placed there..</span>
-<span class="q">#FIXME: smsout in main config and smsoutpath in sms config...</span>
-<span class="q">my $sms_done_dir = &quot;$configuration{&#39;smsout&#39;}/$registry&quot;;</span>
+    <span class="k">my</span> <span class="i">$sms_file</span> = <span class="q">&quot;$sms_dir/$file&quot;</span><span class="sc">;</span>
 
-<span class="q"># Feburary 2014 testing shows that we need to sort chronologically</span>
-<span class="q"># otherwise sequence of transactions may be lost</span>
+<span class="c"># parse file name and extract timing data and phone number, timing not used at present</span>
+<span class="c"># but useful if, for example, interface is off-lined</span>
 
-<span class="q">opendir( DIR, $sms_dir );</span>
-<span class="q">my @files = readdir(DIR);</span>
-<span class="q">closedir DIR ;</span>
+    <span class="c"># IN20081203_211658_00_+447779159452_00.txt</span>
 
-<span class="q">@files = sort_file_names(@files) ;</span>
+    <span class="i">$sms_file</span> =~
+<span class="q">m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/</span><span class="sc">;</span>
 
-<span class="q">foreach my $file  (@files) {</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$sms_year</span><span class="cm">,</span> <span class="i">$sms_month</span><span class="cm">,</span> <span class="i">$sms_day</span><span class="cm">,</span> <span class="i">$sms_hour</span><span class="cm">,</span> <span class="i">$sms_minute</span><span class="cm">,</span> <span class="i">$sms_second</span><span class="cm">,</span>
+        <span class="i">$sms_int_code</span><span class="cm">,</span> <span class="i">$sms_phone_number</span> <span class="s">)</span>
+      = <span class="s">(</span> <span class="i">$1</span><span class="cm">,</span> <span class="i">$2</span><span class="cm">,</span> <span class="i">$3</span><span class="cm">,</span> <span class="i">$4</span><span class="cm">,</span> <span class="i">$5</span><span class="cm">,</span> <span class="i">$6</span><span class="cm">,</span> <span class="i">$7</span><span class="cm">,</span> <span class="i">$8</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="q">    my $sms_file  = &quot;$sms_dir/$file&quot;;</span>
+    <span class="k">my</span> <span class="i">$full_telephone_number</span> = <span class="i">$sms_int_code</span> . <span class="i">$sms_phone_number</span><span class="sc">;</span>
 
-<span class="q"># parse file name and extract timing data and phone number, timing not used at present</span>
-<span class="q"># but useful if, for example, interface is off-lined</span>
+    <span class="k">open</span><span class="s">(</span> <span class="w">SMS</span><span class="cm">,</span> <span class="i">$sms_file</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="q">    # IN20081203_211658_00_+447779159452_00.txt</span>
+    <span class="k">my</span> <span class="i">$sms_data</span><span class="sc">;</span>    <span class="c"># holds message text</span>
 
-<span class="q">    $sms_file =~</span>
-<span class="q">m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;</span>
+    <span class="k">while</span> <span class="s">(</span><span class="q">&lt;SMS&gt;</span><span class="s">)</span> <span class="s">{</span>
+        <span class="c">### s/\376\377//;  # moved from outside loop...11/2009</span>
+        <span class="i">$sms_data</span> .= <span class="i">$_</span> <span class="k">if</span> <span class="s">(</span><span class="q">/[\w\s]+/</span><span class="s">)</span><span class="sc">;</span>
 
-<span class="q">    my ( $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute, $sms_second,</span>
-<span class="q">        $sms_int_code, $sms_phone_number )</span>
-<span class="q">      = ( $1, $2, $3, $4, $5, $6, $7, $8 );</span>
+    <span class="s">}</span>
+    <span class="k">close</span> <span class="w">SMS</span><span class="sc">;</span>
 
-<span class="q">    my $full_telephone_number = $sms_int_code . $sms_phone_number;</span>
-       
-<span class="q">    open( SMS, $sms_file );</span>
+    <span class="c"># remove binary stuff at start</span>
 
-<span class="q">    my $sms_data;    # holds message text</span>
+    <span class="c"># convert to current gateway format</span>
+    <span class="i">$fields</span>{<span class="q">&#39;originator&#39;</span>} = <span class="i">$full_telephone_number</span><span class="sc">;</span>
+    <span class="i">$fields</span>{<span class="q">&#39;message&#39;</span>}    = <span class="i">$sms_data</span><span class="sc">;</span>
+    <span class="i">$fields</span>{<span class="q">&#39;status&#39;</span>}     = <span class="n">0</span><span class="sc">;</span>                        <span class="c"># status is forced</span>
 
-<span class="q">    while (&lt;SMS&gt;) {</span>
-<span class="q">        ### s/\376\377//;  # moved from outside loop...11/2009</span>
-<span class="q">        $sms_data .= $_ if (/[\w\s]+/);</span>
-        
-<span class="q">    }</span>
-<span class="q">    close SMS;</span>
+    <span class="k">my</span> <span class="s">(</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$array_ref</span><span class="cm">,</span> <span class="i">$soap</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
 
-<span class="q">        # remove binary stuff at start</span>
+<span class="c"># remote transactions are transported via soap, local ones use the local library...</span>
+<span class="c"># TODO: SOAP access has never, never been tested as of 2014</span>
+    <span class="k">if</span> <span class="s">(</span> !<span class="i">$sms_configuration</span>{<span class="q">&#39;smslocal&#39;</span>} <span class="s">)</span> <span class="s">{</span>
+        <span class="k">eval</span> <span class="s">{</span>
+            <span class="i">$soap</span> =
+              <span class="w">SOAP::Lite</span><span class="w">-&gt;uri</span><span class="s">(</span><span class="q">&quot;http://$domain/Ccsmsgateway&quot;</span><span class="s">)</span>
+              <span class="i">-&gt;proxy</span><span class="s">(</span><span class="q">&quot;http://$domain/cgi-bin/ccserver.cgi&quot;</span><span class="s">)</span>
+              <span class="i">-&gt;gateway_sms_transaction</span><span class="s">(</span> \<span class="i">%configuration</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span><span class="sc">;</span>
+        <span class="k">die</span> <span class="i">$soap</span><span class="i">-&gt;faultstring</span> <span class="k">if</span> <span class="i">$soap</span><span class="i">-&gt;fault</span><span class="sc">;</span>
+        <span class="s">(</span> <span class="i">$class</span><span class="cm">,</span> <span class="i">$status</span><span class="cm">,</span> <span class="i">$array_ref</span> <span class="s">)</span> = <span class="i">$soap</span><span class="i">-&gt;paramsout</span><span class="sc">;</span>
 
-<span class="q">    # convert to current gateway format</span>
-<span class="q">    $fields{&#39;originator&#39;} = $full_telephone_number;</span>
-<span class="q">    $fields{&#39;message&#39;}    = $sms_data;</span>
-<span class="q">    $fields{&#39;status&#39;}     = 0;                   # status is forced</span>
+    <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>
+        <span class="k">my</span> <span class="i">$return_value</span> =
+          <span class="i">gateway_sms_transaction</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> \<span class="i">%configuration</span><span class="cm">,</span> \<span class="i">%fields</span><span class="cm">,</span> <span class="i">$token</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="i">$return_value</span> =~ <span class="q">/nok/</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="i">log_entry</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$registry</span><span class="cm">,</span> <span class="q">&#39;error&#39;</span><span class="cm">,</span> <span class="q">&#39;transaction error&#39;</span><span class="cm">,</span>
+                <span class="k">undef</span> <span class="s">)</span><span class="sc">;</span>
+        <span class="s">}</span>
+    <span class="s">}</span>
 
-<span class="q">    my ( $status, $class, $array_ref, $soap, $token );</span>
+ <span class="c"># move the processed file to a done directory, don&#39;t process twice</span>
+ <span class="c"># FIXME: The out file is under the web root and still in the main configuration</span>
+    <span class="k">system</span><span class="s">(</span><span class="q">&quot;mv $sms_file $configuration{smsout}/$registry&quot;</span><span class="s">)</span><span class="sc">;</span>
+<span class="s">}</span>
 
-<span class="q"># remote transactions are transported via soap, local ones use the local library...</span>
-<span class="q"># TODO: SOAP access has never, never been tested as of 2014</span>
-<span class="q">    if ( ! $sms_configuration{&#39;smslocal&#39;} ) {</span>
-<span class="q">        eval {</span>
-<span class="q">            $soap =</span>
-<span class="q">              SOAP::Lite-&gt;uri(&quot;http://$domain/Ccsmsgateway&quot;)</span>
-<span class="q">              -&gt;proxy(&quot;http://$domain/cgi-bin/ccserver.cgi&quot;)</span>
-<span class="q">              -&gt;gateway_sms_transaction( \%configuration, \%fields, $token );</span>
-<span class="q">        };</span>
-<span class="q">        die $soap-&gt;faultstring if $soap-&gt;fault;</span>
-<span class="q">        ( $class, $status, $array_ref ) = $soap-&gt;paramsout;</span>
-
-<span class="q">    } else {</span>
-<span class="q">       my $return_value = gateway_sms_transaction( &#39;local&#39;, \%configuration, \%fields, $token );</span>
-<span class="q">       if ($return_value =~ /nok/) {</span>
-<span class="q">          log_entry( &#39;local&#39;, $registry, &#39;error&#39;, &#39;transaction error&#39;, undef );</span>
-<span class="q">       }	   </span>
-<span class="q">    }</span>
-
-<span class="q">    # move the processed file to a done directory, don&#39;t process twice</span>
-<span class="q">    # FIXME: The out file is under the web root and still in the main configuration</span>
-<span class="q">    system(&quot;mv $sms_file $configuration{smsout}/$registry&quot;);</span>
-<span class="q">}</span>
-
-<span class="q">exit 0;</span>
+<span class="k">exit</span> <span class="n">0</span><span class="sc">;</span>
 <a name="EOF-"></a></pre></body>
 
 </html>

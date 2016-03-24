@@ -24,10 +24,43 @@ my $cclite_root  = '$web_root/cclite';
 
 my $operation = $ARGV[0];
 
+=pod
+@JW provisional solution below 
+prerm called with unknown argument `upgrade'dpkg: warning: subprocess old pre-removal script returned error exit status 1
+dpkg: trying script from the new package instead ...
+prerm called with unknown argument `failed-upgrade'dpkg: error processing archive cclite-0.9.3_all.deb (--install):
+subprocess new pre-removal script returned error exit status 1
+postinst called with unknown argument `abort-upgrade'dpkg: error while cleaning up:
+=cut
+
+if ( $operation =~ /upgrade|failed-upgrade/ ) {
+
+print <<EOF;
+upgrade operation not supported currently
+please use:
+ sudo dpkg -r cclite
+or, if necessary:
+ sudo dpkg --force-all -r cclite
+
+remove will remove:
+ /var/cclite 
+ /var/www/cclite
+so copy these, if necessary before package removal
+ 
+EOF
+
+
+
+exit 1;
+    
+}
+
 
 if ( $operation =~ /remove|deconfigure/ ) {
-
-   `a2dissite cclite.private.server` ;
+	
+   # note cclite private server entry now doesn't exist
+   `a2dissite debian.default.server.conf` ;
+   
    if (-e "/etc/hosts.saved-by-cclite" ) {
      `cp /etc/hosts.saved-by-cclite /etc/hosts` ;
    }

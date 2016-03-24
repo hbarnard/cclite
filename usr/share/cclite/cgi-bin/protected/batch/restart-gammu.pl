@@ -20,35 +20,37 @@
 #Sat 2015/04/25 05:24:59 gammu-smsd[2270]: Starting phone communication...
 #Sat 2015/04/25 05:25:09 gammu-smsd[2270]: Error at init connection: No response in specified timeout. Probably phone not connected.
 
-use strict ;
+use strict;
 
-my $debug = 0 ;
-my $sleep = 300 ; #five minutes
+my $debug = 0;
+my $sleep = 300;    #five minutes
 
 while (1) {
-`tail -3 /var/log/gammu/gammu-smsd.log > /tmp/gammu-test.txt`;
+    `tail -3 /var/log/gammu/gammu-smsd.log > /tmp/gammu-test.txt`;
 
-open my $fh, '<', '/tmp/gammu-test.txt';
-my @lines = <$fh>;
+    open my $fh, '<', '/tmp/gammu-test.txt';
+    my @lines = <$fh>;
 
-my $ok = 1;
-foreach my $line (@lines) {
-    if ( $line =~ /connection errors/ || $line =~ /no response/i || $line =~ /Already hit 250 errors/) {
-        $ok = 0;
+    my $ok = 1;
+    foreach my $line (@lines) {
+        if (   $line =~ /connection errors/
+            || $line =~ /no response/i
+            || $line =~ /Already hit 250 errors/ )
+        {
+            $ok = 0;
+        }
     }
-}
 
-if ( !$ok ) {
-    `udevadm trigger` ;
-    sleep 10 ;
-    `/etc/init.d/gammu-smsd stop`;
-    sleep 20;
-    `/etc/init.d/gammu-smsd start`;
-    print "restarting gammu\n" if $debug ;
+    if ( !$ok ) {
+        `udevadm trigger`;
+        sleep 10;
+        `/etc/init.d/gammu-smsd stop`;
+        sleep 20;
+        `/etc/init.d/gammu-smsd start`;
+        print "restarting gammu\n" if $debug;
 
-}
+    }
 
-
-sleep $sleep ;
+    sleep $sleep;
 
 }

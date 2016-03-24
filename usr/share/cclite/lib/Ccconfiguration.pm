@@ -37,7 +37,7 @@ use vars qw(@ISA @EXPORT);
 use Exporter;
 use Cwd;
 use Storable qw(freeze thaw);
-use Data::Dumper ;
+use Data::Dumper;
 my $VERSION = 1.00;
 @ISA = qw(Exporter);
 
@@ -63,7 +63,7 @@ Revised 4/2015 to deal logically with cron etc.
 
 sub readconfiguration {
 
-    my ($force_configuration_path) =  @_ ;
+    my ($force_configuration_path) = @_;
 
 =cut      
     print "forced config0: $force_configuration_path \n" ;
@@ -72,7 +72,6 @@ print "1: $package, $filename, $line, $subroutine, $hasargs, $wantarray, $evalte
 ($package, $filename, $line, $subroutine, $hasargs, $wantarray, $evaltext, $is_require, $hints, $bitmask, $hinthash) = caller(2);
 print "2: $package, $filename, $line, $subroutine, $hasargs, $wantarray, $evaltext, $is_require, $hints, $bitmask, $hinthash \n------------------\n\n" ;
 =cut
-
 
     my $dir;
     my $default_config;
@@ -85,7 +84,7 @@ print "2: $package, $filename, $line, $subroutine, $hasargs, $wantarray, $evalte
     } else {
         $dir = getcwd() || `pwd`;
     }
-    
+
     # make an informed guess at the config file not explictly supplied
     # augmented a little to deal with crons and batch generally April 2015
     # may or may not deal with Windows
@@ -94,12 +93,11 @@ print "2: $package, $filename, $line, $subroutine, $hasargs, $wantarray, $evalte
     $default_config = "${dir}config/cclite.cf";
     $default_config =~ s/\s//g;
 
- 
     # standard place for debian style and rpm
-    my $standard_config = '/usr/share/cclite/config/cclite.cf' ;
-    if ((! -e $default_config) && (-e $standard_config)) {
-     $default_config = '/usr/share/cclite/config/cclite.cf' ;
-    }	
+    my $standard_config = '/usr/share/cclite/config/cclite.cf';
+    if ( ( !-e $default_config ) && ( -e $standard_config ) ) {
+        $default_config = '/usr/share/cclite/config/cclite.cf';
+    }
 
     # either supply it explicitly with full path or it will guess..
     my $configfile = $force_configuration_path || $default_config;

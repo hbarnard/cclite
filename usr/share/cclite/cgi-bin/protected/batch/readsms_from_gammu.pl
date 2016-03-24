@@ -24,9 +24,6 @@
 #    exit 1;
 #}
 
-
-
-
 =head3 description
 
 This is the batch program that reads files created by gammu, 
@@ -58,7 +55,6 @@ will probably work...ymmv...
 
 =cut
 
-
 =head3 sort_file_names
 
 This sorts the incoming file names chronologically
@@ -66,62 +62,62 @@ This sorts the incoming file names chronologically
 
 =cut
 
-
 sub sort_file_names {
 
-my (@file_names) = @_ ;
-my @sts ;
+    my (@file_names) = @_;
+    my @sts;
 
-foreach my $file_name (@file_names) {
-	
-   next
-      if ( $file_name !~ /\056txt$/i );  # not a txt extension, standard for gammu sms
+    foreach my $file_name (@file_names) {
 
-	
-$file_name =~
+        next
+          if ( $file_name !~ /\056txt$/i )
+          ;    # not a txt extension, standard for gammu sms
+
+        $file_name =~
 m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
 
+        my ( $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute,
+            $sms_second, $sms_int_code, $sms_phone_number )
+          = ( $1, $2, $3, $4, $5, $6, $7, $8 );
+        my $entry = [
+            "$sms_year$sms_month$sms_day$sms_hour$sms_minute$sms_second",
+            $file_name
+        ];
 
-    my ( $sms_year, $sms_month, $sms_day, $sms_hour, $sms_minute, $sms_second,
-        $sms_int_code, $sms_phone_number )
-      = ( $1, $2, $3, $4, $5, $6, $7, $8 );
-    my $entry = ["$sms_year$sms_month$sms_day$sms_hour$sms_minute$sms_second" ,$file_name] ;
+        push @sts, $entry;
 
-push @sts, $entry ;
+    }
+
+    my @sorted_sts = sort { $a->[0] <=> $b->[0] } @sts;
+    my @sorted     = map  { $_->[1] } @sorted_sts;
+
+    return @sorted;
 
 }
-
-
-my @sorted_sts = sort{ $a->[ 0 ] <=> $b->[ 0 ] } @sts;
-my @sorted = map{ $_->[ 1 ] } @sorted_sts ; ;
-
-return @sorted ;
-
-}
-
-
 
 #-------------------------------------------------------------
 use constant IS_MOD_PERL => exists $ENV{'MOD_PERL'};
-use constant IS_CGI      => IS_MOD_PERL || exists $ENV{'GATEWAY_INTERFACE'};
+use constant IS_CGI => IS_MOD_PERL || exists $ENV{'GATEWAY_INTERFACE'};
 
-use strict;    
-use warnings ;
+use strict;
+use warnings;
 use locale;
+
 # full path for cron and read on receive April 2015
-use lib '/usr/share/cclite/lib' ;	
+use lib '/usr/share/cclite/lib';
+
 #-------------------------------------------------------------
 
 use Ccu;
-use Ccadmin ;
-use Cclitedb ; #FIXME: for log_entry
-use Cccookie ;
-use Ccsms::Gammu ;
+use Ccadmin;
+use Cclitedb;    #FIXME: for log_entry
+use Cccookie;
+use Ccsms::Gammu;
 use Ccconfiguration;
 use Data::Dumper;
 
 if (IS_CGI) {
-print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
+    print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
 }
 
 #use Time::HiRes qw( usleep ualarm gettimeofday  tv_interval nanosleep
@@ -131,28 +127,24 @@ print STDOUT "Content-Type: text/html; charset=utf-8\n\n";
 #my $t0 = [gettimeofday];
 # hardcode configuration path, if running from a cron
 my %configuration = readconfiguration('/usr/share/cclite/config/cclite.cf');
-my %sms_configuration = readconfiguration('/usr/share/cclite/config/readsms.cf');
+my %sms_configuration =
+  readconfiguration('/usr/share/cclite/config/readsms.cf');
 
 # fixed needs testing
 if ( !$sms_configuration{'smslocal'} ) {
     require SOAP::Lite;
 }
 
-my ($token, $file) ;
+my ( $token, $file );
 
 my $cookieref = get_cookie();
 my %fields    = cgiparse();
 
-
-
 # emulation code in here, to create the test file from the form input
-if ($fields{'emulate'}) {
-my $return = emulate_sms_file($fields{'originator'}, $fields{'message'}) ;
-exit 0 ;
-}	
-
-
-
+if ( $fields{'emulate'} ) {
+    my $return = emulate_sms_file( $fields{'originator'}, $fields{'message'} );
+    exit 0;
+}
 
 # for cron: hardcode registry, cannot be read from web cookie
 # read from cookie, but if not, from  sms configuration
@@ -174,13 +166,13 @@ my $sms_done_dir = "$configuration{'smsout'}/$registry";
 
 opendir( DIR, $sms_dir );
 my @files = readdir(DIR);
-closedir DIR ;
+closedir DIR;
 
-@files = sort_file_names(@files) ;
+@files = sort_file_names(@files);
 
-foreach my $file  (@files) {
+foreach my $file (@files) {
 
-    my $sms_file  = "$sms_dir/$file";
+    my $sms_file = "$sms_dir/$file";
 
 # parse file name and extract timing data and phone number, timing not used at present
 # but useful if, for example, interface is off-lined
@@ -195,7 +187,7 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
       = ( $1, $2, $3, $4, $5, $6, $7, $8 );
 
     my $full_telephone_number = $sms_int_code . $sms_phone_number;
-       
+
     open( SMS, $sms_file );
 
     my $sms_data;    # holds message text
@@ -203,22 +195,22 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
     while (<SMS>) {
         ### s/\376\377//;  # moved from outside loop...11/2009
         $sms_data .= $_ if (/[\w\s]+/);
-        
+
     }
     close SMS;
 
-        # remove binary stuff at start
+    # remove binary stuff at start
 
     # convert to current gateway format
     $fields{'originator'} = $full_telephone_number;
     $fields{'message'}    = $sms_data;
-    $fields{'status'}     = 0;                   # status is forced
+    $fields{'status'}     = 0;                        # status is forced
 
     my ( $status, $class, $array_ref, $soap, $token );
 
 # remote transactions are transported via soap, local ones use the local library...
 # TODO: SOAP access has never, never been tested as of 2014
-    if ( ! $sms_configuration{'smslocal'} ) {
+    if ( !$sms_configuration{'smslocal'} ) {
         eval {
             $soap =
               SOAP::Lite->uri("http://$domain/Ccsmsgateway")
@@ -229,14 +221,16 @@ m/IN(\d{4})(\d{2})(\d{2})\_(\d{2})(\d{2})(\d{2})\_00\_\+(\d{2})(\d+)\_00\.txt/;
         ( $class, $status, $array_ref ) = $soap->paramsout;
 
     } else {
-       my $return_value = gateway_sms_transaction( 'local', \%configuration, \%fields, $token );
-       if ($return_value =~ /nok/) {
-          log_entry( 'local', $registry, 'error', 'transaction error', undef );
-       }	   
+        my $return_value =
+          gateway_sms_transaction( 'local', \%configuration, \%fields, $token );
+        if ( $return_value =~ /nok/ ) {
+            log_entry( 'local', $registry, 'error', 'transaction error',
+                undef );
+        }
     }
 
-    # move the processed file to a done directory, don't process twice
-    # FIXME: The out file is under the web root and still in the main configuration
+ # move the processed file to a done directory, don't process twice
+ # FIXME: The out file is under the web root and still in the main configuration
     system("mv $sms_file $configuration{smsout}/$registry");
 }
 

@@ -20,14 +20,14 @@
 #Sat 2015/04/25 05:24:59 gammu-smsd[2270]: Starting phone communication...
 #Sat 2015/04/25 05:25:09 gammu-smsd[2270]: Error at init connection: No response in specified timeout. Probably phone not connected.
 
-use strict ;
+use strict;
 
-my $debug = 0 ;
-my $sleep = 600 ; #five minutes
+my $debug = 0;
+my $sleep = 600;    #five minutes
 
-while (1) {	
-`/etc/init.d/gammu-smsd restart`;
-sleep $sleep ;
+while (1) {
+    `/etc/init.d/gammu-smsd restart`;
+    sleep $sleep;
 
 }
 

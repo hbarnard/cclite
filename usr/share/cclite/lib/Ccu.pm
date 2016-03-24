@@ -503,14 +503,14 @@ sub readmessages {
     my $messfile = "${dir}literals/literals\056$language";
 
     # standard place for debian style and rpm
-    # augmented April 2015 for crons etc. 
-    my $standard_messages = "/usr/share/cclite/literals/literals\056$language" ;
-    if ((! -e $messfile) && (-e $standard_messages)) {
-     $messfile = $standard_messages ;
-    }	
+    # augmented April 2015 for crons etc.
+    my $standard_messages = "/usr/share/cclite/literals/literals\056$language";
+    if ( ( !-e $messfile ) && ( -e $standard_messages ) ) {
+        $messfile = $standard_messages;
+    }
 
     ###print "messfile is $messfile \n" ;
-    
+
     my %messages;
 
     if ( -e $messfile ) {
@@ -527,7 +527,8 @@ sub readmessages {
             $value = "";
         }
     } else {
-    #    pretty_caller(3); removed because pretty_caller is removed
+
+        #    pretty_caller(3); removed because pretty_caller is removed
         error(
             $language,
 "Cannot find messages file:$error $messfile for $language may be missing?",
@@ -1001,10 +1002,11 @@ sub debug_message {
     }
 
     # remove warning about touch
-    if (defined($configuration{'debugpath'})) {
-    `touch $configuration{'debugpath'}` if ( !-e $configuration{'debugpath'} );
+    if ( defined( $configuration{'debugpath'} ) ) {
+        `touch $configuration{'debugpath'}`
+          if ( !-e $configuration{'debugpath'} );
     }
-    
+
     open( my $fh, '>>', $configuration{'debugpath'} ) or die 'no debug log';
 
     if ($dumper) {

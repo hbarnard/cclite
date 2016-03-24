@@ -122,6 +122,8 @@ pre { color: #000000;
 <span class="k">use</span> <span class="w">vars</span> <span class="q">qw(@ISA @EXPORT)</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Exporter</span><span class="sc">;</span>
 <span class="k">use</span> <span class="w">Cwd</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Storable</span> <span class="q">qw(freeze thaw)</span><span class="sc">;</span>
+<span class="k">use</span> <span class="w">Data::Dumper</span><span class="sc">;</span>
 <span class="k">my</span> <span class="i">$VERSION</span> = <span class="n">1.00</span><span class="sc">;</span>
 <span class="i">@ISA</span> = <span class="q">qw(Exporter)</span><span class="sc">;</span>
 
@@ -137,12 +139,13 @@ cgi parameters will override configuration file
 information, always!</p>
 <p>Included here, needs to be executed within BEGIN</p>
 <p>Revised 1/2009 for Windows...
-=cut</p>
-
+Revised 4/2015 to deal logically with cron etc.</p>
 <pre>
 <a name="readconfiguration-"></a><span class="k">sub </span><span class="m">readconfiguration</span> <span class="s">{</span>
 
     <span class="k">my</span> <span class="s">(</span><span class="i">$force_configuration_path</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
+
+</pre><pre>
     <span class="k">my</span> <span class="i">$dir</span><span class="sc">;</span>
     <span class="k">my</span> <span class="i">$default_config</span><span class="sc">;</span>
 
@@ -156,9 +159,18 @@ information, always!</p>
     <span class="s">}</span>
 
     <span class="c"># make an informed guess at the config file not explictly supplied</span>
+    <span class="c"># augmented a little to deal with crons and batch generally April 2015</span>
+    <span class="c"># may or may not deal with Windows</span>
+
     <span class="i">$dir</span> =~ <span class="q">s/\bcgi-bin.*//</span><span class="sc">;</span>
     <span class="i">$default_config</span> = <span class="q">&quot;${dir}config/cclite.cf&quot;</span><span class="sc">;</span>
     <span class="i">$default_config</span> =~ <span class="q">s/\s//g</span><span class="sc">;</span>
+
+    <span class="c"># standard place for debian style and rpm</span>
+    <span class="k">my</span> <span class="i">$standard_config</span> = <span class="q">&#39;/usr/share/cclite/config/cclite.cf&#39;</span><span class="sc">;</span>
+    <span class="k">if</span> <span class="s">(</span> <span class="s">(</span> !<span class="k">-e</span> <span class="i">$default_config</span> <span class="s">)</span> &amp;&amp; <span class="s">(</span> <span class="k">-e</span> <span class="i">$standard_config</span> <span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="i">$default_config</span> = <span class="q">&#39;/usr/share/cclite/config/cclite.cf&#39;</span><span class="sc">;</span>
+    <span class="s">}</span>
 
     <span class="c"># either supply it explicitly with full path or it will guess..</span>
     <span class="k">my</span> <span class="i">$configfile</span> = <span class="i">$force_configuration_path</span> || <span class="i">$default_config</span><span class="sc">;</span>

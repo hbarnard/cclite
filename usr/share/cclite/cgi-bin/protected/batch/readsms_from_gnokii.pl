@@ -63,7 +63,6 @@ use lib '/usr/share/cclite/lib';
 
 #-------------------------------------------------------------
 
-
 use Ccu;
 use Ccadmin;
 use Cclitedb;    #FIXME: for log_entry
@@ -119,15 +118,21 @@ my $sms_dir = "$sms_configuration{'smsinpath'}/$registry"
 # outbox for this script, processed messages placed there..
 #FIXME: smsout in main config and smsoutpath in sms config...
 my $sms_done_dir = "$configuration{'smsout'}/$registry";
-# 
+
+#
 #{driver=>'Gnokii',port=>'/dev/phone',model=>'AT',connection=>'serial'}
 
 while (1) {
-my $gsm = GSM::Gnokii->new({driver => 'Gnokii',device => '/dev/phone', options=> 'model:AT,connection:serial'});
-$gsm->connect();
+    my $gsm = GSM::Gnokii->new(
+        {
+            driver  => 'Gnokii',
+            device  => '/dev/phone',
+            options => 'model:AT,connection:serial'
+        }
+    );
+    $gsm->connect();
 
-
-my $status = $gsm->GetSMSStatus();
+    my $status = $gsm->GetSMSStatus();
 
 =head2
 
@@ -211,8 +216,7 @@ status is, if there are no unread, exit
             die $soap->faultstring if $soap->fault;
             ( $class, $status, $array_ref ) = $soap->paramsout;
 
-        }
-        else {
+        } else {
             my $return_value =
               gateway_sms_transaction( 'local', $gsm, \%configuration, \%fields,
                 $token );
@@ -221,8 +225,7 @@ status is, if there are no unread, exit
             if ( $return_value =~ /nok/ ) {
                 log_entry( 'local', $registry, 'error', 'transaction error',
                     undef );
-            }
-            else {
+            } else {
 
 # delete the SMS, if everything is working only unread SMS should be in SIM memory
                 my $sms = $gsm->DeleteSMS( 'SM', $i );
@@ -231,10 +234,10 @@ status is, if there are no unread, exit
 
     }
 
-$gsm->disconnect();
+    $gsm->disconnect();
 
-undef $gsm ;
-print "sleeping \n" ;
-sleep $sleep;
+    undef $gsm;
+    print "sleeping \n";
+    sleep $sleep;
 }
 exit 0;
