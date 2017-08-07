@@ -76,7 +76,7 @@ sub get_cookie {
         ( $chip, $val ) = split( /=/, $_, 2 );    # splits on the first =.
                 # Convert %XX from hex numbers to alphanumeric
         $chip =~ s/%([A-Fa-f0-9]{2})/pack("c",hex($1))/ge;
-        $val =~ s/%([A-Fa-f0-9]{2})/pack("c",hex($1))/ge;
+        $val  =~ s/%([A-Fa-f0-9]{2})/pack("c",hex($1))/ge;
 
         # Associate key and value
         $cookie{$chip} .= "\1"
@@ -168,8 +168,8 @@ sub delete_cookies {
     my $header;
 
     foreach my $key ( keys %cookie ) {
-        undef $cookie{$key}
-          ; #undefines cookie so if you call set_cookie, it doesn't reset the cookie.
+        undef $cookie{ $key
+        }; #undefines cookie so if you call set_cookie, it doesn't reset the cookie.
         $header .=
           "Set-Cookie: $key=deleted; expires=Thu, 01-Jan-1970 00:00:00 GMT;\n";
 

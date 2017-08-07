@@ -248,9 +248,9 @@ configuration should work...</p>
         <span class="i">$os</span> = <span class="q">&#39;nocurrentsupport&#39;</span><span class="sc">;</span>
     <span class="s">}</span>
 
-    <span class="c"># try and find out distribution</span>
+    <span class="c"># try and find out distribution - changed to lsb_release -a march 2017</span>
     <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">eq</span> <span class="q">&#39;linux&#39;</span> <span class="s">)</span> <span class="s">{</span>
-        <span class="k">my</span> <span class="i">$dist_string</span> = <span class="q">`cat /proc/version`</span><span class="sc">;</span>
+        <span class="k">my</span> <span class="i">$dist_string</span> = <span class="q">`lsb_release -a`</span><span class="sc">;</span>
         <span class="i">$dist_string</span> =~ <span class="q">m/(fedora|ubuntu|debian|red hat)/i</span><span class="sc">;</span>
         <span class="i">$distribution</span> = <span class="k">lc</span><span class="s">(</span><span class="i">$1</span><span class="s">)</span><span class="sc">;</span>
     <span class="s">}</span>
@@ -291,7 +291,7 @@ configuration should work...</p>
     <span class="k">my</span> <span class="s">(</span><span class="i">$base_directory</span><span class="s">)</span> = <span class="i">@_</span><span class="sc">;</span>
 
     <span class="k">chomp</span> <span class="i">$base_directory</span><span class="sc">;</span>
-    <span class="i">$base_directory</span> =~ <span class="q">s/\s+$//</span><span class="sc">;</span>    <span class="c"># if cgi called</span>
+    <span class="i">$base_directory</span> =~ <span class="q">s/\s+$//</span><span class="sc">;</span>           <span class="c"># if cgi called</span>
     <span class="i">$base_directory</span> =~ <span class="q">s/\/cgi-bin.*$//</span><span class="sc">;</span>
     <span class="i">$libpath</span> = <span class="q">&quot;$base_directory/lib&quot;</span><span class="sc">;</span>
 
@@ -356,7 +356,7 @@ been found at this stage...</p>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/jquery.autocomplete.css&quot; /&gt;</span>
 <span class="hh">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/javascript/jquery-autocomplete/lib/thickbox.css&quot; /&gt;</span>
 
-<span class="hh">&lt;title&gt;Cclite 0.9.3 Installer: Problems&lt;/title&gt;</span>
+<span class="hh">&lt;title&gt;Cclite 0.9.4 Installer: Problems&lt;/title&gt;</span>
 
 
 
@@ -721,7 +721,7 @@ and general extra flexibility</p>
 <span class="i">$fields</span>{<span class="w">hash_type</span>} = <span class="i">$hash_type</span> <span class="k">if</span> <span class="s">(</span><span class="i">$newinstall</span><span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#FIXME: no configuration file at this stage, but hard-code horror...</span>
-<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.9.3&quot;</span><span class="sc">;</span>
+<span class="i">$fields</span>{<span class="w">version</span>} ||= <span class="q">&quot;0.9.4.1&quot;</span><span class="sc">;</span>
 
 <span class="c"># read here to announce OS, cpanel etc.</span>
 <span class="k">our</span> <span class="i">%sys_message</span> = <span class="i">readmessages</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
@@ -800,14 +800,14 @@ and general extra flexibility</p>
 
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;updateconfig2&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
-    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span>
-    = <span class="i">update_config2</span><span class="s">(</span> <span class="i">$default_config</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
+    <span class="i">update_config2</span><span class="s">(</span> <span class="i">$default_config</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c"># update readsms.cf, new in February 2014</span>
 <span class="s">(</span> <span class="i">$action</span> <span class="k">eq</span> <span class="q">&quot;updategammuconfig&quot;</span> <span class="s">)</span>
   &amp;&amp; <span class="s">(</span>
-    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span>
-    = <span class="i">update_config2</span><span class="s">(</span> <span class="i">$default_sms_config</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
+    <span class="s">(</span> <span class="i">$refresh</span><span class="cm">,</span> <span class="i">$metarefresh</span><span class="cm">,</span> <span class="i">$error</span><span class="cm">,</span> <span class="i">$fieldsref</span><span class="cm">,</span> <span class="i">$html</span><span class="cm">,</span> <span class="i">$pagename</span><span class="cm">,</span> <span class="i">$cookies</span> <span class="s">)</span> =
+    <span class="i">update_config2</span><span class="s">(</span> <span class="i">$default_sms_config</span><span class="cm">,</span> <span class="i">$fieldsref</span> <span class="s">)</span> <span class="s">)</span><span class="sc">;</span>
 
 <span class="c">#  print &quot;( r:$refresh, m:$metarefresh, e:$error, fr:$fieldsref, h:$html, p:$pagename, c:$cookies )&quot; ;</span>
 <span class="c"># this will guess at values, if newinstall is signalled</span>

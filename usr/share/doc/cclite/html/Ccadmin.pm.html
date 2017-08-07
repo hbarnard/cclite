@@ -261,7 +261,7 @@ very shortly.</p>
     <span class="i">$configuration</span>{<span class="w">userss</span>}                 = <span class="q">&quot;no&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">usedecimals</span>}            = <span class="q">&quot;yes&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">usetags</span>}                = <span class="q">&quot;yes&quot;</span><span class="sc">;</span>
-    <span class="i">$configuration</span>{<span class="w">version</span>}                = <span class="q">&quot;0.9.3&quot;</span><span class="sc">;</span>
+    <span class="i">$configuration</span>{<span class="w">version</span>}                = <span class="q">&quot;0.9.4.1&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">servicechargelimit</span>}     = <span class="q">&quot;notused&quot;</span><span class="sc">;</span>
     <span class="i">$configuration</span>{<span class="w">smslocal</span>}               = <span class="q">&quot;1&quot;</span><span class="sc">;</span>
 
@@ -270,7 +270,7 @@ very shortly.</p>
 
     <span class="c">#FIXME: eliminate double separators, check_path?</span>
     <span class="i">$configuration</span>{<span class="w">literalspath</span>} =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
-    <span class="i">$configuration</span>{<span class="w">templates</span>} =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
+    <span class="i">$configuration</span>{<span class="w">templates</span>}    =~ <span class="q">s/\/\//\//</span><span class="sc">;</span>
 
     <span class="i">$configuration</span>{<span class="w">hash_type</span>} = <span class="i">$hash_type</span><span class="sc">;</span>
 
@@ -289,7 +289,7 @@ very shortly.</p>
         <span class="k">my</span> <span class="i">$base_directory</span> = <span class="i">$ENV</span>{<span class="w">DOCUMENT_ROOT</span>}<span class="sc">;</span>
 
         <span class="c"># strip back to var, from document root, stay with c:\cclite..etc..</span>
-        <span class="c"># C:/cclite-0.9.3-xp/var/www/cclite/public_html</span>
+        <span class="c"># C:/cclite-0.9.4.1-xp/var/www/cclite/public_html</span>
         <span class="c"># print &quot;base directory is $base_directory\n&quot; ;</span>
         <span class="i">$base_directory</span> =~ <span class="q">s/\/www\/cclite\/public_html//</span><span class="sc">;</span>
         <span class="i">$configuration</span>{<span class="w">csvpath</span>} = <span class="q">&quot;$base_directory/cclite/batch&quot;</span><span class="sc">;</span>
@@ -826,7 +826,8 @@ one for local, one for remote..messier but more efficient?</p>
 
     <span class="c"># eval block for this 7/2010</span>
     <span class="k">eval</span> <span class="s">{</span>
-        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span> <span class="s">{</span>
+        <span class="k">if</span> <span class="s">(</span> <span class="k">length</span><span class="s">(</span><span class="i">$dbh</span><span class="s">)</span> <span class="s">)</span>
+        <span class="s">{</span>
             <span class="i">$dbh</span><span class="i">-&gt;do</span><span class="s">(</span><span class="q">&quot;create database if not exists $fieldsref-&gt;{newregistry}&quot;</span><span class="s">)</span><span class="sc">;</span>
             <span class="i">$dbh</span><span class="i">-&gt;disconnect</span><span class="s">(</span><span class="s">)</span><span class="sc">;</span>
         <span class="s">}</span>
@@ -1234,7 +1235,8 @@ about batch files. Next iteration get statuses, exists, readable etc.</p>
 
     <span class="k">if</span> <span class="s">(</span> <span class="i">$operation</span> <span class="k">eq</span> <span class="q">&#39;set&#39;</span> <span class="s">)</span> <span class="s">{</span>
         <span class="k">eval</span> <span class="s">{</span>
-            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%file</span> <span class="s">)</span> <span class="s">{</span>
+            <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%file</span> <span class="s">)</span>
+            <span class="s">{</span>
                 <span class="k">if</span> <span class="s">(</span> <span class="i">$os</span> <span class="k">ne</span> <span class="q">&#39;windows&#39;</span> <span class="s">)</span> <span class="s">{</span>
                     <span class="q">`mkdir -p $file{$key}`</span><span class="sc">;</span>
                 <span class="s">}</span> <span class="k">else</span> <span class="s">{</span>

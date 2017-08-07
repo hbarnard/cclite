@@ -599,8 +599,8 @@ start page via print Location. 10/2009</p>
             <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPasswordTries&#39;</span>}  = <span class="n">0</span><span class="sc">;</span>
         <span class="s">}</span>
 
-        <span class="k">undef</span> <span class="i">$userref</span>-&gt;{<span class="w">userPassword</span>}
-          <span class="sc">;</span>    <span class="c"># remove this otherwise it&#39;s rehashed and re-updated</span>
+        <span class="k">undef</span> <span class="i">$userref</span>
+          -&gt;{<span class="w">userPassword</span>}<span class="sc">;</span> <span class="c"># remove this otherwise it&#39;s rehashed and re-updated</span>
         <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
           <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$db</span><span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span> <span class="i">$userref</span><span class="cm">,</span>
             <span class="i">$userref</span>-&gt;{<span class="w">language</span>}<span class="cm">,</span> <span class="i">$cookie</span>{<span class="w">token</span>} <span class="s">)</span><span class="sc">;</span>
@@ -731,11 +731,11 @@ no facility for changing it here...</p>
     <span class="c"># flag for logged in users 12/2011</span>
     <span class="i">$userref</span>-&gt;{<span class="w">userLoggedin</span>} = <span class="n">1</span><span class="sc">;</span>
 
-    <span class="k">undef</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;userPassword&#39;</span>}
-      <span class="sc">;</span>    <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
-           <span class="c"># mode 2 is where userLogin = value ;</span>
-           <span class="c"># use userref to update record, should strip all other fields...</span>
-           <span class="c"># throw away return codes for the present</span>
+    <span class="k">undef</span> <span class="i">$userref</span>-&gt;{
+        <span class="q">&#39;userPassword&#39;</span>}<span class="sc">;</span>    <span class="c"># remove this otherwise it&#39;s rehashed and re-update</span>
+        <span class="c"># mode 2 is where userLogin = value ;</span>
+        <span class="c"># use userref to update record, should strip all other fields...</span>
+        <span class="c"># throw away return codes for the present</span>
     <span class="k">my</span> <span class="s">(</span> <span class="i">$a</span><span class="cm">,</span> <span class="i">$b</span><span class="cm">,</span> <span class="i">$c</span><span class="cm">,</span> <span class="i">$d</span> <span class="s">)</span> =
       <span class="i">update_database_record</span><span class="s">(</span> <span class="q">&#39;local&#39;</span><span class="cm">,</span> <span class="i">$cookie</span>{<span class="q">&#39;registry&#39;</span>}<span class="cm">,</span> <span class="q">&#39;om_users&#39;</span><span class="cm">,</span> <span class="n">2</span><span class="cm">,</span>
         <span class="i">$userref</span><span class="cm">,</span> <span class="i">$userref</span>-&gt;{<span class="q">&#39;language&#39;</span>}<span class="cm">,</span>
@@ -2404,7 +2404,7 @@ xx/2008: get_trades added to start to unscramble...</p>
         <span class="c"># decline button implemented 12/2005</span>
 
         <span class="k">if</span> <span class="s">(</span>   <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_trades&#39;</span>
-            &amp;&amp; <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeType&#39;</span>} <span class="k">eq</span> <span class="q">&#39;credit&#39;</span>
+            &amp;&amp; <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeType&#39;</span>}   <span class="k">eq</span> <span class="q">&#39;credit&#39;</span>
             &amp;&amp; <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;tradeStatus&#39;</span>} <span class="k">eq</span> <span class="q">&#39;waiting&#39;</span> <span class="s">)</span>
         <span class="s">{</span>
             <span class="i">$confirm_button</span> =
@@ -2697,7 +2697,7 @@ SMS but useful for other stuff put $mode = values</p>
         <span class="c"># if not multiregistry only collect local partners</span>
         <span class="k">next</span>
           <span class="k">if</span> <span class="s">(</span> <span class="i">$table</span> <span class="k">eq</span> <span class="q">&#39;om_partners&#39;</span>
-            &amp;&amp; <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>} <span class="k">ne</span> <span class="q">&#39;local&#39;</span>
+            &amp;&amp; <span class="i">$hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>}   <span class="k">ne</span> <span class="q">&#39;local&#39;</span>
             &amp;&amp; <span class="i">$fieldsref</span>-&gt;{<span class="q">&#39;multiregistry&#39;</span>} <span class="k">ne</span> <span class="q">&#39;yes&#39;</span> <span class="s">)</span><span class="sc">;</span>
 
    <span class="c"># don&#39;t display currencies that are declared as closed or suspended/predelete</span>

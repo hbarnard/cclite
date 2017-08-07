@@ -28,7 +28,7 @@ my $operation = $ARGV[0];
 @JW provisional solution below 
 prerm called with unknown argument `upgrade'dpkg: warning: subprocess old pre-removal script returned error exit status 1
 dpkg: trying script from the new package instead ...
-prerm called with unknown argument `failed-upgrade'dpkg: error processing archive cclite-0.9.3_all.deb (--install):
+prerm called with unknown argument `failed-upgrade'dpkg: error processing archive cclite-0.9.4_all.deb (--install):
 subprocess new pre-removal script returned error exit status 1
 postinst called with unknown argument `abort-upgrade'dpkg: error while cleaning up:
 =cut

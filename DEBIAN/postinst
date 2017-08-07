@@ -58,18 +58,24 @@ if ( $operation =~ /configure/ ) {
     # make configuration file writable by apache
     # change ownership of the whole tree, since EC2 wants this 7/2/2014
     `chown -R www-data /usr/share/cclite/`;
+    `chmod -R a-x /usr/share/cclite/`;
+    `chmod -R a-w /usr/share/cclite/`;
+    `chmod -R u+x /usr/share/cclite/`;
     `chmod -R u+w /usr/share/cclite/config/`;
 
     # make var/cclite owned by apache, gammu must be in this group therefore
     `chown -R www-data /var/cclite/`;
+    `chmod -R a-x /var/cclite/`;
     `chmod -R u+w /var/cclite/`;
+    
 
     # make the output web root directory writable by apache + group
     `chown -R www-data /var/www/cclite/`;
-    `chmod -R u+w /var/www/cclite/`;
+    `chmod -R 755 /var/www/cclite/`;
     
     # log file permissions for log4perl, now removed as of 07/2012, no log4perl 
 #    `chown   www-data /var/cclite/log/cclite.log` ;
+    `chmod -R a-x /var/cclite/log`;
     `chmod -R  u+w /var/cclite/log/` ;
     
     # enable mod_rewrite and cclite server the apache2 way...then
@@ -84,6 +90,7 @@ if ( $operation =~ /configure/ ) {
     #`a2ensite cclite.private.server`;
 
     # `/etc/init.d/apache2 reload` ;
+    # should this become service with 16xx ubuntu?
     `/etc/init.d/apache2 restart`;
 
     #FIXME: Doesn't deal with upgrades and reconfigs at present

@@ -23,12 +23,13 @@ Cclite is a Perl package for local exchange trading systems (LETS), banking and 
     * There's a bug tracker within the sourceforge project
 
     * If you want help with cclite join the google group:
-      http://groups.google.co.uk/group/cclite?hl=en
+      http://groups.google.co.uk/group/cclite?hl=en this will be moving soon (as of summer 2017)
       
-Many things are changed/improved in 0.9.3 please see /usr/share/doc/cclite which contains release notes.
+Many things are changed/improved in 0.9.4 please see /usr/share/doc/cclite which contains release notes.
 
-The main work that has been done recently is SMS with Gammu.pm and using gammu [qv] to transport the messages. This 'frees' Cclite from commercial SMS http gateways and gives it an autonmous SMS system.
+The main work that has been done recently is SMS with Gammu.pm/Gnokki.pm and using gammu [qv] to transport the messages. This 'frees' Cclite from commercial SMS http gateways and gives it an autonmous SMS system.
 
-Also, all installations can use SHA2 now because of the changes to Digest in the Perl core. The core functions of Cclite [no RSS etc.] should install without additional modules. Also there's a preliminary Redhat package on
-sourceforge and both the Ubuntu and Redhat have been [somewhat] tested on Amazon EC2 instances. The Chinese and French templates are hopefully a little better too, but we'd welcome help for the other languages.
+The SOAP will be de-emphasised in future versions in favour of REST
+
+Also, all installations can use SHA2 now because of the changes to Digest in the Perl core. The core functions of Cclite [no RSS etc.] should install without additional modules. Also there's a preliminary Redhat package on sourceforge and both the Ubuntu and Redhat have been [somewhat] tested on Amazon EC2 instances. The Chinese and French templates are hopefully a little better too, but we'd welcome help for the other languages.
 

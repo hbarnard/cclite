@@ -136,7 +136,7 @@ sub _guess_main_config_values {
     $configuration{userss}                 = "no";
     $configuration{usedecimals}            = "yes";
     $configuration{usetags}                = "yes";
-    $configuration{version}                = "0.9.3";
+    $configuration{version}                = "0.9.4.1";
     $configuration{servicechargelimit}     = "notused";
     $configuration{smslocal}               = "1";
 
@@ -145,7 +145,7 @@ sub _guess_main_config_values {
 
     #FIXME: eliminate double separators, check_path?
     $configuration{literalspath} =~ s/\/\//\//;
-    $configuration{templates} =~ s/\/\//\//;
+    $configuration{templates}    =~ s/\/\//\//;
 
     $configuration{hash_type} = $hash_type;
 
@@ -164,7 +164,7 @@ sub _guess_main_config_values {
         my $base_directory = $ENV{DOCUMENT_ROOT};
 
         # strip back to var, from document root, stay with c:\cclite..etc..
-        # C:/cclite-0.9.3-xp/var/www/cclite/public_html
+        # C:/cclite-0.9.4.1-xp/var/www/cclite/public_html
         # print "base directory is $base_directory\n" ;
         $base_directory =~ s/\/www\/cclite\/public_html//;
         $configuration{csvpath} = "$base_directory/cclite/batch";
@@ -726,7 +726,8 @@ EOT
 
     # eval block for this 7/2010
     eval {
-        if ( length($dbh) ) {
+        if ( length($dbh) )
+        {
             $dbh->do("create database if not exists $fieldsref->{newregistry}");
             $dbh->disconnect();
         }
@@ -1152,7 +1153,8 @@ sub get_set_batch_files {
 
     if ( $operation eq 'set' ) {
         eval {
-            foreach my $key ( sort keys %file ) {
+            foreach my $key ( sort keys %file )
+            {
                 if ( $os ne 'windows' ) {
                     `mkdir -p $file{$key}`;
                 } else {

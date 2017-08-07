@@ -160,7 +160,7 @@ sub _fuzzy_ark_parse {
     # fuzzy ark parsing the terms mainly go two-by-two!
     # count of found elements should be 5 in a valid transaction
 
-    my $counter = 0;    # used for term lookahead
+    my $counter = 0;        # used for term lookahead
 
     # this should be send, balance, confirm etc...
     $transaction_description{'type'} = $words[0];
@@ -169,7 +169,7 @@ sub _fuzzy_ark_parse {
 
         if ( $word =~ /^(\d+)$/ ) {
             $transaction_description{'amount'} =
-              $word;    # amount is the only numeric thing
+              $word;        # amount is the only numeric thing
             $found_count++;
             $transaction_description{'currency'} =
               $words[ ( $counter + 1 ) ];    # currency is next to quantity
@@ -200,7 +200,7 @@ sub _fuzzy_ark_parse {
     }
 
     $input =~ /for\s+(\w.*)$/i;              # description is everything at end
-        # look up sending user, receiving user and currency
+         # look up sending user, receiving user and currency
     $transaction_description{'description'} = $1;
     $found_count++ if ( length( $transaction_description{'description'} ) );
 
@@ -257,8 +257,8 @@ sub mail_message_parse {
 
         (
 
-            $error_message
-        ) = _check_to_and_from( $registry, $transaction_description_ref );
+            $error_message ) =
+          _check_to_and_from( $registry, $transaction_description_ref );
 
         my $text = $transaction_description_ref->{'text'};
 

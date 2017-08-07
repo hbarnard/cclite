@@ -165,7 +165,7 @@ sub Display
 
 			shift(@ifstate);
 
-			if (!defined @ifstate)
+			if (! @ifstate)
 			{
 				# Allow for too many ?ends
 				@ifstate=(1);
@@ -348,7 +348,7 @@ sub Assemble
 
 			shift(@ifstate);
 
-			if (!defined @ifstate)
+			if (! @ifstate)
 			{
 				# Allow for too many ?ends
 				@ifstate=(1);

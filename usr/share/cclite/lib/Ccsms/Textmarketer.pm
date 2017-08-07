@@ -34,7 +34,8 @@ SMS Transactions
                            suspends the account for fraud and for leaving the system                           
                            
 -> 2cc Confirm pin         p123456 confirm [not needed if setup from sms]
--> 2cc Change pin          p123456 change p345678
+
+-> 2cc Change pin          p123456 change p345678
 
 -> 2cc Pay                 p123456 pay 5 to 07855 524667 for stuff (note need to change strip regex)
                            p123456 pay 5 to 07855524667 for other stuff
@@ -589,7 +590,8 @@ sub _gateway_sms_pay {
         my $message;
         if ( $from_user_ref->{'userSmsreceipt'} ) {
 
-            $message = $messages{'registryclosing'} . ':'
+            $message =
+                $messages{'registryclosing'} . ':'
               . $messages{'notransfersallowed'};
             _send_textmarketer_sms_message( $class, $registry, 'error',
                 $message, $from_user_ref, undef, {} );

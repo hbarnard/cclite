@@ -93,24 +93,24 @@ if ( $configuration{multiregistry} eq "yes" ) {
 # no rss and XML::Rss and associated modules required,
 # if you declare userss=no in cclite.cf
 if ( $configuration{userss} eq "yes" ) {
-    require Ccrss;    # uses this for remote lookups etc.
+    require Ccrss;         # uses this for remote lookups etc.
     import Ccrss;
 }
 
 use HTML::SimpleTemplate;
 
-use Cccookie;           # use the cookie module
-use Ccu;                # use the utilities module
-use Ccvalidate;         # use the validation and javascript routines
-use Cclite;             # use the main motor
-use Ccconfiguration;    # new style configuration
+use Cccookie;              # use the cookie module
+use Ccu;                   # use the utilities module
+use Ccvalidate;            # use the validation and javascript routines
+use Cclite;                # use the main motor
+use Ccconfiguration;       # new style configuration
 
 use Ccadmin;
 use Ccchecker;
 use Ccsecure;
 use strict;
 use locale;
-use Cclitedb;           # probably should be via Cclite.pm only, not directly
+use Cclitedb;              # probably should be via Cclite.pm only, not directly
 
 my ( $fieldsref, $refresh, $metarefresh, $error, $html, $token, $cookies,
     $templatename, $registry_private_value );    # for the moment
@@ -390,8 +390,8 @@ if ( $action eq "offline" ) {
 #
 ( $action eq "logon" )
   && (
-    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies )
-    = logon_user( 'local', $db, $table, $fieldsref, $token ) );
+    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies ) =
+    logon_user( 'local', $db, $table, $fieldsref, $token ) );
 
 ( $action eq "logoff" )
   && logoff_user( 'local', $db, 'om_users', $user_pages, $cookieref, $fieldsref,

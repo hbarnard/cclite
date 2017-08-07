@@ -458,8 +458,8 @@ sub logon_user {
             $userref->{'userPasswordTries'}  = 0;
         }
 
-        undef $userref->{userPassword}
-          ;    # remove this otherwise it's rehashed and re-updated
+        undef $userref
+          ->{userPassword}; # remove this otherwise it's rehashed and re-updated
         my ( $a, $b, $c, $d ) =
           update_database_record( 'local', $db, 'om_users', 2, $userref,
             $userref->{language}, $cookie{token} );
@@ -592,11 +592,11 @@ sub do_login {
     # flag for logged in users 12/2011
     $userref->{userLoggedin} = 1;
 
-    undef $userref->{'userPassword'}
-      ;    # remove this otherwise it's rehashed and re-update
-           # mode 2 is where userLogin = value ;
-           # use userref to update record, should strip all other fields...
-           # throw away return codes for the present
+    undef $userref->{
+        'userPassword'};    # remove this otherwise it's rehashed and re-update
+        # mode 2 is where userLogin = value ;
+        # use userref to update record, should strip all other fields...
+        # throw away return codes for the present
     my ( $a, $b, $c, $d ) =
       update_database_record( 'local', $cookie{'registry'}, 'om_users', 2,
         $userref, $userref->{'language'},
@@ -2367,7 +2367,7 @@ sub get_many_items {
         # decline button implemented 12/2005
 
         if (   $table eq 'om_trades'
-            && $hash_ref->{$key}->{'tradeType'} eq 'credit'
+            && $hash_ref->{$key}->{'tradeType'}   eq 'credit'
             && $hash_ref->{$key}->{'tradeStatus'} eq 'waiting' )
         {
             $confirm_button =
@@ -2675,7 +2675,7 @@ sub collect_items {
         # if not multiregistry only collect local partners
         next
           if ( $table eq 'om_partners'
-            && $hash_ref->{$key}->{'type'} ne 'local'
+            && $hash_ref->{$key}->{'type'}   ne 'local'
             && $fieldsref->{'multiregistry'} ne 'yes' );
 
    # don't display currencies that are declared as closed or suspended/predelete

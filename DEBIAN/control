@@ -1,6 +1,6 @@
 Source: cclite
 Section: unknown
-Version: 0.9.4
+Version: 0.9.4.1
 Priority: extra
 Maintainer: Hugh Barnard <hugh.barnard@gmail.com>
 Homepage: http://www.hughbarnard.org/content/alternative-currency-software
@@ -17,6 +17,8 @@ Description: Alternative currency management software
  with Gammu for current transfer. It provides multiple currency and interserver communication.
  .
  It uses Perl and various CPAN modules, Apache, Cron, MySql server. The basic functions should now work with Perl core modules.
+ .
+ This minor release 9.4.1 corrects various updates in Perl (deprecated defines and pod2html) that are problematic for building the package.
  .
 
 

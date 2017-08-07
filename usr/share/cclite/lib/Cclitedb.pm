@@ -1619,8 +1619,8 @@ of the action in the controller.
 
 sub makebutton {
 
-    my ( $label, $class, $action, $db, $table, $hash_ref, $fieldsref, $token )
-      = @_;
+    my ( $label, $class, $action, $db, $table, $hash_ref, $fieldsref, $token ) =
+      @_;
 
     my ( $formfields, $x, $senddetected );
     my ( $registry_error, $dbh ) = _registry_connect( $db, $token );

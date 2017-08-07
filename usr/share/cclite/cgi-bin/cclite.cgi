@@ -417,8 +417,8 @@ if ( length( $cookieref->{'userLogin'} ) ) {
 # logon to a registry
 ( $action eq 'logon' )
   && (
-    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies )
-    = logon_user( 'local', $db, $table, $fieldsref, $cookieref, $token ) );
+    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies ) =
+    logon_user( 'local', $db, $table, $fieldsref, $cookieref, $token ) );
 
 # logoff, doesn't return, exits
 ( $action eq 'logoff' )
@@ -558,8 +558,8 @@ if ( $action eq 'modifyuser' ) {
 # make a newly created user active
 ( $action eq 'confirmuser' )
   && (
-    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies )
-    = confirm_user( 'local', $db, $table, $fieldsref, $token ) );
+    ( $refresh, $metarefresh, $error, $html, $pagename, $fieldsref, $cookies ) =
+    confirm_user( 'local', $db, $table, $fieldsref, $token ) );
 
 # add an openid to the logged on user
 # add a user with status unconfirmed

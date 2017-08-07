@@ -160,9 +160,9 @@ sub get_os_and_distribution {
         $os = 'nocurrentsupport';
     }
 
-    # try and find out distribution
+    # try and find out distribution - changed to lsb_release -a march 2017
     if ( $os eq 'linux' ) {
-        my $dist_string = `cat /proc/version`;
+        my $dist_string = `lsb_release -a`;
         $dist_string =~ m/(fedora|ubuntu|debian|red hat)/i;
         $distribution = lc($1);
     }
@@ -205,7 +205,7 @@ sub _format_base_directory {
     my ($base_directory) = @_;
 
     chomp $base_directory;
-    $base_directory =~ s/\s+$//;    # if cgi called
+    $base_directory =~ s/\s+$//;           # if cgi called
     $base_directory =~ s/\/cgi-bin.*$//;
     $libpath = "$base_directory/lib";
 
@@ -275,7 +275,7 @@ sub show_problems {
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/jquery.autocomplete.css" />
 <link rel="stylesheet" type="text/css" href="/javascript/jquery-autocomplete/lib/thickbox.css" />
 
-<title>Cclite 0.9.3 Installer: Problems</title>
+<title>Cclite 0.9.4 Installer: Problems</title>
 
 
 
@@ -655,7 +655,7 @@ my $offset = $fields{offset};
 $fields{hash_type} = $hash_type if ($newinstall);
 
 #FIXME: no configuration file at this stage, but hard-code horror...
-$fields{version} ||= "0.9.3";
+$fields{version} ||= "0.9.4.1";
 
 # read here to announce OS, cpanel etc.
 our %sys_message = readmessages();
@@ -734,14 +734,14 @@ if ( $action eq "checkinstall" ) {
 
 ( $action eq "updateconfig2" )
   && (
-    ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies )
-    = update_config2( $default_config, $fieldsref ) );
+    ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies ) =
+    update_config2( $default_config, $fieldsref ) );
 
 # update readsms.cf, new in February 2014
 ( $action eq "updategammuconfig" )
   && (
-    ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies )
-    = update_config2( $default_sms_config, $fieldsref ) );
+    ( $refresh, $metarefresh, $error, $fieldsref, $html, $pagename, $cookies ) =
+    update_config2( $default_sms_config, $fieldsref ) );
 
 #  print "( r:$refresh, m:$metarefresh, e:$error, fr:$fieldsref, h:$html, p:$pagename, c:$cookies )" ;
 # this will guess at values, if newinstall is signalled

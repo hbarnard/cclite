@@ -34,7 +34,8 @@ SMS Transactions
                            suspends the account for fraud and for leaving the system                           
                            
 -> confirm pin         p123456 confirm [not needed if setup from sms]
--> change pin          p123456 change p345678
+
+-> change pin          p123456 change p345678
 
 -> change language     p123456 lang es
 
@@ -595,7 +596,8 @@ sub _gateway_sms_pay {
         my $message;
         if ( $from_user_ref->{'userSmsreceipt'} ) {
 
-            $message = $messages{'registryclosing'} . ':'
+            $message =
+                $messages{'registryclosing'} . ':'
               . $messages{'notransfersallowed'};
             _send_sms_message( 'local', $gsm, $registry, 'error', $message,
                 $from_user_ref, undef, {} );
@@ -910,7 +912,7 @@ sub _sms_payment_parse {
     my $parse_type = 0;
 
     # make the parse simpler by stripping pin and keyword
-    $input =~ s/^\s+//i;    # strip accidental blanks at front
+    $input =~ s/^\s+//i;          # strip accidental blanks at front
     $input =~ s/^p?(\w+)\s+//i;
     $input =~ s/^(send|$sms_configuration{'send_key'})\s+//i;
 

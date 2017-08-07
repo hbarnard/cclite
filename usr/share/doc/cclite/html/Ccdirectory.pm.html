@@ -295,8 +295,8 @@ display etc. 06/2007</p>
     <span class="k">foreach</span> <span class="k">my</span> <span class="i">$key</span> <span class="s">(</span> <span class="k">sort</span> <span class="k">keys</span> <span class="i">%$yellowdirectory_hash_ref</span> <span class="s">)</span> <span class="s">{</span>
 
         <span class="k">my</span> <span class="i">$type</span> =
-          <span class="i">$yellowdirectory_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>}
-          <span class="sc">;</span>                     <span class="c">#just for convenience to shorten it</span>
+          <span class="i">$yellowdirectory_hash_ref</span>-&gt;{<span class="i">$key</span>}
+          -&gt;{<span class="q">&#39;type&#39;</span>}<span class="sc">;</span>           <span class="c">#just for convenience to shorten it</span>
 
         <span class="i">$yellowdirectory_hash_ref</span>-&gt;{<span class="i">$key</span>}-&gt;{<span class="q">&#39;type&#39;</span>} =
           <span class="i">$messages</span>{<span class="i">$type</span>}<span class="sc">;</span>   <span class="c"># replace offered/wanted with multilingual message</span>
