@@ -1,3 +1,12 @@
+
+*********************************************************************************************************************************
+*                                                                                                                               *
+* Please note that subsequent to Microsoft's purchase of github, this repository remains and is frozen, but further development *
+* will be consolidated onto sourceforge: https://sourceforge.net/p/cclite/code/ci/master/tree/                                  *
+*                                                                                                                               *
+*********************************************************************************************************************************
+
+
 This is the Debian format version of Cclite 0.9.4 as a working repository. Since it's development, code here is NOT regression tested, the regression-tested versions are on sourceforge.
 
 The tarballs and debian packages are on Sourceforge at: http://sourceforge.net/projects/cclite/
